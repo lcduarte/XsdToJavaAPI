@@ -18,6 +18,8 @@ public class XsdMain {
     private static List<XsdElementBase> Elements = new ArrayList<>();
     private static List<XsdElementBase> ToSolveElements = new ArrayList<>();
     private static HashMap<String, XsdElementBase> NamedElements = new HashMap<>();
+    private static HashMap<String, XsdAttributeGroup> NamedAttributeGroups = new HashMap<>();
+    private static HashMap<XsdElementBase, List<XsdAttributeGroup>> UnsolvedAttributeGroups = new HashMap<>();
 
     public static void main(String argv[]) {
 
@@ -46,6 +48,8 @@ public class XsdMain {
             System.out.println("----------------------------");
 
             Mapper.put("xsd:all", XsdMain::parseXsdAll);
+            Mapper.put("xsd:attribute", XsdMain::parseXsdAttribute);
+            Mapper.put("xsd:attributeGroup", XsdMain::parseXsdAttributeGroup);
             Mapper.put("xsd:element", XsdMain::parseXsdElement);
             Mapper.put("xsd:group", XsdMain::parseXsdGroup);
             Mapper.put("xsd:choice", XsdMain::parseXsdChoice);
@@ -86,6 +90,7 @@ public class XsdMain {
         System.out.println("Done");
     }
 
+    //region Reference resolving
     private static void resolveRefs() {
         ToSolveElements.forEach((elementBase -> {
             if (elementBase instanceof XsdComplexType){
@@ -99,6 +104,8 @@ public class XsdMain {
                         complexElement.setChildElement((XsdGroup) NamedElements.get(groupElement.getRef()));
                     }
                 }
+
+                complexElement.addAttributes(resolveAttributeGroupRefs(complexElement));
             }
 
             if (elementBase instanceof XsdGroup){
@@ -108,7 +115,24 @@ public class XsdMain {
             if (elementBase instanceof XsdMultipleElements){
                 resolveRefsFromChildElements((XsdMultipleElements) elementBase);
             }
+
+            if (elementBase instanceof XsdAttributeGroup){
+                XsdAttributeGroup attributeGroup = (XsdAttributeGroup) elementBase;
+
+                attributeGroup.addAttributes(resolveAttributeGroupRefs(attributeGroup));
+            }
         }));
+    }
+
+    private static List<XsdAttribute> resolveAttributeGroupRefs(XsdElementBase attributeGroupContainer) {
+        List<XsdAttribute> attributes = new ArrayList<>();
+        List<XsdAttributeGroup> containedGroups = UnsolvedAttributeGroups.get(attributeGroupContainer);
+
+        containedGroups.forEach(attributeGroup ->
+            attributes.addAll(NamedAttributeGroups.get(attributeGroup.getRef()).getAttributes())
+        );
+
+        return attributes;
     }
 
     private static void resolveRefsFromChildElements(XsdMultipleElements multipleElementsContainer) {
@@ -128,6 +152,10 @@ public class XsdMain {
             }
         }
     }
+
+    //endregion
+
+    //region XsdTypes
 
     private static XsdElementBase parseXsdAll(Node node) {
         XsdAll allElement = new XsdAll(node);
@@ -218,7 +246,9 @@ public class XsdMain {
     private static XsdElementBase parseXsdComplexType(Node node){
         XsdComplexType complexElement = new XsdComplexType(node);
 
-        return xsdParseSkeleton(node, complexElement, (complexTypeChild) -> {
+        List<XsdAttributeGroup> unsolvedAttributeGroupsList = new ArrayList<>();
+
+        xsdParseSkeleton(node, complexElement, (complexTypeChild) -> {
             if (complexTypeChild instanceof XsdMultipleElements){
                 complexElement.setChildElement((XsdMultipleElements) complexTypeChild);
             }
@@ -232,8 +262,76 @@ public class XsdMain {
                     }
                 }
             }
+
+            if (complexTypeChild instanceof XsdAttribute){
+                complexElement.addAttributes((XsdAttribute) complexTypeChild);
+            }
+
+            if (complexTypeChild instanceof XsdAttributeGroup){
+                XsdAttributeGroup attributeGroup = (XsdAttributeGroup) complexTypeChild;
+
+                if (attributeGroup.getRef() == null){
+                    complexElement.addAttributes(attributeGroup.getAttributes());
+
+                    NamedAttributeGroups.put(attributeGroup.getName(), attributeGroup);
+                } else {
+                    unsolvedAttributeGroupsList.add(attributeGroup);
+
+                    if (!ToSolveElements.contains(complexElement)){
+                        ToSolveElements.add(complexElement);
+                    }
+                }
+            }
         });
+
+        UnsolvedAttributeGroups.put(complexElement, unsolvedAttributeGroupsList);
+
+        return complexElement;
     }
+
+    private static XsdElementBase parseXsdAttribute(Node node) {
+        // TODO Still missing the parsing of contained elements such as SimpleTypes.
+
+        return new XsdAttribute(node);
+    }
+
+    private static XsdElementBase parseXsdAttributeGroup(Node node) {
+        XsdAttributeGroup attributeGroupElement = new XsdAttributeGroup(node);
+
+        List<XsdAttributeGroup> unsolvedAttributeGroupsList = new ArrayList<>();
+
+        xsdParseSkeleton(node, attributeGroupElement, (childAttribute -> {
+            if (childAttribute instanceof XsdAttribute){
+                attributeGroupElement.addAttributes((XsdAttribute) childAttribute);
+            }
+
+            if (childAttribute instanceof XsdAttributeGroup){
+                XsdAttributeGroup childAttributeGroup = (XsdAttributeGroup) childAttribute;
+
+                if (childAttributeGroup.getRef() == null && childAttributeGroup.getName() != null){
+                    attributeGroupElement.addAttributes(childAttributeGroup.getAttributes());
+
+                    NamedAttributeGroups.put(childAttributeGroup.getName(), childAttributeGroup);
+                } else {
+                    if (!ToSolveElements.contains(attributeGroupElement)){
+                        ToSolveElements.add(attributeGroupElement);
+                    }
+
+                    unsolvedAttributeGroupsList.add(childAttributeGroup);
+                }
+            }
+        }));
+
+        if (attributeGroupElement.getRef() == null && attributeGroupElement.getName() != null){
+            NamedAttributeGroups.put(attributeGroupElement.getName(), attributeGroupElement);
+        }
+
+        UnsolvedAttributeGroups.put(attributeGroupElement, unsolvedAttributeGroupsList);
+
+        return attributeGroupElement;
+    }
+
+    //endregion
 
     private static XsdElementBase xsdParseSkeleton(Node node, XsdElementBase element, Consumer<XsdElementBase> childConsumer){
         Node child = node.getFirstChild();

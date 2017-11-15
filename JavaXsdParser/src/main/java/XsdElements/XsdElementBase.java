@@ -3,9 +3,13 @@ package XsdElements;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class XsdElementBase {
 
     private String id;
+
     //private String maxOccurs;
     //private String minOccurs;
 
