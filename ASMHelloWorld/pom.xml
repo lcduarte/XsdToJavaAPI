@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>asm.helloworld</groupId>
+    <artifactId>test1</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <asm-version>6.0</asm-version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm-parent</artifactId>
+            <version>${asm-version}</version>
+        </dependency>
+        <dependency>
+            <artifactId>asm</artifactId>
+            <groupId>org.ow2.asm</groupId>
+            <version>${asm-version}</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>asm-tree</artifactId>
+            <groupId>org.ow2.asm</groupId>
+            <version>${asm-version}</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>asm-analysis</artifactId>
+            <groupId>org.ow2.asm</groupId>
+            <version>${asm-version}</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>asm-commons</artifactId>
+            <groupId>org.ow2.asm</groupId>
+            <version>${asm-version}</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>asm-util</artifactId>
+            <groupId>org.ow2.asm</groupId>
+            <version>${asm-version}</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>asm-xml</artifactId>
+            <groupId>org.ow2.asm</groupId>
+            <version>${asm-version}</version>
+        </dependency>
+    </dependencies>
+</project>
