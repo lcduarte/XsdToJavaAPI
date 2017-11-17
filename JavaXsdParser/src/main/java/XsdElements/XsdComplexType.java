@@ -8,6 +8,10 @@ import java.util.List;
 
 public class XsdComplexType extends XsdElementBase {
 
+    public static final String TAG = "xsd:complexType";
+
+    private ComplexTypeVisitor visitor = new ComplexTypeVisitor(this);
+
     private XsdElementBase childElement;
 
     private String name;
@@ -17,10 +21,9 @@ public class XsdComplexType extends XsdElementBase {
     private String elementFinal;
     private List<XsdAttribute> attributes = new ArrayList<>();
 
-    public XsdComplexType(Node node) {
-        super(node);
-
-        NamedNodeMap attributes = node.getAttributes();
+    @Override
+    public void setAttributes(NamedNodeMap attributes) {
+        super.setAttributes(attributes);
 
         this.name = attributes.getNamedItem("name") == null ? null : attributes.getNamedItem("name").getNodeValue();
         this.elementAbstract = attributes.getNamedItem("abstract") == null ? null : attributes.getNamedItem("abstract").getNodeValue();
@@ -29,19 +32,29 @@ public class XsdComplexType extends XsdElementBase {
         this.elementFinal = attributes.getNamedItem("final") == null ? null : attributes.getNamedItem("final").getNodeValue();
     }
 
-    public void setChildElement(XsdMultipleElements element){
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public ComplexTypeVisitor getVisitor() {
+        return visitor;
+    }
+
+    private void setChildElement(XsdMultipleElements element){
         this.childElement = element;
     }
 
-    public void setChildElement(XsdGroup element){
+    private void setChildElement(XsdGroup element){
         this.childElement = element;
     }
 
-    public void addAttributes(XsdAttribute attribute) {
+    private void addAttributes(XsdAttribute attribute) {
         this.attributes.add(attribute);
     }
 
-    public void addAttributes(List<XsdAttribute> attributes) {
+    private void addAttributes(List<XsdAttribute> attributes) {
         this.attributes.addAll(attributes);
     }
 
@@ -73,4 +86,60 @@ public class XsdComplexType extends XsdElementBase {
         return attributes;
     }
 
+    public static XsdElementBase parse(Node node){
+        return xsdParseSkeleton(node, new XsdComplexType());
+    }
+
+    public static void replaceReferenceElement(XsdElementBase elementBase, XsdReferenceElement referenceElement) {
+        if (elementBase instanceof XsdComplexType){
+            XsdComplexType complexType = (XsdComplexType) elementBase;
+
+            if (referenceElement instanceof XsdAttributeGroup){
+                complexType.addAttributes(((XsdAttributeGroup)referenceElement).getAttributes());
+                return;
+            }
+
+            XsdElementBase complexChild = complexType.getChildElement();
+
+            if (complexChild instanceof XsdGroup){
+                XsdGroup.replaceReferenceElement(complexChild, referenceElement);
+            }
+
+            if (complexChild instanceof XsdMultipleElements){
+                XsdMultipleElements.replaceReferenceElement(complexChild, referenceElement);
+            }
+        }
+    }
+
+    class ComplexTypeVisitor extends Visitor {
+
+        private final XsdComplexType owner;
+
+        ComplexTypeVisitor(XsdComplexType owner){
+            this.owner = owner;
+        }
+
+        @Override
+        public XsdComplexType getOwner() {
+            return owner;
+        }
+
+        @Override
+        public void visit(XsdMultipleElements element) {
+            super.visit(element);
+            owner.setChildElement(element);
+        }
+
+        @Override
+        public void visit(XsdGroup element) {
+            super.visit(element);
+            owner.setChildElement(element);
+        }
+
+        @Override
+        public void visit(XsdAttribute attribute) {
+            super.visit(attribute);
+            owner.addAttributes(attribute);
+        }
+    }
 }

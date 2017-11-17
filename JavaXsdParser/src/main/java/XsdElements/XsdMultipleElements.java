@@ -1,20 +1,14 @@
 package XsdElements;
 
-import org.w3c.dom.Node;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class XsdMultipleElements extends XsdElementBase {
+public abstract class XsdMultipleElements extends XsdElementBase {
 
-    private List<XsdElementBase> elements;
+    private List<XsdElementBase> elements = new ArrayList<>();
 
-    XsdMultipleElements(Node node){
-        super(node);
-        this.elements = new ArrayList<>();
-    }
-
-    public void replaceElement(int elementIndex, XsdElementBase newElement){
+    private void replaceElement(int elementIndex, XsdElementBase newElement){
         elements.set(elementIndex, newElement);
     }
 
@@ -24,5 +18,26 @@ public class XsdMultipleElements extends XsdElementBase {
 
     public List<XsdElementBase> getElements(){
         return elements;
+    }
+
+    public static void replaceReferenceElement(XsdElementBase elementBase, XsdReferenceElement referenceElement) {
+        if (elementBase instanceof XsdMultipleElements){
+            XsdMultipleElements element = (XsdMultipleElements) elementBase;
+
+            Optional<XsdReferenceElement> oldElement = element.getElements().stream()
+                    .filter(elementBaseObj -> elementBaseObj instanceof XsdReferenceElement)
+                    .map(referenceElementObj -> (XsdReferenceElement) referenceElementObj)
+                    .filter(referenceElementObj -> referenceElementObj.getRef() != null)
+                    .filter(referenceElementObj ->  referenceElementObj.getRef().equals(referenceElement.getName()))
+                    .findFirst();
+
+            if (oldElement.isPresent()){
+                int idx = element.getElements().indexOf(oldElement.get());
+
+                element.replaceElement(idx, referenceElement);
+            } else {
+                System.err.println("Não devia estar aqui");
+            }
+        }
     }
 }

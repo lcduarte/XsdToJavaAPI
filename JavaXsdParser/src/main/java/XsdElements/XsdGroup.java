@@ -4,13 +4,23 @@ import org.w3c.dom.Node;
 
 public class XsdGroup extends XsdReferenceElement {
 
+    public static final String TAG = "xsd:group";
+
+    private GroupVisitor visitor = new GroupVisitor(this);
+
     private XsdMultipleElements childElement;
 
-    public XsdGroup(Node node) {
-        super(node);
-}
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
 
-    public void setChildElement(XsdMultipleElements childElement) {
+    @Override
+    public GroupVisitor getVisitor() {
+        return visitor;
+    }
+
+    private void setChildElement(XsdMultipleElements childElement) {
         this.childElement = childElement;
     }
 
@@ -18,4 +28,35 @@ public class XsdGroup extends XsdReferenceElement {
         return childElement;
     }
 
+    public static XsdElementBase parse(Node node){
+        return xsdParseSkeleton(node, new XsdGroup());
+    }
+
+    public static void replaceReferenceElement(XsdElementBase elementBase, XsdReferenceElement referenceElement) {
+        if (elementBase instanceof XsdGroup){
+            XsdGroup groupElement = (XsdGroup) elementBase;
+
+            XsdMultipleElements.replaceReferenceElement(groupElement.childElement, referenceElement);
+        }
+    }
+
+    class GroupVisitor extends Visitor{
+
+        private final XsdGroup owner;
+
+        GroupVisitor(XsdGroup owner){
+            this.owner = owner;
+        }
+
+        @Override
+        public XsdGroup getOwner() {
+            return owner;
+        }
+
+        @Override
+        public void visit(XsdMultipleElements element) {
+            super.visit(element);
+            owner.setChildElement(element);
+        }
+    }
 }
