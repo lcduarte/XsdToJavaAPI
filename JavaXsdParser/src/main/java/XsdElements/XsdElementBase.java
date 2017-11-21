@@ -8,6 +8,10 @@ public abstract class XsdElementBase {
 
     private NamedNodeMap nodeAttributes;
 
+    public static final String ID = "id";
+    public static final String MIN_OCCURS = "maxOccurs";
+    public static final String MAX_OCCURS = "minOccurs";
+
     private String id;
     private String maxOccurs;
     private String minOccurs;
@@ -15,9 +19,9 @@ public abstract class XsdElementBase {
     public void setAttributes(NamedNodeMap attributes){
         this.nodeAttributes = attributes;
 
-        this.id = attributes.getNamedItem("id") == null ? null : attributes.getNamedItem("id").getNodeValue();
-        this.maxOccurs = attributes.getNamedItem("maxOccurs") == null ? null : attributes.getNamedItem("maxOccurs").getNodeValue();
-        this.minOccurs = attributes.getNamedItem("minOccurs") == null ? null : attributes.getNamedItem("minOccurs").getNodeValue();
+        this.id = attributes.getNamedItem(ID) == null ? null : attributes.getNamedItem(ID).getNodeValue();
+        this.minOccurs = attributes.getNamedItem(MIN_OCCURS) == null ? null : attributes.getNamedItem(MIN_OCCURS).getNodeValue();
+        this.maxOccurs = attributes.getNamedItem(MAX_OCCURS) == null ? null : attributes.getNamedItem(MAX_OCCURS).getNodeValue();
     }
 
     public NamedNodeMap getNodeAttributes() {
@@ -37,6 +41,8 @@ public abstract class XsdElementBase {
     }
 
     public abstract void accept(Visitor visitor);
+
+    public abstract void acceptRefSubstitution(Visitor visitor);
 
     public abstract Visitor getVisitor();
 

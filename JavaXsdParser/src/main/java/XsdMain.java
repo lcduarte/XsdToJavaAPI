@@ -1,3 +1,4 @@
+import XsdClassGenerator.XsdClassGenerator;
 import XsdElements.XsdElement;
 import XsdParser.XsdParser;
 
@@ -7,7 +8,9 @@ public class XsdMain {
 
     public static void main(String argv[]) {
         XsdParser xsdParser = new XsdParser();
-        List<XsdElement> elements = xsdParser.parse("html_5.xsd");
+        XsdClassGenerator classGenerator = new XsdClassGenerator();
+
+        classGenerator.generateClassFromElements(xsdParser.parse("html_5.xsd"));
 
         System.out.println("Done");
     }

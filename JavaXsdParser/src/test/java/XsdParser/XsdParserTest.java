@@ -32,18 +32,12 @@ class XsdParserTest {
 
         XsdChoice complexTypeChild = (XsdChoice) firstElementChild.getChildElement();
 
-        List<XsdElementBase> choiceElements = complexTypeChild.getElements();
+        List<XsdElement> choiceElements = complexTypeChild.getElements();
 
         Assert.assertEquals(2, choiceElements.size());
 
-        XsdElementBase choiceElement1 = choiceElements.get(0);
-        XsdElementBase choiceElement2 = choiceElements.get(1);
-
-        Assert.assertEquals(choiceElement1.getClass(), XsdElement.class);
-        Assert.assertEquals(choiceElement2.getClass(), XsdElement.class);
-
-        XsdElement choiceElement1Obj = (XsdElement) choiceElement1;
-        XsdElement choiceElement2Obj = (XsdElement) choiceElement2;
+        XsdElement choiceElement1Obj = choiceElements.get(0);
+        XsdElement choiceElement2Obj = choiceElements.get(1);
 
         Assert.assertEquals("body", choiceElement1Obj.getName());
         Assert.assertEquals("head", choiceElement2Obj.getName());

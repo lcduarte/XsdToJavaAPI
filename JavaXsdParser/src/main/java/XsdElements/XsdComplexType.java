@@ -9,6 +9,12 @@ import java.util.List;
 public class XsdComplexType extends XsdElementBase {
 
     public static final String TAG = "xsd:complexType";
+    public static final String NAME = "name";
+    public static final String ABSTRACT = "xsd:complexType";
+    public static final String MIXED = "xsd:complexType";
+    public static final String BLOCK = "xsd:complexType";
+    public static final String FINAL = "xsd:complexType";
+
 
     private ComplexTypeVisitor visitor = new ComplexTypeVisitor(this);
 
@@ -25,16 +31,23 @@ public class XsdComplexType extends XsdElementBase {
     public void setAttributes(NamedNodeMap attributes) {
         super.setAttributes(attributes);
 
-        this.name = attributes.getNamedItem("name") == null ? null : attributes.getNamedItem("name").getNodeValue();
-        this.elementAbstract = attributes.getNamedItem("abstract") == null ? null : attributes.getNamedItem("abstract").getNodeValue();
-        this.mixed = attributes.getNamedItem("mixed") == null ? null : attributes.getNamedItem("mixed").getNodeValue();
-        this.block = attributes.getNamedItem("block") == null ? null : attributes.getNamedItem("block").getNodeValue();
-        this.elementFinal = attributes.getNamedItem("final") == null ? null : attributes.getNamedItem("final").getNodeValue();
+        this.name = attributes.getNamedItem(NAME) == null ? null : attributes.getNamedItem(NAME).getNodeValue();
+        this.elementAbstract = attributes.getNamedItem(ABSTRACT) == null ? null : attributes.getNamedItem(ABSTRACT).getNodeValue();
+        this.mixed = attributes.getNamedItem(MIXED) == null ? null : attributes.getNamedItem(MIXED).getNodeValue();
+        this.block = attributes.getNamedItem(MIXED) == null ? null : attributes.getNamedItem(MIXED).getNodeValue();
+        this.elementFinal = attributes.getNamedItem(MIXED) == null ? null : attributes.getNamedItem(MIXED).getNodeValue();
     }
 
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public void acceptRefSubstitution(Visitor visitor) {
+        System.out.println("REF : " + visitor.getClass() + " com parametro do tipo " + this.getClass());
+
+        visitor.visitRefChange(this);
     }
 
     @Override
@@ -54,7 +67,7 @@ public class XsdComplexType extends XsdElementBase {
         this.attributes.add(attribute);
     }
 
-    private void addAttributes(List<XsdAttribute> attributes) {
+    void addAttributes(List<XsdAttribute> attributes) {
         this.attributes.addAll(attributes);
     }
 
@@ -90,27 +103,6 @@ public class XsdComplexType extends XsdElementBase {
         return xsdParseSkeleton(node, new XsdComplexType());
     }
 
-    public static void replaceReferenceElement(XsdElementBase elementBase, XsdReferenceElement referenceElement) {
-        if (elementBase instanceof XsdComplexType){
-            XsdComplexType complexType = (XsdComplexType) elementBase;
-
-            if (referenceElement instanceof XsdAttributeGroup){
-                complexType.addAttributes(((XsdAttributeGroup)referenceElement).getAttributes());
-                return;
-            }
-
-            XsdElementBase complexChild = complexType.getChildElement();
-
-            if (complexChild instanceof XsdGroup){
-                XsdGroup.replaceReferenceElement(complexChild, referenceElement);
-            }
-
-            if (complexChild instanceof XsdMultipleElements){
-                XsdMultipleElements.replaceReferenceElement(complexChild, referenceElement);
-            }
-        }
-    }
-
     class ComplexTypeVisitor extends Visitor {
 
         private final XsdComplexType owner;
@@ -122,6 +114,11 @@ public class XsdComplexType extends XsdElementBase {
         @Override
         public XsdComplexType getOwner() {
             return owner;
+        }
+
+        @Override
+        protected XsdReferenceElement getReferenceOwner() {
+            return null;
         }
 
         @Override
@@ -141,5 +138,6 @@ public class XsdComplexType extends XsdElementBase {
             super.visit(attribute);
             owner.addAttributes(attribute);
         }
+
     }
 }

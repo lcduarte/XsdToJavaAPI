@@ -14,24 +14,33 @@ public class XsdSequence extends XsdMultipleElements{
     }
 
     @Override
+    public void acceptRefSubstitution(Visitor visitor) {
+        System.out.println("REF : " + visitor.getClass() + " com parametro do tipo " + this.getClass());
+
+        visitor.visitRefChange(this);
+    }
+
+    @Override
     public SequenceVisitor getVisitor() {
         return visitor;
     }
 
-    private void addElement(XsdElement element){
-        super.addElement(element);
-    }
-
     private void addElement(XsdGroup groupElement){
-        super.addElement(groupElement);
+        XsdMultipleElements groupChild = groupElement.getChildElement();
+
+        if (groupChild != null){
+            super.addGroup(groupElement.getName(), groupElement.getChildElement().getElements());
+        } else {
+            addUnsolvedGroup(groupElement);
+        }
     }
 
     private void addElement(XsdChoice choiceElement){
-        super.addElement(choiceElement);
+        super.addElements(choiceElement.getElements());
     }
 
     private void addElement(XsdSequence sequenceElement){
-        super.addElement(sequenceElement);
+        super.addElements(sequenceElement.getElements());
     }
 
     public static XsdElementBase parse(Node node){
@@ -49,6 +58,11 @@ public class XsdSequence extends XsdMultipleElements{
         @Override
         public XsdSequence getOwner() {
             return owner;
+        }
+
+        @Override
+        protected XsdReferenceElement getReferenceOwner() {
+            return null;
         }
 
         @Override

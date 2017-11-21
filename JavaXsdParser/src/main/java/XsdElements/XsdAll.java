@@ -13,12 +13,15 @@ public class XsdAll extends XsdMultipleElements {
     }
 
     @Override
-    public Visitor getVisitor() {
-        return visitor;
+    public void acceptRefSubstitution(Visitor visitor) {
+        System.out.println("REF : " + visitor.getClass() + " com parametro do tipo " + this.getClass());
+
+        visitor.visitRefChange(this);
     }
 
-    private void addElement(XsdElement element){
-        super.addElement(element);
+    @Override
+    public Visitor getVisitor() {
+        return visitor;
     }
 
     public static XsdElementBase parse(Node node) {
@@ -36,6 +39,11 @@ public class XsdAll extends XsdMultipleElements {
         @Override
         public XsdAll getOwner() {
             return owner;
+        }
+
+        @Override
+        protected XsdReferenceElement getReferenceOwner() {
+            return null;
         }
 
         @Override

@@ -6,6 +6,9 @@ public abstract class XsdReferenceElement extends XsdElementBase {
 
     private XsdElementBase parent;
 
+    public static final String NAME = "name";
+    public static final String REF = "ref";
+
     private String name;
     private String ref;
 
@@ -14,8 +17,8 @@ public abstract class XsdReferenceElement extends XsdElementBase {
         super.setAttributes(attributes);
 
         if (this.name == null){
-            this.name = attributes.getNamedItem("name") == null ? null : attributes.getNamedItem("name").getNodeValue();
-            this.ref = attributes.getNamedItem("ref") == null ? null : attributes.getNamedItem("ref").getNodeValue();
+            this.name = attributes.getNamedItem(NAME) == null ? null : attributes.getNamedItem(NAME).getNodeValue();
+            this.ref = attributes.getNamedItem(REF) == null ? null : attributes.getNamedItem(REF).getNodeValue();
         }
     }
 
@@ -34,4 +37,5 @@ public abstract class XsdReferenceElement extends XsdElementBase {
     void setParent(XsdElementBase parent) {
         this.parent = parent;
     }
+
 }

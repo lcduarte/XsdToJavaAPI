@@ -16,6 +16,13 @@ public class XsdGroup extends XsdReferenceElement {
     }
 
     @Override
+    public void acceptRefSubstitution(Visitor visitor) {
+        System.out.println("REF : " + visitor.getClass() + " com parametro do tipo " + this.getClass());
+
+        visitor.visitRefChange(this);
+    }
+
+    @Override
     public GroupVisitor getVisitor() {
         return visitor;
     }
@@ -32,15 +39,7 @@ public class XsdGroup extends XsdReferenceElement {
         return xsdParseSkeleton(node, new XsdGroup());
     }
 
-    public static void replaceReferenceElement(XsdElementBase elementBase, XsdReferenceElement referenceElement) {
-        if (elementBase instanceof XsdGroup){
-            XsdGroup groupElement = (XsdGroup) elementBase;
-
-            XsdMultipleElements.replaceReferenceElement(groupElement.childElement, referenceElement);
-        }
-    }
-
-    class GroupVisitor extends Visitor{
+    class GroupVisitor extends Visitor {
 
         private final XsdGroup owner;
 
@@ -54,8 +53,14 @@ public class XsdGroup extends XsdReferenceElement {
         }
 
         @Override
+        protected XsdReferenceElement getReferenceOwner() {
+            return owner;
+        }
+
+        @Override
         public void visit(XsdMultipleElements element) {
             super.visit(element);
+
             owner.setChildElement(element);
         }
     }

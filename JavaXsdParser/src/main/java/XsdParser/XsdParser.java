@@ -12,14 +12,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class XsdParser {
 
     public static HashMap<String, Function<Node, XsdElementBase>> parseMapper;
-    private static HashMap<Class, BiConsumer<XsdElementBase, XsdReferenceElement>> referenceSolverMapper;
     private static XsdParser instance;
 
     private List<XsdElementBase> elements = new ArrayList<>();
@@ -27,7 +25,6 @@ public class XsdParser {
 
     static {
         parseMapper = new HashMap<>();
-        referenceSolverMapper = new HashMap<>();
 
         parseMapper.put(XsdAll.TAG, XsdAll::parse);
         parseMapper.put(XsdAttribute.TAG, XsdAttribute::parse);
@@ -37,13 +34,6 @@ public class XsdParser {
         parseMapper.put(XsdElement.TAG, XsdElement::parse);
         parseMapper.put(XsdGroup.TAG, XsdGroup::parse);
         parseMapper.put(XsdSequence.TAG, XsdSequence::parse);
-
-        referenceSolverMapper.put(XsdChoice.class, XsdMultipleElements::replaceReferenceElement);
-        referenceSolverMapper.put(XsdAll.class, XsdMultipleElements::replaceReferenceElement);
-        referenceSolverMapper.put(XsdSequence.class, XsdMultipleElements::replaceReferenceElement);
-        referenceSolverMapper.put(XsdGroup.class, XsdGroup::replaceReferenceElement);
-        referenceSolverMapper.put(XsdComplexType.class, XsdComplexType::replaceReferenceElement);
-        referenceSolverMapper.put(XsdAttributeGroup.class, XsdAttributeGroup::replaceReferenceElement);
     }
 
     public XsdParser(){
@@ -109,8 +99,7 @@ public class XsdParser {
                         XsdReferenceElement newReferenceElement = namedElements.get(oldReferenceElement.getRef());
                         newReferenceElement.setAttributes(oldReferenceElement.getNodeAttributes());
 
-                        referenceSolverMapper.get(oldReferenceElement.getParent().getClass())
-                                .accept(oldReferenceElement.getParent(), newReferenceElement);
+                        oldReferenceElement.getParent().acceptRefSubstitution(newReferenceElement.getVisitor());
                     } else {
                         System.err.println(oldReferenceElement.getRef());
                     }

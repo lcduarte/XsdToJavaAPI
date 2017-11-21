@@ -1,43 +1,47 @@
 package XsdElements;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class XsdMultipleElements extends XsdElementBase {
 
-    private List<XsdElementBase> elements = new ArrayList<>();
+    private List<XsdElement> elements = new ArrayList<>();
+    private Map<String, List<XsdElement>> groupElements = new HashMap<>();
+    List<XsdGroup> unsolvedGroupElements = new ArrayList<>();
 
-    private void replaceElement(int elementIndex, XsdElementBase newElement){
+    void replaceElement(int elementIndex, XsdElement newElement){
         elements.set(elementIndex, newElement);
     }
 
-    void addElement(XsdElementBase element){
+    void addElement(XsdElement element){
         this.elements.add(element);
     }
 
-    public List<XsdElementBase> getElements(){
+    void addElements(List<XsdElement> elements){
+        this.elements.addAll(elements);
+    }
+
+    void addGroup(String groupName, List<XsdElement> elements){
+        groupElements.put(groupName, elements);
+    }
+
+    public Map<String, List<XsdElement>> getGroupElements(){
+        return groupElements;
+    }
+
+    void addUnsolvedGroup(XsdGroup group){
+        unsolvedGroupElements.add(group);
+    }
+
+    void removeUnsolvedGroup(XsdGroup group) {
+        unsolvedGroupElements.remove(group);
+    }
+
+    List<XsdGroup> getUnresolvedGroups(){
+        return unsolvedGroupElements;
+    }
+
+    public List<XsdElement> getElements(){
         return elements;
     }
 
-    public static void replaceReferenceElement(XsdElementBase elementBase, XsdReferenceElement referenceElement) {
-        if (elementBase instanceof XsdMultipleElements){
-            XsdMultipleElements element = (XsdMultipleElements) elementBase;
-
-            Optional<XsdReferenceElement> oldElement = element.getElements().stream()
-                    .filter(elementBaseObj -> elementBaseObj instanceof XsdReferenceElement)
-                    .map(referenceElementObj -> (XsdReferenceElement) referenceElementObj)
-                    .filter(referenceElementObj -> referenceElementObj.getRef() != null)
-                    .filter(referenceElementObj ->  referenceElementObj.getRef().equals(referenceElement.getName()))
-                    .findFirst();
-
-            if (oldElement.isPresent()){
-                int idx = element.getElements().indexOf(oldElement.get());
-
-                element.replaceElement(idx, referenceElement);
-            } else {
-                System.err.println("Não devia estar aqui");
-            }
-        }
-    }
 }

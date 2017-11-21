@@ -3,9 +3,20 @@ package XsdElements;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import java.util.Optional;
+
 public class XsdElement extends XsdReferenceElement {
 
     public static final String TAG = "xsd:element";
+    public static final String TYPE = "type";
+    public static final String SUBSTITUTION_GROUP = "substitutionGroup";
+    public static final String DEFAULT = "default";
+    public static final String FIXED = "fixed";
+    public static final String FORM = "form";
+    public static final String NILLABLE = "nillable";
+    public static final String ABSTRACT = "abstract";
+    public static final String BLOCK = "block";
+    public static final String FINAL = "final";
 
     private Visitor visitor = new ElementVisitor(this);
 
@@ -24,20 +35,25 @@ public class XsdElement extends XsdReferenceElement {
     public void setAttributes(NamedNodeMap attributes){
         super.setAttributes(attributes);
 
-        this.type = attributes.getNamedItem("type") == null ? null : attributes.getNamedItem("type").getNodeValue();
-        this.substitutionGroup = attributes.getNamedItem("substitutionGroup") == null ? null : attributes.getNamedItem("substitutionGroup").getNodeValue();
-        this.defaultObj = attributes.getNamedItem("default") == null ? null : attributes.getNamedItem("default").getNodeValue();
-        this.fixed = attributes.getNamedItem("fixed") == null ? null : attributes.getNamedItem("fixed").getNodeValue();
-        this.form = attributes.getNamedItem("form") == null ? null : attributes.getNamedItem("form").getNodeValue();
-        this.nillable = attributes.getNamedItem("nillable") == null ? null : attributes.getNamedItem("nillable").getNodeValue();
-        this.abstractObj = attributes.getNamedItem("abstract") == null ? null : attributes.getNamedItem("abstract").getNodeValue();
-        this.block = attributes.getNamedItem("block") == null ? null : attributes.getNamedItem("block").getNodeValue();
-        this.finalObj = attributes.getNamedItem("final") == null ? null : attributes.getNamedItem("final").getNodeValue();
+        this.type = attributes.getNamedItem(TYPE) == null ? null : attributes.getNamedItem("type").getNodeValue();
+        this.substitutionGroup = attributes.getNamedItem(SUBSTITUTION_GROUP) == null ? null : attributes.getNamedItem(SUBSTITUTION_GROUP).getNodeValue();
+        this.defaultObj = attributes.getNamedItem(DEFAULT) == null ? null : attributes.getNamedItem(DEFAULT).getNodeValue();
+        this.fixed = attributes.getNamedItem(FIXED) == null ? null : attributes.getNamedItem(FIXED).getNodeValue();
+        this.form = attributes.getNamedItem(FORM) == null ? null : attributes.getNamedItem(FORM).getNodeValue();
+        this.nillable = attributes.getNamedItem(NILLABLE) == null ? null : attributes.getNamedItem(NILLABLE).getNodeValue();
+        this.abstractObj = attributes.getNamedItem(ABSTRACT) == null ? null : attributes.getNamedItem(ABSTRACT).getNodeValue();
+        this.block = attributes.getNamedItem(BLOCK) == null ? null : attributes.getNamedItem(BLOCK).getNodeValue();
+        this.finalObj = attributes.getNamedItem(FINAL) == null ? null : attributes.getNamedItem(FINAL).getNodeValue();
     }
 
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public void acceptRefSubstitution(Visitor visitor) {
+
     }
 
     @Override
@@ -103,6 +119,11 @@ public class XsdElement extends XsdReferenceElement {
 
         @Override
         public XsdElement getOwner() {
+            return owner;
+        }
+
+        @Override
+        public XsdReferenceElement getReferenceOwner() {
             return owner;
         }
 

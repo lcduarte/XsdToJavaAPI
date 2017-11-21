@@ -7,6 +7,9 @@ public class XsdAttribute extends XsdReferenceElement {
 
     // TODO public XsdSimpleType simpleType;
     public static final String TAG = "xsd:attribute";
+    public static final String DEFAULT_ELEMENT = "defaultElement";
+    public static final String FIXED = "fixed";
+    public static final String TYPE = "type";
 
     private String defaultElement;
     private String fixed;
@@ -16,14 +19,19 @@ public class XsdAttribute extends XsdReferenceElement {
     public void setAttributes(NamedNodeMap attributes) {
         super.setAttributes(attributes);
 
-        this.defaultElement = attributes.getNamedItem("defaultElement") == null ? null : attributes.getNamedItem("defaultElement").getNodeValue();
-        this.fixed = attributes.getNamedItem("fixed") == null ? null : attributes.getNamedItem("fixed").getNodeValue();
-        this.type = attributes.getNamedItem("type") == null ? null : attributes.getNamedItem("type").getNodeValue();
+        this.defaultElement = attributes.getNamedItem(DEFAULT_ELEMENT) == null ? null : attributes.getNamedItem(DEFAULT_ELEMENT).getNodeValue();
+        this.fixed = attributes.getNamedItem(FIXED) == null ? null : attributes.getNamedItem(FIXED).getNodeValue();
+        this.type = attributes.getNamedItem(TYPE) == null ? null : attributes.getNamedItem(TYPE).getNodeValue();
     }
 
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public void acceptRefSubstitution(Visitor visitor) {
+        System.out.println("REF : " + visitor.getClass() + " com parametro do tipo " + this.getClass());
     }
 
     @Override

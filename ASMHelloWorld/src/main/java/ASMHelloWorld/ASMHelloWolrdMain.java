@@ -3,6 +3,7 @@ package ASMHelloWorld;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.util.ASMifier;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,12 +18,12 @@ public class ASMHelloWolrdMain {
     private static DynamicClassLoader loader = new DynamicClassLoader();
 
     public static void main(String[] args) throws Exception {
-        constructInterfaceWImplementingClass();
-        constructClassWFieldsNMethods();
+        //constructInterfaceWImplementingClass();
+        //constructClassWFieldsNMethods();
 
         System.out.println("Done");
 
-        //ASMifier.main(new String[]{"C:\\Users\\Luis Duarte\\IdeaProjects\\ASMHelloWorld\\target\\classes\\ASMHelloWorld\\Examples\\ClassWFieldsNMethods.class"});
+        ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\ASMHelloWorld\\target\\classes\\ASMHelloWorld\\Examples\\InterfaceA.class"});
         //Textifier.main(new String[]{"C:\\Users\\Luis Duarte\\IdeaProjects\\ASMHelloWorld\\target\\classes\\ASMHelloWorld\\ASMHelloWolrdMain.class"});
     }
 

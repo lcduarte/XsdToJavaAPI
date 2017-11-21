@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="536.4227777777778" y="7.777777777777786">XsdElements.XsdMultipleElements</node>
+    <node x="295.0" y="415.0">XsdElements.XsdSequence</node>
+    <node x="292.5833333333333" y="99.0">XsdElements.XsdGroup</node>
+    <node x="75.70194444444448" y="99.0">XsdElements.XsdAttribute</node>
+    <node x="10.5" y="178.0">XsdElements.XsdAttributeGroup</node>
+    <node x="157.5" y="257.0">XsdElements.XsdElement</node>
+    <node x="398.6480555555555" y="336.0">XsdElements.XsdAll</node>
+    <node x="177.5" y="178.0">XsdElements.XsdComplexType</node>
+    <node x="23.273055555555516" y="0.0">XsdElements.XsdReferenceElement</node>
+    <node x="265.60333333333335" y="336.0">XsdElements.XsdChoice</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="XsdElements.XsdSequence" target="XsdElements.XsdChoice">
+      <point x="-23.599999999999994" y="-14.5" />
+      <point x="330.4" y="385.0" />
+      <point x="291.60333333333335" y="385.0" />
+      <point x="-26.0" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdComplexType" target="XsdElements.XsdGroup">
+      <point x="52.5" y="-14.5" />
+      <point x="300.0" y="158.0" />
+      <point x="309.25" y="158.0" />
+      <point x="-33.333333333333336" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdChoice" target="XsdElements.XsdElement">
+      <point x="-34.66666666666663" y="-14.5" />
+      <point x="282.9366666666667" y="316.0" />
+      <point x="212.5" y="316.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdAttributeGroup" target="XsdElements.XsdAttribute">
+      <point x="49.0" y="-14.5" />
+      <point x="133.0" y="158.0" />
+      <point x="118.45194444444448" y="158.0" />
+      <point x="-14.25" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdComplexType" target="XsdElements.XsdMultipleElements">
+      <point x="17.5" y="-14.5" />
+      <point x="265.0" y="59.0" />
+      <point x="355.22833333333335" y="59.0" />
+      <point x="-66.25" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdComplexType" target="XsdElements.XsdAttribute">
+      <point x="-17.5" y="-14.5" />
+      <point x="230.0" y="148.0" />
+      <point x="175.45194444444448" y="148.0" />
+      <point x="42.75" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdSequence" target="XsdElements.XsdElement">
+      <point x="-47.19999999999999" y="-14.5" />
+      <point x="306.8" y="395.0" />
+      <point x="175.83333333333331" y="395.0" />
+      <point x="-36.666666666666686" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdChoice" target="XsdElements.XsdGroup">
+      <point x="0.0" y="-14.5" />
+      <point x="317.60333333333335" y="316.0" />
+      <point x="328.0" y="316.0" />
+      <point x="328.0" y="158.0" />
+      <point x="342.5833333333333" y="158.0" />
+      <point x="7.105427357601002E-15" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdSequence" target="XsdElements.XsdGroup">
+      <point x="23.599999999999994" y="-14.5" />
+      <point x="377.59999999999997" y="395.0" />
+      <point x="388.1480555555555" y="395.0" />
+      <point x="388.1480555555555" y="158.0" />
+      <point x="375.91666666666663" y="158.0" />
+      <point x="33.33333333333334" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdSequence" target="XsdElements.XsdMultipleElements">
+      <point x="47.19999999999999" y="-14.5" />
+      <point x="401.2" y="395.0" />
+      <point x="490.1480555555555" y="395.0" />
+      <point x="490.1480555555555" y="79.0" />
+      <point x="487.72833333333335" y="79.0" />
+      <point x="66.25" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdGroup" target="XsdElements.XsdReferenceElement">
+      <point x="-33.33333333333334" y="-14.5" />
+      <point x="309.25" y="49.0" />
+      <point x="165.02305555555552" y="49.0" />
+      <point x="60.75" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdChoice" target="XsdElements.XsdMultipleElements">
+      <point x="34.666666666666686" y="-14.5" />
+      <point x="352.27000000000004" y="316.0" />
+      <point x="438.725" y="316.0" />
+      <point x="438.725" y="79.0" />
+      <point x="434.72833333333335" y="79.0" />
+      <point x="13.25" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdAttributeGroup" target="XsdElements.XsdReferenceElement">
+      <point x="-49.0" y="-14.5" />
+      <point x="35.0" y="158.0" />
+      <point x="59.10333333333335" y="158.0" />
+      <point x="59.10333333333335" y="79.0" />
+      <point x="84.02305555555552" y="79.0" />
+      <point x="-20.25" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdAll" target="XsdElements.XsdMultipleElements">
+      <point x="20.249999999999986" y="-14.5" />
+      <point x="459.3980555555555" y="79.0" />
+      <point x="461.22833333333335" y="79.0" />
+      <point x="39.75" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdElement" target="XsdElements.XsdComplexType">
+      <point x="36.66666666666663" y="-14.5" />
+      <point x="249.16666666666663" y="232.0" />
+      <point x="282.5" y="232.0" />
+      <point x="35.0" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdElement" target="XsdElements.XsdReferenceElement">
+      <point x="-36.66666666666663" y="-14.5" />
+      <point x="175.83333333333337" y="232.0" />
+      <point x="0.0" y="232.0" />
+      <point x="0.0" y="79.0" />
+      <point x="43.523055555555516" y="79.0" />
+      <point x="-60.75" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdChoice" target="XsdElements.XsdSequence">
+      <point x="26.0" y="14.5" />
+      <point x="343.60333333333335" y="395.0" />
+      <point x="354.0" y="395.0" />
+      <point x="0.0" y="-14.5" />
+    </edge>
+    <edge source="XsdElements.XsdGroup" target="XsdElements.XsdMultipleElements">
+      <point x="-7.105427357601002E-15" y="-14.5" />
+      <point x="342.5833333333333" y="69.0" />
+      <point x="381.72833333333335" y="69.0" />
+      <point x="-39.75" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdAttribute" target="XsdElements.XsdReferenceElement">
+      <point x="0.0" y="-14.5" />
+      <point x="132.70194444444448" y="79.0" />
+      <point x="124.52305555555552" y="79.0" />
+      <point x="20.25" y="14.5" />
+    </edge>
+    <edge source="XsdElements.XsdAll" target="XsdElements.XsdElement">
+      <point x="-20.25" y="-14.5" />
+      <point x="418.8980555555555" y="306.0" />
+      <point x="249.16666666666663" y="306.0" />
+      <point x="36.66666666666663" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9" x="315.1111111111111" y="256.88888888888886" />
+  <SelectedNodes>
+    <node>XsdElements.XsdMultipleElements</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

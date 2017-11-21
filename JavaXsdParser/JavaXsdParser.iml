@@ -65,8 +65,15 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.container:arquillian-container-test-impl-base:1.0.3.Final" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jboss.shrinkwrap:shrinkwrap-impl-base:1.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jboss.shrinkwrap:shrinkwrap-spi:1.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.junit.jupiter:junit-jupiter-api:5.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.junit.jupiter:junit-jupiter-api:5.1.0-M1" level="project" />
     <orderEntry type="library" name="Maven: org.opentest4j:opentest4j:1.0.0" level="project" />
-    <orderEntry type="library" name="Maven: org.junit.platform:junit-platform-commons:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.junit.platform:junit-platform-commons:1.1.0-M1" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-parent:6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm:6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-tree:6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-analysis:6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-commons:6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-util:6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-xml:6.0" level="project" />
   </component>
 </module>
