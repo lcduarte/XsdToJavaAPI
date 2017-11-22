@@ -52,8 +52,10 @@ public class XsdElement extends XsdReferenceElement {
     }
 
     @Override
-    public void acceptRefSubstitution(Visitor visitor) {
+    public void acceptRefSubstitution(RefVisitor visitor) {
+        //System.out.println("REF : " + visitor.getClass() + " with parameter type " + this.getClass());
 
+        visitor.visitRefChange(this);
     }
 
     @Override
@@ -119,11 +121,6 @@ public class XsdElement extends XsdReferenceElement {
 
         @Override
         public XsdElement getOwner() {
-            return owner;
-        }
-
-        @Override
-        public XsdReferenceElement getReferenceOwner() {
             return owner;
         }
 

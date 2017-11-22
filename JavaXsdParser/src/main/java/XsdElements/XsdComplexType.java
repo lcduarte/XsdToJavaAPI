@@ -5,6 +5,7 @@ import org.w3c.dom.Node;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class XsdComplexType extends XsdElementBase {
 
@@ -44,13 +45,6 @@ public class XsdComplexType extends XsdElementBase {
     }
 
     @Override
-    public void acceptRefSubstitution(Visitor visitor) {
-        System.out.println("REF : " + visitor.getClass() + " com parametro do tipo " + this.getClass());
-
-        visitor.visitRefChange(this);
-    }
-
-    @Override
     public ComplexTypeVisitor getVisitor() {
         return visitor;
     }
@@ -67,7 +61,7 @@ public class XsdComplexType extends XsdElementBase {
         this.attributes.add(attribute);
     }
 
-    void addAttributes(List<XsdAttribute> attributes) {
+    private void addAttributes(List<XsdAttribute> attributes) {
         this.attributes.addAll(attributes);
     }
 
@@ -103,7 +97,7 @@ public class XsdComplexType extends XsdElementBase {
         return xsdParseSkeleton(node, new XsdComplexType());
     }
 
-    class ComplexTypeVisitor extends Visitor {
+    class ComplexTypeVisitor extends RefVisitor {
 
         private final XsdComplexType owner;
 
@@ -114,11 +108,6 @@ public class XsdComplexType extends XsdElementBase {
         @Override
         public XsdComplexType getOwner() {
             return owner;
-        }
-
-        @Override
-        protected XsdReferenceElement getReferenceOwner() {
-            return null;
         }
 
         @Override
@@ -139,5 +128,22 @@ public class XsdComplexType extends XsdElementBase {
             owner.addAttributes(attribute);
         }
 
+        @Override
+        public void visitRefChange(XsdAttributeGroup element) {
+            super.visitRefChange(element);
+
+            owner.addAttributes(element.getAttributes());
+        }
+
+        @Override
+        public void visitRefChange(XsdAttribute element) {
+            super.visitRefChange(element);
+
+            owner.attributes
+                    .stream()
+                    .filter(attributeElement -> attributeElement.getRef().equals(element.getName()))
+                    .findFirst()
+                    .ifPresent(xsdAttribute -> owner.attributes.set(owner.attributes.indexOf(xsdAttribute), element));
+        }
     }
 }

@@ -99,7 +99,7 @@ public class XsdParser {
                         XsdReferenceElement newReferenceElement = namedElements.get(oldReferenceElement.getRef());
                         newReferenceElement.setAttributes(oldReferenceElement.getNodeAttributes());
 
-                        oldReferenceElement.getParent().acceptRefSubstitution(newReferenceElement.getVisitor());
+                        newReferenceElement.acceptRefSubstitution((RefVisitor) oldReferenceElement.getParent().getVisitor());
                     } else {
                         System.err.println(oldReferenceElement.getRef());
                     }

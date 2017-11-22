@@ -14,13 +14,6 @@ public class XsdChoice extends XsdMultipleElements{
     }
 
     @Override
-    public void acceptRefSubstitution(Visitor visitor) {
-        System.out.println("REF : " + visitor.getClass() + " com parametro do tipo " + this.getClass());
-
-        visitor.visitRefChange(this);
-    }
-
-    @Override
     public ChoiceVisitor getVisitor() {
         return visitor;
     }
@@ -47,7 +40,7 @@ public class XsdChoice extends XsdMultipleElements{
         return xsdParseSkeleton(node, new XsdChoice());
     }
 
-    class ChoiceVisitor extends Visitor{
+    class ChoiceVisitor extends RefVisitor{
 
         private final XsdChoice owner;
 
@@ -58,11 +51,6 @@ public class XsdChoice extends XsdMultipleElements{
         @Override
         public XsdChoice getOwner() {
             return owner;
-        }
-
-        @Override
-        protected XsdReferenceElement getReferenceOwner() {
-            return null;
         }
 
         @Override
@@ -87,6 +75,20 @@ public class XsdChoice extends XsdMultipleElements{
         public void visit(XsdSequence element) {
             super.visit(element);
             owner.addElement(element);
+        }
+
+        @Override
+        public void visitRefChange(XsdGroup element) {
+            super.visitRefChange(element);
+
+            baseRefChange(owner, element);
+        }
+
+        @Override
+        public void visitRefChange(XsdElement element) {
+            super.visitRefChange(element);
+
+            baseRefChange(owner, element);
         }
     }
 }

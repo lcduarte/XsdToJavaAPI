@@ -7,7 +7,7 @@ public abstract class XsdReferenceElement extends XsdElementBase {
     private XsdElementBase parent;
 
     public static final String NAME = "name";
-    public static final String REF = "ref";
+    private static final String REF = "ref";
 
     private String name;
     private String ref;
@@ -21,6 +21,8 @@ public abstract class XsdReferenceElement extends XsdElementBase {
             this.ref = attributes.getNamedItem(REF) == null ? null : attributes.getNamedItem(REF).getNodeValue();
         }
     }
+
+    public abstract void acceptRefSubstitution(RefVisitor visitor);
 
     public String getName(){
         return name;

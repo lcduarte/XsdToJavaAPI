@@ -17,29 +17,12 @@ import static org.objectweb.asm.Opcodes.*;
 
 public class XsdClassGenerator {
 
-    private static final String PACKAGE = "XsdClassGenerator/ParsedObjects/";
     private static final String BASE_CLASS = "BaseElement";
     private static final String JAVA_OBJECT = "java/lang/Object";
     private static final String JAVA_STRING = "Ljava/lang/String;";
     private static final String CONSTRUCTOR = "<init>";
 
     private Map<String, List<XsdElement>> groupInterfaces = new HashMap<>();
-
-    //TODO Create folder for ParsedObjects
-
-    private void generateBaseElement() {
-        List<String> fields = getElementFields();
-
-        ClassWriter classWriter = generateClass(BASE_CLASS);
-
-        generateProtectedConstructor(classWriter, fields, BASE_CLASS);
-
-        generateFields(classWriter, fields, BASE_CLASS);
-
-        classWriter.visitEnd();
-
-        writeClassToFile(BASE_CLASS, classWriter.toByteArray());
-    }
 
     public void generateClassFromElements(List<XsdElement> elementList){
         generateBaseElement();
@@ -49,14 +32,29 @@ public class XsdClassGenerator {
         generateInterfaces();
     }
 
-    private void generateClassFromElement(XsdElement element) {
-        String className = toCamelCase(element.getName());
+    private void generateBaseElement() {
+        List<String> fields = XsdClassGeneratorUtils.getElementFields();
 
-        List<String> fields = getElementFields();
+        ClassWriter classWriter = generateClass(BASE_CLASS);
+
+        generateProtectedConstructor(classWriter, fields, BASE_CLASS);
+
+        generateFields(classWriter, fields, BASE_CLASS);
+
+        classWriter.visitEnd();
+
+        XsdClassGeneratorUtils.createGeneratedFilesDirectory();
+        XsdClassGeneratorUtils.writeClassToFile(BASE_CLASS, classWriter.toByteArray());
+    }
+
+    private void generateClassFromElement(XsdElement element) {
+        String className = XsdClassGeneratorUtils.toCamelCase(element.getName());
+
+        List<String> fields = XsdClassGeneratorUtils.getElementFields();
         List<XsdElement> childs = getOwnChilds(element);
         String[] interfaces = getSharedInterfaces(element);
 
-        ClassWriter classWriter = generateClass(className, getFullClassTypeName(BASE_CLASS), interfaces);
+        ClassWriter classWriter = generateClass(className, XsdClassGeneratorUtils.getFullClassTypeName(BASE_CLASS), interfaces);
 
         generatePublicConstructor(classWriter, fields, className);
 
@@ -64,7 +62,7 @@ public class XsdClassGenerator {
 
         classWriter.visitEnd();
 
-        writeClassToFile(className, classWriter.toByteArray());
+        XsdClassGeneratorUtils.writeClassToFile(className, classWriter.toByteArray());
     }
 
     private void generateInterfaces() {
@@ -78,7 +76,7 @@ public class XsdClassGenerator {
 
         interfaceWriter.visitEnd();
 
-        writeClassToFile(interfaceName, interfaceWriter.toByteArray());
+        XsdClassGeneratorUtils.writeClassToFile(interfaceName, interfaceWriter.toByteArray());
     }
 
     private void generateMethods(ClassWriter classWriter, List<XsdElement> childs) {
@@ -87,13 +85,13 @@ public class XsdClassGenerator {
                 continue;
             }
 
-            String childCamelName = toCamelCase(child.getName());
+            String childCamelName = XsdClassGeneratorUtils.toCamelCase(child.getName());
 
-            MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "()" + getFullClassName(childCamelName), null, null);
+            MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "()" + XsdClassGeneratorUtils.getFullClassName(childCamelName), null, null);
             methodVisitor.visitCode();
-            methodVisitor.visitTypeInsn(NEW, getFullClassTypeName(childCamelName));
+            methodVisitor.visitTypeInsn(NEW, XsdClassGeneratorUtils.getFullClassTypeName(childCamelName));
             methodVisitor.visitInsn(DUP);
-            methodVisitor.visitMethodInsn(INVOKESPECIAL, getFullClassTypeName(childCamelName), CONSTRUCTOR, "()V", false);
+            methodVisitor.visitMethodInsn(INVOKESPECIAL, XsdClassGeneratorUtils.getFullClassTypeName(childCamelName), CONSTRUCTOR, "()V", false);
             methodVisitor.visitInsn(ARETURN);
             methodVisitor.visitMaxs(2, 1);
             methodVisitor.visitEnd();
@@ -103,13 +101,13 @@ public class XsdClassGenerator {
     private void generateFields(ClassWriter classWriter, List<String> fields, String className) {
         FieldVisitor fieldVisitor;
         MethodVisitor methodVisitor;
-        String fullClassName = getFullClassTypeName(className);
+        String fullClassName = XsdClassGeneratorUtils.getFullClassTypeName(className);
 
         for (String name : fields) {
             fieldVisitor = classWriter.visitField(ACC_PRIVATE, name, JAVA_STRING, null, null);
             fieldVisitor.visitEnd();
 
-            String camelCaseName = toCamelCase(name);
+            String camelCaseName = XsdClassGeneratorUtils.toCamelCase(name);
 
             methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "get" + camelCaseName, "()" + JAVA_STRING, null, null);
             methodVisitor.visitCode();
@@ -159,7 +157,7 @@ public class XsdClassGenerator {
             for (String name : fields) {
                 constructorWParameters.visitVarInsn(ALOAD, 0);
                 constructorWParameters.visitVarInsn(ALOAD, index);
-                constructorWParameters.visitFieldInsn(PUTFIELD, getFullClassTypeName(className), name, JAVA_STRING);
+                constructorWParameters.visitFieldInsn(PUTFIELD, XsdClassGeneratorUtils.getFullClassTypeName(className), name, JAVA_STRING);
                 index = index + 1;
             }
         } else {
@@ -167,8 +165,8 @@ public class XsdClassGenerator {
                 constructorWParameters.visitVarInsn(ALOAD, i + 1);
             }
 
-            constructorWParameters.visitMethodInsn(INVOKESPECIAL, getFullClassTypeName(BASE_CLASS), CONSTRUCTOR, constructorParameters, false);
-            defaultConstructor.visitMethodInsn(INVOKESPECIAL, getFullClassTypeName(BASE_CLASS), CONSTRUCTOR, "()V", false);
+            constructorWParameters.visitMethodInsn(INVOKESPECIAL, XsdClassGeneratorUtils.getFullClassTypeName(BASE_CLASS), CONSTRUCTOR, constructorParameters, false);
+            defaultConstructor.visitMethodInsn(INVOKESPECIAL, XsdClassGeneratorUtils.getFullClassTypeName(BASE_CLASS), CONSTRUCTOR, "()V", false);
         }
 
         constructorWParameters.visitInsn(RETURN);
@@ -184,7 +182,7 @@ public class XsdClassGenerator {
     private ClassWriter generateClass(String className, String superName, String[] interfaces, int classModifiers) {
         ClassWriter classWriter = new ClassWriter(0);
 
-        classWriter.visit(V1_8, classModifiers, getFullClassTypeName(className), null, superName, interfaces);
+        classWriter.visit(V1_8, classModifiers, XsdClassGeneratorUtils.getFullClassTypeName(className), null, superName, interfaces);
 
         return classWriter;
     }
@@ -197,107 +195,56 @@ public class XsdClassGenerator {
         return generateClass(className, JAVA_OBJECT, new String[]{}, ACC_PUBLIC);
     }
 
-
-    //Groups in XSD will be equivalent to java Interfaces.
     private String[] getSharedInterfaces(XsdElement element){
-        if (element.getComplexType() == null){
-            return new String[0];
-        }
+        //Groups in XSD will be equivalent to java Interfaces.
+        if (element.getComplexType() != null){
+            XsdElementBase elementBase = element.getComplexType().getChildElement();
 
-        XsdElementBase elementBase = element.getComplexType().getChildElement();
+            if (elementBase instanceof XsdMultipleElements){
+                XsdMultipleElements multipleElementContainer = (XsdMultipleElements) elementBase;
 
-        if (elementBase instanceof XsdMultipleElements){
-            XsdMultipleElements multipleElementContainer = (XsdMultipleElements) elementBase;
+                Map<String, List<XsdElement>> groupElements = multipleElementContainer.getGroupElements();
 
-            Map<String, List<XsdElement>> groupElements = multipleElementContainer.getGroupElements();
-
-            for (String groupName : groupElements.keySet()) {
-                if (!groupInterfaces.containsKey(groupName)){
-                    groupInterfaces.put("I" + toCamelCase(groupName), groupElements.get(groupName));
-                }
+                return getInterfaceNames(groupElements);
             }
-
-            String[] groupNames = new String[groupElements.keySet().size()];
-            groupNames = groupElements.keySet().toArray(groupNames);
-
-            for (int i = 0; i < groupNames.length ; i++) {
-                groupNames[i] = "I" + toCamelCase(groupNames[i]);
-            }
-
-            return groupNames;
         }
 
         return new String[0];
     }
 
-    private List<XsdElement> getOwnChilds(XsdElement element) {
-        if (element.getComplexType() == null){
-            return new ArrayList<>();
-        }
+    private String[] getInterfaceNames(Map<String, List<XsdElement>> groupElements) {
+        String[] groupNames = new String[groupElements.keySet().size()];
+        groupNames = groupElements.keySet().toArray(groupNames);
 
-        XsdElementBase elementBase = element.getComplexType().getChildElement();
-
-        if (elementBase instanceof XsdGroup){
-            return ((XsdGroup) elementBase).getChildElement().getElements();
-        } else {
-            if (elementBase == null){
-                return new ArrayList<>();
+        groupElements.keySet().forEach(groupName -> {
+            if (!groupInterfaces.containsKey(groupName)){
+                groupInterfaces.put(XsdClassGeneratorUtils.getInterfaceName(groupName), groupElements.get(groupName));
             }
+        });
 
-            return ((XsdMultipleElements) elementBase).getElements();
-        }
-    }
-
-    private String toCamelCase(String name){
-        if (name.length() == 1){
-            return name.toUpperCase();
+        for (int i = 0; i < groupNames.length ; i++) {
+            groupNames[i] = XsdClassGeneratorUtils.getInterfaceName(groupNames[i]);
         }
 
-        String firstLetter = name.substring(0, 1).toUpperCase();
-        return firstLetter + name.substring(1);
+        return groupNames;
     }
 
-    private String getFinalPathPart(String className){
-        return "\\XsdClassGenerator\\ParsedObjects\\" + className + ".class";
-    }
+    private List<XsdElement> getOwnChilds(XsdElement element) {
+        if (element.getComplexType() != null){
+            XsdElementBase elementBase = element.getComplexType().getChildElement();
 
-    private String getFullClassTypeName(String className){
-        return PACKAGE + className;
-    }
+            if (elementBase != null) {
+                if (elementBase instanceof XsdGroup){
+                    return ((XsdGroup) elementBase).getChildElement().getElements();
+                }
 
-    private String getFullClassName(String className){
-        return "L" + PACKAGE + className + ";";
-    }
-
-    private List<String> getElementFields() {
-        List<String> fields = new ArrayList<>();
-
-        fields.add(XsdElement.ID);
-        fields.add(XsdElement.MIN_OCCURS);
-        fields.add(XsdElement.MAX_OCCURS);
-
-        fields.add(XsdElement.NAME);
-
-        fields.add(XsdElement.TYPE);
-        fields.add(XsdElement.ABSTRACT);
-        fields.add(XsdElement.FORM);
-        fields.add(XsdElement.FIXED);
-        fields.add(XsdElement.FINAL);
-        fields.add(XsdElement.SUBSTITUTION_GROUP);
-        fields.add(XsdElement.DEFAULT);
-        fields.add(XsdElement.NILLABLE);
-        fields.add(XsdElement.BLOCK);
-
-        return fields;
-    }
-
-    private void writeClassToFile(String className, byte[] constructedClass){
-        try {
-            FileOutputStream os = new FileOutputStream(new File(XsdClassGenerator.class.getClassLoader().getResource("").getPath() + getFinalPathPart(className)));
-            os.write(constructedClass);
-            os.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+                if (elementBase instanceof XsdMultipleElements) {
+                    return ((XsdMultipleElements) elementBase).getElements();
+                }
+            }
         }
+
+        return new ArrayList<>();
     }
+
 }

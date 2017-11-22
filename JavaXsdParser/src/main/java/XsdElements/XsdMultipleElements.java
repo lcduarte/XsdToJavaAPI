@@ -6,7 +6,7 @@ public abstract class XsdMultipleElements extends XsdElementBase {
 
     private List<XsdElement> elements = new ArrayList<>();
     private Map<String, List<XsdElement>> groupElements = new HashMap<>();
-    List<XsdGroup> unsolvedGroupElements = new ArrayList<>();
+    private List<XsdGroup> unsolvedGroupElements = new ArrayList<>();
 
     void replaceElement(int elementIndex, XsdElement newElement){
         elements.set(elementIndex, newElement);

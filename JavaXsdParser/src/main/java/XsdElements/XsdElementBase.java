@@ -42,8 +42,6 @@ public abstract class XsdElementBase {
 
     public abstract void accept(Visitor visitor);
 
-    public abstract void acceptRefSubstitution(Visitor visitor);
-
     public abstract Visitor getVisitor();
 
     static XsdElementBase xsdParseSkeleton(Node node, XsdElementBase element){

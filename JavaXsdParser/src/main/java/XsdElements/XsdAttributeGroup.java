@@ -18,8 +18,8 @@ public class XsdAttributeGroup extends XsdReferenceElement {
     }
 
     @Override
-    public void acceptRefSubstitution(Visitor visitor) {
-        System.out.println("REF : " + visitor.getClass() + " com parametro do tipo " + this.getClass());
+    public void acceptRefSubstitution(RefVisitor visitor) {
+        //System.out.println("REF : " + visitor.getClass() + " with parameter type " + this.getClass());
 
         visitor.visitRefChange(this);
     }
@@ -45,7 +45,7 @@ public class XsdAttributeGroup extends XsdReferenceElement {
         return xsdParseSkeleton(node, new XsdAttributeGroup());
     }
 
-    class AttributeGroupVisitor extends Visitor {
+    class AttributeGroupVisitor extends RefVisitor {
         private final XsdAttributeGroup owner;
 
         AttributeGroupVisitor(XsdAttributeGroup owner) {
@@ -54,11 +54,6 @@ public class XsdAttributeGroup extends XsdReferenceElement {
 
         @Override
         public XsdAttributeGroup getOwner() {
-            return owner;
-        }
-
-        @Override
-        protected XsdReferenceElement getReferenceOwner() {
             return owner;
         }
 
@@ -72,14 +67,7 @@ public class XsdAttributeGroup extends XsdReferenceElement {
         public void visitRefChange(XsdAttributeGroup element) {
             super.visitRefChange(element);
 
-            element.addAttributes(owner.getAttributes());
-        }
-
-        @Override
-        public void visitRefChange(XsdComplexType element) {
-            super.visitRefChange(element);
-
-            element.addAttributes(owner.getAttributes());
+            owner.addAttributes(element.getAttributes());
         }
     }
 }
