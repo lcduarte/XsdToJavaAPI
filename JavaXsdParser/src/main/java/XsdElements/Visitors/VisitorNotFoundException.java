@@ -1,4 +1,4 @@
-package XsdElements;
+package XsdElements.Visitors;
 
 public class VisitorNotFoundException extends RuntimeException{
 

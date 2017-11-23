@@ -1,5 +1,7 @@
 package XsdElements;
 
+import XsdElements.Visitors.RefVisitor;
+import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
 
 import java.util.ArrayList;

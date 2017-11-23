@@ -1,5 +1,7 @@
 package XsdElements;
 
+import XsdElements.Visitors.RefVisitor;
+import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
 
 public class XsdChoice extends XsdMultipleElements{
@@ -40,7 +42,7 @@ public class XsdChoice extends XsdMultipleElements{
         return xsdParseSkeleton(node, new XsdChoice());
     }
 
-    class ChoiceVisitor extends RefVisitor{
+    class ChoiceVisitor extends RefVisitor {
 
         private final XsdChoice owner;
 

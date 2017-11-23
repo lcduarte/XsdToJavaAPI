@@ -1,12 +1,11 @@
-package XsdElements;
+package XsdElements.Visitors;
 
+import XsdElements.*;
 import XsdParser.XsdParser;
-
-import java.util.Optional;
 
 public abstract class Visitor {
 
-    void visit(XsdAll element) {
+    public void visit(XsdAll element) {
         visit((XsdMultipleElements) element);
     }
 
@@ -14,7 +13,7 @@ public abstract class Visitor {
         visit((XsdReferenceElement) element);
     }
 
-    void visit(XsdAttributeGroup element){
+    public void visit(XsdAttributeGroup element){
         visit((XsdReferenceElement) element);
     }
 

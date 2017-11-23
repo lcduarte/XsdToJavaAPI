@@ -1,4 +1,6 @@
-package XsdElements;
+package XsdElements.Visitors;
+
+import XsdElements.*;
 
 public abstract class RefVisitor extends Visitor {
 
@@ -18,7 +20,7 @@ public abstract class RefVisitor extends Visitor {
 
     }
 
-    void baseRefChange(XsdMultipleElements owner, XsdGroup group) {
+    protected void baseRefChange(XsdMultipleElements owner, XsdGroup group) {
         if (owner.getUnresolvedGroups().stream()
                 .filter(referenceElementObj -> referenceElementObj.getRef() != null &&
                         referenceElementObj.getRef().equals(group.getName()))
@@ -28,7 +30,7 @@ public abstract class RefVisitor extends Visitor {
         }
     }
 
-    void baseRefChange(XsdMultipleElements owner, XsdElement element){
+    protected void baseRefChange(XsdMultipleElements owner, XsdElement element){
         owner.getElements()
                 .stream()
                 .filter(referenceElementObj -> referenceElementObj.getRef() != null &&

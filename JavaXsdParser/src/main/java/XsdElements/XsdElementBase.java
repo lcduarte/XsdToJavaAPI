@@ -1,5 +1,6 @@
 package XsdElements;
 
+import XsdElements.Visitors.Visitor;
 import XsdParser.XsdParser;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;

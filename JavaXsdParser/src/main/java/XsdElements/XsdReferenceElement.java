@@ -1,5 +1,6 @@
 package XsdElements;
 
+import XsdElements.Visitors.RefVisitor;
 import org.w3c.dom.NamedNodeMap;
 
 public abstract class XsdReferenceElement extends XsdElementBase {
@@ -36,7 +37,7 @@ public abstract class XsdReferenceElement extends XsdElementBase {
         return parent;
     }
 
-    void setParent(XsdElementBase parent) {
+    public void setParent(XsdElementBase parent) {
         this.parent = parent;
     }
 

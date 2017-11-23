@@ -1,5 +1,8 @@
 package XsdElements;
 
+import XsdElements.Visitors.RefVisitor;
+import XsdElements.Visitors.Visitor;
+import XsdElements.Visitors.VisitorNotFoundException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

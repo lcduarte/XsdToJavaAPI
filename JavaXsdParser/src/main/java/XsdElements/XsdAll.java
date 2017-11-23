@@ -1,5 +1,7 @@
 package XsdElements;
 
+import XsdElements.Visitors.RefVisitor;
+import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
 
 public class XsdAll extends XsdMultipleElements {
@@ -21,7 +23,7 @@ public class XsdAll extends XsdMultipleElements {
         return xsdParseSkeleton(node, new XsdAll());
     }
 
-    class AllVisitor extends RefVisitor{
+    class AllVisitor extends RefVisitor {
 
         XsdAll owner;
 
