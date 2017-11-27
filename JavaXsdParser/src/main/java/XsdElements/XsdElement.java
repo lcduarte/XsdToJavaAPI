@@ -1,9 +1,11 @@
 package XsdElements;
 
-import XsdElements.Visitors.RefVisitor;
+import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import java.util.List;
 
 public class XsdElement extends XsdReferenceElement {
 
@@ -18,9 +20,9 @@ public class XsdElement extends XsdReferenceElement {
     public static final String BLOCK = "block";
     public static final String FINAL = "final";
 
-    private Visitor visitor = new ElementVisitor(this);
+    private Visitor visitor = new ElementVisitor();
 
-    private XsdComplexType complexType;
+    private ReferenceBase complexType;
 
     private String type;
     private String substitutionGroup;
@@ -49,13 +51,7 @@ public class XsdElement extends XsdReferenceElement {
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public void acceptRefSubstitution(RefVisitor visitor) {
-        //System.out.println("REF : " + visitor.getClass() + " with parameter type " + this.getClass());
-
-        visitor.visitRefChange(this);
+        this.setParent(visitor.getOwner());
     }
 
     @Override
@@ -63,12 +59,17 @@ public class XsdElement extends XsdReferenceElement {
         return visitor;
     }
 
+    @Override
+    public List<ReferenceBase> getElements() {
+        return null;
+    }
+
     private void setComplexType(XsdComplexType complexType) {
-        this.complexType = complexType;
+        this.complexType = ReferenceBase.createFromXsd(complexType);
     }
 
     public XsdComplexType getComplexType() {
-        return complexType;
+        return complexType == null ? null : (XsdComplexType) complexType.getElement();
     }
 
     public String getType(){
@@ -107,27 +108,21 @@ public class XsdElement extends XsdReferenceElement {
         return finalObj;
     }
 
-    public static XsdElementBase parse(Node node){
+    public static ReferenceBase parse(Node node){
         return xsdParseSkeleton(node, new XsdElement());
     }
 
     class ElementVisitor extends Visitor{
 
-        XsdElement owner;
-
-        ElementVisitor(XsdElement owner){
-            this.owner = owner;
-        }
-
         @Override
-        public XsdElement getOwner() {
-            return owner;
+        public XsdElementBase getOwner() {
+            return XsdElement.this;
         }
 
         @Override
         public void visit(XsdComplexType element) {
             super.visit(element);
-            owner.setComplexType(element);
+            XsdElement.this.setComplexType(element);
         }
     }
 }

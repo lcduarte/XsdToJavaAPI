@@ -1,9 +1,14 @@
 package XsdElements;
 
+import XsdElements.ElementsWrapper.ConcreteElement;
+import XsdElements.ElementsWrapper.ReferenceBase;
+import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdElements.Visitors.Visitor;
 import XsdParser.XsdParser;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import java.util.List;
 
 public abstract class XsdElementBase {
 
@@ -16,13 +21,19 @@ public abstract class XsdElementBase {
     private String id;
     private String maxOccurs;
     private String minOccurs;
+    private XsdElementBase parent;
 
-    public void setAttributes(NamedNodeMap attributes){
-        this.nodeAttributes = attributes;
 
-        this.id = attributes.getNamedItem(ID) == null ? null : attributes.getNamedItem(ID).getNodeValue();
-        this.minOccurs = attributes.getNamedItem(MIN_OCCURS) == null ? null : attributes.getNamedItem(MIN_OCCURS).getNodeValue();
-        this.maxOccurs = attributes.getNamedItem(MAX_OCCURS) == null ? null : attributes.getNamedItem(MAX_OCCURS).getNodeValue();
+    /**
+     * This method serves as a base to all XsdElements which need to set their class specific attributes
+     * @param nodeAttributes The node containing all attributes of a XSDElement
+     */
+    public void setAttributes(NamedNodeMap nodeAttributes){
+        this.nodeAttributes = nodeAttributes;
+
+        this.id = nodeAttributes.getNamedItem(ID) == null ? null : nodeAttributes.getNamedItem(ID).getNodeValue();
+        this.minOccurs = nodeAttributes.getNamedItem(MIN_OCCURS) == null ? null : nodeAttributes.getNamedItem(MIN_OCCURS).getNodeValue();
+        this.maxOccurs = nodeAttributes.getNamedItem(MAX_OCCURS) == null ? null : nodeAttributes.getNamedItem(MAX_OCCURS).getNodeValue();
     }
 
     public NamedNodeMap getNodeAttributes() {
@@ -45,8 +56,15 @@ public abstract class XsdElementBase {
 
     public abstract Visitor getVisitor();
 
-    static XsdElementBase xsdParseSkeleton(Node node, XsdElementBase element){
-        element.setAttributes(node.getAttributes());
+
+    /**
+     * @param node The node from where the element will be parsed
+     * @param element The concrete element that will be populated and returned
+     * @return A wrapper object that contains the parsed XSD object.
+     */
+    static ReferenceBase xsdParseSkeleton(Node node, XsdElementBase element){
+        NamedNodeMap attributes = node.getAttributes();
+        element.setAttributes(attributes);
 
         Node child = node.getFirstChild();
 
@@ -55,13 +73,41 @@ public abstract class XsdElementBase {
                 String nodeName = child.getNodeName();
 
                 if (XsdParser.parseMapper.containsKey(nodeName)){
-                    XsdParser.parseMapper.get(nodeName).apply(child).accept(element.getVisitor());
+                    XsdParser.parseMapper.get(nodeName).apply(child).getElement().accept(element.getVisitor());
                 }
             }
 
             child = child.getNextSibling();
         }
 
-        return element;
+        return ReferenceBase.createFromXsd(element);
+    }
+
+    /**
+     * This method iterates on the current element children and replaces any UnsolvedReference object that has a
+     * ref attribute that matches a ConcreteElement name attribute
+     * @param element A concrete element that will replace a unsolved reference, if existent
+     */
+    public void baseRefChange(ConcreteElement element){
+        List<ReferenceBase> elements = this.getElements();
+
+        if (elements != null){
+            elements.stream()
+                .filter(referenceBase -> referenceBase instanceof UnsolvedReference)
+                .map(referenceBase -> (UnsolvedReference) referenceBase)
+                .filter(unsolvedReference -> unsolvedReference.getRef().equals(element.getName()))
+                .findFirst()
+                .ifPresent(oldElement -> elements.set(elements.indexOf(oldElement), element));
+        }
+    }
+
+    public abstract List<ReferenceBase> getElements();
+
+    public XsdElementBase getParent() {
+        return parent;
+    }
+
+    void setParent(XsdElementBase parent) {
+        this.parent = parent;
     }
 }

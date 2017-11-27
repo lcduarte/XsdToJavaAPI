@@ -1,17 +1,14 @@
 package XsdClassGenerator;
 
-import XsdElements.XsdElement;
-import XsdElements.XsdElementBase;
-import XsdElements.XsdGroup;
-import XsdElements.XsdMultipleElements;
+import XsdElements.*;
+import XsdElements.ElementsWrapper.ConcreteElement;
+import XsdElements.ElementsWrapper.ReferenceBase;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.objectweb.asm.Opcodes.*;
 
@@ -22,16 +19,25 @@ public class XsdClassGenerator {
     private static final String JAVA_STRING = "Ljava/lang/String;";
     private static final String CONSTRUCTOR = "<init>";
 
-    private Map<String, List<XsdElement>> groupInterfaces = new HashMap<>();
+    private Map<String, List<ConcreteElement>> groupInterfaces = new HashMap<>();
 
-    public void generateClassFromElements(List<XsdElement> elementList){
+    public void generateClassFromElements(List<ReferenceBase> elementList){
+        List<ConcreteElement> concreteElementList = elementList.stream()
+                                                                .filter(element -> element instanceof ConcreteElement)
+                                                                .map(element -> (ConcreteElement) element)
+                                                                .filter(element -> element.getElement() instanceof XsdElement)
+                                                                .collect(Collectors.toList());
+
         generateBaseElement();
 
-        elementList.forEach(this::generateClassFromElement);
+        concreteElementList.forEach(this::generateClassFromElement);
 
         generateInterfaces();
     }
 
+    /**
+     * Generates a BaseElement which will contain all the behaviour/attributes common to all the generated classes
+     */
     private void generateBaseElement() {
         List<String> fields = XsdClassGeneratorUtils.getElementFields();
 
@@ -47,28 +53,41 @@ public class XsdClassGenerator {
         XsdClassGeneratorUtils.writeClassToFile(BASE_CLASS, classWriter.toByteArray());
     }
 
-    private void generateClassFromElement(XsdElement element) {
-        String className = XsdClassGeneratorUtils.toCamelCase(element.getName());
 
-        List<String> fields = XsdClassGeneratorUtils.getElementFields();
-        List<XsdElement> childs = getOwnChilds(element);
-        String[] interfaces = getSharedInterfaces(element);
+    /**
+     * Generates a class from a given XsdElement. It also generated its constructors and methods.
+     * @param elementWrapper The wrapper which contains the element from which the class will be generated.
+     */
+    private void generateClassFromElement(ConcreteElement elementWrapper) {
+        if (elementWrapper.getElement() instanceof XsdElement){
+            XsdElement element = (XsdElement) elementWrapper.getElement();
 
-        ClassWriter classWriter = generateClass(className, XsdClassGeneratorUtils.getFullClassTypeName(BASE_CLASS), interfaces);
+            String className = XsdClassGeneratorUtils.toCamelCase(element.getName());
 
-        generatePublicConstructor(classWriter, fields, className);
+            List<String> fields = XsdClassGeneratorUtils.getElementFields();
+            List<ConcreteElement> childs = getOwnChildren(element);
+            String[] interfaces = getSharedInterfaces(element);
 
-        generateMethods(classWriter, childs);
+            ClassWriter classWriter = generateClass(className, XsdClassGeneratorUtils.getFullClassTypeName(BASE_CLASS), interfaces);
 
-        classWriter.visitEnd();
+            generatePublicConstructor(classWriter, fields, className);
 
-        XsdClassGeneratorUtils.writeClassToFile(className, classWriter.toByteArray());
+            generateMethods(classWriter, childs);
+
+            classWriter.visitEnd();
+
+            XsdClassGeneratorUtils.writeClassToFile(className, classWriter.toByteArray());
+        }
     }
 
     private void generateInterfaces() {
         groupInterfaces.keySet().forEach(this::generateInterface);
     }
 
+    /**
+     * Generates a interface with all its methods. It uses the information gathered about in groupInterfaces
+     * @param interfaceName The interface name.
+     */
     private void generateInterface(String interfaceName){
         ClassWriter interfaceWriter = generateClass(interfaceName, JAVA_OBJECT, new String[]{}, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE);
 
@@ -79,12 +98,14 @@ public class XsdClassGenerator {
         XsdClassGeneratorUtils.writeClassToFile(interfaceName, interfaceWriter.toByteArray());
     }
 
-    private void generateMethods(ClassWriter classWriter, List<XsdElement> childs) {
-        for (XsdElement child : childs) {
-            if (child.getName() == null && child.getRef().equals("math")){
-                continue;
-            }
-
+    /**
+     * Generates all the method from a given class.
+     * @param classWriter The class where the method will be written.
+     * @param childs The children of the element which generated the class. Their name represents a
+     *               class name from another class.
+     */
+    private void generateMethods(ClassWriter classWriter, List<ConcreteElement> childs) {
+        for (ConcreteElement child : childs) {
             String childCamelName = XsdClassGeneratorUtils.toCamelCase(child.getName());
 
             MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "()" + XsdClassGeneratorUtils.getFullClassName(childCamelName), null, null);
@@ -98,6 +119,13 @@ public class XsdClassGenerator {
         }
     }
 
+
+    /**
+     * Generates field for a given class.
+     * @param classWriter The class where the fields will be added.
+     * @param fields The name of the fields to be created. (Only String fields are being supported)
+     * @param className The class name from the class where the field will be added.
+     */
     private void generateFields(ClassWriter classWriter, List<String> fields, String className) {
         FieldVisitor fieldVisitor;
         MethodVisitor methodVisitor;
@@ -136,6 +164,13 @@ public class XsdClassGenerator {
         generateConstructor(classWriter, fields, className, ACC_PUBLIC);
     }
 
+    /**
+     * Generates a default constructor and another with all the parameters.
+     * @param classWriter The class writer from the class where the constructors will be added.
+     * @param fields The name of the fields of this class, needed for making the constructor with the parameters.
+     * @param className The class name
+     * @param constructorType The modifiers for the constructor
+     */
     private void generateConstructor(ClassWriter classWriter, List<String> fields, String className, int constructorType) {
         String constructorParameters = "(" + String.join("", Collections.nCopies(fields.size(),JAVA_STRING)) + ")V";
 
@@ -179,6 +214,14 @@ public class XsdClassGenerator {
         defaultConstructor.visitEnd();
     }
 
+    /**
+     * Generates an empty class.
+     * @param className The classes name.
+     * @param superName The super object, which the class extends from.
+     * @param interfaces The name of the interfaces which this class implements.
+     * @param classModifiers The modifiers to the class.
+     * @return A class writer that will be used to write the remaining information of the class.
+     */
     private ClassWriter generateClass(String className, String superName, String[] interfaces, int classModifiers) {
         ClassWriter classWriter = new ClassWriter(0);
 
@@ -195,15 +238,23 @@ public class XsdClassGenerator {
         return generateClass(className, JAVA_OBJECT, new String[]{}, ACC_PUBLIC);
     }
 
+    /**
+     * This method obtains the interfaces which his class will be implementing.
+     * The interfaces are represented in XsdElements as XsdGroups, and their respective.
+     * methods as children of the XsdGroup.
+     * @param element The element from which the interfaces will be obtained.
+     * @return A string array containing the names of all the interfaces this method implements in
+     * interface-like names, e.g. flowContent will be IFlowContent.
+     */
     private String[] getSharedInterfaces(XsdElement element){
         //Groups in XSD will be equivalent to java Interfaces.
         if (element.getComplexType() != null){
-            XsdElementBase elementBase = element.getComplexType().getChildElement();
+            ReferenceBase elementWrapper = element.getComplexType().getChildElement();
 
-            if (elementBase instanceof XsdMultipleElements){
-                XsdMultipleElements multipleElementContainer = (XsdMultipleElements) elementBase;
+            if (elementWrapper instanceof ConcreteElement){
+                ConcreteElement complexTypeChild = (ConcreteElement) elementWrapper;
 
-                Map<String, List<XsdElement>> groupElements = multipleElementContainer.getGroupElements();
+                Map<String, List<ReferenceBase>> groupElements = ((XsdMultipleElements)complexTypeChild.getElement()).getGroupElements();
 
                 return getInterfaceNames(groupElements);
             }
@@ -212,13 +263,25 @@ public class XsdClassGenerator {
         return new String[0];
     }
 
-    private String[] getInterfaceNames(Map<String, List<XsdElement>> groupElements) {
+    /**
+     * This method will populate the groupInterfaces field with all the interface information
+     * that will be obtained while creating the classes in order to create all the needed interfaces
+     * afterwards.
+     * @param groupElements The Map containing the information about interfaces from a given element.
+     * @return A string array containing the names of all the interfaces this method implements in
+     * interface-like names, e.g. flowContent will be IFlowContent.
+     */
+    private String[] getInterfaceNames(Map<String, List<ReferenceBase>> groupElements) {
         String[] groupNames = new String[groupElements.keySet().size()];
         groupNames = groupElements.keySet().toArray(groupNames);
 
-        groupElements.keySet().forEach(groupName -> {
+        groupElements.keySet().forEach((String groupName) -> {
             if (!groupInterfaces.containsKey(groupName)){
-                groupInterfaces.put(XsdClassGeneratorUtils.getInterfaceName(groupName), groupElements.get(groupName));
+                groupInterfaces.put(XsdClassGeneratorUtils.getInterfaceName(groupName), groupElements.get(groupName)
+                                                                                                        .stream()
+                                                                                                        .filter(element -> element instanceof ConcreteElement)
+                                                                                                        .map(element -> (ConcreteElement) element)
+                                                                                                        .collect(Collectors.toList()));
             }
         });
 
@@ -229,17 +292,26 @@ public class XsdClassGenerator {
         return groupNames;
     }
 
-    private List<XsdElement> getOwnChilds(XsdElement element) {
+    /**
+     * Returns all the concrete children of a given element. With the separation made between
+     * XsdGroups children and the remaining children this method is able to return only the
+     * children that are not shared in any interface.
+     * @param element The element from which the children will be obtained.
+     * @return The children that are exclusive to the current element.
+     */
+    private List<ConcreteElement> getOwnChildren(XsdElement element) {
         if (element.getComplexType() != null){
-            XsdElementBase elementBase = element.getComplexType().getChildElement();
+            ReferenceBase elementWrapper = element.getComplexType().getChildElement();
 
-            if (elementBase != null) {
-                if (elementBase instanceof XsdGroup){
-                    return ((XsdGroup) elementBase).getChildElement().getElements();
-                }
-
-                if (elementBase instanceof XsdMultipleElements) {
-                    return ((XsdMultipleElements) elementBase).getElements();
+            if (elementWrapper != null) {
+                if (elementWrapper instanceof ConcreteElement){
+                    return elementWrapper.getElement()
+                            .getElements()
+                            .stream()
+                            .filter(referenceBase -> referenceBase instanceof ConcreteElement)
+                            .filter(referenceBase -> !(referenceBase.getElement().getParent() instanceof XsdGroup))
+                            .map(referenceBase -> (ConcreteElement) referenceBase)
+                            .collect(Collectors.toList());
                 }
             }
         }

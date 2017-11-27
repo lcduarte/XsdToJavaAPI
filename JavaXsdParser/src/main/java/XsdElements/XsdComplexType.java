@@ -1,6 +1,7 @@
 package XsdElements;
 
-import XsdElements.Visitors.RefVisitor;
+import XsdElements.ElementsWrapper.ConcreteElement;
+import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -17,17 +18,16 @@ public class XsdComplexType extends XsdElementBase {
     public static final String BLOCK = "xsd:complexType";
     public static final String FINAL = "xsd:complexType";
 
+    private ComplexTypeVisitor visitor = new ComplexTypeVisitor();
 
-    private ComplexTypeVisitor visitor = new ComplexTypeVisitor(this);
-
-    private XsdElementBase childElement;
+    private ReferenceBase childElement;
 
     private String name;
     private String elementAbstract;
     private String mixed;
     private String block;
     private String elementFinal;
-    private List<XsdAttribute> attributes = new ArrayList<>();
+    private List<ReferenceBase> attributes = new ArrayList<>();
 
     @Override
     public void setAttributes(NamedNodeMap attributes) {
@@ -43,6 +43,7 @@ public class XsdComplexType extends XsdElementBase {
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
+        this.setParent(visitor.getOwner());
     }
 
     @Override
@@ -50,23 +51,39 @@ public class XsdComplexType extends XsdElementBase {
         return visitor;
     }
 
+    @Override
+    public List<ReferenceBase> getElements() {
+        return childElement == null ? null : childElement.getElement().getElements();
+    }
+
+    @Override
+    public void baseRefChange(ConcreteElement element) {
+        super.baseRefChange(element);
+
+        if (element.getElement() instanceof  XsdAttributeGroup){
+            XsdAttributeGroup attributeGroup = (XsdAttributeGroup) element.getElement();
+
+            this.addAttributes(attributeGroup.getElements());
+        }
+    }
+
     private void setChildElement(XsdMultipleElements element){
-        this.childElement = element;
+        this.childElement = ReferenceBase.createFromXsd(element);
     }
 
     private void setChildElement(XsdGroup element){
-        this.childElement = element;
+        this.childElement = ReferenceBase.createFromXsd(element);
     }
 
-    private void addAttributes(XsdAttribute attribute) {
+    private void addAttributes(ReferenceBase attribute) {
         this.attributes.add(attribute);
     }
 
-    private void addAttributes(List<XsdAttribute> attributes) {
+    private void addAttributes(List<ReferenceBase> attributes) {
         this.attributes.addAll(attributes);
     }
 
-    public XsdElementBase getChildElement() {
+    public ReferenceBase getChildElement() {
         return childElement;
     }
 
@@ -90,61 +107,38 @@ public class XsdComplexType extends XsdElementBase {
         return elementFinal;
     }
 
-    public List<XsdAttribute> getAttributes() {
+    public List<ReferenceBase> getAttributes() {
         return attributes;
     }
 
-    public static XsdElementBase parse(Node node){
+    public static ReferenceBase parse(Node node){
         return xsdParseSkeleton(node, new XsdComplexType());
     }
 
-    class ComplexTypeVisitor extends RefVisitor {
-
-        private final XsdComplexType owner;
-
-        ComplexTypeVisitor(XsdComplexType owner){
-            this.owner = owner;
-        }
+    class ComplexTypeVisitor extends Visitor {
 
         @Override
-        public XsdComplexType getOwner() {
-            return owner;
+        public XsdElementBase getOwner() {
+            return XsdComplexType.this;
         }
 
         @Override
         public void visit(XsdMultipleElements element) {
             super.visit(element);
-            owner.setChildElement(element);
+            XsdComplexType.this.setChildElement(element);
         }
 
         @Override
         public void visit(XsdGroup element) {
             super.visit(element);
-            owner.setChildElement(element);
+            XsdComplexType.this.setChildElement(element);
         }
 
         @Override
         public void visit(XsdAttribute attribute) {
             super.visit(attribute);
-            owner.addAttributes(attribute);
+            XsdComplexType.this.addAttributes(ReferenceBase.createFromXsd(attribute));
         }
 
-        @Override
-        public void visitRefChange(XsdAttributeGroup element) {
-            super.visitRefChange(element);
-
-            owner.addAttributes(element.getAttributes());
-        }
-
-        @Override
-        public void visitRefChange(XsdAttribute element) {
-            super.visitRefChange(element);
-
-            owner.attributes
-                    .stream()
-                    .filter(attributeElement -> attributeElement.getRef().equals(element.getName()))
-                    .findFirst()
-                    .ifPresent(xsdAttribute -> owner.attributes.set(owner.attributes.indexOf(xsdAttribute), element));
-        }
     }
 }

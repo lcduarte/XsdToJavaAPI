@@ -1,7 +1,9 @@
 package XsdParser;
 
 import XsdElements.*;
-import XsdElements.Visitors.RefVisitor;
+import XsdElements.ElementsWrapper.ConcreteElement;
+import XsdElements.ElementsWrapper.ReferenceBase;
+import XsdElements.ElementsWrapper.UnsolvedReference;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -18,11 +20,11 @@ import java.util.stream.Collectors;
 
 public class XsdParser {
 
-    public static HashMap<String, Function<Node, XsdElementBase>> parseMapper;
+    public static HashMap<String, Function<Node, ReferenceBase>> parseMapper;
     private static XsdParser instance;
 
-    private List<XsdElementBase> elements = new ArrayList<>();
-    private List<XsdReferenceElement> unsolvedElements = new ArrayList<>();
+    private List<ReferenceBase> elements = new ArrayList<>();
+    private List<UnsolvedReference> unsolvedElements = new ArrayList<>();
 
     static {
         parseMapper = new HashMap<>();
@@ -41,7 +43,14 @@ public class XsdParser {
         instance = this;
     }
 
-    public List<XsdElement> parse(String filePath) {
+    /**
+     * Parses a Xsd file and all the contained elements. This code iterates on the nodes and parses
+     * the supported ones. The supported types are identified by their TAG, in parseMapper which maps
+     * the xsd tag to a function that parses that xsd type.
+     * @param filePath The file path to the xsd file.
+     * @return A list of parsed wrapped xsd elements.
+     */
+    public List<ReferenceBase> parse(String filePath) {
         //https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
         try {
             URL resourceUrl = XsdParser.class.getClassLoader().getResource(filePath);
@@ -75,34 +84,36 @@ public class XsdParser {
 
         resolveRefs();
 
-        return elements.stream()
-                .filter(elementBase -> elementBase instanceof XsdElement)
-                .map(element -> (XsdElement) element)
-                .collect(Collectors.toList());
+        return elements;
     }
 
+    /**
+     * This method resolves all the remaining UnsolvedReferences. It starts by gathering all the named
+     * elements and then iterates on the unsolvedElements List in order to find if any of the unsolvedReferences
+     * can be solved by replacing the unsolvedElement by its matching ConcreteElement, present in the
+     * concreteElementsMap. The unsolvedReference matches a ConcreteElement by having its ref attribute
+     * with the same value as the name attribute of the ConcreteElement.
+     */
     private void resolveRefs() {
-        HashMap<String, XsdReferenceElement> namedElements = new HashMap<>();
+        HashMap<String, ConcreteElement> concreteElementsMap = new HashMap<>();
 
-        List<XsdReferenceElement> referenceElements = elements.stream()
-                .filter(elementBase -> elementBase instanceof XsdReferenceElement)
-                .map(elementBase -> (XsdReferenceElement) elementBase)
+        List<ConcreteElement> concreteElements = elements.stream()
+                .filter(concreteElement -> concreteElement instanceof ConcreteElement)
+                .map(concreteElement -> (ConcreteElement) concreteElement)
                 .collect(Collectors.toList());
 
-        referenceElements.stream()
-                .filter(referenceElement -> referenceElement.getName() != null)
-                .forEach(referenceElement -> namedElements.put(referenceElement.getName(), referenceElement));
+        concreteElements
+                .forEach(referenceElement -> concreteElementsMap.put(referenceElement.getName(), referenceElement));
 
-        unsolvedElements.stream()
-                .filter(referenceElement -> referenceElement.getRef() != null)
-                .forEach(oldReferenceElement -> {
-                    if (namedElements.containsKey(oldReferenceElement.getRef())){
-                        XsdReferenceElement newReferenceElement = namedElements.get(oldReferenceElement.getRef());
-                        newReferenceElement.setAttributes(oldReferenceElement.getNodeAttributes());
+        unsolvedElements
+                .forEach(unsolvedReference -> {
+                    if (concreteElementsMap.containsKey(unsolvedReference.getRef())){
+                        ConcreteElement concreteElement = concreteElementsMap.get(unsolvedReference.getRef());
+                        concreteElement.getElement().setAttributes(unsolvedReference.getElement().getNodeAttributes());
 
-                        newReferenceElement.acceptRefSubstitution((RefVisitor) oldReferenceElement.getParent().getVisitor());
+                        unsolvedReference.getParent().getElement().baseRefChange(concreteElement);
                     } else {
-                        System.err.println(oldReferenceElement.getRef());
+                        System.err.println(unsolvedReference.getRef());
                     }
                 });
     }
@@ -111,7 +122,7 @@ public class XsdParser {
         return instance;
     }
 
-    public void addUnsolvedReference(XsdReferenceElement referenceElement){
-        unsolvedElements.add(referenceElement);
+    public void addUnsolvedReference(UnsolvedReference unsolvedReference){
+        unsolvedElements.add(unsolvedReference);
     }
 }

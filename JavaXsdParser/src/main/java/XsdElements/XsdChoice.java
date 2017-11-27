@@ -1,6 +1,7 @@
 package XsdElements;
 
-import XsdElements.Visitors.RefVisitor;
+import XsdElements.ElementsWrapper.ReferenceBase;
+import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
 
@@ -8,11 +9,12 @@ public class XsdChoice extends XsdMultipleElements{
 
     public static final String TAG = "xsd:choice";
 
-    private ChoiceVisitor visitor = new ChoiceVisitor(this);;
+    private ChoiceVisitor visitor = new ChoiceVisitor();
 
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
+        this.setParent(visitor.getOwner());
     }
 
     @Override
@@ -24,9 +26,9 @@ public class XsdChoice extends XsdMultipleElements{
         XsdMultipleElements groupChild = groupElement.getChildElement();
 
         if (groupChild != null){
-            super.addGroup(groupElement.getName(), groupElement.getChildElement().getElements());
+            super.addElements(groupElement.getChildElement().getElements());
         } else {
-            addUnsolvedGroup(groupElement);
+            super.addElement(new UnsolvedReference(groupElement));
         }
     }
 
@@ -38,59 +40,40 @@ public class XsdChoice extends XsdMultipleElements{
         super.addElements(sequenceElement.getElements());
     }
 
-    public static XsdElementBase parse(Node node){
+    public static ReferenceBase parse(Node node){
         return xsdParseSkeleton(node, new XsdChoice());
     }
 
-    class ChoiceVisitor extends RefVisitor {
-
-        private final XsdChoice owner;
-
-        ChoiceVisitor(XsdChoice owner){
-            this.owner = owner;
-        }
+    class ChoiceVisitor extends Visitor {
 
         @Override
-        public XsdChoice getOwner() {
-            return owner;
+        public XsdElementBase getOwner() {
+            return XsdChoice.this;
         }
 
         @Override
         public void visit(XsdElement element) {
             super.visit(element);
-            owner.addElement(element);
+            XsdChoice.this.addElement(ReferenceBase.createFromXsd(element));
         }
 
         @Override
         public void visit(XsdGroup element) {
             super.visit(element);
-            owner.addElement(element);
+            XsdChoice.this.addElement(element);
         }
 
         @Override
         public void visit(XsdChoice element) {
             super.visit(element);
-            owner.addElement(element);
+            XsdChoice.this.addElement(element);
         }
 
         @Override
         public void visit(XsdSequence element) {
             super.visit(element);
-            owner.addElement(element);
+            XsdChoice.this.addElement(element);
         }
 
-        @Override
-        public void visitRefChange(XsdGroup element) {
-            super.visitRefChange(element);
-
-            baseRefChange(owner, element);
-        }
-
-        @Override
-        public void visitRefChange(XsdElement element) {
-            super.visitRefChange(element);
-
-            baseRefChange(owner, element);
-        }
     }
 }

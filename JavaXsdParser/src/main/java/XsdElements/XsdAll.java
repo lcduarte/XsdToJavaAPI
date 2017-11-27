@@ -1,17 +1,18 @@
 package XsdElements;
 
-import XsdElements.Visitors.RefVisitor;
+import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
 
 public class XsdAll extends XsdMultipleElements {
 
     public static final String TAG = "xsd:all";
-    private final AllVisitor visitor = new AllVisitor(this);
+    private final AllVisitor visitor = new AllVisitor();
 
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
+        this.setParent(visitor.getOwner());
     }
 
     @Override
@@ -19,41 +20,21 @@ public class XsdAll extends XsdMultipleElements {
         return visitor;
     }
 
-    public static XsdElementBase parse(Node node) {
+    public static ReferenceBase parse(Node node) {
         return xsdParseSkeleton(node, new XsdAll());
     }
 
-    class AllVisitor extends RefVisitor {
-
-        XsdAll owner;
-
-        AllVisitor(XsdAll owner){
-            this.owner = owner;
-        }
+    class AllVisitor extends Visitor {
 
         @Override
-        public XsdAll getOwner() {
-            return owner;
+        public XsdElementBase getOwner() {
+            return XsdAll.this;
         }
 
         @Override
         public void visit(XsdElement element) {
             super.visit(element);
-            owner.addElement(element);
-        }
-
-        @Override
-        public void visitRefChange(XsdGroup element) {
-            super.visitRefChange(element);
-
-            baseRefChange(owner, element);
-        }
-
-        @Override
-        public void visitRefChange(XsdElement element) {
-            super.visitRefChange(element);
-
-            baseRefChange(owner, element);
+            XsdAll.this.addElement(ReferenceBase.createFromXsd(element));
         }
     }
 }

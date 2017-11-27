@@ -1,6 +1,8 @@
 package XsdElements.Visitors;
 
 import XsdElements.*;
+import XsdElements.ElementsWrapper.ReferenceBase;
+import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdParser.XsdParser;
 
 public abstract class Visitor {
@@ -42,12 +44,12 @@ public abstract class Visitor {
     }
 
     private void visit(XsdReferenceElement element){
-        if (element.getRef() != null){
-            element.setParent(getOwner());
-            XsdParser.getInstance().addUnsolvedReference(element);
+        ReferenceBase referenceBase = ReferenceBase.createFromXsd(element);
+
+        if (referenceBase instanceof UnsolvedReference){
+            XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) referenceBase);
         }
     }
 
-    protected abstract XsdElementBase getOwner();
-
+    public abstract XsdElementBase getOwner();
 }

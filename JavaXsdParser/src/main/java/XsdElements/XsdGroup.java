@@ -1,27 +1,23 @@
 package XsdElements;
 
-import XsdElements.Visitors.RefVisitor;
+import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
+
+import java.util.List;
 
 public class XsdGroup extends XsdReferenceElement {
 
     public static final String TAG = "xsd:group";
 
-    private GroupVisitor visitor = new GroupVisitor(this);
+    private GroupVisitor visitor = new GroupVisitor();
 
     private XsdMultipleElements childElement;
 
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public void acceptRefSubstitution(RefVisitor visitor) {
-        //System.out.println("REF : " + visitor.getClass() + " with parameter type " + this.getClass());
-
-        visitor.visitRefChange(this);
+        this.setParent(visitor.getOwner());
     }
 
     @Override
@@ -29,36 +25,36 @@ public class XsdGroup extends XsdReferenceElement {
         return visitor;
     }
 
+    @Override
+    public List<ReferenceBase> getElements() {
+        return childElement.getElements();
+    }
+
     private void setChildElement(XsdMultipleElements childElement) {
+        childElement.getElements().forEach(childElementObj -> childElementObj.getElement().setParent(this));
         this.childElement = childElement;
     }
 
-    public XsdMultipleElements getChildElement() {
+    XsdMultipleElements getChildElement() {
         return childElement;
     }
 
-    public static XsdElementBase parse(Node node){
+    public static ReferenceBase parse(Node node){
         return xsdParseSkeleton(node, new XsdGroup());
     }
 
     class GroupVisitor extends Visitor {
 
-        private final XsdGroup owner;
-
-        GroupVisitor(XsdGroup owner){
-            this.owner = owner;
-        }
-
         @Override
-        public XsdGroup getOwner() {
-            return owner;
+        public XsdElementBase getOwner() {
+            return XsdGroup.this;
         }
 
         @Override
         public void visit(XsdMultipleElements element) {
             super.visit(element);
 
-            owner.setChildElement(element);
+            XsdGroup.this.setChildElement(element);
         }
     }
 }

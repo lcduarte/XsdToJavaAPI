@@ -1,17 +1,16 @@
 package XsdElements;
 
-import XsdElements.Visitors.RefVisitor;
 import org.w3c.dom.NamedNodeMap;
 
+/**
+ * This class is an abstraction of all classes that can have a ref attribute, which helps
+ * distinguish those from the other XsdElements
+ */
 public abstract class XsdReferenceElement extends XsdElementBase {
 
-    private XsdElementBase parent;
-
     public static final String NAME = "name";
-    private static final String REF = "ref";
 
     private String name;
-    private String ref;
 
     @Override
     public void setAttributes(NamedNodeMap attributes) {
@@ -19,26 +18,11 @@ public abstract class XsdReferenceElement extends XsdElementBase {
 
         if (this.name == null){
             this.name = attributes.getNamedItem(NAME) == null ? null : attributes.getNamedItem(NAME).getNodeValue();
-            this.ref = attributes.getNamedItem(REF) == null ? null : attributes.getNamedItem(REF).getNodeValue();
         }
     }
 
-    public abstract void acceptRefSubstitution(RefVisitor visitor);
-
-    public String getName(){
+    public String getName() {
         return name;
-    }
-
-    public String getRef(){
-        return ref;
-    }
-
-    public XsdElementBase getParent() {
-        return parent;
-    }
-
-    public void setParent(XsdElementBase parent) {
-        this.parent = parent;
     }
 
 }

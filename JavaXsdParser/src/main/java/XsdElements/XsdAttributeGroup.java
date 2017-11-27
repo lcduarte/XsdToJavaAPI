@@ -1,6 +1,7 @@
 package XsdElements;
 
-import XsdElements.Visitors.RefVisitor;
+import XsdElements.ElementsWrapper.ConcreteElement;
+import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
 
@@ -10,20 +11,14 @@ import java.util.List;
 public class XsdAttributeGroup extends XsdReferenceElement {
 
     public static final String TAG = "xsd:attributeGroup";
-    private final AttributeGroupVisitor visitor = new AttributeGroupVisitor(this);
+    private final AttributeGroupVisitor visitor = new AttributeGroupVisitor();
 
-    private List<XsdAttribute> attributes = new ArrayList<>();
+    private List<ReferenceBase> attributes = new ArrayList<>();
 
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public void acceptRefSubstitution(RefVisitor visitor) {
-        //System.out.println("REF : " + visitor.getClass() + " with parameter type " + this.getClass());
-
-        visitor.visitRefChange(this);
+        this.setParent(visitor.getOwner());
     }
 
     @Override
@@ -31,45 +26,43 @@ public class XsdAttributeGroup extends XsdReferenceElement {
         return visitor;
     }
 
-    private void addAttributes(XsdAttribute attribute) {
-        this.attributes.add(attribute);
-    }
-
-    private void addAttributes(List<XsdAttribute> attributes) {
-        this.attributes.addAll(attributes);
-    }
-
-    List<XsdAttribute> getAttributes() {
+    @Override
+    public List<ReferenceBase> getElements() {
         return attributes;
     }
 
-    public static XsdElementBase parse(Node node) {
+    @Override
+    public void baseRefChange(ConcreteElement element) {
+        if (element.getElement() instanceof  XsdAttributeGroup){
+            XsdAttributeGroup attributeGroup = (XsdAttributeGroup) element.getElement();
+
+            this.addAttributes(attributeGroup.attributes);
+        }
+    }
+
+    private void addAttributes(ReferenceBase attribute) {
+        this.attributes.add(attribute);
+    }
+
+    private void addAttributes(List<ReferenceBase> attributes) {
+        this.attributes.addAll(attributes);
+    }
+
+    public static ReferenceBase parse(Node node) {
         return xsdParseSkeleton(node, new XsdAttributeGroup());
     }
 
-    class AttributeGroupVisitor extends RefVisitor {
-        private final XsdAttributeGroup owner;
-
-        AttributeGroupVisitor(XsdAttributeGroup owner) {
-            this.owner = owner;
-        }
+    class AttributeGroupVisitor extends Visitor {
 
         @Override
-        public XsdAttributeGroup getOwner() {
-            return owner;
+        public XsdElementBase getOwner() {
+            return XsdAttributeGroup.this;
         }
 
         @Override
         public void visit(XsdAttribute element) {
             super.visit(element);
-            owner.addAttributes(element);
-        }
-
-        @Override
-        public void visitRefChange(XsdAttributeGroup element) {
-            super.visitRefChange(element);
-
-            owner.addAttributes(element.getAttributes());
+            XsdAttributeGroup.this.addAttributes(ReferenceBase.createFromXsd(element));
         }
     }
 }

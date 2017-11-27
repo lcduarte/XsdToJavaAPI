@@ -1,10 +1,12 @@
 package XsdElements;
 
-import XsdElements.Visitors.RefVisitor;
+import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
 import XsdElements.Visitors.VisitorNotFoundException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import java.util.List;
 
 public class XsdAttribute extends XsdReferenceElement {
 
@@ -30,18 +32,17 @@ public class XsdAttribute extends XsdReferenceElement {
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public void acceptRefSubstitution(RefVisitor visitor) {
-        //System.out.println("REF : " + visitor.getClass() + " with parameter type " + this.getClass());
-
-        visitor.visitRefChange(this);
+        this.setParent(visitor.getOwner());
     }
 
     @Override
     public Visitor getVisitor() {
         throw new VisitorNotFoundException("XsdAttribute shouldn't have visitors");
+    }
+
+    @Override
+    public List<ReferenceBase> getElements() {
+        return null;
     }
 
     public String getDefaultElement() {
@@ -56,9 +57,12 @@ public class XsdAttribute extends XsdReferenceElement {
         return type;
     }
 
-    public static XsdElementBase parse(Node node) {
+    public static ReferenceBase parse(Node node) {
         // TODO Still missing the parsing of contained elements such as SimpleTypes.
 
-        return new XsdAttribute();
+        XsdAttribute attribute = new XsdAttribute();
+        attribute.setAttributes(node.getAttributes());
+
+        return ReferenceBase.createFromXsd(attribute);
     }
 }
