@@ -5,11 +5,21 @@ import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
 
+import java.util.HashMap;
+
 public class XsdChoice extends XsdMultipleElements{
 
     public static final String TAG = "xsd:choice";
 
     private ChoiceVisitor visitor = new ChoiceVisitor();
+
+    private XsdChoice(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+        super(parent, elementFieldsMap);
+    }
+
+    private XsdChoice(HashMap<String, String> elementFieldsMap) {
+        super(elementFieldsMap);
+    }
 
     @Override
     public void accept(Visitor visitor) {
@@ -20,6 +30,16 @@ public class XsdChoice extends XsdMultipleElements{
     @Override
     public ChoiceVisitor getVisitor() {
         return visitor;
+    }
+
+    @Override
+    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+        placeHolderAttributes.putAll(this.getElementFieldsMap());
+        XsdChoice elementCopy = new XsdChoice(this.getParent(), placeHolderAttributes);
+
+        elementCopy.addElements(this.getElements());
+
+        return elementCopy;
     }
 
     private void addElement(XsdGroup groupElement){
@@ -41,7 +61,7 @@ public class XsdChoice extends XsdMultipleElements{
     }
 
     public static ReferenceBase parse(Node node){
-        return xsdParseSkeleton(node, new XsdChoice());
+        return xsdParseSkeleton(node, new XsdChoice(convertNodeMap(node.getAttributes())));
     }
 
     class ChoiceVisitor extends Visitor {

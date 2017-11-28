@@ -2,13 +2,12 @@ package XsdElements.ElementsWrapper;
 
 import XsdElements.XsdElementBase;
 import XsdElements.XsdReferenceElement;
-import org.w3c.dom.Node;
 
 import static XsdElements.XsdReferenceElement.NAME;
 
 public abstract class ReferenceBase {
 
-    private static final String REF = "ref";
+    public static final String REF = "ref";
 
     public abstract XsdElementBase getElement();
 
@@ -21,15 +20,16 @@ public abstract class ReferenceBase {
      */
     public static ReferenceBase createFromXsd(XsdElementBase element) {
         String ref = getRef(element);
+        String name = getName(element);
 
-        if (ref != null){
+        if (ref == null || name != null){
+            return new ConcreteElement(element);
+        } else {
             if (element instanceof XsdReferenceElement){
                 return new UnsolvedReference((XsdReferenceElement) element);
             }
 
             throw new RuntimeException("Invalid element parameter");
-        } else {
-            return new ConcreteElement(element);
         }
     }
 
@@ -47,8 +47,6 @@ public abstract class ReferenceBase {
      * @return The value of the attribute contained in element with the name nodeName
      */
     private static String getNodeValue(XsdElementBase element, String nodeName){
-        Node nameNode = element.getNodeAttributes().getNamedItem(nodeName);
-
-        return nameNode == null ? null : nameNode.getNodeValue();
+        return element.getElementFieldsMap().getOrDefault(nodeName, null);
     }
 }

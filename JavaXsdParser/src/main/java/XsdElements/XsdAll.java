@@ -4,10 +4,20 @@ import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
 
+import java.util.HashMap;
+
 public class XsdAll extends XsdMultipleElements {
 
     public static final String TAG = "xsd:all";
     private final AllVisitor visitor = new AllVisitor();
+
+    private XsdAll(XsdElementBase parent, HashMap<String, String> elementFieldsMap){
+        super(parent, elementFieldsMap);
+    }
+
+    private XsdAll(HashMap<String, String> elementFieldsMap){
+        super(elementFieldsMap);
+    }
 
     @Override
     public void accept(Visitor visitor) {
@@ -20,8 +30,19 @@ public class XsdAll extends XsdMultipleElements {
         return visitor;
     }
 
+    @Override
+    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+        placeHolderAttributes.putAll(this.getElementFieldsMap());
+
+        XsdAll elementCopy = new XsdAll(this.getParent(), placeHolderAttributes);
+
+        elementCopy.addElements(this.getElements());
+
+        return elementCopy;
+    }
+
     public static ReferenceBase parse(Node node) {
-        return xsdParseSkeleton(node, new XsdAll());
+        return xsdParseSkeleton(node, new XsdAll(convertNodeMap(node.getAttributes())));
     }
 
     class AllVisitor extends Visitor {

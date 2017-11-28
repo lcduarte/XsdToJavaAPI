@@ -3,9 +3,9 @@ package XsdElements;
 import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
 import XsdElements.Visitors.VisitorNotFoundException;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class XsdAttribute extends XsdReferenceElement {
@@ -20,13 +20,23 @@ public class XsdAttribute extends XsdReferenceElement {
     private String fixed;
     private String type;
 
-    @Override
-    public void setAttributes(NamedNodeMap attributes) {
-        super.setAttributes(attributes);
+    private XsdAttribute(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+        super(parent, elementFieldsMap);
+    }
 
-        this.defaultElement = attributes.getNamedItem(DEFAULT_ELEMENT) == null ? null : attributes.getNamedItem(DEFAULT_ELEMENT).getNodeValue();
-        this.fixed = attributes.getNamedItem(FIXED) == null ? null : attributes.getNamedItem(FIXED).getNodeValue();
-        this.type = attributes.getNamedItem(TYPE) == null ? null : attributes.getNamedItem(TYPE).getNodeValue();
+    private XsdAttribute(HashMap<String, String> elementFieldsMap) {
+        super(elementFieldsMap);
+    }
+
+    @Override
+    public void setFields(HashMap<String, String> elementFieldsMap) {
+        if (elementFieldsMap != null){
+            super.setFields(elementFieldsMap);
+
+            this.defaultElement = elementFieldsMap.getOrDefault(DEFAULT_ELEMENT, defaultElement);
+            this.fixed = elementFieldsMap.getOrDefault(FIXED, fixed);
+            this.type = elementFieldsMap.getOrDefault(TYPE, type);
+        }
     }
 
     @Override
@@ -45,6 +55,13 @@ public class XsdAttribute extends XsdReferenceElement {
         return null;
     }
 
+    @Override
+    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+        placeHolderAttributes.putAll(this.getElementFieldsMap());
+
+        return new XsdAttribute(this.getParent(), placeHolderAttributes);
+    }
+
     public String getDefaultElement() {
         return defaultElement;
     }
@@ -59,10 +76,6 @@ public class XsdAttribute extends XsdReferenceElement {
 
     public static ReferenceBase parse(Node node) {
         // TODO Still missing the parsing of contained elements such as SimpleTypes.
-
-        XsdAttribute attribute = new XsdAttribute();
-        attribute.setAttributes(node.getAttributes());
-
-        return ReferenceBase.createFromXsd(attribute);
+        return ReferenceBase.createFromXsd(new XsdAttribute(convertNodeMap(node.getAttributes())));
     }
 }

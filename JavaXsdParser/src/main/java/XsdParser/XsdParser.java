@@ -5,7 +5,6 @@ import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdElements.*;
 import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -106,19 +105,27 @@ public class XsdParser {
         concreteElements
                 .forEach(referenceElement -> concreteElementsMap.put(referenceElement.getName(), referenceElement));
 
-        unsolvedElements.forEach(unsolvedReference -> replaceUnsolvedReference(concreteElementsMap, unsolvedReference));
+        //noinspection ForLoopReplaceableByForEach
+        for (int i = 0; i < unsolvedElements.size(); i++) {
+            replaceUnsolvedReference(concreteElementsMap, unsolvedElements.get(i));
+        }
     }
 
     private void replaceUnsolvedReference(HashMap<String, ConcreteElement> concreteElementsMap, UnsolvedReference unsolvedReference) {
         if (concreteElementsMap.containsKey(unsolvedReference.getRef())){
-            ConcreteElement concreteElement = concreteElementsMap.get(unsolvedReference.getRef());
-            NamedNodeMap placeHolderAttributes = unsolvedReference.getElement().getNodeAttributes();
+            HashMap<String, String> oldElementAttributes = unsolvedReference.getElement().getElementFieldsMap();
 
-            if (placeHolderAttributes != null){
-                concreteElement.getElement().setAttributes(placeHolderAttributes);
+            if (oldElementAttributes == null){
+                oldElementAttributes = new HashMap<>();
             }
 
-            unsolvedReference.getParent().getElement().replaceUnsolvedElements(concreteElement);
+            XsdElementBase substitutionElement = concreteElementsMap.get(unsolvedReference.getRef())
+                                                                    .getElement()
+                                                                    .createCopyWithAttributes(oldElementAttributes);
+
+            ConcreteElement substitutionElementWrapper = (ConcreteElement) ReferenceBase.createFromXsd(substitutionElement);
+
+            unsolvedReference.getParent().getElement().replaceUnsolvedElements(substitutionElementWrapper);
         }
         /*
         else {

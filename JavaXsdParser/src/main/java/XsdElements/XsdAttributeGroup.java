@@ -6,6 +6,7 @@ import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class XsdAttributeGroup extends XsdReferenceElement {
@@ -14,6 +15,14 @@ public class XsdAttributeGroup extends XsdReferenceElement {
     private final AttributeGroupVisitor visitor = new AttributeGroupVisitor();
 
     private List<ReferenceBase> attributes = new ArrayList<>();
+
+    private XsdAttributeGroup(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+        super(parent, elementFieldsMap);
+    }
+
+    private XsdAttributeGroup(HashMap<String, String> elementFieldsMap) {
+        super(elementFieldsMap);
+    }
 
     @Override
     public void accept(Visitor visitor) {
@@ -29,6 +38,16 @@ public class XsdAttributeGroup extends XsdReferenceElement {
     @Override
     public List<ReferenceBase> getElements() {
         return attributes;
+    }
+
+    @Override
+    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+        placeHolderAttributes.putAll(this.getElementFieldsMap());
+        XsdAttributeGroup elementCopy = new XsdAttributeGroup(this.getParent(), placeHolderAttributes);
+
+        elementCopy.addAttributes(this.getElements());
+
+        return elementCopy;
     }
 
     @Override
@@ -49,7 +68,7 @@ public class XsdAttributeGroup extends XsdReferenceElement {
     }
 
     public static ReferenceBase parse(Node node) {
-        return xsdParseSkeleton(node, new XsdAttributeGroup());
+        return xsdParseSkeleton(node, new XsdAttributeGroup(convertNodeMap(node.getAttributes())));
     }
 
     class AttributeGroupVisitor extends Visitor {

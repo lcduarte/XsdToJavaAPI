@@ -246,7 +246,6 @@ public class XsdClassGenerator {
      * interface-like names, e.g. flowContent will be IFlowContent.
      */
     private String[] getSharedInterfaces(XsdElement element){
-        //Groups in XSD will be equivalent to java Interfaces.
         String[] typeInterfaces = new String[0], groupInterfaces = new String[0];
         ReferenceBase typeWrapper = element.getType();
 
@@ -269,17 +268,15 @@ public class XsdClassGenerator {
         ReferenceBase elementWrapper = complexType.getChildElement();
 
         if (elementWrapper instanceof ConcreteElement){
-            ConcreteElement complexTypeChild = (ConcreteElement) elementWrapper;
-
-            XsdElementBase r = complexTypeChild.getElement();
+            XsdElementBase complexChildElement = elementWrapper.getElement();
             Map<String, List<ReferenceBase>> groupElements = new HashMap<>();
 
-            if (r instanceof XsdGroup){
-                groupElements.put(((XsdGroup) r).getName(), r.getElements());
+            if (complexChildElement instanceof XsdGroup){
+                groupElements.put(((XsdGroup) complexChildElement).getName(), complexChildElement.getElements());
             }
 
-            if (r instanceof XsdMultipleElements){
-                groupElements = ((XsdMultipleElements) r).getGroupElements();
+            if (complexChildElement instanceof XsdMultipleElements){
+                groupElements = ((XsdMultipleElements) complexChildElement).getGroupElements();
             }
 
             return getInterfaceNames(groupElements);

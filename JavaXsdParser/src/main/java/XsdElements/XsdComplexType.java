@@ -3,20 +3,20 @@ package XsdElements;
 import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class XsdComplexType extends XsdElementBase {
 
     public static final String TAG = "xsd:complexType";
     public static final String NAME = "name";
-    public static final String ABSTRACT = "xsd:complexType";
-    public static final String MIXED = "xsd:complexType";
-    public static final String BLOCK = "xsd:complexType";
-    public static final String FINAL = "xsd:complexType";
+    public static final String ABSTRACT = "abstract";
+    public static final String MIXED = "mixed";
+    public static final String BLOCK = "block";
+    public static final String FINAL = "final";
 
     private ComplexTypeVisitor visitor = new ComplexTypeVisitor();
 
@@ -29,15 +29,25 @@ public class XsdComplexType extends XsdElementBase {
     private String elementFinal;
     private List<ReferenceBase> attributes = new ArrayList<>();
 
-    @Override
-    public void setAttributes(NamedNodeMap attributes) {
-        super.setAttributes(attributes);
+    private XsdComplexType(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+        super(parent, elementFieldsMap);
+    }
 
-        this.name = attributes.getNamedItem(NAME) == null ? null : attributes.getNamedItem(NAME).getNodeValue();
-        this.elementAbstract = attributes.getNamedItem(ABSTRACT) == null ? null : attributes.getNamedItem(ABSTRACT).getNodeValue();
-        this.mixed = attributes.getNamedItem(MIXED) == null ? null : attributes.getNamedItem(MIXED).getNodeValue();
-        this.block = attributes.getNamedItem(MIXED) == null ? null : attributes.getNamedItem(MIXED).getNodeValue();
-        this.elementFinal = attributes.getNamedItem(MIXED) == null ? null : attributes.getNamedItem(MIXED).getNodeValue();
+    private XsdComplexType(HashMap<String, String> elementFieldsMap) {
+        super(elementFieldsMap);
+    }
+
+    @Override
+    public void setFields(HashMap<String, String> elementFieldsMap) {
+        if (elementFieldsMap != null){
+            super.setFields(elementFieldsMap);
+
+            this.name = elementFieldsMap.getOrDefault(NAME, name);
+            this.elementAbstract = elementFieldsMap.getOrDefault(ABSTRACT, elementAbstract);
+            this.mixed = elementFieldsMap.getOrDefault(MIXED, mixed);
+            this.block = elementFieldsMap.getOrDefault(BLOCK, block);
+            this.elementFinal = elementFieldsMap.getOrDefault(FINAL, elementFinal);
+        }
     }
 
     @Override
@@ -54,6 +64,17 @@ public class XsdComplexType extends XsdElementBase {
     @Override
     public List<ReferenceBase> getElements() {
         return childElement == null ? null : childElement.getElement().getElements();
+    }
+
+    @Override
+    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+        placeHolderAttributes.putAll(this.getElementFieldsMap());
+        XsdComplexType elementCopy = new XsdComplexType(this.getParent(), placeHolderAttributes);
+
+        elementCopy.childElement = this.childElement;
+        elementCopy.addAttributes(this.getAttributes());
+
+        return elementCopy;
     }
 
     @Override
@@ -112,7 +133,7 @@ public class XsdComplexType extends XsdElementBase {
     }
 
     public static ReferenceBase parse(Node node){
-        return xsdParseSkeleton(node, new XsdComplexType());
+        return xsdParseSkeleton(node, new XsdComplexType(convertNodeMap(node.getAttributes())));
     }
 
     class ComplexTypeVisitor extends Visitor {

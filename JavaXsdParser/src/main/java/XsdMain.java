@@ -8,7 +8,5 @@ public class XsdMain {
         XsdClassGenerator classGenerator = new XsdClassGenerator();
 
         classGenerator.generateClassFromElements(xsdParser.parse("html_5.xsd"));
-
-        System.out.println("Done");
     }
 }

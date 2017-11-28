@@ -1,6 +1,6 @@
 package XsdElements;
 
-import org.w3c.dom.NamedNodeMap;
+import java.util.HashMap;
 
 /**
  * This class is an abstraction of all classes that can have a ref attribute, which helps
@@ -12,12 +12,26 @@ public abstract class XsdReferenceElement extends XsdElementBase {
 
     private String name;
 
-    @Override
-    public void setAttributes(NamedNodeMap attributes) {
-        super.setAttributes(attributes);
+    XsdReferenceElement(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+        super(parent);
 
-        if (this.name == null){
-            this.name = attributes.getNamedItem(NAME) == null ? null : attributes.getNamedItem(NAME).getNodeValue();
+        setFields(elementFieldsMap);
+    }
+
+    XsdReferenceElement(HashMap<String, String> elementFieldsMap) {
+        setFields(elementFieldsMap);
+    }
+
+    XsdReferenceElement(XsdElementBase parent) {
+        super(parent);
+    }
+
+    @Override
+    public void setFields(HashMap<String, String> elementFieldsMap) {
+        if (elementFieldsMap != null){
+            super.setFields(elementFieldsMap);
+
+            this.name = elementFieldsMap.getOrDefault(NAME, name);
         }
     }
 

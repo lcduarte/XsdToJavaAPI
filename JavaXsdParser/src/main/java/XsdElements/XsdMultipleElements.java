@@ -24,16 +24,12 @@ public abstract class XsdMultipleElements extends XsdElementBase {
      */
     private List<ReferenceBase> elements = new ArrayList<>();
 
-    void addElement(ReferenceBase element){
-        this.elements.add(element);
+    XsdMultipleElements(XsdElementBase parent, HashMap<String, String> nodeAttributes) {
+        super(parent, nodeAttributes);
     }
 
-    void addElements(List<ReferenceBase> elements){
-        this.elements.addAll(elements);
-    }
-
-    public Map<String, List<ReferenceBase>> getGroupElements(){
-        return groupElements;
+    XsdMultipleElements(HashMap<String, String> nodeAttributes) {
+        super(nodeAttributes);
     }
 
     @Override
@@ -50,6 +46,18 @@ public abstract class XsdMultipleElements extends XsdElementBase {
     @Override
     public List<ReferenceBase> getElements(){
         return elements;
+    }
+
+    void addElement(ReferenceBase element){
+        this.elements.add(element);
+    }
+
+    void addElements(List<ReferenceBase> elements){
+        this.elements.addAll(elements);
+    }
+
+    public Map<String, List<ReferenceBase>> getGroupElements(){
+        return groupElements;
     }
 
 }

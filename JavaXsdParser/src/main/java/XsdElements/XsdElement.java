@@ -5,9 +5,9 @@ import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdElements.Visitors.Visitor;
 import XsdParser.XsdParser;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class XsdElement extends XsdReferenceElement {
@@ -37,25 +37,37 @@ public class XsdElement extends XsdReferenceElement {
     private String block;
     private String finalObj;
 
-    public void setAttributes(NamedNodeMap attributes){
-        super.setAttributes(attributes);
+    private XsdElement(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+        super(parent, elementFieldsMap);
+    }
 
-        if (attributes.getNamedItem(TYPE) != null){
-            XsdElement placeHolder = new XsdElement();
-            placeHolder.setParent(this);
+    private XsdElement(HashMap<String, String> elementFieldsMap) {
+        super(elementFieldsMap);
+    }
 
-            this.type = new UnsolvedReference(attributes.getNamedItem(TYPE).getNodeValue(), placeHolder);
-            XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) type);
+    private XsdElement(XsdElementBase parent) {
+        super(parent);
+    }
+
+    public void setFields(HashMap<String, String> elementFieldsMap){
+        if (elementFieldsMap != null){
+            super.setFields(elementFieldsMap);
+
+            if (elementFieldsMap.containsKey(TYPE)){
+                XsdElement placeHolder = new XsdElement(this);
+                this.type = new UnsolvedReference(elementFieldsMap.get(TYPE), placeHolder);
+                XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) type);
+            }
+
+            this.substitutionGroup = elementFieldsMap.getOrDefault(SUBSTITUTION_GROUP, substitutionGroup);
+            this.defaultObj = elementFieldsMap.getOrDefault(DEFAULT, defaultObj);
+            this.fixed = elementFieldsMap.getOrDefault(FIXED, fixed);
+            this.form = elementFieldsMap.getOrDefault(FORM, form);
+            this.nillable = elementFieldsMap.getOrDefault(NILLABLE, nillable);
+            this.abstractObj = elementFieldsMap.getOrDefault(ABSTRACT, abstractObj);
+            this.block = elementFieldsMap.getOrDefault(BLOCK, block);
+            this.finalObj = elementFieldsMap.getOrDefault(FINAL, finalObj);
         }
-
-        this.substitutionGroup = attributes.getNamedItem(SUBSTITUTION_GROUP) == null ? null : attributes.getNamedItem(SUBSTITUTION_GROUP).getNodeValue();
-        this.defaultObj = attributes.getNamedItem(DEFAULT) == null ? null : attributes.getNamedItem(DEFAULT).getNodeValue();
-        this.fixed = attributes.getNamedItem(FIXED) == null ? null : attributes.getNamedItem(FIXED).getNodeValue();
-        this.form = attributes.getNamedItem(FORM) == null ? null : attributes.getNamedItem(FORM).getNodeValue();
-        this.nillable = attributes.getNamedItem(NILLABLE) == null ? null : attributes.getNamedItem(NILLABLE).getNodeValue();
-        this.abstractObj = attributes.getNamedItem(ABSTRACT) == null ? null : attributes.getNamedItem(ABSTRACT).getNodeValue();
-        this.block = attributes.getNamedItem(BLOCK) == null ? null : attributes.getNamedItem(BLOCK).getNodeValue();
-        this.finalObj = attributes.getNamedItem(FINAL) == null ? null : attributes.getNamedItem(FINAL).getNodeValue();
     }
 
     @Override
@@ -72,6 +84,12 @@ public class XsdElement extends XsdReferenceElement {
     @Override
     public List<ReferenceBase> getElements() {
         return null;
+    }
+
+    @Override
+    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+        placeHolderAttributes.putAll(this.getElementFieldsMap());
+        return new XsdElement(this.getParent(), placeHolderAttributes);
     }
 
     @Override
@@ -128,7 +146,7 @@ public class XsdElement extends XsdReferenceElement {
     }
 
     public static ReferenceBase parse(Node node){
-        return xsdParseSkeleton(node, new XsdElement());
+        return xsdParseSkeleton(node, new XsdElement(convertNodeMap(node.getAttributes())));
     }
 
     class ElementVisitor extends Visitor{

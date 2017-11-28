@@ -5,11 +5,21 @@ import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
 
+import java.util.HashMap;
+
 public class XsdSequence extends XsdMultipleElements{
 
     public static final String TAG = "xsd:sequence";
 
     private SequenceVisitor visitor = new SequenceVisitor();
+
+    private XsdSequence(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+        super(parent, elementFieldsMap);
+    }
+
+    private XsdSequence(HashMap<String, String> elementFieldsMap) {
+        super(elementFieldsMap);
+    }
 
     @Override
     public void accept(Visitor visitor) {
@@ -20,6 +30,16 @@ public class XsdSequence extends XsdMultipleElements{
     @Override
     public SequenceVisitor getVisitor() {
         return visitor;
+    }
+
+    @Override
+    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+        placeHolderAttributes.putAll(this.getElementFieldsMap());
+        XsdSequence elementCopy = new XsdSequence(this.getParent(), placeHolderAttributes);
+
+        elementCopy.addElements(this.getElements());
+
+        return elementCopy;
     }
 
     private void addElement(XsdGroup groupElement){
@@ -41,7 +61,7 @@ public class XsdSequence extends XsdMultipleElements{
     }
 
     public static ReferenceBase parse(Node node){
-        return xsdParseSkeleton(node, new XsdSequence());
+        return xsdParseSkeleton(node, new XsdSequence(convertNodeMap(node.getAttributes())));
     }
 
     class SequenceVisitor extends Visitor {

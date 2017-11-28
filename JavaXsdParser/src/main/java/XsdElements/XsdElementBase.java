@@ -8,11 +8,12 @@ import XsdParser.XsdParser;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class XsdElementBase {
 
-    private NamedNodeMap nodeAttributes;
+    private HashMap<String, String> elementFieldsMap;
 
     public static final String ID = "id";
     public static final String MIN_OCCURS = "maxOccurs";
@@ -23,20 +24,39 @@ public abstract class XsdElementBase {
     private String minOccurs;
     private XsdElementBase parent;
 
-    /**
-     * This method serves as a base to all XsdElements which need to set their class specific attributes
-     * @param nodeAttributes The node containing all attributes of a XSDElement
-     */
-    public void setAttributes(NamedNodeMap nodeAttributes){
-        this.nodeAttributes = nodeAttributes;
+    protected XsdElementBase(){
 
-        this.id = nodeAttributes.getNamedItem(ID) == null ? null : nodeAttributes.getNamedItem(ID).getNodeValue();
-        this.minOccurs = nodeAttributes.getNamedItem(MIN_OCCURS) == null ? null : nodeAttributes.getNamedItem(MIN_OCCURS).getNodeValue();
-        this.maxOccurs = nodeAttributes.getNamedItem(MAX_OCCURS) == null ? null : nodeAttributes.getNamedItem(MAX_OCCURS).getNodeValue();
     }
 
-    public NamedNodeMap getNodeAttributes() {
-        return nodeAttributes;
+    protected XsdElementBase(XsdElementBase parent) {
+        setParent(parent);
+    }
+
+    protected XsdElementBase(HashMap<String, String> elementFieldsMap){
+        setFields(elementFieldsMap);
+    }
+
+    protected XsdElementBase(XsdElementBase parent, HashMap<String, String> elementFieldsMap){
+        setParent(parent);
+        setFields(elementFieldsMap);
+    }
+
+    /**
+     * This method serves as a base to all XsdElements which need to set their class specific attributes
+     * @param elementFieldsMap The node map containing all attributes of a XSDElement
+     */
+    public void setFields(HashMap<String, String> elementFieldsMap){
+        if (elementFieldsMap != null){
+            this.elementFieldsMap = elementFieldsMap;
+
+            this.id = elementFieldsMap.getOrDefault(ID, id);
+            this.minOccurs = elementFieldsMap.getOrDefault(MIN_OCCURS, minOccurs);
+            this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS, maxOccurs);
+        }
+    }
+
+    public HashMap<String, String> getElementFieldsMap() {
+        return elementFieldsMap;
     }
 
     public String getId() {
@@ -61,9 +81,6 @@ public abstract class XsdElementBase {
      * @return A wrapper object that contains the parsed XSD object.
      */
     static ReferenceBase xsdParseSkeleton(Node node, XsdElementBase element){
-        NamedNodeMap attributes = node.getAttributes();
-        element.setAttributes(attributes);
-
         Node child = node.getFirstChild();
 
         while (child != null) {
@@ -99,6 +116,17 @@ public abstract class XsdElementBase {
         }
     }
 
+    static HashMap<String, String> convertNodeMap(NamedNodeMap nodeMap){
+        HashMap<String, String> attributesMapped = new HashMap<>();
+
+        for (int i = 0; i < nodeMap.getLength(); i++) {
+            Node node = nodeMap.item(i);
+            attributesMapped.put(node.getNodeName(), node.getNodeValue());
+        }
+
+        return attributesMapped;
+    }
+
     public abstract List<ReferenceBase> getElements();
 
     public XsdElementBase getParent() {
@@ -108,4 +136,6 @@ public abstract class XsdElementBase {
     void setParent(XsdElementBase parent) {
         this.parent = parent;
     }
+
+    public abstract XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes);
 }
