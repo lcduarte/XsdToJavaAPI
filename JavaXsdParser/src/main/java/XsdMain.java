@@ -1,8 +1,5 @@
 import XsdClassGenerator.XsdClassGenerator;
-import XsdElements.XsdElement;
 import XsdParser.XsdParser;
-
-import java.util.List;
 
 public class XsdMain {
 

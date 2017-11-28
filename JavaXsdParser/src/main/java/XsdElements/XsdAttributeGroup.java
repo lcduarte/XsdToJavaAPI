@@ -32,7 +32,7 @@ public class XsdAttributeGroup extends XsdReferenceElement {
     }
 
     @Override
-    public void baseRefChange(ConcreteElement element) {
+    public void replaceUnsolvedElements(ConcreteElement element) {
         if (element.getElement() instanceof  XsdAttributeGroup){
             XsdAttributeGroup attributeGroup = (XsdAttributeGroup) element.getElement();
 

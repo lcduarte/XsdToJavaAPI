@@ -1,8 +1,9 @@
 package XsdClassGenerator;
 
-import XsdElements.*;
 import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
+import XsdElements.*;
+import org.apache.commons.lang3.ArrayUtils;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
@@ -52,7 +53,6 @@ public class XsdClassGenerator {
         XsdClassGeneratorUtils.createGeneratedFilesDirectory();
         XsdClassGeneratorUtils.writeClassToFile(BASE_CLASS, classWriter.toByteArray());
     }
-
 
     /**
      * Generates a class from a given XsdElement. It also generated its constructors and methods.
@@ -118,7 +118,6 @@ public class XsdClassGenerator {
             methodVisitor.visitEnd();
         }
     }
-
 
     /**
      * Generates field for a given class.
@@ -248,16 +247,42 @@ public class XsdClassGenerator {
      */
     private String[] getSharedInterfaces(XsdElement element){
         //Groups in XSD will be equivalent to java Interfaces.
+        String[] typeInterfaces = new String[0], groupInterfaces = new String[0];
+        ReferenceBase typeWrapper = element.getType();
+
+        if (typeWrapper != null &&
+                typeWrapper instanceof ConcreteElement &&
+                typeWrapper.getElement() != null &&
+                typeWrapper.getElement() instanceof XsdComplexType){
+
+            typeInterfaces = getSharedInterfaces((XsdComplexType) typeWrapper.getElement());
+        }
+
         if (element.getComplexType() != null){
-            ReferenceBase elementWrapper = element.getComplexType().getChildElement();
+            groupInterfaces = getSharedInterfaces(element.getComplexType());
+        }
 
-            if (elementWrapper instanceof ConcreteElement){
-                ConcreteElement complexTypeChild = (ConcreteElement) elementWrapper;
+        return ArrayUtils.addAll(typeInterfaces, groupInterfaces);
+    }
 
-                Map<String, List<ReferenceBase>> groupElements = ((XsdMultipleElements)complexTypeChild.getElement()).getGroupElements();
+    private String[] getSharedInterfaces(XsdComplexType complexType) {
+        ReferenceBase elementWrapper = complexType.getChildElement();
 
-                return getInterfaceNames(groupElements);
+        if (elementWrapper instanceof ConcreteElement){
+            ConcreteElement complexTypeChild = (ConcreteElement) elementWrapper;
+
+            XsdElementBase r = complexTypeChild.getElement();
+            Map<String, List<ReferenceBase>> groupElements = new HashMap<>();
+
+            if (r instanceof XsdGroup){
+                groupElements.put(((XsdGroup) r).getName(), r.getElements());
             }
+
+            if (r instanceof XsdMultipleElements){
+                groupElements = ((XsdMultipleElements) r).getGroupElements();
+            }
+
+            return getInterfaceNames(groupElements);
         }
 
         return new String[0];
@@ -277,11 +302,13 @@ public class XsdClassGenerator {
 
         groupElements.keySet().forEach((String groupName) -> {
             if (!groupInterfaces.containsKey(groupName)){
-                groupInterfaces.put(XsdClassGeneratorUtils.getInterfaceName(groupName), groupElements.get(groupName)
-                                                                                                        .stream()
-                                                                                                        .filter(element -> element instanceof ConcreteElement)
-                                                                                                        .map(element -> (ConcreteElement) element)
-                                                                                                        .collect(Collectors.toList()));
+                groupInterfaces.put(
+                        XsdClassGeneratorUtils.getInterfaceName(groupName),
+                        groupElements.get(groupName)
+                                    .stream()
+                                    .filter(element -> element instanceof ConcreteElement)
+                                    .map(element -> (ConcreteElement) element)
+                                    .collect(Collectors.toList()));
             }
         });
 

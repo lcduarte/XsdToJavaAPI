@@ -1,8 +1,10 @@
 package XsdParser;
 
-import XsdElements.*;
 import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
+import XsdElements.XsdChoice;
+import XsdElements.XsdComplexType;
+import XsdElements.XsdElement;
 import org.junit.Assert;
 import org.junit.Test;
 

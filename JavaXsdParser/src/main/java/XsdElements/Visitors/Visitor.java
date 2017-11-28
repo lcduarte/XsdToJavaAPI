@@ -1,8 +1,8 @@
 package XsdElements.Visitors;
 
-import XsdElements.*;
 import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.ElementsWrapper.UnsolvedReference;
+import XsdElements.*;
 import XsdParser.XsdParser;
 
 public abstract class Visitor {

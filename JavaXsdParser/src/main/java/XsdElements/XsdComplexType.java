@@ -57,8 +57,8 @@ public class XsdComplexType extends XsdElementBase {
     }
 
     @Override
-    public void baseRefChange(ConcreteElement element) {
-        super.baseRefChange(element);
+    public void replaceUnsolvedElements(ConcreteElement element) {
+        super.replaceUnsolvedElements(element);
 
         if (element.getElement() instanceof  XsdAttributeGroup){
             XsdAttributeGroup attributeGroup = (XsdAttributeGroup) element.getElement();

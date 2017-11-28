@@ -1,7 +1,10 @@
 package XsdElements;
 
+import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
+import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdElements.Visitors.Visitor;
+import XsdParser.XsdParser;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -24,7 +27,7 @@ public class XsdElement extends XsdReferenceElement {
 
     private ReferenceBase complexType;
 
-    private String type;
+    private ReferenceBase type;
     private String substitutionGroup;
     private String defaultObj;
     private String fixed;
@@ -37,7 +40,14 @@ public class XsdElement extends XsdReferenceElement {
     public void setAttributes(NamedNodeMap attributes){
         super.setAttributes(attributes);
 
-        this.type = attributes.getNamedItem(TYPE) == null ? null : attributes.getNamedItem("type").getNodeValue();
+        if (attributes.getNamedItem(TYPE) != null){
+            XsdElement placeHolder = new XsdElement();
+            placeHolder.setParent(this);
+
+            this.type = new UnsolvedReference(attributes.getNamedItem(TYPE).getNodeValue(), placeHolder);
+            XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) type);
+        }
+
         this.substitutionGroup = attributes.getNamedItem(SUBSTITUTION_GROUP) == null ? null : attributes.getNamedItem(SUBSTITUTION_GROUP).getNodeValue();
         this.defaultObj = attributes.getNamedItem(DEFAULT) == null ? null : attributes.getNamedItem(DEFAULT).getNodeValue();
         this.fixed = attributes.getNamedItem(FIXED) == null ? null : attributes.getNamedItem(FIXED).getNodeValue();
@@ -64,6 +74,15 @@ public class XsdElement extends XsdReferenceElement {
         return null;
     }
 
+    @Override
+    public void replaceUnsolvedElements(ConcreteElement element) {
+        super.replaceUnsolvedElements(element);
+
+        if (this.type != null && this.type instanceof UnsolvedReference && ((UnsolvedReference) this.type).getRef().equals(element.getName())){
+            this.type = element;
+        }
+    }
+
     private void setComplexType(XsdComplexType complexType) {
         this.complexType = ReferenceBase.createFromXsd(complexType);
     }
@@ -72,7 +91,7 @@ public class XsdElement extends XsdReferenceElement {
         return complexType == null ? null : (XsdComplexType) complexType.getElement();
     }
 
-    public String getType(){
+    public ReferenceBase getType(){
         return type;
     }
 

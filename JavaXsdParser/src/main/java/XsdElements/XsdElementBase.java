@@ -23,7 +23,6 @@ public abstract class XsdElementBase {
     private String minOccurs;
     private XsdElementBase parent;
 
-
     /**
      * This method serves as a base to all XsdElements which need to set their class specific attributes
      * @param nodeAttributes The node containing all attributes of a XSDElement
@@ -56,7 +55,6 @@ public abstract class XsdElementBase {
 
     public abstract Visitor getVisitor();
 
-
     /**
      * @param node The node from where the element will be parsed
      * @param element The concrete element that will be populated and returned
@@ -88,7 +86,7 @@ public abstract class XsdElementBase {
      * ref attribute that matches a ConcreteElement name attribute
      * @param element A concrete element that will replace a unsolved reference, if existent
      */
-    public void baseRefChange(ConcreteElement element){
+    public void replaceUnsolvedElements(ConcreteElement element){
         List<ReferenceBase> elements = this.getElements();
 
         if (elements != null){

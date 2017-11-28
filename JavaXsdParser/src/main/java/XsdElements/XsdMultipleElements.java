@@ -2,9 +2,11 @@ package XsdElements;
 
 import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
-import XsdElements.ElementsWrapper.UnsolvedReference;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class XsdMultipleElements extends XsdElementBase {
 
@@ -35,9 +37,9 @@ public abstract class XsdMultipleElements extends XsdElementBase {
     }
 
     @Override
-    public void baseRefChange(ConcreteElement elementWrapper) {
+    public void replaceUnsolvedElements(ConcreteElement elementWrapper) {
         if (elementWrapper.getElement() instanceof XsdElement){
-            super.baseRefChange(elementWrapper);
+            super.replaceUnsolvedElements(elementWrapper);
         }
 
         if (elementWrapper.getElement() instanceof XsdGroup){

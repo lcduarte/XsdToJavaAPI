@@ -1,5 +1,6 @@
 package XsdElements.ElementsWrapper;
 
+import XsdElements.XsdElement;
 import XsdElements.XsdReferenceElement;
 
 public class UnsolvedReference extends ReferenceBase {
@@ -9,6 +10,11 @@ public class UnsolvedReference extends ReferenceBase {
 
     public UnsolvedReference(XsdReferenceElement element){
         this.ref = getRef(element);
+        this.element = element;
+    }
+
+    public UnsolvedReference(String refType, XsdElement element){
+        this.ref = refType;
         this.element = element;
     }
 

@@ -1,10 +1,11 @@
 package XsdParser;
 
-import XsdElements.*;
 import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.ElementsWrapper.UnsolvedReference;
+import XsdElements.*;
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -105,17 +106,25 @@ public class XsdParser {
         concreteElements
                 .forEach(referenceElement -> concreteElementsMap.put(referenceElement.getName(), referenceElement));
 
-        unsolvedElements
-                .forEach(unsolvedReference -> {
-                    if (concreteElementsMap.containsKey(unsolvedReference.getRef())){
-                        ConcreteElement concreteElement = concreteElementsMap.get(unsolvedReference.getRef());
-                        concreteElement.getElement().setAttributes(unsolvedReference.getElement().getNodeAttributes());
+        unsolvedElements.forEach(unsolvedReference -> replaceUnsolvedReference(concreteElementsMap, unsolvedReference));
+    }
 
-                        unsolvedReference.getParent().getElement().baseRefChange(concreteElement);
-                    } else {
-                        System.err.println(unsolvedReference.getRef());
-                    }
-                });
+    private void replaceUnsolvedReference(HashMap<String, ConcreteElement> concreteElementsMap, UnsolvedReference unsolvedReference) {
+        if (concreteElementsMap.containsKey(unsolvedReference.getRef())){
+            ConcreteElement concreteElement = concreteElementsMap.get(unsolvedReference.getRef());
+            NamedNodeMap placeHolderAttributes = unsolvedReference.getElement().getNodeAttributes();
+
+            if (placeHolderAttributes != null){
+                concreteElement.getElement().setAttributes(placeHolderAttributes);
+            }
+
+            unsolvedReference.getParent().getElement().replaceUnsolvedElements(concreteElement);
+        }
+        /*
+        else {
+            System.err.println(unsolvedReference.getRef());
+        }
+        */
     }
 
     public static XsdParser getInstance(){
