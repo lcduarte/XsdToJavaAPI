@@ -55,6 +55,8 @@ public class XsdAttributeGroup extends XsdReferenceElement {
         if (element.getElement() instanceof  XsdAttributeGroup){
             XsdAttributeGroup attributeGroup = (XsdAttributeGroup) element.getElement();
 
+            attributeGroup.attributes.forEach(attribute -> attribute.getElement().setParent(this));
+
             this.addAttributes(attributeGroup.attributes);
         }
     }
@@ -84,4 +86,5 @@ public class XsdAttributeGroup extends XsdReferenceElement {
             XsdAttributeGroup.this.addAttributes(ReferenceBase.createFromXsd(element));
         }
     }
+
 }

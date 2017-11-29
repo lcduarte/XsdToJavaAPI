@@ -49,28 +49,6 @@ class XsdClassGeneratorUtils {
         return "L" + PACKAGE + className + ";";
     }
 
-    static List<String> getElementFields() {
-        List<String> fields = new ArrayList<>();
-
-        fields.add(XsdElement.ID);
-        fields.add(XsdElement.MIN_OCCURS);
-        fields.add(XsdElement.MAX_OCCURS);
-
-        fields.add(XsdElement.NAME);
-
-        fields.add(XsdElement.TYPE);
-        fields.add(XsdElement.ABSTRACT);
-        fields.add(XsdElement.FORM);
-        fields.add(XsdElement.FIXED);
-        fields.add(XsdElement.FINAL);
-        fields.add(XsdElement.SUBSTITUTION_GROUP);
-        fields.add(XsdElement.DEFAULT);
-        fields.add(XsdElement.NILLABLE);
-        fields.add(XsdElement.BLOCK);
-
-        return fields;
-    }
-
     static void createGeneratedFilesDirectory() {
         File folder = new File(XsdClassGeneratorUtils.getDestinationDirectory());
 

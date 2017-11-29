@@ -15,12 +15,14 @@ import static org.objectweb.asm.Opcodes.*;
 
 public class XsdClassGenerator {
 
-    private static final String BASE_CLASS = "BaseElement";
     private static final String JAVA_OBJECT = "java/lang/Object";
     private static final String JAVA_STRING = "Ljava/lang/String;";
     private static final String CONSTRUCTOR = "<init>";
+    private static final String ATTRIBUTE_PREFIX = "attr";
+    private static final String ATTRIBUTE_CLASS_SUFIX = "Attributes";
 
     private Map<String, List<ConcreteElement>> groupInterfaces = new HashMap<>();
+    private Map<String, List<ConcreteElement>> baseClasses = new HashMap<>();
 
     public void generateClassFromElements(List<ReferenceBase> elementList){
         List<ConcreteElement> concreteElementList = elementList.stream()
@@ -29,29 +31,13 @@ public class XsdClassGenerator {
                                                                 .filter(element -> element.getElement() instanceof XsdElement)
                                                                 .collect(Collectors.toList());
 
-        generateBaseElement();
+        XsdClassGeneratorUtils.createGeneratedFilesDirectory();
 
         concreteElementList.forEach(this::generateClassFromElement);
 
         generateInterfaces();
-    }
 
-    /**
-     * Generates a BaseElement which will contain all the behaviour/attributes common to all the generated classes
-     */
-    private void generateBaseElement() {
-        List<String> fields = XsdClassGeneratorUtils.getElementFields();
-
-        ClassWriter classWriter = generateClass(BASE_CLASS);
-
-        generateProtectedConstructor(classWriter, fields, BASE_CLASS);
-
-        generateFields(classWriter, fields, BASE_CLASS);
-
-        classWriter.visitEnd();
-
-        XsdClassGeneratorUtils.createGeneratedFilesDirectory();
-        XsdClassGeneratorUtils.writeClassToFile(BASE_CLASS, classWriter.toByteArray());
+        generateBaseClasses();
     }
 
     /**
@@ -64,15 +50,18 @@ public class XsdClassGenerator {
 
             String className = XsdClassGeneratorUtils.toCamelCase(element.getName());
 
-            List<String> fields = XsdClassGeneratorUtils.getElementFields();
-            List<ConcreteElement> childs = getOwnChildren(element);
+            List<ConcreteElement> elementChildren = getOwnChildren(element);
+            List<ConcreteElement> ownAttributes = getOwnAttributes(element);
+            String superClass = getSuperClassName(element);
             String[] interfaces = getSharedInterfaces(element);
 
-            ClassWriter classWriter = generateClass(className, XsdClassGeneratorUtils.getFullClassTypeName(BASE_CLASS), interfaces);
+            ClassWriter classWriter = generateClass(className, superClass, interfaces);
 
-            generatePublicConstructor(classWriter, fields, className);
+            generateConstructor(classWriter, superClass, ACC_PUBLIC);
 
-            generateMethods(classWriter, childs);
+            generateMethods(classWriter, elementChildren);
+
+            generateFields(classWriter, ownAttributes, className);
 
             classWriter.visitEnd();
 
@@ -82,6 +71,22 @@ public class XsdClassGenerator {
 
     private void generateInterfaces() {
         groupInterfaces.keySet().forEach(this::generateInterface);
+    }
+
+    private void generateBaseClasses() {
+        baseClasses.keySet().forEach(this::generateBaseClass);
+    }
+
+    private void generateBaseClass(String baseClassName){
+        String baseClassNameCamelCase = XsdClassGeneratorUtils.toCamelCase(baseClassName);
+
+        ClassWriter interfaceWriter = generateClass(baseClassNameCamelCase, JAVA_OBJECT, new String[]{}, ACC_PUBLIC + ACC_ABSTRACT);
+
+        generateFields(interfaceWriter, baseClasses.get(baseClassName), baseClassNameCamelCase);
+
+        interfaceWriter.visitEnd();
+
+        XsdClassGeneratorUtils.writeClassToFile(baseClassNameCamelCase, interfaceWriter.toByteArray());
     }
 
     /**
@@ -101,11 +106,11 @@ public class XsdClassGenerator {
     /**
      * Generates all the method from a given class.
      * @param classWriter The class where the method will be written.
-     * @param childs The children of the element which generated the class. Their name represents a
+     * @param children The children of the element which generated the class. Their name represents a
      *               class name from another class.
      */
-    private void generateMethods(ClassWriter classWriter, List<ConcreteElement> childs) {
-        for (ConcreteElement child : childs) {
+    private void generateMethods(ClassWriter classWriter, List<ConcreteElement> children) {
+        for (ConcreteElement child : children) {
             String childCamelName = XsdClassGeneratorUtils.toCamelCase(child.getName());
 
             MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "()" + XsdClassGeneratorUtils.getFullClassName(childCamelName), null, null);
@@ -125,12 +130,13 @@ public class XsdClassGenerator {
      * @param fields The name of the fields to be created. (Only String fields are being supported)
      * @param className The class name from the class where the field will be added.
      */
-    private void generateFields(ClassWriter classWriter, List<String> fields, String className) {
+    private void generateFields(ClassWriter classWriter, List<ConcreteElement> fields, String className) {
         FieldVisitor fieldVisitor;
         MethodVisitor methodVisitor;
         String fullClassName = XsdClassGeneratorUtils.getFullClassTypeName(className);
 
-        for (String name : fields) {
+        for (ConcreteElement fieldElement : fields) {
+            String name = ATTRIBUTE_PREFIX + XsdClassGeneratorUtils.toCamelCase(fieldElement.getName()).replaceAll("\\W+", "");
             fieldVisitor = classWriter.visitField(ACC_PRIVATE, name, JAVA_STRING, null, null);
             fieldVisitor.visitEnd();
 
@@ -155,61 +161,20 @@ public class XsdClassGenerator {
         }
     }
 
-    private void generateProtectedConstructor(ClassWriter classWriter, List<String> fields, String className){
-        generateConstructor(classWriter, fields, className, ACC_PROTECTED);
-    }
-
-    private void generatePublicConstructor(ClassWriter classWriter, List<String> fields, String className) {
-        generateConstructor(classWriter, fields, className, ACC_PUBLIC);
-    }
-
     /**
      * Generates a default constructor and another with all the parameters.
      * @param classWriter The class writer from the class where the constructors will be added.
-     * @param fields The name of the fields of this class, needed for making the constructor with the parameters.
-     * @param className The class name
      * @param constructorType The modifiers for the constructor
      */
-    private void generateConstructor(ClassWriter classWriter, List<String> fields, String className, int constructorType) {
-        String constructorParameters = "(" + String.join("", Collections.nCopies(fields.size(),JAVA_STRING)) + ")V";
-
-        MethodVisitor constructorWParameters = classWriter.visitMethod(constructorType, CONSTRUCTOR, constructorParameters,null,null);
+    private void generateConstructor(ClassWriter classWriter, String baseClass, int constructorType) {
         MethodVisitor defaultConstructor = classWriter.visitMethod(constructorType, CONSTRUCTOR, "()V",null,null);
 
-        constructorWParameters.visitCode();
         defaultConstructor.visitCode();
-
         defaultConstructor.visitVarInsn(ALOAD, 0);
-        constructorWParameters.visitVarInsn(ALOAD, 0);
-
-        if (className.equals(BASE_CLASS)) {
-            constructorWParameters.visitMethodInsn(INVOKESPECIAL, JAVA_OBJECT, CONSTRUCTOR, "()V", false);
-            defaultConstructor.visitMethodInsn(INVOKESPECIAL, JAVA_OBJECT, CONSTRUCTOR, "()V", false);
-
-            int index = 1;
-
-            for (String name : fields) {
-                constructorWParameters.visitVarInsn(ALOAD, 0);
-                constructorWParameters.visitVarInsn(ALOAD, index);
-                constructorWParameters.visitFieldInsn(PUTFIELD, XsdClassGeneratorUtils.getFullClassTypeName(className), name, JAVA_STRING);
-                index = index + 1;
-            }
-        } else {
-            for(int i = 0; i < fields.size(); ++i ){
-                constructorWParameters.visitVarInsn(ALOAD, i + 1);
-            }
-
-            constructorWParameters.visitMethodInsn(INVOKESPECIAL, XsdClassGeneratorUtils.getFullClassTypeName(BASE_CLASS), CONSTRUCTOR, constructorParameters, false);
-            defaultConstructor.visitMethodInsn(INVOKESPECIAL, XsdClassGeneratorUtils.getFullClassTypeName(BASE_CLASS), CONSTRUCTOR, "()V", false);
-        }
-
-        constructorWParameters.visitInsn(RETURN);
-        constructorWParameters.visitMaxs(1, fields.size() + 1);
-
+        defaultConstructor.visitMethodInsn(INVOKESPECIAL, XsdClassGeneratorUtils.getFullClassTypeName(baseClass), CONSTRUCTOR, "()V", false);
         defaultConstructor.visitInsn(RETURN);
         defaultConstructor.visitMaxs(1, 1);
 
-        constructorWParameters.visitEnd();
         defaultConstructor.visitEnd();
     }
 
@@ -231,10 +196,6 @@ public class XsdClassGenerator {
 
     private ClassWriter generateClass(String className, String superName, String[] interfaces) {
         return generateClass(className, superName, interfaces, ACC_PUBLIC);
-    }
-
-    private ClassWriter generateClass(String className) {
-        return generateClass(className, JAVA_OBJECT, new String[]{}, ACC_PUBLIC);
     }
 
     /**
@@ -264,6 +225,11 @@ public class XsdClassGenerator {
         return ArrayUtils.addAll(typeInterfaces, groupInterfaces);
     }
 
+    /**
+     * Obtains all the xsdGroups in the given element which will be used to create interfaces.
+     * @param complexType The complexType of the element which will be implementing the interfaces.
+     * @return The names of all the interfaces that will be implementing.
+     */
     private String[] getSharedInterfaces(XsdComplexType complexType) {
         ReferenceBase elementWrapper = complexType.getChildElement();
 
@@ -341,6 +307,131 @@ public class XsdClassGenerator {
         }
 
         return new ArrayList<>();
+    }
+
+    /**
+     * Obtains this element super class name. It obtains all the super classes from the attributes
+     * and uses getBaseClass to recursively iterate on its parent until it reaches a common parent
+     * or creates a combination of two groups of attributes.
+     * @param element The element that contains the attributes
+     * @return The elements super class name.
+     */
+    private String getSuperClassName(XsdElement element){
+        if (element.getComplexType() != null){
+            XsdComplexType complexType = element.getComplexType();
+
+            if (complexType != null) {
+                List<XsdAttributeGroup> baseClasses = complexType.getAttributes()
+                                                                    .stream()
+                                                                    .filter(attribute -> attribute instanceof ConcreteElement)
+                                                                    .map(attribute -> (ConcreteElement) attribute)
+                                                                    .filter(attribute -> attribute.getElement().getParent() instanceof XsdAttributeGroup)
+                                                                    .map(attribute -> (XsdAttributeGroup) attribute.getElement().getParent())
+                                                                    .distinct()
+                                                                    .collect(Collectors.toList());
+
+                if (baseClasses != null && !baseClasses.isEmpty()){
+                    return XsdClassGeneratorUtils.getFullClassTypeName(XsdClassGeneratorUtils.toCamelCase(getBaseClass(element, baseClasses)));
+                }
+            }
+        }
+
+        return JAVA_OBJECT;
+    }
+
+    /**
+     * Recursively iterates in parents of attributes in order to try finding a common attribute group.
+     * @param element The element which contains the attributes.
+     * @param baseClasses The attributeGroups contained in the element.
+     * @return The elements super class name.
+     */
+    private String getBaseClass(XsdElement element, List<XsdAttributeGroup> baseClasses){
+        List<XsdAttributeGroup> parents = new ArrayList<>();
+
+        baseClasses.forEach(baseClass -> {
+            addBaseClass(baseClass);
+
+            XsdAttributeGroup parent = (XsdAttributeGroup) baseClass.getParent();
+
+            if (!parents.contains(parent) && parent != null){
+                parents.add(parent);
+            }
+        });
+
+        if (baseClasses.size() == 1){
+            return baseClasses.iterator().next().getName();
+        }
+
+        if (parents.size() == 0){
+            return createSpecificElementBase(element, baseClasses);
+        }
+
+        return getBaseClass(element, parents);
+    }
+
+    /**
+     * Obtains the attributes which are specific to the given element.
+     * @param element The element containing the attributes.
+     * @return A list of attributes that are exclusive to the element.
+     */
+    private List<ConcreteElement> getOwnAttributes(XsdElement element){
+        if (element.getComplexType() != null){
+            XsdComplexType complexType = element.getComplexType();
+
+            if (complexType != null) {
+                return complexType.getAttributes()
+                                    .stream()
+                                    .filter(attribute -> attribute instanceof ConcreteElement)
+                                    .map(attribute -> (ConcreteElement) attribute)
+                                    .filter(attribute -> attribute.getElement().getParent().equals(complexType))
+                                    .collect(Collectors.toList());
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
+
+    /**
+     * Adds information about the base classes to the baseClasses variable.
+     * @param baseClass The baseClass to add.
+     */
+    private void addBaseClass(XsdAttributeGroup baseClass) {
+        if (!this.baseClasses.containsKey(baseClass.getName())){
+            List<ConcreteElement> ownElements = baseClass.getElements()
+                    .stream()
+                    .filter(elementObj -> elementObj.getElement().getParent().equals(baseClass))
+                    .filter(elementObj -> elementObj instanceof ConcreteElement)
+                    .map(elementObj -> (ConcreteElement) elementObj)
+                    .collect(Collectors.toList());
+
+            this.baseClasses.put(baseClass.getName(), ownElements);
+        }
+    }
+
+    /**
+     * Called when a Element has a combination of attribute groups. This method combines both
+     * attribute groups in order to create a single one, which will be a specific base class for
+     * this element
+     * @param element The element which has multiple attribute groups
+     * @param baseClasses The base classes to join.
+     * @return The base class name, which the Element will be extending from.
+     */
+    private String createSpecificElementBase(XsdElement element, List<XsdAttributeGroup> baseClasses) {
+        String baseClassName = element.getName() + ATTRIBUTE_CLASS_SUFIX;
+
+        List<ConcreteElement> elements = new ArrayList<>();
+
+        baseClasses.forEach(elementObj ->
+                elements.addAll(elementObj.getElements()
+                        .stream()
+                        .filter(attribute -> attribute instanceof ConcreteElement)
+                        .map(attribute -> (ConcreteElement) attribute)
+                        .collect(Collectors.toList())));
+
+        this.baseClasses.put(baseClassName, elements);
+
+        return baseClassName;
     }
 
 }
