@@ -82,7 +82,7 @@ public class XsdElement extends XsdReferenceElement {
     }
 
     @Override
-    public List<ReferenceBase> getElements() {
+    List<ReferenceBase> getElements() {
         return null;
     }
 
@@ -105,12 +105,24 @@ public class XsdElement extends XsdReferenceElement {
         this.complexType = ReferenceBase.createFromXsd(complexType);
     }
 
-    public XsdComplexType getComplexType() {
+    ReferenceBase getComplexType() {
+        return complexType;
+    }
+
+    public XsdComplexType getXsdComplexType() {
         return complexType == null ? null : (XsdComplexType) complexType.getElement();
     }
 
-    public ReferenceBase getType(){
+    ReferenceBase getType(){
         return type;
+    }
+
+    public XsdElementBase getXsdType(){
+        if (type != null && type instanceof ConcreteElement){
+            return type.getElement();
+        }
+
+        return null;
     }
 
     public String getSubstitutionGroup() {

@@ -10,6 +10,7 @@ import org.w3c.dom.Node;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class XsdElementBase {
 
@@ -71,7 +72,7 @@ public abstract class XsdElementBase {
         return minOccurs;
     }
 
-    public abstract void accept(Visitor visitor);
+    abstract void accept(Visitor visitor);
 
     public abstract Visitor getVisitor();
 
@@ -127,7 +128,17 @@ public abstract class XsdElementBase {
         return attributesMapped;
     }
 
-    public abstract List<ReferenceBase> getElements();
+    abstract List<ReferenceBase> getElements();
+
+    public List<XsdElementBase> getXsdElements(){
+        List<ReferenceBase> elements = getElements();
+
+        if (elements == null){
+            return null;
+        }
+
+        return elements.stream().filter(element -> element instanceof ConcreteElement).map(ReferenceBase::getElement).collect(Collectors.toList());
+    }
 
     public XsdElementBase getParent() {
         return parent;

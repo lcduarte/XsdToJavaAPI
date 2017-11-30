@@ -36,7 +36,7 @@ public class XsdAttributeGroup extends XsdReferenceElement {
     }
 
     @Override
-    public List<ReferenceBase> getElements() {
+    List<ReferenceBase> getElements() {
         return attributes;
     }
 

@@ -51,7 +51,7 @@ public class XsdAttribute extends XsdReferenceElement {
     }
 
     @Override
-    public List<ReferenceBase> getElements() {
+    List<ReferenceBase> getElements() {
         return null;
     }
 

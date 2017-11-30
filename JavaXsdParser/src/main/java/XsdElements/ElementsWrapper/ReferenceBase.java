@@ -7,7 +7,7 @@ import static XsdElements.XsdReferenceElement.NAME;
 
 public abstract class ReferenceBase {
 
-    public static final String REF = "ref";
+    private static final String REF = "ref";
 
     public abstract XsdElementBase getElement();
 

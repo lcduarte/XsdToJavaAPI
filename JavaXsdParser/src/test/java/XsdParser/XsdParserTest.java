@@ -1,10 +1,8 @@
 package XsdParser;
 
+import XsdElements.*;
 import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
-import XsdElements.XsdChoice;
-import XsdElements.XsdComplexType;
-import XsdElements.XsdElement;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,14 +11,15 @@ import java.util.stream.Collectors;
 
 public class XsdParserTest {
 
-    private static final List<ReferenceBase> elements;
+    private static final List<XsdElement> elements;
 
     static{
         XsdParser parser = new XsdParser();
 
         elements = parser.parse("html_5.xsd")
                          .stream()
-                         .filter(element -> element.getElement() instanceof XsdElement)
+                         .filter(element -> element instanceof XsdElement)
+                         .map(element -> (XsdElement) element)
                          .collect(Collectors.toList());
     }
 
@@ -31,61 +30,39 @@ public class XsdParserTest {
 
     @Test
     public void testFirstElementContents() throws Exception {
-        ReferenceBase firstElement = elements.get(0);
-
-        Assert.assertEquals(firstElement.getClass(), ConcreteElement.class);
-
-        ConcreteElement concreteFirstElement = (ConcreteElement) firstElement;
-
-        Assert.assertEquals(concreteFirstElement.getElement().getClass(), XsdElement.class);
-
-        XsdElement htmlElement = (XsdElement) concreteFirstElement.getElement();
+        XsdElement htmlElement = elements.get(0);
 
         Assert.assertEquals("html", htmlElement.getName());
 
-        XsdComplexType firstElementChild = htmlElement.getComplexType();
+        XsdComplexType firstElementChild = htmlElement.getXsdComplexType();
 
-        Assert.assertEquals(firstElementChild.getChildElement().getElement().getClass(), XsdChoice.class);
+        Assert.assertEquals(firstElementChild.getXsdChildElement().getClass(), XsdChoice.class);
 
-        XsdChoice complexTypeChild = (XsdChoice) firstElementChild.getChildElement().getElement();
+        XsdChoice complexTypeChild = (XsdChoice) firstElementChild.getXsdChildElement();
 
-        List<ReferenceBase> choiceElements = complexTypeChild.getElements();
+        List<XsdElementBase> choiceElements = complexTypeChild.getXsdElements();
 
         Assert.assertEquals(2, choiceElements.size());
 
-        ReferenceBase choiceElement1Obj = choiceElements.get(0);
-        ReferenceBase choiceElement2Obj = choiceElements.get(1);
+        XsdElementBase child1 = choiceElements.get(0);
+        XsdElementBase child2 = choiceElements.get(1);
 
-        Assert.assertEquals(choiceElement1Obj.getClass(), ConcreteElement.class);
-        Assert.assertEquals(choiceElement2Obj.getClass(), ConcreteElement.class);
+        Assert.assertEquals(child1.getClass(), XsdElement.class);
+        Assert.assertEquals(child2.getClass(), XsdElement.class);
 
-        ConcreteElement concreteChild1 = (ConcreteElement) choiceElement1Obj;
-        ConcreteElement concreteChild2 = (ConcreteElement) choiceElement2Obj;
-
-        Assert.assertEquals(concreteChild1.getElement().getClass(), XsdElement.class);
-        Assert.assertEquals(concreteChild2.getElement().getClass(), XsdElement.class);
-
-        Assert.assertEquals("body", ((XsdElement)concreteChild1.getElement()).getName());
-        Assert.assertEquals("head", ((XsdElement)concreteChild2.getElement()).getName());
+        Assert.assertEquals("body", ((XsdElement)child1).getName());
+        Assert.assertEquals("head", ((XsdElement)child2).getName());
     }
 
     @Test
     public void testFirstElementAttributes() throws Exception {
-        ReferenceBase firstElement = elements.get(0);
-
-        Assert.assertEquals(firstElement.getClass(), ConcreteElement.class);
-
-        ConcreteElement concreteFirstElement = (ConcreteElement) firstElement;
-
-        Assert.assertEquals(concreteFirstElement.getElement().getClass(), XsdElement.class);
-
-        XsdElement htmlElement = (XsdElement) concreteFirstElement.getElement();
+        XsdElement htmlElement = elements.get(0);
 
         Assert.assertEquals("html", htmlElement.getName());
 
-        XsdComplexType firstElementChild = htmlElement.getComplexType();
+        XsdComplexType firstElementChild = htmlElement.getXsdComplexType();
 
-        List<ReferenceBase> elementAttributes = firstElementChild.getAttributes();
+        List<XsdAttribute> elementAttributes = firstElementChild.getXsdAttributes();
 
         Assert.assertEquals(84, elementAttributes.size());
     }

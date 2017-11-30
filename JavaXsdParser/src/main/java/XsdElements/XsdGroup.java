@@ -35,7 +35,7 @@ public class XsdGroup extends XsdReferenceElement {
     }
 
     @Override
-    public List<ReferenceBase> getElements() {
+    List<ReferenceBase> getElements() {
         return childElement.getElements();
     }
 

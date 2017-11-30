@@ -1,0 +1,10 @@
+package ASMSamples.ElementBasedClasses;
+
+import ASMSamples.PreCreationNeeded.AbstractElement;
+
+public class P extends AbstractElement<P> implements IFlowContent<P> {
+    public P() {}
+    public P(String text) {}
+    public P(String id, String text) {}
+    public P self() {return this; }
+}

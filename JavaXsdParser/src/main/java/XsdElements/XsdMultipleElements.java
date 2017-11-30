@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class XsdMultipleElements extends XsdElementBase {
 
@@ -44,7 +45,7 @@ public abstract class XsdMultipleElements extends XsdElementBase {
     }
 
     @Override
-    public List<ReferenceBase> getElements(){
+    List<ReferenceBase> getElements(){
         return elements;
     }
 
@@ -56,8 +57,20 @@ public abstract class XsdMultipleElements extends XsdElementBase {
         this.elements.addAll(elements);
     }
 
-    public Map<String, List<ReferenceBase>> getGroupElements(){
-        return groupElements;
+    public Map<String, List<XsdElement>> getGroupElements(){
+        Map<String, List<XsdElement>> concreteGroupElements = new HashMap<>();
+
+        groupElements.keySet().forEach(groupElementName -> {
+            concreteGroupElements.put(
+                    groupElementName,
+                    groupElements.get(groupElementName)
+                            .stream()
+                            .filter(groupElement -> groupElement instanceof ConcreteElement)
+                            .map(groupElement -> (XsdElement) groupElement.getElement())
+                            .collect(Collectors.toList()));
+        });
+
+        return concreteGroupElements;
     }
 
 }

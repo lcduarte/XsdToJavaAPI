@@ -8,6 +8,7 @@ import org.w3c.dom.Node;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class XsdComplexType extends XsdElementBase {
 
@@ -62,7 +63,7 @@ public class XsdComplexType extends XsdElementBase {
     }
 
     @Override
-    public List<ReferenceBase> getElements() {
+    List<ReferenceBase> getElements() {
         return childElement == null ? null : childElement.getElement().getElements();
     }
 
@@ -104,8 +105,12 @@ public class XsdComplexType extends XsdElementBase {
         this.attributes.addAll(attributes);
     }
 
-    public ReferenceBase getChildElement() {
+    ReferenceBase getChildElement() {
         return childElement;
+    }
+
+    public XsdElementBase getXsdChildElement() {
+        return childElement == null ? null : childElement.getElement();
     }
 
     public String getName() {
@@ -128,8 +133,16 @@ public class XsdComplexType extends XsdElementBase {
         return elementFinal;
     }
 
-    public List<ReferenceBase> getAttributes() {
+    List<ReferenceBase> getAttributes() {
         return attributes;
+    }
+
+    public List<XsdAttribute> getXsdAttributes() {
+        return attributes.stream()
+                        .filter(attribute -> attribute instanceof ConcreteElement)
+                        .filter(attribute -> attribute.getElement() instanceof  XsdAttribute)
+                        .map(attribute -> (XsdAttribute)attribute.getElement())
+                        .collect(Collectors.toList());
     }
 
     public static ReferenceBase parse(Node node){
