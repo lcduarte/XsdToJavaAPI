@@ -150,12 +150,13 @@ public class XsdClassGenerator {
             methodVisitor.visitMaxs(1, 1);
             methodVisitor.visitEnd();
 
-            methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "set" + camelCaseName, "(" + JAVA_STRING +")V", null, null);
+            methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "set" + camelCaseName, "(" + JAVA_STRING +")" + fullClassName, null, null);
             methodVisitor.visitCode();
             methodVisitor.visitVarInsn(ALOAD, 0);
             methodVisitor.visitVarInsn(ALOAD, 1);
             methodVisitor.visitFieldInsn(PUTFIELD, fullClassName, name, JAVA_STRING);
-            methodVisitor.visitInsn(RETURN);
+            methodVisitor.visitVarInsn(ALOAD, 0);
+            methodVisitor.visitInsn(ARETURN);
             methodVisitor.visitMaxs(2, 2);
             methodVisitor.visitEnd();
         }
