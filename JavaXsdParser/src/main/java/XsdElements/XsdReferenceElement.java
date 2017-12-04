@@ -39,4 +39,7 @@ public abstract class XsdReferenceElement extends XsdElementBase {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }

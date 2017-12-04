@@ -28,6 +28,7 @@ public class XsdComplexType extends XsdElementBase {
     private String mixed;
     private String block;
     private String elementFinal;
+    private List<XsdAttributeGroup> attributeGroups = new ArrayList<>();
     private List<ReferenceBase> attributes = new ArrayList<>();
 
     private XsdComplexType(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
@@ -85,6 +86,7 @@ public class XsdComplexType extends XsdElementBase {
         if (element.getElement() instanceof  XsdAttributeGroup){
             XsdAttributeGroup attributeGroup = (XsdAttributeGroup) element.getElement();
 
+            this.attributeGroups.add(attributeGroup);
             this.addAttributes(attributeGroup.getElements());
         }
     }
@@ -143,6 +145,10 @@ public class XsdComplexType extends XsdElementBase {
                         .filter(attribute -> attribute.getElement() instanceof  XsdAttribute)
                         .map(attribute -> (XsdAttribute)attribute.getElement())
                         .collect(Collectors.toList());
+    }
+
+    public List<XsdAttributeGroup> getXsdAttributeGroup() {
+        return attributeGroups;
     }
 
     public static ReferenceBase parse(Node node){

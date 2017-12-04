@@ -12,10 +12,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -26,7 +23,7 @@ public class XsdParser {
 
     private List<ReferenceBase> elements = new ArrayList<>();
     private List<UnsolvedReference> unsolvedElements = new ArrayList<>();
-    private Map<String, List<UnsolvedReference>> parserUnsolvedElementsMap = new HashMap<>();
+    private Map<String, Map<UnsolvedReference, List<XsdElementBase>>> parserUnsolvedElementsMap = new HashMap<>();
 
     static {
         parseMapper = new HashMap<>();
@@ -134,24 +131,45 @@ public class XsdParser {
             unsolvedReference.getParent().getElement().replaceUnsolvedElements(substitutionElementWrapper);
         } else {
             if (!parserUnsolvedElementsMap.containsKey(filePath)){
-                List<UnsolvedReference> unsolvedReferenceList = new ArrayList<>();
-
-                unsolvedReferenceList.add(unsolvedReference);
-
-                parserUnsolvedElementsMap.put(filePath, unsolvedReferenceList);
+                addNewFileUnsolvedEntry(filePath, unsolvedReference);
             } else {
-                List<UnsolvedReference> unsolvedReferenceList = parserUnsolvedElementsMap.get(filePath);
-
-                if (unsolvedReferenceList.stream()
-                        .noneMatch(unsolvedReferenceObj -> unsolvedReferenceObj.getRef().equals(unsolvedReference.getRef()))){
-                    unsolvedReferenceList.add(unsolvedReference);
-                }
+                addNewUnsolvedEntry(filePath, unsolvedReference);
             }
         }
     }
 
-    public List<UnsolvedReference> getUnsolvedReferencesForFile(String filePath){
-        return parserUnsolvedElementsMap.getOrDefault(filePath, new ArrayList<>());
+    private void addNewFileUnsolvedEntry(String filePath, UnsolvedReference unsolvedReference) {
+        Map<UnsolvedReference, List<XsdElementBase>> entry = new HashMap<>();
+
+        List<XsdElementBase> parents = new ArrayList<>();
+
+        parents.add(unsolvedReference.getParent().getElement());
+
+        entry.put(unsolvedReference, parents);
+
+        parserUnsolvedElementsMap.put(filePath, entry);
+    }
+
+    private void addNewUnsolvedEntry(String filePath, UnsolvedReference unsolvedReference) {
+        Map<UnsolvedReference, List<XsdElementBase>> entry = parserUnsolvedElementsMap.get(filePath);
+
+        Optional<UnsolvedReference> innerEntry = entry.keySet().stream()
+                .filter(unsolvedReferenceObj -> unsolvedReferenceObj.getRef().equals(unsolvedReference.getRef()))
+                .findFirst();
+
+        if (innerEntry.isPresent()){
+            innerEntry.ifPresent(unsolvedReferenceObj -> entry.get(unsolvedReferenceObj).add(unsolvedReference.getParent().getElement()));
+        } else {
+            List<XsdElementBase> parents = new ArrayList<>();
+
+            parents.add(unsolvedReference.getParent().getElement());
+
+            parserUnsolvedElementsMap.get(filePath).put(unsolvedReference, parents);
+        }
+    }
+
+    Map<UnsolvedReference, List<XsdElementBase>> getUnsolvedReferencesForFile(String filePath){
+        return parserUnsolvedElementsMap.getOrDefault(filePath, new HashMap<>());
     }
 
     public static XsdParser getInstance(){

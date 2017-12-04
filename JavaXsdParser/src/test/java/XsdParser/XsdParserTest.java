@@ -1,22 +1,24 @@
 package XsdParser;
 
 import XsdElements.*;
-import XsdElements.ElementsWrapper.ConcreteElement;
-import XsdElements.ElementsWrapper.ReferenceBase;
+import XsdElements.ElementsWrapper.UnsolvedReference;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class XsdParserTest {
 
+    private static final String FILE_NAME = "html_5.xsd";
     private static final List<XsdElement> elements;
+    private static final XsdParser parser;
 
     static{
-        XsdParser parser = new XsdParser();
+        parser = new XsdParser();
 
-        elements = parser.parse("html_5.xsd")
+        elements = parser.parse(FILE_NAME)
                          .stream()
                          .filter(element -> element instanceof XsdElement)
                          .map(element -> (XsdElement) element)
@@ -65,5 +67,28 @@ public class XsdParserTest {
         List<XsdAttribute> elementAttributes = firstElementChild.getXsdAttributes();
 
         Assert.assertEquals(84, elementAttributes.size());
+    }
+
+    @Test
+    public void testUnsolvedReferences() throws Exception {
+        Map<UnsolvedReference, List<XsdElementBase>> unsolvedReferenceMap = parser.getUnsolvedReferencesForFile(FILE_NAME);
+
+        Assert.assertEquals(1, unsolvedReferenceMap.keySet().size());
+
+        List<XsdElementBase> parents = unsolvedReferenceMap.get(unsolvedReferenceMap.keySet().iterator().next());
+
+        Assert.assertEquals(2, parents.size());
+
+        XsdElementBase parent1 = parents.get(0);
+        XsdElementBase parent2 = parents.get(1);
+
+        Assert.assertEquals(XsdGroup.class, parent1.getClass());
+        Assert.assertEquals(XsdGroup.class, parent2.getClass());
+
+        XsdGroup parent1Group = (XsdGroup) parent1;
+        XsdGroup parent2Group = (XsdGroup) parent2;
+
+        Assert.assertEquals("flowContent", parent1Group.getName());
+        Assert.assertEquals("phrasingContent", parent2Group.getName());
     }
 }

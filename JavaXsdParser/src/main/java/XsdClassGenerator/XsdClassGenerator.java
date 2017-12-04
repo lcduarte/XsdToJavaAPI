@@ -2,42 +2,68 @@ package XsdClassGenerator;
 
 import XsdElements.*;
 import org.apache.commons.lang3.ArrayUtils;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.FieldVisitor;
-import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.*;
+import org.objectweb.asm.util.ASMifier;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import static XsdClassGenerator.XsdClassGeneratorUtils.*;
 import static org.objectweb.asm.Opcodes.*;
 
 public class XsdClassGenerator {
 
-    private static final String JAVA_OBJECT = "java/lang/Object";
-    private static final String JAVA_STRING = "Ljava/lang/String;";
-    private static final String CONSTRUCTOR = "<init>";
-    private static final String ATTRIBUTE_PREFIX = "attr";
-    private static final String ATTRIBUTE_CLASS_SUFIX = "Attributes";
+    static final String JAVA_OBJECT = "java/lang/Object";
+    static final String JAVA_OBJECT_DESC = "Ljava/lang/Object;";
+    static final String JAVA_STRING_DESC = "Ljava/lang/String;";
+    static final String JAVA_LIST = "java/lang/List";
+    static final String JAVA_LIST_DESC = "Ljava/lang/List;";
+    static final String CONSTRUCTOR = "<init>";
+    static final String IELEMENT = "IElement";
+    static final String IATTRIBUTE = "IAttribute";
+    static final String ABSTRACT_ELEMENT = "AbstractElement";
+    private static final String TEXT_CLASS = "Text";
 
-    private Map<String, List<XsdElement>> groupInterfaces = new HashMap<>();
-    private Map<String, List<XsdAttribute>> baseClasses = new HashMap<>();
+    private static final String TEXT_TYPE = getFullClassTypeName(TEXT_CLASS);
+    static final String ABSTRACT_ELEMENT_TYPE = getFullClassTypeName(ABSTRACT_ELEMENT);
+    static final String ABSTRACT_ELEMENT_TYPE_DESC = getFullClassTypeNameDesc(ABSTRACT_ELEMENT);
+    static final String IELEMENT_TYPE = getFullClassTypeName(IELEMENT);
+    static final String IELEMENT_TYPE_DESC = getFullClassTypeNameDesc(IELEMENT);
+    private static final String IATTRIBUTE_TYPE = getFullClassTypeName(IATTRIBUTE);
+    static final String IATTRIBUTE_TYPE_DESC = getFullClassTypeNameDesc(IATTRIBUTE);
+
+    private static final String ATTRIBUTE_PREFIX = "Attr";
+    private static final String ATTRIBUTE_CASE_SENSITIVE_DIFERENCE = "Alt";
+
+    private Map<String, List<XsdElement>> elementGroupInterfaces = new HashMap<>();
+    private Map<String, AttributeHierarchyItem> attributeGroupInterfaces = new HashMap<>();
+    private List<XsdAttribute> createdAttributes = new ArrayList<>();
 
     public void generateClassFromElements(List<XsdElementBase> elementList){
-        List<XsdElement> concreteElementList = elementList.stream()
-                                                                .filter(element -> element instanceof XsdElement)
-                                                                .map(element -> (XsdElement) element)
-                                                                .collect(Collectors.toList());
+        //DEBUGcallASMifier();
 
-        XsdClassGeneratorUtils.createGeneratedFilesDirectory();
+        List<XsdElement> concreteElementList = elementList.stream()
+                                                            .filter(element -> element instanceof XsdElement)
+                                                            .map(element -> (XsdElement) element)
+                                                            .collect(Collectors.toList());
+
+        createGeneratedFilesDirectory();
+
+        createSupportingInfrastructure();
 
         concreteElementList.forEach(this::generateClassFromElement);
 
         generateInterfaces();
 
-        generateBaseClasses();
+        generateAttributesGroupInterfaces();
+    }
+
+    private void DEBUGcallASMifier() {
+        try {
+            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\JavaXsdParser\\target\\classes\\ASMSamples\\PreCreationNeeded\\AbstractElement.class"});
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -45,77 +71,198 @@ public class XsdClassGenerator {
      * @param element The element from which the class will be generated.
      */
     private void generateClassFromElement(XsdElement element) {
-        String className = XsdClassGeneratorUtils.toCamelCase(element.getName());
+        String className = toCamelCase(element.getName());
 
         List<XsdElement> elementChildren = getOwnChildren(element);
         List<XsdAttribute> elementAttributes = getOwnAttributes(element);
-        String superClass = getSuperClassName(element);
-        String[] interfaces = getSharedInterfaces(element);
+        String superClass = ABSTRACT_ELEMENT_TYPE;
+        String[] interfaces = getInterfaces(element);
 
-        ClassWriter classWriter = generateClass(className, superClass, interfaces);
+        // Ajudar o classLoader?
+        for (int i = 0; i < interfaces.length; i++) {
+            if (!interfaces[i].startsWith("XsdClassGenerator")){
+                interfaces[i] = getFullClassTypeName(interfaces[i]);
+            }
+        }
+
+        String signature = getClassSignature(interfaces, className);
+
+        ClassWriter classWriter = generateClass(className, superClass, interfaces, signature,ACC_PUBLIC);
 
         generateConstructor(classWriter, superClass, ACC_PUBLIC);
 
-        generateMethods(classWriter, elementChildren);
+        generateClassSpecificMethods(classWriter, className);
 
-        generateFields(classWriter, elementAttributes, className);
+        generateMethodsForElements(classWriter, elementChildren, className);
 
-        classWriter.visitEnd();
+        generateMethodsForAttributes(classWriter, elementAttributes);
 
-        XsdClassGeneratorUtils.writeClassToFile(className, classWriter.toByteArray());
+        writeClassToFile(className, classWriter);
+    }
+
+    private void generateClassSpecificMethods(ClassWriter classWriter, String className) {
+        String classType = getFullClassTypeName(className);
+        String classTypeDesc = getFullClassTypeNameDesc(className);
+
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "()V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, classType, "children", JAVA_LIST_DESC );
+        mVisitor.visitTypeInsn(NEW, TEXT_TYPE);
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, TEXT_TYPE, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "add", "(" + JAVA_OBJECT_DESC + ")Z", true);
+        mVisitor.visitInsn(POP);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(4, 2);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "()V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitFieldInsn(PUTFIELD, classType, "id", JAVA_STRING_DESC);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, classType, "children", JAVA_LIST_DESC);
+        mVisitor.visitTypeInsn(NEW, TEXT_TYPE);
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitVarInsn(ALOAD, 2);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, TEXT_TYPE, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "add", "(" + JAVA_OBJECT_DESC + ")Z", true);
+        mVisitor.visitInsn(POP);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(4, 3);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "self", "()" + classTypeDesc, null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, "self", "()" + IELEMENT_TYPE_DESC, null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, classType, "self", "()" + classTypeDesc, false);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
     }
 
     private void generateInterfaces() {
-        groupInterfaces.keySet().forEach(this::generateInterface);
+        elementGroupInterfaces.keySet().forEach(this::generateInterface);
     }
 
-    private void generateBaseClasses() {
-        baseClasses.keySet().forEach(this::generateBaseClass);
+    private void generateAttributesGroupInterfaces() {
+        attributeGroupInterfaces.keySet().forEach(this::generateAttributesGroupInterface);
     }
 
-    private void generateBaseClass(String baseClassName){
-        String baseClassNameCamelCase = XsdClassGeneratorUtils.toCamelCase(baseClassName);
+    private void generateAttributesGroupInterface(String attributeGroupName){
+        AttributeHierarchyItem attributeHierarchyItem = attributeGroupInterfaces.get(attributeGroupName);
 
-        ClassWriter interfaceWriter = generateClass(baseClassNameCamelCase, JAVA_OBJECT, new String[]{}, ACC_PUBLIC + ACC_ABSTRACT);
+        String baseClassNameCamelCase = toCamelCase(attributeGroupName);
+        String[] interfaces = getAttributeGroupObjectInterfaces(attributeHierarchyItem.getParentsName());
+        StringBuilder signature = getAttributeGroupSignature(attributeHierarchyItem.getParentsName(), interfaces);
 
-        generateFields(interfaceWriter, baseClasses.get(baseClassName), baseClassNameCamelCase);
+        ClassWriter interfaceWriter = generateClass(baseClassNameCamelCase, JAVA_OBJECT, interfaces, signature.toString(), ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE);
 
-        interfaceWriter.visitEnd();
+        for (XsdAttribute element : attributeHierarchyItem.getOwnElements()) {
+            if (createdAttributes.stream().anyMatch(createdAttribute -> createdAttribute.getName().equalsIgnoreCase(element.getName()))){
+                element.setName(element.getName() + ATTRIBUTE_CASE_SENSITIVE_DIFERENCE);
+            }
+        }
 
-        XsdClassGeneratorUtils.writeClassToFile(baseClassNameCamelCase, interfaceWriter.toByteArray());
+        generateMethodsForAttributes(interfaceWriter, attributeHierarchyItem.getOwnElements());
+
+        attributeHierarchyItem.getOwnElements().forEach(this::generateAttribute);
+
+        createdAttributes.addAll(attributeHierarchyItem.getOwnElements());
+
+        writeClassToFile(baseClassNameCamelCase, interfaceWriter);
+    }
+
+    private void generateAttribute(XsdAttribute attribute){
+        String camelAttributeName = ATTRIBUTE_PREFIX + toCamelCase(attribute.getName()).replaceAll("\\W+", "");
+
+        ClassWriter attributeWriter = generateClass(camelAttributeName, JAVA_OBJECT, new String[]{IATTRIBUTE_TYPE}, null, ACC_PUBLIC);
+
+        generateConstructor(attributeWriter, JAVA_OBJECT, ACC_PUBLIC);
+
+        writeClassToFile(camelAttributeName, attributeWriter);
     }
 
     /**
-     * Generates a interface with all its methods. It uses the information gathered about in groupInterfaces
+     * Generates a interface with all its methods. It uses the information gathered about in elementGroupInterfaces
      * @param interfaceName The interface name.
      */
     private void generateInterface(String interfaceName){
-        ClassWriter interfaceWriter = generateClass(interfaceName, JAVA_OBJECT, new String[]{}, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE);
+        ClassWriter interfaceWriter = generateClass(interfaceName, JAVA_OBJECT, new String[]{ IELEMENT_TYPE },"<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;" ,ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE);
 
-        generateMethods(interfaceWriter, groupInterfaces.get(interfaceName));
+        generateMethodsForElements(interfaceWriter, elementGroupInterfaces.get(interfaceName), interfaceName);
 
-        interfaceWriter.visitEnd();
-
-        XsdClassGeneratorUtils.writeClassToFile(interfaceName, interfaceWriter.toByteArray());
+        writeClassToFile(interfaceName, interfaceWriter);
     }
 
     /**
      * Generates all the method from a given class.
      * @param classWriter The class where the method will be written.
-     * @param children The children of the element which generated the class. Their name represents a
+     * @param children The children of the element which generated the class. Their name represents a method.
+     * @param className The name of the class which contains the children elements.
      */
-    private void generateMethods(ClassWriter classWriter, List<XsdElement> children) {
-        for (XsdElement child : children) {
-            String childCamelName = XsdClassGeneratorUtils.toCamelCase(child.getName());
+    private void generateMethodsForElements(ClassWriter classWriter, List<XsdElement> children, String className) {
+        String classType = getFullClassTypeName(className);
+        Set<String> createdChildren = new HashSet<>();
 
-            MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "()" + XsdClassGeneratorUtils.getFullClassName(childCamelName), null, null);
-            methodVisitor.visitCode();
-            methodVisitor.visitTypeInsn(NEW, XsdClassGeneratorUtils.getFullClassTypeName(childCamelName));
-            methodVisitor.visitInsn(DUP);
-            methodVisitor.visitMethodInsn(INVOKESPECIAL, XsdClassGeneratorUtils.getFullClassTypeName(childCamelName), CONSTRUCTOR, "()V", false);
-            methodVisitor.visitInsn(ARETURN);
-            methodVisitor.visitMaxs(2, 1);
-            methodVisitor.visitEnd();
+        for (XsdElement child : children) {
+            String childCamelName = toCamelCase(child.getName());
+
+            if (createdChildren.contains(childCamelName)){
+                continue;
+            }
+
+            createdChildren.add(childCamelName);
+
+            String childType = getFullClassTypeName(childCamelName);
+            String childTypeDesc = getFullClassTypeNameDesc(childCamelName);
+
+            MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + ")" + childTypeDesc, null, null);
+            mVisitor.visitCode();
+            mVisitor.visitTypeInsn(NEW, childType);
+            mVisitor.visitInsn(DUP);
+            mVisitor.visitVarInsn(ALOAD, 1);
+            mVisitor.visitMethodInsn(INVOKESPECIAL, childType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
+            mVisitor.visitVarInsn(ASTORE, 2);
+            mVisitor.visitVarInsn(ALOAD, 0);
+            mVisitor.visitVarInsn(ALOAD, 2);
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "addChild", "(" + ABSTRACT_ELEMENT_TYPE_DESC + ")V", true);
+            mVisitor.visitVarInsn(ALOAD, 2);
+            mVisitor.visitInsn(ARETURN);
+            mVisitor.visitMaxs(3, 3);
+            mVisitor.visitEnd();
+
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")" + IELEMENT_TYPE_DESC, "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")TT;", null);
+            mVisitor.visitCode();
+            mVisitor.visitTypeInsn(NEW, childType);
+            mVisitor.visitInsn(DUP);
+            mVisitor.visitVarInsn(ALOAD, 1);
+            mVisitor.visitVarInsn(ALOAD, 2);
+            mVisitor.visitMethodInsn(INVOKESPECIAL, childType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")V", false);
+            mVisitor.visitVarInsn(ASTORE, 3);
+            mVisitor.visitVarInsn(ALOAD, 0);
+            mVisitor.visitVarInsn(ALOAD, 3);
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "addChild", "(" + ABSTRACT_ELEMENT_TYPE_DESC + ")V", true);
+            mVisitor.visitVarInsn(ALOAD, 0);
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "self", "()" + IELEMENT_TYPE_DESC, true);
+            mVisitor.visitInsn(ARETURN);
+            mVisitor.visitMaxs(4, 4);
+            mVisitor.visitEnd();
         }
     }
 
@@ -123,37 +270,24 @@ public class XsdClassGenerator {
      * Generates field for a given class.
      * @param classWriter The class where the fields will be added.
      * @param elementAttributes The name of the fields to be created. (Only String fields are being supported)
-     * @param className The class name from the class where the field will be added.
      */
-    private void generateFields(ClassWriter classWriter, List<XsdAttribute> elementAttributes, String className) {
-        FieldVisitor fieldVisitor;
-        MethodVisitor methodVisitor;
-        String fullClassName = XsdClassGeneratorUtils.getFullClassTypeName(className);
+    private void generateMethodsForAttributes(ClassWriter classWriter, List<XsdAttribute> elementAttributes) {
+        MethodVisitor mVisitor;
 
         for (XsdAttribute elementAttribute : elementAttributes) {
-            String name = ATTRIBUTE_PREFIX + XsdClassGeneratorUtils.toCamelCase(elementAttribute.getName()).replaceAll("\\W+", "");
-            fieldVisitor = classWriter.visitField(ACC_PRIVATE, name, JAVA_STRING, null, null);
-            fieldVisitor.visitEnd();
+            String camelCaseName = ATTRIBUTE_PREFIX + toCamelCase(elementAttribute.getName()).replaceAll("\\W+", "");
+            String attributeClassTypeDesc = getFullClassTypeNameDesc(camelCaseName);
 
-            String camelCaseName = XsdClassGeneratorUtils.toCamelCase(name);
-
-            methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "get" + camelCaseName, "()" + JAVA_STRING, null, null);
-            methodVisitor.visitCode();
-            methodVisitor.visitVarInsn(ALOAD, 0);
-            methodVisitor.visitFieldInsn(GETFIELD, fullClassName, name, JAVA_STRING);
-            methodVisitor.visitInsn(ARETURN);
-            methodVisitor.visitMaxs(1, 1);
-            methodVisitor.visitEnd();
-
-            methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "set" + camelCaseName, "(" + JAVA_STRING +")" + fullClassName, null, null);
-            methodVisitor.visitCode();
-            methodVisitor.visitVarInsn(ALOAD, 0);
-            methodVisitor.visitVarInsn(ALOAD, 1);
-            methodVisitor.visitFieldInsn(PUTFIELD, fullClassName, name, JAVA_STRING);
-            methodVisitor.visitVarInsn(ALOAD, 0);
-            methodVisitor.visitInsn(ARETURN);
-            methodVisitor.visitMaxs(2, 2);
-            methodVisitor.visitEnd();
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + attributeClassTypeDesc + ")" + IELEMENT_TYPE_DESC, "(" + attributeClassTypeDesc + ")TT;", null);
+            mVisitor.visitCode();
+            mVisitor.visitVarInsn(ALOAD, 0);
+            mVisitor.visitVarInsn(ALOAD, 1);
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, ABSTRACT_ELEMENT_TYPE, "addAttr", "(" + IATTRIBUTE_TYPE_DESC + ")V", true);
+            mVisitor.visitVarInsn(ALOAD, 0);
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "self", "()" + IELEMENT_TYPE_DESC, true);
+            mVisitor.visitInsn(ARETURN);
+            mVisitor.visitMaxs(2, 2);
+            mVisitor.visitEnd();
         }
     }
 
@@ -167,7 +301,7 @@ public class XsdClassGenerator {
 
         defaultConstructor.visitCode();
         defaultConstructor.visitVarInsn(ALOAD, 0);
-        defaultConstructor.visitMethodInsn(INVOKESPECIAL, XsdClassGeneratorUtils.getFullClassTypeName(baseClass), CONSTRUCTOR, "()V", false);
+        defaultConstructor.visitMethodInsn(INVOKESPECIAL, getFullClassTypeName(baseClass), CONSTRUCTOR, "()V", false);
         defaultConstructor.visitInsn(RETURN);
         defaultConstructor.visitMaxs(1, 1);
 
@@ -182,16 +316,12 @@ public class XsdClassGenerator {
      * @param classModifiers The modifiers to the class.
      * @return A class writer that will be used to write the remaining information of the class.
      */
-    private ClassWriter generateClass(String className, String superName, String[] interfaces, int classModifiers) {
+    static ClassWriter generateClass(String className, String superName, String[] interfaces, String signature, int classModifiers) {
         ClassWriter classWriter = new ClassWriter(0);
 
-        classWriter.visit(V1_8, classModifiers, XsdClassGeneratorUtils.getFullClassTypeName(className), null, superName, interfaces);
+        classWriter.visit(V1_8, classModifiers, getFullClassTypeName(className), signature, superName, interfaces);
 
         return classWriter;
-    }
-
-    private ClassWriter generateClass(String className, String superName, String[] interfaces) {
-        return generateClass(className, superName, interfaces, ACC_PUBLIC);
     }
 
     /**
@@ -202,19 +332,19 @@ public class XsdClassGenerator {
      * @return A string array containing the names of all the interfaces this method implements in
      * interface-like names, e.g. flowContent will be IFlowContent.
      */
-    private String[] getSharedInterfaces(XsdElement element){
+    private String[] getElementGroupInterfaces(XsdElement element){
         String[] typeInterfaces = new String[0], groupInterfaces = new String[0];
         XsdElementBase typeWrapper = element.getXsdType();
 
         if (typeWrapper != null && typeWrapper instanceof XsdComplexType){
 
-            typeInterfaces = getSharedInterfaces((XsdComplexType) typeWrapper);
+            typeInterfaces = getElementGroupInterfaces((XsdComplexType) typeWrapper);
         }
 
         XsdComplexType complexType = element.getXsdComplexType();
 
         if (complexType != null){
-            groupInterfaces = getSharedInterfaces(complexType);
+            groupInterfaces = getElementGroupInterfaces(complexType);
         }
 
         return ArrayUtils.addAll(typeInterfaces, groupInterfaces);
@@ -225,7 +355,7 @@ public class XsdClassGenerator {
      * @param complexType The complexType of the element which will be implementing the interfaces.
      * @return The names of all the interfaces that will be implementing.
      */
-    private String[] getSharedInterfaces(XsdComplexType complexType) {
+    private String[] getElementGroupInterfaces(XsdComplexType complexType) {
         XsdElementBase complexChildElement = complexType.getXsdChildElement();
 
         Map<String, List<XsdElement>> groupElements = new HashMap<>();
@@ -242,7 +372,7 @@ public class XsdClassGenerator {
     }
 
     /**
-     * This method will populate the groupInterfaces field with all the interface information
+     * This method will populate the elementGroupInterfaces field with all the interface information
      * that will be obtained while creating the classes in order to create all the needed interfaces
      * afterwards.
      * @param groupElements The Map containing the information about interfaces from a given element.
@@ -254,15 +384,15 @@ public class XsdClassGenerator {
         groupNames = groupElements.keySet().toArray(groupNames);
 
         groupElements.keySet().forEach((String groupName) -> {
-            if (!groupInterfaces.containsKey(groupName)){
-                groupInterfaces.put(
-                        XsdClassGeneratorUtils.getInterfaceName(groupName),
+            if (!elementGroupInterfaces.containsKey(groupName)){
+                elementGroupInterfaces.put(
+                        getInterfaceName(groupName),
                         groupElements.get(groupName));
             }
         });
 
         for (int i = 0; i < groupNames.length ; i++) {
-            groupNames[i] = XsdClassGeneratorUtils.getInterfaceName(groupNames[i]);
+            groupNames[i] = getInterfaceName(groupNames[i]);
         }
 
         return groupNames;
@@ -277,10 +407,10 @@ public class XsdClassGenerator {
      */
     private List<XsdElement> getOwnChildren(XsdElement element) {
         if (element.getXsdComplexType() != null){
-            XsdElementBase elementWrapper = element.getXsdComplexType().getXsdChildElement();
+            XsdElementBase childElement = element.getXsdComplexType().getXsdChildElement();
 
-            if (elementWrapper != null) {
-                return elementWrapper
+            if (childElement != null) {
+                return childElement
                         .getXsdElements()
                         .stream()
                         .filter(referenceBase -> !(referenceBase.getParent() instanceof XsdGroup))
@@ -294,58 +424,71 @@ public class XsdClassGenerator {
 
     /**
      * Obtains this element super class name. It obtains all the super classes from the attributes
-     * and uses getBaseClass to recursively iterate on its parent until it reaches a common parent
+     * and uses getBaseAttributeGroupInterface to recursively iterate on its parent until it reaches a common parent
      * or creates a combination of two groups of attributes.
      * @param element The element that contains the attributes
      * @return The elements super class name.
      */
-    private String getSuperClassName(XsdElement element){
+    private String[] getAttributeGroupInterfaces(XsdElement element){
         XsdComplexType complexType = element.getXsdComplexType();
 
         if (complexType != null) {
-            List<XsdAttributeGroup> baseClasses = complexType.getXsdAttributes()
+            List<XsdAttributeGroup> attributeGroups = complexType.getXsdAttributes()
                                                                 .stream()
                                                                 .filter(attribute -> attribute.getParent() instanceof XsdAttributeGroup)
                                                                 .map(attribute -> (XsdAttributeGroup) attribute.getParent())
                                                                 .distinct()
                                                                 .collect(Collectors.toList());
 
-            if (baseClasses != null && !baseClasses.isEmpty()){
-                return XsdClassGeneratorUtils.getFullClassTypeName(XsdClassGeneratorUtils.toCamelCase(getBaseClass(element, baseClasses)));
+            attributeGroups.addAll(complexType.getXsdAttributeGroup());
+
+            attributeGroups = attributeGroups.stream().distinct().collect(Collectors.toList());
+
+            attributeGroups.forEach(this::addAttributeGroup);
+
+            if (!attributeGroups.isEmpty()){
+                return getBaseAttributeGroupInterface(complexType.getXsdAttributeGroup());
             }
         }
 
-        return JAVA_OBJECT;
+        return new String[0];
     }
 
     /**
      * Recursively iterates in parents of attributes in order to try finding a common attribute group.
-     * @param element The element which contains the attributes.
-     * @param baseClasses The attributeGroups contained in the element.
+     * @param attributeGroups The attributeGroups contained in the element.
      * @return The elements super class name.
      */
-    private String getBaseClass(XsdElement element, List<XsdAttributeGroup> baseClasses){
+    private String[] getBaseAttributeGroupInterface(List<XsdAttributeGroup> attributeGroups){
         List<XsdAttributeGroup> parents = new ArrayList<>();
 
-        baseClasses.forEach(baseClass -> {
-            addBaseClass(baseClass);
-
-            XsdAttributeGroup parent = (XsdAttributeGroup) baseClass.getParent();
+        attributeGroups.forEach(attributeGroup -> {
+            XsdAttributeGroup parent = (XsdAttributeGroup) attributeGroup.getParent();
 
             if (!parents.contains(parent) && parent != null){
                 parents.add(parent);
             }
         });
 
-        if (baseClasses.size() == 1){
-            return baseClasses.iterator().next().getName();
+        if (attributeGroups.size() == 1){
+            return new String[]{ getFullClassTypeName(getInterfaceName(toCamelCase(attributeGroups.iterator().next().getName()))) };
         }
 
         if (parents.size() == 0){
-            return createSpecificElementBase(element, baseClasses);
+            return attributeGroups.stream()
+                              .map(baseClass -> getFullClassTypeName(getInterfaceName(toCamelCase(baseClass.getName()))))
+                              .collect(Collectors.toList())
+                              .toArray(new String[attributeGroups.size()]);
         }
 
-        return getBaseClass(element, parents);
+        return getBaseAttributeGroupInterface(parents);
+    }
+
+    private String[] getInterfaces(XsdElement element) {
+        String[] attributeGroupInterfaces =  getAttributeGroupInterfaces(element);
+        String[] elementGroupInterfaces =  getElementGroupInterfaces(element);
+
+        return ArrayUtils.addAll(attributeGroupInterfaces, elementGroupInterfaces);
     }
 
     /**
@@ -366,45 +509,68 @@ public class XsdClassGenerator {
         return new ArrayList<>();
     }
 
-
     /**
-     * Adds information about the base classes to the baseClasses variable.
-     * @param baseClass The baseClass to add.
+     * Adds information about the base classes to the attributeGroupInterfaces variable.
+     * @param attributeGroup The attributeGroup to add.
      */
-    private void addBaseClass(XsdAttributeGroup baseClass) {
-        if (!this.baseClasses.containsKey(baseClass.getName())){
-            List<XsdAttribute> ownElements = baseClass.getXsdElements()
+    private void addAttributeGroup(XsdAttributeGroup attributeGroup) {
+        if (!this.attributeGroupInterfaces.containsKey(attributeGroup.getName())){
+            List<XsdAttribute> ownElements = attributeGroup.getXsdElements()
                     .stream()
-                    .filter(attribute -> attribute.getParent().equals(baseClass))
+                    .filter(attribute -> attribute.getParent().equals(attributeGroup))
                     .map(attribute -> (XsdAttribute) attribute)
                     .collect(Collectors.toList());
 
-            this.baseClasses.put(baseClass.getName(), ownElements);
+            List<String> parentNames = attributeGroup.getAttributeGroups().stream().map(XsdReferenceElement::getName).collect(Collectors.toList());
+            AttributeHierarchyItem attributeHierarchyItemItem = new AttributeHierarchyItem(attributeGroup.getName(), parentNames, ownElements);
+
+            this.attributeGroupInterfaces.put(getInterfaceName(attributeGroup.getName()), attributeHierarchyItemItem);
         }
     }
 
-    /**
-     * Called when a Element has a combination of attribute groups. This method combines both
-     * attribute groups in order to create a single one, which will be a specific base class for
-     * this element
-     * @param element The element which has multiple attribute groups
-     * @param baseClasses The base classes to join.
-     * @return The base class name, which the Element will be extending from.
-     */
-    private String createSpecificElementBase(XsdElement element, List<XsdAttributeGroup> baseClasses) {
-        String baseClassName = element.getName() + ATTRIBUTE_CLASS_SUFIX;
+    private String getClassSignature(String[] interfaces, String className) {
+        StringBuilder signature = new StringBuilder("L" + ABSTRACT_ELEMENT_TYPE + "<" + getFullClassTypeNameDesc(className) + ">;");
 
-        List<XsdAttribute> elements = new ArrayList<>();
+        for (String anInterface : interfaces) {
+            signature.append("L")
+                     .append(getFullClassTypeName(anInterface))
+                     .append("<")
+                     .append(getFullClassTypeNameDesc(className))
+                     .append(">;");
+        }
 
-        baseClasses.forEach(elementObj ->
-                elements.addAll(elementObj.getXsdElements()
-                        .stream()
-                        .map(attribute -> (XsdAttribute) attribute)
-                        .collect(Collectors.toList())));
-
-        this.baseClasses.put(baseClassName, elements);
-
-        return baseClassName;
+        return signature.toString();
     }
 
+    private StringBuilder getAttributeGroupSignature(List<String> parentsName, String[] interfaces) {
+        StringBuilder signature;
+
+        if (parentsName.isEmpty()){
+            signature = new StringBuilder("<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;");
+        } else {
+            signature = new StringBuilder("<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC);
+
+            for (int i = 0; i < parentsName.size(); i++) {
+                signature.append("L").append(interfaces[i]).append("<TT;>;");
+            }
+        }
+
+        return signature;
+    }
+
+    private String[] getAttributeGroupObjectInterfaces(List<String> parentsName) {
+        String[] interfaces;
+
+        if (parentsName.isEmpty()){
+            interfaces = new String[]{ IELEMENT_TYPE };
+        } else {
+            interfaces = new String[parentsName.size()];
+
+            for (int i = 0; i < parentsName.size(); i++) {
+                interfaces[i] = getFullClassTypeName(getInterfaceName(toCamelCase(parentsName.get(i))));
+            }
+        }
+
+        return interfaces;
+    }
 }

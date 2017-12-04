@@ -41,7 +41,7 @@ public class XsdElement extends XsdReferenceElement {
         super(parent, elementFieldsMap);
     }
 
-    private XsdElement(HashMap<String, String> elementFieldsMap) {
+    public XsdElement(HashMap<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
 

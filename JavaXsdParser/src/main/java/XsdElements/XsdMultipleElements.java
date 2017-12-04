@@ -41,6 +41,7 @@ public abstract class XsdMultipleElements extends XsdElementBase {
 
         if (elementWrapper.getElement() instanceof XsdGroup){
             groupElements.put(elementWrapper.getName(), elementWrapper.getElement().getElements());
+            addElements(elementWrapper.getElement().getElements());
         }
     }
 
