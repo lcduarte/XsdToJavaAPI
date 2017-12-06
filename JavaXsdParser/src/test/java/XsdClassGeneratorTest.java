@@ -93,7 +93,7 @@ public class XsdClassGeneratorTest {
     }
 
     @Test
-    public void testSelf1() throws Exception {
+    public void testAttributeGroups() throws Exception {
         File generatedObjectsFolder = new File(XsdClassGeneratorUtils.getDestinationDirectory());
         File[] generatedFiles = generatedObjectsFolder.listFiles();
 

@@ -41,7 +41,7 @@ public class XsdClassGenerator {
     private List<XsdAttribute> createdAttributes = new ArrayList<>();
 
     public void generateClassFromElements(List<XsdElementBase> elementList){
-        //DEBUGcallASMifier();
+        DEBUGcallASMifier();
 
         List<XsdElement> concreteElementList = elementList.stream()
                                                             .filter(element -> element instanceof XsdElement)
@@ -61,7 +61,7 @@ public class XsdClassGenerator {
 
     private void DEBUGcallASMifier() {
         try {
-            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\JavaXsdParser\\target\\classes\\ASMSamples\\PreCreationNeeded\\Text.class"});
+            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\JavaXsdParser\\target\\classes\\ASMSamples\\ElementBasedClasses\\ICommonAttributeGroup.class"});
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -270,6 +270,7 @@ public class XsdClassGenerator {
             mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + attributeClassTypeDesc + ")" + IELEMENT_TYPE_DESC, "(" + attributeClassTypeDesc + ")TT;", null);
             mVisitor.visitCode();
             mVisitor.visitVarInsn(ALOAD, 0);
+            mVisitor.visitTypeInsn(CHECKCAST, ABSTRACT_ELEMENT_TYPE);
             mVisitor.visitVarInsn(ALOAD, 1);
             mVisitor.visitMethodInsn(INVOKEINTERFACE, ABSTRACT_ELEMENT_TYPE, "addAttr", "(" + IATTRIBUTE_TYPE_DESC + ")V", true);
             mVisitor.visitVarInsn(ALOAD, 0);
@@ -548,9 +549,9 @@ public class XsdClassGenerator {
         StringBuilder signature;
 
         if (parentsName.isEmpty()){
-            signature = new StringBuilder("<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;");
+            signature = new StringBuilder("<T:L" + ABSTRACT_ELEMENT_TYPE + "<TT;>;>" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;");
         } else {
-            signature = new StringBuilder("<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC);
+            signature = new StringBuilder("<T:L" + ABSTRACT_ELEMENT_TYPE + "<TT;>;>" + JAVA_OBJECT_DESC);
 
             for (int i = 0; i < parentsName.size(); i++) {
                 signature.append("L").append(interfaces[i]).append("<TT;>;");

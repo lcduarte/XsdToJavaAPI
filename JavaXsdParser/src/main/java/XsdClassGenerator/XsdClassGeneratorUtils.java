@@ -191,7 +191,7 @@ public class XsdClassGeneratorUtils {
     }
 
     private static void createElementInterface(){
-        ClassWriter classWriter = XsdClassGenerator.generateClass(IELEMENT, JAVA_OBJECT, null, null, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE);
+        ClassWriter classWriter = XsdClassGenerator.generateClass(IELEMENT, JAVA_OBJECT, null, "<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "addChild", "(" + ABSTRACT_ELEMENT_TYPE_DESC + ")V", null, null);
         mVisitor.visitEnd();
