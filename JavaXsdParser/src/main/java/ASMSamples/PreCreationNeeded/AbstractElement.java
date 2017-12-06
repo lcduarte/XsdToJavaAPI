@@ -1,10 +1,11 @@
 package ASMSamples.PreCreationNeeded;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractElement<T extends Element> implements Element<T> {
-    protected List<AbstractElement> children;
-    protected List<Attribute> attrs;
+    protected List<AbstractElement> children = new ArrayList<>();
+    protected List<Attribute> attrs = new ArrayList<>();
     protected String id;
 
     public void addChild(AbstractElement child) {

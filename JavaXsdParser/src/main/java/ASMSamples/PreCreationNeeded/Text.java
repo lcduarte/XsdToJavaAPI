@@ -8,6 +8,11 @@ public class Text extends AbstractElement<Text>{
         this.text = text;
     }
 
+    public Text(String text, String id) {
+        this.text = text;
+        super.id = id;
+    }
+
     @Override
     public void addAttr(Attribute attribute) {
 
@@ -26,4 +31,5 @@ public class Text extends AbstractElement<Text>{
     public String getText() {
         return text;
     }
+
 }

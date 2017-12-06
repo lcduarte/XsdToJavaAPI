@@ -14,10 +14,10 @@ public class XsdMain {
 
         List<XsdElementBase> parsedObjects = xsdParser.parse("html_5.xsd");
 
-        HashMap<String, String> textElementMap = new HashMap<>();
-        textElementMap.put("name", "text");
+        //HashMap<String, String> textElementMap = new HashMap<>();
+        //textElementMap.put("name", "text");
 
-        parsedObjects.add(new XsdElement(textElementMap));
+        //parsedObjects.add(new XsdElement(textElementMap));
 
         classGenerator.generateClassFromElements(parsedObjects);
     }
