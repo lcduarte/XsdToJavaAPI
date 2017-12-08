@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ASMSamples" />
+        <module name="Html5Xsd2JavaApi" />
+        <module name="XsdClassGenerator" />
+        <module name="XsdParser" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ASMSamples" target="1.8" />
+      <module name="Html5Xsd2JavaApi" target="1.5" />
+      <module name="XsdClassGenerator" target="1.8" />
+      <module name="XsdParser" target="1.8" />
+      <module name="XsdToJavaAPIRoot" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
