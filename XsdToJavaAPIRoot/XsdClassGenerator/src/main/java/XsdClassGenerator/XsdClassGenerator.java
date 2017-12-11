@@ -24,13 +24,13 @@ public class XsdClassGenerator {
     static final String ABSTRACT_ELEMENT = "AbstractElement";
     static final String TEXT_CLASS = "Text";
 
-    static final String TEXT_TYPE = getFullClassTypeName(TEXT_CLASS);
-    static final String TEXT_TYPE_DESC = getFullClassTypeNameDesc(TEXT_CLASS);
-    static final String ABSTRACT_ELEMENT_TYPE = getFullClassTypeName(ABSTRACT_ELEMENT);
-    static final String ABSTRACT_ELEMENT_TYPE_DESC = getFullClassTypeNameDesc(ABSTRACT_ELEMENT);
-    static final String IELEMENT_TYPE = getFullClassTypeName(IELEMENT);
-    static final String IELEMENT_TYPE_DESC = getFullClassTypeNameDesc(IELEMENT);
-    static final String IATTRIBUTE_TYPE_DESC = getFullClassTypeNameDesc(IATTRIBUTE);
+    static String TEXT_TYPE;
+    static String TEXT_TYPE_DESC;
+    static String ABSTRACT_ELEMENT_TYPE;
+    static String ABSTRACT_ELEMENT_TYPE_DESC;
+    static String IELEMENT_TYPE;
+    static String IELEMENT_TYPE_DESC;
+    static String IATTRIBUTE_TYPE_DESC;
 
     static final String ATTRIBUTE_PREFIX = "Attr";
     private static final String ATTRIBUTE_CASE_SENSITIVE_DIFERENCE = "Alt";
@@ -39,47 +39,43 @@ public class XsdClassGenerator {
     private Map<String, AttributeHierarchyItem> attributeGroupInterfaces = new HashMap<>();
     private List<XsdAttribute> createdAttributes = new ArrayList<>();
 
-    /**
-     * Creates classes based on the elements received. Also creates all the supporting
-     * infrastructure.
-     * @param elements The elements from which the classes information will be obtained.
-     */
-    public void generateClassFromElements(Stream<XsdElementBase> elements){
-        createGeneratedFilesDirectory();
+    public void generateClassFromElements(Stream<XsdElementBase> elements, String apiName){
+        createGeneratedFilesDirectory(apiName);
 
-        createSupportingInfrastructure();
+        createSupportingInfrastructure(apiName);
 
         elements.filter(element -> element instanceof XsdElement)
                 .map(element -> (XsdElement) element)
-                .forEach(this::generateClassFromElement);
+                .forEach(element -> generateClassFromElement(element, apiName));
 
-        generateInterfaces();
+        generateInterfaces(apiName);
     }
 
     /**
      * Generates a class from a given XsdElement. It also generated its constructors and methods.
      * @param element The element from which the class will be generated.
+     * @param apiName The api this class will belong.
      */
-    private void generateClassFromElement(XsdElement element) {
+    private void generateClassFromElement(XsdElement element, String apiName) {
         String className = toCamelCase(element.getName());
 
         Stream<XsdElement> elementChildren = getOwnChildren(element);
         Stream<XsdAttribute> elementAttributes = getOwnAttributes(element);
         String[] interfaces = getInterfaces(element);
 
-        String signature = getClassSignature(interfaces, className);
+        String signature = getClassSignature(interfaces, className, apiName);
 
-        ClassWriter classWriter = generateClass(className, ABSTRACT_ELEMENT_TYPE, interfaces, signature,ACC_PUBLIC + ACC_SUPER);
+        ClassWriter classWriter = generateClass(className, ABSTRACT_ELEMENT_TYPE, interfaces, signature,ACC_PUBLIC + ACC_SUPER, apiName);
 
-        generateConstructor(classWriter, ABSTRACT_ELEMENT, ACC_PUBLIC);
+        generateConstructor(classWriter, ABSTRACT_ELEMENT, ACC_PUBLIC, apiName);
 
-        generateClassSpecificMethods(classWriter, className);
+        generateClassSpecificMethods(classWriter, className, apiName);
 
-        elementChildren.forEach(child -> generateMethodsForElement(classWriter, child, getFullClassTypeName(className)));
+        elementChildren.forEach(child -> generateMethodsForElement(classWriter, child, getFullClassTypeName(className, apiName), apiName));
 
-        elementAttributes.forEach(elementAttribute -> generateMethodsForAttribute(classWriter, elementAttribute));
+        elementAttributes.forEach(elementAttribute -> generateMethodsAndCreateAttribute(classWriter, elementAttribute, getFullClassTypeNameDesc(className, apiName), apiName));
 
-        writeClassToFile(className, classWriter);
+        writeClassToFile(className, classWriter, apiName);
     }
 
     /**
@@ -87,23 +83,25 @@ public class XsdClassGenerator {
      * creating the other classes. It creates both types of interfaces:
      * ElementGroupInterfaces - Interfaces that serve as a base to adding child elements to the current element;
      * AttributeGroupInterfaces - Interface that serve as a base to adding attributes to the current element;
+     * @param apiName The api this class will belong.
      */
-    private void generateInterfaces() {
-        elementGroupInterfaces.keySet().forEach(this::generateElementGroupInterface);
+    private void generateInterfaces(String apiName) {
+        elementGroupInterfaces.keySet().forEach(interfaceName -> generateElementGroupInterface(interfaceName, apiName));
 
-        attributeGroupInterfaces.keySet().forEach(attributeGroupInterface -> generateAttributesGroupInterface(attributeGroupInterface, attributeGroupInterfaces.get(attributeGroupInterface)));
+        attributeGroupInterfaces.keySet().forEach(attributeGroupInterface -> generateAttributesGroupInterface(attributeGroupInterface, attributeGroupInterfaces.get(attributeGroupInterface), apiName));
     }
 
     /**
      * Generates a interface with all the required methods. It uses the information gathered about in elementGroupInterfaces.
      * @param interfaceName The interface name.
+     * @param apiName The api this class will belong.
      */
-    private void generateElementGroupInterface(String interfaceName){
-        ClassWriter interfaceWriter = generateClass(interfaceName, JAVA_OBJECT, new String[]{ IELEMENT },"<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;" ,ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE);
+    private void generateElementGroupInterface(String interfaceName, String apiName){
+        ClassWriter interfaceWriter = generateClass(interfaceName, JAVA_OBJECT, new String[]{ IELEMENT },"<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;" ,ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
-        elementGroupInterfaces.get(interfaceName).forEach(child -> generateMethodsForElement(interfaceWriter, child, getFullClassTypeName(interfaceName)));
+        elementGroupInterfaces.get(interfaceName).forEach(child -> generateMethodsForElement(interfaceWriter, child, getFullClassTypeName(interfaceName, apiName), apiName));
 
-        writeClassToFile(interfaceName, interfaceWriter);
+        writeClassToFile(interfaceName, interfaceWriter, apiName);
     }
 
     /**
@@ -111,45 +109,63 @@ public class XsdClassGenerator {
      * @param attributeGroupName The interface name.
      * @param attributeHierarchyItem An object containing information about the methods of this interface and which interface, if any,
      *                               this interface extends.
+     * @param apiName The api this class will belong.
      */
-    private void generateAttributesGroupInterface(String attributeGroupName, AttributeHierarchyItem attributeHierarchyItem){
+    private void generateAttributesGroupInterface(String attributeGroupName, AttributeHierarchyItem attributeHierarchyItem, String apiName){
         String baseClassNameCamelCase = toCamelCase(attributeGroupName);
         String[] interfaces = getAttributeGroupObjectInterfaces(attributeHierarchyItem.getParentsName());
-        StringBuilder signature = getAttributeGroupSignature(interfaces);
+        StringBuilder signature = getAttributeGroupSignature(interfaces, apiName);
 
-        ClassWriter interfaceWriter = generateClass(baseClassNameCamelCase, JAVA_OBJECT, interfaces, signature.toString(), ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE);
-
-        if (attributeGroupName.equals("IButtonServerAttributeGroup")){
-            int a  = 5;
+        if (baseClassNameCamelCase.equals("ICommonAttributeGroup")){
+            int a = 5;
         }
+
+        ClassWriter interfaceWriter = generateClass(baseClassNameCamelCase, JAVA_OBJECT, interfaces, signature.toString(), ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
+
+        //interfaceWriter.visit();
+        //"<T:LSamples/AbstractElement<TT;>;>Ljava/lang/Object;LSamples/IA<TT;>;LSamples/IC<TT;>;",, new String[] { "Samples/IA", "Samples/IC" });
 
         attributeHierarchyItem.getOwnElements().forEach(elementAttribute -> {
             if (createdAttributes.stream().anyMatch(createdAttribute -> createdAttribute.getName().equalsIgnoreCase(elementAttribute.getName()))){
                 elementAttribute.setName(elementAttribute.getName() + ATTRIBUTE_CASE_SENSITIVE_DIFERENCE);
             }
 
-            generateMethodsForAttribute(interfaceWriter, elementAttribute);
-
-            generateAttribute(elementAttribute);
-
-            createdAttributes.add(elementAttribute);
+            generateMethodsAndCreateAttribute(interfaceWriter, elementAttribute, IELEMENT_TYPE_DESC, apiName);
         });
 
-        writeClassToFile(baseClassNameCamelCase, interfaceWriter);
+        writeClassToFile(baseClassNameCamelCase, interfaceWriter, apiName);
+    }
+
+    /**
+     * Generates the required methods for adding a given xsdAttribute and creates the
+     * respective class, if needed.
+     * @param classWriter The class writer to write the methods.
+     * @param elementAttribute The attribute element.
+     * @param apiName The api this class will belong.
+     */
+    private void generateMethodsAndCreateAttribute(ClassWriter classWriter, XsdAttribute elementAttribute, String returnType, String apiName) {
+        generateMethodsForAttribute(classWriter, elementAttribute, returnType, apiName);
+
+        if (!createdAttributes.contains(elementAttribute)){
+            generateAttribute(elementAttribute, apiName);
+
+            createdAttributes.add(elementAttribute);
+        }
     }
 
     /**
      * Creates a class which represents an attribute.
      * @param attribute The XsdAttribute type that contains the required information.
+     * @param apiName The api this class will belong.
      */
-    private void generateAttribute(XsdAttribute attribute){
+    private void generateAttribute(XsdAttribute attribute, String apiName){
         String camelAttributeName = ATTRIBUTE_PREFIX + toCamelCase(attribute.getName()).replaceAll("\\W+", "");
 
-        ClassWriter attributeWriter = generateClass(camelAttributeName, JAVA_OBJECT, new String[]{IATTRIBUTE }, null, ACC_PUBLIC);
+        ClassWriter attributeWriter = generateClass(camelAttributeName, JAVA_OBJECT, new String[]{IATTRIBUTE }, null, ACC_PUBLIC, apiName);
 
-        generateConstructor(attributeWriter, JAVA_OBJECT, ACC_PUBLIC);
+        generateConstructor(attributeWriter, JAVA_OBJECT, ACC_PUBLIC, apiName);
 
-        writeClassToFile(camelAttributeName, attributeWriter);
+        writeClassToFile(camelAttributeName, attributeWriter, apiName);
     }
 
     /**
@@ -361,16 +377,17 @@ public class XsdClassGenerator {
      * Obtains the signature for a class given the interface names.
      * @param interfaces The implemented interfaces.
      * @param className The class name.
+     * @param apiName The api this class will belong.
      * @return The signature of the class.
      */
-    private String getClassSignature(String[] interfaces, String className) {
-        StringBuilder signature = new StringBuilder("L" + ABSTRACT_ELEMENT_TYPE + "<" + getFullClassTypeNameDesc(className) + ">;");
+    private String getClassSignature(String[] interfaces, String className, String apiName) {
+        StringBuilder signature = new StringBuilder("L" + ABSTRACT_ELEMENT_TYPE + "<" + getFullClassTypeNameDesc(className, apiName) + ">;");
 
         for (String anInterface : interfaces) {
             signature.append("L")
-                     .append(getFullClassTypeName(anInterface))
+                     .append(getFullClassTypeName(anInterface, apiName))
                      .append("<")
-                     .append(getFullClassTypeNameDesc(className))
+                     .append(getFullClassTypeNameDesc(className, apiName))
                      .append(">;");
         }
 
@@ -381,7 +398,7 @@ public class XsdClassGenerator {
      * @param interfaces The implemented interfaces.
      * @return The signature of this interface.
      */
-    private StringBuilder getAttributeGroupSignature(String[] interfaces) {
+    private StringBuilder getAttributeGroupSignature(String[] interfaces, String apiName) {
         StringBuilder signature;
 
         if (interfaces.length == 0){
@@ -390,7 +407,7 @@ public class XsdClassGenerator {
             signature = new StringBuilder("<T:L" + ABSTRACT_ELEMENT_TYPE + "<TT;>;>" + JAVA_OBJECT_DESC);
 
             for (String anInterface : interfaces) {
-                signature.append("L").append(anInterface).append("<TT;>;");
+                signature.append("L").append(getFullClassTypeName(anInterface, apiName)).append("<TT;>;");
             }
         }
 
@@ -416,4 +433,5 @@ public class XsdClassGenerator {
 
         return interfaces;
     }
+
 }

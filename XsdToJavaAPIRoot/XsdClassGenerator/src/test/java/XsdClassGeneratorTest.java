@@ -9,50 +9,54 @@ import java.net.URLClassLoader;
 
 import XsdParser.XsdParser;
 
+import static XsdClassGenerator.XsdClassGeneratorUtils.PACKAGE_BASE;
+
 public class XsdClassGeneratorTest {
+
+    private static String apiName = "TestObjects";
 
     static{
         XsdParser xsdParser = new XsdParser();
         XsdClassGenerator classGenerator = new XsdClassGenerator();
 
-        classGenerator.generateClassFromElements(xsdParser.parse("html_5.xsd"));
+        classGenerator.generateClassFromElements(
+                xsdParser.parse(XsdClassGeneratorTest.class.getClassLoader().getResource("html_5.xsd").getPath()), apiName);
     }
 
     @Test
     public void testGeneratedClassesIntegrity() throws Exception {
-        File generatedObjectsFolder = new File(XsdClassGeneratorUtils.getDestinationDirectory());
+        File generatedObjectsFolder = new File(XsdClassGeneratorUtils.getDestinationDirectory(apiName));
         File[] generatedFiles = generatedObjectsFolder.listFiles();
 
         assert generatedFiles != null;
 
         URLClassLoader ucl = new URLClassLoader(
                 new URL[]{
-                        new URL("file://" + XsdClassGeneratorUtils.getDestinationDirectory()) });
+                        new URL("file://" + XsdClassGeneratorUtils.getDestinationDirectory(apiName)) });
 
         for (File generatedFile : generatedFiles) {
             if (generatedFile.getName().endsWith(".class")){
                 String absolutePath = generatedFile.getAbsolutePath();
 
                 String className = absolutePath.substring(absolutePath.lastIndexOf('\\') + 1, absolutePath.indexOf(".class"));
-                //System.out.println(className);
 
-                ucl.loadClass( "XsdClassGenerator.ParsedObjects." + className);
+                ucl.loadClass( getDottedPackage() + className);
             }
         }
     }
 
     @Test
     public void testSelf() throws Exception {
-        File generatedObjectsFolder = new File(XsdClassGeneratorUtils.getDestinationDirectory());
+        File generatedObjectsFolder = new File(XsdClassGeneratorUtils.getDestinationDirectory(apiName));
         File[] generatedFiles = generatedObjectsFolder.listFiles();
 
         assert generatedFiles != null;
 
         URLClassLoader ucl = new URLClassLoader(
                 new URL[]{
-                        new URL("file://" + XsdClassGeneratorUtils.getDestinationDirectory()) });
+                        new URL("file://" + XsdClassGeneratorUtils.getDestinationDirectory(apiName)) });
 
-        Class var = ucl.loadClass("XsdClassGenerator.ParsedObjects.Var");
+        Class var = ucl.loadClass(getDottedPackage() + "Var");
         Object varInstance1 = var.newInstance();
 
         Method addVarMethod = var.getMethod("var", String.class);
@@ -72,17 +76,21 @@ public class XsdClassGeneratorTest {
 
     @Test
     public void testAttributeGroups() throws Exception {
-        File generatedObjectsFolder = new File(XsdClassGeneratorUtils.getDestinationDirectory());
+        File generatedObjectsFolder = new File(XsdClassGeneratorUtils.getDestinationDirectory(apiName));
         File[] generatedFiles = generatedObjectsFolder.listFiles();
 
         assert generatedFiles != null;
 
         URLClassLoader ucl = new URLClassLoader(
                 new URL[]{
-                        new URL("file://" + XsdClassGeneratorUtils.getDestinationDirectory()) });
+                        new URL("file://" + XsdClassGeneratorUtils.getDestinationDirectory(apiName)) });
 
-        Class c = ucl.loadClass("XsdClassGenerator.ParsedObjects.ICoreAttributeGroup");
+        Class c = ucl.loadClass(getDottedPackage() + "ICoreAttributeGroup");
 
         c.getDeclaredMethods();
+    }
+
+    private String getDottedPackage(){
+        return XsdClassGeneratorUtils.getPackage(apiName).replaceAll("/", ".");
     }
 }

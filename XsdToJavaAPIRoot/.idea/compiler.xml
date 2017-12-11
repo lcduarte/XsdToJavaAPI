@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ASMSamples" />
         <module name="Html5Xsd2JavaApi" />
+        <module name="Html5Xsd2JavaApiTest" />
         <module name="XsdClassGenerator" />
         <module name="XsdParser" />
       </profile>
@@ -15,6 +15,7 @@
     <bytecodeTargetLevel>
       <module name="ASMSamples" target="1.8" />
       <module name="Html5Xsd2JavaApi" target="1.5" />
+      <module name="Html5Xsd2JavaApiTest" target="1.8" />
       <module name="XsdClassGenerator" target="1.8" />
       <module name="XsdParser" target="1.8" />
       <module name="XsdToJavaAPIRoot" target="1.5" />

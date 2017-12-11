@@ -3,13 +3,48 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>XsdToJavaAPIRoot</artifactId>
         <groupId>XsdToJavaAPI</groupId>
+        <artifactId>XsdToJavaAPIRoot</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Html5Xsd2JavaApi</artifactId>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>my-execution</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <disableXmlReport>true</disableXmlReport>
+                    <useFile>false</useFile>
+                    <mainClass>XsdClassGeneratorMain</mainClass>
+                    <arguments>
+                        <argument>D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\Html5Xsd2JavaApi\src\main\resources\html_5.xsd</argument>
+                        <argument>Html5Xsd2JavaApi</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>XsdToJavaAPI</groupId>
+            <artifactId>XsdClassGenerator</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

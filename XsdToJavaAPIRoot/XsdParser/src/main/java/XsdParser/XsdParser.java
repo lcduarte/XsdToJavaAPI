@@ -51,19 +51,18 @@ public class XsdParser {
      * Parses a Xsd file and all the contained elements. This code iterates on the nodes and parses
      * the supported ones. The supported types are identified by their TAG, in parseMappers which maps
      * the xsd tag to a function that parses that xsd type.
-     * @param fileName The file path to the xsd file.
+     * @param filePath The file path to the xsd file.
      * @return A stream of parsed wrapped xsd elements.
      */
-    public Stream<XsdElementBase> parse(String fileName) {
+    public Stream<XsdElementBase> parse(String filePath) {
         //https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
         try {
-            URL resourceUrl = XsdParser.class.getClassLoader().getResource(fileName);
+            File xsdFile = new File(filePath);
 
-            if (resourceUrl == null) {
-                throw new Exception("html_5.xsd file missing from resources.");
+            if (!xsdFile.exists()){
+                throw new RuntimeException("The file doesn't exist");
             }
 
-            File xsdFile = new File(resourceUrl.getPath());
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
@@ -90,7 +89,7 @@ public class XsdParser {
             e.printStackTrace();
         }
 
-        resolveRefs(fileName);
+        resolveRefs(filePath);
 
         return elements.stream()
                         .filter(element -> element instanceof ConcreteElement)
@@ -103,9 +102,9 @@ public class XsdParser {
      * can be solved by replacing the unsolvedElement by its matching ConcreteElement, present in the
      * concreteElementsMap. The unsolvedReference matches a ConcreteElement by having its ref attribute
      * with the same value as the name attribute of the ConcreteElement.
-     * @param fileName The name of the file being parsed
+     * @param filePath The name of the file being parsed
      */
-    private void resolveRefs(String fileName) {
+    private void resolveRefs(String filePath) {
         HashMap<String, ConcreteElement> concreteElementsMap = new HashMap<>();
 
         elements.stream()
@@ -115,7 +114,7 @@ public class XsdParser {
 
         //noinspection ForLoopReplaceableByForEach
         for (int i = 0; i < unsolvedElements.size(); i++) {
-            replaceUnsolvedReference(concreteElementsMap, unsolvedElements.get(i), fileName);
+            replaceUnsolvedReference(concreteElementsMap, unsolvedElements.get(i), filePath);
         }
     }
 
@@ -125,9 +124,9 @@ public class XsdParser {
      * informing the user of this Project of the occurrence.
      * @param concreteElementsMap The map containing all named concreteElements.
      * @param unsolvedReference The unsolved reference to solve.
-     * @param fileName The name of the file being parsed.
+     * @param filePath The name of the file being parsed.
      */
-    private void replaceUnsolvedReference(HashMap<String, ConcreteElement> concreteElementsMap, UnsolvedReference unsolvedReference, String fileName) {
+    private void replaceUnsolvedReference(HashMap<String, ConcreteElement> concreteElementsMap, UnsolvedReference unsolvedReference, String filePath) {
         ConcreteElement concreteElement = concreteElementsMap.get(unsolvedReference.getRef());
 
         if (concreteElement != null){
@@ -140,7 +139,7 @@ public class XsdParser {
 
             unsolvedReference.getParent().replaceUnsolvedElements(substitutionElementWrapper);
         } else {
-            storeUnsolvedItem(fileName, unsolvedReference);
+            storeUnsolvedItem(filePath, unsolvedReference);
         }
     }
 
@@ -148,16 +147,16 @@ public class XsdParser {
      * Saves an occurrence of an element which couldn't be resolved in the parsedUnsolvedElementsMap,
      * which can be accessed at the end of the parsing process in order to verify if were there
      * were any references that couldn't be solved.
-     * @param fileName The name of the file being parsed.
+     * @param filePath The name of the file being parsed.
      * @param unsolvedReference The unsolved reference which couldn't be resolved.
      */
-    private void storeUnsolvedItem(String fileName, UnsolvedReference unsolvedReference) {
-        List<UnsolvedReferenceItem> unsolvedReferenceItemList = parserUnsolvedElementsMap.getOrDefault(fileName, new ArrayList<>());
+    private void storeUnsolvedItem(String filePath, UnsolvedReference unsolvedReference) {
+        List<UnsolvedReferenceItem> unsolvedReferenceItemList = parserUnsolvedElementsMap.getOrDefault(filePath, new ArrayList<>());
 
         if (unsolvedReferenceItemList.isEmpty()){
             unsolvedReferenceItemList.add(new UnsolvedReferenceItem(unsolvedReference));
 
-            parserUnsolvedElementsMap.put(fileName, unsolvedReferenceItemList);
+            parserUnsolvedElementsMap.put(filePath, unsolvedReferenceItemList);
         } else {
             Optional<UnsolvedReferenceItem> innerEntry = unsolvedReferenceItemList.stream()
                     .filter(unsolvedReferenceObj -> unsolvedReferenceObj.getUnsolvedReference().getRef().equals(unsolvedReference.getRef()))
@@ -171,8 +170,8 @@ public class XsdParser {
         }
     }
 
-    public List<UnsolvedReferenceItem> getUnsolvedReferencesForFile(String fileName){
-        return parserUnsolvedElementsMap.getOrDefault(fileName, new ArrayList<>());
+    public List<UnsolvedReferenceItem> getUnsolvedReferencesForFile(String filePath){
+        return parserUnsolvedElementsMap.getOrDefault(filePath, new ArrayList<>());
     }
 
     public static XsdParser getInstance(){

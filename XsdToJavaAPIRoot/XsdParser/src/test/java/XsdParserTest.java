@@ -9,7 +9,7 @@ import XsdParser.*;
 
 public class XsdParserTest {
 
-    private static final String FILE_NAME = "html_5.xsd";
+    private static final String FILE_NAME = XsdParserTest.class.getClassLoader().getResource("html_5.xsd").getPath();
     private static final List<XsdElement> elements;
     private static final XsdParser parser;
 

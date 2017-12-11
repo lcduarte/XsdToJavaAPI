@@ -16,7 +16,7 @@ import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 
 public class XsdClassGeneratorUtils {
 
-    private static final String PACKAGE = "XsdClassGenerator/ParsedObjects/";
+    public static String PACKAGE_BASE = "XsdToJavaAPI/";
     private static final String INTERFACE_PREFIX = "I";
 
     /**
@@ -36,14 +36,18 @@ public class XsdClassGeneratorUtils {
         return firstLetter + name.substring(1);
     }
 
+    public static String getPackage(String apiName){
+        return PACKAGE_BASE + apiName + "/";
+    }
+
     /**
      * @return The path to the destination folder of all the generated classes.
      */
-    public static String getDestinationDirectory(){
+    public static String getDestinationDirectory(String apiName){
         URL resource = XsdClassGenerator.class.getClassLoader().getResource("");
 
         if (resource != null){
-            return resource.getPath() + "\\XsdClassGenerator\\ParsedObjects\\";
+            return resource.getPath() + "/" + getPackage(apiName);
         }
 
         throw new RuntimeException("Target folder not found.");
@@ -53,31 +57,31 @@ public class XsdClassGeneratorUtils {
      * @param className The class name.
      * @return The complete file path to the given class name.
      */
-    private static String getFinalPathPart(String className){
-        return getDestinationDirectory() + className + ".class";
+    private static String getFinalPathPart(String className, String apiName){
+        return getDestinationDirectory(apiName) + className + ".class";
     }
 
     /**
      * @param className The class name.
      * @return The full type of the class, e.g. Html -> XsdClassGenerator/ParsedObjects/Html
      */
-    static String getFullClassTypeName(String className){
-        return PACKAGE + className;
+    static String getFullClassTypeName(String className, String apiName){
+        return getPackage(apiName) + className;
     }
 
     /**
      * @param className The class name.
      * @return The full type descriptor of the class, e.g. Html -> LXsdClassGenerator/ParsedObjects/Html;
      */
-    static String getFullClassTypeNameDesc(String className){
-        return "L" + PACKAGE + className + ";";
+    static String getFullClassTypeNameDesc(String className, String apiName){
+        return "L" + getPackage(apiName) + className + ";";
     }
 
     /**
      * Creates the destination directory of the generated files, if not exists.
      */
-    static void createGeneratedFilesDirectory() {
-        File folder = new File(getDestinationDirectory());
+    static void createGeneratedFilesDirectory(String apiName) {
+        File folder = new File(getDestinationDirectory(apiName));
 
         if (!folder.exists()){
             //noinspection ResultOfMethodCallIgnored
@@ -90,13 +94,13 @@ public class XsdClassGeneratorUtils {
      * @param className The class name, needed to name the file.
      * @param classWriter The classWriter, which contains all the class information.
      */
-    static void writeClassToFile(String className, ClassWriter classWriter){
+    static void writeClassToFile(String className, ClassWriter classWriter, String apiName){
         classWriter.visitEnd();
 
         byte[] constructedClass = classWriter.toByteArray();
 
         try {
-            FileOutputStream os = new FileOutputStream(new File(getFinalPathPart(className)));
+            FileOutputStream os = new FileOutputStream(new File(getFinalPathPart(className, apiName)));
             os.write(constructedClass);
             os.close();
         } catch (IOException e) {
@@ -111,18 +115,26 @@ public class XsdClassGeneratorUtils {
      * AbstractElement - An abstract class from where all the elements will derive. It implements IElement.
      * Text - A concrete attribute with a different implementation that the other generated attributes.
      */
-    static void createSupportingInfrastructure() {
-        createAbstractElement();
-        createAttributeInterface();
-        createElementInterface();
-        createTextElement();
+    static void createSupportingInfrastructure(String apiName) {
+        TEXT_TYPE = getFullClassTypeName(TEXT_CLASS, apiName);
+        TEXT_TYPE_DESC = getFullClassTypeNameDesc(TEXT_CLASS, apiName);
+        ABSTRACT_ELEMENT_TYPE = getFullClassTypeName(ABSTRACT_ELEMENT, apiName);
+        ABSTRACT_ELEMENT_TYPE_DESC = getFullClassTypeNameDesc(ABSTRACT_ELEMENT, apiName);
+        IELEMENT_TYPE = getFullClassTypeName(IELEMENT, apiName);
+        IELEMENT_TYPE_DESC = getFullClassTypeNameDesc(IELEMENT, apiName);
+        IATTRIBUTE_TYPE_DESC = getFullClassTypeNameDesc(IATTRIBUTE, apiName);
+
+        createAbstractElement(apiName);
+        createAttributeInterface(apiName);
+        createElementInterface(apiName);
+        createTextElement(apiName);
     }
 
     /**
      * Generates the AbstractElement class with all the implementations.
      */
-    private static void createAbstractElement(){
-        ClassWriter classWriter = generateClass(ABSTRACT_ELEMENT, JAVA_OBJECT, new String[] { IELEMENT }, "<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;",ACC_PUBLIC + ACC_SUPER + ACC_ABSTRACT);
+    private static void createAbstractElement(String apiName){
+        ClassWriter classWriter = generateClass(ABSTRACT_ELEMENT, JAVA_OBJECT, new String[] { IELEMENT }, "<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;",ACC_PUBLIC + ACC_SUPER + ACC_ABSTRACT, apiName);
         FieldVisitor fVisitor;
         MethodVisitor mVisitor;
 
@@ -220,23 +232,25 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
-        writeClassToFile(ABSTRACT_ELEMENT, classWriter);
+        writeClassToFile(ABSTRACT_ELEMENT, classWriter, apiName);
     }
 
     /**
      * Generates the IAttribute interface.
+     * @param apiName The api this class will belong.
      */
-    private static void createAttributeInterface(){
-        ClassWriter classWriter = generateClass(IATTRIBUTE, JAVA_OBJECT, null, null, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE);
+    private static void createAttributeInterface(String apiName){
+        ClassWriter classWriter = generateClass(IATTRIBUTE, JAVA_OBJECT, null, null, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
-        writeClassToFile(IATTRIBUTE, classWriter);
+        writeClassToFile(IATTRIBUTE, classWriter, apiName);
     }
 
     /**
      * Generates the IElement interface.
+     * @param apiName The api this class will belong.
      */
-    private static void createElementInterface(){
-        ClassWriter classWriter = generateClass(IELEMENT, JAVA_OBJECT, null, "<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE);
+    private static void createElementInterface(String apiName){
+        ClassWriter classWriter = generateClass(IELEMENT, JAVA_OBJECT, null, "<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", null, null);
         mVisitor.visitEnd();
@@ -250,14 +264,15 @@ public class XsdClassGeneratorUtils {
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "id", "()" + JAVA_STRING_DESC, null, null);
         mVisitor.visitEnd();
 
-        writeClassToFile(IELEMENT, classWriter);
+        writeClassToFile(IELEMENT, classWriter, apiName);
     }
 
     /**
      * Creates the Text class.
+     * @param apiName The api this class will belong.
      */
-    private static void createTextElement() {
-        ClassWriter classWriter = generateClass(TEXT_CLASS, ABSTRACT_ELEMENT_TYPE, null,  ABSTRACT_ELEMENT_TYPE + "<" + getFullClassTypeName(TEXT_TYPE) + ">;",ACC_PUBLIC + ACC_SUPER);
+    private static void createTextElement(String apiName) {
+        ClassWriter classWriter = generateClass(TEXT_CLASS, ABSTRACT_ELEMENT_TYPE, null,  ABSTRACT_ELEMENT_TYPE + "<" + getFullClassTypeName(TEXT_TYPE, apiName) + ">;",ACC_PUBLIC + ACC_SUPER, apiName);
 
         FieldVisitor fVisitor = classWriter.visitField(ACC_PRIVATE + ACC_FINAL, "text", JAVA_STRING_DESC, null, null);
         fVisitor.visitEnd();
@@ -322,7 +337,7 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        writeClassToFile(TEXT_CLASS, classWriter);
+        writeClassToFile(TEXT_CLASS, classWriter, apiName);
     }
 
     /**
@@ -333,9 +348,9 @@ public class XsdClassGeneratorUtils {
      * @param classWriter The class writer on which should be written the methods.
      * @param className The class name.
      */
-    static void generateClassSpecificMethods(ClassWriter classWriter, String className) {
-        String classType = getFullClassTypeName(className);
-        String classTypeDesc = getFullClassTypeNameDesc(className);
+    static void generateClassSpecificMethods(ClassWriter classWriter, String className, String apiName) {
+        String classType = getFullClassTypeName(className, apiName);
+        String classTypeDesc = getFullClassTypeNameDesc(className, apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", null, null);
         mVisitor.visitCode();
@@ -390,10 +405,10 @@ public class XsdClassGeneratorUtils {
      * @param child The child of the element which generated the class. Their name represents a method.
      * @param classType The type of the class which contains the children elements.
      */
-    static void generateMethodsForElement(ClassWriter classWriter, XsdElement child, String classType) {
+    static void generateMethodsForElement(ClassWriter classWriter, XsdElement child, String classType, String apiName) {
         String childCamelName = toCamelCase(child.getName());
-        String childType = getFullClassTypeName(childCamelName);
-        String childTypeDesc = getFullClassTypeNameDesc(childCamelName);
+        String childType = getFullClassTypeName(childCamelName, apiName);
+        String childTypeDesc = getFullClassTypeNameDesc(childCamelName, apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + ")" + childTypeDesc, null, null);
         mVisitor.visitCode();
@@ -434,11 +449,17 @@ public class XsdClassGeneratorUtils {
      * @param elementAttribute The attribute containing the information to create the method. (Only String fields are being supported)
      */
     @SuppressWarnings("DanglingJavadoc")
-    static void generateMethodsForAttribute(ClassWriter classWriter, XsdAttribute elementAttribute) {
+    static void generateMethodsForAttribute(ClassWriter classWriter, XsdAttribute elementAttribute, String returnTyped, String apiName) {
         String camelCaseName = ATTRIBUTE_PREFIX + toCamelCase(elementAttribute.getName()).replaceAll("\\W+", "");
-        String attributeClassTypeDesc = getFullClassTypeNameDesc(camelCaseName);
+        String attributeClassTypeDesc = getFullClassTypeNameDesc(camelCaseName, apiName);
+        MethodVisitor mVisitor;
 
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + attributeClassTypeDesc + ")" + IELEMENT_TYPE_DESC, "(" + attributeClassTypeDesc + ")TT;", null);
+        if (returnTyped.equals(IELEMENT_TYPE_DESC)){
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + attributeClassTypeDesc + ")" + returnTyped, "(" + attributeClassTypeDesc + ")TT;", null);
+        } else {
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + attributeClassTypeDesc + ")" + returnTyped, "(" + attributeClassTypeDesc + ")" + returnTyped, null);
+        }
+
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         /**
@@ -448,7 +469,11 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, ABSTRACT_ELEMENT_TYPE, "addAttr", "(" + IATTRIBUTE_TYPE_DESC + ")V", true);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "self", "()" + IELEMENT_TYPE_DESC, true);
+
+        if (returnTyped.equals(IELEMENT_TYPE_DESC)){
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "self", "()" + returnTyped, true);
+        }
+
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
@@ -459,12 +484,12 @@ public class XsdClassGeneratorUtils {
      * @param classWriter The class writer from the class where the constructors will be added.
      * @param constructorType The modifiers for the constructor.
      */
-    static void generateConstructor(ClassWriter classWriter, String baseClass, int constructorType) {
+    static void generateConstructor(ClassWriter classWriter, String baseClass, int constructorType, String apiName) {
         MethodVisitor defaultConstructor = classWriter.visitMethod(constructorType, CONSTRUCTOR, "()V",null,null);
 
         defaultConstructor.visitCode();
         defaultConstructor.visitVarInsn(ALOAD, 0);
-        defaultConstructor.visitMethodInsn(INVOKESPECIAL, getFullClassTypeName(baseClass), CONSTRUCTOR, "()V", false);
+        defaultConstructor.visitMethodInsn(INVOKESPECIAL, getFullClassTypeName(baseClass, apiName), CONSTRUCTOR, "()V", false);
         defaultConstructor.visitInsn(RETURN);
         defaultConstructor.visitMaxs(1, 1);
 
@@ -479,16 +504,16 @@ public class XsdClassGeneratorUtils {
      * @param classModifiers The modifiers to the class.
      * @return A class writer that will be used to write the remaining information of the class.
      */
-    static ClassWriter generateClass(String className, String superName, String[] interfaces, String signature, int classModifiers) {
+    static ClassWriter generateClass(String className, String superName, String[] interfaces, String signature, int classModifiers, String apiName) {
         ClassWriter classWriter = new ClassWriter(0);
 
         if (interfaces != null){
             for (int i = 0; i < interfaces.length; i++) {
-                interfaces[i] = getFullClassTypeName(interfaces[i]);
+                interfaces[i] = getFullClassTypeName(interfaces[i], apiName);
             }
         }
 
-        classWriter.visit(V1_8, classModifiers, getFullClassTypeName(className), signature, superName, interfaces);
+        classWriter.visit(V1_8, classModifiers, getFullClassTypeName(className, apiName), signature, superName, interfaces);
 
         return classWriter;
     }
