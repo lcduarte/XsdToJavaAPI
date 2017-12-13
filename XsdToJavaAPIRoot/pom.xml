@@ -16,17 +16,4 @@
         <module>Html5Xsd2JavaApiTest</module>
         <module>ASMSamples</module>
     </modules>
-
-    <repositories>
-        <repository>
-            <id>repo</id>
-            <name>repo</name>
-            <releases>
-                <enabled>true</enabled>
-                <checksumPolicy>ignore</checksumPolicy>
-            </releases>
-            <url>file://${project.basedir}/repo</url>
-        </repository>
-    </repositories>
-
 </project>

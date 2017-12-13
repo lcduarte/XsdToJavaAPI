@@ -122,12 +122,38 @@ public class XsdClassGeneratorUtils {
         ABSTRACT_ELEMENT_TYPE_DESC = getFullClassTypeNameDesc(ABSTRACT_ELEMENT, apiName);
         IELEMENT_TYPE = getFullClassTypeName(IELEMENT, apiName);
         IELEMENT_TYPE_DESC = getFullClassTypeNameDesc(IELEMENT, apiName);
+        IATTRIBUTE_TYPE = getFullClassTypeName(IATTRIBUTE, apiName);
         IATTRIBUTE_TYPE_DESC = getFullClassTypeNameDesc(IATTRIBUTE, apiName);
+        ITEXT_TYPE = getFullClassTypeName(ITEXT, apiName);
+        ITEXT_TYPE_DESC = getFullClassTypeNameDesc(ITEXT, apiName);
 
         createAbstractElement(apiName);
         createAttributeInterface(apiName);
         createElementInterface(apiName);
         createTextElement(apiName);
+        createTextGroupInterface(apiName);
+    }
+
+    private static void createTextGroupInterface(String apiName) {
+        ClassWriter classWriter = generateClass(ITEXT, JAVA_OBJECT, new String[] { IELEMENT }, "<T::L" + IELEMENT_TYPE + "<TT;>;>" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;", ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
+
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, TEXT_CLASS.toLowerCase(), "(" + JAVA_STRING_DESC + ")" + IELEMENT_TYPE_DESC, "(" + JAVA_STRING_DESC + ")TT;", null);
+        mVisitor.visitCode();
+        mVisitor.visitTypeInsn(NEW, TEXT_TYPE);
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, TEXT_TYPE, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitVarInsn(ASTORE, 2);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 2);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, ITEXT_TYPE, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", true);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "self", "()" + IELEMENT_TYPE_DESC, true);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(3, 3);
+        mVisitor.visitEnd();
+
+        writeClassToFile(ITEXT, classWriter, apiName);
     }
 
     /**
@@ -197,37 +223,97 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "child", "("+ JAVA_STRING_DESC + ")" + IELEMENT_TYPE_DESC, "<R::" + IELEMENT_TYPE_DESC + ">(" + JAVA_STRING_DESC + ")TR;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "child", "(" + JAVA_STRING_DESC + ")" + IELEMENT_TYPE_DESC, "<R::" + IELEMENT_TYPE_DESC + ">(" + JAVA_STRING_DESC + ")TR;", null);
         mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE_DESC, "children", JAVA_LIST_DESC);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "stream", "()Ljava/util/stream/Stream;", true);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitInvokeDynamicInsn("test", "(" + JAVA_STRING_DESC + ")Ljava/util/function/Predicate;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;" + JAVA_STRING_DESC + "Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(" + JAVA_OBJECT_DESC + ")Z"), new Handle(Opcodes.H_INVOKESTATIC, ABSTRACT_ELEMENT_TYPE, "lambda$child$0", "(" + JAVA_STRING_DESC + IELEMENT_TYPE_DESC + ")Z", false), Type.getType("(" + IELEMENT_TYPE_DESC + ")Z"));
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/stream/Stream", "filter", "(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;", true);
+        mVisitor.visitInvokeDynamicInsn("apply", "()Ljava/util/function/Function;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;" + JAVA_STRING_DESC + "Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(" + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC), new Handle(Opcodes.H_INVOKESTATIC, ABSTRACT_ELEMENT_TYPE, "lambda$child$1", "(" + IELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC, false), Type.getType("(" + IELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC));
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/stream/Stream", "map", "(Ljava/util/function/Function;)Ljava/util/stream/Stream;", true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/stream/Stream", "findFirst", "()Ljava/util/Optional;", true);
+        mVisitor.visitVarInsn(ASTORE, 2);
+        mVisitor.visitVarInsn(ALOAD, 2);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/Optional", "isPresent", "()Z", false);
+        Label l0 = new Label();
+        mVisitor.visitJumpInsn(IFEQ, l0);
+        mVisitor.visitVarInsn(ALOAD, 2);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/Optional", "get", "()" + JAVA_OBJECT_DESC, false);
+        mVisitor.visitTypeInsn(CHECKCAST, IELEMENT_TYPE);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitLabel(l0);
+        mVisitor.visitFrame(Opcodes.F_APPEND,1, new Object[] {"java/util/Optional"}, 0, null);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE, "children", JAVA_LIST_DESC);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "stream", "()Ljava/util/stream/Stream;", true);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitInvokeDynamicInsn("test", "(" + JAVA_STRING_DESC + ")Ljava/util/function/Predicate;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;" + JAVA_STRING_DESC + "Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(" + JAVA_OBJECT_DESC + ")Z"), new Handle(Opcodes.H_INVOKESTATIC, ABSTRACT_ELEMENT_TYPE, "lambda$child$0", "(" + JAVA_STRING_DESC + ABSTRACT_ELEMENT_TYPE_DESC + ")Z", false), Type.getType("(" + ABSTRACT_ELEMENT_TYPE_DESC + ")Z"));
+        mVisitor.visitInvokeDynamicInsn("test", "()Ljava/util/function/Predicate;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;" + JAVA_STRING_DESC + "Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(" + JAVA_OBJECT_DESC + ")Z"), new Handle(Opcodes.H_INVOKESTATIC, ABSTRACT_ELEMENT_TYPE, "lambda$child$2", "(" + IELEMENT_TYPE_DESC + ")Z", false), Type.getType("(" + IELEMENT_TYPE_DESC + ")Z"));
         mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/stream/Stream", "filter", "(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;", true);
-        mVisitor.visitInvokeDynamicInsn("apply", "()Ljava/util/function/Function;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;" + JAVA_STRING_DESC + "Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(" + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC), new Handle(Opcodes.H_INVOKESTATIC, ABSTRACT_ELEMENT_TYPE, "lambda$child$1", "(" + ABSTRACT_ELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC, false), Type.getType("(" + ABSTRACT_ELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC));
+        mVisitor.visitInvokeDynamicInsn("apply", "()Ljava/util/function/Function;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;" + JAVA_STRING_DESC + "Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(" + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC), new Handle(Opcodes.H_INVOKESTATIC, ABSTRACT_ELEMENT_TYPE, "lambda$child$3", "(" + IELEMENT_TYPE_DESC + ")" + ABSTRACT_ELEMENT_TYPE_DESC, false), Type.getType("(" + IELEMENT_TYPE_DESC + ")" + ABSTRACT_ELEMENT_TYPE_DESC));
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/stream/Stream", "map", "(Ljava/util/function/Function;)Ljava/util/stream/Stream;", true);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitInvokeDynamicInsn("apply", "(" + JAVA_STRING_DESC + ")Ljava/util/function/Function;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;" + JAVA_STRING_DESC + "Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(" + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC), new Handle(Opcodes.H_INVOKESTATIC, ABSTRACT_ELEMENT_TYPE, "lambda$child$4", "(" + JAVA_STRING_DESC + ABSTRACT_ELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC, false), Type.getType("(" + ABSTRACT_ELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC));
         mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/stream/Stream", "map", "(Ljava/util/function/Function;)Ljava/util/stream/Stream;", true);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/stream/Stream", "findFirst", "()Ljava/util/Optional;", true);
         mVisitor.visitInsn(ACONST_NULL);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/Optional", "orElse", "(" + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
         mVisitor.visitTypeInsn(CHECKCAST, IELEMENT_TYPE);
         mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(2, 3);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$child$4", "(" + JAVA_STRING_DESC + ABSTRACT_ELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC, null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE, "child", "(" + JAVA_STRING_DESC + ")" + IELEMENT_TYPE_DESC, false);
+        mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$child$1", "(" + ABSTRACT_ELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC, null, null);
+        mVisitor = classWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$child$3", "(" + IELEMENT_TYPE_DESC + ")" + ABSTRACT_ELEMENT_TYPE_DESC, null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(CHECKCAST, ABSTRACT_ELEMENT_TYPE);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$child$2", "(" + IELEMENT_TYPE_DESC + ")Z", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(INSTANCEOF, ABSTRACT_ELEMENT_TYPE_DESC);
+        mVisitor.visitInsn(IRETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$child$1", "(" + IELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC, null, null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$child$0", "(" + JAVA_STRING_DESC + ABSTRACT_ELEMENT_TYPE_DESC + ")Z", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$child$0", "(" + JAVA_STRING_DESC + IELEMENT_TYPE_DESC + ")Z", null, null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE, "id", "()" + JAVA_STRING_DESC, false);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "id", "()" + JAVA_STRING_DESC, true);
+        Label l1 = new Label();
+        mVisitor.visitJumpInsn(IFNULL, l1);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "id", "()" + JAVA_STRING_DESC, true);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, JAVA_STRING_DESC, "equals", "(" + JAVA_OBJECT_DESC + ")Z", false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, JAVA_STRING, "equals", "(" + JAVA_OBJECT_DESC + ")Z", false);
+        mVisitor.visitJumpInsn(IFEQ, l1);
+        mVisitor.visitInsn(ICONST_1);
+        Label l2 = new Label();
+        mVisitor.visitJumpInsn(GOTO, l2);
+        mVisitor.visitLabel(l1);
+        mVisitor.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+        mVisitor.visitInsn(ICONST_0);
+        mVisitor.visitLabel(l2);
+        mVisitor.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] {Opcodes.INTEGER});
         mVisitor.visitInsn(IRETURN);
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
@@ -272,7 +358,7 @@ public class XsdClassGeneratorUtils {
      * @param apiName The api this class will belong.
      */
     private static void createTextElement(String apiName) {
-        ClassWriter classWriter = generateClass(TEXT_CLASS, ABSTRACT_ELEMENT_TYPE, null,  ABSTRACT_ELEMENT_TYPE + "<" + getFullClassTypeName(TEXT_TYPE, apiName) + ">;",ACC_PUBLIC + ACC_SUPER, apiName);
+        ClassWriter classWriter = generateClass(TEXT_CLASS, ABSTRACT_ELEMENT_TYPE, null,  "L" + ABSTRACT_ELEMENT_TYPE + "<" + TEXT_TYPE_DESC + ">;" + IATTRIBUTE_TYPE_DESC,ACC_PUBLIC + ACC_SUPER, apiName);
 
         FieldVisitor fVisitor = classWriter.visitField(ACC_PRIVATE + ACC_FINAL, "text", JAVA_STRING_DESC, null, null);
         fVisitor.visitEnd();
@@ -357,13 +443,10 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "()V", false);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitTypeInsn(NEW, TEXT_TYPE);
-        mVisitor.visitInsn(DUP);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, TEXT_TYPE, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", false);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "id", JAVA_STRING_DESC);
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(4, 2);
+        mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")V", null, null);
@@ -371,14 +454,14 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "()V", false);
         mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "id", JAVA_STRING_DESC);
+        mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitTypeInsn(NEW, TEXT_TYPE);
         mVisitor.visitInsn(DUP);
-        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitMethodInsn(INVOKESPECIAL, TEXT_TYPE, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", false);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "id", JAVA_STRING_DESC);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(4, 3);
         mVisitor.visitEnd();
@@ -405,12 +488,38 @@ public class XsdClassGeneratorUtils {
      * @param child The child of the element which generated the class. Their name represents a method.
      * @param classType The type of the class which contains the children elements.
      */
-    static void generateMethodsForElement(ClassWriter classWriter, XsdElement child, String classType, String apiName) {
+    static void generateMethodsForElement(ClassWriter classWriter, XsdElement child, String classType, String returnType,  String apiName) {
         String childCamelName = toCamelCase(child.getName());
         String childType = getFullClassTypeName(childCamelName, apiName);
         String childTypeDesc = getFullClassTypeNameDesc(childCamelName, apiName);
 
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + ")" + childTypeDesc, null, null);
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "()" + childTypeDesc, null, null);
+        mVisitor.visitCode();
+        mVisitor.visitTypeInsn(NEW, childType);
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, childType, CONSTRUCTOR, "()V", false);
+        mVisitor.visitVarInsn(ASTORE, 1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+
+        if (returnType.equals(IELEMENT_TYPE_DESC)){
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", true);
+        } else {
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", false);
+        }
+
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
+
+        if (returnType.equals(IELEMENT_TYPE_DESC)){
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + ")" + IELEMENT_TYPE_DESC, "(" + JAVA_STRING_DESC + ")TT;", null);
+        } else {
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + ")" + returnType, "(" + JAVA_STRING_DESC + ")" + returnType, null);
+        }
+
         mVisitor.visitCode();
         mVisitor.visitTypeInsn(NEW, childType);
         mVisitor.visitInsn(DUP);
@@ -419,13 +528,30 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitVarInsn(ASTORE, 2);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", true);
-        mVisitor.visitVarInsn(ALOAD, 2);
+
+        if (returnType.equals(IELEMENT_TYPE_DESC)){
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", true);
+        } else {
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", false);
+        }
+
+        mVisitor.visitVarInsn(ALOAD, 0);
+
+        if (returnType.equals(IELEMENT_TYPE_DESC)){
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "self", "()" + IELEMENT_TYPE_DESC, true);
+        }
+
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(3, 3);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")" + IELEMENT_TYPE_DESC, "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")TT;", null);
+
+        if (returnType.equals(IELEMENT_TYPE_DESC)){
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")" + IELEMENT_TYPE_DESC, "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")TT;", null);
+        } else {
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")" + returnType, "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")" + returnType, null);
+        }
+
         mVisitor.visitCode();
         mVisitor.visitTypeInsn(NEW, childType);
         mVisitor.visitInsn(DUP);
@@ -435,9 +561,19 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitVarInsn(ASTORE, 3);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 3);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", true);
+
+        if (returnType.equals(IELEMENT_TYPE_DESC)){
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", true);
+        } else {
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", false);
+        }
+
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "self", "()" + IELEMENT_TYPE_DESC, true);
+
+        if (returnType.equals(IELEMENT_TYPE_DESC)){
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "self", "()" + returnType, true);
+        }
+
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(4, 4);
         mVisitor.visitEnd();
@@ -449,15 +585,15 @@ public class XsdClassGeneratorUtils {
      * @param elementAttribute The attribute containing the information to create the method. (Only String fields are being supported)
      */
     @SuppressWarnings("DanglingJavadoc")
-    static void generateMethodsForAttribute(ClassWriter classWriter, XsdAttribute elementAttribute, String returnTyped, String apiName) {
+    static void generateMethodsForAttribute(ClassWriter classWriter, XsdAttribute elementAttribute, String returnType, String apiName) {
         String camelCaseName = ATTRIBUTE_PREFIX + toCamelCase(elementAttribute.getName()).replaceAll("\\W+", "");
         String attributeClassTypeDesc = getFullClassTypeNameDesc(camelCaseName, apiName);
         MethodVisitor mVisitor;
 
-        if (returnTyped.equals(IELEMENT_TYPE_DESC)){
-            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + attributeClassTypeDesc + ")" + returnTyped, "(" + attributeClassTypeDesc + ")TT;", null);
+        if (returnType.equals(IELEMENT_TYPE_DESC)){
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + attributeClassTypeDesc + ")" + returnType, "(" + attributeClassTypeDesc + ")TT;", null);
         } else {
-            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + attributeClassTypeDesc + ")" + returnTyped, "(" + attributeClassTypeDesc + ")" + returnTyped, null);
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + attributeClassTypeDesc + ")" + returnType, "(" + attributeClassTypeDesc + ")" + returnType, null);
         }
 
         mVisitor.visitCode();
@@ -467,11 +603,17 @@ public class XsdClassGeneratorUtils {
          */
         mVisitor.visitTypeInsn(CHECKCAST, ABSTRACT_ELEMENT_TYPE);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, ABSTRACT_ELEMENT_TYPE, "addAttr", "(" + IATTRIBUTE_TYPE_DESC + ")V", true);
+
+        if (returnType.equals(IELEMENT_TYPE_DESC)){
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, ABSTRACT_ELEMENT_TYPE_DESC, "addAttr", "(" + IATTRIBUTE_TYPE_DESC + ")V", true);
+        } else {
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE_DESC, "addAttr", "(" + IATTRIBUTE_TYPE_DESC + ")V", false);
+        }
+
         mVisitor.visitVarInsn(ALOAD, 0);
 
-        if (returnTyped.equals(IELEMENT_TYPE_DESC)){
-            mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "self", "()" + returnTyped, true);
+        if (returnType.equals(IELEMENT_TYPE_DESC)){
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "self", "()" + returnType, true);
         }
 
         mVisitor.visitInsn(ARETURN);
@@ -489,7 +631,7 @@ public class XsdClassGeneratorUtils {
 
         defaultConstructor.visitCode();
         defaultConstructor.visitVarInsn(ALOAD, 0);
-        defaultConstructor.visitMethodInsn(INVOKESPECIAL, getFullClassTypeName(baseClass, apiName), CONSTRUCTOR, "()V", false);
+        defaultConstructor.visitMethodInsn(INVOKESPECIAL, baseClass, CONSTRUCTOR, "()V", false);
         defaultConstructor.visitInsn(RETURN);
         defaultConstructor.visitMaxs(1, 1);
 

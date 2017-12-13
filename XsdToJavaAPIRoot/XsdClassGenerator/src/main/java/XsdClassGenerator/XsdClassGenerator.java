@@ -15,6 +15,7 @@ public class XsdClassGenerator {
 
     static final String JAVA_OBJECT = "java/lang/Object";
     static final String JAVA_OBJECT_DESC = "Ljava/lang/Object;";
+    static final String JAVA_STRING = "java/lang/String";
     static final String JAVA_STRING_DESC = "Ljava/lang/String;";
     static final String JAVA_LIST = "java/util/List";
     static final String JAVA_LIST_DESC = "Ljava/util/List;";
@@ -23,6 +24,7 @@ public class XsdClassGenerator {
     static final String IATTRIBUTE = "IAttribute";
     static final String ABSTRACT_ELEMENT = "AbstractElement";
     static final String TEXT_CLASS = "Text";
+    static final String ITEXT = "IText";
 
     static String TEXT_TYPE;
     static String TEXT_TYPE_DESC;
@@ -30,7 +32,10 @@ public class XsdClassGenerator {
     static String ABSTRACT_ELEMENT_TYPE_DESC;
     static String IELEMENT_TYPE;
     static String IELEMENT_TYPE_DESC;
+    static String IATTRIBUTE_TYPE;
     static String IATTRIBUTE_TYPE_DESC;
+    static String ITEXT_TYPE;
+    static String ITEXT_TYPE_DESC;
 
     static final String ATTRIBUTE_PREFIX = "Attr";
     private static final String ATTRIBUTE_CASE_SENSITIVE_DIFERENCE = "Alt";
@@ -67,11 +72,11 @@ public class XsdClassGenerator {
 
         ClassWriter classWriter = generateClass(className, ABSTRACT_ELEMENT_TYPE, interfaces, signature,ACC_PUBLIC + ACC_SUPER, apiName);
 
-        generateConstructor(classWriter, ABSTRACT_ELEMENT, ACC_PUBLIC, apiName);
+        generateConstructor(classWriter, ABSTRACT_ELEMENT_TYPE, ACC_PUBLIC, apiName);
 
         generateClassSpecificMethods(classWriter, className, apiName);
 
-        elementChildren.forEach(child -> generateMethodsForElement(classWriter, child, getFullClassTypeName(className, apiName), apiName));
+        elementChildren.forEach(child -> generateMethodsForElement(classWriter, child, getFullClassTypeName(className, apiName), getFullClassTypeNameDesc(className, apiName), apiName));
 
         elementAttributes.forEach(elementAttribute -> generateMethodsAndCreateAttribute(classWriter, elementAttribute, getFullClassTypeNameDesc(className, apiName), apiName));
 
@@ -97,9 +102,9 @@ public class XsdClassGenerator {
      * @param apiName The api this class will belong.
      */
     private void generateElementGroupInterface(String interfaceName, String apiName){
-        ClassWriter interfaceWriter = generateClass(interfaceName, JAVA_OBJECT, new String[]{ IELEMENT },"<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;" ,ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
+        ClassWriter interfaceWriter = generateClass(interfaceName, JAVA_OBJECT, new String[]{ ITEXT },"<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + ITEXT_TYPE + "<TT;>;" ,ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
-        elementGroupInterfaces.get(interfaceName).forEach(child -> generateMethodsForElement(interfaceWriter, child, getFullClassTypeName(interfaceName, apiName), apiName));
+        elementGroupInterfaces.get(interfaceName).forEach(child -> generateMethodsForElement(interfaceWriter, child, getFullClassTypeName(interfaceName, apiName), IELEMENT_TYPE_DESC, apiName));
 
         writeClassToFile(interfaceName, interfaceWriter, apiName);
     }
@@ -116,14 +121,7 @@ public class XsdClassGenerator {
         String[] interfaces = getAttributeGroupObjectInterfaces(attributeHierarchyItem.getParentsName());
         StringBuilder signature = getAttributeGroupSignature(interfaces, apiName);
 
-        if (baseClassNameCamelCase.equals("ICommonAttributeGroup")){
-            int a = 5;
-        }
-
         ClassWriter interfaceWriter = generateClass(baseClassNameCamelCase, JAVA_OBJECT, interfaces, signature.toString(), ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
-
-        //interfaceWriter.visit();
-        //"<T:LSamples/AbstractElement<TT;>;>Ljava/lang/Object;LSamples/IA<TT;>;LSamples/IC<TT;>;",, new String[] { "Samples/IA", "Samples/IC" });
 
         attributeHierarchyItem.getOwnElements().forEach(elementAttribute -> {
             if (createdAttributes.stream().anyMatch(createdAttribute -> createdAttribute.getName().equalsIgnoreCase(elementAttribute.getName()))){
@@ -191,7 +189,13 @@ public class XsdClassGenerator {
             groupInterfaces = getElementGroupInterfaces(complexType);
         }
 
-        return ArrayUtils.addAll(typeInterfaces, groupInterfaces);
+        String[] interfaces = ArrayUtils.addAll(typeInterfaces, groupInterfaces);
+
+        if (interfaces.length == 0){
+            return new String[]{ITEXT};
+        }
+
+        return interfaces;
     }
 
     /**
@@ -424,7 +428,7 @@ public class XsdClassGenerator {
         String[] interfaces;
 
         if (parentsName.size() == 0){
-            interfaces = new String[]{ IELEMENT };
+            interfaces = new String[]{IELEMENT};
         } else {
             interfaces = new String[parentsName.size()];
 

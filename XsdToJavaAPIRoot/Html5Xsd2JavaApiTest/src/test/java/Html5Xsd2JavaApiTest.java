@@ -1,44 +1,64 @@
+import XsdToJavaAPI.Html5Xsd2JavaApi.*;
 import org.junit.Test;
 
 public class Html5Xsd2JavaApiTest {
 
     //TODO A dependencia para Html5Xsd2JavaApi não está correcta. Só funciona por refencia directa ao jar.
-
     //TODO Verificar se a lógica como está, faz sentido, (ids, o que é que retorna)
+
+    //TODO Tipificar os atributos tendo em conta o seu xsd:type, suportar apenas os base por enquanto.
 
     @Test
     public void testGeneratedClassesIntegrity() throws Exception {
-/*
-        new Body()
-                .addAttrOnafterprint(new AttrOnafterprint());
+        Html root = new Html();
 
-        new Body()
-                .addAttrRunat(new AttrRunat())
-                .addAttrOnafterprint(new AttrOnafterprint())
-                .
+        root.head()
+                .meta("metaId1")
+                .title("titleId1")
+                .link("linkId1")
+                .link("linkId2");
 
-        new Button()
-                .addAttrCausesValidation(new AttrCausesValidation())
-                .a("")
-                    .addAttrHref(new AttrHref())
-                    .
+        root.<Title>child("titleId1").text("Title");
 
-*/
-        /*
-        new Html()
-                .body("")
-                .addAttrOnafterprint(new AttrOnafterprint())
-                .
-        */
+        root.<Meta>child("metaId1")
+                .addAttrCharset(new AttrCharset(/*"UTF-8"*/));
 
-        /*
-        new Html()
-                .body("")
-                .p("This is a paragraph")
-                .h1("With a h1 header")
-                .a("A link to somewhere")
-                .
+        root.<Link>child("linkId1")
+                .addAttrRel(new AttrRel(/*"icon"*/))
+                .addAttrType(new AttrType(/*"image/png"*/))
+                .addAttrHref(new AttrHref(/*"/assets/images/favicon.png"*/));
 
-        */
+        root.<Link>child("linkId2")
+                .addAttrRel(new AttrRel(/*"stylesheet"*/))
+                .addAttrType(new AttrType(/*"text/css"*/))
+                .addAttrHref(new AttrHref(/*"/assets/styles/main.css"*/));
     }
 }
+
+
+/*
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title here</title>
+
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="assets/styles/main.css" type="text/css">
+</head>
+<body class="clear">
+<div id="col-wrap">
+    <header id="header">
+        <section>
+            <div class="logo">
+                <img id="brand" src="./assets/images/logo.png">
+            </div>
+            <aside class="aside narrow">
+                <em class="right"> Adversiment <span class="number">1-833-2GET-REV</span></em>
+            </aside>
+        </section>
+    </header>
+</div>
+</body>
+</html>
+ */

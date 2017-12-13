@@ -2,6 +2,7 @@ package Samples;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class AbstractElement<T extends IElement> implements IElement<T> {
     protected List<IElement> children = new ArrayList<>();
@@ -22,10 +23,22 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
     }
 
     public <R extends IElement> R child(String id) {
-        return children.stream()
-                .filter(child -> child.id().equals(id))
+        Optional<R> elem = children.stream()
+                .filter(child -> child.id() != null && child.id().equals(id))
                 .map(child -> (R) child)
+                .findFirst();
+
+        if (elem.isPresent()){
+            return elem.get();
+        }
+
+        return children.stream()
+                .filter(iElement -> iElement instanceof AbstractElement)
+                .map(iElement -> (AbstractElement) iElement)
+                .map(element -> (R) element.child(id))
                 .findFirst()
                 .orElse(null);
-    } // Enables div.<h1>child("id do h1").....
+    }
+
+    // Enables div.<h1>child("id do h1").....
 }

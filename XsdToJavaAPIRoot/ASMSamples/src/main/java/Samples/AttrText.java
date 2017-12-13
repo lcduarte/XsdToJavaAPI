@@ -1,14 +1,14 @@
 package Samples;
 
-public class Text extends AbstractElement<Text>{
+public class AttrText extends AbstractElement<AttrText> implements IAttribute{
 
     private final String text;
 
-    public Text(String text) {
+    public AttrText(String text) {
         this.text = text;
     }
 
-    public Text(String text, String id) {
+    public AttrText(String text, String id) {
         this.text = text;
         super.id = id;
     }
@@ -24,7 +24,7 @@ public class Text extends AbstractElement<Text>{
     }
 
     @Override
-    public Text self() {
+    public AttrText self() {
         return this;
     }
 
