@@ -33,7 +33,7 @@
         <dependency>
             <groupId>XsdToJavaAPI</groupId>
             <artifactId>Html5Xsd2JavaApi</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0-snapshot</version>
         </dependency>
     </dependencies>
 
