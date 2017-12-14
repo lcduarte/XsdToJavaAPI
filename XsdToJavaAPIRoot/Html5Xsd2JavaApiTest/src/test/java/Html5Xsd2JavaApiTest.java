@@ -3,9 +3,8 @@ import org.junit.Test;
 
 public class Html5Xsd2JavaApiTest {
 
-    //TODO A dependencia para Html5Xsd2JavaApi não está correcta. Só funciona por refencia directa ao jar.
+    //TODO A dependencia para Html5Xsd2JavaApi não está correcta. O intelij não reconhece as classes mas corre o código sem problemas.
     //TODO Verificar se a lógica como está, faz sentido, (ids, o que é que retorna)
-
     //TODO Tipificar os atributos tendo em conta o seu xsd:type, suportar apenas os base por enquanto.
 
     @Test
@@ -18,7 +17,8 @@ public class Html5Xsd2JavaApiTest {
                 .link("linkId1")
                 .link("linkId2");
 
-        root.<Title>child("titleId1").text("Title");
+        root.<Title>child("titleId1")
+                .text("Title");
 
         root.<Meta>child("metaId1")
                 .addAttrCharset(new AttrCharset(/*"UTF-8"*/));
