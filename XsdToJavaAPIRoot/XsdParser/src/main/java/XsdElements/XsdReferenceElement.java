@@ -6,13 +6,13 @@ import java.util.HashMap;
  * This class is an abstraction of all classes that can have a ref attribute, which helps
  * distinguish those from the other XsdElements
  */
-public abstract class XsdReferenceElement extends XsdElementBase {
-
-    public static final String NAME = "name";
+public abstract class XsdReferenceElement extends XsdAbstractElement {
 
     private String name;
+    private String maxOccurs;
+    private String minOccurs;
 
-    XsdReferenceElement(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+    XsdReferenceElement(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
         super(parent);
 
         setFields(elementFieldsMap);
@@ -22,21 +22,31 @@ public abstract class XsdReferenceElement extends XsdElementBase {
         setFields(elementFieldsMap);
     }
 
-    XsdReferenceElement(XsdElementBase parent) {
+    XsdReferenceElement(XsdAbstractElement parent) {
         super(parent);
     }
 
     @Override
     public void setFields(HashMap<String, String> elementFieldsMap) {
-        if (elementFieldsMap != null){
-            super.setFields(elementFieldsMap);
+        super.setFields(elementFieldsMap);
 
+        if (elementFieldsMap != null){
             this.name = elementFieldsMap.getOrDefault(NAME, name);
+            this.minOccurs = elementFieldsMap.getOrDefault(MIN_OCCURS, minOccurs);
+            this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS, maxOccurs);
         }
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getMaxOccurs() {
+        return maxOccurs;
+    }
+
+    public String getMinOccurs() {
+        return minOccurs;
     }
 
     public void setName(String name) {

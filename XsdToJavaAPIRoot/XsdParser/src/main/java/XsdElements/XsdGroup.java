@@ -15,7 +15,7 @@ public class XsdGroup extends XsdReferenceElement {
 
     private XsdMultipleElements childElement;
 
-    private XsdGroup(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+    private XsdGroup(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
     }
 
@@ -35,12 +35,12 @@ public class XsdGroup extends XsdReferenceElement {
     }
 
     @Override
-    List<ReferenceBase> getElements() {
+    protected List<ReferenceBase> getElements() {
         return childElement.getElements();
     }
 
     @Override
-    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
         XsdGroup elementCopy = new XsdGroup(this.getParent(), placeHolderAttributes);
 
@@ -65,7 +65,7 @@ public class XsdGroup extends XsdReferenceElement {
     class GroupVisitor extends Visitor {
 
         @Override
-        public XsdElementBase getOwner() {
+        public XsdAbstractElement getOwner() {
             return XsdGroup.this;
         }
 

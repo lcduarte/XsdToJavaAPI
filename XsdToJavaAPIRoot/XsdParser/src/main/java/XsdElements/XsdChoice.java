@@ -13,7 +13,7 @@ public class XsdChoice extends XsdMultipleElements{
 
     private ChoiceVisitor visitor = new ChoiceVisitor();
 
-    private XsdChoice(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+    private XsdChoice(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
     }
 
@@ -33,7 +33,7 @@ public class XsdChoice extends XsdMultipleElements{
     }
 
     @Override
-    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
         XsdChoice elementCopy = new XsdChoice(this.getParent(), placeHolderAttributes);
 
@@ -67,7 +67,7 @@ public class XsdChoice extends XsdMultipleElements{
     class ChoiceVisitor extends Visitor {
 
         @Override
-        public XsdElementBase getOwner() {
+        public XsdAbstractElement getOwner() {
             return XsdChoice.this;
         }
 

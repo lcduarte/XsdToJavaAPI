@@ -1,16 +1,16 @@
 package XsdElements.ElementsWrapper;
 
-import XsdElements.XsdElementBase;
+import XsdElements.XsdAbstractElement;
 
 /**
- * ConcreteElement is a wrapper class for XsdElementBase which is fully resolved
+ * ConcreteElement is a wrapper class for XsdAbstractElement which is fully resolved
  */
 public class ConcreteElement extends ReferenceBase {
 
     private String name;
-    private XsdElementBase element;
+    private XsdAbstractElement element;
 
-    ConcreteElement(XsdElementBase element){
+    ConcreteElement(XsdAbstractElement element){
         this.name = getName(element);
         this.element = element;
     }
@@ -19,7 +19,7 @@ public class ConcreteElement extends ReferenceBase {
         return name;
     }
 
-    public XsdElementBase getElement() {
+    public XsdAbstractElement getElement() {
         return element;
     }
 

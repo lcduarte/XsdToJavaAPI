@@ -47,7 +47,7 @@ public class XsdClassGenerator {
     private Map<String, AttributeHierarchyItem> attributeGroupInterfaces = new HashMap<>();
     private List<XsdAttribute> createdAttributes = new ArrayList<>();
 
-    public void generateClassFromElements(Stream<XsdElementBase> elements, String apiName){
+    public void generateClassFromElements(Stream<XsdAbstractElement> elements, String apiName){
         createGeneratedFilesDirectory(apiName);
 
         createSupportingInfrastructure(apiName);
@@ -164,7 +164,7 @@ public class XsdClassGenerator {
      */
     private String[] getElementGroupInterfaces(XsdElement element){
         String[] typeInterfaces = new String[0], groupInterfaces = new String[0];
-        XsdElementBase typeWrapper = element.getXsdType();
+        XsdAbstractElement typeWrapper = element.getXsdType();
 
         if (typeWrapper != null && typeWrapper instanceof XsdComplexType){
 
@@ -193,7 +193,7 @@ public class XsdClassGenerator {
      * interface-like names, e.g. flowContent will be IFlowContent.
      */
     private String[] getElementGroupInterfaces(XsdComplexType complexType) {
-        XsdElementBase complexChildElement = complexType.getXsdChildElement();
+        XsdAbstractElement complexChildElement = complexType.getXsdChildElement();
 
         Map<String, Stream<XsdElement>> groupElements = new HashMap<>();
 
@@ -243,7 +243,7 @@ public class XsdClassGenerator {
      */
     private Stream<XsdElement> getOwnChildren(XsdElement element) {
         if (element.getXsdComplexType() != null){
-            XsdElementBase childElement = element.getXsdComplexType().getXsdChildElement();
+            XsdAbstractElement childElement = element.getXsdComplexType().getXsdChildElement();
 
             if (childElement != null) {
                 Map<String, XsdElement> mappedElements = new HashMap<>();

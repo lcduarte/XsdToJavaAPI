@@ -13,15 +13,6 @@ import java.util.List;
 public class XsdElement extends XsdReferenceElement {
 
     public static final String TAG = "xsd:element";
-    public static final String TYPE = "type";
-    public static final String SUBSTITUTION_GROUP = "substitutionGroup";
-    public static final String DEFAULT = "default";
-    public static final String FIXED = "fixed";
-    public static final String FORM = "form";
-    public static final String NILLABLE = "nillable";
-    public static final String ABSTRACT = "abstract";
-    public static final String BLOCK = "block";
-    public static final String FINAL = "final";
 
     private Visitor visitor = new ElementVisitor();
 
@@ -37,7 +28,7 @@ public class XsdElement extends XsdReferenceElement {
     private String block;
     private String finalObj;
 
-    private XsdElement(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+    private XsdElement(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
     }
 
@@ -45,14 +36,14 @@ public class XsdElement extends XsdReferenceElement {
         super(elementFieldsMap);
     }
 
-    private XsdElement(XsdElementBase parent) {
+    private XsdElement(XsdAbstractElement parent) {
         super(parent);
     }
 
     public void setFields(HashMap<String, String> elementFieldsMap){
-        if (elementFieldsMap != null){
-            super.setFields(elementFieldsMap);
+        super.setFields(elementFieldsMap);
 
+        if (elementFieldsMap != null){
             String type = elementFieldsMap.get(TYPE);
 
             if (type != null){
@@ -84,12 +75,12 @@ public class XsdElement extends XsdReferenceElement {
     }
 
     @Override
-    List<ReferenceBase> getElements() {
+    protected List<ReferenceBase> getElements() {
         return null;
     }
 
     @Override
-    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
         return new XsdElement(this.getParent(), placeHolderAttributes);
     }
@@ -119,7 +110,7 @@ public class XsdElement extends XsdReferenceElement {
         return type;
     }
 
-    public XsdElementBase getXsdType(){
+    public XsdAbstractElement getXsdType(){
         if (type != null && type instanceof ConcreteElement){
             return type.getElement();
         }
@@ -166,7 +157,7 @@ public class XsdElement extends XsdReferenceElement {
     class ElementVisitor extends Visitor{
 
         @Override
-        public XsdElementBase getOwner() {
+        public XsdAbstractElement getOwner() {
             return XsdElement.this;
         }
 

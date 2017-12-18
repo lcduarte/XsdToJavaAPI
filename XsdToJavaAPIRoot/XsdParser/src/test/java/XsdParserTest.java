@@ -1,4 +1,5 @@
 import XsdElements.*;
+import XsdElements.XsdRestrictionElements.XsdEnumeration;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -39,12 +40,12 @@ public class XsdParserTest {
 
         XsdChoice complexTypeChild = (XsdChoice) firstElementChild.getXsdChildElement();
 
-        List<XsdElementBase> choiceElements = complexTypeChild.getXsdElements().collect(Collectors.toList());
+        List<XsdAbstractElement> choiceElements = complexTypeChild.getXsdElements().collect(Collectors.toList());
 
         Assert.assertEquals(2, choiceElements.size());
 
-        XsdElementBase child1 = choiceElements.get(0);
-        XsdElementBase child2 = choiceElements.get(1);
+        XsdAbstractElement child1 = choiceElements.get(0);
+        XsdAbstractElement child2 = choiceElements.get(1);
 
         Assert.assertEquals(child1.getClass(), XsdElement.class);
         Assert.assertEquals(child2.getClass(), XsdElement.class);
@@ -72,12 +73,12 @@ public class XsdParserTest {
 
         Assert.assertEquals(1, unsolvedReferenceList.size());
 
-        List<XsdElementBase> parents = unsolvedReferenceList.get(0).getParents();
+        List<XsdAbstractElement> parents = unsolvedReferenceList.get(0).getParents();
 
         Assert.assertEquals(2, parents.size());
 
-        XsdElementBase parent1 = parents.get(0);
-        XsdElementBase parent2 = parents.get(1);
+        XsdAbstractElement parent1 = parents.get(0);
+        XsdAbstractElement parent2 = parents.get(1);
 
         Assert.assertEquals(XsdGroup.class, parent1.getClass());
         Assert.assertEquals(XsdGroup.class, parent2.getClass());
@@ -87,5 +88,59 @@ public class XsdParserTest {
 
         Assert.assertEquals("flowContent", parent1Group.getName());
         Assert.assertEquals("phrasingContent", parent2Group.getName());
+    }
+
+    @Test
+    public void testSimpleTypes() throws Exception {
+        XsdElement htmlElement = elements.get(5);
+
+        Assert.assertEquals("meta", htmlElement.getName());
+
+        XsdComplexType metaChild = htmlElement.getXsdComplexType();
+
+        XsdAttribute attribute = metaChild.getXsdAttributes().findFirst().get();
+
+        Assert.assertEquals("http-equiv", attribute.getName());
+
+        Assert.assertEquals(true, attribute.simpleType != null);
+
+        XsdSimpleType simpleType = attribute.simpleType;
+
+        Assert.assertNull(simpleType.getRestriction());
+        Assert.assertNull(simpleType.getList());
+        Assert.assertNotNull(simpleType.getUnion());
+
+        XsdUnion union = simpleType.getUnion();
+
+        Assert.assertEquals(2, union.getUnionElements().size());
+
+        XsdSimpleType innerSimpleType1 = union.getUnionElements().get(0);
+
+        Assert.assertNotNull(innerSimpleType1.getRestriction());
+        Assert.assertNull(innerSimpleType1.getList());
+        Assert.assertNull(innerSimpleType1.getUnion());
+
+        XsdRestriction restriction = innerSimpleType1.getRestriction();
+
+        List<XsdEnumeration> enumeration = restriction.getEnumeration();
+
+        Assert.assertEquals(4, enumeration.size());
+
+        Assert.assertEquals("content-language", enumeration.get(0).getValue());
+        Assert.assertEquals("content-type", enumeration.get(1).getValue());
+        Assert.assertEquals("default-style", enumeration.get(2).getValue());
+        Assert.assertEquals("refresh", enumeration.get(3).getValue());
+
+        Assert.assertNull(restriction.getFractionDigits());
+        Assert.assertNull(restriction.getLength());
+        Assert.assertNull(restriction.getMaxExclusive());
+        Assert.assertNull(restriction.getMaxInclusive());
+        Assert.assertNull(restriction.getMaxLength());
+        Assert.assertNull(restriction.getMinExclusive());
+        Assert.assertNull(restriction.getMinInclusive());
+        Assert.assertNull(restriction.getMinLength());
+        Assert.assertNull(restriction.getPattern());
+        Assert.assertNull(restriction.getTotalDigits());
+        Assert.assertNull(restriction.getWhiteSpace());
     }
 }

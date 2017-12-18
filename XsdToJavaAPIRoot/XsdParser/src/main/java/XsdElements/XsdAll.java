@@ -11,7 +11,7 @@ public class XsdAll extends XsdMultipleElements {
     public static final String TAG = "xsd:all";
     private final AllVisitor visitor = new AllVisitor();
 
-    private XsdAll(XsdElementBase parent, HashMap<String, String> elementFieldsMap){
+    private XsdAll(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap){
         super(parent, elementFieldsMap);
     }
 
@@ -31,7 +31,7 @@ public class XsdAll extends XsdMultipleElements {
     }
 
     @Override
-    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
 
         XsdAll elementCopy = new XsdAll(this.getParent(), placeHolderAttributes);
@@ -48,7 +48,7 @@ public class XsdAll extends XsdMultipleElements {
     class AllVisitor extends Visitor {
 
         @Override
-        public XsdElementBase getOwner() {
+        public XsdAbstractElement getOwner() {
             return XsdAll.this;
         }
 

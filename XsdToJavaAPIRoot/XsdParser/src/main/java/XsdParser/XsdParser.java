@@ -4,6 +4,7 @@ import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdElements.*;
+import XsdElements.XsdRestrictionElements.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -11,10 +12,8 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.net.URL;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class XsdParser {
@@ -41,6 +40,23 @@ public class XsdParser {
         parseMappers.put(XsdElement.TAG, XsdElement::parse);
         parseMappers.put(XsdGroup.TAG, XsdGroup::parse);
         parseMappers.put(XsdSequence.TAG, XsdSequence::parse);
+        parseMappers.put(XsdSimpleType.TAG, XsdSimpleType::parse);
+        parseMappers.put(XsdList.TAG, XsdList::parse);
+        parseMappers.put(XsdRestriction.TAG, XsdRestriction::parse);
+        parseMappers.put(XsdUnion.TAG, XsdUnion::parse);
+
+        parseMappers.put(XsdEnumeration.TAG, XsdEnumeration::parse);
+        parseMappers.put(XsdFractionDigits.TAG, XsdFractionDigits::parse);
+        parseMappers.put(XsdLength.TAG, XsdLength::parse);
+        parseMappers.put(XsdMaxExclusive.TAG, XsdMaxExclusive::parse);
+        parseMappers.put(XsdMaxInclusive.TAG, XsdMaxInclusive::parse);
+        parseMappers.put(XsdMaxLength.TAG, XsdMaxLength::parse);
+        parseMappers.put(XsdMinExclusive.TAG, XsdMinExclusive::parse);
+        parseMappers.put(XsdMinInclusive.TAG, XsdMinInclusive::parse);
+        parseMappers.put(XsdMinLength.TAG, XsdMinLength::parse);
+        parseMappers.put(XsdPattern.TAG, XsdPattern::parse);
+        parseMappers.put(XsdTotalDigits.TAG, XsdTotalDigits::parse);
+        parseMappers.put(XsdWhiteSpace.TAG, XsdWhiteSpace::parse);
     }
 
     public XsdParser(){
@@ -54,7 +70,7 @@ public class XsdParser {
      * @param filePath The file path to the xsd file.
      * @return A stream of parsed wrapped xsd elements.
      */
-    public Stream<XsdElementBase> parse(String filePath) {
+    public Stream<XsdAbstractElement> parse(String filePath) {
         //https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
         try {
             File xsdFile = new File(filePath);
@@ -132,7 +148,7 @@ public class XsdParser {
         if (concreteElement != null){
             HashMap<String, String> oldElementAttributes = unsolvedReference.getElement().getElementFieldsMap();
 
-            XsdElementBase substitutionElement = concreteElement.getElement()
+            XsdAbstractElement substitutionElement = concreteElement.getElement()
                                                                 .createCopyWithAttributes(oldElementAttributes);
 
             ConcreteElement substitutionElementWrapper = (ConcreteElement) ReferenceBase.createFromXsd(substitutionElement);

@@ -10,17 +10,18 @@ import java.util.List;
 
 public class XsdAttribute extends XsdReferenceElement {
 
-    // TODO public XsdSimpleType simpleType;
     public static final String TAG = "xsd:attribute";
-    public static final String DEFAULT_ELEMENT = "defaultElement";
-    public static final String FIXED = "fixed";
-    public static final String TYPE = "type";
+
+    private AttributeVisitor visitor = new AttributeVisitor();
+
+    public XsdSimpleType simpleType;
 
     private String defaultElement;
     private String fixed;
+    //TODO Encontrar named simpleTypes com o type deste campo.
     private String type;
 
-    private XsdAttribute(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+    private XsdAttribute(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
     }
 
@@ -47,19 +48,24 @@ public class XsdAttribute extends XsdReferenceElement {
 
     @Override
     public Visitor getVisitor() {
-        throw new VisitorNotFoundException("XsdAttribute shouldn't have visitors");
+        return visitor;
     }
 
     @Override
-    List<ReferenceBase> getElements() {
+    protected List<ReferenceBase> getElements() {
         return null;
     }
 
     @Override
-    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+
         placeHolderAttributes.putAll(this.getElementFieldsMap());
 
-        return new XsdAttribute(this.getParent(), placeHolderAttributes);
+        XsdAttribute copy = new XsdAttribute(this.getParent(), placeHolderAttributes);
+
+        copy.simpleType = this.simpleType;
+
+        return copy;
     }
 
     public String getDefaultElement() {
@@ -75,7 +81,21 @@ public class XsdAttribute extends XsdReferenceElement {
     }
 
     public static ReferenceBase parse(Node node) {
-        // TODO Still missing the parsing of contained elements such as SimpleTypes.
-        return ReferenceBase.createFromXsd(new XsdAttribute(convertNodeMap(node.getAttributes())));
+        return xsdParseSkeleton(node, new XsdAttribute(convertNodeMap(node.getAttributes())));
+    }
+
+    class AttributeVisitor extends Visitor{
+
+        @Override
+        public XsdAbstractElement getOwner() {
+            return XsdAttribute.this;
+        }
+
+        @Override
+        public void visit(XsdSimpleType element) {
+            super.visit(element);
+
+            XsdAttribute.this.simpleType = element;
+        }
     }
 }

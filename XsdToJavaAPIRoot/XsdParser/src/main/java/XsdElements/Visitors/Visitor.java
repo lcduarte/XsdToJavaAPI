@@ -3,6 +3,7 @@ package XsdElements.Visitors;
 import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdElements.*;
+import XsdElements.XsdRestrictionElements.*;
 import XsdParser.XsdParser;
 
 public abstract class Visitor {
@@ -51,5 +52,38 @@ public abstract class Visitor {
         }
     }
 
-    public abstract XsdElementBase getOwner();
+    public void visit(XsdSimpleType element) {}
+
+    public void visit(XsdRestriction element) {}
+
+    public void visit(XsdList element) {}
+
+    public void visit(XsdUnion element) {}
+
+    public void visit(XsdEnumeration element) {}
+
+    public void visit(XsdFractionDigits element) {}
+
+    public void visit(XsdLength element) {}
+
+    public void visit(XsdMaxExclusive element) {}
+
+    public void visit(XsdMaxInclusive element) {}
+
+    public void visit(XsdMaxLength element) {}
+
+    public void visit(XsdMinExclusive element) {}
+
+    public void visit(XsdMinInclusive element) {}
+
+    public void visit(XsdMinLength element) {}
+
+    public void visit(XsdPattern element) {}
+
+    public void visit(XsdTotalDigits element) {}
+
+    public void visit(XsdWhiteSpace element) {}
+
+    public abstract XsdAbstractElement getOwner();
+
 }

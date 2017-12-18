@@ -8,22 +8,18 @@ import org.w3c.dom.Node;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class XsdComplexType extends XsdElementBase {
+public class XsdComplexType extends XsdAbstractElement {
 
     public static final String TAG = "xsd:complexType";
-    public static final String NAME = "name";
-    public static final String ABSTRACT = "abstract";
-    public static final String MIXED = "mixed";
-    public static final String BLOCK = "block";
-    public static final String FINAL = "final";
 
     private ComplexTypeVisitor visitor = new ComplexTypeVisitor();
 
     private ReferenceBase childElement;
 
+    private String maxOccurs;
+    private String minOccurs;
     private String name;
     private String elementAbstract;
     private String mixed;
@@ -32,7 +28,7 @@ public class XsdComplexType extends XsdElementBase {
     private List<XsdAttributeGroup> attributeGroups = new ArrayList<>();
     private List<ReferenceBase> attributes = new ArrayList<>();
 
-    private XsdComplexType(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+    private XsdComplexType(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
     }
 
@@ -45,6 +41,9 @@ public class XsdComplexType extends XsdElementBase {
         if (elementFieldsMap != null){
             super.setFields(elementFieldsMap);
 
+
+            this.minOccurs = elementFieldsMap.getOrDefault(MIN_OCCURS, minOccurs);
+            this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS, maxOccurs);
             this.name = elementFieldsMap.getOrDefault(NAME, name);
             this.elementAbstract = elementFieldsMap.getOrDefault(ABSTRACT, elementAbstract);
             this.mixed = elementFieldsMap.getOrDefault(MIXED, mixed);
@@ -65,12 +64,12 @@ public class XsdComplexType extends XsdElementBase {
     }
 
     @Override
-    List<ReferenceBase> getElements() {
+    protected List<ReferenceBase> getElements() {
         return childElement == null ? null : childElement.getElement().getElements();
     }
 
     @Override
-    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
         XsdComplexType elementCopy = new XsdComplexType(this.getParent(), placeHolderAttributes);
 
@@ -112,7 +111,7 @@ public class XsdComplexType extends XsdElementBase {
         return childElement;
     }
 
-    public XsdElementBase getXsdChildElement() {
+    public XsdAbstractElement getXsdChildElement() {
         return childElement == null ? null : childElement.getElement();
     }
 
@@ -134,6 +133,14 @@ public class XsdComplexType extends XsdElementBase {
 
     public String getFinal() {
         return elementFinal;
+    }
+
+    public String getMaxOccurs() {
+        return maxOccurs;
+    }
+
+    public String getMinOccurs() {
+        return minOccurs;
     }
 
     List<ReferenceBase> getAttributes() {
@@ -158,7 +165,7 @@ public class XsdComplexType extends XsdElementBase {
     class ComplexTypeVisitor extends Visitor {
 
         @Override
-        public XsdElementBase getOwner() {
+        public XsdAbstractElement getOwner() {
             return XsdComplexType.this;
         }
 

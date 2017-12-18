@@ -13,7 +13,7 @@ public class XsdSequence extends XsdMultipleElements{
 
     private SequenceVisitor visitor = new SequenceVisitor();
 
-    private XsdSequence(XsdElementBase parent, HashMap<String, String> elementFieldsMap) {
+    private XsdSequence(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
     }
 
@@ -33,7 +33,7 @@ public class XsdSequence extends XsdMultipleElements{
     }
 
     @Override
-    public XsdElementBase createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
         XsdSequence elementCopy = new XsdSequence(this.getParent(), placeHolderAttributes);
 
@@ -67,7 +67,7 @@ public class XsdSequence extends XsdMultipleElements{
     class SequenceVisitor extends Visitor {
 
         @Override
-        public XsdElementBase getOwner() {
+        public XsdAbstractElement getOwner() {
             return XsdSequence.this;
         }
 

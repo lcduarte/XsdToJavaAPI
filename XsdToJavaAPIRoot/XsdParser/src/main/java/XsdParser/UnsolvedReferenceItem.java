@@ -1,7 +1,7 @@
 package XsdParser;
 
 import XsdElements.ElementsWrapper.UnsolvedReference;
-import XsdElements.XsdElementBase;
+import XsdElements.XsdAbstractElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public class UnsolvedReferenceItem {
 
     private UnsolvedReference unsolvedReference;
-    private List<XsdElementBase> parents;
+    private List<XsdAbstractElement> parents;
 
     public UnsolvedReferenceItem(UnsolvedReference unsolvedReference){
         this.unsolvedReference = unsolvedReference;
@@ -22,7 +22,7 @@ public class UnsolvedReferenceItem {
         return unsolvedReference;
     }
 
-    public List<XsdElementBase> getParents() {
+    public List<XsdAbstractElement> getParents() {
         return parents;
     }
 }

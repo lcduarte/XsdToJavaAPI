@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class XsdMultipleElements extends XsdElementBase {
+public abstract class XsdMultipleElements extends XsdAbstractElement {
 
     /**
      * This Map contains the separated elements from XsdGroups. This way this class's elements
@@ -26,12 +25,25 @@ public abstract class XsdMultipleElements extends XsdElementBase {
      */
     private List<ReferenceBase> elements = new ArrayList<>();
 
-    XsdMultipleElements(XsdElementBase parent, HashMap<String, String> nodeAttributes) {
+    private String maxOccurs;
+    private String minOccurs;
+
+    XsdMultipleElements(XsdAbstractElement parent, HashMap<String, String> nodeAttributes) {
         super(parent, nodeAttributes);
     }
 
     XsdMultipleElements(HashMap<String, String> nodeAttributes) {
         super(nodeAttributes);
+    }
+
+    @Override
+    public void setFields(HashMap<String, String> elementFieldsMap) {
+        super.setFields(elementFieldsMap);
+
+        if (elementFieldsMap != null){
+            this.minOccurs = elementFieldsMap.getOrDefault(MIN_OCCURS, minOccurs);
+            this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS, maxOccurs);
+        }
     }
 
     @Override
@@ -46,8 +58,16 @@ public abstract class XsdMultipleElements extends XsdElementBase {
         }
     }
 
+    public String getMaxOccurs() {
+        return maxOccurs;
+    }
+
+    public String getMinOccurs() {
+        return minOccurs;
+    }
+
     @Override
-    List<ReferenceBase> getElements(){
+    protected List<ReferenceBase> getElements(){
         return elements;
     }
 
