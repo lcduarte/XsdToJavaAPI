@@ -21,17 +21,36 @@ public class Html5Xsd2JavaApiTest {
                 .text("Title");
 
         root.<Meta>child("metaId1")
-                .addAttrCharset(new AttrCharset(/*"UTF-8"*/));
+                .addAttrCharset(new AttrCharset<>( "UTF-8"));
 
         root.<Link>child("linkId1")
-                .addAttrRel(new AttrRel(/*"icon"*/))
-                .addAttrType(new AttrType(/*"image/png"*/))
-                .addAttrHref(new AttrHref(/*"/assets/images/favicon.png"*/));
+                .addAttrRel(new AttrRel<>("icon"))
+                .addAttrType(new AttrType<>("image/png"))
+                .addAttrHref(new AttrHref<>("/assets/images/favicon.png"));
 
         root.<Link>child("linkId2")
-                .addAttrRel(new AttrRel(/*"stylesheet"*/))
-                .addAttrType(new AttrType(/*"text/css"*/))
-                .addAttrHref(new AttrHref(/*"/assets/styles/main.css"*/));
+                .addAttrRel(new AttrRel<>("stylesheet"))
+                .addAttrType(new AttrType<>("text/css"))
+                .addAttrHref(new AttrHref<>("/assets/styles/main.css"));
+
+        root.body()
+                .addAttrClass(new AttrClass<>("clear"))
+                .div(/*"col-wrap"*/)
+                .header(/*"header"*/)
+                .section()
+                .div("divId1")
+                .aside("asideId1");
+
+        root.<Div>child("divId1")
+                .img()
+                .addAttrId(new AttrId<>("brand"))
+                .addAttrSrc(new AttrSrc<>("./assets/images/logo.png"));
+
+        root.<Aside>child("asideId1")
+                .em()
+                .text("Advertisement")
+                .span()
+                .text("1-833-2GET-REV");
     }
 }
 
@@ -54,7 +73,7 @@ public class Html5Xsd2JavaApiTest {
                 <img id="brand" src="./assets/images/logo.png">
             </div>
             <aside class="aside narrow">
-                <em class="right"> Adversiment <span class="number">1-833-2GET-REV</span></em>
+                <em class="right"> Advertisement <span class="number">1-833-2GET-REV</span></em>
             </aside>
         </section>
     </header>

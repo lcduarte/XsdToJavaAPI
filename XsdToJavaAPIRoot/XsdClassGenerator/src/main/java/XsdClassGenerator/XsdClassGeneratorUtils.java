@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 
 import static XsdClassGenerator.XsdClassGenerator.*;
 import static org.objectweb.asm.Opcodes.*;
@@ -18,6 +19,56 @@ public class XsdClassGeneratorUtils {
 
     public static String PACKAGE_BASE = "XsdToJavaAPI/";
     private static final String INTERFACE_PREFIX = "I";
+    private static final HashMap<String, String> xsdTypesToJava;
+
+    static {
+        xsdTypesToJava = new HashMap<>();
+
+        xsdTypesToJava.put("xsd:anyURI", "String");
+        xsdTypesToJava.put("xsd:boolean", "Boolean");
+        //xsdTypesToJava.put("xsd:base64Binary", "[B");
+        //xsdTypesToJava.put("xsd:hexBinary", "[B");
+        xsdTypesToJava.put("xsd:date", "XMLGregorianCalendar");
+        xsdTypesToJava.put("xsd:dateTime", "XMLGregorianCalendar");
+        xsdTypesToJava.put("xsd:time", "XMLGregorianCalendar");
+        xsdTypesToJava.put("xsd:duration", "Duration");
+        xsdTypesToJava.put("xsd:dayTimeDuration", "Duration");
+        xsdTypesToJava.put("xsd:yearMonthDuration", "Duration");
+        xsdTypesToJava.put("xsd:gDay", "XMLGregorianCalendar");
+        xsdTypesToJava.put("xsd:gMonth", "XMLGregorianCalendar");
+        xsdTypesToJava.put("xsd:gMonthDay", "XMLGregorianCalendar");
+        xsdTypesToJava.put("xsd:gYear", "XMLGregorianCalendar");
+        xsdTypesToJava.put("xsd:gYearMonth", "XMLGregorianCalendar");
+        xsdTypesToJava.put("xsd:decimal", "BigDecimal");
+        xsdTypesToJava.put("xsd:integer", "BigInteger");
+        xsdTypesToJava.put("xsd:nonPositiveInteger", "BigInteger");
+        xsdTypesToJava.put("xsd:negativeInteger", "BigInteger");
+        xsdTypesToJava.put("xsd:long", "Long");
+        xsdTypesToJava.put("xsd:int", "Integer");
+        xsdTypesToJava.put("xsd:short", "Short");
+        xsdTypesToJava.put("xsd:byte", "Byte");
+        xsdTypesToJava.put("xsd:nonNegativeInteger", "BigInteger");
+        xsdTypesToJava.put("xsd:unsignedLong", "BigInteger");
+        xsdTypesToJava.put("xsd:unsignedInt", "Long");
+        xsdTypesToJava.put("xsd:unsignedShort", "Integer");
+        xsdTypesToJava.put("xsd:unsignedByte", "Short");
+        xsdTypesToJava.put("xsd:positiveInteger", "BigInteger");
+        xsdTypesToJava.put("xsd:double", "Double");
+        xsdTypesToJava.put("xsd:float", "Float");
+        xsdTypesToJava.put("xsd:QName", "QName");
+        xsdTypesToJava.put("xsd:NOTATION", "QName");
+        xsdTypesToJava.put("xsd:string", "String");
+        xsdTypesToJava.put("xsd:normalizedString", "String");
+        xsdTypesToJava.put("xsd:token", "String");
+        xsdTypesToJava.put("xsd:language", "String");
+        xsdTypesToJava.put("xsd:NMTOKEN", "String");
+        xsdTypesToJava.put("xsd:Name", "String");
+        xsdTypesToJava.put("xsd:NCName", "String");
+        xsdTypesToJava.put("xsd:ID", "String");
+        xsdTypesToJava.put("xsd:IDREF", "String");
+        xsdTypesToJava.put("xsd:ENTITY", "String");
+        xsdTypesToJava.put("xsd:untypedAtomic", "String");
+    }
 
     /**
      * @param groupName A group/interface name.
@@ -120,6 +171,8 @@ public class XsdClassGeneratorUtils {
         TEXT_TYPE_DESC = getFullClassTypeNameDesc(TEXT_CLASS, apiName);
         ABSTRACT_ELEMENT_TYPE = getFullClassTypeName(ABSTRACT_ELEMENT, apiName);
         ABSTRACT_ELEMENT_TYPE_DESC = getFullClassTypeNameDesc(ABSTRACT_ELEMENT, apiName);
+        ABSTRACT_ATTRIBUTE_TYPE = getFullClassTypeName(ABSTRACT_ATTRIBUTE, apiName);
+        ABSTRACT_ATTRIBUTE_TYPE_DESC = getFullClassTypeNameDesc(ABSTRACT_ATTRIBUTE, apiName);
         IELEMENT_TYPE = getFullClassTypeName(IELEMENT, apiName);
         IELEMENT_TYPE_DESC = getFullClassTypeNameDesc(IELEMENT, apiName);
         IATTRIBUTE_TYPE = getFullClassTypeName(IATTRIBUTE, apiName);
@@ -128,10 +181,39 @@ public class XsdClassGeneratorUtils {
         ITEXT_TYPE_DESC = getFullClassTypeNameDesc(ITEXT, apiName);
 
         createAbstractElement(apiName);
+        createAbstractAttribute(apiName);
         createAttributeInterface(apiName);
         createElementInterface(apiName);
         createTextElement(apiName);
         createTextGroupInterface(apiName);
+    }
+
+    private static void createAbstractAttribute(String apiName) {
+        ClassWriter classWriter = generateClass(ABSTRACT_ATTRIBUTE, JAVA_OBJECT, new String[] { IATTRIBUTE }, "<T:" + JAVA_OBJECT_DESC + ">" + JAVA_OBJECT_DESC + "L" + IATTRIBUTE + "<TT;>;", ACC_PUBLIC + ACC_SUPER, apiName);
+
+        FieldVisitor fVisitor = classWriter.visitField(ACC_PRIVATE, "value", JAVA_OBJECT_DESC, "TT;", null);
+        fVisitor.visitEnd();
+
+        MethodVisitor mVisitor = classWriter.visitMethod(0, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", "(TT;)V", null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, JAVA_OBJECT, CONSTRUCTOR, "()V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ATTRIBUTE_TYPE, "value", JAVA_OBJECT_DESC);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getValue", "()" + JAVA_OBJECT_DESC, "()TT;", null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ATTRIBUTE_TYPE, "value", JAVA_OBJECT_DESC);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        writeClassToFile(ABSTRACT_ATTRIBUTE, classWriter, apiName);
     }
 
     private static void createTextGroupInterface(String apiName) {
@@ -326,7 +408,10 @@ public class XsdClassGeneratorUtils {
      * @param apiName The api this class will belong.
      */
     private static void createAttributeInterface(String apiName){
-        ClassWriter classWriter = generateClass(IATTRIBUTE, JAVA_OBJECT, null, null, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
+        ClassWriter classWriter = generateClass(IATTRIBUTE, JAVA_OBJECT, null, "<T:" + JAVA_OBJECT_DESC + ">" + JAVA_OBJECT_DESC, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
+
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "getValue", "()" + JAVA_OBJECT_DESC, "()TT;", null);
+        mVisitor.visitEnd();
 
         writeClassToFile(IATTRIBUTE, classWriter, apiName);
     }
@@ -620,6 +705,35 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
     }
+
+    /**
+     * Creates a class which represents an attribute.
+     * @param attribute The XsdAttribute type that contains the required information.
+     * @param apiName The api this class will belong.
+     */
+    static void generateAttribute(XsdAttribute attribute, String apiName){
+        //TODO No lo está correcto.
+        //https://www.ibm.com/support/knowledgecenter/en/SSAW57_8.5.5/com.ibm.websphere.nd.doc/ae/txml_mapping.html
+
+        String camelAttributeName = ATTRIBUTE_PREFIX + toCamelCase(attribute.getName()).replaceAll("\\W+", "");
+
+        String javaType = xsdTypesToJava.getOrDefault(attribute.getType(), "Object");
+
+        ClassWriter attributeWriter = generateClass(camelAttributeName, ABSTRACT_ELEMENT_TYPE, null, "<" + javaType + ":" + JAVA_OBJECT_DESC + ">L" + ABSTRACT_ATTRIBUTE_TYPE + "<T" + javaType + ";>;", ACC_PUBLIC + ACC_SUPER, apiName);
+
+        MethodVisitor mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", "(T" + javaType + ";)V", null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ATTRIBUTE_TYPE, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", false);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
+        writeClassToFile(camelAttributeName, attributeWriter, apiName);
+    }
+
+
 
     /**
      * Generates a default constructor.

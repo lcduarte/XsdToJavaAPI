@@ -23,6 +23,7 @@ public class XsdClassGenerator {
     static final String IELEMENT = "IElement";
     static final String IATTRIBUTE = "IAttribute";
     static final String ABSTRACT_ELEMENT = "AbstractElement";
+    static final String ABSTRACT_ATTRIBUTE = "AbstractAttribute";
     static final String TEXT_CLASS = "Text";
     static final String ITEXT = "IText";
 
@@ -30,6 +31,8 @@ public class XsdClassGenerator {
     static String TEXT_TYPE_DESC;
     static String ABSTRACT_ELEMENT_TYPE;
     static String ABSTRACT_ELEMENT_TYPE_DESC;
+    static String ABSTRACT_ATTRIBUTE_TYPE;
+    static String ABSTRACT_ATTRIBUTE_TYPE_DESC;
     static String IELEMENT_TYPE;
     static String IELEMENT_TYPE_DESC;
     static String IATTRIBUTE_TYPE;
@@ -149,21 +152,6 @@ public class XsdClassGenerator {
 
             createdAttributes.add(elementAttribute);
         }
-    }
-
-    /**
-     * Creates a class which represents an attribute.
-     * @param attribute The XsdAttribute type that contains the required information.
-     * @param apiName The api this class will belong.
-     */
-    private void generateAttribute(XsdAttribute attribute, String apiName){
-        String camelAttributeName = ATTRIBUTE_PREFIX + toCamelCase(attribute.getName()).replaceAll("\\W+", "");
-
-        ClassWriter attributeWriter = generateClass(camelAttributeName, JAVA_OBJECT, new String[]{IATTRIBUTE }, null, ACC_PUBLIC, apiName);
-
-        generateConstructor(attributeWriter, JAVA_OBJECT, ACC_PUBLIC, apiName);
-
-        writeClassToFile(camelAttributeName, attributeWriter, apiName);
     }
 
     /**

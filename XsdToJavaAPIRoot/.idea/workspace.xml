@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="611ba528-c614-49c6-b787-6f04700c0670" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__XsdToJavaAPI_Html5Xsd2JavaApi_1_0_snapshot.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Html5Xsd2JavaApi/pom.xml" afterPath="$PROJECT_DIR$/Html5Xsd2JavaApi/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Html5Xsd2JavaApiTest/Html5Xsd2JavaApiTest.iml" afterPath="$PROJECT_DIR$/Html5Xsd2JavaApiTest/Html5Xsd2JavaApiTest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Html5Xsd2JavaApiTest/pom.xml" afterPath="$PROJECT_DIR$/Html5Xsd2JavaApiTest/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java" afterPath="$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/AttrText.java" afterPath="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/AttrText.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IAttribute.java" afterPath="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IAttribute.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/SomeAttribute.java" afterPath="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/SomeAttribute.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Html5Xsd2JavaApiTest/src/test/java/Html5Xsd2JavaApiTest.java" afterPath="$PROJECT_DIR$/Html5Xsd2JavaApiTest/src/test/java/Html5Xsd2JavaApiTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGenerator.java" afterPath="$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGeneratorUtils.java" afterPath="$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGeneratorUtils.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -28,35 +30,16 @@
       <file leaf-file-name="Html5Xsd2JavaApiTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApiTest/src/test/java/Html5Xsd2JavaApiTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state relative-caret-position="204">
+              <caret line="39" column="25" lean-forward="false" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#726#733#0" expanded="true" />
-                <element signature="e#797#803#0" expanded="true" />
-                <element signature="e#897#903#0" expanded="true" />
-                <element signature="e#1125#1131#0" expanded="true" />
+                <element signature="e#105#235#0" expanded="false" />
+                <element signature="e#703#710#0" expanded="true" />
+                <element signature="e#774#780#0" expanded="true" />
+                <element signature="e#873#879#0" expanded="true" />
+                <element signature="e#1095#1101#0" expanded="true" />
+                <element signature="e#1745#1752#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApiTest/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="36" column="21" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="36" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="29" column="36" lean-forward="false" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -64,8 +47,8 @@
       <file leaf-file-name="XsdClassGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="28" column="28" lean-forward="false" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
+            <state relative-caret-position="748">
+              <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
               <folding>
                 <element signature="method#generateClassFromElements#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="docComment;method#generateClassFromElement#0;class#XsdClassGenerator#0" expanded="false" />
@@ -76,25 +59,21 @@
                 <element signature="method#generateElementGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="docComment;method#generateAttributesGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="method#generateAttributesGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
-                <element signature="e#6338#6749#0" expanded="false" />
+                <element signature="e#6495#6906#0" expanded="false" />
                 <element signature="docComment;method#generateMethodsAndCreateAttribute#0;class#XsdClassGenerator#0" expanded="false" />
-                <element signature="method#generateMethodsAndCreateAttribute#0;class#XsdClassGenerator#0" expanded="false" />
-                <element signature="docComment;method#generateAttribute#0;class#XsdClassGenerator#0" expanded="false" />
-                <element signature="method#generateAttribute#0;class#XsdClassGenerator#0" expanded="false" />
-                <element signature="docComment;method#getElementGroupInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="method#getElementGroupInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="docComment;method#getElementGroupInterfaces#1;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="method#getElementGroupInterfaces#1;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="docComment;method#storeInterfaceInformation#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="method#storeInterfaceInformation#0;class#XsdClassGenerator#0" expanded="false" />
-                <element signature="e#11253#11749#0" expanded="false" />
+                <element signature="e#10710#11206#0" expanded="false" />
                 <element signature="docComment;method#getOwnChildren#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="method#getOwnChildren#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="docComment;method#getAttributeGroupInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="method#getAttributeGroupInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="docComment;method#getBaseAttributeGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="method#getBaseAttributeGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
-                <element signature="e#14647#14877#0" expanded="false" />
+                <element signature="e#14104#14334#0" expanded="false" />
                 <element signature="docComment;method#getInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="method#getInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
                 <element signature="docComment;method#getOwnAttributes#0;class#XsdClassGenerator#0" expanded="false" />
@@ -115,10 +94,26 @@
       <file leaf-file-name="XsdClassGeneratorUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGeneratorUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4063">
-              <caret line="544" column="33" lean-forward="false" selection-start-line="544" selection-start-column="33" selection-end-line="544" selection-end-column="33" />
+            <state relative-caret-position="799">
+              <caret line="63" column="39" lean-forward="false" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="39" />
               <folding>
+                <element signature="docComment;method#getInterfaceName#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#toCamelCase#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="docComment;method#getDestinationDirectory#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#getDestinationDirectory#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="docComment;method#getFinalPathPart#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#getFinalPathPart#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="docComment;method#getFullClassTypeName#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="docComment;method#getFullClassTypeNameDesc#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#getFullClassTypeNameDesc#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="docComment;method#createGeneratedFilesDirectory#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#createGeneratedFilesDirectory#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="docComment;method#writeClassToFile#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#writeClassToFile#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="docComment;method#createSupportingInfrastructure#0;class#XsdClassGeneratorUtils#0" expanded="false" />
                 <element signature="method#createSupportingInfrastructure#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#createAbstractAttribute#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#createTextGroupInterface#0;class#XsdClassGeneratorUtils#0" expanded="false" />
                 <element signature="docComment;method#createAbstractElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
                 <element signature="method#createAbstractElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
                 <element signature="docComment;method#createAttributeInterface#0;class#XsdClassGeneratorUtils#0" expanded="false" />
@@ -128,30 +123,18 @@
                 <element signature="docComment;method#createTextElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
                 <element signature="method#createTextElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
                 <element signature="docComment;method#generateClassSpecificMethods#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#generateClassSpecificMethods#0;class#XsdClassGeneratorUtils#0" expanded="false" />
                 <element signature="docComment;method#generateMethodsForElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#generateMethodsForElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
                 <element signature="docComment;method#generateMethodsForAttribute#0;class#XsdClassGeneratorUtils#0" expanded="false" />
                 <element signature="method#generateMethodsForAttribute#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="docComment;method#generateAttribute#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="e#38360#38387#0" expanded="false" />
+                <element signature="docComment;method#generateConstructor#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#generateConstructor#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="docComment;method#generateClass#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+                <element signature="method#generateClass#0;class#XsdClassGeneratorUtils#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IFlowContent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IFlowContent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="80" lean-forward="false" selection-start-line="5" selection-start-column="80" selection-end-line="5" selection-end-column="80" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ASMMain.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="168" lean-forward="false" selection-start-line="6" selection-start-column="168" selection-end-line="6" selection-end-column="168" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -177,7 +160,14 @@
       <find>P</find>
       <find>A</find>
       <find>CHECK</find>
+      <find>[]</find>
+      <find>java.lang.String</find>
+      <find>Z</find>
+      <find>javax.xml.datatype.</find>
     </findStrings>
+    <replaceStrings>
+      <replace>String</replace>
+    </replaceStrings>
     <dirStrings>
       <dir>D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot</dir>
     </dirStrings>
@@ -201,7 +191,6 @@
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Attribute.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Element.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IElement.java" />
-        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/SomeAttribute.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/ICommonAttributeGroup.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/XsdParser/pom.xml" />
@@ -222,17 +211,22 @@
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/AbstractElement.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/ITextGroup.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Text.java" />
-        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/AttrText.java" />
         <option value="$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/IText.class" />
-        <option value="$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGenerator.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Div.java" />
-        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IFlowContent.java" />
-        <option value="$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGeneratorUtils.java" />
         <option value="$PROJECT_DIR$/Html5Xsd2JavaApiTest/src/test/java/dummy.html" />
-        <option value="$PROJECT_DIR$/Html5Xsd2JavaApiTest/src/test/java/Html5Xsd2JavaApiTest.java" />
         <option value="$PROJECT_DIR$/Html5Xsd2JavaApiTest/pom.xml" />
         <option value="$PROJECT_DIR$/Html5Xsd2JavaApi/pom.xml" />
+        <option value="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAttribute.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IAttribute.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/AbstractAttribute.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/AttrText.java" />
+        <option value="$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGenerator.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/SomeAttribute.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java" />
+        <option value="$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGeneratorUtils.java" />
+        <option value="$MAVEN_REPOSITORY$/XsdToJavaAPI/Html5Xsd2JavaApi/1.0-SNAPSHOT/Html5Xsd2JavaApi-1.0-SNAPSHOT.jar!/XsdToJavaAPI/Html5Xsd2JavaApi/AttrRel.class" />
+        <option value="$PROJECT_DIR$/Html5Xsd2JavaApiTest/src/test/java/Html5Xsd2JavaApiTest.java" />
       </list>
     </option>
   </component>
@@ -311,13 +305,33 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="ASMSamples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="ASMSamples" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="ASMSamples" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
@@ -353,35 +367,43 @@
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="Html5Xsd2JavaApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdClassGenerator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdClassGenerator" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="Html5Xsd2JavaApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdClassGenerator" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="Html5Xsd2JavaApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdClassGenerator" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdClassGenerator" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdClassGenerator" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -592,10 +614,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.Html5Xsd2JavaApiTest" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.XsdClassGeneratorTest" />
         <item index="1" class="java.lang.String" itemvalue="Application.ASMMain" />
-        <item index="2" class="java.lang.String" itemvalue="Application.XsdClassGeneratorMain" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.XsdClassGeneratorTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.Html5Xsd2JavaApiTest" />
+        <item index="3" class="java.lang.String" itemvalue="Application.XsdClassGeneratorMain" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.XsdParserTest" />
       </list>
     </recent_temporary>
@@ -626,22 +648,14 @@
       <workItem from="1513253362841" duration="547000" />
       <workItem from="1513271540638" duration="745000" />
       <workItem from="1513276193500" duration="3323000" />
+      <workItem from="1513339425693" duration="6023000" />
+      <workItem from="1513348039054" duration="176000" />
+      <workItem from="1513348521575" duration="4098000" />
+      <workItem from="1513608310841" duration="2329000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Html5Xsd2JavaApiTest - 2017.12.13 at 19h 59m 52s.xml">
-      <configuration name="Html5Xsd2JavaApiTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Html5Xsd2JavaApiTest - 2017.12.14 at 11h 44m 17s.xml">
-      <configuration name="Html5Xsd2JavaApiTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Html5Xsd2JavaApiTest - 2017.12.14 at 11h 45m 50s.xml">
-      <configuration name="Html5Xsd2JavaApiTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Html5Xsd2JavaApiTest - 2017.12.14 at 11h 45m 55s.xml">
-      <configuration name="Html5Xsd2JavaApiTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="Html5Xsd2JavaApiTest - 2017.12.14 at 11h 50m 16s.xml">
       <configuration name="Html5Xsd2JavaApiTest" configurationId="JUnit" />
     </history-entry>
@@ -660,9 +674,21 @@
     <history-entry file="Html5Xsd2JavaApiTest - 2017.12.14 at 20h 16m 57s.xml">
       <configuration name="Html5Xsd2JavaApiTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="XsdClassGeneratorTest - 2017.12.15 at 14h 52m 31s.xml">
+      <configuration name="XsdClassGeneratorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdClassGeneratorTest - 2017.12.15 at 14h 53m 07s.xml">
+      <configuration name="XsdClassGeneratorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdClassGeneratorTest - 2017.12.15 at 14h 53m 24s.xml">
+      <configuration name="XsdClassGeneratorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdClassGeneratorTest - 2017.12.15 at 15h 26m 55s.xml">
+      <configuration name="XsdClassGeneratorTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80400000" />
+    <option name="totallyTimeSpent" value="93026000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -679,18 +705,17 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5060514" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25328946" sideWeight="0.49394855" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36019737" sideWeight="0.49394855" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22087745" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22919819" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -702,6 +727,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -711,7 +737,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5060514" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -719,17 +745,17 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39967105" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42598686" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46217105" sideWeight="0.49394855" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25328946" sideWeight="0.49394855" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21482602" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22390318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
@@ -743,35 +769,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="29" />
+      <option name="time" value="33" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/XsdClassGenerator/target/test-classes/XsdToJavaAPI/TestObjects/IFlowContent.class" />
-    <entry file="file://$PROJECT_DIR$/XsdClassGenerator/target/test-classes/XsdToJavaAPI/TestObjects/Body.class" />
-    <entry file="file://$PROJECT_DIR$/XsdClassGenerator/target/test-classes/XsdToJavaAPI/TestObjects/Button.class" />
-    <entry file="file://$PROJECT_DIR$/XsdClassGenerator/target/test-classes/XsdToJavaAPI/TestObjects/IButtonServerAttributeGroup.class" />
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IC.java" />
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IA.java" />
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IB.java" />
-    <entry file="file://$PROJECT_DIR$/XsdClassGenerator/target/test-classes/XsdToJavaAPI/TestObjects/ICoreAttributeGroup.class" />
-    <entry file="file://$PROJECT_DIR$/XsdClassGenerator/target/test-classes/XsdToJavaAPI/TestObjects/ICommonAttributeGroup.class" />
-    <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/Body.class" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="14" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdClassGenerator/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="16" lean-forward="false" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/Hr.class" />
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/maven-archiver/pom.properties" />
     <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/ParentRunner.class">
@@ -818,13 +820,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/XsdToJavaAPI/Html5Xsd2JavaApi/1.0-SNAPSHOT/Html5Xsd2JavaApi-1.0-SNAPSHOT.jar!/XsdToJavaAPI/Html5Xsd2JavaApi/AttrCharset.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="8" column="11" lean-forward="false" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/AbstractElement.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/XsdToJavaAPI/Html5Xsd2JavaApi/1.0-SNAPSHOT/Html5Xsd2JavaApi-1.0-SNAPSHOT.jar!/XsdToJavaAPI/Html5Xsd2JavaApi/Meta.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -855,13 +850,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/ICommonEventsGroup.class" />
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/AttrText.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/AttrTarget.class" />
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/ITextGroup.class" />
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/AttrText.class" />
@@ -876,95 +864,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="168" lean-forward="false" selection-start-line="6" selection-start-column="168" selection-end-line="6" selection-end-column="168" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IFlowContent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="80" lean-forward="false" selection-start-line="5" selection-start-column="80" selection-end-line="5" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGeneratorUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4063">
-          <caret line="544" column="33" lean-forward="false" selection-start-line="544" selection-start-column="33" selection-end-line="544" selection-end-column="33" />
-          <folding>
-            <element signature="method#createSupportingInfrastructure#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="docComment;method#createAbstractElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="method#createAbstractElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="docComment;method#createAttributeInterface#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="method#createAttributeInterface#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="docComment;method#createElementInterface#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="method#createElementInterface#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="docComment;method#createTextElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="method#createTextElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="docComment;method#generateClassSpecificMethods#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="docComment;method#generateMethodsForElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="docComment;method#generateMethodsForAttribute#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-            <element signature="method#generateMethodsForAttribute#0;class#XsdClassGeneratorUtils#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/IFlowContent.class" />
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/Html.class" />
-    <entry file="file://$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="28" column="28" lean-forward="false" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
-          <folding>
-            <element signature="method#generateClassFromElements#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#generateClassFromElement#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#generateClassFromElement#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#generateInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#generateInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#generateElementGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#generateElementGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#generateAttributesGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#generateAttributesGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="e#6338#6749#0" expanded="false" />
-            <element signature="docComment;method#generateMethodsAndCreateAttribute#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#generateMethodsAndCreateAttribute#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#generateAttribute#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#generateAttribute#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#getElementGroupInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#getElementGroupInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#getElementGroupInterfaces#1;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#getElementGroupInterfaces#1;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#storeInterfaceInformation#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#storeInterfaceInformation#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="e#11253#11749#0" expanded="false" />
-            <element signature="docComment;method#getOwnChildren#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#getOwnChildren#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#getAttributeGroupInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#getAttributeGroupInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#getBaseAttributeGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#getBaseAttributeGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="e#14647#14877#0" expanded="false" />
-            <element signature="docComment;method#getInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#getInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#getOwnAttributes#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#getOwnAttributes#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#addAttributeGroup#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#addAttributeGroup#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#getClassSignature#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#getClassSignature#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#getAttributeGroupSignature#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#getAttributeGroupSignature#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="docComment;method#getAttributeGroupObjectInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
-            <element signature="method#getAttributeGroupObjectInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/Title.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/XsdToJavaAPI/Html5Xsd2JavaApi/1.0-SNAPSHOT/Html5Xsd2JavaApi-1.0-SNAPSHOT.jar!/XsdToJavaAPI/Html5Xsd2JavaApi/IText.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -981,32 +882,238 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApiTest/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="36" column="21" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="36" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAttribute.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="41" column="4" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="331">
           <caret line="29" column="36" lean-forward="false" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IAttribute.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/IFlowContent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="80" lean-forward="false" selection-start-line="5" selection-start-column="80" selection-end-line="5" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/IAttribute.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/AbstractAttribute.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="19" lean-forward="false" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/AttrMax.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/AttrAccept.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/AttrSkinID.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="7" column="8" lean-forward="false" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/AbstractAttribute.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="4" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/AttrText.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="16" lean-forward="false" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/SomeAttribute.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="30" lean-forward="false" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/XsdToJavaAPI/Html5Xsd2JavaApi/1.0-SNAPSHOT/Html5Xsd2JavaApi-1.0-SNAPSHOT.jar!/XsdToJavaAPI/Html5Xsd2JavaApi/AttrRel.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApiTest/pom.xml">
+    <entry file="jar://$MAVEN_REPOSITORY$/XsdToJavaAPI/Html5Xsd2JavaApi/1.0-SNAPSHOT/Html5Xsd2JavaApi-1.0-SNAPSHOT.jar!/XsdToJavaAPI/Html5Xsd2JavaApi/IFlowContent.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="36" column="21" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="36" selection-end-column="21" />
+        <state relative-caret-position="68">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/XsdToJavaAPI/Html5Xsd2JavaApi/1.0-SNAPSHOT/Html5Xsd2JavaApi-1.0-SNAPSHOT.jar!/XsdToJavaAPI/Html5Xsd2JavaApi/AttrCharset.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="8" column="11" lean-forward="false" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApi/target/classes/XsdToJavaAPI/Html5Xsd2JavaApi/Div.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="63" lean-forward="false" selection-start-line="7" selection-start-column="63" selection-end-line="7" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGeneratorUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="63" column="39" lean-forward="false" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="39" />
+          <folding>
+            <element signature="docComment;method#getInterfaceName#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#toCamelCase#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#getDestinationDirectory#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#getDestinationDirectory#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#getFinalPathPart#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#getFinalPathPart#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#getFullClassTypeName#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#getFullClassTypeNameDesc#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#getFullClassTypeNameDesc#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#createGeneratedFilesDirectory#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#createGeneratedFilesDirectory#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#writeClassToFile#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#writeClassToFile#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#createSupportingInfrastructure#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#createSupportingInfrastructure#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#createAbstractAttribute#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#createTextGroupInterface#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#createAbstractElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#createAbstractElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#createAttributeInterface#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#createAttributeInterface#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#createElementInterface#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#createElementInterface#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#createTextElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#createTextElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#generateClassSpecificMethods#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#generateClassSpecificMethods#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#generateMethodsForElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#generateMethodsForElement#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#generateMethodsForAttribute#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#generateMethodsForAttribute#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#generateAttribute#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="e#38360#38387#0" expanded="false" />
+            <element signature="docComment;method#generateConstructor#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#generateConstructor#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="docComment;method#generateClass#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+            <element signature="method#generateClass#0;class#XsdClassGeneratorUtils#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdClassGenerator/src/main/java/XsdClassGenerator/XsdClassGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+          <folding>
+            <element signature="method#generateClassFromElements#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#generateClassFromElement#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#generateClassFromElement#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#generateInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#generateInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#generateElementGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#generateElementGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#generateAttributesGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#generateAttributesGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="e#6495#6906#0" expanded="false" />
+            <element signature="docComment;method#generateMethodsAndCreateAttribute#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#getElementGroupInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#getElementGroupInterfaces#1;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#getElementGroupInterfaces#1;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#storeInterfaceInformation#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#storeInterfaceInformation#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="e#10710#11206#0" expanded="false" />
+            <element signature="docComment;method#getOwnChildren#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#getOwnChildren#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#getAttributeGroupInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#getAttributeGroupInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#getBaseAttributeGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#getBaseAttributeGroupInterface#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="e#14104#14334#0" expanded="false" />
+            <element signature="docComment;method#getInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#getInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#getOwnAttributes#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#getOwnAttributes#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#addAttributeGroup#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#addAttributeGroup#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#getClassSignature#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#getClassSignature#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#getAttributeGroupSignature#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#getAttributeGroupSignature#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="docComment;method#getAttributeGroupObjectInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
+            <element signature="method#getAttributeGroupObjectInterfaces#0;class#XsdClassGenerator#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Html5Xsd2JavaApiTest/src/test/java/Html5Xsd2JavaApiTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state relative-caret-position="204">
+          <caret line="39" column="25" lean-forward="false" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#726#733#0" expanded="true" />
-            <element signature="e#797#803#0" expanded="true" />
-            <element signature="e#897#903#0" expanded="true" />
-            <element signature="e#1125#1131#0" expanded="true" />
+            <element signature="e#105#235#0" expanded="false" />
+            <element signature="e#703#710#0" expanded="true" />
+            <element signature="e#774#780#0" expanded="true" />
+            <element signature="e#873#879#0" expanded="true" />
+            <element signature="e#1095#1101#0" expanded="true" />
+            <element signature="e#1745#1752#0" expanded="true" />
           </folding>
         </state>
       </provider>

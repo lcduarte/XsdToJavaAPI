@@ -1,4 +1,5 @@
 package Samples;
 
-public interface IAttribute {
+public interface IAttribute<T> {
+    T getValue();
 }

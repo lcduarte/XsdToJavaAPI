@@ -1,6 +1,6 @@
 package Samples;
 
-public class AttrText extends AbstractElement<AttrText> implements IAttribute{
+public class AttrText extends AbstractElement<AttrText> implements IAttribute<String>{
 
     private final String text;
 
@@ -28,7 +28,8 @@ public class AttrText extends AbstractElement<AttrText> implements IAttribute{
         return this;
     }
 
-    public String getText() {
+    @Override
+    public String getValue() {
         return text;
     }
 
