@@ -3,6 +3,8 @@ package Samples;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class AbstractElement<T extends IElement> implements IElement<T> {
     protected List<IElement> children = new ArrayList<>();
@@ -35,10 +37,9 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
         return children.stream()
                 .filter(iElement -> iElement instanceof AbstractElement)
                 .map(iElement -> (AbstractElement) iElement)
+                .filter(element -> (R) element.child(id) != null)
                 .map(element -> (R) element.child(id))
                 .findFirst()
                 .orElse(null);
     }
-
-    // Enables div.<h1>child("id do h1").....
 }

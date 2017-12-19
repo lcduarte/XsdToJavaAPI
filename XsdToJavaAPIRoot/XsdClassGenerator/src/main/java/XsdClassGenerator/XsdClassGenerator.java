@@ -105,7 +105,7 @@ public class XsdClassGenerator {
      * @param apiName The api this class will belong.
      */
     private void generateElementGroupInterface(String interfaceName, String apiName){
-        ClassWriter interfaceWriter = generateClass(interfaceName, JAVA_OBJECT, new String[]{ ITEXT },"<T::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + ITEXT_TYPE + "<TT;>;" ,ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
+        ClassWriter interfaceWriter = generateClass(interfaceName, JAVA_OBJECT, new String[]{ ITEXT },"<T::L" + IELEMENT_TYPE + "<TT;>;>" + JAVA_OBJECT_DESC + "L" + ITEXT_TYPE + "<TT;>;" ,ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
         elementGroupInterfaces.get(interfaceName).forEach(child -> generateMethodsForElement(interfaceWriter, child, getFullClassTypeName(interfaceName, apiName), IELEMENT_TYPE_DESC, apiName));
 
@@ -394,9 +394,9 @@ public class XsdClassGenerator {
         StringBuilder signature;
 
         if (interfaces.length == 0){
-            signature = new StringBuilder("<T:L" + ABSTRACT_ELEMENT_TYPE + "<TT;>;>" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;");
+            signature = new StringBuilder("<T::L" + IELEMENT_TYPE + "<TT;>;>" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;");
         } else {
-            signature = new StringBuilder("<T:L" + ABSTRACT_ELEMENT_TYPE + "<TT;>;>" + JAVA_OBJECT_DESC);
+            signature = new StringBuilder("<T::L" + IELEMENT_TYPE + "<TT;>;>" + JAVA_OBJECT_DESC);
 
             for (String anInterface : interfaces) {
                 signature.append("L").append(getFullClassTypeName(anInterface, apiName)).append("<TT;>;");

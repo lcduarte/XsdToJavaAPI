@@ -1,8 +1,8 @@
 package Samples;
 
-public class SomeAttribute<XmlGregorianCalendar> extends AbstractAttribute<XmlGregorianCalendar>{
+public class SomeAttribute<String> extends AbstractAttribute<String>{
 
-    public SomeAttribute(XmlGregorianCalendar value) {
+    public SomeAttribute(String value) {
         super(value);
     }
 
