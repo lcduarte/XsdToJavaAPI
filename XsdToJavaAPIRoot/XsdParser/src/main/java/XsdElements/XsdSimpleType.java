@@ -61,7 +61,14 @@ public class XsdSimpleType extends XsdAbstractElement {
 
     @Override
     public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
-        return null;
+        placeHolderAttributes.putAll(this.getElementFieldsMap());
+        XsdSimpleType copy = new XsdSimpleType(this.getParent(), placeHolderAttributes);
+
+        copy.union = this.union;
+        copy.list = this.list;
+        copy.restriction = this.restriction;
+
+        return copy;
     }
 
     @Override

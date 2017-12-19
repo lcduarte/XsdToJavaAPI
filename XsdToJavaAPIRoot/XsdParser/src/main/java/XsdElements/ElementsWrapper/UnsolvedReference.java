@@ -18,7 +18,7 @@ public class UnsolvedReference extends ReferenceBase {
         this.element = element;
     }
 
-    public UnsolvedReference(String refType, XsdElement element){
+    public UnsolvedReference(String refType, XsdReferenceElement element){
         this.ref = refType;
         this.element = element;
     }

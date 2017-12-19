@@ -71,23 +71,31 @@ public class XsdParserTest {
     public void testUnsolvedReferences() throws Exception {
         List<UnsolvedReferenceItem> unsolvedReferenceList = parser.getUnsolvedReferencesForFile(FILE_NAME);
 
-        Assert.assertEquals(1, unsolvedReferenceList.size());
+        Assert.assertEquals(4, unsolvedReferenceList.size());
 
         List<XsdAbstractElement> parents = unsolvedReferenceList.get(0).getParents();
 
-        Assert.assertEquals(2, parents.size());
+        Assert.assertEquals(4, parents.size());
 
         XsdAbstractElement parent1 = parents.get(0);
         XsdAbstractElement parent2 = parents.get(1);
+        XsdAbstractElement parent3 = parents.get(2);
+        XsdAbstractElement parent4 = parents.get(3);
 
-        Assert.assertEquals(XsdGroup.class, parent1.getClass());
-        Assert.assertEquals(XsdGroup.class, parent2.getClass());
+        Assert.assertEquals(XsdAttribute.class, parent1.getClass());
+        Assert.assertEquals(XsdAttribute.class, parent2.getClass());
+        Assert.assertEquals(XsdAttribute.class, parent3.getClass());
+        Assert.assertEquals(XsdAttribute.class, parent4.getClass());
 
-        XsdGroup parent1Group = (XsdGroup) parent1;
-        XsdGroup parent2Group = (XsdGroup) parent2;
+        XsdAttribute parent1Attr = (XsdAttribute) parent1;
+        XsdAttribute parent2Attr = (XsdAttribute) parent2;
+        XsdAttribute parent3Attr = (XsdAttribute) parent3;
+        XsdAttribute parent4Attr = (XsdAttribute) parent4;
 
-        Assert.assertEquals("flowContent", parent1Group.getName());
-        Assert.assertEquals("phrasingContent", parent2Group.getName());
+        Assert.assertEquals("lang", parent1Attr.getName());
+        Assert.assertEquals("hreflang", parent2Attr.getName());
+        Assert.assertEquals("hreflang", parent3Attr.getName());
+        Assert.assertEquals("hreflang", parent4Attr.getName());
     }
 
     @Test
@@ -104,7 +112,7 @@ public class XsdParserTest {
 
         Assert.assertEquals(true, attribute.simpleType != null);
 
-        XsdSimpleType simpleType = attribute.simpleType;
+        XsdSimpleType simpleType = attribute.getXsdSimpleType();
 
         Assert.assertNull(simpleType.getRestriction());
         Assert.assertNull(simpleType.getList());

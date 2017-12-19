@@ -1,8 +1,11 @@
 package XsdElements;
 
+import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
+import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdElements.Visitors.Visitor;
-import XsdElements.Visitors.VisitorNotFoundException;
+import XsdElements.XsdRestrictionElements.XsdAbstractRestrictionChild;
+import XsdParser.XsdParser;
 import org.w3c.dom.Node;
 
 import java.util.HashMap;
@@ -14,7 +17,7 @@ public class XsdAttribute extends XsdReferenceElement {
 
     private AttributeVisitor visitor = new AttributeVisitor();
 
-    public XsdSimpleType simpleType;
+    public ReferenceBase simpleType;
 
     private String defaultElement;
     private String fixed;
@@ -29,6 +32,10 @@ public class XsdAttribute extends XsdReferenceElement {
         super(elementFieldsMap);
     }
 
+    private XsdAttribute(XsdAbstractElement parent) {
+        super(parent);
+    }
+
     @Override
     public void setFields(HashMap<String, String> elementFieldsMap) {
         if (elementFieldsMap != null){
@@ -37,6 +44,12 @@ public class XsdAttribute extends XsdReferenceElement {
             this.defaultElement = elementFieldsMap.getOrDefault(DEFAULT_ELEMENT, defaultElement);
             this.fixed = elementFieldsMap.getOrDefault(FIXED, fixed);
             this.type = elementFieldsMap.getOrDefault(TYPE, type);
+
+            if (type != null && !XsdParser.getBuiltInDataTypes().contains(type)){
+                XsdAttribute placeHolder = new XsdAttribute(this);
+                this.simpleType = new UnsolvedReference(type, placeHolder);
+                XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.simpleType);
+            }
         }
     }
 
@@ -68,6 +81,17 @@ public class XsdAttribute extends XsdReferenceElement {
         return copy;
     }
 
+    @Override
+    public void replaceUnsolvedElements(ConcreteElement elementWrapper) {
+        super.replaceUnsolvedElements(elementWrapper);
+
+        XsdAbstractElement element = elementWrapper.getElement();
+
+        if (element instanceof XsdSimpleType && simpleType != null && type.equals(elementWrapper.getName())){
+            this.simpleType = elementWrapper;
+        }
+    }
+
     public String getDefaultElement() {
         return defaultElement;
     }
@@ -78,6 +102,14 @@ public class XsdAttribute extends XsdReferenceElement {
 
     public String getType() {
         return type;
+    }
+
+    ReferenceBase getSimpleType() {
+        return simpleType;
+    }
+
+    public XsdSimpleType getXsdSimpleType(){
+        return simpleType instanceof ConcreteElement ? (XsdSimpleType) simpleType.getElement() : null;
     }
 
     public static ReferenceBase parse(Node node) {
@@ -95,7 +127,7 @@ public class XsdAttribute extends XsdReferenceElement {
         public void visit(XsdSimpleType element) {
             super.visit(element);
 
-            XsdAttribute.this.simpleType = element;
+            XsdAttribute.this.simpleType = ReferenceBase.createFromXsd(element);
         }
     }
 }

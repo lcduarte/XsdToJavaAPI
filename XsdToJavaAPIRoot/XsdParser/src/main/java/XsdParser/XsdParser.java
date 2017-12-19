@@ -23,6 +23,7 @@ public class XsdParser {
      * this way, based on the XsdElement TAG, the according parsed is invoked.
      */
     public static HashMap<String, Function<Node, ReferenceBase>> parseMappers;
+    public static List<String> builtInDataTypes;
     private static XsdParser instance;
 
     private List<ReferenceBase> elements = new ArrayList<>();
@@ -31,6 +32,7 @@ public class XsdParser {
 
     static {
         parseMappers = new HashMap<>();
+        builtInDataTypes = new ArrayList<>();
 
         parseMappers.put(XsdAll.TAG, XsdAll::parse);
         parseMappers.put(XsdAttribute.TAG, XsdAttribute::parse);
@@ -57,6 +59,51 @@ public class XsdParser {
         parseMappers.put(XsdPattern.TAG, XsdPattern::parse);
         parseMappers.put(XsdTotalDigits.TAG, XsdTotalDigits::parse);
         parseMappers.put(XsdWhiteSpace.TAG, XsdWhiteSpace::parse);
+
+        builtInDataTypes.add("xsd:anyURI");
+        builtInDataTypes.add("xsd:boolean");
+        builtInDataTypes.add("xsd:base64Binary");
+        builtInDataTypes.add("xsd:hexBinary");
+        builtInDataTypes.add("xsd:date");
+        builtInDataTypes.add("xsd:dateTime");
+        builtInDataTypes.add("xsd:time");
+        builtInDataTypes.add("xsd:duration");
+        builtInDataTypes.add("xsd:dayTimeDuration");
+        builtInDataTypes.add("xsd:yearMonthDuration");
+        builtInDataTypes.add("xsd:gDay");
+        builtInDataTypes.add("xsd:gMonth");
+        builtInDataTypes.add("xsd:gMonthDay");
+        builtInDataTypes.add("xsd:gYear");
+        builtInDataTypes.add("xsd:gYearMonth");
+        builtInDataTypes.add("xsd:decimal");
+        builtInDataTypes.add("xsd:integer");
+        builtInDataTypes.add("xsd:nonPositiveInteger");
+        builtInDataTypes.add("xsd:negativeInteger");
+        builtInDataTypes.add("xsd:long");
+        builtInDataTypes.add("xsd:int");
+        builtInDataTypes.add("xsd:short");
+        builtInDataTypes.add("xsd:byte");
+        builtInDataTypes.add("xsd:nonNegativeInteger");
+        builtInDataTypes.add("xsd:unsignedLong");
+        builtInDataTypes.add("xsd:unsignedInt");
+        builtInDataTypes.add("xsd:unsignedShort");
+        builtInDataTypes.add("xsd:unsignedByte");
+        builtInDataTypes.add("xsd:positiveInteger");
+        builtInDataTypes.add("xsd:double");
+        builtInDataTypes.add("xsd:float");
+        builtInDataTypes.add("xsd:QName");
+        builtInDataTypes.add("xsd:NOTATION");
+        builtInDataTypes.add("xsd:string");
+        builtInDataTypes.add("xsd:normalizedString");
+        builtInDataTypes.add("xsd:token");
+        builtInDataTypes.add("xsd:language");
+        builtInDataTypes.add("xsd:NMTOKEN");
+        builtInDataTypes.add("xsd:Name");
+        builtInDataTypes.add("xsd:NCName");
+        builtInDataTypes.add("xsd:ID");
+        builtInDataTypes.add("xsd:IDREF");
+        builtInDataTypes.add("xsd:ENTITY");
+        builtInDataTypes.add("xsd:untypedAtomic");
     }
 
     public XsdParser(){
@@ -196,5 +243,9 @@ public class XsdParser {
 
     public void addUnsolvedReference(UnsolvedReference unsolvedReference){
         unsolvedElements.add(unsolvedReference);
+    }
+
+    public static List<String> getBuiltInDataTypes() {
+        return builtInDataTypes;
     }
 }
