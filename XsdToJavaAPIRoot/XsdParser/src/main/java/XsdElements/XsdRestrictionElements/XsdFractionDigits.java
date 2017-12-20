@@ -12,6 +12,10 @@ public class XsdFractionDigits extends XsdAbstractRestrictionChild {
 
     private int value;
 
+    public XsdFractionDigits(int value){
+        this.value = value;
+    }
+
     XsdFractionDigits(HashMap<String, String> elementFieldsMap) {
         setFields(elementFieldsMap);
     }

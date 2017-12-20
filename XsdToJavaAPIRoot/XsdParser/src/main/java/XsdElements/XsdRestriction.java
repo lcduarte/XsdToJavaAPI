@@ -35,6 +35,10 @@ public class XsdRestriction extends XsdAbstractElement {
 
     private String base;
 
+    public XsdRestriction(){
+
+    }
+
     private XsdRestriction(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
     }
@@ -80,52 +84,108 @@ public class XsdRestriction extends XsdAbstractElement {
         return xsdParseSkeleton(node, new XsdRestriction(convertNodeMap(node.getAttributes())));
     }
 
+    public String getBase() {
+        return base;
+    }
+
+    public void setBase(String base) {
+        this.base = base;
+    }
+
     public List<XsdEnumeration> getEnumeration() {
         return enumeration;
+    }
+
+    public void setEnumeration(String enumeration){
+        this.enumeration.add(new XsdEnumeration(enumeration));
     }
 
     public XsdFractionDigits getFractionDigits() {
         return fractionDigits;
     }
 
+    public void setFractionDigits(int fractionDigits) {
+        this.fractionDigits = new XsdFractionDigits(fractionDigits);
+    }
+
     public XsdLength getLength() {
         return length;
+    }
+
+    public void setLength(int length) {
+        this.length = new XsdLength(length);
     }
 
     public XsdMaxExclusive getMaxExclusive() {
         return maxExclusive;
     }
 
+    public void setMaxExclusive(int maxExclusive) {
+        this.maxExclusive = new XsdMaxExclusive(maxExclusive);
+    }
+
     public XsdMaxInclusive getMaxInclusive() {
         return maxInclusive;
+    }
+
+    public void setMaxInclusive(int maxInclusive) {
+        this.maxInclusive = new XsdMaxInclusive(maxInclusive);
     }
 
     public XsdMaxLength getMaxLength() {
         return maxLength;
     }
 
+    public void setMaxLength(int maxLength) {
+        this.maxLength = new XsdMaxLength(maxLength);
+    }
+
     public XsdMinExclusive getMinExclusive() {
         return minExclusive;
+    }
+
+    public void setMinExclusive(int minExclusive) {
+        this.minExclusive = new XsdMinExclusive(minExclusive);
     }
 
     public XsdMinInclusive getMinInclusive() {
         return minInclusive;
     }
 
+    public void setMinInclusive(int minInclusive) {
+        this.minInclusive = new XsdMinInclusive(minInclusive);
+    }
+
     public XsdMinLength getMinLength() {
         return minLength;
+    }
+
+    public void setMinLength(int minLength) {
+        this.minLength = new XsdMinLength(minLength);
     }
 
     public XsdPattern getPattern() {
         return pattern;
     }
 
+    public void setPattern(String pattern) {
+        this.pattern = new XsdPattern(pattern);
+    }
+
     public XsdTotalDigits getTotalDigits() {
         return totalDigits;
     }
 
+    public void setTotalDigits(int totalDigits) {
+        this.totalDigits = new XsdTotalDigits(totalDigits);
+    }
+
     public XsdWhiteSpace getWhiteSpace() {
         return whiteSpace;
+    }
+
+    public void setWhiteSpace(String whiteSpace) {
+        this.whiteSpace = new XsdWhiteSpace(whiteSpace);
     }
 
     class RestrictionVisitor extends Visitor{

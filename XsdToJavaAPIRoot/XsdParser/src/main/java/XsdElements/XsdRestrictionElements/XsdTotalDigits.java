@@ -12,6 +12,10 @@ public class XsdTotalDigits extends XsdAbstractRestrictionChild{
 
     private int value;
 
+    public XsdTotalDigits(int value){
+        this.value = value;
+    }
+
     XsdTotalDigits(HashMap<String, String> elementFieldsMap) {
         setFields(elementFieldsMap);
     }

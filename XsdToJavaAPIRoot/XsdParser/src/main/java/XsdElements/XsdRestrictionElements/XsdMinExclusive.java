@@ -12,6 +12,10 @@ public class XsdMinExclusive extends XsdAbstractRestrictionChild {
 
     private int value;
 
+    public XsdMinExclusive(int value){
+        this.value = value;
+    }
+
     XsdMinExclusive(HashMap<String, String> elementFieldsMap) {
         setFields(elementFieldsMap);
     }

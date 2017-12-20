@@ -12,6 +12,10 @@ public class XsdPattern extends XsdAbstractRestrictionChild {
 
     private String value;
 
+    public XsdPattern(String value){
+        this.value = value;
+    }
+
     XsdPattern(HashMap<String, String> elementFieldsMap) {
         setFields(elementFieldsMap);
     }

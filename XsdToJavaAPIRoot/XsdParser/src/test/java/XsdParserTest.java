@@ -110,7 +110,7 @@ public class XsdParserTest {
 
         Assert.assertEquals("http-equiv", attribute.getName());
 
-        Assert.assertEquals(true, attribute.simpleType != null);
+        Assert.assertEquals(true, attribute.getXsdSimpleType() != null);
 
         XsdSimpleType simpleType = attribute.getXsdSimpleType();
 

@@ -13,6 +13,10 @@ public class XsdMaxLength extends XsdAbstractRestrictionChild{
 
     private int value;
 
+    public XsdMaxLength(int value){
+        this.value = value;
+    }
+
     XsdMaxLength(HashMap<String, String> elementFieldsMap) {
         setFields(elementFieldsMap);
     }

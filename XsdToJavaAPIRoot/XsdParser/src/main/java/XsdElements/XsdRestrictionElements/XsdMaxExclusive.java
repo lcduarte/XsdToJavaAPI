@@ -12,6 +12,10 @@ public class XsdMaxExclusive extends XsdAbstractRestrictionChild{
 
     private int value;
 
+    public XsdMaxExclusive(int value){
+        this.value = value;
+    }
+
     XsdMaxExclusive(HashMap<String, String> elementFieldsMap) {
         setFields(elementFieldsMap);
     }

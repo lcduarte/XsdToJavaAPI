@@ -12,6 +12,10 @@ public class XsdMinLength extends XsdAbstractRestrictionChild{
 
     private int value;
 
+    public XsdMinLength(int value){
+        this.value = value;
+    }
+
     XsdMinLength(HashMap<String, String> elementFieldsMap) {
         setFields(elementFieldsMap);
     }

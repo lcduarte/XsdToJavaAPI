@@ -12,6 +12,10 @@ public class XsdWhiteSpace extends XsdAbstractRestrictionChild {
 
     private String value;
 
+    public XsdWhiteSpace(String value){
+        this.value = value;
+    }
+
     XsdWhiteSpace(HashMap<String, String> elementFieldsMap) {
         setFields(elementFieldsMap);
     }

@@ -11,6 +11,7 @@ import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -90,6 +91,20 @@ public class XsdSimpleType extends XsdAbstractElement {
 
     public XsdList getList() {
         return list;
+    }
+
+    List<XsdRestriction> getAllRestrictions() {
+        List<XsdRestriction> restrictions = new ArrayList<>();
+
+        if (restriction != null){
+            restrictions.add(restriction);
+        }
+
+        if (union != null){
+            union.getUnionElements().forEach(unionMember -> restrictions.addAll(unionMember.getAllRestrictions()));
+        }
+
+        return restrictions;
     }
 
     class SimpleTypeVisitor extends Visitor{

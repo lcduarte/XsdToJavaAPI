@@ -12,6 +12,10 @@ public class XsdEnumeration extends XsdAbstractRestrictionChild{
 
     private String value;
 
+    public XsdEnumeration(String value){
+        this.value = value;
+    }
+
     XsdEnumeration(HashMap<String, String> elementFieldsMap) {
         setFields(elementFieldsMap);
     }

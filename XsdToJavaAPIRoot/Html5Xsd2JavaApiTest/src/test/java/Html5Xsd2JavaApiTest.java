@@ -1,11 +1,8 @@
 import XsdToJavaAPI.Html5Xsd2JavaApi.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class Html5Xsd2JavaApiTest {
-
-    //TODO A dependencia para Html5Xsd2JavaApi não está correcta. O intelij não reconhece as classes mas corre o código sem problemas.
-    //TODO Verificar se a lógica como está, faz sentido, (ids, o que é que retorna)
-    //TODO Tipificar os atributos tendo em conta o seu xsd:type, suportar apenas os base por enquanto.
 
     @Test
     public void testGeneratedClassesIntegrity() throws Exception {
@@ -24,19 +21,19 @@ public class Html5Xsd2JavaApiTest {
                 .addAttrCharset(new AttrCharset<>( "UTF-8"));
 
         root.<Link>child("linkId1")
-                .addAttrRel(new AttrRel<>("icon"))
+                //.addAttrRel(new AttrRel<>("icon"))
                 .addAttrType(new AttrType<>("image/png"))
                 .addAttrHref(new AttrHref<>("/assets/images/favicon.png"));
 
         root.<Link>child("linkId2")
-                .addAttrRel(new AttrRel<>("stylesheet"))
+                //.addAttrRel(new AttrRel<>("stylesheet"))
                 .addAttrType(new AttrType<>("text/css"))
                 .addAttrHref(new AttrHref<>("/assets/styles/main.css"));
 
         root.body()
                 .addAttrClass(new AttrClass<>("clear"))
-                .div(/*"col-wrap"*/)
-                .header(/*"header"*/)
+                .div()
+                .header()
                 .section()
                 .div("divId1")
                 .aside("asideId1");
@@ -51,6 +48,20 @@ public class Html5Xsd2JavaApiTest {
                 .text("Advertisement")
                 .span()
                 .text("1-833-2GET-REV");
+    }
+
+    @Test
+    public void testRestrictionSuccess(){
+        new AttrRel<>("Help");
+    }
+
+    @Test
+    public void testRestrictionFailure(){
+        try {
+            new AttrRel<>("Help1");
+
+            Assert.fail();
+        } catch (RestrictionViolationException ignored){ }
     }
 }
 

@@ -2,13 +2,19 @@ package XsdClassGenerator;
 
 import XsdElements.XsdAttribute;
 import XsdElements.XsdElement;
+import XsdElements.XsdRestriction;
+import XsdElements.XsdRestrictionElements.*;
 import org.objectweb.asm.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static XsdClassGenerator.XsdClassGenerator.*;
 import static org.objectweb.asm.Opcodes.*;
@@ -179,6 +185,9 @@ public class XsdClassGeneratorUtils {
         IATTRIBUTE_TYPE_DESC = getFullClassTypeNameDesc(IATTRIBUTE, apiName);
         ITEXT_TYPE = getFullClassTypeName(ITEXT, apiName);
         ITEXT_TYPE_DESC = getFullClassTypeNameDesc(ITEXT, apiName);
+        RESTRICTION_VIOLATION_EXCEPTION_TYPE = getFullClassTypeName(RESTRICTION_VIOLATION_EXCEPTION, apiName);
+        RESTRICTION_VIOLATION_EXCEPTION_TYPE_DESC = getFullClassTypeNameDesc(RESTRICTION_VIOLATION_EXCEPTION, apiName);
+        RESTRICTION_VALIDATOR_TYPE = getFullClassTypeName(RESTRICTION_VALIDATOR, apiName);
 
         createAbstractElement(apiName);
         createAbstractAttribute(apiName);
@@ -186,6 +195,23 @@ public class XsdClassGeneratorUtils {
         createElementInterface(apiName);
         createTextElement(apiName);
         createTextGroupInterface(apiName);
+        createRestrictionViolationException(apiName);
+        createRestrictionValidator(apiName);
+    }
+
+    private static void createRestrictionViolationException(String apiName) {
+        ClassWriter classWriter = generateClass(RESTRICTION_VIOLATION_EXCEPTION, "java/lang/RuntimeException", null, null, ACC_PUBLIC + ACC_SUPER, apiName);
+
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, "<init>", "(" + JAVA_STRING_DESC + ")V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/RuntimeException", CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
+        writeClassToFile(RESTRICTION_VIOLATION_EXCEPTION, classWriter, apiName);
     }
 
     private static void createAbstractAttribute(String apiName) {
@@ -741,21 +767,263 @@ public class XsdClassGeneratorUtils {
         //https://www.ibm.com/support/knowledgecenter/en/SSAW57_8.5.5/com.ibm.websphere.nd.doc/ae/txml_mapping.html
 
         String camelAttributeName = ATTRIBUTE_PREFIX + toCamelCase(attribute.getName()).replaceAll("\\W+", "");
+        String attributeType = getFullClassTypeName(camelAttributeName, apiName);
 
-        String javaType = xsdTypesToJava.getOrDefault(attribute.getType(), "Object");
+        String javaType = xsdTypesToJava.getOrDefault(attribute.getType(), null);
+
+        //List<String> restrictions = new ArrayList<>();
+
+        if (javaType == null){
+            Optional<String> firstType = attribute.getAllRestrictions().stream().map(XsdRestriction::getBase).distinct().map(type -> xsdTypesToJava.getOrDefault(type, "Object")).findFirst();
+
+            if (firstType.isPresent()){
+                javaType = firstType.get();
+            } else {
+                javaType = "Object";
+            }
+        } //else {
+            //restrictions.add(javaType);
+        //}
+
+
 
         ClassWriter attributeWriter = generateClass(camelAttributeName, ABSTRACT_ATTRIBUTE_TYPE, null, "<" + javaType + ":" + JAVA_OBJECT_DESC + ">L" + ABSTRACT_ATTRIBUTE_TYPE + "<T" + javaType + ";>;", ACC_PUBLIC + ACC_SUPER, apiName);
+
+        FieldVisitor fVisitor = attributeWriter.visitField(ACC_PRIVATE + ACC_STATIC, "restrictions", JAVA_LIST_DESC, "L" + JAVA_LIST + "<Ljava/util/Map<" + JAVA_STRING_DESC + JAVA_OBJECT_DESC + ">;>;", null);
+        fVisitor.visitEnd();
 
         MethodVisitor mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", "(T" + javaType + ";)V", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ATTRIBUTE_TYPE, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", false);
+        mVisitor.visitFieldInsn(GETSTATIC, getFullClassTypeName(camelAttributeName, apiName), "restrictions", JAVA_LIST_DESC);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitInvokeDynamicInsn("accept", "(Ljava/lang/Object;)Ljava/util/function/Consumer;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(Ljava/lang/Object;)V"), new Handle(Opcodes.H_INVOKESTATIC, attributeType, "lambda$new$0", "(Ljava/lang/Object;Ljava/util/Map;)V", false), Type.getType("(Ljava/util/Map;)V"));
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "forEach", "(Ljava/util/function/Consumer;)V", true);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
+        mVisitor = attributeWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$new$0", "(Ljava/lang/Object;Ljava/util/Map;)V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(INSTANCEOF, "java/lang/String");
+        Label l0 = new Label();
+        mVisitor.visitJumpInsn(IFEQ, l0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(CHECKCAST, "java/lang/String");
+        mVisitor.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validate", "(Ljava/util/Map;Ljava/lang/String;)V", false);
+        mVisitor.visitLabel(l0);
+        mVisitor.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(INSTANCEOF, "java/lang/Integer");
+        Label l1 = new Label();
+        mVisitor.visitJumpInsn(IFNE, l1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(INSTANCEOF, "java/lang/Short");
+        mVisitor.visitJumpInsn(IFNE, l1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(INSTANCEOF, "java/lang/Float");
+        mVisitor.visitJumpInsn(IFNE, l1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(INSTANCEOF, "java/lang/Double");
+        Label l2 = new Label();
+        mVisitor.visitJumpInsn(IFEQ, l2);
+        mVisitor.visitLabel(l1);
+        mVisitor.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(CHECKCAST, "java/lang/Double");
+        mVisitor.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validate", "(Ljava/util/Map;Ljava/lang/Double;)V", false);
+        mVisitor.visitLabel(l2);
+        mVisitor.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
+
+        loadRestrictionsToAttribute(attributeWriter, attribute.getAllRestrictions(), camelAttributeName, apiName);
+
         writeClassToFile(camelAttributeName, attributeWriter, apiName);
+    }
+
+    private static void loadRestrictionsToAttribute(ClassWriter attributeWriter, List<XsdRestriction> restrictions, String camelAttributeName, String apiName) {
+        String attributeType = getFullClassTypeName(camelAttributeName, apiName);
+
+        MethodVisitor mVisitor = attributeWriter.visitMethod(ACC_STATIC, "<clinit>", "()V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitTypeInsn(NEW, "java/util/ArrayList");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", CONSTRUCTOR, "()V", false);
+        mVisitor.visitFieldInsn(PUTSTATIC, attributeType, "restrictions", JAVA_LIST_DESC);
+
+        int currIndex = 0;
+
+        for (int i = 0; i < restrictions.size(); i++) {
+            XsdRestriction restriction = restrictions.get(i);
+            currIndex = loadRestrictionToAttribute(mVisitor, restriction, attributeType, currIndex);
+            currIndex = currIndex + 1;
+        }
+
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(4, currIndex);
+        mVisitor.visitEnd();
+    }
+
+    private static int loadRestrictionToAttribute(MethodVisitor mVisitor, XsdRestriction restriction, String attributeType, int index) {
+        mVisitor.visitTypeInsn(NEW, "java/util/HashMap");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/HashMap", CONSTRUCTOR, "()V", false);
+        mVisitor.visitVarInsn(ASTORE, index);
+
+        String base = restriction.getBase();
+        XsdLength length = restriction.getLength();
+        XsdMaxLength maxLength = restriction.getMaxLength();
+        XsdMinLength minLength = restriction.getMinLength();
+        XsdFractionDigits fractionDigits = restriction.getFractionDigits();
+        XsdMaxExclusive maxExclusive = restriction.getMaxExclusive();
+        XsdMaxInclusive maxInclusive = restriction.getMaxInclusive();
+        XsdMinExclusive minExclusive = restriction.getMinExclusive();
+        XsdMinInclusive minInclusive = restriction.getMinInclusive();
+        XsdPattern pattern = restriction.getPattern();
+        XsdTotalDigits totalDigits = restriction.getTotalDigits();
+        XsdWhiteSpace whiteSpace = restriction.getWhiteSpace();
+        List<XsdEnumeration> enumerations = restriction.getEnumeration();
+
+        if (base != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("Base");
+            mVisitor.visitLdcInsn(base);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+        }
+
+        if (length != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("Length");
+            mVisitor.visitIntInsn(BIPUSH, length.getValue());
+            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitInsn(POP);
+        }
+
+        if (maxLength != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("MaxLength");
+            mVisitor.visitIntInsn(BIPUSH, maxLength.getValue());
+            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitInsn(POP);
+        }
+
+        if (minLength != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("MinLength");
+            mVisitor.visitIntInsn(BIPUSH, minLength.getValue());
+            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitInsn(POP);
+        }
+
+        if (maxExclusive != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("MaxExclusive");
+            mVisitor.visitIntInsn(BIPUSH, maxExclusive.getValue());
+            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitInsn(POP);
+        }
+
+        if (maxInclusive != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("MaxInclusive");
+            mVisitor.visitIntInsn(BIPUSH, maxInclusive.getValue());
+            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitInsn(POP);
+        }
+
+        if (minExclusive != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("MinExclusive");
+            mVisitor.visitIntInsn(BIPUSH, minExclusive.getValue());
+            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitInsn(POP);
+        }
+
+        if (minInclusive != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("MinInclusive");
+            mVisitor.visitIntInsn(BIPUSH, minInclusive.getValue());
+            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitInsn(POP);
+        }
+
+        if (fractionDigits != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("FractionDigits");
+            mVisitor.visitIntInsn(BIPUSH, fractionDigits.getValue());
+            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitInsn(POP);
+        }
+
+        if (totalDigits != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("TotalDigits");
+            mVisitor.visitIntInsn(BIPUSH, totalDigits.getValue());
+            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitInsn(POP);
+        }
+
+        if (pattern != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("Pattern");
+            mVisitor.visitLdcInsn(pattern.getValue());
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+        }
+
+        if (whiteSpace != null){
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("WhiteSpace");
+            mVisitor.visitLdcInsn(whiteSpace.getValue());
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+        }
+        int enumerationIndex = 0;
+
+        if (!enumerations.isEmpty()){
+            enumerationIndex = index + 1;
+
+            mVisitor.visitTypeInsn(NEW, "java/util/ArrayList");
+            mVisitor.visitInsn(DUP);
+            mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", CONSTRUCTOR, "()V", false);
+            mVisitor.visitVarInsn(ASTORE, enumerationIndex);
+
+            int finalEnumerationIndex = enumerationIndex;
+            enumerations.forEach(enumeration -> {
+                mVisitor.visitVarInsn(ALOAD, finalEnumerationIndex);
+                mVisitor.visitLdcInsn(enumeration.getValue());
+                mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "add", "(Ljava/lang/Object;)Z", true);
+                mVisitor.visitInsn(POP);
+            });
+
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitLdcInsn("Enumeration");
+            mVisitor.visitVarInsn(ALOAD, finalEnumerationIndex);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitInsn(POP);
+        }
+
+        mVisitor.visitFieldInsn(GETSTATIC, attributeType, "restrictions", JAVA_LIST_DESC);
+        mVisitor.visitVarInsn(ALOAD, index);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "add", "(Ljava/lang/Object;)Z", true);
+        mVisitor.visitInsn(POP);
+
+        return enumerationIndex == 0 ? index : enumerationIndex;
     }
 
     /**
@@ -796,4 +1064,708 @@ public class XsdClassGeneratorUtils {
 
         return classWriter;
     }
+
+    private static void createRestrictionValidator(String apiName) {
+        ClassWriter cw = new ClassWriter(0);
+        MethodVisitor mv;
+
+        cw.visit(V1_8, ACC_PUBLIC + ACC_SUPER, RESTRICTION_VALIDATOR_TYPE, null, "java/lang/Object", null);
+
+        {
+            mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(1, 1);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_STATIC, "validate", "(Ljava/util/Map;Ljava/lang/Object;)V", "(Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;Ljava/lang/Object;)V", null);
+            mv.visitCode();
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(0, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_STATIC, "validate", "(Ljava/util/Map;Ljava/util/List;)V", "(Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;Ljava/util/List;)V", null);
+            mv.visitCode();
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("Length");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateLength", "(ILjava/util/List;)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("MinLength");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateMinLength", "(ILjava/util/List;)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("MaxLength");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateMaxLength", "(ILjava/util/List;)V", false);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(3, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_STATIC, "validate", "(Ljava/util/Map;Ljava/lang/Double;)V", "(Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;Ljava/lang/Double;)V", null);
+            mv.visitCode();
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("MaxExclusive");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D", false);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateMaxExclusive", "(ID)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("MaxInclusive");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D", false);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateMaxInclusive", "(ID)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("MinExclusive");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D", false);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateMinExclusive", "(ID)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("MinInclusive");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D", false);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateMinInclusive", "(ID)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("FractionDigits");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D", false);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateFractionDigits", "(ID)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("TotalDigits");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D", false);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateTotalDigits", "(ID)V", false);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(3, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_STATIC, "validate", "(Ljava/util/Map;Ljava/lang/String;)V", "(Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;Ljava/lang/String;)V", null);
+            mv.visitCode();
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("Enumeration");
+            mv.visitInsn(ACONST_NULL);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/util/List");
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateEnumeration", "(Ljava/util/List;Ljava/lang/String;)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("Length");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateLength", "(ILjava/lang/String;)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("MinLength");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateMinLength", "(ILjava/lang/String;)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("MaxLength");
+            mv.visitInsn(ICONST_M1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateMaxLength", "(ILjava/lang/String;)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("Pattern");
+            mv.visitInsn(ACONST_NULL);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/String");
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validatePattern", "(Ljava/lang/String;Ljava/lang/String;)V", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("WhiteSpace");
+            mv.visitInsn(ACONST_NULL);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "getOrDefault", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, "java/lang/String");
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validateWhiteSpace", "(Ljava/lang/String;Ljava/lang/String;)V", false);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(3, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateEnumeration", "(Ljava/util/List;Ljava/lang/String;)V", "(Ljava/util/List<Ljava/lang/String;>;Ljava/lang/String;)V", null);
+            mv.visitCode();
+            mv.visitVarInsn(ALOAD, 0);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IFNONNULL, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/List", "contains", "(Ljava/lang/Object;)Z", true);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IFNE, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitLdcInsn("Violation of enumeration restriction, value not acceptable for the current type.");
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(3, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateFractionDigits", "(ID)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitInsn(D2I);
+            mv.visitInsn(I2D);
+            mv.visitInsn(DCMPL);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IFEQ, l1);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/String", "valueOf", "(D)Ljava/lang/String;", false);
+            mv.visitVarInsn(ASTORE, 3);
+            mv.visitVarInsn(ALOAD, 3);
+            mv.visitVarInsn(ALOAD, 3);
+            mv.visitLdcInsn(",");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "indexOf", "(Ljava/lang/String;)I", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "substring", "(I)Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "length", "()I", false);
+            mv.visitVarInsn(ISTORE, 4);
+            mv.visitVarInsn(ILOAD, 4);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitJumpInsn(IF_ICMPLE, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of fractionDigits restriction, value should have a maximum of ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitLdcInsn(" decimal places.");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 5);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateLength", "(ILjava/lang/String;)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "length", "()I", false);
+            mv.visitVarInsn(ILOAD, 0);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IF_ICMPEQ, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of length restriction, string should have exactly ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitLdcInsn(" characters.");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateLength", "(ILjava/util/List;)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/List", "size", "()I", true);
+            mv.visitVarInsn(ILOAD, 0);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IF_ICMPEQ, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of length restriction, list should have exactly ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitLdcInsn(" elements.");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateMaxExclusive", "(ID)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(I2D);
+            mv.visitInsn(DCMPL);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IFLT, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of maxExclusive restriction, value should be lesser than ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 3);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateMaxInclusive", "(ID)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(I2D);
+            mv.visitInsn(DCMPL);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IFLE, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of maxInclusive restriction, value should be lesser or equal to ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 3);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateMaxLength", "(ILjava/lang/String;)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "length", "()I", false);
+            mv.visitVarInsn(ILOAD, 0);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IF_ICMPLE, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of maxLength restriction, string should have a max number of characters of ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateMaxLength", "(ILjava/util/List;)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/List", "size", "()I", true);
+            mv.visitVarInsn(ILOAD, 0);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IF_ICMPLE, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of maxLength restriction, list should have a max number of items of ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateMinExclusive", "(ID)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(I2D);
+            mv.visitInsn(DCMPG);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IFGT, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of minExclusive restriction, value should be greater than ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 3);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateMinInclusive", "(ID)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(I2D);
+            mv.visitInsn(DCMPG);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IFGE, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of minInclusive restriction, value should be greater or equal to ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 3);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateMinLength", "(ILjava/lang/String;)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "length", "()I", false);
+            mv.visitVarInsn(ILOAD, 0);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IF_ICMPGE, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of minLength restriction, string should have a minimum number of characters of ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateMinLength", "(ILjava/util/List;)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEINTERFACE, "java/util/List", "size", "()I", true);
+            mv.visitVarInsn(ILOAD, 0);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IF_ICMPGE, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of minLength restriction, list should have a minimum number of items of ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validatePattern", "(Ljava/lang/String;Ljava/lang/String;)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ALOAD, 0);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IFNONNULL, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitLdcInsn("");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "replaceAll", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;", false);
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "equals", "(Ljava/lang/Object;)Z", false);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IFNE, l1);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of pattern restriction, the string doesn't math the acceptable pattern, which is ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 2);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateTotalDigits", "(ID)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitInsn(ICONST_M1);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IF_ICMPNE, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/String", "valueOf", "(D)Ljava/lang/String;", false);
+            mv.visitVarInsn(ASTORE, 3);
+            mv.visitInsn(ICONST_0);
+            mv.visitVarInsn(ISTORE, 4);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitInsn(D2I);
+            mv.visitInsn(I2D);
+            mv.visitInsn(DCMPL);
+            Label l1 = new Label();
+            mv.visitJumpInsn(IFEQ, l1);
+            mv.visitVarInsn(ALOAD, 3);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "length", "()I", false);
+            mv.visitInsn(ICONST_1);
+            mv.visitInsn(ISUB);
+            mv.visitVarInsn(ISTORE, 4);
+            Label l2 = new Label();
+            mv.visitJumpInsn(GOTO, l2);
+            mv.visitLabel(l1);
+            mv.visitFrame(Opcodes.F_APPEND,2, new Object[] {"java/lang/String", Opcodes.INTEGER}, 0, null);
+            mv.visitVarInsn(ALOAD, 3);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "length", "()I", false);
+            mv.visitVarInsn(ISTORE, 4);
+            mv.visitLabel(l2);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitVarInsn(ILOAD, 4);
+            mv.visitVarInsn(ILOAD, 0);
+            Label l3 = new Label();
+            mv.visitJumpInsn(IF_ICMPEQ, l3);
+            mv.visitTypeInsn(NEW, RESTRICTION_VIOLATION_EXCEPTION_TYPE);
+            mv.visitInsn(DUP);
+            mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+            mv.visitInsn(DUP);
+            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitLdcInsn("Violation of fractionDigits restriction, value should have a exactly ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitVarInsn(ILOAD, 0);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+            mv.visitLdcInsn(" decimal places.");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(INVOKESPECIAL, RESTRICTION_VIOLATION_EXCEPTION_TYPE, "<init>", "(Ljava/lang/String;)V", false);
+            mv.visitInsn(ATHROW);
+            mv.visitLabel(l3);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(4, 5);
+            mv.visitEnd();
+        }
+        {
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "validateWhiteSpace", "(Ljava/lang/String;Ljava/lang/String;)V", null, null);
+            mv.visitCode();
+            mv.visitVarInsn(ALOAD, 0);
+            Label l0 = new Label();
+            mv.visitJumpInsn(IFNONNULL, l0);
+            mv.visitInsn(RETURN);
+            mv.visitLabel(l0);
+            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+            mv.visitInsn(RETURN);
+            mv.visitMaxs(1, 2);
+            mv.visitEnd();
+        }
+
+        writeClassToFile(RESTRICTION_VALIDATOR, cw, apiName);
+    }
+
 }

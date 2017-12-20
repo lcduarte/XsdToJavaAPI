@@ -26,6 +26,8 @@ public class XsdClassGenerator {
     static final String ABSTRACT_ATTRIBUTE = "AbstractAttribute";
     static final String TEXT_CLASS = "Text";
     static final String ITEXT = "IText";
+    static final String RESTRICTION_VIOLATION_EXCEPTION = "RestrictionViolationException";
+    static final String RESTRICTION_VALIDATOR = "RestrictionValidator";
 
     static String TEXT_TYPE;
     static String TEXT_TYPE_DESC;
@@ -39,6 +41,13 @@ public class XsdClassGenerator {
     static String IATTRIBUTE_TYPE_DESC;
     static String ITEXT_TYPE;
     static String ITEXT_TYPE_DESC;
+    static String RESTRICTION_VIOLATION_EXCEPTION_TYPE;
+    static String RESTRICTION_VIOLATION_EXCEPTION_TYPE_DESC;
+    static String RESTRICTION_VALIDATOR_TYPE;
+
+    static String XSD_RESTRICTION_TYPE = "XsdElements/XsdRestriction";
+    static String XSD_RESTRICTION_TYPE_DESC = "LXsdElements/XsdRestriction;";
+
 
     static final String ATTRIBUTE_PREFIX = "Attr";
     private static final String ATTRIBUTE_CASE_SENSITIVE_DIFERENCE = "Alt";

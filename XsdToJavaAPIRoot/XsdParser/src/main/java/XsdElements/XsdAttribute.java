@@ -8,6 +8,7 @@ import XsdElements.XsdRestrictionElements.XsdAbstractRestrictionChild;
 import XsdParser.XsdParser;
 import org.w3c.dom.Node;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,11 +18,10 @@ public class XsdAttribute extends XsdReferenceElement {
 
     private AttributeVisitor visitor = new AttributeVisitor();
 
-    public ReferenceBase simpleType;
+    private ReferenceBase simpleType;
 
     private String defaultElement;
     private String fixed;
-    //TODO Encontrar named simpleTypes com o type deste campo.
     private String type;
 
     private XsdAttribute(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
@@ -110,6 +110,16 @@ public class XsdAttribute extends XsdReferenceElement {
 
     public XsdSimpleType getXsdSimpleType(){
         return simpleType instanceof ConcreteElement ? (XsdSimpleType) simpleType.getElement() : null;
+    }
+
+    public List<XsdRestriction> getAllRestrictions(){
+        XsdSimpleType simpleType = getXsdSimpleType();
+
+        if (simpleType != null){
+            return simpleType.getAllRestrictions();
+        }
+
+        return new ArrayList<>();
     }
 
     public static ReferenceBase parse(Node node) {

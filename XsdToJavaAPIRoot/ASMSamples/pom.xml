@@ -34,6 +34,11 @@
             <groupId>org.ow2.asm</groupId>
             <version>${asm-version}</version>
         </dependency>
+        <dependency>
+            <groupId>XsdToJavaAPI</groupId>
+            <artifactId>XsdParser</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>
