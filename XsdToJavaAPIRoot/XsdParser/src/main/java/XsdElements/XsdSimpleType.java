@@ -5,7 +5,7 @@ package XsdElements;
 
 //TODO Unions basicamente são List<XsdSimpleType>
 
-//TODO XsdLists tem um built in type, que já está resolvido e devem poder ter XsdRestriction lá dentro.
+//TODO XsdLists tem um built in type ou outro ?simple type?, que já está resolvido e devem poder ter XsdRestriction lá dentro.
 
 import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;

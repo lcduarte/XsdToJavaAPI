@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static XsdClassGenerator.XsdClassGeneratorUtils.*;
+import static XsdClassGenerator.XsdSupportingStructure.createSupportingInfrastructure;
 import static org.objectweb.asm.Opcodes.*;
 
 public class XsdClassGenerator {
@@ -44,10 +45,6 @@ public class XsdClassGenerator {
     static String RESTRICTION_VIOLATION_EXCEPTION_TYPE;
     static String RESTRICTION_VIOLATION_EXCEPTION_TYPE_DESC;
     static String RESTRICTION_VALIDATOR_TYPE;
-
-    static String XSD_RESTRICTION_TYPE = "XsdElements/XsdRestriction";
-    static String XSD_RESTRICTION_TYPE_DESC = "LXsdElements/XsdRestriction;";
-
 
     static final String ATTRIBUTE_PREFIX = "Attr";
     private static final String ATTRIBUTE_CASE_SENSITIVE_DIFERENCE = "Alt";

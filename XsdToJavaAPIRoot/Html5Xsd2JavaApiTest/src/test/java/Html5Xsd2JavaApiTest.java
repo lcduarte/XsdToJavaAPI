@@ -50,11 +50,41 @@ public class Html5Xsd2JavaApiTest {
                 .text("1-833-2GET-REV");
     }
 
+    /**
+     *  <xsd:restriction base="xsd:NMTOKEN">
+             (...)
+             <xsd:enumeration value="Help" />
+             (...)
+     *  </xsd:restriction>
+     *
+     *  This attribute creation should be successful because the value "Help" is a possible value for the Rel attribute.
+     */
     @Test
     public void testRestrictionSuccess(){
         new AttrRel<>("Help");
     }
 
+    /**
+     *  <xsd:restriction base="xsd:NMTOKEN">
+             <xsd:enumeration value="Alternate" />
+             <xsd:enumeration value="Appendix" />
+             <xsd:enumeration value="Bookmark" />
+             <xsd:enumeration value="Chapter" />
+             <xsd:enumeration value="Contents" />
+             <xsd:enumeration value="Copyright" />
+             <xsd:enumeration value="Glossary" />
+             <xsd:enumeration value="Help" />
+             <xsd:enumeration value="Index" />
+             <xsd:enumeration value="Next" />
+             <xsd:enumeration value="Prev" />
+             <xsd:enumeration value="Section" />
+             <xsd:enumeration value="Start" />
+             <xsd:enumeration value="Stylesheet" />
+             <xsd:enumeration value="Subsection" />
+     *  </xsd:restriction>
+     *
+     *  This attribute creation should fail because the value "Help1" isn't a possible value for the Rel attribute.
+     */
     @Test
     public void testRestrictionFailure(){
         try {
