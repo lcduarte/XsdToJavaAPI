@@ -31,7 +31,7 @@
                     <useFile>false</useFile>
                     <mainClass>XsdClassGeneratorMain</mainClass>
                     <arguments>
-                        <argument>D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\Html5Xsd2JavaApi\src\main\resources\html_5.xsd</argument>
+                        <argument>${project.basedir}\src\main\resources\html_5.xsd</argument>
                         <argument>Html5Xsd2JavaApi</argument>
                     </arguments>
                 </configuration>
