@@ -18,20 +18,21 @@ public class Html5Xsd2JavaApiTest {
                 .text("Title");
 
         root.<Meta>child("metaId1")
-                .addAttrCharset(new AttrCharset<>( "UTF-8"));
+                .addAttrCharset("UTF-8");
 
         root.<Link>child("linkId1")
                 //.addAttrRel(new AttrRel<>("icon"))
-                .addAttrType(new AttrType<>("image/png"))
-                .addAttrHref(new AttrHref<>("/assets/images/favicon.png"));
+                .addAttrType("image/png")
+                .addAttrHref("/assets/images/favicon.png");
 
         root.<Link>child("linkId2")
                 //.addAttrRel(new AttrRel<>("stylesheet"))
-                .addAttrType(new AttrType<>("text/css"))
-                .addAttrHref(new AttrHref<>("/assets/styles/main.css"));
+                //TODO Porque é que o type n tem restrições?
+                .addAttrType("text/css")
+                .addAttrHref("/assets/styles/main.css");
 
         root.body()
-                .addAttrClass(new AttrClass<>("clear"))
+                .addAttrClass("clear")
                 .div()
                 .header()
                 .section()
@@ -40,8 +41,8 @@ public class Html5Xsd2JavaApiTest {
 
         root.<Div>child("divId1")
                 .img()
-                .addAttrId(new AttrId<>("brand"))
-                .addAttrSrc(new AttrSrc<>("./assets/images/logo.png"));
+                .addAttrId("brand")
+                .addAttrSrc("./assets/images/logo.png");
 
         root.<Aside>child("asideId1")
                 .em()

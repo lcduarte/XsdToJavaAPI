@@ -26,9 +26,11 @@ public class XsdClassGeneratorUtils {
     public static String PACKAGE_BASE = "XsdToJavaAPI/";
     private static final String INTERFACE_PREFIX = "I";
     private static final HashMap<String, String> xsdTypesToJava;
+    private static final HashMap<String, String> xsdFullTypesToJava;
 
     static {
         xsdTypesToJava = new HashMap<>();
+        xsdFullTypesToJava = new HashMap<>();
 
         xsdTypesToJava.put("xsd:anyURI", "String");
         xsdTypesToJava.put("xsd:boolean", "Boolean");
@@ -74,6 +76,49 @@ public class XsdClassGeneratorUtils {
         xsdTypesToJava.put("xsd:IDREF", "String");
         xsdTypesToJava.put("xsd:ENTITY", "String");
         xsdTypesToJava.put("xsd:untypedAtomic", "String");
+
+        xsdFullTypesToJava.put("xsd:anyURI","Ljava/lang/String;");
+        xsdFullTypesToJava.put("xsd:boolean","Ljava/lang/Boolean;");
+        xsdFullTypesToJava.put("xsd:date","Ljavax/xml/datatype/XMLGregorianCalendar;");
+        xsdFullTypesToJava.put("xsd:dateTime","Ljavax/xml/datatype/XMLGregorianCalendar;");
+        xsdFullTypesToJava.put("xsd:time","Ljavax/xml/datatype/XMLGregorianCalendar;");
+        xsdFullTypesToJava.put("xsd:duration","Ljavax/xml/datatype/Duration;");
+        xsdFullTypesToJava.put("xsd:dayTimeDuration","Ljavax/xml/datatype/Duration;");
+        xsdFullTypesToJava.put("xsd:yearMonthDuration","Ljavax/xml/datatype/Duration;");
+        xsdFullTypesToJava.put("xsd:gDay","Ljavax/xml/datatype/XMLGregorianCalendar;");
+        xsdFullTypesToJava.put("xsd:gMonth","Ljavax/xml/datatype/XMLGregorianCalendar;");
+        xsdFullTypesToJava.put("xsd:gMonthDay","Ljavax/xml/datatype/XMLGregorianCalendar;");
+        xsdFullTypesToJava.put("xsd:gYear","Ljavax/xml/datatype/XMLGregorianCalendar;");
+        xsdFullTypesToJava.put("xsd:gYearMonth","Ljavax/xml/datatype/XMLGregorianCalendar;");
+        xsdFullTypesToJava.put("xsd:decimal","Ljava/math/BigDecimal;");
+        xsdFullTypesToJava.put("xsd:integer","Ljava/math/BigInteger;");
+        xsdFullTypesToJava.put("xsd:nonPositiveInteger","Ljava/math/BigInteger;");
+        xsdFullTypesToJava.put("xsd:negativeInteger","Ljava/math/BigInteger;");
+        xsdFullTypesToJava.put("xsd:long","Ljava/lang/Long;");
+        xsdFullTypesToJava.put("xsd:int","Ljava/lang/Integer;");
+        xsdFullTypesToJava.put("xsd:short","Ljava/lang/Short;");
+        xsdFullTypesToJava.put("xsd:byte","Ljava/lang/Byte;");
+        xsdFullTypesToJava.put("xsd:nonNegativeInteger","Ljava/math/BigInteger;");
+        xsdFullTypesToJava.put("xsd:unsignedLong","Ljava/math/BigInteger;");
+        xsdFullTypesToJava.put("xsd:unsignedInt", "java/lang/Long;");
+        xsdFullTypesToJava.put("xsd:unsignedShort", "java/lang/Integer;");
+        xsdFullTypesToJava.put("xsd:unsignedByte", "java/lang/Short;");
+        xsdFullTypesToJava.put("xsd:positiveInteger","Ljava/math/BigInteger;");
+        xsdFullTypesToJava.put("xsd:double","Ljava/lang/Double;");
+        xsdFullTypesToJava.put("xsd:float","Ljava/lang/Float;");
+        xsdFullTypesToJava.put("xsd:QName","Ljavax/xml/namespace/QName;");
+        xsdFullTypesToJava.put("xsd:NOTATION","Ljavax/xml/namespace/QName;");
+        xsdFullTypesToJava.put("xsd:string","Ljava/lang/String;");
+        xsdFullTypesToJava.put("xsd:normalizedString","Ljava/lang/String;");
+        xsdFullTypesToJava.put("xsd:token","Ljava/lang/String;");
+        xsdFullTypesToJava.put("xsd:language","Ljava/lang/String;");
+        xsdFullTypesToJava.put("xsd:NMTOKEN","Ljava/lang/String;");
+        xsdFullTypesToJava.put("xsd:Name","Ljava/lang/String;");
+        xsdFullTypesToJava.put("xsd:NCName","Ljava/lang/String;");
+        xsdFullTypesToJava.put("xsd:ID","Ljava/lang/String;");
+        xsdFullTypesToJava.put("xsd:IDREF","Ljava/lang/String;");
+        xsdFullTypesToJava.put("xsd:ENTITY","Ljava/lang/String;");
+        xsdFullTypesToJava.put("xsd:untypedAtomic","Ljava/lang/String;");
     }
 
     /**
@@ -326,13 +371,15 @@ public class XsdClassGeneratorUtils {
     @SuppressWarnings("DanglingJavadoc")
     static void generateMethodsForAttribute(ClassWriter classWriter, XsdAttribute elementAttribute, String returnType, String apiName) {
         String camelCaseName = ATTRIBUTE_PREFIX + toCamelCase(elementAttribute.getName()).replaceAll("\\W+", "");
-        String attributeClassTypeDesc = getFullClassTypeNameDesc(camelCaseName, apiName);
+        String attributeClassType = getFullClassTypeName(camelCaseName, apiName);
         MethodVisitor mVisitor;
 
+        String javaType = getFullJavaType(elementAttribute);
+
         if (returnType.equals(IELEMENT_TYPE_DESC)){
-            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + attributeClassTypeDesc + ")" + returnType, "(" + attributeClassTypeDesc + ")TT;", null);
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")TT;", null);
         } else {
-            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + attributeClassTypeDesc + ")" + returnType, "(" + attributeClassTypeDesc + ")" + returnType, null);
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")" + returnType, null);
         }
 
         mVisitor.visitCode();
@@ -345,7 +392,10 @@ public class XsdClassGeneratorUtils {
             mVisitor.visitTypeInsn(CHECKCAST, IELEMENT_TYPE);
         }
 
+        mVisitor.visitTypeInsn(NEW, attributeClassType);
+        mVisitor.visitInsn(DUP);
         mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, attributeClassType, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", false);
 
         if (returnType.equals(IELEMENT_TYPE_DESC)){
             mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE_DESC, "addAttr", "(" + IATTRIBUTE_TYPE_DESC + ")V", true);
@@ -360,7 +410,7 @@ public class XsdClassGeneratorUtils {
         }
 
         mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitMaxs(4, 2);
         mVisitor.visitEnd();
     }
 
@@ -375,23 +425,7 @@ public class XsdClassGeneratorUtils {
         String camelAttributeName = ATTRIBUTE_PREFIX + toCamelCase(attribute.getName()).replaceAll("\\W+", "");
         String attributeType = getFullClassTypeName(camelAttributeName, apiName);
 
-        String javaType = xsdTypesToJava.getOrDefault(attribute.getType(), null);
-
-        //List<String> restrictions = new ArrayList<>();
-
-        if (javaType == null){
-            Optional<String> firstType = attribute.getAllRestrictions().stream().map(XsdRestriction::getBase).distinct().map(type -> xsdTypesToJava.getOrDefault(type, "Object")).findFirst();
-
-            if (firstType.isPresent()){
-                javaType = firstType.get();
-            } else {
-                javaType = "Object";
-            }
-        } //else {
-            //restrictions.add(javaType);
-        //}
-
-
+        String javaType = getJavaType(attribute);
 
         ClassWriter attributeWriter = generateClass(camelAttributeName, ABSTRACT_ATTRIBUTE_TYPE, null, "<" + javaType + ":" + JAVA_OBJECT_DESC + ">L" + ABSTRACT_ATTRIBUTE_TYPE + "<T" + javaType + ";>;", ACC_PUBLIC + ACC_SUPER, apiName);
 
@@ -645,6 +679,34 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitInsn(POP);
 
         return enumerationIndex == 0 ? index : enumerationIndex;
+    }
+
+    private static String getJavaType(XsdAttribute attribute) {
+        return getJavaType(attribute, xsdTypesToJava, "Object");
+    }
+
+    private static String getFullJavaType(XsdAttribute attribute) {
+        return getJavaType(attribute, xsdFullTypesToJava, JAVA_OBJECT_DESC);
+    }
+
+    private static String getJavaType(XsdAttribute attribute, HashMap<String, String> xsdTypes, String defaultType){
+        String javaType = xsdTypes.getOrDefault(attribute.getType(), null);
+
+        //List<String> restrictions = new ArrayList<>();
+
+        if (javaType == null){
+            Optional<String> firstType = attribute.getAllRestrictions().stream().map(XsdRestriction::getBase).distinct().map(type -> xsdTypes.getOrDefault(type, "Object")).findFirst();
+
+            if (firstType.isPresent()){
+                javaType = firstType.get();
+            } else {
+                javaType = defaultType;
+            }
+        } //else {
+        //restrictions.add(javaType);
+        //}
+
+        return javaType;
     }
 
     /**
