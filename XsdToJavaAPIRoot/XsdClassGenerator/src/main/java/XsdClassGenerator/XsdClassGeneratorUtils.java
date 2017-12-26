@@ -257,6 +257,24 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "acceptInit", "(" + VISITOR_TYPE_DESC + ")V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, VISITOR_TYPE, "initVisit", "(" + classTypeDesc + ")V", true);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "acceptEnd", "(" + VISITOR_TYPE_DESC + ")V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, VISITOR_TYPE, "endVisit", "(" + classTypeDesc + ")V", true);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, "self", "()" + IELEMENT_TYPE_DESC, null, null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
@@ -361,6 +379,71 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(4, 4);
         mVisitor.visitEnd();
+    }
+
+    //TODO Doc
+    static void generateVisitors(List<XsdElement> elementList, String apiName){
+        generateVisitorInterface(elementList, apiName);
+
+        generateAbstractVisitor(elementList, apiName);
+    }
+
+    static void generateAbstractVisitor(List<XsdElement> elementList, String apiName) {
+        ClassWriter classWriter = generateClass(ABSTRACT_VISITOR, JAVA_OBJECT, new String[]{VISITOR}, null, ACC_PUBLIC + ACC_ABSTRACT + ACC_SUPER, apiName);
+
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "()V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, JAVA_OBJECT, CONSTRUCTOR, "()V", false);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_ABSTRACT, "initVisit", "(" + IELEMENT_TYPE_DESC + ")V", null, null);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_ABSTRACT, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", null, null);
+        mVisitor.visitEnd();
+
+        elementList.forEach(element -> {
+            String elementTypeDesc = getFullClassTypeNameDesc(toCamelCase(element.getName()), apiName);
+
+            MethodVisitor mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "initVisit", "(" + elementTypeDesc + ")V", null, null);
+            mVisitor1.visitCode();
+            mVisitor1.visitVarInsn(ALOAD, 0);
+            mVisitor1.visitVarInsn(ALOAD, 1);
+            mVisitor1.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_VISITOR_TYPE, "initVisit", "(" + IELEMENT_TYPE_DESC + ")V", false);
+            mVisitor1.visitInsn(RETURN);
+            mVisitor1.visitMaxs(2, 2);
+            mVisitor1.visitEnd();
+
+            mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "endVisit", "(" + elementTypeDesc + ")V", null, null);
+            mVisitor1.visitCode();
+            mVisitor1.visitVarInsn(ALOAD, 0);
+            mVisitor1.visitVarInsn(ALOAD, 1);
+            mVisitor1.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_VISITOR_TYPE, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", false);
+            mVisitor1.visitInsn(RETURN);
+            mVisitor1.visitMaxs(2, 2);
+            mVisitor1.visitEnd();
+        });
+
+        writeClassToFile(ABSTRACT_VISITOR, classWriter, apiName);
+    }
+
+    static void generateVisitorInterface(List<XsdElement> elementList, String apiName) {
+        ClassWriter classWriter = generateClass(VISITOR, JAVA_OBJECT, null, null, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
+
+        elementList.forEach(element -> {
+            String elementTypeDesc = getFullClassTypeNameDesc(toCamelCase(element.getName()), apiName);
+
+            MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "initVisit", "(" + elementTypeDesc + ")V", null, null);
+            mVisitor.visitEnd();
+
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "endVisit", "(" + elementTypeDesc + ")V", null, null);
+            mVisitor.visitEnd();
+        });
+
+        writeClassToFile(VISITOR, classWriter, apiName);
     }
 
     /**
@@ -508,8 +591,7 @@ public class XsdClassGeneratorUtils {
 
         int currIndex = 0;
 
-        for (int i = 0; i < restrictions.size(); i++) {
-            XsdRestriction restriction = restrictions.get(i);
+        for (XsdRestriction restriction : restrictions) {
             currIndex = loadRestrictionToAttribute(mVisitor, restriction, attributeType, currIndex);
             currIndex = currIndex + 1;
         }

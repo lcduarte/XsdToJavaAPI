@@ -4,6 +4,10 @@ import org.junit.Test;
 
 public class Html5Xsd2JavaApiTest {
 
+    //TODO Ver a lógica de ter mais do que um tipo possivel para um dado attributo.
+    //TODO Verificar se existe mais alguma coisa de errado com as restrições
+    //TODO Existem atributos que por vezes tem tipo e outras vezes não tem. Dois attributos diferentes?
+
     @Test
     public void testGeneratedClassesIntegrity() throws Exception {
         Html root = new Html();
@@ -22,12 +26,11 @@ public class Html5Xsd2JavaApiTest {
 
         root.<Link>child("linkId1")
                 //.addAttrRel(new AttrRel<>("icon"))
-                .addAttrType("image/png")
+                .addAttrType("text/css")
                 .addAttrHref("/assets/images/favicon.png");
 
         root.<Link>child("linkId2")
                 //.addAttrRel(new AttrRel<>("stylesheet"))
-                //TODO Porque é que o type n tem restrições?
                 .addAttrType("text/css")
                 .addAttrHref("/assets/styles/main.css");
 

@@ -34,6 +34,9 @@ class XsdSupportingStructure {
         RESTRICTION_VIOLATION_EXCEPTION_TYPE = getFullClassTypeName(RESTRICTION_VIOLATION_EXCEPTION, apiName);
         RESTRICTION_VIOLATION_EXCEPTION_TYPE_DESC = getFullClassTypeNameDesc(RESTRICTION_VIOLATION_EXCEPTION, apiName);
         RESTRICTION_VALIDATOR_TYPE = getFullClassTypeName(RESTRICTION_VALIDATOR, apiName);
+        VISITOR_TYPE = getFullClassTypeName(VISITOR, apiName);
+        VISITOR_TYPE_DESC = getFullClassTypeNameDesc(VISITOR, apiName);
+        ABSTRACT_VISITOR_TYPE = getFullClassTypeName(ABSTRACT_VISITOR, apiName);
 
         createAbstractElement(apiName);
         createAbstractAttribute(apiName);
@@ -264,6 +267,12 @@ class XsdSupportingStructure {
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "id", "()" + JAVA_STRING_DESC, null, null);
         mVisitor.visitEnd();
 
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "acceptInit", "(" + VISITOR_TYPE_DESC + ")V", null, null);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "acceptEnd", "(" + VISITOR_TYPE_DESC + ")V", null, null);
+        mVisitor.visitEnd();
+
         writeClassToFile(IELEMENT, classWriter, apiName);
     }
 
@@ -272,9 +281,12 @@ class XsdSupportingStructure {
      * @param apiName The api this class will belong.
      */
     private static void createTextElement(String apiName) {
-        ClassWriter classWriter = generateClass(TEXT_CLASS, ABSTRACT_ELEMENT_TYPE, null,  "L" + ABSTRACT_ELEMENT_TYPE + "<" + TEXT_TYPE_DESC + ">;" + IATTRIBUTE_TYPE_DESC,ACC_PUBLIC + ACC_SUPER, apiName);
+        ClassWriter classWriter = generateClass(TEXT_CLASS, ABSTRACT_ELEMENT_TYPE, null,  "<T:Ljava/lang/Object;>L"  + ABSTRACT_ELEMENT_TYPE +"<" + TEXT_TYPE_DESC + ">;",ACC_PUBLIC + ACC_SUPER, apiName);
 
-        FieldVisitor fVisitor = classWriter.visitField(ACC_PRIVATE + ACC_FINAL, "text", JAVA_STRING_DESC, null, null);
+        FieldVisitor fVisitor = classWriter.visitField(ACC_PRIVATE, "text", JAVA_STRING_DESC, null, null);
+        fVisitor.visitEnd();
+
+        fVisitor = classWriter.visitField(ACC_PRIVATE, "textFunction", "Ljava/util/function/Function;", "Ljava/util/function/Function<TT;Ljava/lang/String;>;", null);
         fVisitor.visitEnd();
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", null, null);
@@ -288,19 +300,17 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(Ljava/util/function/Function;)V", "(Ljava/util/function/Function<TT;Ljava/lang/String;>;)V", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "()V", false);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitFieldInsn(PUTFIELD, TEXT_TYPE, "text", JAVA_STRING_DESC);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "id", JAVA_STRING_DESC);
+        mVisitor.visitFieldInsn(PUTFIELD, TEXT_TYPE, "textFunction", "Ljava/util/function/Function;");
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 3);
+        mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
+
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "addAttr", "(" + IATTRIBUTE_TYPE_DESC + ")V", null, null);
         mVisitor.visitCode();
@@ -321,12 +331,41 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getText", "()" + JAVA_STRING_DESC, null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "acceptInit", "(" + VISITOR_TYPE_DESC + ")V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, VISITOR_TYPE, "initVisit", "(" + TEXT_TYPE_DESC + ")V", true);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "acceptEnd", "(" + VISITOR_TYPE_DESC + ")V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, VISITOR_TYPE, "endVisit", "(" + TEXT_TYPE_DESC + ")V", true);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getValue", "()" + JAVA_STRING_DESC, null, null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, TEXT_TYPE, "text", JAVA_STRING_DESC);
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getValue", "(" + JAVA_OBJECT_DESC + ")" + JAVA_STRING_DESC, "(TT;)" + JAVA_STRING_DESC, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, TEXT_TYPE, "textFunction", "Ljava/util/function/Function;");
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/function/Function", "apply", "(" + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, true);
+        mVisitor.visitTypeInsn(CHECKCAST, JAVA_STRING);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, "self", "()" + IELEMENT_TYPE_DESC, null, null);

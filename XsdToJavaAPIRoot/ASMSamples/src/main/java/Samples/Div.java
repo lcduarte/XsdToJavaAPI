@@ -12,7 +12,7 @@ public class Div extends AbstractElement<Div> implements ICommonAttributeGroup<D
 
     public Div(String id, String text){
         super.id = id;
-        this.addChild(new AttrText(text));
+        this.addChild(new Text(text));
     }
 
     public Div h2(){
@@ -23,4 +23,14 @@ public class Div extends AbstractElement<Div> implements ICommonAttributeGroup<D
 
     @Override
     public Div self() {return this; }
+
+    @Override
+    public void acceptInit(Visitor visitor) {
+        visitor.initVisit(this);
+    }
+
+    @Override
+    public void acceptEnd(Visitor visitor) {
+        visitor.endVisit(this);
+    }
 }

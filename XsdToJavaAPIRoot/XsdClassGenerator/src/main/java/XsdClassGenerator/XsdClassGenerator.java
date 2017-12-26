@@ -3,6 +3,7 @@ package XsdClassGenerator;
 import XsdElements.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,6 +30,8 @@ public class XsdClassGenerator {
     static final String ITEXT = "IText";
     static final String RESTRICTION_VIOLATION_EXCEPTION = "RestrictionViolationException";
     static final String RESTRICTION_VALIDATOR = "RestrictionValidator";
+    static final String VISITOR = "Visitor";
+    static final String ABSTRACT_VISITOR = "AbstractVisitor";
 
     static String TEXT_TYPE;
     static String TEXT_TYPE_DESC;
@@ -45,24 +48,31 @@ public class XsdClassGenerator {
     static String RESTRICTION_VIOLATION_EXCEPTION_TYPE;
     static String RESTRICTION_VIOLATION_EXCEPTION_TYPE_DESC;
     static String RESTRICTION_VALIDATOR_TYPE;
+    static String VISITOR_TYPE;
+    static String VISITOR_TYPE_DESC;
+    static String ABSTRACT_VISITOR_TYPE;
 
     static final String ATTRIBUTE_PREFIX = "Attr";
     private static final String ATTRIBUTE_CASE_SENSITIVE_DIFERENCE = "Alt";
 
     private Map<String, Stream<XsdElement>> elementGroupInterfaces = new HashMap<>();
     private Map<String, AttributeHierarchyItem> attributeGroupInterfaces = new HashMap<>();
-    private List<XsdAttribute> createdAttributes = new ArrayList<>();
+    private List<String> createdAttributes = new ArrayList<>();
 
     public void generateClassFromElements(Stream<XsdAbstractElement> elements, String apiName){
         createGeneratedFilesDirectory(apiName);
 
         createSupportingInfrastructure(apiName);
 
-        elements.filter(element -> element instanceof XsdElement)
+        List<XsdElement> elementList = elements.filter(element -> element instanceof XsdElement)
                 .map(element -> (XsdElement) element)
-                .forEach(element -> generateClassFromElement(element, apiName));
+                .collect(Collectors.toList());
+
+        elementList.forEach(element -> generateClassFromElement(element, apiName));
 
         generateInterfaces(apiName);
+
+        generateVisitors(elementList, apiName);
     }
 
     /**
@@ -133,7 +143,7 @@ public class XsdClassGenerator {
         ClassWriter interfaceWriter = generateClass(baseClassNameCamelCase, JAVA_OBJECT, interfaces, signature.toString(), ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
         attributeHierarchyItem.getOwnElements().forEach(elementAttribute -> {
-            if (createdAttributes.stream().anyMatch(createdAttribute -> createdAttribute.getName().equalsIgnoreCase(elementAttribute.getName()))){
+            if (createdAttributes.stream().anyMatch(createdAttributeName -> createdAttributeName.equalsIgnoreCase(elementAttribute.getName()))){
                 elementAttribute.setName(elementAttribute.getName() + ATTRIBUTE_CASE_SENSITIVE_DIFERENCE);
             }
 
@@ -153,10 +163,10 @@ public class XsdClassGenerator {
     private void generateMethodsAndCreateAttribute(ClassWriter classWriter, XsdAttribute elementAttribute, String returnType, String apiName) {
         generateMethodsForAttribute(classWriter, elementAttribute, returnType, apiName);
 
-        if (!createdAttributes.contains(elementAttribute)){
+        if (!createdAttributes.contains(elementAttribute.getName())){
             generateAttribute(elementAttribute, apiName);
 
-            createdAttributes.add(elementAttribute);
+            createdAttributes.add(elementAttribute.getName());
         }
     }
 
