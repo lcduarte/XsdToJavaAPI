@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class AbstractElement<T extends IElement> implements IElement<T> {
-    protected List<IElement> children = new ArrayList<>();
+    protected List<IElement<T>> children = new ArrayList<>();
     protected List<IAttribute> attrs = new ArrayList<>();
     protected String id;
 
@@ -41,5 +41,13 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
                 .map(element -> (R) element.child(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<IElement<T>> getChildren() {
+        return children;
+    }
+
+    public List<IAttribute> getAttributes() {
+        return attrs;
     }
 }

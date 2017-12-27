@@ -399,51 +399,59 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_ABSTRACT, "initVisit", "(" + IELEMENT_TYPE_DESC + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_ABSTRACT + ACC_PUBLIC, "initVisit", "(" + IELEMENT_TYPE_DESC + ")V", "<T::" + IELEMENT_TYPE_DESC + ">(L" + IELEMENT_TYPE + "<TT;>;)V", null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_ABSTRACT, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_ABSTRACT + ACC_PUBLIC, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", "<T::" + IELEMENT_TYPE_DESC + ">(L" + IELEMENT_TYPE + "<TT;>;)V", null);
         mVisitor.visitEnd();
 
-        elementList.forEach(element -> {
-            String elementTypeDesc = getFullClassTypeNameDesc(toCamelCase(element.getName()), apiName);
+        elementList.forEach(element -> addAbstractVisitorMethod(classWriter, element.getName(), apiName));
 
-            MethodVisitor mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "initVisit", "(" + elementTypeDesc + ")V", null, null);
-            mVisitor1.visitCode();
-            mVisitor1.visitVarInsn(ALOAD, 0);
-            mVisitor1.visitVarInsn(ALOAD, 1);
-            mVisitor1.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_VISITOR_TYPE, "initVisit", "(" + IELEMENT_TYPE_DESC + ")V", false);
-            mVisitor1.visitInsn(RETURN);
-            mVisitor1.visitMaxs(2, 2);
-            mVisitor1.visitEnd();
-
-            mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "endVisit", "(" + elementTypeDesc + ")V", null, null);
-            mVisitor1.visitCode();
-            mVisitor1.visitVarInsn(ALOAD, 0);
-            mVisitor1.visitVarInsn(ALOAD, 1);
-            mVisitor1.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_VISITOR_TYPE, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", false);
-            mVisitor1.visitInsn(RETURN);
-            mVisitor1.visitMaxs(2, 2);
-            mVisitor1.visitEnd();
-        });
+        addAbstractVisitorMethod(classWriter, TEXT_CLASS, apiName);
 
         writeClassToFile(ABSTRACT_VISITOR, classWriter, apiName);
+    }
+
+    static void addAbstractVisitorMethod(ClassWriter classWriter, String elementName, String apiName){
+        String elementTypeDesc = getFullClassTypeNameDesc(toCamelCase(elementName), apiName);
+
+        MethodVisitor mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "initVisit", "(" + elementTypeDesc + ")V", null, null);
+        mVisitor1.visitCode();
+        mVisitor1.visitVarInsn(ALOAD, 0);
+        mVisitor1.visitVarInsn(ALOAD, 1);
+        mVisitor1.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_VISITOR_TYPE, "initVisit", "(" + IELEMENT_TYPE_DESC + ")V", false);
+        mVisitor1.visitInsn(RETURN);
+        mVisitor1.visitMaxs(2, 2);
+        mVisitor1.visitEnd();
+
+        mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "endVisit", "(" + elementTypeDesc + ")V", null, null);
+        mVisitor1.visitCode();
+        mVisitor1.visitVarInsn(ALOAD, 0);
+        mVisitor1.visitVarInsn(ALOAD, 1);
+        mVisitor1.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_VISITOR_TYPE, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", false);
+        mVisitor1.visitInsn(RETURN);
+        mVisitor1.visitMaxs(2, 2);
+        mVisitor1.visitEnd();
     }
 
     static void generateVisitorInterface(List<XsdElement> elementList, String apiName) {
         ClassWriter classWriter = generateClass(VISITOR, JAVA_OBJECT, null, null, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
-        elementList.forEach(element -> {
-            String elementTypeDesc = getFullClassTypeNameDesc(toCamelCase(element.getName()), apiName);
+        elementList.forEach(element -> addVisitorInterfaceMethod(classWriter, element.getName(), apiName));
 
-            MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "initVisit", "(" + elementTypeDesc + ")V", null, null);
-            mVisitor.visitEnd();
-
-            mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "endVisit", "(" + elementTypeDesc + ")V", null, null);
-            mVisitor.visitEnd();
-        });
+        addVisitorInterfaceMethod(classWriter, TEXT_CLASS, apiName);
 
         writeClassToFile(VISITOR, classWriter, apiName);
+    }
+
+    static void addVisitorInterfaceMethod(ClassWriter classWriter, String elementName, String apiName){
+        String elementTypeDesc = getFullClassTypeNameDesc(toCamelCase(elementName), apiName);
+
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "initVisit", "(" + elementTypeDesc + ")V", null, null);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "endVisit", "(" + elementTypeDesc + ")V", null, null);
+        mVisitor.visitEnd();
     }
 
     /**

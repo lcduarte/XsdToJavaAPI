@@ -1,3 +1,5 @@
+import Utils.CustomVisitor;
+import Utils.Student;
 import XsdToJavaAPI.Html5Xsd2JavaApi.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -97,7 +99,29 @@ public class Html5Xsd2JavaApiTest {
             Assert.fail();
         } catch (RestrictionViolationException ignored){ }
     }
+
+    @Test
+    public void testVisits(){
+        Html rootDoc1 = new Html();
+        Html rootDoc2 = new Html();
+
+        rootDoc1.body()
+                .div()
+                .text("This is a regular String.");
+
+        rootDoc2.body()
+                .div()
+                .text(Student::getName);
+
+        CustomVisitor customVisitor = new CustomVisitor();
+
+        customVisitor.init(rootDoc1);
+
+        //TODO Não estou a ver como é que passo um Student ao text
+    }
+
 }
+
 
 
 /*
