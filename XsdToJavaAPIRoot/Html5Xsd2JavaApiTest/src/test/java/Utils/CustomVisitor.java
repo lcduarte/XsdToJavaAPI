@@ -1,8 +1,29 @@
 package Utils;
 
-import XsdToJavaAPI.Html5Xsd2JavaApi.*;
+import XsdToJavaAPI.Html5Xsd2JavaApi.AbstractVisitor;
+import XsdToJavaAPI.Html5Xsd2JavaApi.Html;
+import XsdToJavaAPI.Html5Xsd2JavaApi.IElement;
+import XsdToJavaAPI.Html5Xsd2JavaApi.Text;
 
-public class CustomVisitor extends AbstractVisitor {
+import java.io.PrintStream;
+
+public class CustomVisitor<T> extends AbstractVisitor<T> {
+
+    private T model;
+    private PrintStream DEFAULT_PRINT_STREAM = new PrintStream(System.out);
+    private PrintStream printStream = DEFAULT_PRINT_STREAM;
+
+    public CustomVisitor(){
+
+    }
+
+    public CustomVisitor(T model){
+        this.model = model;
+    }
+
+    public void setPrintStream(PrintStream printStream) {
+        this.printStream = printStream;
+    }
 
     public void init(Html rootDoc1) {
         initVisit(rootDoc1);
@@ -10,7 +31,9 @@ public class CustomVisitor extends AbstractVisitor {
     }
 
     @Override
-    public <T extends IElement> void initVisit(IElement<T> element) {
+    public <R extends IElement> void initVisit(IElement<R> element) {
+        printStream.printf("<%s>\n", element.getClass().getSimpleName());
+
         element.getChildren().forEach(child -> {
             child.acceptInit(this);
             child.acceptEnd(this);
@@ -18,51 +41,27 @@ public class CustomVisitor extends AbstractVisitor {
     }
 
     @Override
-    public <T extends IElement> void endVisit(IElement<T> element) {
-
-    }
-
-    public void initVisit(Html html){
-        System.out.println("Abre Html");
-
-        super.initVisit(html);
+    public <R extends IElement> void endVisit(IElement<R> element) {
+        printStream.printf("</%s>\n", element.getClass().getSimpleName());
     }
 
     @Override
-    public void endVisit(Html html) {
-        System.out.println("Fecha Html");
-    }
+    public void initVisit(Text<T> text){
+        String textValue = text.getValue();
 
-    public void initVisit(Body body){
-        System.out.println("Abre Body");
+        if (textValue != null){
+            printStream.println(textValue);
+        } else {
+            if (model == null){
+                throw new RuntimeException("Text node is missing the model. Usage of new CustomVisitor(model) is required.");
+            }
 
-        super.initVisit(body);
-    }
-
-    @Override
-    public void endVisit(Body body) {
-        System.out.println("Fecha Body");
-    }
-
-    public void initVisit(Div div){
-        System.out.println("Abre Div");
-
-        super.initVisit(div);
-    }
-
-    @Override
-    public void endVisit(Div div) {
-        System.out.println("Fecha Div");
-    }
-
-    public void initVisit(Text text){
-        System.out.println("Abre Text");
-
-        System.out.println(text.getValue());
+            printStream.println(text.getValue(model));
+        }
     }
 
     @Override
     public void endVisit(Text text) {
-        System.out.println("Fecha Text");
+
     }
 }

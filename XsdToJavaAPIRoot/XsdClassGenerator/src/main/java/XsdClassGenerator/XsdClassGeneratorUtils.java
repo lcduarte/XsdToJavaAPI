@@ -381,15 +381,24 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitEnd();
     }
 
-    //TODO Doc
+    /**
+     * Generates both the visitor interface and abstract visitor with method for each element from the list.
+     * @param elementList The elements list.
+     * @param apiName The api this classes will belong to.
+     */
     static void generateVisitors(List<XsdElement> elementList, String apiName){
         generateVisitorInterface(elementList, apiName);
 
         generateAbstractVisitor(elementList, apiName);
     }
 
-    static void generateAbstractVisitor(List<XsdElement> elementList, String apiName) {
-        ClassWriter classWriter = generateClass(ABSTRACT_VISITOR, JAVA_OBJECT, new String[]{VISITOR}, null, ACC_PUBLIC + ACC_ABSTRACT + ACC_SUPER, apiName);
+    /**
+     * Generates the AbstractVisitor class, with methods for every element in the list.
+     * @param elementList The element list.
+     * @param apiName The api this class will belong to.
+     */
+    private static void generateAbstractVisitor(List<XsdElement> elementList, String apiName) {
+        ClassWriter classWriter = generateClass(ABSTRACT_VISITOR, JAVA_OBJECT, new String[]{VISITOR}, "<T:Ljava/lang/Object;>Ljava/lang/Object;L" + VISITOR_TYPE + "<TT;>;", ACC_PUBLIC + ACC_ABSTRACT + ACC_SUPER, apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "()V", null, null);
         mVisitor.visitCode();
@@ -405,17 +414,24 @@ public class XsdClassGeneratorUtils {
         mVisitor = classWriter.visitMethod(ACC_ABSTRACT + ACC_PUBLIC, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", "<T::" + IELEMENT_TYPE_DESC + ">(L" + IELEMENT_TYPE + "<TT;>;)V", null);
         mVisitor.visitEnd();
 
-        elementList.forEach(element -> addAbstractVisitorMethod(classWriter, element.getName(), apiName));
+        elementList.forEach(element -> addAbstractVisitorMethod(classWriter, element.getName(), null, apiName));
 
-        addAbstractVisitorMethod(classWriter, TEXT_CLASS, apiName);
+        addAbstractVisitorMethod(classWriter, TEXT_CLASS, "(L" + TEXT_TYPE + "<TT;>;)V", apiName);
 
         writeClassToFile(ABSTRACT_VISITOR, classWriter, apiName);
     }
 
-    static void addAbstractVisitorMethod(ClassWriter classWriter, String elementName, String apiName){
+    /**
+     * Adds methods for a single element in the AbstractVisitor class.
+     * @param classWriter The AbstractVisitor class writer.
+     * @param elementName The element for which the methods will be generated.
+     * @param signature The signature of the methods.
+     * @param apiName The api name from the AbstractVisitor class.
+     */
+    private static void addAbstractVisitorMethod(ClassWriter classWriter, String elementName, String signature, String apiName){
         String elementTypeDesc = getFullClassTypeNameDesc(toCamelCase(elementName), apiName);
 
-        MethodVisitor mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "initVisit", "(" + elementTypeDesc + ")V", null, null);
+        MethodVisitor mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "initVisit", "(" + elementTypeDesc + ")V", signature, null);
         mVisitor1.visitCode();
         mVisitor1.visitVarInsn(ALOAD, 0);
         mVisitor1.visitVarInsn(ALOAD, 1);
@@ -424,7 +440,7 @@ public class XsdClassGeneratorUtils {
         mVisitor1.visitMaxs(2, 2);
         mVisitor1.visitEnd();
 
-        mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "endVisit", "(" + elementTypeDesc + ")V", null, null);
+        mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "endVisit", "(" + elementTypeDesc + ")V", signature, null);
         mVisitor1.visitCode();
         mVisitor1.visitVarInsn(ALOAD, 0);
         mVisitor1.visitVarInsn(ALOAD, 1);
@@ -434,23 +450,35 @@ public class XsdClassGeneratorUtils {
         mVisitor1.visitEnd();
     }
 
-    static void generateVisitorInterface(List<XsdElement> elementList, String apiName) {
-        ClassWriter classWriter = generateClass(VISITOR, JAVA_OBJECT, null, null, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
+    /**
+     * Generates the visitor class for this api with methods for all elements in the element list.
+     * @param elementList The element list.
+     * @param apiName The api this class will belong to.
+     */
+    private static void generateVisitorInterface(List<XsdElement> elementList, String apiName) {
+        ClassWriter classWriter = generateClass(VISITOR, JAVA_OBJECT, null, "<T:Ljava/lang/Object;>Ljava/lang/Object;", ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
-        elementList.forEach(element -> addVisitorInterfaceMethod(classWriter, element.getName(), apiName));
+        elementList.forEach(element -> addVisitorInterfaceMethod(classWriter, element.getName(), null, apiName));
 
-        addVisitorInterfaceMethod(classWriter, TEXT_CLASS, apiName);
+        addVisitorInterfaceMethod(classWriter, TEXT_CLASS, "(L" + TEXT_TYPE + "<TT;>;)V", apiName);
 
         writeClassToFile(VISITOR, classWriter, apiName);
     }
 
-    static void addVisitorInterfaceMethod(ClassWriter classWriter, String elementName, String apiName){
+    /**
+     * Adds methods for each element to the visitor interface.
+     * @param classWriter The Visitor interface class writer.
+     * @param elementName The element for which the methods will be generated.
+     * @param signature The signature of the methods to be generated.
+     * @param apiName The api name from the Visitor interface.
+     */
+    private static void addVisitorInterfaceMethod(ClassWriter classWriter, String elementName, String signature, String apiName){
         String elementTypeDesc = getFullClassTypeNameDesc(toCamelCase(elementName), apiName);
 
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "initVisit", "(" + elementTypeDesc + ")V", null, null);
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "initVisit", "(" + elementTypeDesc + ")V", signature, null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "endVisit", "(" + elementTypeDesc + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "endVisit", "(" + elementTypeDesc + ")V", signature, null);
         mVisitor.visitEnd();
     }
 

@@ -45,6 +45,10 @@ public class Text<T> extends AbstractElement<Text>{
     }
 
     public String getValue(T obj) {
+        if (textFunction == null){
+            return text;
+        }
+
         return textFunction.apply(obj);
     }
 

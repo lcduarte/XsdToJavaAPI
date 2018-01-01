@@ -4,6 +4,11 @@ import XsdToJavaAPI.Html5Xsd2JavaApi.*;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+
 public class Html5Xsd2JavaApiTest {
 
     //TODO Ver a lógica de ter mais do que um tipo possivel para um dado attributo.
@@ -100,53 +105,62 @@ public class Html5Xsd2JavaApiTest {
         } catch (RestrictionViolationException ignored){ }
     }
 
+    /**
+     * Tests the custom visitor without applying any model to text<T>
+     */
     @Test
-    public void testVisits(){
-        Html rootDoc1 = new Html();
-        Html rootDoc2 = new Html();
+    public void testVisitsWithoutModel(){
+        Html rootDoc = new Html();
 
-        rootDoc1.body()
+        rootDoc.body()
                 .div()
                 .text("This is a regular String.");
 
-        rootDoc2.body()
+        CustomVisitor customVisitor = new CustomVisitor();
+
+        String expected = "<Html>\n<Body>\n<Div>\nThis is a regular String.\r\n</Div>\n</Body>\n</Html>\n";
+
+        Assert.assertTrue(customVisitPrintAssert(customVisitor, rootDoc, expected));
+    }
+
+    /**
+     * Tests the custom visitor with a model based on the class Student and its getName method.
+     */
+    @Test
+    public void testVisitsWithModel(){
+        Html rootDoc = new Html();
+
+        rootDoc.body()
                 .div()
                 .text(Student::getName);
 
-        CustomVisitor customVisitor = new CustomVisitor();
+        CustomVisitor<Student> customVisitor = new CustomVisitor<>(new Student("Luís"));
 
-        customVisitor.init(rootDoc1);
+        String expected = "<Html>\n<Body>\n<Div>\nLuís\r\n</Div>\n</Body>\n</Html>\n";
 
-        //TODO Não estou a ver como é que passo um Student ao text
+        Assert.assertTrue(customVisitPrintAssert(customVisitor, rootDoc, expected));
+    }
+
+    boolean customVisitPrintAssert(CustomVisitor customVisitor, Html rootDoc, String expected){
+        boolean result = false;
+
+        try {
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            PrintStream printStream = new PrintStream(buffer, false, "utf-8");
+
+            customVisitor.setPrintStream(printStream);
+            customVisitor.init(rootDoc);
+
+            String content = new String(buffer.toByteArray(), StandardCharsets.UTF_8);
+
+            result = expected.equals(content);
+
+            printStream.close();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 }
-
-
-
-/*
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Title here</title>
-
-    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
-    <link rel="stylesheet" href="assets/styles/main.css" type="text/css">
-</head>
-<body class="clear">
-<div id="col-wrap">
-    <header id="header">
-        <section>
-            <div class="logo">
-                <img id="brand" src="./assets/images/logo.png">
-            </div>
-            <aside class="aside narrow">
-                <em class="right"> Advertisement <span class="number">1-833-2GET-REV</span></em>
-            </aside>
-        </section>
-    </header>
-</div>
-</body>
-</html>
- */

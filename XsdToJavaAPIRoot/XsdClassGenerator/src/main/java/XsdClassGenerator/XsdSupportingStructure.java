@@ -383,6 +383,15 @@ class XsdSupportingStructure {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, TEXT_TYPE, "textFunction", "Ljava/util/function/Function;");
+        Label l0 = new Label();
+        mVisitor.visitJumpInsn(IFNONNULL, l0);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, TEXT_TYPE, "text", JAVA_STRING_DESC);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitLabel(l0);
+        mVisitor.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, TEXT_TYPE, "textFunction", "Ljava/util/function/Function;");
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/function/Function", "apply", "(" + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, true);
         mVisitor.visitTypeInsn(CHECKCAST, JAVA_STRING);
