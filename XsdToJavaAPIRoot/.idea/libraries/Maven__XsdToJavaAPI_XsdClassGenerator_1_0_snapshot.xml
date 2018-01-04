@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: XsdToJavaAPI:XsdClassGenerator:1.0-snapshot">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/XsdToJavaAPI/XsdClassGenerator/1.0-SNAPSHOT/XsdClassGenerator-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/XsdToJavaAPI/XsdClassGenerator/1.0-snapshot/XsdClassGenerator-1.0-snapshot-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/XsdToJavaAPI/XsdClassGenerator/1.0-snapshot/XsdClassGenerator-1.0-snapshot-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

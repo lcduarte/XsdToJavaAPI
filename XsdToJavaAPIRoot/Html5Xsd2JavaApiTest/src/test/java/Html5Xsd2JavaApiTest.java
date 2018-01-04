@@ -15,6 +15,8 @@ public class Html5Xsd2JavaApiTest {
     //TODO Verificar se existe mais alguma coisa de errado com as restrições
     //TODO Existem atributos que por vezes tem tipo e outras vezes não tem. Dois attributos diferentes?
 
+    //TODO Accept deveria receber um Visitor<T>
+
     @Test
     public void testGeneratedClassesIntegrity() throws Exception {
         Html root = new Html();

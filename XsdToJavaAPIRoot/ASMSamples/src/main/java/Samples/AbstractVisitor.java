@@ -1,6 +1,6 @@
 package Samples;
 
-public abstract class AbstractVisitor<T> implements Visitor<T>{
+public abstract class AbstractVisitor<R> implements Visitor<R>{
 
     abstract <T extends IElement> void initVisit(IElement<T> elem);
 

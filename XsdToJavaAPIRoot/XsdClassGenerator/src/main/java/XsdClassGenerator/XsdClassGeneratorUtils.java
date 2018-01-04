@@ -257,23 +257,32 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "acceptInit", "(" + VISITOR_TYPE_DESC + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "accept", "(" + VISITOR_TYPE_DESC + ")V", null, null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, VISITOR_TYPE, "initVisit", "(" + classTypeDesc + ")V", true);
-        mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 2);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "acceptEnd", "(" + VISITOR_TYPE_DESC + ")V", null, null);
-        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, classType, "getChildren", "()Ljava/util/List;", false);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitInvokeDynamicInsn("accept", "(" + VISITOR_TYPE_DESC + ")Ljava/util/function/Consumer;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(Ljava/lang/Object;)V"), new Handle(Opcodes.H_INVOKESTATIC, classType, "lambda$accept$0", "(" + VISITOR_TYPE_DESC + IELEMENT_TYPE_DESC + ")V", false), Type.getType("(" + IELEMENT_TYPE_DESC + ")V"));
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/List", "forEach", "(Ljava/util/function/Consumer;)V", true);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, VISITOR_TYPE, "endVisit", "(" + classTypeDesc + ")V", true);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$accept$0", "(" + VISITOR_TYPE_DESC + IELEMENT_TYPE_DESC + ")V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "accept", "(" + VISITOR_TYPE_DESC + ")V", true);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, "self", "()" + IELEMENT_TYPE_DESC, null, null);
         mVisitor.visitCode();
@@ -398,7 +407,7 @@ public class XsdClassGeneratorUtils {
      * @param apiName The api this class will belong to.
      */
     private static void generateAbstractVisitor(List<XsdElement> elementList, String apiName) {
-        ClassWriter classWriter = generateClass(ABSTRACT_VISITOR, JAVA_OBJECT, new String[]{VISITOR}, "<T:Ljava/lang/Object;>Ljava/lang/Object;L" + VISITOR_TYPE + "<TT;>;", ACC_PUBLIC + ACC_ABSTRACT + ACC_SUPER, apiName);
+        ClassWriter classWriter = generateClass(ABSTRACT_VISITOR, JAVA_OBJECT, new String[]{VISITOR}, "<R:Ljava/lang/Object;>Ljava/lang/Object;L" + VISITOR_TYPE + "<TR;>;", ACC_PUBLIC + ACC_ABSTRACT + ACC_SUPER, apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "()V", null, null);
         mVisitor.visitCode();
@@ -416,7 +425,7 @@ public class XsdClassGeneratorUtils {
 
         elementList.forEach(element -> addAbstractVisitorMethod(classWriter, element.getName(), null, apiName));
 
-        addAbstractVisitorMethod(classWriter, TEXT_CLASS, "(L" + TEXT_TYPE + "<TT;>;)V", apiName);
+        addAbstractVisitorMethod(classWriter, TEXT_CLASS, "(L" + TEXT_TYPE + "<TR;>;)V", apiName);
 
         writeClassToFile(ABSTRACT_VISITOR, classWriter, apiName);
     }
@@ -456,11 +465,11 @@ public class XsdClassGeneratorUtils {
      * @param apiName The api this class will belong to.
      */
     private static void generateVisitorInterface(List<XsdElement> elementList, String apiName) {
-        ClassWriter classWriter = generateClass(VISITOR, JAVA_OBJECT, null, "<T:Ljava/lang/Object;>Ljava/lang/Object;", ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
+        ClassWriter classWriter = generateClass(VISITOR, JAVA_OBJECT, null, "<R:Ljava/lang/Object;>Ljava/lang/Object;", ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
         elementList.forEach(element -> addVisitorInterfaceMethod(classWriter, element.getName(), null, apiName));
 
-        addVisitorInterfaceMethod(classWriter, TEXT_CLASS, "(L" + TEXT_TYPE + "<TT;>;)V", apiName);
+        addVisitorInterfaceMethod(classWriter, TEXT_CLASS, "(L" + TEXT_TYPE + "<TR;>;)V", apiName);
 
         writeClassToFile(VISITOR, classWriter, apiName);
     }

@@ -7,9 +7,9 @@ import XsdToJavaAPI.Html5Xsd2JavaApi.Text;
 
 import java.io.PrintStream;
 
-public class CustomVisitor<T> extends AbstractVisitor<T> {
+public class CustomVisitor<R> extends AbstractVisitor<R> {
 
-    private T model;
+    private R model;
     private PrintStream DEFAULT_PRINT_STREAM = new PrintStream(System.out);
     private PrintStream printStream = DEFAULT_PRINT_STREAM;
 
@@ -17,7 +17,7 @@ public class CustomVisitor<T> extends AbstractVisitor<T> {
 
     }
 
-    public CustomVisitor(T model){
+    public CustomVisitor(R model){
         this.model = model;
     }
 
@@ -26,27 +26,21 @@ public class CustomVisitor<T> extends AbstractVisitor<T> {
     }
 
     public void init(Html rootDoc1) {
-        initVisit(rootDoc1);
-        endVisit(rootDoc1);
+        rootDoc1.accept(this);
     }
 
     @Override
-    public <R extends IElement> void initVisit(IElement<R> element) {
-        printStream.printf("<%s>\n", element.getClass().getSimpleName());
-
-        element.getChildren().forEach(child -> {
-            child.acceptInit(this);
-            child.acceptEnd(this);
-        });
+    public <T extends IElement> void initVisit(IElement<T> element) {
+        printStream.printf("<%s>\n", element.getName());
     }
 
     @Override
-    public <R extends IElement> void endVisit(IElement<R> element) {
-        printStream.printf("</%s>\n", element.getClass().getSimpleName());
+    public <T extends IElement> void endVisit(IElement<T> element) {
+        printStream.printf("</%s>\n", element.getName());
     }
 
     @Override
-    public void initVisit(Text<T> text){
+    public void initVisit(Text<R> text){
         String textValue = text.getValue();
 
         if (textValue != null){
@@ -56,12 +50,12 @@ public class CustomVisitor<T> extends AbstractVisitor<T> {
                 throw new RuntimeException("Text node is missing the model. Usage of new CustomVisitor(model) is required.");
             }
 
-            printStream.println(text.getValue(model));
+            printStream.println(text.getValue((R) model));
         }
     }
 
     @Override
-    public void endVisit(Text text) {
+    public void endVisit(Text<R> text) {
 
     }
 }

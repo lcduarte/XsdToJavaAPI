@@ -1,6 +1,6 @@
 package Samples;
 
-public interface Visitor<T> {
+public interface Visitor<R> {
 
     void initVisit(H1 elem);
     void endVisit(H1 elem);
@@ -8,6 +8,7 @@ public interface Visitor<T> {
     void initVisit(Div elem);
     void endVisit(Div elem);
 
-    void initVisit(Text<T> text);
-    void endVisit(Text<T> text);
+    void initVisit(Text<R> elem);
+    void endVisit(Text<R> elem);
 }
+

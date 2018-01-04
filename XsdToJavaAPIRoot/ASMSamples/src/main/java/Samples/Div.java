@@ -25,12 +25,11 @@ public class Div extends AbstractElement<Div> implements ICommonAttributeGroup<D
     public Div self() {return this; }
 
     @Override
-    public void acceptInit(Visitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.initVisit(this);
-    }
 
-    @Override
-    public void acceptEnd(Visitor visitor) {
+        getChildren().forEach(child -> child.accept(visitor));
+
         visitor.endVisit(this);
     }
 }

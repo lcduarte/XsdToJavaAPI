@@ -2,16 +2,16 @@ package Samples;
 
 import java.util.function.Function;
 
-public class Text<T> extends AbstractElement<Text>{
+public class Text<R> extends AbstractElement<Text>{
 
     private String text;
-    private Function<T, String> textFunction;
+    private Function<R, String> textFunction;
 
     public Text(String text) {
         this.text = text;
     }
 
-    public Text(Function<T, String> textFunction) {
+    public Text(Function<R, String> textFunction) {
         this.textFunction = textFunction;
     }
 
@@ -31,12 +31,9 @@ public class Text<T> extends AbstractElement<Text>{
     }
 
     @Override
-    public void acceptInit(Visitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.initVisit(this);
-    }
 
-    @Override
-    public void acceptEnd(Visitor visitor) {
         visitor.endVisit(this);
     }
 
@@ -44,7 +41,7 @@ public class Text<T> extends AbstractElement<Text>{
         return text;
     }
 
-    public String getValue(T obj) {
+    public String getValue(R obj) {
         if (textFunction == null){
             return text;
         }

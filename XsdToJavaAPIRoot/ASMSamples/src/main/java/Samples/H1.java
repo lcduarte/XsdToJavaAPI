@@ -9,12 +9,12 @@ public class H1 extends AbstractElement<H1> implements IFlowContent<H1> {
     public H1 self() {return this; }
 
     @Override
-    public void acceptInit(Visitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.initVisit(this);
-    }
 
-    @Override
-    public void acceptEnd(Visitor visitor) {
+        getChildren().forEach(child -> child.accept(visitor));
+
         visitor.endVisit(this);
     }
+
 }

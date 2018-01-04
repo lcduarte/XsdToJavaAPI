@@ -10,6 +10,6 @@ public interface IElement<T extends IElement> {
 
     List<IElement<T>> getChildren();
     List<IAttribute> getAttributes();
-    void acceptInit(Visitor visitor);
-    void acceptEnd(Visitor visitor);
+    String getName();
+    void accept(Visitor visitor);
 }

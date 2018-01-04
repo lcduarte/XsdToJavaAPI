@@ -10,6 +10,7 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
     protected List<IElement<T>> children = new ArrayList<>();
     protected List<IAttribute> attrs = new ArrayList<>();
     protected String id;
+    protected String name = getClass().getSimpleName();
 
     public void addChild(IElement child) {
         this.children.add(child);
@@ -49,5 +50,9 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
 
     public List<IAttribute> getAttributes() {
         return attrs;
+    }
+
+    public String getName(){
+        return name;
     }
 }
