@@ -223,6 +223,7 @@ public class XsdClassGeneratorUtils {
         String classTypeDesc = getFullClassTypeNameDesc(className, apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", null, null);
+        mVisitor.visitLocalVariable("id", JAVA_STRING_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "()V", false);
@@ -234,6 +235,8 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")V", null, null);
+        mVisitor.visitLocalVariable("id", JAVA_STRING_DESC, null, new Label(), new Label(),1);
+        mVisitor.visitLocalVariable("text", JAVA_STRING_DESC, null, new Label(), new Label(),2);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "()V", false);
@@ -258,6 +261,7 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "accept", "(" + VISITOR_TYPE_DESC + ")V", null, null);
+        mVisitor.visitLocalVariable("visitor", VISITOR_TYPE_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitVarInsn(ALOAD, 0);
@@ -282,7 +286,6 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
-
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, "self", "()" + IELEMENT_TYPE_DESC, null, null);
         mVisitor.visitCode();
@@ -331,6 +334,8 @@ public class XsdClassGeneratorUtils {
             mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + ")" + returnType, "(" + JAVA_STRING_DESC + ")" + returnType, null);
         }
 
+        mVisitor.visitLocalVariable("id", JAVA_STRING_DESC, null, new Label(), new Label(),1);
+
         mVisitor.visitCode();
         mVisitor.visitTypeInsn(NEW, childType);
         mVisitor.visitInsn(DUP);
@@ -362,6 +367,9 @@ public class XsdClassGeneratorUtils {
         } else {
             mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")" + returnType, "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")" + returnType, null);
         }
+
+        mVisitor.visitLocalVariable("id", JAVA_STRING_DESC, null, new Label(), new Label(),1);
+        mVisitor.visitLocalVariable("text", JAVA_STRING_DESC, null, new Label(), new Label(),2);
 
         mVisitor.visitCode();
         mVisitor.visitTypeInsn(NEW, childType);
@@ -418,9 +426,11 @@ public class XsdClassGeneratorUtils {
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_ABSTRACT + ACC_PUBLIC, "initVisit", "(" + IELEMENT_TYPE_DESC + ")V", "<T::" + IELEMENT_TYPE_DESC + ">(L" + IELEMENT_TYPE + "<TT;>;)V", null);
+        mVisitor.visitLocalVariable("elem", IELEMENT_TYPE_DESC, "L" + IELEMENT_TYPE + "<TT;>;", new Label(), new Label(),1);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_ABSTRACT + ACC_PUBLIC, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", "<T::" + IELEMENT_TYPE_DESC + ">(L" + IELEMENT_TYPE + "<TT;>;)V", null);
+        mVisitor.visitLocalVariable("elem", IELEMENT_TYPE_DESC, IELEMENT_TYPE + "<T>", new Label(), new Label(),1);
         mVisitor.visitEnd();
 
         elementList.forEach(element -> addAbstractVisitorMethod(classWriter, element.getName(), null, apiName));
@@ -440,23 +450,25 @@ public class XsdClassGeneratorUtils {
     private static void addAbstractVisitorMethod(ClassWriter classWriter, String elementName, String signature, String apiName){
         String elementTypeDesc = getFullClassTypeNameDesc(toCamelCase(elementName), apiName);
 
-        MethodVisitor mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "initVisit", "(" + elementTypeDesc + ")V", signature, null);
-        mVisitor1.visitCode();
-        mVisitor1.visitVarInsn(ALOAD, 0);
-        mVisitor1.visitVarInsn(ALOAD, 1);
-        mVisitor1.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_VISITOR_TYPE, "initVisit", "(" + IELEMENT_TYPE_DESC + ")V", false);
-        mVisitor1.visitInsn(RETURN);
-        mVisitor1.visitMaxs(2, 2);
-        mVisitor1.visitEnd();
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, "initVisit", "(" + elementTypeDesc + ")V", signature, null);
+        mVisitor.visitLocalVariable(elementName, elementTypeDesc, null, new Label(), new Label(),1);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_VISITOR_TYPE, "initVisit", "(" + IELEMENT_TYPE_DESC + ")V", false);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
 
-        mVisitor1 = classWriter.visitMethod(ACC_PUBLIC, "endVisit", "(" + elementTypeDesc + ")V", signature, null);
-        mVisitor1.visitCode();
-        mVisitor1.visitVarInsn(ALOAD, 0);
-        mVisitor1.visitVarInsn(ALOAD, 1);
-        mVisitor1.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_VISITOR_TYPE, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", false);
-        mVisitor1.visitInsn(RETURN);
-        mVisitor1.visitMaxs(2, 2);
-        mVisitor1.visitEnd();
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "endVisit", "(" + elementTypeDesc + ")V", signature, null);
+        mVisitor.visitLocalVariable(elementName, elementTypeDesc, null, new Label(), new Label(),1);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_VISITOR_TYPE, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", false);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
     }
 
     /**
@@ -485,9 +497,11 @@ public class XsdClassGeneratorUtils {
         String elementTypeDesc = getFullClassTypeNameDesc(toCamelCase(elementName), apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "initVisit", "(" + elementTypeDesc + ")V", signature, null);
+        mVisitor.visitLocalVariable(elementName, elementTypeDesc, signature, new Label(), new Label(),1);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "endVisit", "(" + elementTypeDesc + ")V", signature, null);
+        mVisitor.visitLocalVariable(elementName, elementTypeDesc, signature, new Label(), new Label(),1);
         mVisitor.visitEnd();
     }
 
@@ -510,6 +524,10 @@ public class XsdClassGeneratorUtils {
             mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")" + returnType, null);
         }
 
+        String attrName = elementAttribute.getName();
+        attrName = attrName.substring(0, 1).toLowerCase() + attrName.substring(1);
+
+        mVisitor.visitLocalVariable(attrName, javaType, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         /**
@@ -561,6 +579,7 @@ public class XsdClassGeneratorUtils {
         fVisitor.visitEnd();
 
         MethodVisitor mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", "(T" + javaType + ";)V", null);
+        mVisitor.visitLocalVariable("attributeValue", JAVA_OBJECT_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
