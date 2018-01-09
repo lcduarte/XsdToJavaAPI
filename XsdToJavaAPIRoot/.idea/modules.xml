@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ASMSamples/ASMSamples.iml" filepath="$PROJECT_DIR$/ASMSamples/ASMSamples.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Html5Xsd2JavaApi/Html5Xsd2JavaApi.iml" filepath="$PROJECT_DIR$/Html5Xsd2JavaApi/Html5Xsd2JavaApi.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Html5Xsd2JavaApiTest/Html5Xsd2JavaApiTest.iml" filepath="$PROJECT_DIR$/Html5Xsd2JavaApiTest/Html5Xsd2JavaApiTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/XsdClassGenerator/XsdClassGenerator.iml" filepath="$PROJECT_DIR$/XsdClassGenerator/XsdClassGenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HtmlApi/HtmlApi.iml" filepath="$PROJECT_DIR$/HtmlApi/HtmlApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" filepath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XsdAsm/XsdAsm.iml" filepath="$PROJECT_DIR$/XsdAsm/XsdAsm.iml" />
       <module fileurl="file://$PROJECT_DIR$/XsdParser/XsdParser.iml" filepath="$PROJECT_DIR$/XsdParser/XsdParser.iml" />
       <module fileurl="file://$PROJECT_DIR$/XsdToJavaAPIRoot.iml" filepath="$PROJECT_DIR$/XsdToJavaAPIRoot.iml" />
     </modules>

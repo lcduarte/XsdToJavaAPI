@@ -11,9 +11,9 @@
 
     <modules>
         <module>XsdParser</module>
-        <module>XsdClassGenerator</module>
-        <module>Html5Xsd2JavaApi</module>
-        <module>Html5Xsd2JavaApiTest</module>
+        <module>XsdAsm</module>
+        <module>HtmlApi</module>
+        <module>HtmlApiTest</module>
         <module>ASMSamples</module>
     </modules>
 </project>
