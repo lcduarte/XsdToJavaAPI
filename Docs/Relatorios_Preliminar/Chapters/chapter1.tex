@@ -10,13 +10,13 @@ This project has the objective of implementing a Java solution that allows the a
 
 \section{Motivation}
 
-Text as suffered some changes with the advance of technology creating a different kind of text, which adds meaning to the text. This evolution resulted in the creation of markup languages which add annotations to text, also known as tags, that allow to change text meaning. Each markup language has its own tags and each of those tags add a different meaning to the text encapsulated in them. In order to use markup languages the users can write the text and add all the tags manually, either by fully writing them or by using some kind of text helpers such as intellisense which can help diminish the errors caused by manually writing the tags. But even with text helpers the resulting document can violate the restrictions of the respective markup language. 
+Text has suffered some changes with the advance of technology creating a different kind of text. This evolution resulted in the creation of markup languages which add annotations to text, also known as tags, that allow to change the meaning of the text. Each markup language has its own tags and each of those tags add a different meaning to the text encapsulated in them. In order to use markup languages the users can write the text and add all the tags manually, either by fully writing them or by using some kind of text helpers such as intellisense which can help diminish the errors caused by manually writing the tags. But even with text helpers the resulting document can violate the restrictions of the respective markup language. 
 
 \noindent
 The solution to having documents that respect the markup language rules is reversing the way the document writing works. While the user has control over the writing process errors can be induced in the document but if the writing control is moved from the user to an entity which can enforce the markup languages restrictions then the user can't produce a document with errors because that entity won't allow it. In order to create this entity all the restrictions of the given markup language could be recreated in a programming language and therefore making available an API that allows the user to generate the document. The only problem with this solution is recreating all the rules of a given markup language, which can be a very long process since most markup languages have a vast number of elements and restrictions. 
 
 \noindent
-The solution for this problem is automation. An automated process that converts the definition of elements and restrictions of markups languages in Java classes that represent those elements and methods that enforce those restrictions. With this automated process the Java application can generate a fluent API that allow users to write their texts in a fluent way without errors and respecting the markup language semantics. This is the main objective of this thesis, creating an infrastructure that reads a markup language definition, in XML Schema Definition, and generating an API that allows the users to write well formed documents.
+The solution for this problem is automation. An automated process that converts the definition of elements and restrictions of markups languages in classes that represent those elements and methods that enforce those restrictions. With this automated process the application can generate a fluent API that allow the users to write their texts in a fluent way without errors and respecting the markup language semantics. This is the main objective of this thesis, creating an infrastructure that reads a markup language definition, in XML Schema Definition, and generates an API that allows the users to write well formed documents.
 
 \section{Use case}
 
@@ -24,6 +24,8 @@ The use case that will be used to test and evaluate the solution will be the HTM
 
 \noindent
 The generated HTML5 elements API will then be used in the HtmlFlow API, which is also a fluent java API that is used to write well formed HTML files. At the moment the HtmlFlow library only supports a set of the HTML elements which were created manually and the rest of the library interacts with those elements in order to write the HTML files. With the help of the solution which will be developed in this thesis the HtmlFlow will support the whole HTML syntax.
+
+\newpage
 
 \section{Organization}
 
