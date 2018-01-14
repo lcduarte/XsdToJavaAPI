@@ -31,8 +31,8 @@
 
         <dependency>
             <groupId>com.github.xmlet</groupId>
-            <artifactId>HtmlApi</artifactId>
-            <version>1.0-snapshot</version>
+            <artifactId>htmlApi</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

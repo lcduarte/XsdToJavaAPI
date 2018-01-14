@@ -1,9 +1,9 @@
 package Utils;
 
-import XsdToJavaAPI.Html5Xsd2JavaApi.AbstractVisitor;
-import XsdToJavaAPI.Html5Xsd2JavaApi.Html;
-import XsdToJavaAPI.Html5Xsd2JavaApi.IElement;
-import XsdToJavaAPI.Html5Xsd2JavaApi.Text;
+import XsdToJavaAPI.HtmlApi.AbstractVisitor;
+import XsdToJavaAPI.HtmlApi.Html;
+import XsdToJavaAPI.HtmlApi.IElement;
+import XsdToJavaAPI.HtmlApi.Text;
 
 import java.io.PrintStream;
 

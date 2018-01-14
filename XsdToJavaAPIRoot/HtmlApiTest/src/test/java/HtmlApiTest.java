@@ -1,6 +1,6 @@
 import Utils.CustomVisitor;
 import Utils.Student;
-import XsdToJavaAPI.Html5Xsd2JavaApi.*;
+import XsdToJavaAPI.HtmlApi.*;
 import org.junit.Assert;
 import org.junit.Test;
 

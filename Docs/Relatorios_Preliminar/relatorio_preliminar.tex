@@ -84,6 +84,10 @@
 % To aggregate multiple figures in a single one with subfigures
 \usepackage{subfigure}
 
+\lstset{
+  numbers=none,
+}
+
 % To have text wrapping figures
 \usepackage{wrapfig}
 \usepackage{float}						% Improves the interface for defining floating objects such as figures and tables
@@ -235,7 +239,7 @@
 %  Print Bibliography
 % ----------------------------------------------------------------------
 %%
-%\cleardoublepage
+\cleardoublepage
 
 % Include all references in .bib file, even non-cited ones...
 %\nocite{*}
@@ -246,16 +250,16 @@
 % ----------------------------------------------------------------------
 % Replacement bibliography styles provided by 'natbib' package
 % (plainnat.bst, abbrvnat.bst, unsrtnat.bst )
-%\bibliographystyle{plainnat} % > entries ordered alphabetically
+\bibliographystyle{plainnat} % > entries ordered alphabetically
 
 % Bibliography with page numbers
-% \backrefenglish 	% english version
+\backrefenglish 	% english version
 %\backrefbrazil			% portuguese version
 
 % External bibliography database file in the BibTeX format
-%\cleardoublepage
-%\bibliography{bibliography} % file "bibliography.bib"
-%\addcontentsline{toc}{chapter}{\bibname} % Add entry in the table of contents as chapter
+\cleardoublepage
+\bibliography{bibliography} % file "bibliography.bib"
+\addcontentsline{toc}{chapter}{\bibname} % Add entry in the table of contents as chapter
 
 %%
 % ----------------------------------------------------------------------

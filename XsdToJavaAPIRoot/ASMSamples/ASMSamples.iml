@@ -14,6 +14,6 @@
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-util:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-tree:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm:6.0" level="project" />
-    <orderEntry type="module" module-name="XsdParser" />
+    <orderEntry type="library" name="Maven: XsdToJavaAPI:XsdParser:1.0-SNAPSHOT" level="project" />
   </component>
 </module>
