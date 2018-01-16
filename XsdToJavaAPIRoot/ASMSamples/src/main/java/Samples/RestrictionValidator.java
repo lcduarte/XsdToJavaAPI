@@ -35,20 +35,13 @@ public class RestrictionValidator {
 
     //TODO XsdEnumeration ser tipificado?
     private static void validateEnumeration(List<String> enumeration, String string){
-        System.out.println("Marco");
-
         if (enumeration == null){
             return;
         }
 
-        System.out.println("Polo");
-
         if (!enumeration.contains(string)){
-            System.out.println("Abort");
             throw new RestrictionViolationException("Violation of enumeration restriction, value not acceptable for the current type.");
         }
-
-        System.out.println("Null aqui.");
     }
 
     private static void validateFractionDigits(int fractionDigits, double value){

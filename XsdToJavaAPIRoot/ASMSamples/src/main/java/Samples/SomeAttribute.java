@@ -41,12 +41,14 @@ public class SomeAttribute<String> extends AbstractAttribute<String>{
         System.out.println(restrictions.size());
 
         restrictions.forEach(restriction -> {
-            if (value instanceof java.lang.String){
-                RestrictionValidator.validate(restriction, (java.lang.String) value);
+            String toRestrictValue = SomeAttribute.this.getValue();
+
+            if (toRestrictValue instanceof java.lang.String){
+                RestrictionValidator.validate(restriction, (java.lang.String) toRestrictValue);
             }
 
-            if (value instanceof Integer || value instanceof Short || value instanceof Float || value instanceof Double){
-                RestrictionValidator.validate(restriction, (Double) value);
+            if (toRestrictValue instanceof Integer || toRestrictValue instanceof Short || toRestrictValue instanceof Float || toRestrictValue instanceof Double){
+                RestrictionValidator.validate(restriction, (Double) toRestrictValue);
             }
         });
     }

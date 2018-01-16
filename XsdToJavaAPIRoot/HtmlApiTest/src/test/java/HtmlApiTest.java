@@ -11,11 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 public class HtmlApiTest {
 
-    //TODO Ver a lógica de ter mais do que um tipo possivel para um dado attributo.
     //TODO Verificar se existe mais alguma coisa de errado com as restrições
-    //TODO Existem atributos que por vezes tem tipo e outras vezes não tem. Dois attributos diferentes?
-
-    //TODO Accept deveria receber um Visitor<T>
 
     @Test
     public void testGeneratedClassesIntegrity() throws Exception {
@@ -35,12 +31,12 @@ public class HtmlApiTest {
 
         root.<Link>child("linkId1")
                 //.addAttrRel(new AttrRel<>("icon"))
-                .addAttrType("text/css")
+                .addAttrType(Enumtype.TEXT_CSS)
                 .addAttrHref("/assets/images/favicon.png");
 
         root.<Link>child("linkId2")
                 //.addAttrRel(new AttrRel<>("stylesheet"))
-                .addAttrType("text/css")
+                .addAttrType(Enumtype.TEXT_CSS)
                 .addAttrHref("/assets/styles/main.css");
 
         root.body()
@@ -55,6 +51,7 @@ public class HtmlApiTest {
                 .img()
                 .addAttrId("brand")
                 .addAttrSrc("./assets/images/logo.png");
+
 
         root.<Aside>child("asideId1")
                 .em()
@@ -74,37 +71,7 @@ public class HtmlApiTest {
      */
     @Test
     public void testRestrictionSuccess(){
-        new AttrRel<>("Help");
-    }
-
-    /**
-     *  <xsd:restriction base="xsd:NMTOKEN">
-             <xsd:enumeration value="Alternate" />
-             <xsd:enumeration value="Appendix" />
-             <xsd:enumeration value="Bookmark" />
-             <xsd:enumeration value="Chapter" />
-             <xsd:enumeration value="Contents" />
-             <xsd:enumeration value="Copyright" />
-             <xsd:enumeration value="Glossary" />
-             <xsd:enumeration value="Help" />
-             <xsd:enumeration value="Index" />
-             <xsd:enumeration value="Next" />
-             <xsd:enumeration value="Prev" />
-             <xsd:enumeration value="Section" />
-             <xsd:enumeration value="Start" />
-             <xsd:enumeration value="Stylesheet" />
-             <xsd:enumeration value="Subsection" />
-     *  </xsd:restriction>
-     *
-     *  This attribute creation should fail because the value "Help1" isn't a possible value for the Rel attribute.
-     */
-    @Test
-    public void testRestrictionFailure(){
-        try {
-            new AttrRel<>("Help1");
-
-            Assert.fail();
-        } catch (RestrictionViolationException ignored){ }
+        new AttrRel<>(Enumrel.HELP);
     }
 
     /**
@@ -143,7 +110,7 @@ public class HtmlApiTest {
         Assert.assertTrue(customVisitPrintAssert(customVisitor, rootDoc, expected));
     }
 
-    boolean customVisitPrintAssert(CustomVisitor customVisitor, Html rootDoc, String expected){
+    private boolean customVisitPrintAssert(CustomVisitor customVisitor, Html rootDoc, String expected){
         boolean result = false;
 
         try {
