@@ -22,57 +22,10 @@ public class XsdAsmUtils {
     @SuppressWarnings("FieldCanBeLocal")
     private static String PACKAGE_BASE = "XsdToJavaAPI/";
     private static final String INTERFACE_PREFIX = "I";
-    private static final HashMap<String, String> xsdTypesToJava;
     private static final HashMap<String, String> xsdFullTypesToJava;
 
     static {
-        xsdTypesToJava = new HashMap<>();
         xsdFullTypesToJava = new HashMap<>();
-
-        xsdTypesToJava.put("xsd:anyURI", "String");
-        xsdTypesToJava.put("xsd:boolean", "Boolean");
-        //xsdTypesToJava.put("xsd:base64Binary", "[B");
-        //xsdTypesToJava.put("xsd:hexBinary", "[B");
-        xsdTypesToJava.put("xsd:date", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:dateTime", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:time", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:duration", "Duration");
-        xsdTypesToJava.put("xsd:dayTimeDuration", "Duration");
-        xsdTypesToJava.put("xsd:yearMonthDuration", "Duration");
-        xsdTypesToJava.put("xsd:gDay", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gMonth", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gMonthDay", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gYear", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gYearMonth", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:decimal", "BigDecimal");
-        xsdTypesToJava.put("xsd:integer", "BigInteger");
-        xsdTypesToJava.put("xsd:nonPositiveInteger", "BigInteger");
-        xsdTypesToJava.put("xsd:negativeInteger", "BigInteger");
-        xsdTypesToJava.put("xsd:long", "Long");
-        xsdTypesToJava.put("xsd:int", "Integer");
-        xsdTypesToJava.put("xsd:short", "Short");
-        xsdTypesToJava.put("xsd:byte", "Byte");
-        xsdTypesToJava.put("xsd:nonNegativeInteger", "BigInteger");
-        xsdTypesToJava.put("xsd:unsignedLong", "BigInteger");
-        xsdTypesToJava.put("xsd:unsignedInt", "Long");
-        xsdTypesToJava.put("xsd:unsignedShort", "Integer");
-        xsdTypesToJava.put("xsd:unsignedByte", "Short");
-        xsdTypesToJava.put("xsd:positiveInteger", "BigInteger");
-        xsdTypesToJava.put("xsd:double", "Double");
-        xsdTypesToJava.put("xsd:float", "Float");
-        xsdTypesToJava.put("xsd:QName", "QName");
-        xsdTypesToJava.put("xsd:NOTATION", "QName");
-        xsdTypesToJava.put("xsd:string", "java.lang.String");
-        xsdTypesToJava.put("xsd:normalizedString", "String");
-        xsdTypesToJava.put("xsd:token", "String");
-        xsdTypesToJava.put("xsd:language", "String");
-        xsdTypesToJava.put("xsd:NMTOKEN", "java.lang.String");
-        xsdTypesToJava.put("xsd:Name", "String");
-        xsdTypesToJava.put("xsd:NCName", "String");
-        xsdTypesToJava.put("xsd:ID", "String");
-        xsdTypesToJava.put("xsd:IDREF", "String");
-        xsdTypesToJava.put("xsd:ENTITY", "String");
-        xsdTypesToJava.put("xsd:untypedAtomic", "String");
 
         xsdFullTypesToJava.put("xsd:anyURI","Ljava/lang/String;");
         xsdFullTypesToJava.put("xsd:boolean","Ljava/lang/Boolean;");
@@ -209,10 +162,6 @@ public class XsdAsmUtils {
 
     static boolean isInterfaceMethod(String returnType) {
         return returnType.equals(IELEMENT_TYPE_DESC);
-    }
-
-    static String getJavaType(XsdAttribute attribute, List<XsdRestriction> restrictions) {
-        return getJavaType(attribute, restrictions, xsdTypesToJava, "Object");
     }
 
     static String getFullJavaType(XsdAttribute attribute) {
