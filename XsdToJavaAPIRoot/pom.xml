@@ -12,6 +12,7 @@
     <modules>
         <module>XsdParser</module>
         <module>XsdAsm</module>
+        <module>XsdAsmTest</module>
         <module>HtmlApi</module>
         <module>HtmlApiTest</module>
         <module>ASMSamples</module>

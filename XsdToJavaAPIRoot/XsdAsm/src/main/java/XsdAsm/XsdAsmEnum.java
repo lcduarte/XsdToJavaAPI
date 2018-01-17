@@ -144,7 +144,7 @@ class XsdAsmEnum {
     static boolean attributeHasEnum(XsdAttribute attribute) {
         List<XsdRestriction> restrictions = getAttributeRestrictions(attribute);
 
-        return restrictions != null && restrictions.size() == 1 && restrictions.get(0).getEnumeration() != null;
+        return restrictions != null && restrictions.size() == 1 && restrictions.get(0).getEnumeration() != null && !restrictions.get(0).getEnumeration().isEmpty();
     }
 
     static String getEnumName(XsdAttribute attribute) {

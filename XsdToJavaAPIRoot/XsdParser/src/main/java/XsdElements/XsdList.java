@@ -37,6 +37,10 @@ public class XsdList extends XsdAbstractElement {
         }
     }
 
+    public String getItemType() {
+        return itemType;
+    }
+
     @Override
     public Visitor getVisitor() {
         return visitor;

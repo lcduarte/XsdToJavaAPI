@@ -33,7 +33,6 @@ public class RestrictionValidator {
         validateWhiteSpace((String) restriction.getOrDefault("WhiteSpace", null), string);
     }
 
-    //TODO XsdEnumeration ser tipificado?
     private static void validateEnumeration(List<String> enumeration, String string){
         if (enumeration == null){
             return;

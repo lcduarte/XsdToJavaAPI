@@ -7,10 +7,7 @@ import XsdElements.Visitors.Visitor;
 import XsdElements.XsdRestrictionElements.XsdEnumeration;
 import org.w3c.dom.Node;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class XsdSimpleType extends XsdAbstractElement {
 
@@ -136,10 +133,18 @@ public class XsdSimpleType extends XsdAbstractElement {
     }
 
     public XsdList getList() {
-        return list;
-    }
+        if (this.list == null){
+            if (union != null){
+                Optional<XsdSimpleType> simpleType = union.getUnionElements().stream().filter(xsdSimpleType -> xsdSimpleType.list != null).findFirst();
 
-    //TODO Enumerations deveriam ser tipificados.
+                if (simpleType.isPresent()){
+                    return simpleType.get().list;
+                }
+            }
+        }
+
+        return this.list;
+    }
 
     List<XsdRestriction> getAllRestrictions() {
         Map<String, XsdRestriction> restrictions = new HashMap<>();

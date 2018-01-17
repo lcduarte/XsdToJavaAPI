@@ -1912,5 +1912,21 @@
         <xsd:attributeGroup ref="commonAttributeGroup" />
     </xsd:complexType>
 
+    <!-- ************************************************************************************ -->
+
+    <xsd:element name="intvalues">
+        <xsd:complexType>
+            <xsd:attribute name="intlist" type="valuelist"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:simpleType name="valuelist">
+        <xsd:restriction>
+            <xsd:maxLength value="5"/>
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+        <xsd:list itemType="xsd:int"/>
+    </xsd:simpleType>
+
 </xsd:schema>
 

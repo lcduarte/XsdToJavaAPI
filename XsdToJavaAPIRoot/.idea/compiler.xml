@@ -12,7 +12,9 @@
         <module name="HtmlApi" />
         <module name="HtmlApiTest" />
         <module name="XsdAsm" />
+        <module name="XsdAsmTest" />
         <module name="XsdClassGenerator" />
+        <module name="XsdParser" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -22,6 +24,7 @@
       <module name="HtmlApi" target="1.8" />
       <module name="HtmlApiTest" target="1.8" />
       <module name="XsdAsm" target="1.8" />
+      <module name="XsdAsmTest" target="1.5" />
       <module name="XsdClassGenerator" target="1.8" />
       <module name="XsdParser" target="1.8" />
       <module name="XsdToJavaAPIRoot" target="1.5" />

@@ -11,8 +11,6 @@ import java.nio.charset.StandardCharsets;
 
 public class HtmlApiTest {
 
-    //TODO Verificar se existe mais alguma coisa de errado com as restrições
-
     @Test
     public void testGeneratedClassesIntegrity() throws Exception {
         Html root = new Html();
@@ -71,7 +69,7 @@ public class HtmlApiTest {
      */
     @Test
     public void testRestrictionSuccess(){
-        new AttrRel<>(Enumrel.HELP);
+        new AttrRel(Enumrel.HELP);
     }
 
     /**

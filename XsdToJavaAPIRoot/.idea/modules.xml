@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/HtmlApi/HtmlApi.iml" filepath="$PROJECT_DIR$/HtmlApi/HtmlApi.iml" />
       <module fileurl="file://$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" filepath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/XsdAsm/XsdAsm.iml" filepath="$PROJECT_DIR$/XsdAsm/XsdAsm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XsdAsmTest/XsdAsmTest.iml" filepath="$PROJECT_DIR$/XsdAsmTest/XsdAsmTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/XsdParser/XsdParser.iml" filepath="$PROJECT_DIR$/XsdParser/XsdParser.iml" />
       <module fileurl="file://$PROJECT_DIR$/XsdToJavaAPIRoot.iml" filepath="$PROJECT_DIR$/XsdToJavaAPIRoot.iml" />
     </modules>

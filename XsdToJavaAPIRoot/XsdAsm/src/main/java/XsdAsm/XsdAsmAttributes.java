@@ -1,8 +1,10 @@
 package XsdAsm;
 
 import XsdElements.XsdAttribute;
+import XsdElements.XsdList;
 import XsdElements.XsdRestriction;
 import XsdElements.XsdRestrictionElements.*;
+import XsdElements.XsdSimpleType;
 import org.objectweb.asm.*;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import static XsdAsm.XsdSupportingStructure.*;
 import static org.objectweb.asm.Opcodes.*;
 
 class XsdAsmAttributes {
+
     /**
      * Generates a method to add a given attribute.
      * @param classWriter The class where the fields will be added.
@@ -91,9 +94,17 @@ class XsdAsmAttributes {
 
         List<XsdRestriction> restrictions = getAttributeRestrictions(attribute);
 
-        String javaType = getJavaType(attribute, restrictions);
+        XsdList list = getAttributeList(attribute);
 
-        ClassWriter attributeWriter = generateClass(camelAttributeName, ABSTRACT_ATTRIBUTE_TYPE, null, "<" + javaType + ":" + JAVA_OBJECT_DESC + ">L" + ABSTRACT_ATTRIBUTE_TYPE + "<T" + javaType + ";>;", ACC_PUBLIC + ACC_SUPER, apiName);
+        String javaType = getFullJavaType(attribute);
+
+        if (list != null){
+            String fullJavaItemTypeDesc = getFullJavaType(list.getItemType());
+
+            javaType = "L" + JAVA_LIST + "<" + fullJavaItemTypeDesc + ">;";
+        }
+
+        ClassWriter attributeWriter = generateClass(camelAttributeName, ABSTRACT_ATTRIBUTE_TYPE, null, "L" + ABSTRACT_ATTRIBUTE_TYPE + "<" + javaType + ">;", ACC_PUBLIC + ACC_SUPER, apiName);
 
         FieldVisitor fVisitor = attributeWriter.visitField(ACC_PRIVATE + ACC_STATIC, "restrictions", JAVA_LIST_DESC, "L" + JAVA_LIST + "<Ljava/util/Map<" + JAVA_STRING_DESC + JAVA_OBJECT_DESC + ">;>;", null);
         fVisitor.visitEnd();
@@ -110,7 +121,12 @@ class XsdAsmAttributes {
             mVisitor.visitMethodInsn(INVOKEINTERFACE, ENUM_INTERFACE_TYPE, "getValue", "()Ljava/lang/Object;", true);
             mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ATTRIBUTE_TYPE, CONSTRUCTOR, "(Ljava/lang/Object;)V", false);
         } else {
-            mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", "(T" + javaType + ";)V", null);
+            if (list != null){
+                mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_LIST_DESC + ")V", null, null);
+            } else {
+                mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", null, null);
+            }
+
             mVisitor.visitLocalVariable("attributeValue", JAVA_OBJECT_DESC, null, new Label(), new Label(),1);
             mVisitor.visitCode();
             mVisitor.visitVarInsn(ALOAD, 0);
@@ -164,6 +180,16 @@ class XsdAsmAttributes {
         mVisitor.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validate", "(Ljava/util/Map;Ljava/lang/Double;)V", false);
         mVisitor.visitLabel(l2);
         mVisitor.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+        mVisitor.visitVarInsn(ALOAD, 2);
+        mVisitor.visitTypeInsn(INSTANCEOF, "java/util/List");
+        Label l3 = new Label();
+        mVisitor.visitJumpInsn(IFEQ, l3);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 2);
+        mVisitor.visitTypeInsn(CHECKCAST, JAVA_LIST);
+        mVisitor.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validate", "(Ljava/util/Map;Ljava/util/List;)V", false);
+        mVisitor.visitLabel(l3);
+        mVisitor.visitFrame(Opcodes.F_APPEND,0, null, 0, null);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(2, 3);
         mVisitor.visitEnd();
@@ -231,13 +257,8 @@ class XsdAsmAttributes {
         XsdWhiteSpace whiteSpace = restriction.getWhiteSpace();
         List<XsdEnumeration> enumerations = restriction.getEnumeration();
 
-        createEnum(attribute, enumerations, apiName);
-
-        if (base != null){
-            mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("Base");
-            mVisitor.visitLdcInsn(base);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+        if (attributeHasEnum(attribute)){
+            createEnum(attribute, enumerations, apiName);
         }
 
         if (length != null){
@@ -341,5 +362,13 @@ class XsdAsmAttributes {
         mVisitor.visitInsn(POP);
 
         return index;
+    }
+
+    private static XsdList getAttributeList(XsdAttribute attribute) {
+        if (attribute.getXsdSimpleType() != null){
+            return attribute.getXsdSimpleType().getList();
+        }
+
+        return null;
     }
 }

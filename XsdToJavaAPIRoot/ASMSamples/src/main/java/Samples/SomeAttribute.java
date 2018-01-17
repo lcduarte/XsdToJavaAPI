@@ -1,15 +1,13 @@
 package Samples;
 
-import XsdElements.XsdRestriction;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SomeAttribute<String> extends AbstractAttribute<String>{
+public class SomeAttribute extends AbstractAttribute<String>{
 
-    private static List<Map<java.lang.String, Object>> restrictions = new ArrayList<>();
+    private static List<Map<String, Object>> restrictions = new ArrayList<>();
 
     static {
         Map<java.lang.String, Object> restriction1 = new HashMap<>();
@@ -19,7 +17,7 @@ public class SomeAttribute<String> extends AbstractAttribute<String>{
         restriction1.put("MinExclusive", 15);
         restriction1.put("Pattern" , "This isn't really a pattern.");
 
-        List<java.lang.String> enumeration = new ArrayList<>();
+        java.util.List<java.lang.String> enumeration = new ArrayList<>();
 
         enumeration.add("String1");
         enumeration.add("String2");
@@ -41,14 +39,18 @@ public class SomeAttribute<String> extends AbstractAttribute<String>{
         System.out.println(restrictions.size());
 
         restrictions.forEach(restriction -> {
-            String toRestrictValue = SomeAttribute.this.getValue();
+            Object toRestrictValue = SomeAttribute.this.getValue();
 
-            if (toRestrictValue instanceof java.lang.String){
-                RestrictionValidator.validate(restriction, (java.lang.String) toRestrictValue);
+            if (toRestrictValue instanceof String){
+                RestrictionValidator.validate(restriction, (String) toRestrictValue);
             }
 
             if (toRestrictValue instanceof Integer || toRestrictValue instanceof Short || toRestrictValue instanceof Float || toRestrictValue instanceof Double){
                 RestrictionValidator.validate(restriction, (Double) toRestrictValue);
+            }
+
+            if (toRestrictValue instanceof List){
+                RestrictionValidator.validate(restriction, (List) toRestrictValue);
             }
         });
     }

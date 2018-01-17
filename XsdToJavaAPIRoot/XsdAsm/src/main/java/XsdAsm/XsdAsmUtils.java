@@ -62,11 +62,11 @@ public class XsdAsmUtils {
         xsdTypesToJava.put("xsd:float", "Float");
         xsdTypesToJava.put("xsd:QName", "QName");
         xsdTypesToJava.put("xsd:NOTATION", "QName");
-        xsdTypesToJava.put("xsd:string", "String");
+        xsdTypesToJava.put("xsd:string", "java.lang.String");
         xsdTypesToJava.put("xsd:normalizedString", "String");
         xsdTypesToJava.put("xsd:token", "String");
         xsdTypesToJava.put("xsd:language", "String");
-        xsdTypesToJava.put("xsd:NMTOKEN", "String");
+        xsdTypesToJava.put("xsd:NMTOKEN", "java.lang.String");
         xsdTypesToJava.put("xsd:Name", "String");
         xsdTypesToJava.put("xsd:NCName", "String");
         xsdTypesToJava.put("xsd:ID", "String");
@@ -219,12 +219,16 @@ public class XsdAsmUtils {
         return getJavaType(attribute, getAttributeRestrictions(attribute), xsdFullTypesToJava, JAVA_OBJECT_DESC);
     }
 
+    static String getFullJavaType(String itemType) {
+        return xsdFullTypesToJava.getOrDefault(itemType, JAVA_OBJECT_DESC);
+    }
+
     private static String getJavaType(XsdAttribute attribute, List<XsdRestriction> restrictions, HashMap<String, String> xsdTypes, String defaultType){
         String javaType = xsdTypes.getOrDefault(attribute.getType(), null);
 
         if (javaType == null){
             if (restrictions.size() != 0){
-                return xsdTypes.getOrDefault(restrictions.get(0).getBase(), "Object");
+                return xsdTypes.getOrDefault(restrictions.get(0).getBase(), defaultType);
             }
 
             return defaultType;
