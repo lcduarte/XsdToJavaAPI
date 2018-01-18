@@ -25,20 +25,20 @@ public class HtmlApiTest {
                 .text("Title");
 
         root.<Meta>child("metaId1")
-                .addAttrCharset("UTF-8");
+                .attrCharset("UTF-8");
 
         root.<Link>child("linkId1")
                 //.addAttrRel(new AttrRel<>("icon"))
-                .addAttrType(Enumtype.TEXT_CSS)
-                .addAttrHref("/assets/images/favicon.png");
+                .attrType(Enumtype.TEXT_CSS)
+                .attrHref("/assets/images/favicon.png");
 
         root.<Link>child("linkId2")
                 //.addAttrRel(new AttrRel<>("stylesheet"))
-                .addAttrType(Enumtype.TEXT_CSS)
-                .addAttrHref("/assets/styles/main.css");
+                .attrType(Enumtype.TEXT_CSS)
+                .attrHref("/assets/styles/main.css");
 
         root.body()
-                .addAttrClass("clear")
+                .attrClass("clear")
                 .div()
                 .header()
                 .section()
@@ -47,8 +47,8 @@ public class HtmlApiTest {
 
         root.<Div>child("divId1")
                 .img()
-                .addAttrId("brand")
-                .addAttrSrc("./assets/images/logo.png");
+                .attrId("brand")
+                .attrSrc("./assets/images/logo.png");
 
 
         root.<Aside>child("asideId1")
@@ -85,7 +85,7 @@ public class HtmlApiTest {
 
         CustomVisitor customVisitor = new CustomVisitor();
 
-        String expected = "<Html>\n<Body>\n<Div>\nThis is a regular String.\r\n</Div>\n</Body>\n</Html>\n";
+        String expected = "<html>\n<body>\n<div>\nThis is a regular String.\r\n</div>\n</body>\n</html>\n";
 
         Assert.assertTrue(customVisitPrintAssert(customVisitor, rootDoc, expected));
     }
@@ -103,9 +103,19 @@ public class HtmlApiTest {
 
         CustomVisitor<Student> customVisitor = new CustomVisitor<>(new Student("Luís"));
 
-        String expected = "<Html>\n<Body>\n<Div>\nLuís\r\n</Div>\n</Body>\n</Html>\n";
+        String expected = "<html>\n<body>\n<div>\nLuís\r\n</div>\n</body>\n</html>\n";
 
         Assert.assertTrue(customVisitPrintAssert(customVisitor, rootDoc, expected));
+    }
+
+    @Test
+    public void testAttributeName(){
+        Assert.assertEquals("class", new AttrClass(null).getName());
+    }
+
+    @Test
+    public void testElementName(){
+        Assert.assertEquals("html", new Html().getName());
     }
 
     private boolean customVisitPrintAssert(CustomVisitor customVisitor, Html rootDoc, String expected){

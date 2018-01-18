@@ -10,7 +10,14 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
     protected List<IElement<T>> children = new ArrayList<>();
     protected List<IAttribute> attrs = new ArrayList<>();
     protected String id;
-    protected String name = getClass().getSimpleName();
+    protected String name;
+
+
+    protected AbstractElement(){
+        String simpleName = getClass().getSimpleName();
+
+        this.name = simpleName.toLowerCase().charAt(0) + simpleName.substring(1);
+    }
 
     public void addChild(IElement child) {
         this.children.add(child);

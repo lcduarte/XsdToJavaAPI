@@ -23,8 +23,9 @@ class XsdAsmAttributes {
      */
     @SuppressWarnings("DanglingJavadoc")
     static void generateMethodsForAttribute(ClassWriter classWriter, XsdAttribute elementAttribute, String returnType, String apiName) {
-        String camelCaseName = ATTRIBUTE_PREFIX + toCamelCase(elementAttribute.getName()).replaceAll("\\W+", "");
-        String attributeClassType = getFullClassTypeName(camelCaseName, apiName);
+        String className = ATTRIBUTE_PREFIX + toCamelCase(elementAttribute.getName()).replaceAll("\\W+", "");
+        String camelCaseName = className.toLowerCase().charAt(0) + className.substring(1);
+        String attributeClassType = getFullClassTypeName(className, apiName);
         MethodVisitor mVisitor;
 
         String javaType = getFullJavaType(elementAttribute);
@@ -34,9 +35,9 @@ class XsdAsmAttributes {
         }
 
         if (isInterfaceMethod(returnType)){
-            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")TT;", null);
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")TT;", null);
         } else {
-            mVisitor = classWriter.visitMethod(ACC_PUBLIC, "add" + camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")" + returnType, null);
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")" + returnType, null);
         }
 
         String attrName = elementAttribute.getName();

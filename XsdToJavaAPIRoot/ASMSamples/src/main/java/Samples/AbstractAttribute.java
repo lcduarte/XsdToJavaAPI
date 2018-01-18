@@ -3,9 +3,14 @@ package Samples;
 public class AbstractAttribute<T> implements IAttribute<T> {
 
     private T value;
+    private String name;
 
     AbstractAttribute(T value){
         this.value = value;
+
+        String simpleName = getClass().getSimpleName().replace("Attr", "");
+
+        this.name = simpleName.toLowerCase().charAt(0) + simpleName.substring(1);
     }
 
     @Override
@@ -13,4 +18,7 @@ public class AbstractAttribute<T> implements IAttribute<T> {
         return value;
     }
 
+    public String getName() {
+        return name;
+    }
 }
