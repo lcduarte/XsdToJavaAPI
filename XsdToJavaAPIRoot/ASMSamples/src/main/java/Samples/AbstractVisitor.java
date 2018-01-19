@@ -25,4 +25,14 @@ public abstract class AbstractVisitor<R> implements Visitor<R>{
     public void endVisit(Div elem) {
         endVisit((IElement<Div>) elem);
     }
+
+    @Override
+    public void initVisit(Text<R> elem) {
+        initVisit((IElement<Text>) elem);
+    }
+
+    @Override
+    public void endVisit(Text<R> elem) {
+        endVisit((IElement<Text>) elem);
+    }
 }

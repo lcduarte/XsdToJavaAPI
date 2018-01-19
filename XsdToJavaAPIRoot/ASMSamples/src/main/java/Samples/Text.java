@@ -7,11 +7,13 @@ public class Text<R> extends AbstractElement<Text>{
     private String text;
     private Function<R, String> textFunction;
 
-    public Text(String text) {
+    public Text(IElement parent, String text) {
+        super(parent);
         this.text = text;
     }
 
-    public Text(Function<R, String> textFunction) {
+    public Text(IElement parent, Function<R, String> textFunction) {
+        super(parent);
         this.textFunction = textFunction;
     }
 

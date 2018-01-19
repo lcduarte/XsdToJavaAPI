@@ -11,9 +11,28 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
     protected List<IAttribute> attrs = new ArrayList<>();
     protected String id;
     protected String name;
-
+    protected IElement parent;
 
     protected AbstractElement(){
+        this.parent = null;
+
+        setName();
+    }
+
+    protected AbstractElement(IElement parent){
+        this.parent = parent;
+
+        setName();
+    }
+
+    protected AbstractElement(IElement parent, String id){
+        this.parent = parent;
+        this.id = id;
+
+        setName();
+    }
+
+    private void setName() {
         String simpleName = getClass().getSimpleName();
 
         this.name = simpleName.toLowerCase().charAt(0) + simpleName.substring(1);
@@ -25,6 +44,11 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
 
     public void addAttr(IAttribute attribute) {
         this.attrs.add(attribute);
+    }
+
+    @Override
+    public <P extends IElement> P getParent() {
+        return (P) parent.self();
     }
 
     @Override

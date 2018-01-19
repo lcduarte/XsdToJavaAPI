@@ -2,23 +2,28 @@ package Samples;
 
 public class Div extends AbstractElement<Div> implements ICommonAttributeGroup<Div>, IFlowContent<Div> {
 
-    public Div(){
-
+    public Div() {
+        super();
     }
 
-    public Div(String id) {
-        super.id = id;
+    public Div(IElement parent) {
+        super(parent);
     }
 
-    public Div(String id, String text){
-        super.id = id;
-        this.addChild(new Text(text));
+    public Div(IElement parent,String id) {
+        super(parent, id);
     }
 
-    public Div h2(){
-        H1 h1 = new H1();
-        this.addChild(h1);
-        return this;
+    public H1 h2(){
+        H1 var1 = new H1(this);
+        this.addChild(var1);
+        return var1;
+    }
+
+    public H1 h2(String id){
+        H1 var1 = new H1(this, id);
+        this.addChild(var1);
+        return var1;
     }
 
     @Override

@@ -118,6 +118,9 @@ class XsdSupportingStructure {
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "getAttributes", "()" + JAVA_LIST_DESC, "()Ljava/util/List<" + IATTRIBUTE_TYPE_DESC + ">;", null);
         mVisitor.visitEnd();
 
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "$", "()" + IELEMENT_TYPE_DESC, "<P::" + IELEMENT_TYPE_DESC + ">()L" + IELEMENT_TYPE + "<TP;>;", null);
+        mVisitor.visitEnd();
+
         writeClassToFile(IELEMENT, classWriter, apiName);
     }
 
@@ -159,8 +162,9 @@ class XsdSupportingStructure {
         mVisitor.visitCode();
         mVisitor.visitTypeInsn(NEW, TEXT_TYPE);
         mVisitor.visitInsn(DUP);
+        mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, TEXT_TYPE, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, TEXT_TYPE, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC + JAVA_STRING_DESC + ")V", false);
         mVisitor.visitVarInsn(ASTORE, 2);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 2);
@@ -168,7 +172,7 @@ class XsdSupportingStructure {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "self", "()" + IELEMENT_TYPE_DESC, true);
         mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(3, 3);
+        mVisitor.visitMaxs(4, 3);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "text", "(Ljava/util/function/Function;)" + IELEMENT_TYPE_DESC, "<R:Ljava/lang/Object;>(Ljava/util/function/Function<TR;Ljava/lang/String;>;)TT;", null);
@@ -176,8 +180,9 @@ class XsdSupportingStructure {
         mVisitor.visitCode();
         mVisitor.visitTypeInsn(NEW, TEXT_TYPE);
         mVisitor.visitInsn(DUP);
+        mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, TEXT_TYPE, CONSTRUCTOR, "(Ljava/util/function/Function;)V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, TEXT_TYPE, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC + "Ljava/util/function/Function;)V", false);
         mVisitor.visitVarInsn(ASTORE, 2);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 2);
@@ -185,7 +190,7 @@ class XsdSupportingStructure {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, ITEXT_TYPE, "self", "()" + IELEMENT_TYPE_DESC, true);
         mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(3, 3);
+        mVisitor.visitMaxs(4, 3);
         mVisitor.visitEnd();
 
         writeClassToFile(ITEXT, classWriter, apiName);
@@ -204,28 +209,32 @@ class XsdSupportingStructure {
         fVisitor = classWriter.visitField(ACC_PRIVATE, "textFunction", "Ljava/util/function/Function;", "Ljava/util/function/Function<TR;Ljava/lang/String;>;", null);
         fVisitor.visitEnd();
 
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", null, null);
-        mVisitor.visitLocalVariable("text", JAVA_STRING_DESC, null, new Label(), new Label(),1);
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC +  JAVA_STRING_DESC + ")V", null, null);
+        mVisitor.visitLocalVariable("parent", IELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
+        mVisitor.visitLocalVariable("text", JAVA_STRING_DESC, null, new Label(), new Label(),2);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "()V", false);
-        mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC + ")V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitFieldInsn(PUTFIELD, TEXT_TYPE, "text", JAVA_STRING_DESC);
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitMaxs(2, 3);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(Ljava/util/function/Function;)V", "(Ljava/util/function/Function<TR;Ljava/lang/String;>;)V", null);
-        mVisitor.visitLocalVariable("textFunction", "Ljava/util/function/Function;", "Ljava/util/function/Function<TR;Ljava/lang/String;>;", new Label(), new Label(),1);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC + "Ljava/util/function/Function;)V", "(" + IELEMENT_TYPE_DESC + "Ljava/util/function/Function<TR;Ljava/lang/String;>;)V", null);
+        mVisitor.visitLocalVariable("parent", IELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
+        mVisitor.visitLocalVariable("textFunction", "Ljava/util/function/Function;", "Ljava/util/function/Function<TR;Ljava/lang/String;>;", new Label(), new Label(),2);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "()V", false);
-        mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC + ")V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitFieldInsn(PUTFIELD, TEXT_TYPE, "textFunction", "Ljava/util/function/Function;");
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitMaxs(2, 3);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "addAttr", "(" + IATTRIBUTE_TYPE_DESC + ")V", null, null);
@@ -324,7 +333,34 @@ class XsdSupportingStructure {
         fVisitor = classWriter.visitField(ACC_PROTECTED, "name", "Ljava/lang/String;", null, null);
         fVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "()V", null, null);
+        fVisitor = classWriter.visitField(ACC_PROTECTED, "parent", IELEMENT_TYPE_DESC, null, null);
+        fVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "()V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(NEW, "java/util/ArrayList");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", "<init>", "()V", false);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "children", "Ljava/util/List;");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(NEW, "java/util/ArrayList");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", "<init>", "()V", false);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "attrs", "Ljava/util/List;");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitInsn(ACONST_NULL);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "parent", IELEMENT_TYPE_DESC);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, "setName", "()V", false);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(3, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC + ")V", null, null);
+        mVisitor.visitLocalVariable("parent", IELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKESPECIAL, JAVA_OBJECT, CONSTRUCTOR, "()V", false);
@@ -338,6 +374,44 @@ class XsdSupportingStructure {
         mVisitor.visitInsn(DUP);
         mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", CONSTRUCTOR, "()V", false);
         mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "attrs", JAVA_LIST_DESC);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "parent", IELEMENT_TYPE_DESC);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, "setName", "()V", false);mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(3, 2);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PROTECTED, "<init>", "(" + IELEMENT_TYPE_DESC + "Ljava/lang/String;)V", null, null);
+        mVisitor.visitLocalVariable("parent", IELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
+        mVisitor.visitLocalVariable("id", JAVA_STRING_DESC, null, new Label(), new Label(),2);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(NEW, "java/util/ArrayList");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", "<init>", "()V", false);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "children", "Ljava/util/List;");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(NEW, "java/util/ArrayList");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", "<init>", "()V", false);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "attrs", "Ljava/util/List;");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "parent", IELEMENT_TYPE_DESC);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 2);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "id", "Ljava/lang/String;");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, "setName", "()V", false);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(3, 3);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PRIVATE, "setName", "()V", null, null);
+        mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Object", "getClass", "()Ljava/lang/Class;", false);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Class", "getSimpleName", "()Ljava/lang/String;", false);
@@ -397,6 +471,15 @@ class XsdSupportingStructure {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE, "name", "Ljava/lang/String;");
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "$", "()" + IELEMENT_TYPE_DESC, "<P::" + IELEMENT_TYPE_DESC + ">()TP;", null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE, "parent", IELEMENT_TYPE_DESC);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, IELEMENT_TYPE, "self", "()" + IELEMENT_TYPE_DESC, true);
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();

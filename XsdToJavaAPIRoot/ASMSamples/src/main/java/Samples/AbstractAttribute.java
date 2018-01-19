@@ -1,6 +1,6 @@
 package Samples;
 
-public class AbstractAttribute<T> implements IAttribute<T> {
+public abstract class AbstractAttribute<T> implements IAttribute<T> {
 
     private T value;
     private String name;

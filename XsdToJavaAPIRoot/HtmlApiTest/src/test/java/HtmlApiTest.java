@@ -16,46 +16,22 @@ public class HtmlApiTest {
         Html root = new Html();
 
         root.head()
-                .meta("metaId1")
-                .title("titleId1")
-                .link("linkId1")
-                .link("linkId2");
-
-        root.<Title>child("titleId1")
-                .text("Title");
-
-        root.<Meta>child("metaId1")
-                .attrCharset("UTF-8");
-
-        root.<Link>child("linkId1")
-                //.addAttrRel(new AttrRel<>("icon"))
-                .attrType(Enumtype.TEXT_CSS)
-                .attrHref("/assets/images/favicon.png");
-
-        root.<Link>child("linkId2")
-                //.addAttrRel(new AttrRel<>("stylesheet"))
-                .attrType(Enumtype.TEXT_CSS)
-                .attrHref("/assets/styles/main.css");
-
-        root.body()
-                .attrClass("clear")
+                .meta().attrCharset("UTF-8").<Head>$()
+                .title()
+                    .text("Title").<Head>$()
+                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/images/favicon.png").<Head>$()
+                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/styles/main.css").<Head>$().<Html>$()
+            .body().attrClass("clear")
                 .div()
-                .header()
-                .section()
-                .div("divId1")
-                .aside("asideId1");
-
-        root.<Div>child("divId1")
-                .img()
-                .attrId("brand")
-                .attrSrc("./assets/images/logo.png");
-
-
-        root.<Aside>child("asideId1")
-                .em()
-                .text("Advertisement")
-                .span()
-                .text("1-833-2GET-REV");
+                    .header()
+                        .section()
+                            .div()
+                                .img().attrId("brand").attrSrc("./assets/images/logo.png").<Div>$()
+                                .aside()
+                                    .em()
+                                        .text("Advertisement")
+                                    .span()
+                                        .text("1-833-2GET-REV");
     }
 
     /**
