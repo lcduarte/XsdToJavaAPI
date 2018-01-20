@@ -11,7 +11,8 @@ import java.util.*;
 
 public class XsdSimpleType extends XsdAbstractElement {
 
-    public static final String TAG = "xsd:simpleType";
+    public static final String XSD_TAG = "xsd:simpleType";
+    public static final String XS_TAG = "xsd:simpleType";
 
     private SimpleTypeVisitor visitor = new SimpleTypeVisitor();
 

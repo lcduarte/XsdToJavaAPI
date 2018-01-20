@@ -11,7 +11,8 @@ import java.util.List;
 
 public class XsdRestriction extends XsdAbstractElement {
 
-    public static final String TAG = "xsd:restriction";
+    public static final String XSD_TAG = "xsd:restriction";
+    public static final String XS_TAG = "xs:restriction";
 
     private RestrictionVisitor visitor = new RestrictionVisitor();
 
