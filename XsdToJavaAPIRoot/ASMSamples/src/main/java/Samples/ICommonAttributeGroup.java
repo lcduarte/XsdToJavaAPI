@@ -1,9 +1,9 @@
 package Samples;
 
-public interface ICommonAttributeGroup <T extends IElement<T>> extends IElement<T> {
+public interface ICommonAttributeGroup <T extends IElement, M> extends IElement<T, M>, IFlowContent<T, M> {
 
     default T addAttrClass(String var1) {
-        ((AbstractElement<T>)this).addAttr(new SomeAttribute(null));
+        ((AbstractElement<T, M>)this).addAttr(new SomeAttribute(null));
         return this.self();
     }
 

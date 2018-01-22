@@ -33,7 +33,7 @@ class XsdAsmVisitors {
 
         elementList.forEach(element -> addVisitorInterfaceMethod(classWriter, element.getName(), null, apiName));
 
-        addVisitorInterfaceMethod(classWriter, TEXT_CLASS, "(L" + TEXT_TYPE + "<TR;>;)V", apiName);
+        addVisitorInterfaceMethod(classWriter, TEXT_CLASS, "<U:Ljava/lang/Object;>(L" + TEXT_TYPE + "<TR;TU;>;)V", apiName);
 
         writeClassToFile(VISITOR, classWriter, apiName);
     }
@@ -83,7 +83,7 @@ class XsdAsmVisitors {
 
         elementList.forEach(element -> addAbstractVisitorMethod(classWriter, element.getName(), null, apiName));
 
-        addAbstractVisitorMethod(classWriter, TEXT_CLASS, "(L" + TEXT_TYPE + "<TR;>;)V", apiName);
+        addAbstractVisitorMethod(classWriter, TEXT_CLASS, "<U:Ljava/lang/Object;>(L" + TEXT_TYPE + "<TR;TU;>;)V", apiName);
 
         writeClassToFile(ABSTRACT_VISITOR, classWriter, apiName);
     }

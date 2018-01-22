@@ -75,11 +75,12 @@ public class HtmlApiTest {
 
         rootDoc.body()
                 .div()
-                .text(Student::getName);
+                .text(Student::getName)
+                .text(Student::getNumber);
 
-        CustomVisitor<Student> customVisitor = new CustomVisitor<>(new Student("Luís"));
+        CustomVisitor<Student> customVisitor = new CustomVisitor<>(new Student("Luís", 123));
 
-        String expected = "<html>\n<body>\n<div>\nLuís\r\n</div>\n</body>\n</html>\n";
+        String expected = "<html>\n<body>\n<div>\nLuís\r\n123\r\n</div>\n</body>\n</html>\n";
 
         Assert.assertTrue(customVisitPrintAssert(customVisitor, rootDoc, expected));
     }

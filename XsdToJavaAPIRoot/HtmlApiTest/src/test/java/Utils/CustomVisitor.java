@@ -40,7 +40,7 @@ public class CustomVisitor<R> extends AbstractVisitor<R> {
     }
 
     @Override
-    public void initVisit(Text<R> text){
+    public <U> void initVisit(Text<R, U> text){
         String textValue = text.getValue();
 
         if (textValue != null){
@@ -55,7 +55,7 @@ public class CustomVisitor<R> extends AbstractVisitor<R> {
     }
 
     @Override
-    public void endVisit(Text<R> text) {
+    public <U> void endVisit(Text<R, U> text) {
 
     }
 }

@@ -2,7 +2,7 @@ package Samples;
 
 import java.util.function.Function;
 
-public interface ITextGroup<T extends IElement> extends IElement<T> {
+public interface ITextGroup<T extends IElement, M> extends IElement<T, M> {
 
     default T text(String text){
         Text text1 = new Text(this, text);
@@ -10,8 +10,8 @@ public interface ITextGroup<T extends IElement> extends IElement<T> {
         return this.self();
     }
 
-    default <R> T text(Function<R, String> textFunction){
-        Text<R> text1 = new Text<>(this, textFunction);
+    default <R, U> T text(Function<R, U> textFunction){
+        Text<R, U, ?> text1 = new Text<>(this, textFunction);
         this.addChild(text1);
         return this.self();
     }

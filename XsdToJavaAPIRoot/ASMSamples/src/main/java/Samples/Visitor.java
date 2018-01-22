@@ -8,7 +8,7 @@ public interface Visitor<R> {
     void initVisit(Div elem);
     void endVisit(Div elem);
 
-    void initVisit(Text<R> elem);
-    void endVisit(Text<R> elem);
+    <U> void initVisit(Text<R, U, ?> elem);
+    <U> void endVisit(Text<R, U, ?> elem);
 }
 

@@ -2,17 +2,21 @@ package Samples;
 
 import java.util.function.Function;
 
-public class Text<R> extends AbstractElement<Text>{
+public class Text<R, U, M> extends AbstractElement<Text, M>{
 
     private String text;
-    private Function<R, String> textFunction;
+    private Function<R, U> textFunction;
+
+    private Text() {
+        super();
+    }
 
     public Text(IElement parent, String text) {
         super(parent);
         this.text = text;
     }
 
-    public Text(IElement parent, Function<R, String> textFunction) {
+    public Text(IElement parent, Function<R, U> textFunction) {
         super(parent);
         this.textFunction = textFunction;
     }
@@ -43,12 +47,16 @@ public class Text<R> extends AbstractElement<Text>{
         return text;
     }
 
-    public String getValue(R obj) {
+    public U getValue(R obj) {
         if (textFunction == null){
-            return text;
+            return null;
         }
 
         return textFunction.apply(obj);
     }
 
+    @Override
+    public Text<R, U, M> cloneElem() {
+        return this.clone(new Text<R, U, M>());
+    }
 }
