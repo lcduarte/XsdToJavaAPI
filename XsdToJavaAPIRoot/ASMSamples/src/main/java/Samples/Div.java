@@ -1,6 +1,6 @@
 package Samples;
 
-public class Div<M> extends AbstractElement<Div, M> implements ICommonAttributeGroup<Div, M>, IFlowContent<Div, M> {
+public class Div extends AbstractElement<Div> implements ICommonAttributeGroup<Div>, IFlowContent<Div> {
 
     public Div() {
         super();
@@ -14,13 +14,13 @@ public class Div<M> extends AbstractElement<Div, M> implements ICommonAttributeG
         super(parent, id);
     }
 
-    public H1<? extends Object> h2(){
+    public H1 h2(){
         H1 var1 = new H1(this);
         this.addChild(var1);
         return var1;
     }
 
-    public H1<? extends Object> h2(String id){
+    public H1 h2(String id){
         H1 var1 = new H1(this, id);
         this.addChild(var1);
         return var1;
@@ -39,7 +39,7 @@ public class Div<M> extends AbstractElement<Div, M> implements ICommonAttributeG
     }
 
     @Override
-    public Div<M> cloneElem() {
-        return this.clone(new Div<M>());
+    public Div cloneElem() {
+        return this.clone(new Div());
     }
 }

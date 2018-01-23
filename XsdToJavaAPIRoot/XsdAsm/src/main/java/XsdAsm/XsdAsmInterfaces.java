@@ -117,12 +117,6 @@ class XsdAsmInterfaces {
 
         ClassWriter interfaceWriter = generateClass(baseClassNameCamelCase, JAVA_OBJECT, interfaces, signature.toString(), ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
-        System.out.println(attributeGroupName);
-
-        if (attributeGroupName.equals("IClassAttributeGroup")){
-            int a  = 5;
-        }
-
         attributeHierarchyItem.getOwnElements().forEach(elementAttribute -> {
             if (createdAttributes.stream().anyMatch(createdAttributeName -> createdAttributeName.equalsIgnoreCase(elementAttribute.getName()))){
                 elementAttribute.setName(elementAttribute.getName() + ATTRIBUTE_CASE_SENSITIVE_DIFERENCE);

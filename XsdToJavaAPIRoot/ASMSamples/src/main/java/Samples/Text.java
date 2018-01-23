@@ -2,7 +2,7 @@ package Samples;
 
 import java.util.function.Function;
 
-public class Text<R, U, M> extends AbstractElement<Text, M>{
+public class Text<R, U> extends AbstractElement<Text>{
 
     private String text;
     private Function<R, U> textFunction;
@@ -56,7 +56,7 @@ public class Text<R, U, M> extends AbstractElement<Text, M>{
     }
 
     @Override
-    public Text<R, U, M> cloneElem() {
-        return this.clone(new Text<R, U, M>());
+    public Text<R, U> cloneElem() {
+        return this.clone(new Text<R, U>());
     }
 }

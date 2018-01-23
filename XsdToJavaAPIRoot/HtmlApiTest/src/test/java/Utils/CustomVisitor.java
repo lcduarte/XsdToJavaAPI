@@ -6,6 +6,7 @@ import XsdToJavaAPI.HtmlApi.IElement;
 import XsdToJavaAPI.HtmlApi.Text;
 
 import java.io.PrintStream;
+import java.util.List;
 
 public class CustomVisitor<R> extends AbstractVisitor<R> {
 
@@ -32,6 +33,16 @@ public class CustomVisitor<R> extends AbstractVisitor<R> {
     @Override
     public <T extends IElement> void initVisit(IElement<T> element) {
         printStream.printf("<%s>\n", element.getName());
+
+        if(element.isBound()) {
+            IElement<T> clone = element.cloneElem();
+
+            clone.binderApply(); // calls the Consumer<IElement, Model> which MODIFIES the clone
+
+            clone.getChildren().forEach((IElement child) ->
+                child.accept(this)
+            );
+        }
     }
 
     @Override

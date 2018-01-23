@@ -1,6 +1,6 @@
 package Samples;
 
-public class H1<M> extends AbstractElement<H1, M> implements IFlowContent<H1, M> {
+public class H1 extends AbstractElement<H1> implements IFlowContent<H1> {
     public H1() {}
 
     public H1(IElement parent) {
@@ -23,8 +23,8 @@ public class H1<M> extends AbstractElement<H1, M> implements IFlowContent<H1, M>
     }
 
     @Override
-    public H1<M> cloneElem() {
-        return this.clone(new H1<M>());
+    public H1 cloneElem() {
+        return this.clone(new H1());
     }
 
 }

@@ -8,6 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HtmlApiTest {
 
@@ -80,9 +82,74 @@ public class HtmlApiTest {
 
         CustomVisitor<Student> customVisitor = new CustomVisitor<>(new Student("Luís", 123));
 
-        String expected = "<html>\n<body>\n<div>\nLuís\r\n123\r\n</div>\n</body>\n</html>\n";
+        String expected = "<html>\n<body>\n<div>" +
+                            "\nLuís\r\n123\r\n" +
+                          "</div>\n</body>\n</html>\n";
 
         Assert.assertTrue(customVisitPrintAssert(customVisitor, rootDoc, expected));
+    }
+
+    @Test
+    public void testBinderUsage(){
+        Html root = new Html();
+
+        Table table = root.body().table();
+
+        List<String> tdValues = new ArrayList<>();
+
+        tdValues.add("val1");
+        tdValues.add("val2");
+        tdValues.add("val3");
+
+        table.binder(elem ->
+            tdValues.forEach(tdValue ->
+                elem.tr().td().text(tdValue)
+            )
+        );
+
+        CustomVisitor customVisitor = new CustomVisitor();
+
+        String expected1 = "<html>\n<body>\n<table>\n" +
+                                "<tr>\n<td>\nval1\r\n</td>\n</tr>\n" +
+                                "<tr>\n<td>\nval2\r\n</td>\n</tr>\n" +
+                                "<tr>\n<td>\nval3\r\n</td>\n</tr>\n" +
+                            "</table>\n</body>\n</html>\n";
+
+        Assert.assertTrue(customVisitPrintAssert(customVisitor, root, expected1));
+
+        tdValues.clear();
+
+        tdValues.add("val4");
+        tdValues.add("val5");
+        tdValues.add("val6");
+
+        String expected2 = "<html>\n<body>\n<table>\n" +
+                "<tr>\n<td>\nval4\r\n</td>\n</tr>\n" +
+                "<tr>\n<td>\nval5\r\n</td>\n</tr>\n" +
+                "<tr>\n<td>\nval6\r\n</td>\n</tr>\n" +
+                "</table>\n</body>\n</html>\n";
+
+        Assert.assertTrue(customVisitPrintAssert(customVisitor, root, expected2));
+
+        ArrayList<String> otherTdValues = new ArrayList<>();
+
+        otherTdValues.add("val7");
+        otherTdValues.add("val8");
+        otherTdValues.add("val9");
+
+        table.binder(elem ->
+                otherTdValues.forEach(tdValue ->
+                        elem.tr().td().text(tdValue)
+                )
+        );
+
+        String expected3 = "<html>\n<body>\n<table>\n" +
+                "<tr>\n<td>\nval7\r\n</td>\n</tr>\n" +
+                "<tr>\n<td>\nval8\r\n</td>\n</tr>\n" +
+                "<tr>\n<td>\nval9\r\n</td>\n</tr>\n" +
+                "</table>\n</body>\n</html>\n";
+
+        Assert.assertTrue(customVisitPrintAssert(customVisitor, root, expected3));
     }
 
     @Test
