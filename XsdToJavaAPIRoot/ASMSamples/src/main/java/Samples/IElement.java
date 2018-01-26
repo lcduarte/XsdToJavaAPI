@@ -1,6 +1,7 @@
 package Samples;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public interface IElement<T extends IElement> {
@@ -15,9 +16,9 @@ public interface IElement<T extends IElement> {
     String getName();
     void accept(Visitor visitor);
 
-    void binder(Consumer<T> consumer);
+    <M> T binder(BiConsumer<T, M> consumer);
     boolean isBound();
-    IElement<T> cloneElem();
-    IElement<T> binderApply();
+    T cloneElem();
+    IElement<T> bindTo(Object model);
 
 }

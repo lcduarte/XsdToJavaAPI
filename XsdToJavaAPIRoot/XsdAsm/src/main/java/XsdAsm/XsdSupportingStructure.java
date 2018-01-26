@@ -122,16 +122,18 @@ class XsdSupportingStructure {
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "$", "()" + IELEMENT_TYPE_DESC, "<P::" + IELEMENT_TYPE_DESC + ">()L" + IELEMENT_TYPE + "<TP;>;", null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "binder", "(Ljava/util/function/Consumer;)V", "(Ljava/util/function/Consumer<TT;>;)V", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "binder", "(Ljava/util/function/BiConsumer;)" + IELEMENT_TYPE_DESC, "<M:Ljava/lang/Object;>(Ljava/util/function/BiConsumer<TT;TM;>;)TT;", null);
+        mVisitor.visitLocalVariable("binderMethod", "(Ljava/util/function/BiConsumer;)" + IELEMENT_TYPE_DESC, "<M:Ljava/lang/Object;>(Ljava/util/function/BiConsumer<TT;TM;>;)TT;", new Label(), new Label(),0);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "isBound", "()Z", null, null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "cloneElem", "()" + IELEMENT_TYPE_DESC, "()L" + IELEMENT_TYPE + "<TT;>;>", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "cloneElem", "()" + IELEMENT_TYPE_DESC, "()L" + IELEMENT_TYPE + "<TT;>;", null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "binderApply", "()" + IELEMENT_TYPE_DESC, "()L" + IELEMENT_TYPE + "<TT;>;>", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "bindTo", "(Ljava/lang/Object;)" + IELEMENT_TYPE_DESC, "(Ljava/lang/Object;)L" + IELEMENT_TYPE + "<TT;>;", null);
+        mVisitor.visitLocalVariable("model", "(Ljava/lang/Object;)" + IELEMENT_TYPE_DESC, "(Ljava/lang/Object;)L" + IELEMENT_TYPE + "<TT;>;", new Label(), new Label(),0);
         mVisitor.visitEnd();
 
         writeClassToFile(IELEMENT, classWriter, apiName);
@@ -347,7 +349,7 @@ class XsdSupportingStructure {
         fVisitor = classWriter.visitField(ACC_PROTECTED, "parent", IELEMENT_TYPE_DESC, null, null);
         fVisitor.visitEnd();
 
-        fVisitor = classWriter.visitField(ACC_PROTECTED, "binderMethod", "Ljava/util/function/Consumer;", "Ljava/util/function/Consumer<TT;>;", null);
+        fVisitor = classWriter.visitField(ACC_PROTECTED, "binderMethod", "Ljava/util/function/BiConsumer;", null, null);
         fVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "()V", null, null);
@@ -632,19 +634,21 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "binder", "(Ljava/util/function/Consumer;)V", "(Ljava/util/function/Consumer<TT;>;)V", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "binder", "(Ljava/util/function/BiConsumer;)" + IELEMENT_TYPE_DESC, "<M:Ljava/lang/Object;>(Ljava/util/function/BiConsumer<TT;TM;>;)TT;" , null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "binderMethod", "Ljava/util/function/Consumer;");
-        mVisitor.visitInsn(RETURN);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "binderMethod", "Ljava/util/function/BiConsumer;");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE, "self", "()" + IELEMENT_TYPE_DESC, false);
+        mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "isBound", "()Z", null, null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE, "binderMethod", "Ljava/util/function/Consumer;");
+        mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE, "binderMethod", "Ljava/util/function/BiConsumer;");
         Label l5 = new Label();
         mVisitor.visitJumpInsn(IFNULL, l5);
         mVisitor.visitInsn(ICONST_1);
@@ -659,22 +663,23 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "binderApply", "()" + IELEMENT_TYPE_DESC, "()L" + IELEMENT_TYPE + "<TT;>;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "bindTo", "(Ljava/lang/Object;)" + IELEMENT_TYPE_DESC, "(Ljava/lang/Object;)L" + IELEMENT_TYPE + ">TT;>;", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE, "isBound", "()Z", false);
         Label l7 = new Label();
         mVisitor.visitJumpInsn(IFEQ, l7);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE, "binderMethod", "Ljava/util/function/Consumer;");
+        mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE, "binderMethod", "Ljava/util/function/BiConsumer;");
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE, "self", "()" + IELEMENT_TYPE_DESC, false);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/function/Consumer", "accept", "(Ljava/lang/Object;)V", true);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/function/BiConsumer", "accept", "(Ljava/lang/Object;Ljava/lang/Object;)V", true);
         mVisitor.visitLabel(l7);
-        mVisitor.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+        mVisitor.visitFrame(Opcodes.F_SAME, 0, new Object[] {IELEMENT_TYPE}, 0, null);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(2, 1);
+        mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PROTECTED, "clone", "(" + ABSTRACT_ELEMENT_TYPE_DESC + ")" + ABSTRACT_ELEMENT_TYPE_DESC, "<X:" + ABSTRACT_ELEMENT_TYPE_DESC + ">(TX;)TX;", null);
@@ -715,8 +720,8 @@ class XsdSupportingStructure {
         mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "parent", IELEMENT_TYPE_DESC);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE, "binderMethod", "Ljava/util/function/Consumer;");
-        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "binderMethod", "Ljava/util/function/Consumer;");
+        mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE, "binderMethod", "Ljava/util/function/BiConsumer;");
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "binderMethod", "Ljava/util/function/BiConsumer;");
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(3, 2);

@@ -91,65 +91,47 @@ public class HtmlApiTest {
 
     @Test
     public void testBinderUsage(){
+        List<String> tdValues1 = new ArrayList<>();
+        List<String> tdValues2 = new ArrayList<>();
+
+        tdValues1.add("val1");
+        tdValues1.add("val2");
+        tdValues1.add("val3");
+
+        tdValues2.add("val4");
+        tdValues2.add("val5");
+        tdValues2.add("val6");
+
         Html root = new Html();
 
-        Table table = root.body().table();
+        root.body()
+                .table()
+                    .<List<String>>binder((elem, list) ->
+                            list.forEach(tdValue ->
+                                    elem.tr().td().text(tdValue)
+                            )
+                    ).<Body>$()
+                .div();
 
-        List<String> tdValues = new ArrayList<>();
-
-        tdValues.add("val1");
-        tdValues.add("val2");
-        tdValues.add("val3");
-
-        table.binder(elem ->
-            tdValues.forEach(tdValue ->
-                elem.tr().td().text(tdValue)
-            )
-        );
-
-        CustomVisitor customVisitor = new CustomVisitor();
+        CustomVisitor<List<String>> customVisitor1 = new CustomVisitor<>(tdValues1);
 
         String expected1 = "<html>\n<body>\n<table>\n" +
                                 "<tr>\n<td>\nval1\r\n</td>\n</tr>\n" +
                                 "<tr>\n<td>\nval2\r\n</td>\n</tr>\n" +
                                 "<tr>\n<td>\nval3\r\n</td>\n</tr>\n" +
-                            "</table>\n</body>\n</html>\n";
+                            "</table>\n<div>\n</div>\n</body>\n</html>\n";
 
-        Assert.assertTrue(customVisitPrintAssert(customVisitor, root, expected1));
+        Assert.assertTrue(customVisitPrintAssert(customVisitor1, root, expected1));
 
-        tdValues.clear();
-
-        tdValues.add("val4");
-        tdValues.add("val5");
-        tdValues.add("val6");
+        CustomVisitor<List<String>> customVisitor2 = new CustomVisitor<>(tdValues2);
 
         String expected2 = "<html>\n<body>\n<table>\n" +
-                "<tr>\n<td>\nval4\r\n</td>\n</tr>\n" +
-                "<tr>\n<td>\nval5\r\n</td>\n</tr>\n" +
-                "<tr>\n<td>\nval6\r\n</td>\n</tr>\n" +
-                "</table>\n</body>\n</html>\n";
+                                "<tr>\n<td>\nval4\r\n</td>\n</tr>\n" +
+                                "<tr>\n<td>\nval5\r\n</td>\n</tr>\n" +
+                                "<tr>\n<td>\nval6\r\n</td>\n</tr>\n" +
+                            "</table>\n<div>\n</div>\n</body>\n</html>\n";
 
-        Assert.assertTrue(customVisitPrintAssert(customVisitor, root, expected2));
-
-        ArrayList<String> otherTdValues = new ArrayList<>();
-
-        otherTdValues.add("val7");
-        otherTdValues.add("val8");
-        otherTdValues.add("val9");
-
-        table.binder(elem ->
-                otherTdValues.forEach(tdValue ->
-                        elem.tr().td().text(tdValue)
-                )
-        );
-
-        String expected3 = "<html>\n<body>\n<table>\n" +
-                "<tr>\n<td>\nval7\r\n</td>\n</tr>\n" +
-                "<tr>\n<td>\nval8\r\n</td>\n</tr>\n" +
-                "<tr>\n<td>\nval9\r\n</td>\n</tr>\n" +
-                "</table>\n</body>\n</html>\n";
-
-        Assert.assertTrue(customVisitPrintAssert(customVisitor, root, expected3));
+        Assert.assertTrue(customVisitPrintAssert(customVisitor2, root, expected2));
     }
 
     @Test

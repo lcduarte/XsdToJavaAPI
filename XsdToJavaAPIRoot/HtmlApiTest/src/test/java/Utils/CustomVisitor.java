@@ -35,13 +35,12 @@ public class CustomVisitor<R> extends AbstractVisitor<R> {
         printStream.printf("<%s>\n", element.getName());
 
         if(element.isBound()) {
-            IElement<T> clone = element.cloneElem();
-
-            clone.binderApply(); // calls the Consumer<IElement, Model> which MODIFIES the clone
-
-            clone.getChildren().forEach((IElement child) ->
-                child.accept(this)
-            );
+            element.cloneElem()
+                    .bindTo(model)
+                    .getChildren()
+                    .forEach((IElement child) ->
+                        child.accept(this)
+                    );
         }
     }
 

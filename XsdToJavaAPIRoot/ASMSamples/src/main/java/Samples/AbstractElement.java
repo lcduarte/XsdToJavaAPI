@@ -15,7 +15,7 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
     protected String id;
     protected String name;
     protected IElement parent;
-    protected Consumer<T> binderMethod;
+    protected BiConsumer binderMethod;
 
     protected AbstractElement(){
         this.parent = null;
@@ -92,8 +92,9 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
     }
 
     @Override
-    public void binder(Consumer<T> consumer) {
+    public <M> T binder(BiConsumer<T, M> consumer) {
         this.binderMethod = consumer;
+        return this.self();
     }
 
     @Override
@@ -102,9 +103,9 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
     }
 
     @Override
-    public IElement<T> binderApply() {
+    public IElement<T> bindTo(Object model) {
         if (isBound()){
-            binderMethod.accept(this.self());
+            binderMethod.accept(this.self(), model);
         }
 
         return this;
