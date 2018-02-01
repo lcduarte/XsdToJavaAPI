@@ -1,5 +1,7 @@
 import XsdAsm.XsdAsmUtils;
 import XsdToJavaAPI.TestObjects.AttrIntlist;
+import XsdToJavaAPI.TestObjects.PersonInfo;
+import XsdToJavaAPI.TestObjects.PersonInfoComplete;
 import XsdToJavaAPI.TestObjects.RestrictionViolationException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +19,7 @@ public class XsdAsmTest {
 
         intList.add(1);
 
-        AttrIntlist attrIntlist = new AttrIntlist(intList);
+        new AttrIntlist(intList);
     }
 
     @Test
@@ -32,11 +34,23 @@ public class XsdAsmTest {
         intList.add(6);
 
         try {
-            AttrIntlist attrIntlist = new AttrIntlist(intList);
+            new AttrIntlist(intList);
             Assert.fail();
         } catch (RestrictionViolationException ignored){
 
         }
+    }
+
+    @Test
+    public void testSequence(){
+        PersonInfoComplete personInfoComplete = new PersonInfo().firstName("Luis")
+                                                                .lastName("Duarte")
+                                                                .personAddress("AnAddress")
+                                                                .city("Lisbon")
+                                                                .country("Portugal");
+
+        Assert.assertEquals(5, personInfoComplete.getChildren().size());
+
     }
 
     private String getDottedPackage(){

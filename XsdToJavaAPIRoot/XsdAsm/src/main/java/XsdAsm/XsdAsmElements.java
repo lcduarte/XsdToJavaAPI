@@ -25,7 +25,7 @@ class XsdAsmElements {
 
         Stream<XsdElement> elementChildren = getOwnChildren(element);
         Stream<XsdAttribute> elementAttributes = getOwnAttributes(element);
-        String[] interfaces = interfaceGenerator.getInterfaces(element);
+        String[] interfaces = interfaceGenerator.getInterfaces(element, apiName);
 
         String signature = getClassSignature(interfaces, className, apiName);
 
@@ -48,7 +48,7 @@ class XsdAsmElements {
      * @param classWriter The class writer on which should be written the methods.
      * @param className The class name.
      */
-    private static void generateClassSpecificMethods(ClassWriter classWriter, String className, String apiName) {
+    static void generateClassSpecificMethods(ClassWriter classWriter, String className, String apiName) {
         String classType = getFullClassTypeName(className, apiName);
         String classTypeDesc = getFullClassTypeNameDesc(className, apiName);
 

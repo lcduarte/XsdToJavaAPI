@@ -93,6 +93,7 @@ public class XsdAsmUtils {
     }
 
     /**
+     * @param apiName The name of the api to be generated.
      * @return The path to the destination folder of all the generated classes.
      */
     public static String getDestinationDirectory(String apiName){
@@ -223,8 +224,10 @@ public class XsdAsmUtils {
      * @return The children that are exclusive to the current element.
      */
     static Stream<XsdElement> getOwnChildren(XsdElement element) {
+        /*
         if (element.getXsdComplexType() != null){
             XsdAbstractElement childElement = element.getXsdComplexType().getXsdChildElement();
+
 
             if (childElement != null) {
                 Map<String, XsdElement> mappedElements = new HashMap<>();
@@ -238,6 +241,9 @@ public class XsdAsmUtils {
                 return mappedElements.values().stream();
             }
         }
+        */
+
+        //TODO mudar
 
         return Stream.empty();
     }
@@ -268,12 +274,14 @@ public class XsdAsmUtils {
     static String getClassSignature(String[] interfaces, String className, String apiName) {
         StringBuilder signature = new StringBuilder("L" + ABSTRACT_ELEMENT_TYPE + "<" + getFullClassTypeNameDesc(className, apiName) + ">;");
 
-        for (String anInterface : interfaces) {
-            signature.append("L")
-                    .append(getFullClassTypeName(anInterface, apiName))
-                    .append("<")
-                    .append(getFullClassTypeNameDesc(className, apiName))
-                    .append(">;");
+        if (interfaces != null){
+            for (String anInterface : interfaces) {
+                signature.append("L")
+                        .append(getFullClassTypeName(anInterface, apiName))
+                        .append("<")
+                        .append(getFullClassTypeNameDesc(className, apiName))
+                        .append(">;");
+            }
         }
 
         return signature.toString();

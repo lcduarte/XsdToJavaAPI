@@ -2,6 +2,7 @@ package XsdElements;
 
 import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
+import XsdElements.ElementsWrapper.UnsolvedReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,14 +11,6 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public abstract class XsdMultipleElements extends XsdAbstractElement {
-
-    /**
-     * This Map contains the separated elements from XsdGroups. This way this class's elements
-     * are divided into direct children, represented by the List elements and shared children,
-     * represented by this Map. This way it simplifies the division of methods that will belong
-     * to an interface and those that will be contained in the elements class.
-     */
-    private Map<String, List<ReferenceBase>> groupElements = new HashMap<>();
 
     /**
      * The elements List is a flattened list of all the children of a given XsdMultipleElement object
@@ -53,8 +46,11 @@ public abstract class XsdMultipleElements extends XsdAbstractElement {
         }
 
         if (elementWrapper.getElement() instanceof XsdGroup){
-            groupElements.put(elementWrapper.getName(), elementWrapper.getElement().getElements());
-            addElements(elementWrapper.getElement().getElements());
+            elements.add(elementWrapper);
+
+            this.elements.removeIf(element ->
+               element instanceof UnsolvedReference && ((UnsolvedReference) element).getRef().equals(elementWrapper.getName())
+            );
         }
     }
 
@@ -71,27 +67,19 @@ public abstract class XsdMultipleElements extends XsdAbstractElement {
         return elements;
     }
 
+    @Override
+    public Stream<XsdAbstractElement> getXsdElements() {
+        return elements.stream()
+                .filter(element -> element instanceof ConcreteElement)
+                .map(ReferenceBase::getElement);
+    }
+
     void addElement(ReferenceBase element){
         this.elements.add(element);
     }
 
     void addElements(List<ReferenceBase> elements){
         this.elements.addAll(elements);
-    }
-
-    public Map<String, Stream<XsdElement>> getGroupElements(){
-        Map<String, Stream<XsdElement>> concreteGroupElements = new HashMap<>();
-
-        groupElements.keySet().forEach(groupElementName -> {
-            concreteGroupElements.put(
-                    groupElementName,
-                    groupElements.get(groupElementName)
-                            .stream()
-                            .filter(groupElement -> groupElement instanceof ConcreteElement)
-                            .map(groupElement -> (XsdElement) groupElement.getElement()));
-        });
-
-        return concreteGroupElements;
     }
 
 }

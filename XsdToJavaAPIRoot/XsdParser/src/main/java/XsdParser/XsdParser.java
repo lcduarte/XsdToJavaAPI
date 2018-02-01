@@ -18,17 +18,20 @@ import java.util.stream.Stream;
 
 public class XsdParser {
 
+    //TODO Suportar extensão com o complexContent
+
     /**
      * ParseMappers is a map that defines a function to each XsdElement type supported by this mapper,
      * this way, based on the XsdElement TAG, the according parsed is invoked.
      */
     public static HashMap<String, Function<Node, ReferenceBase>> parseMappers;
-    public static List<String> builtInDataTypes;
+    private static List<String> builtInDataTypes;
     private static XsdParser instance;
 
-    private List<ReferenceBase> elements = new ArrayList<>();
-    private List<UnsolvedReference> unsolvedElements = new ArrayList<>();
+    private Map<String, List<ReferenceBase>> parseElements = new HashMap<>();
+    private Map<String, List<UnsolvedReference>> unsolvedElements = new HashMap<>();
     private Map<String, List<UnsolvedReferenceItem>> parserUnsolvedElementsMap = new HashMap<>();
+    private String currentFile;
 
     static {
         parseMappers = new HashMap<>();
@@ -135,11 +138,11 @@ public class XsdParser {
     }
 
     /**
-     * Parses a Xsd file and all the contained elements. This code iterates on the nodes and parses
+     * Parses a Xsd file and all the contained parseElements. This code iterates on the nodes and parses
      * the supported ones. The supported types are identified by their TAG, in parseMappers which maps
      * the xsd tag to a function that parses that xsd type.
      * @param filePath The file path to the xsd file.
-     * @return A stream of parsed wrapped xsd elements.
+     * @return A stream of parsed wrapped xsd parseElements.
      */
     public Stream<XsdAbstractElement> parse(String filePath) {
         //https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
@@ -150,6 +153,9 @@ public class XsdParser {
                 throw new RuntimeException("The file doesn't exist");
             }
 
+            currentFile = filePath;
+            unsolvedElements.put(filePath, new ArrayList<>());
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
@@ -159,6 +165,10 @@ public class XsdParser {
             doc.getDocumentElement().normalize();
 
             NodeList nodes = doc.getFirstChild().getChildNodes();
+
+            ArrayList<ReferenceBase> elements = new ArrayList<>();
+
+            parseElements.put(filePath, elements);
 
             for (int temp = 0; temp < nodes.getLength(); temp++) {
                 Node node = nodes.item(temp);
@@ -178,14 +188,14 @@ public class XsdParser {
 
         resolveRefs(filePath);
 
-        return elements.stream()
+        return parseElements.get(filePath).stream()
                         .filter(element -> element instanceof ConcreteElement)
                         .map(ReferenceBase::getElement);
     }
 
     /**
      * This method resolves all the remaining UnsolvedReferences. It starts by gathering all the named
-     * elements and then iterates on the unsolvedElements List in order to find if any of the unsolvedReferences
+     * parseElements and then iterates on the unsolvedElements List in order to find if any of the unsolvedReferences
      * can be solved by replacing the unsolvedElement by its matching ConcreteElement, present in the
      * concreteElementsMap. The unsolvedReference matches a ConcreteElement by having its ref attribute
      * with the same value as the name attribute of the ConcreteElement.
@@ -194,14 +204,26 @@ public class XsdParser {
     private void resolveRefs(String filePath) {
         HashMap<String, ConcreteElement> concreteElementsMap = new HashMap<>();
 
-        elements.stream()
+        parseElements
+                .get(filePath)
+                .stream()
                 .filter(concreteElement -> concreteElement instanceof ConcreteElement)
                 .map(concreteElement -> (ConcreteElement) concreteElement)
                 .forEach(referenceElement -> concreteElementsMap.put(referenceElement.getName(), referenceElement));
 
+        Optional<ConcreteElement> debug = parseElements
+                .get(filePath)
+                .stream()
+                .filter(concreteElement -> concreteElement instanceof ConcreteElement)
+                .map(concreteElement -> (ConcreteElement) concreteElement)
+                .filter(referenceElement -> referenceElement.getName().equals("gFrameworkElement"))
+                .findFirst();
+
+        List<UnsolvedReference> unsolvedElementsList = unsolvedElements.get(filePath);
+
         //noinspection ForLoopReplaceableByForEach
-        for (int i = 0; i < unsolvedElements.size(); i++) {
-            replaceUnsolvedReference(concreteElementsMap, unsolvedElements.get(i), filePath);
+        for (int i = 0; i < unsolvedElementsList.size(); i++) {
+            replaceUnsolvedReference(concreteElementsMap, unsolvedElementsList.get(i), filePath);
         }
     }
 
@@ -266,7 +288,7 @@ public class XsdParser {
     }
 
     public void addUnsolvedReference(UnsolvedReference unsolvedReference){
-        unsolvedElements.add(unsolvedReference);
+        unsolvedElements.get(currentFile).add(unsolvedReference);
     }
 
     public static List<String> getBuiltInDataTypes() {

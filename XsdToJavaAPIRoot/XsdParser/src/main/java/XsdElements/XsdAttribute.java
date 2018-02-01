@@ -27,10 +27,6 @@ public class XsdAttribute extends XsdReferenceElement {
 
     private XsdAttribute(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
-
-        if (getName() != null && getName().equals("class")){
-            int a = 5;
-        }
     }
 
     private XsdAttribute(HashMap<String, String> elementFieldsMap) {
@@ -39,10 +35,6 @@ public class XsdAttribute extends XsdReferenceElement {
 
     private XsdAttribute(XsdAbstractElement parent) {
         super(parent);
-
-        if (getName() != null && getName().equals("class")){
-            int a = 5;
-        }
     }
 
     @Override
@@ -93,10 +85,6 @@ public class XsdAttribute extends XsdReferenceElement {
     @Override
     protected void setParent(XsdAbstractElement parent) {
         super.setParent(parent);
-
-        if (getName() != null && getName().equals("class")){
-            int a = 5;
-        }
     }
 
     @Override

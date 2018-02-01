@@ -92,6 +92,7 @@ public class XsdElement extends XsdReferenceElement {
 
         if (this.type != null && this.type instanceof UnsolvedReference && ((UnsolvedReference) this.type).getRef().equals(element.getName())){
             this.type = element;
+            element.getElement().setParent(this);
         }
     }
 
@@ -104,6 +105,7 @@ public class XsdElement extends XsdReferenceElement {
     }
 
     public XsdComplexType getXsdComplexType() {
+        //TODO type ser xs:string?
         return complexType == null ? null : (XsdComplexType) complexType.getElement();
     }
 

@@ -237,7 +237,6 @@
 			<xsd:element ref="b" />
 			<xsd:element ref="bdo" />
 			<xsd:element ref="blockquote" />
-			<xsd:element ref="bdo" />
 			<xsd:element ref="br" />
 			<xsd:element ref="button" />
 

@@ -15,7 +15,7 @@ import static XsdAsm.XsdSupportingStructure.createSupportingInfrastructure;
 
 public class XsdAsm {
 
-    private XsdAsmInterfaces interfaceGenerator = new XsdAsmInterfaces();
+    private XsdAsmInterfaces interfaceGenerator = new XsdAsmInterfaces(this);
     private List<String> createdAttributes = new ArrayList<>();
 
     public void generateClassFromElements(Stream<XsdAbstractElement> elements, String apiName){
@@ -27,10 +27,14 @@ public class XsdAsm {
                 .map(element -> (XsdElement) element)
                 .collect(Collectors.toList());
 
-        elementList.forEach(element -> generateClassFromElement(interfaceGenerator, createdAttributes, element, apiName));
+        elementList.forEach(element -> generateClassFromElement(element, apiName));
 
         interfaceGenerator.generateInterfaces(createdAttributes, apiName);
 
         generateVisitors(elementList, apiName);
+    }
+
+    void generateClassFromElement(XsdElement element, String apiName){
+        XsdAsmElements.generateClassFromElement(interfaceGenerator, createdAttributes, element, apiName);
     }
 }
