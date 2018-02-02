@@ -217,38 +217,6 @@ public class XsdAsmUtils {
     }
 
     /**
-     * Returns all the concrete children of a given element. With the separation made between
-     * XsdGroups children and the remaining children this method is able to return only the
-     * children that are not shared in any interface.
-     * @param element The element from which the children will be obtained.
-     * @return The children that are exclusive to the current element.
-     */
-    static Stream<XsdElement> getOwnChildren(XsdElement element) {
-        /*
-        if (element.getXsdComplexType() != null){
-            XsdAbstractElement childElement = element.getXsdComplexType().getXsdChildElement();
-
-
-            if (childElement != null) {
-                Map<String, XsdElement> mappedElements = new HashMap<>();
-
-                childElement
-                        .getXsdElements()
-                        .filter(referenceBase -> !(referenceBase.getParent() instanceof XsdGroup))
-                        .map(referenceBase -> (XsdElement) referenceBase)
-                        .forEach(elementObj -> mappedElements.put(elementObj.getName(), elementObj));
-
-                return mappedElements.values().stream();
-            }
-        }
-        */
-
-        //TODO mudar
-
-        return Stream.empty();
-    }
-
-    /**
      * Obtains the attributes which are specific to the given element.
      * @param element The element containing the attributes.
      * @return A list of attributes that are exclusive to the element.
@@ -281,6 +249,20 @@ public class XsdAsmUtils {
                         .append("<")
                         .append(getFullClassTypeNameDesc(className, apiName))
                         .append(">;");
+            }
+        }
+
+        return signature.toString();
+    }
+
+    static String getInterfaceSignature(String[] interfaces, String apiName) {
+        StringBuilder signature = new StringBuilder("<T::" + IELEMENT_TYPE_DESC + ">Ljava/lang/Object;");
+
+        if (interfaces != null){
+            for (String anInterface : interfaces) {
+                signature.append("L")
+                        .append(getFullClassTypeName(anInterface, apiName))
+                        .append("<TT;>;");
             }
         }
 

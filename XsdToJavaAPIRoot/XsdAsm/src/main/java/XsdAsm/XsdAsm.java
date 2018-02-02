@@ -2,6 +2,7 @@ package XsdAsm;
 
 import XsdElements.XsdAbstractElement;
 import XsdElements.XsdElement;
+import XsdElements.XsdReferenceElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,12 @@ public class XsdAsm {
 
         interfaceGenerator.generateInterfaces(createdAttributes, apiName);
 
-        generateVisitors(elementList, apiName);
+        List<String> elementNames = new ArrayList<>();
+
+        elementNames.addAll(elementList.stream().map(XsdReferenceElement::getName).collect(Collectors.toList()));
+        elementNames.addAll(interfaceGenerator.getExtraElementsForVisitor());
+
+        generateVisitors(elementNames, apiName);
     }
 
     void generateClassFromElement(XsdElement element, String apiName){

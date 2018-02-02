@@ -22,6 +22,9 @@ public class HtmlParseTest {
                          .filter(element -> element instanceof XsdElement)
                          .map(element -> (XsdElement) element)
                          .collect(Collectors.toList());
+
+
+        XsdElement section = elements.stream().filter(element -> element.getName().equals("section")).findFirst().get();
     }
 
     @Test
@@ -107,9 +110,11 @@ public class HtmlParseTest {
 
         XsdComplexType metaChild = htmlElement.getXsdComplexType();
 
-        XsdAttribute attribute = metaChild.getXsdAttributes().findFirst().get();
+        Optional<XsdAttribute> attributeOptional = metaChild.getXsdAttributes().filter(attribute1 -> attribute1.getName().equals("http-equiv")).findFirst();
 
-        Assert.assertEquals("http-equiv", attribute.getName());
+        Assert.assertTrue(attributeOptional.isPresent());
+
+        XsdAttribute attribute = attributeOptional.get();
 
         Assert.assertEquals(true, attribute.getXsdSimpleType() != null);
 
@@ -155,10 +160,21 @@ public class HtmlParseTest {
 
     @Test
     public void testClassAttribute(){
+        elements.forEach(element ->{
+                    if (element.getXsdComplexType()
+                            .getXsdAttributeGroup()
+                            .noneMatch(attributeGroup ->
+                                    attributeGroup.getXsdElements()
+                                            .filter(groupElement -> groupElement instanceof XsdAttribute)
+                                            .map(attribute -> (XsdAttribute) attribute)
+                                            .anyMatch(attribute -> attribute.getName().equals("class")))){
+                        System.out.println(element.getName());
+                    }
+        });
+
         elements.forEach(element ->
             Assert.assertTrue(element.getXsdComplexType()
                     .getXsdAttributeGroup()
-                    .stream()
                     .anyMatch(attributeGroup ->
                             attributeGroup.getXsdElements()
                                     .filter(groupElement -> groupElement instanceof XsdAttribute)

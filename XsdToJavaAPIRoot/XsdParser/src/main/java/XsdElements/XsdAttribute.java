@@ -4,7 +4,6 @@ import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.ElementsWrapper.UnsolvedReference;
 import XsdElements.Visitors.Visitor;
-import XsdElements.XsdRestrictionElements.XsdAbstractRestrictionChild;
 import XsdParser.XsdParser;
 import org.w3c.dom.Node;
 
@@ -46,7 +45,7 @@ public class XsdAttribute extends XsdReferenceElement {
             this.fixed = elementFieldsMap.getOrDefault(FIXED, fixed);
             this.type = elementFieldsMap.getOrDefault(TYPE, type);
 
-            if (type != null && !XsdParser.getBuiltInDataTypes().contains(type)){
+            if (type != null && !XsdParser.getXsdTypesToJava().containsKey(type)){
                 XsdAttribute placeHolder = new XsdAttribute(this);
                 this.simpleType = new UnsolvedReference(type, placeHolder);
                 XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.simpleType);

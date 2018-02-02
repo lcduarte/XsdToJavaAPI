@@ -26,10 +26,10 @@ public class XsdComplexType extends XsdAbstractElement {
     private String mixed;
     private String block;
     private String elementFinal;
-    private List<XsdAttributeGroup> attributeGroups = new ArrayList<>();
+    private List<ReferenceBase> attributeGroups = new ArrayList<>();
     private List<ReferenceBase> attributes = new ArrayList<>();
 
-    private XsdComplexType(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
+    XsdComplexType(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
     }
 
@@ -76,6 +76,7 @@ public class XsdComplexType extends XsdAbstractElement {
 
         elementCopy.childElement = this.childElement;
         elementCopy.addAttributes(this.getAttributes());
+        elementCopy.attributeGroups = this.getAttributeGroups();
 
         return elementCopy;
     }
@@ -84,10 +85,10 @@ public class XsdComplexType extends XsdAbstractElement {
     public void replaceUnsolvedElements(ConcreteElement element) {
         super.replaceUnsolvedElements(element);
 
-        if (element.getElement() instanceof  XsdAttributeGroup){
+        if (element.getElement() instanceof XsdAttributeGroup){
             XsdAttributeGroup attributeGroup = (XsdAttributeGroup) element.getElement();
 
-            this.attributeGroups.add(attributeGroup);
+            this.attributeGroups.add(element);
             this.addAttributes(attributeGroup.getElements());
         }
     }
@@ -155,12 +156,18 @@ public class XsdComplexType extends XsdAbstractElement {
                         .map(attribute -> (XsdAttribute)attribute.getElement());
     }
 
-    public List<XsdAttributeGroup> getXsdAttributeGroup() {
-        return attributeGroups;
+    public Stream<XsdAttributeGroup> getXsdAttributeGroup() {
+        return attributeGroups.stream()
+                .filter(attributeGroup -> attributeGroup instanceof ConcreteElement)
+                .map(attributeGroup -> (XsdAttributeGroup) attributeGroup.getElement());
     }
 
     public static ReferenceBase parse(Node node){
         return xsdParseSkeleton(node, new XsdComplexType(convertNodeMap(node.getAttributes())));
+    }
+
+    private List<ReferenceBase> getAttributeGroups() {
+        return attributeGroups;
     }
 
     class ComplexTypeVisitor extends Visitor {
@@ -188,5 +195,14 @@ public class XsdComplexType extends XsdAbstractElement {
             XsdComplexType.this.addAttributes(ReferenceBase.createFromXsd(attribute));
         }
 
+        /*
+        @Override
+        public void visit(XsdAttributeGroup attributeGroup) {
+            super.visit(attributeGroup);
+
+            XsdComplexType.this.attributeGroups.add(attributeGroup);
+            XsdComplexType.this.attributes.addAll(attributeGroup.getElements());
+        }
+        */
     }
 }

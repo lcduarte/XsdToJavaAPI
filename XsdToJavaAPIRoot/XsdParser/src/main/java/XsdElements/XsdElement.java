@@ -48,9 +48,15 @@ public class XsdElement extends XsdReferenceElement {
             String type = elementFieldsMap.get(TYPE);
 
             if (type != null){
-                XsdElement placeHolder = new XsdElement(this);
-                this.type = new UnsolvedReference(type, placeHolder);
-                XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.type);
+                if (XsdParser.getXsdTypesToJava().containsKey(type)){
+                    HashMap<String, String> attributes = new HashMap<>();
+                    attributes.put(NAME, type);
+                    this.type = ReferenceBase.createFromXsd(new XsdComplexType(this, attributes));
+                } else {
+                    XsdElement placeHolder = new XsdElement(this);
+                    this.type = new UnsolvedReference(type, placeHolder);
+                    XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.type);
+                }
             }
 
             this.substitutionGroup = elementFieldsMap.getOrDefault(SUBSTITUTION_GROUP, substitutionGroup);
@@ -105,8 +111,7 @@ public class XsdElement extends XsdReferenceElement {
     }
 
     public XsdComplexType getXsdComplexType() {
-        //TODO type ser xs:string?
-        return complexType == null ? null : (XsdComplexType) complexType.getElement();
+        return complexType == null ? (XsdComplexType) type.getElement() : (XsdComplexType) complexType.getElement();
     }
 
     ReferenceBase getType(){

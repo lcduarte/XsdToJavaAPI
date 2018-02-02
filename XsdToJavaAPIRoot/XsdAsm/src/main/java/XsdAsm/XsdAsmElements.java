@@ -23,7 +23,6 @@ class XsdAsmElements {
     static void generateClassFromElement(XsdAsmInterfaces interfaceGenerator, List<String> createdAttributes, XsdElement element, String apiName) {
         String className = toCamelCase(element.getName());
 
-        Stream<XsdElement> elementChildren = getOwnChildren(element);
         Stream<XsdAttribute> elementAttributes = getOwnAttributes(element);
         String[] interfaces = interfaceGenerator.getInterfaces(element, apiName);
 
@@ -32,8 +31,6 @@ class XsdAsmElements {
         ClassWriter classWriter = generateClass(className, ABSTRACT_ELEMENT_TYPE, interfaces, signature,ACC_PUBLIC + ACC_SUPER, apiName);
 
         generateClassSpecificMethods(classWriter, className, apiName);
-
-        elementChildren.forEach(child -> generateMethodsForElement(classWriter, child, getFullClassTypeName(className, apiName), getFullClassTypeNameDesc(className, apiName), apiName));
 
         elementAttributes.forEach(elementAttribute -> generateMethodsAndCreateAttribute(createdAttributes, classWriter, elementAttribute, getFullClassTypeNameDesc(className, apiName), apiName));
 

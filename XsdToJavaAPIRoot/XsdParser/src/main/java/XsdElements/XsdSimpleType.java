@@ -5,6 +5,7 @@ package XsdElements;
 import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
 import XsdElements.XsdRestrictionElements.XsdEnumeration;
+import XsdParser.XsdParser;
 import org.w3c.dom.Node;
 
 import java.util.*;
@@ -23,60 +24,11 @@ public class XsdSimpleType extends XsdAbstractElement {
     private String name;
     private String finalObj;
 
-    static Map<String, String> xsdTypesToJava = new HashMap<>();
-
-    static {
-        xsdTypesToJava.put("xsd:anyURI", "String");
-        xsdTypesToJava.put("xsd:boolean", "Boolean");
-        //xsdTypesToJava.put("xsd:base64Binary", "[B");
-        //xsdTypesToJava.put("xsd:hexBinary", "[B");
-        xsdTypesToJava.put("xsd:date", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:dateTime", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:time", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:duration", "Duration");
-        xsdTypesToJava.put("xsd:dayTimeDuration", "Duration");
-        xsdTypesToJava.put("xsd:yearMonthDuration", "Duration");
-        xsdTypesToJava.put("xsd:gDay", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gMonth", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gMonthDay", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gYear", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gYearMonth", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:decimal", "BigDecimal");
-        xsdTypesToJava.put("xsd:integer", "BigInteger");
-        xsdTypesToJava.put("xsd:nonPositiveInteger", "BigInteger");
-        xsdTypesToJava.put("xsd:negativeInteger", "BigInteger");
-        xsdTypesToJava.put("xsd:long", "Long");
-        xsdTypesToJava.put("xsd:int", "Integer");
-        xsdTypesToJava.put("xsd:short", "Short");
-        xsdTypesToJava.put("xsd:byte", "Byte");
-        xsdTypesToJava.put("xsd:nonNegativeInteger", "BigInteger");
-        xsdTypesToJava.put("xsd:unsignedLong", "BigInteger");
-        xsdTypesToJava.put("xsd:unsignedInt", "Long");
-        xsdTypesToJava.put("xsd:unsignedShort", "Integer");
-        xsdTypesToJava.put("xsd:unsignedByte", "Short");
-        xsdTypesToJava.put("xsd:positiveInteger", "BigInteger");
-        xsdTypesToJava.put("xsd:double", "Double");
-        xsdTypesToJava.put("xsd:float", "Float");
-        xsdTypesToJava.put("xsd:QName", "QName");
-        xsdTypesToJava.put("xsd:NOTATION", "QName");
-        xsdTypesToJava.put("xsd:string", "String");
-        xsdTypesToJava.put("xsd:normalizedString", "String");
-        xsdTypesToJava.put("xsd:token", "String");
-        xsdTypesToJava.put("xsd:language", "String");
-        xsdTypesToJava.put("xsd:NMTOKEN", "String");
-        xsdTypesToJava.put("xsd:Name", "String");
-        xsdTypesToJava.put("xsd:NCName", "String");
-        xsdTypesToJava.put("xsd:ID", "String");
-        xsdTypesToJava.put("xsd:IDREF", "String");
-        xsdTypesToJava.put("xsd:ENTITY", "String");
-        xsdTypesToJava.put("xsd:untypedAtomic", "String");
-    }
-
     private XsdSimpleType(XsdAbstractElement parent, HashMap<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
     }
 
-    public XsdSimpleType(HashMap<String, String> elementFieldsMap) {
+    private XsdSimpleType(HashMap<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
 
@@ -149,9 +101,10 @@ public class XsdSimpleType extends XsdAbstractElement {
 
     List<XsdRestriction> getAllRestrictions() {
         Map<String, XsdRestriction> restrictions = new HashMap<>();
+        Map<String, String> xsdBuiltinTypes = XsdParser.getXsdTypesToJava();
 
         if (restriction != null){
-            restrictions.put(xsdTypesToJava.get(restriction.getBase()), restriction);
+            restrictions.put(xsdBuiltinTypes.get(restriction.getBase()), restriction);
         }
 
         if (union != null){
@@ -159,7 +112,7 @@ public class XsdSimpleType extends XsdAbstractElement {
                 XsdRestriction unionMemberRestriction = unionMember.getRestriction();
 
                 if (unionMemberRestriction != null){
-                    XsdRestriction existingRestriction = restrictions.getOrDefault(xsdTypesToJava.get(unionMemberRestriction.getBase()), null);
+                    XsdRestriction existingRestriction = restrictions.getOrDefault(xsdBuiltinTypes.get(unionMemberRestriction.getBase()), null);
 
                     if (existingRestriction != null){
                         if (existsRestrictionOverlap(existingRestriction, unionMemberRestriction)){
@@ -193,7 +146,7 @@ public class XsdSimpleType extends XsdAbstractElement {
                             }
                         }
                     } else {
-                        restrictions.put(xsdTypesToJava.get(unionMemberRestriction.getBase()), unionMemberRestriction);
+                        restrictions.put(xsdBuiltinTypes.get(unionMemberRestriction.getBase()), unionMemberRestriction);
                     }
                 }
             });
