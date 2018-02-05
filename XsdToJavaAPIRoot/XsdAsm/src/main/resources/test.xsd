@@ -19,6 +19,23 @@
 
   <!-- **************************************************************** -->
 
+   <xs:element name="studentGrades">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="firstName" type="xs:string"/>
+        <xs:element name="lastName" type="xs:string"/>
+        <xs:group>
+            <xsd:all>
+                <xs:element name="gradeNumeric" />
+                <xs:element name="gradeQualitative" />
+            </xsd:all>
+        </xs:group>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element> 
+
+  <!-- **************************************************************** -->
+
   <xsd:element name="intvalues">
       <xsd:complexType>
           <xsd:attribute name="intlist" type="valuelist"/>
@@ -32,10 +49,6 @@
       </xsd:restriction>
       <xsd:list itemType="xsd:int"/>
   </xsd:simpleType>
-
-  <!-- **************************************************************** -->
-
-
 
   <!-- **************************************************************** -->
 
@@ -1956,5 +1969,8 @@
         </xsd:choice>
         <xsd:attributeGroup ref="commonAttributeGroup" />
     </xsd:complexType>
+
+  <!-- **************************************************************** -->
+
     
 </xs:schema>

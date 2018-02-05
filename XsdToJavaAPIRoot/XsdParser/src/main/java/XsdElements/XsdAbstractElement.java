@@ -8,6 +8,8 @@ import XsdParser.XsdParser;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
@@ -89,7 +91,7 @@ public abstract class XsdAbstractElement {
         List<ReferenceBase> elements = getElements();
 
         if (elements == null){
-            return null;
+            return new ArrayList<XsdAbstractElement>().stream();
         }
 
         return elements.stream().filter(element -> element instanceof ConcreteElement).map(ReferenceBase::getElement);

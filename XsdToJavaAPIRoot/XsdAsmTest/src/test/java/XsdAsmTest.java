@@ -1,8 +1,5 @@
 import XsdAsm.XsdAsmUtils;
-import XsdToJavaAPI.TestObjects.AttrIntlist;
-import XsdToJavaAPI.TestObjects.PersonInfo;
-import XsdToJavaAPI.TestObjects.PersonInfoComplete;
-import XsdToJavaAPI.TestObjects.RestrictionViolationException;
+import XsdToJavaAPI.TestObjects.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -50,7 +47,21 @@ public class XsdAsmTest {
                                                                 .country("Portugal");
 
         Assert.assertEquals(5, personInfoComplete.getChildren().size());
+    }
 
+    @Test
+    public void testSequenceWithGroups(){
+        StudentGradesComplete studentGradesCompleteNumeric = new StudentGrades().firstName("Luis")
+                .lastName("Duarte")
+                .gradeNumeric(String.valueOf(20));
+
+        Assert.assertEquals(3, studentGradesCompleteNumeric.getChildren().size());
+
+        StudentGradesComplete studentGradesCompleteQualitative = new StudentGrades().firstName("Luis")
+                .lastName("Duarte")
+                .gradeQualitative("Excellent");
+
+        Assert.assertEquals(3, studentGradesCompleteQualitative.getChildren().size());
     }
 
     private String getDottedPackage(){

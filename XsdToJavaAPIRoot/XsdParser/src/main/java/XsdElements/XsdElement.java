@@ -111,7 +111,7 @@ public class XsdElement extends XsdReferenceElement {
     }
 
     public XsdComplexType getXsdComplexType() {
-        return complexType == null ? (XsdComplexType) type.getElement() : (XsdComplexType) complexType.getElement();
+        return complexType == null ? type == null ? null : (XsdComplexType) type.getElement() : (XsdComplexType) complexType.getElement();
     }
 
     ReferenceBase getType(){
