@@ -87,7 +87,7 @@ public class XsdElement extends XsdReferenceElement {
     }
 
     @Override
-    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdElement clone(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
         return new XsdElement(this.getParent(), placeHolderAttributes);
     }
@@ -106,16 +106,8 @@ public class XsdElement extends XsdReferenceElement {
         this.complexType = ReferenceBase.createFromXsd(complexType);
     }
 
-    ReferenceBase getComplexType() {
-        return complexType;
-    }
-
     public XsdComplexType getXsdComplexType() {
         return complexType == null ? type == null ? null : (XsdComplexType) type.getElement() : (XsdComplexType) complexType.getElement();
-    }
-
-    ReferenceBase getType(){
-        return type;
     }
 
     public XsdAbstractElement getXsdType(){
@@ -124,34 +116,6 @@ public class XsdElement extends XsdReferenceElement {
         }
 
         return null;
-    }
-
-    public String getSubstitutionGroup() {
-        return substitutionGroup;
-    }
-
-    public String getDefault() {
-        return defaultObj;
-    }
-
-    public String getFixed() {
-        return fixed;
-    }
-
-    public String getForm() {
-        return form;
-    }
-
-    public String getNillable() {
-        return nillable;
-    }
-
-    public String getAbstract() {
-        return abstractObj;
-    }
-
-    public String getBlock() {
-        return block;
     }
 
     public String getFinal() {

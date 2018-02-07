@@ -196,7 +196,6 @@ public class RestrictionValidator {
             return;
         }
 
-        //TODO Não sei bem.
+        //TODO
     }
-
 }

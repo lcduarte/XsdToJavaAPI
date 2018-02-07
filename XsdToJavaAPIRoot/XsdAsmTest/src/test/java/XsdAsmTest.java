@@ -64,6 +64,25 @@ public class XsdAsmTest {
         Assert.assertEquals(3, studentGradesCompleteQualitative.getChildren().size());
     }
 
+    @Test
+    public void testGroupWithInnerSequence(){
+        AName elem = new AName().elem1("val1")
+                                .elem2("val2")
+                                .elem1("val1")
+                                .elem2("val2");
+
+        Assert.assertEquals(4, elem.getChildren().size());
+    }
+
+    @Test
+    public void testWpfe(){
+        //Alterar o type de attribute para funcionar como o de complexType.?
+        Canvas canvas = new Canvas();
+
+        canvas.canvas_Clip("")
+                .inkPresenter("");
+    }
+
     private String getDottedPackage(){
         return XsdAsmUtils.getPackage(apiName).replaceAll("/", ".");
     }

@@ -1,0 +1,5 @@
+<root>
+    <item name='java.net.URL java.lang.String getPath()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

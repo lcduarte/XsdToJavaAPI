@@ -35,7 +35,7 @@ public class XsdChoice extends XsdMultipleElements{
     }
 
     @Override
-    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdAbstractElement clone(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
         XsdChoice elementCopy = new XsdChoice(this.getParent(), placeHolderAttributes);
 
@@ -43,25 +43,7 @@ public class XsdChoice extends XsdMultipleElements{
 
         return elementCopy;
     }
-    /*
-    private void addElement(XsdGroup groupElement){
-        XsdMultipleElements groupChild = groupElement.getChildElement();
 
-        if (groupChild != null){
-            super.addElements(groupElement.getChildElement().getElements());
-        } else {
-            super.addElement(new UnsolvedReference(groupElement));
-        }
-    }
-
-    private void addElement(XsdChoice choiceElement){
-        super.addElements(choiceElement.getElements());
-    }
-
-    private void addElement(XsdSequence sequenceElement){
-        super.addElements(sequenceElement.getElements());
-    }
-    */
     public static ReferenceBase parse(Node node){
         return xsdParseSkeleton(node, new XsdChoice(convertNodeMap(node.getAttributes())));
     }

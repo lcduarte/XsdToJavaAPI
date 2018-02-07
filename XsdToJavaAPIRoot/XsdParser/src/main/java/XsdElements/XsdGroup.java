@@ -46,7 +46,7 @@ public class XsdGroup extends XsdReferenceElement {
     }
 
     @Override
-    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdAbstractElement clone(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
         XsdGroup elementCopy = new XsdGroup(this.getParent(), placeHolderAttributes);
 
@@ -61,7 +61,7 @@ public class XsdGroup extends XsdReferenceElement {
         this.childElement.setParent(this);
     }
 
-    XsdMultipleElements getChildElement() {
+    private XsdMultipleElements getChildElement() {
         return childElement;
     }
 

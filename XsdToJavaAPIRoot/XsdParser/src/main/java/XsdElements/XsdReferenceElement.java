@@ -38,15 +38,7 @@ public abstract class XsdReferenceElement extends XsdAbstractElement {
     }
 
     public String getName() {
-        return name;
-    }
-
-    public String getMaxOccurs() {
-        return maxOccurs;
-    }
-
-    public String getMinOccurs() {
-        return minOccurs;
+        return name == null ? null : name.replaceAll("[^a-zA-Z0-9]", "_");
     }
 
     public void setName(String name) {

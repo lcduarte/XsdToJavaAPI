@@ -18,9 +18,9 @@
 	 Warning: 
 -->
 
-	<!-- TODO: list of charsets for meta intellisense -->
-	<!-- TODO: item/itemfor/itemprop validation? -->
-	<!-- TODO: DOM5 -->
+	
+	
+	
 
 	<xsd:annotation>
 		<xsd:documentation>
@@ -31,12 +31,12 @@
 	<xsd:include schemaLocation="I18Languages.xsd" />
 
 	<xsd:attributeGroup name="coreServerAttributeGroup" vs:nonbrowseable="true">
-		<!-- Attributes -->
+		
 		<xsd:attribute name="EnableTheming" type="xsd:boolean" vs:nonbrowseable="true" vs:category="ASP.NET" vs:disallowedonmobilepages="true" default="true" vs:serverattribute="true" />
 		<xsd:attribute name="EnableViewState" type="xsd:boolean" vs:category="ASP.NET" default="true" vs:serverattribute="true" />
 		<xsd:attribute name="SkinID" type="xsd:string" vs:nonbrowseable="true" vs:category="ASP.NET" vs:nonfilterable="true" vs:disallowedonmobilepages="true" default="" vs:serverattribute="true" />
 		<xsd:attribute name="Visible" type="xsd:boolean" vs:category="ASP.NET" default="true" vs:serverattribute="true" />
-		<!-- Events -->
+		
 		<xsd:attribute name="OnDataBinding" vs:omtype="event" vs:category="ASP.NET" vs:nonfilterable="true" vs:serverattribute="true" />
 		<xsd:attribute name="OnDisposed" vs:omtype="event" vs:category="ASP.NET" vs:nonfilterable="true" vs:serverattribute="true" />
 		<xsd:attribute name="OnInit" vs:omtype="event" vs:category="ASP.NET" vs:nonfilterable="true" vs:serverattribute="true" />
@@ -102,7 +102,7 @@
 			</xsd:simpleType>
 		</xsd:attribute>
 		<xsd:attribute name="contextmenu" />
-		<!-- TODO: support whildcards like <xsd:attribute name="data-*" /> -->
+		
 		<xsd:attribute name="data-FolderName" />
 		<xsd:attribute name="data-MsgId" />
 		<xsd:attribute name="dir" default="ltr">
@@ -465,11 +465,11 @@
 	</xsd:group>
 
 
-	<!-- End of group definitions -->
+	
 
 	<!--================ Document Structure ==================================-->
 
-	<!-- This element must be the first one in the file! -->
+	
 	<xs:element name="html">
 		<xs:complexType>
 			<xs:choice>
@@ -498,7 +498,7 @@
 		</xsd:complexType>
 	</xsd:element>
 
-	<!-- document base URI -->
+	
 	<xsd:element name="base">
 		<xsd:complexType>
 			<xsd:attributeGroup ref="commonAttributeGroup" />
@@ -545,7 +545,7 @@
 		</xsd:complexType>
 	</xsd:element>
 
-	<!-- style info, which may include CDATA sections -->
+	
 
 	<xsd:element name="style">
 		<xsd:complexType mixed="true">
@@ -575,7 +575,7 @@
 		</xsd:complexType>
 	</xsd:element>
 
-	<!-- script statements, which may include CDATA sections -->
+	
 
 	<xsd:element name="script">
 		<xsd:complexType mixed="true">
@@ -617,7 +617,7 @@
 		</xsd:complexType>
 	</xsd:element>
 
-	<!-- alternate Content container for non script-based rendering -->
+	
 
 	<xsd:element name="noscript">
 		<xsd:complexType mixed="true">
@@ -712,7 +712,7 @@
 
 	<xsd:element name="dialog">
 		<xsd:complexType>
-			<!-- TODO: support xsd:sequence
+			<!-- 
 			<xsd:sequence minOccurs="0" maxOccurs="unbounded">
 				<xsd:element ref="dd" />
 				<xsd:element ref="dt" />
@@ -804,11 +804,11 @@
 
 	<xsd:element name="a" vs:disallowedancestor="a button" vs:contentmodel="transparent">
 		<xsd:complexType mixed="true">
-			<!-- Content Model -->
+			
 			<xsd:choice>
 				<xsd:group ref="flowContent" />
 			</xsd:choice>
-			<!-- Attributes -->
+			
 			<xsd:attributeGroup ref="commonAttributeGroup" />
 			<xsd:attribute name="href" type="xsd:anyURI" vs:preferredextensions=".asp;.aspx;.asmx;.asax;.ashx;.asix;.ascx;.htm;.html;.xml;.xsd;.config;.asa;.css;.shtm;.shtml;.php;.jsp" />
 			<xsd:attribute name="target" type="browsingContext" vs:requiredattribute="href" />
@@ -898,7 +898,7 @@
 
 	<xsd:element name="ruby">
 		<xsd:complexType mixed="true">
-			<!-- TODO: support xsd:sequence
+			<!-- 
 			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
 					<xsd:group ref="phrasingContent" />
 				<xsd:choice>
@@ -952,7 +952,7 @@
 
 	<xsd:element name="figure" vs:disallowedancestor="legend">
 		<xsd:complexType mixed="true">
-			<!-- TODO: support xsd:sequence
+			<!--
 			<xsd:choice minOccurs="1" maxOccurs="1">
 				<xsd:sequence minOccurs="1" maxOccurs="1">
 					<xsd:element ref="legend" />
@@ -1056,7 +1056,7 @@
 
 	<xsd:element name="details" vs:disallowedancestor="button">
 		<xsd:complexType mixed="true">
-			<!-- TODO: support xsd:sequence
+			<!--
 			<xsd:sequence minOccurs="1" maxOccurs="1">
 				<xsd:element ref="legend" />
 				<xsd:group ref="flowContent" />
@@ -1712,7 +1712,7 @@
 
 	<xsd:element name="table" vs:disallowedancestor="caption">
 		<xsd:complexType>
-			<!-- TODO: cupport order per W3C: 
+			<!--
 				In this order: optionally a caption element, followed by either zero or more colgroup elements, 
 				followed optionally by a thead element, followed optionally by a tfoot element, 
 				followed by either zero or more tbody elements or one or more tr elements, followed optionally 
@@ -1821,7 +1821,7 @@
 		</xsd:complexType>
 	</xsd:element>
 
-	<!-- XDR datatype derivations -->
+	
 
 	<xsd:simpleType name="mediaType">
 		<xsd:union>

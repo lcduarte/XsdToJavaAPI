@@ -13,7 +13,7 @@ import java.util.*;
 public class XsdSimpleType extends XsdAbstractElement {
 
     public static final String XSD_TAG = "xsd:simpleType";
-    public static final String XS_TAG = "xsd:simpleType";
+    public static final String XS_TAG = "xs:simpleType";
 
     private SimpleTypeVisitor visitor = new SimpleTypeVisitor();
 
@@ -30,10 +30,6 @@ public class XsdSimpleType extends XsdAbstractElement {
 
     private XsdSimpleType(HashMap<String, String> elementFieldsMap) {
         super(elementFieldsMap);
-    }
-
-    private XsdSimpleType(XsdAbstractElement parent) {
-        super(parent);
     }
 
     public void setFields(HashMap<String, String> elementFieldsMap){
@@ -57,7 +53,7 @@ public class XsdSimpleType extends XsdAbstractElement {
     }
 
     @Override
-    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdSimpleType clone(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
         XsdSimpleType copy = new XsdSimpleType(this.getParent(), placeHolderAttributes);
 

@@ -18,7 +18,7 @@ public class XsdMaxLength extends XsdAbstractRestrictionChild{
         this.value = value;
     }
 
-    XsdMaxLength(HashMap<String, String> elementFieldsMap) {
+    private XsdMaxLength(HashMap<String, String> elementFieldsMap) {
         setFields(elementFieldsMap);
     }
 
@@ -37,6 +37,11 @@ public class XsdMaxLength extends XsdAbstractRestrictionChild{
 
     public static ReferenceBase parse(Node node){
         return ReferenceBase.createFromXsd(new XsdMaxLength(convertNodeMap(node.getAttributes())));
+    }
+
+    @Override
+    public XsdMaxLength clone(HashMap<String, String> placeHolderAttributes) {
+        return new XsdMaxLength(this.value);
     }
 
     public int getValue() {

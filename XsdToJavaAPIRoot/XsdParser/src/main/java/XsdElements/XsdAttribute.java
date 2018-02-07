@@ -70,10 +70,8 @@ public class XsdAttribute extends XsdReferenceElement {
     }
 
     @Override
-    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
-
+    public XsdAttribute clone(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
-
         XsdAttribute copy = new XsdAttribute(this.getParent(), placeHolderAttributes);
 
         copy.simpleType = this.simpleType;
@@ -90,6 +88,10 @@ public class XsdAttribute extends XsdReferenceElement {
     public void replaceUnsolvedElements(ConcreteElement elementWrapper) {
         super.replaceUnsolvedElements(elementWrapper);
 
+        if ((type != null && type.equals("StringToDoubleConverter") || elementWrapper.getName().equals("StringToDoubleConverter"))){
+            int a = 5;
+        }
+
         XsdAbstractElement element = elementWrapper.getElement();
 
         if (element instanceof XsdSimpleType && simpleType != null && type.equals(elementWrapper.getName())){
@@ -97,24 +99,12 @@ public class XsdAttribute extends XsdReferenceElement {
         }
     }
 
-    public String getDefaultElement() {
-        return defaultElement;
-    }
-
-    public String getFixed() {
-        return fixed;
+    public XsdSimpleType getXsdSimpleType(){
+        return simpleType instanceof ConcreteElement ? (XsdSimpleType) simpleType.getElement() : null;
     }
 
     public String getType() {
         return type;
-    }
-
-    ReferenceBase getSimpleType() {
-        return simpleType;
-    }
-
-    public XsdSimpleType getXsdSimpleType(){
-        return simpleType instanceof ConcreteElement ? (XsdSimpleType) simpleType.getElement() : null;
     }
 
     public List<XsdRestriction> getAllRestrictions(){

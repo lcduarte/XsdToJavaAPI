@@ -231,8 +231,8 @@ public class XsdParser {
         resolveRefs(filePath);
 
         return parseElements.get(filePath).stream()
-                        .filter(element -> element instanceof ConcreteElement)
-                        .map(ReferenceBase::getElement);
+                .filter(element -> element instanceof ConcreteElement)
+                .map(ReferenceBase::getElement);
     }
 
     /**
@@ -276,7 +276,7 @@ public class XsdParser {
             HashMap<String, String> oldElementAttributes = unsolvedReference.getElement().getElementFieldsMap();
 
             XsdAbstractElement substitutionElement = concreteElement.getElement()
-                                                                .createCopyWithAttributes(oldElementAttributes);
+                    .clone(oldElementAttributes);
 
             ConcreteElement substitutionElementWrapper = (ConcreteElement) ReferenceBase.createFromXsd(substitutionElement);
 

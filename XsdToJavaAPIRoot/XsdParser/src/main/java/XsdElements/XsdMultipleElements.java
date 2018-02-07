@@ -12,10 +12,6 @@ import java.util.stream.Stream;
 
 public abstract class XsdMultipleElements extends XsdAbstractElement {
 
-    /**
-     * The elements List is a flattened list of all the children of a given XsdMultipleElement object
-     * that aren't a xsd:group.
-     */
     private List<ReferenceBase> elements = new ArrayList<>();
 
     private String maxOccurs;
@@ -52,14 +48,6 @@ public abstract class XsdMultipleElements extends XsdAbstractElement {
                element instanceof UnsolvedReference && ((UnsolvedReference) element).getRef().equals(elementWrapper.getName())
             );
         }
-    }
-
-    public String getMaxOccurs() {
-        return maxOccurs;
-    }
-
-    public String getMinOccurs() {
-        return minOccurs;
     }
 
     @Override

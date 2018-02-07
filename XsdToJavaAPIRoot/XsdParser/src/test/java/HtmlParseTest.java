@@ -1,13 +1,13 @@
 import XsdElements.*;
 import XsdElements.XsdRestrictionElements.XsdEnumeration;
+import XsdParser.UnsolvedReferenceItem;
+import XsdParser.XsdParser;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import XsdParser.*;
 
 public class HtmlParseTest {
 
@@ -19,9 +19,9 @@ public class HtmlParseTest {
         parser = new XsdParser();
 
         elements = parser.parse(HTML_FILE_NAME)
-                         .filter(element -> element instanceof XsdElement)
-                         .map(element -> (XsdElement) element)
-                         .collect(Collectors.toList());
+                .filter(element -> element instanceof XsdElement)
+                .map(element -> (XsdElement) element)
+                .collect(Collectors.toList());
 
 
         XsdElement section = elements.stream().filter(element -> element.getName().equals("section")).findFirst().get();
@@ -110,7 +110,7 @@ public class HtmlParseTest {
 
         XsdComplexType metaChild = htmlElement.getXsdComplexType();
 
-        Optional<XsdAttribute> attributeOptional = metaChild.getXsdAttributes().filter(attribute1 -> attribute1.getName().equals("http-equiv")).findFirst();
+        Optional<XsdAttribute> attributeOptional = metaChild.getXsdAttributes().filter(attribute1 -> attribute1.getName().equals("http_equiv")).findFirst();
 
         Assert.assertTrue(attributeOptional.isPresent());
 
@@ -161,25 +161,25 @@ public class HtmlParseTest {
     @Test
     public void testClassAttribute(){
         elements.forEach(element ->{
-                    if (element.getXsdComplexType()
-                            .getXsdAttributeGroup()
-                            .noneMatch(attributeGroup ->
-                                    attributeGroup.getXsdElements()
-                                            .filter(groupElement -> groupElement instanceof XsdAttribute)
-                                            .map(attribute -> (XsdAttribute) attribute)
-                                            .anyMatch(attribute -> attribute.getName().equals("class")))){
-                        System.out.println(element.getName());
-                    }
-        });
-
-        elements.forEach(element ->
-            Assert.assertTrue(element.getXsdComplexType()
+            if (element.getXsdComplexType()
                     .getXsdAttributeGroup()
-                    .anyMatch(attributeGroup ->
+                    .noneMatch(attributeGroup ->
                             attributeGroup.getXsdElements()
                                     .filter(groupElement -> groupElement instanceof XsdAttribute)
                                     .map(attribute -> (XsdAttribute) attribute)
-                                    .anyMatch(attribute -> attribute.getName().equals("class"))))
+                                    .anyMatch(attribute -> attribute.getName().equals("class")))){
+                System.out.println(element.getName());
+            }
+        });
+
+        elements.forEach(element ->
+                Assert.assertTrue(element.getXsdComplexType()
+                        .getXsdAttributeGroup()
+                        .anyMatch(attributeGroup ->
+                                attributeGroup.getXsdElements()
+                                        .filter(groupElement -> groupElement instanceof XsdAttribute)
+                                        .map(attribute -> (XsdAttribute) attribute)
+                                        .anyMatch(attribute -> attribute.getName().equals("class"))))
         );
     }
 

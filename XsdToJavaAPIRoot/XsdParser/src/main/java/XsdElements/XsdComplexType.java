@@ -70,14 +70,13 @@ public class XsdComplexType extends XsdAbstractElement {
     }
 
     @Override
-    public XsdAbstractElement createCopyWithAttributes(HashMap<String, String> placeHolderAttributes) {
+    public XsdComplexType clone(HashMap<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
         XsdComplexType elementCopy = new XsdComplexType(this.getParent(), placeHolderAttributes);
 
         elementCopy.childElement = this.childElement;
         elementCopy.addAttributes(this.getAttributes());
         elementCopy.attributeGroups = this.getAttributeGroups();
-
         return elementCopy;
     }
 
@@ -101,16 +100,12 @@ public class XsdComplexType extends XsdAbstractElement {
         this.childElement = ReferenceBase.createFromXsd(element);
     }
 
-    private void addAttributes(ReferenceBase attribute) {
+    private void addAttribute(ReferenceBase attribute) {
         this.attributes.add(attribute);
     }
 
     private void addAttributes(List<ReferenceBase> attributes) {
         this.attributes.addAll(attributes);
-    }
-
-    ReferenceBase getChildElement() {
-        return childElement;
     }
 
     public XsdAbstractElement getXsdChildElement() {
@@ -121,28 +116,8 @@ public class XsdComplexType extends XsdAbstractElement {
         return name;
     }
 
-    public String getAbstract(){
-        return elementAbstract;
-    }
-
-    public String getMixed() {
-        return mixed;
-    }
-
-    public String getBlock() {
-        return block;
-    }
-
     public String getFinal() {
         return elementFinal;
-    }
-
-    public String getMaxOccurs() {
-        return maxOccurs;
-    }
-
-    public String getMinOccurs() {
-        return minOccurs;
     }
 
     List<ReferenceBase> getAttributes() {
@@ -192,7 +167,7 @@ public class XsdComplexType extends XsdAbstractElement {
         @Override
         public void visit(XsdAttribute attribute) {
             super.visit(attribute);
-            XsdComplexType.this.addAttributes(ReferenceBase.createFromXsd(attribute));
+            XsdComplexType.this.addAttribute(ReferenceBase.createFromXsd(attribute));
         }
 
         /*
