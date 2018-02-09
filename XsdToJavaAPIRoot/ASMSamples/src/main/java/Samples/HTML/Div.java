@@ -10,22 +10,6 @@ public class Div extends AbstractElement<Div> implements ICommonAttributeGroup<D
         super(parent);
     }
 
-    public Div(IElement parent,String id) {
-        super(parent, id);
-    }
-
-    public H1 h2(){
-        H1 var1 = new H1(this);
-        this.addChild(var1);
-        return var1;
-    }
-
-    public H1 h2(String id){
-        H1 var1 = new H1(this, id);
-        this.addChild(var1);
-        return var1;
-    }
-
     @Override
     public Div self() {return this; }
 

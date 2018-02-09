@@ -1,16 +1,18 @@
 package Samples.HTML;
 
-public abstract class AbstractAttribute<T> implements IAttribute<T> {
+public class AbstractAttribute<T> implements IAttribute<T> {
 
     private T value;
     private String name;
 
-    AbstractAttribute(T value){
+    public AbstractAttribute(T value){
         this.value = value;
+        this.name = getDefaultName(this);
+    }
 
-        String simpleName = getClass().getSimpleName().replace("Attr", "");
-
-        this.name = simpleName.toLowerCase().charAt(0) + simpleName.substring(1);
+    public AbstractAttribute(T value, String name){
+        this.value = value;
+        this.name = name;
     }
 
     @Override
@@ -18,7 +20,14 @@ public abstract class AbstractAttribute<T> implements IAttribute<T> {
         return value;
     }
 
+    @Override
     public String getName() {
         return name;
+    }
+
+    static String getDefaultName(AbstractAttribute attribute){
+        String simpleName = attribute.getClass().getSimpleName().replace("Attr", "");
+
+        return simpleName.toLowerCase().charAt(0) + simpleName.substring(1);
     }
 }

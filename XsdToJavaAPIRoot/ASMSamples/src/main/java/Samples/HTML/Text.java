@@ -22,13 +22,13 @@ public class Text<R, U> extends AbstractElement<Text>{
     }
 
     @Override
-    public void addAttr(IAttribute attribute) {
-
+    public Text addAttr(IAttribute attribute) {
+        return null;
     }
 
     @Override
-    public void addChild(IElement child) {
-
+    public Text addChild(IElement child) {
+        return null;
     }
 
     @Override

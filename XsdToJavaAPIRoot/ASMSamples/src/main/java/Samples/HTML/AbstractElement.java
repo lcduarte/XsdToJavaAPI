@@ -25,25 +25,24 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
         setName();
     }
 
-    protected AbstractElement(IElement parent, String id){
-        this.parent = parent;
-        this.id = id;
-
-        setName();
-    }
-
     private void setName() {
         String simpleName = getClass().getSimpleName();
 
         this.name = simpleName.toLowerCase().charAt(0) + simpleName.substring(1);
     }
 
-    public void addChild(IElement child) {
-        this.children.add(child);
+    public void setId(String id){
+        this.id = id;
     }
 
-    public void addAttr(IAttribute attribute) {
+    public T addChild(IElement child) {
+        this.children.add(child);
+        return this.self();
+    }
+
+    public T addAttr(IAttribute attribute) {
         this.attrs.add(attribute);
+        return this.self();
     }
 
     @Override
@@ -52,13 +51,13 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
     }
 
     @Override
-    public String id() {
+    public String getId() {
         return id;
     }
 
     public <R extends IElement> R child(String id) {
         Optional<R> elem = children.stream()
-                .filter(child -> child.id() != null && child.id().equals(id))
+                .filter(child -> child.getId() != null && child.getId().equals(id))
                 .map(child -> (R) child)
                 .findFirst();
 

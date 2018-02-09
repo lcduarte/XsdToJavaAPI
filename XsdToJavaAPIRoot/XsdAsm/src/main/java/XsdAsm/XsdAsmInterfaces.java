@@ -468,7 +468,7 @@ class XsdAsmInterfaces {
         mVisitor.visitInsn(DUP);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Object", "getClass", "()Ljava/lang/Class;", false);
         mVisitor.visitInsn(POP);
-        mVisitor.visitInvokeDynamicInsn("accept", "(" + nextTypeDesc + ")Ljava/util/function/Consumer;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(Ljava/lang/Object;)V"), new Handle(Opcodes.H_INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", false), Type.getType("(" + IELEMENT_TYPE_DESC + ")V"));
+        mVisitor.visitInvokeDynamicInsn("accept", "(" + nextTypeDesc + ")Ljava/util/function/Consumer;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(Ljava/lang/Object;)V"), new Handle(Opcodes.H_INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE, "addChild", "(" + IELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC, false), Type.getType("(" + IELEMENT_TYPE_DESC + ")V"));
         mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/List", "forEach", "(Ljava/util/function/Consumer;)V", true);
         mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitTypeInsn(NEW, addingType);
@@ -476,7 +476,7 @@ class XsdAsmInterfaces {
         mVisitor.visitMethodInsn(INVOKESPECIAL, addingType, "<init>", "()V", false);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "text", "(Ljava/lang/String;)" + IELEMENT_TYPE_DESC, false);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, nextType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, nextType, "addChild", "(" + IELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC, false);
         mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(3, 3);

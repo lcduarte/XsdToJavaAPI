@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public interface IElement<T extends IElement> {
-    void addChild(IElement elem);
-    void addAttr(IAttribute a);
+    T addChild(IElement elem);
+    T addAttr(IAttribute a);
     T self();
-    String id();
+
+    void setId(String id);
+    String getId();
 
     List<IElement<T>> getChildren();
     List<IAttribute> getAttributes();

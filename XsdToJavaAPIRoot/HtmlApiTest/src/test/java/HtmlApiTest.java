@@ -144,6 +144,15 @@ public class HtmlApiTest {
         Assert.assertEquals("html", new Html().getName());
     }
 
+    @Test
+    public void testAttributeCreation(){
+        Html root = new Html();
+
+        root.addAttr(new Attribute<>("toto", "tutu"));
+
+        Assert.assertEquals(1, root.getAttributes().size());
+    }
+
     private boolean customVisitPrintAssert(CustomVisitor customVisitor, Html rootDoc, String expected){
         boolean result = false;
 

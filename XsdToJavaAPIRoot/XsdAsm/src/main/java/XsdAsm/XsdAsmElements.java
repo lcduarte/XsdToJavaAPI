@@ -67,18 +67,6 @@ class XsdAsmElements {
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC + JAVA_STRING_DESC + ")V", null, null);
-        mVisitor.visitLocalVariable("parent", IELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
-        mVisitor.visitLocalVariable("id", JAVA_STRING_DESC, null, new Label(), new Label(),2);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC + JAVA_STRING_DESC + ")V", false);
-        mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(3, 3);
-        mVisitor.visitEnd();
-
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "self", "()" + classTypeDesc, null, null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
@@ -165,38 +153,14 @@ class XsdAsmElements {
         mVisitor.visitVarInsn(ALOAD, 1);
 
         if (isInterface){
-            mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", true);
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC, true);
         } else {
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")" + IELEMENT_TYPE_DESC, false);
         }
 
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(3, 2);
-        mVisitor.visitEnd();
-
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "(" + JAVA_STRING_DESC + ")" + childTypeDesc, null, null);
-        mVisitor.visitLocalVariable("id", JAVA_STRING_DESC, null, new Label(), new Label(),1);
-        mVisitor.visitCode();
-        mVisitor.visitTypeInsn(NEW, childType);
-        mVisitor.visitInsn(DUP);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, childType, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC + JAVA_STRING_DESC + ")V", false);
-        mVisitor.visitVarInsn(ASTORE, 2);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 2);
-
-        if (isInterface){
-            mVisitor.visitMethodInsn(INVOKEINTERFACE, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", true);
-        } else {
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, classType, "addChild", "(" + IELEMENT_TYPE_DESC + ")V", false);
-        }
-
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(4, 3);
         mVisitor.visitEnd();
     }
 }

@@ -7,10 +7,6 @@ public class H1 extends AbstractElement<H1> implements IFlowContent<H1> {
         super(parent);
     }
 
-    public H1(IElement parent, String id) {
-        super(parent, id);
-    }
-
     public H1 self() {return this; }
 
     @Override
