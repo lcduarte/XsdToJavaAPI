@@ -2,7 +2,7 @@ package Samples.HTML;
 
 import java.util.function.Function;
 
-public class Text<R, U> extends AbstractElement<Text>{
+public class Text<R, U, P extends IElement> extends AbstractElement<Text<R, U, P>, P>{
 
     private String text;
     private Function<R, U> textFunction;
@@ -11,12 +11,12 @@ public class Text<R, U> extends AbstractElement<Text>{
         super();
     }
 
-    public Text(IElement parent, String text) {
+    public Text(P parent, String text) {
         super(parent);
         this.text = text;
     }
 
-    public Text(IElement parent, Function<R, U> textFunction) {
+    public Text(P parent, Function<R, U> textFunction) {
         super(parent);
         this.textFunction = textFunction;
     }
@@ -56,7 +56,7 @@ public class Text<R, U> extends AbstractElement<Text>{
     }
 
     @Override
-    public Text<R, U> cloneElem() {
-        return this.clone(new Text<R, U>());
+    public Text<R, U, P> cloneElem() {
+        return this.clone(new Text<R, U, P>());
     }
 }

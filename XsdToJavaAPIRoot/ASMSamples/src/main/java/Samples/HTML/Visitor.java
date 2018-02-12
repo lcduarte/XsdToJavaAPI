@@ -10,11 +10,9 @@ public interface Visitor<R> {
     void initVisit(Div elem);
     void endVisit(Div elem);
 
-    <U> void initVisit(Text<R, U> elem);
-    <U> void endVisit(Text<R, U> elem);
+    <U> void initVisit(Text<R, U, ?> elem);
+    <U> void endVisit(Text<R, U, ?> elem);
 
-    void initVisit(PersonalInfo personalInfo);
-
-    void endVisit(PersonalInfo personalInfo);
+    <P extends IElement> void initVisit(PersonalInfo pPersonalInfo);
 }
 

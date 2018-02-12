@@ -5,14 +5,14 @@ import Samples.HTML.IElement;
 import Samples.HTML.ITextGroup;
 import Samples.HTML.Visitor;
 
-public class Country extends AbstractElement<Country> implements ITextGroup<Country> {
+public class Country<P extends IElement> extends AbstractElement<Country<P>, P> implements ITextGroup<Country<P>, P> {
 
     public Country(){
 
     }
 
-    public Country(IElement parent){
-        super(parent);
+    public Country(IElement element){
+
     }
 
     @Override

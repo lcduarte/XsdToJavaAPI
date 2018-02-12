@@ -5,7 +5,7 @@ import Samples.Sequence.Classes.FirstName;
 import Samples.Sequence.Classes.PersonalInfoFirstName;
 import Samples.Sequence.Classes.PersonalInfo;
 
-public interface PersonalInfoSequence1<T extends IElement> extends IElement<T> {
+public interface PersonalInfoSequence1<T extends IElement<T, P>, P extends IElement> extends IElement<T, P> {
 
     default PersonalInfoFirstName firstName(String value){
         PersonalInfoFirstName obj = new PersonalInfoFirstName();

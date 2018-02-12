@@ -188,12 +188,12 @@ class XsdAsmInterfaces {
         StringBuilder signature;
 
         if (interfaces.length == 0){
-            signature = new StringBuilder("<T::L" + IELEMENT_TYPE + "<TT;>;>" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;>;");
+            signature = new StringBuilder("<T::L" + IELEMENT_TYPE + "<TT;TP;>;P::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + IELEMENT_TYPE + "<TT;TP;>;");
         } else {
-            signature = new StringBuilder("<T::L" + IELEMENT_TYPE + "<TT;>;>" + JAVA_OBJECT_DESC);
+            signature = new StringBuilder("<T::L" + IELEMENT_TYPE + "<TT;TP;>;P::" + IELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC);
 
             for (String anInterface : interfaces) {
-                signature.append("L").append(getFullClassTypeName(anInterface, apiName)).append("<TT;>;");
+                signature.append("L").append(getFullClassTypeName(anInterface, apiName)).append("<TT;TP;>;");
             }
         }
 
@@ -302,10 +302,6 @@ class XsdAsmInterfaces {
 
         String interfaceName = interfaceNameBase + interfaceIndex;
 
-        if (interfaceName.startsWith("ICanvasSequence")){
-            int a = 5;
-        }
-
         if (createdInterfaces.contains(interfaceName)){
             return new Pair<>(interfaceName, interfaceIndex);
         }
@@ -324,7 +320,7 @@ class XsdAsmInterfaces {
             String prevName = i == 0 ? null : sequenceNames.get(i - 1);
             boolean isLast = i == sequenceList.size() - 1;
 
-            ClassWriter classWriter = generateClass(currentInterfaceName, JAVA_OBJECT, interfaces, getClassSignature(interfaces, currentInterfaceName, apiName), ACC_PUBLIC + ACC_INTERFACE + ACC_ABSTRACT, apiName);
+            ClassWriter classWriter = generateClass(currentInterfaceName, JAVA_OBJECT, interfaces, getInterfaceSignature(interfaces, apiName), ACC_PUBLIC + ACC_INTERFACE + ACC_ABSTRACT, apiName);
 
             if (sequenceElement instanceof XsdElement){
                 String nextTypeName = className + toCamelCase(sequenceName);
@@ -559,17 +555,17 @@ class XsdAsmInterfaces {
 
         if (groupName != null){
             interfaceName = getInterfaceName(toCamelCase(groupName + "All" + interfaceIndex));
-
-            if (createdInterfaces.contains(interfaceName)){
-                return new Pair<>(interfaceName, interfaceIndex);
-            }
         } else {
             interfaceName = getInterfaceName(className + "All" + interfaceIndex);
         }
 
+        if (createdInterfaces.contains(interfaceName)){
+            return new Pair<>(interfaceName, interfaceIndex);
+        }
+
         String[] extendedInterfacesArr = new String[]{ITEXT};
 
-        ClassWriter classWriter = generateClass(interfaceName, JAVA_OBJECT, extendedInterfacesArr, getClassSignature(extendedInterfacesArr, className, apiName), ACC_PUBLIC + ACC_INTERFACE, apiName);
+        ClassWriter classWriter = generateClass(interfaceName, JAVA_OBJECT, extendedInterfacesArr, getInterfaceSignature(extendedInterfacesArr, apiName), ACC_PUBLIC + ACC_INTERFACE, apiName);
 
         directElements.forEach(child -> generateMethodsForElement(classWriter, child, getFullClassTypeName(interfaceName, apiName), IELEMENT_TYPE_DESC, apiName));
 
@@ -584,12 +580,12 @@ class XsdAsmInterfaces {
 
         if (groupName != null){
             interfaceName = getInterfaceName(toCamelCase(groupName + "Choice" + interfaceIndex));
-
-            if (createdInterfaces.contains(interfaceName)){
-                return new Pair<>(interfaceName, interfaceIndex);
-            }
         } else {
             interfaceName = getInterfaceName(className + "Choice" + interfaceIndex);
+        }
+
+        if (createdInterfaces.contains(interfaceName)){
+            return new Pair<>(interfaceName, interfaceIndex);
         }
 
         String[] extendedInterfacesArr = new String[]{ITEXT};

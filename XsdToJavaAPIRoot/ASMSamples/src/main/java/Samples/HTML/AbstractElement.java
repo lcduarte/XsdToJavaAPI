@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-public abstract class AbstractElement<T extends IElement> implements IElement<T> {
-    protected List<IElement<T>> children = new ArrayList<>();
+public abstract class AbstractElement<T extends IElement<T, P>, P extends IElement> implements IElement<T, P> {
+    protected List<IElement<T, P>> children = new ArrayList<>();
     protected List<IAttribute> attrs = new ArrayList<>();
     protected String id;
     protected String name;
-    protected IElement parent;
+    protected P parent;
     protected BiConsumer binderMethod;
 
     protected AbstractElement(){
@@ -19,7 +19,7 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
         setName();
     }
 
-    protected AbstractElement(IElement parent){
+    protected AbstractElement(P parent){
         this.parent = parent;
 
         setName();
@@ -46,8 +46,8 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
     }
 
     @Override
-    public <P extends IElement> P getParent() {
-        return (P) parent.self();
+    public P getParent() {
+        return parent;
     }
 
     @Override
@@ -74,7 +74,7 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
                 .orElse(null);
     }
 
-    public List<IElement<T>> getChildren() {
+    public List<IElement<T, P>> getChildren() {
         return children;
     }
 
@@ -98,7 +98,7 @@ public abstract class AbstractElement<T extends IElement> implements IElement<T>
     }
 
     @Override
-    public IElement<T> bindTo(Object model) {
+    public IElement<T, P> bindTo(Object model) {
         if (isBound()){
             binderMethod.accept(this.self(), model);
         }

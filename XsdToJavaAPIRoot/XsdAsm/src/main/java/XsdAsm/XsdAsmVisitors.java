@@ -32,7 +32,7 @@ class XsdAsmVisitors {
 
         elementNames.forEach(elementName -> addVisitorInterfaceMethod(classWriter, elementName, null, apiName));
 
-        addVisitorInterfaceMethod(classWriter, TEXT_CLASS, "<U:Ljava/lang/Object;>(L" + TEXT_TYPE + "<TR;TU;>;)V", apiName);
+        addVisitorInterfaceMethod(classWriter, TEXT_CLASS, "<U:Ljava/lang/Object;>(L" + TEXT_TYPE + "<TR;TU;*>;)V", apiName);
 
         writeClassToFile(VISITOR, classWriter, apiName);
     }
@@ -72,17 +72,17 @@ class XsdAsmVisitors {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_ABSTRACT + ACC_PUBLIC, "initVisit", "(" + IELEMENT_TYPE_DESC + ")V", "<T::" + IELEMENT_TYPE_DESC + ">(L" + IELEMENT_TYPE + "<TT;>;)V", null);
-        mVisitor.visitLocalVariable("elem", IELEMENT_TYPE_DESC, "L" + IELEMENT_TYPE + "<TT;>;", new Label(), new Label(),1);
+        mVisitor = classWriter.visitMethod(ACC_ABSTRACT + ACC_PUBLIC, "initVisit", "(" + IELEMENT_TYPE_DESC + ")V", "<T::" + IELEMENT_TYPE_DESC + ">(L" + IELEMENT_TYPE + "<TT;*>;)V", null);
+        mVisitor.visitLocalVariable("elem", IELEMENT_TYPE_DESC, "L" + IELEMENT_TYPE + "<TT;*>;", new Label(), new Label(),1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_ABSTRACT + ACC_PUBLIC, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", "<T::" + IELEMENT_TYPE_DESC + ">(L" + IELEMENT_TYPE + "<TT;>;)V", null);
-        mVisitor.visitLocalVariable("elem", IELEMENT_TYPE_DESC, IELEMENT_TYPE + "<T>", new Label(), new Label(),1);
+        mVisitor = classWriter.visitMethod(ACC_ABSTRACT + ACC_PUBLIC, "endVisit", "(" + IELEMENT_TYPE_DESC + ")V", "<T::" + IELEMENT_TYPE_DESC + ">(L" + IELEMENT_TYPE + "<TT;*>;)V", null);
+        mVisitor.visitLocalVariable("elem", IELEMENT_TYPE_DESC, IELEMENT_TYPE + "<TT;*>", new Label(), new Label(),1);
         mVisitor.visitEnd();
 
         elementNames.forEach(elementName -> addAbstractVisitorMethod(classWriter, elementName, null, apiName));
 
-        addAbstractVisitorMethod(classWriter, TEXT_CLASS, "<U:Ljava/lang/Object;>(L" + TEXT_TYPE + "<TR;TU;>;)V", apiName);
+        addAbstractVisitorMethod(classWriter, TEXT_CLASS, "<U:Ljava/lang/Object;>(L" + TEXT_TYPE + "<TR;TU;*>;)V", apiName);
 
         writeClassToFile(ABSTRACT_VISITOR, classWriter, apiName);
     }

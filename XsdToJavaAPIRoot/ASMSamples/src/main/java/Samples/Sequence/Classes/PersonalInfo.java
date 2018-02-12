@@ -1,10 +1,11 @@
 package Samples.Sequence.Classes;
 
 import Samples.HTML.AbstractElement;
+import Samples.HTML.IElement;
 import Samples.Sequence.Interfaces.PersonalInfoSequence1;
 import Samples.HTML.Visitor;
 
-public class PersonalInfo extends AbstractElement<PersonalInfo> implements PersonalInfoSequence1<PersonalInfo> {
+public class PersonalInfo<P extends IElement> extends AbstractElement<PersonalInfo<P>, P> implements PersonalInfoSequence1<PersonalInfo<P>, P> {
 
     @Override
     public PersonalInfo self() {
@@ -13,11 +14,7 @@ public class PersonalInfo extends AbstractElement<PersonalInfo> implements Perso
 
     @Override
     public void accept(Visitor visitor) {
-        visitor.initVisit(this);
 
-        getChildren().forEach(child -> child.accept(visitor));
-
-        visitor.endVisit(this);
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.Object;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +16,21 @@ public class HtmlApiTest {
 
     @Test
     public void testGeneratedClassesIntegrity() throws Exception {
-        Html root = new Html();
+        Html<Html> root = new Html<>();
+
+        Body<Html<Html>> body = root.body();
+        Div<Body<Html<Html>>> div = body.div();
+        Img<Div<Body<Html<Html>>>> img = div.img();
+        Div<Body<Html<Html>>> parent1 = img.$();
+        Body<Html<Html>> parent2 = parent1.$();
+        Html<Html> parent3 = parent2.$();
 
         root.head()
-                .meta().attrCharset("UTF-8").<Head>$()
+                .meta().attrCharset("UTF-8").$()
                 .title()
-                    .text("Title").<Head>$()
-                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/images/favicon.png").<Head>$()
-                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/styles/main.css").<Head>$().<Html>$()
+                    .text("Title").$()
+                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/images/favicon.png").$()
+                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/styles/main.css").$().$()
             .body().attrClass("clear")
                 .div()
                     .header()
@@ -73,7 +81,7 @@ public class HtmlApiTest {
      */
     @Test
     public void testVisitsWithModel(){
-        Html rootDoc = new Html();
+        Html<Html> rootDoc = new Html<>();
 
         rootDoc.body()
                 .div()
@@ -102,7 +110,7 @@ public class HtmlApiTest {
         tdValues2.add("val5");
         tdValues2.add("val6");
 
-        Html root = new Html();
+        Html<Html> root = new Html<>();
 
         root.body()
                 .table()
@@ -110,7 +118,7 @@ public class HtmlApiTest {
                             list.forEach(tdValue ->
                                     elem.tr().td().text(tdValue)
                             )
-                    ).<Body>$()
+                    ).$()
                 .div();
 
         CustomVisitor<List<String>> customVisitor1 = new CustomVisitor<>(tdValues1);

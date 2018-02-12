@@ -31,26 +31,26 @@ public class CustomVisitor<R> extends AbstractVisitor<R> {
     }
 
     @Override
-    public <T extends IElement> void initVisit(IElement<T> element) {
+    public <T extends IElement> void initVisit(IElement<T, ?> element) {
         printStream.printf("<%s>\n", element.getName());
 
         if(element.isBound()) {
             element.cloneElem()
                     .bindTo(model)
                     .getChildren()
-                    .forEach((IElement child) ->
-                        child.accept(this)
+                    .forEach( child ->
+                        ((IElement) child).accept(this)
                     );
         }
     }
 
     @Override
-    public <T extends IElement> void endVisit(IElement<T> element) {
+    public <T extends IElement> void endVisit(IElement<T, ?> element) {
         printStream.printf("</%s>\n", element.getName());
     }
 
     @Override
-    public <U> void initVisit(Text<R, U> text){
+    public <U> void initVisit(Text<R, U, ?> text){
         String textValue = text.getValue();
 
         if (textValue != null){
@@ -65,7 +65,7 @@ public class CustomVisitor<R> extends AbstractVisitor<R> {
     }
 
     @Override
-    public <U> void endVisit(Text<R, U> text) {
+    public <U> void endVisit(Text<R, U, ?> text) {
 
     }
 }

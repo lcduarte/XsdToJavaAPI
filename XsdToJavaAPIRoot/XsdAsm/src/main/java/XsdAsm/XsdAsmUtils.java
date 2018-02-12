@@ -291,15 +291,15 @@ public class XsdAsmUtils {
      * @return The signature of the class.
      */
     static String getClassSignature(String[] interfaces, String className, String apiName) {
-        StringBuilder signature = new StringBuilder("L" + ABSTRACT_ELEMENT_TYPE + "<" + getFullClassTypeNameDesc(className, apiName) + ">;");
+        StringBuilder signature = new StringBuilder("<P::" + IELEMENT_TYPE_DESC + ">L" + ABSTRACT_ELEMENT_TYPE + "<L" + getFullClassTypeName(className, apiName) + "<TP;>;TP;>;");
 
         if (interfaces != null){
             for (String anInterface : interfaces) {
                 signature.append("L")
                         .append(getFullClassTypeName(anInterface, apiName))
-                        .append("<")
-                        .append(getFullClassTypeNameDesc(className, apiName))
-                        .append(">;");
+                        .append("<L")
+                        .append(getFullClassTypeName(className, apiName))
+                        .append("<TP;>;TP;>;");
             }
         }
 
@@ -307,13 +307,13 @@ public class XsdAsmUtils {
     }
 
     static String getInterfaceSignature(String[] interfaces, String apiName) {
-        StringBuilder signature = new StringBuilder("<T::" + IELEMENT_TYPE_DESC + ">Ljava/lang/Object;");
+        StringBuilder signature = new StringBuilder("<T::L" + IELEMENT_TYPE + "<TT;TP;>;P::" + IELEMENT_TYPE_DESC + ">Ljava/lang/Object;");
 
         if (interfaces != null){
             for (String anInterface : interfaces) {
                 signature.append("L")
                         .append(getFullClassTypeName(anInterface, apiName))
-                        .append("<TT;>;");
+                        .append("<TT;TP;>;");
             }
         }
 

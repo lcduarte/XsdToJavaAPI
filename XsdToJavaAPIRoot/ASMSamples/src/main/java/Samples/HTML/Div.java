@@ -1,12 +1,12 @@
 package Samples.HTML;
 
-public class Div extends AbstractElement<Div> implements ICommonAttributeGroup<Div>, IFlowContent<Div> {
+public class Div<P extends IElement> extends AbstractElement<Div<P>, P> implements ICommonAttributeGroup<Div<P>, P>, IFlowContent<Div<P>, P> {
 
     public Div() {
         super();
     }
 
-    public Div(IElement parent) {
+    public Div(P parent) {
         super(parent);
     }
 
@@ -23,7 +23,11 @@ public class Div extends AbstractElement<Div> implements ICommonAttributeGroup<D
     }
 
     @Override
-    public Div cloneElem() {
-        return this.clone(new Div());
+    public Div<P> cloneElem() {
+        return this.clone(new Div<P>());
+    }
+
+    public Div<P> addSomeAttribute(SomeAttribute val){
+        return this;
     }
 }
