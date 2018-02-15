@@ -50,6 +50,21 @@ public class XsdAsmTest {
     }
 
     @Test
+    public void testSequenceWithParent(){
+        PersonInfoElementContainer<Html> container = new PersonInfoElementContainer<Html>();
+
+        PersonInfo<PersonInfoElementContainer<Html>> personInfo = container.personInfo();
+
+        personInfo.firstName("Luis")
+                .lastName("Duarte")
+                .personAddress("AnAddress")
+                .city("Lisbon")
+                .country("Portugal");
+
+        Assert.assertEquals(1, container.getChildren().size());
+    }
+
+    @Test
     public void testSequenceWithGroups(){
         StudentGradesComplete studentGradesCompleteNumeric = new StudentGrades().firstName("Luis")
                 .lastName("Duarte")
@@ -65,6 +80,16 @@ public class XsdAsmTest {
     }
 
     @Test
+    public void testSequenceInnerElementsName(){
+        Assert.assertEquals("personInfo", new PersonInfoComplete().getName());
+        Assert.assertEquals("personInfo", new PersonInfo().getName());
+        Assert.assertEquals("personInfo", new PersonInfoFirstName().getName());
+        Assert.assertEquals("personInfo", new PersonInfoLastName().getName());
+        Assert.assertEquals("personInfo", new PersonInfoCity().getName());
+        Assert.assertEquals("personInfo", new PersonInfoPersonAddress().getName());
+    }
+
+    @Test
     public void testGroupWithInnerSequence(){
         AName elem = new AName().elem1("val1")
                                 .elem2("val2")
@@ -77,7 +102,7 @@ public class XsdAsmTest {
     @Test
     public void testWpfe(){
         //Alterar o type de attribute para funcionar como o de complexType.?
-        Canvas canvas = new Canvas();
+        Canvas<? extends IElement> canvas = new Canvas<IElement>();
 
         canvas.canvas_Clip("")
                 .inkPresenter("");

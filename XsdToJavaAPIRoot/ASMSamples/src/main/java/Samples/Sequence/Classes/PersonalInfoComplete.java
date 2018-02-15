@@ -6,8 +6,13 @@ import Samples.HTML.Visitor;
 import Samples.Sequence.Interfaces.PersonalInfoSequence5;
 
 public class PersonalInfoComplete<P extends IElement> extends AbstractElement<PersonalInfoComplete<P>, P> {
+
+    public PersonalInfoComplete(P parent, String personalInfo) {
+        super(parent, personalInfo);
+    }
+
     @Override
-    public PersonalInfoComplete self() {
+    public PersonalInfoComplete<P> self() {
         return this;
     }
 
@@ -17,7 +22,7 @@ public class PersonalInfoComplete<P extends IElement> extends AbstractElement<Pe
     }
 
     @Override
-    public PersonalInfoComplete cloneElem() {
+    public PersonalInfoComplete<P> cloneElem() {
         return null;
     }
 }

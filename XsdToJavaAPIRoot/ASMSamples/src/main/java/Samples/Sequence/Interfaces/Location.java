@@ -6,14 +6,14 @@ import Samples.Sequence.Classes.Country;
 
 public interface Location<T extends IElement<T, P>, P extends IElement> extends IElement<T, P> {
 
-    default City city() {
-        City city = new City(this);
+    default City<P> city() {
+        City<P> city = new City<>(this.getParent());
         addChild(city);
         return city;
     }
 
-    default Country country() {
-        Country country = new Country(this);
+    default Country<P> country() {
+        Country<P> country = new Country<>(this.getParent());
         addChild(country);
         return country;
     }

@@ -6,8 +6,13 @@ import Samples.HTML.ITextGroup;
 import Samples.HTML.Visitor;
 
 public class LastName<P extends IElement> extends AbstractElement<LastName<P>, P> implements ITextGroup<LastName<P>, P> {
+
+    public LastName(P parent){
+        super(parent);
+    }
+
     @Override
-    public LastName self() {
+    public LastName<P> self() {
         return this;
     }
 
@@ -17,7 +22,7 @@ public class LastName<P extends IElement> extends AbstractElement<LastName<P>, P
     }
 
     @Override
-    public LastName cloneElem() {
+    public LastName<P> cloneElem() {
         return null;
     }
 }

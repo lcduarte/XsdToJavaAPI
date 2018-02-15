@@ -14,15 +14,22 @@ public abstract class AbstractElement<T extends IElement<T, P>, P extends IEleme
     protected BiConsumer binderMethod;
 
     protected AbstractElement(){
-        this.parent = null;
-
         setName();
+    }
+
+    protected AbstractElement(String name){
+        this.name = name;
     }
 
     protected AbstractElement(P parent){
         this.parent = parent;
 
         setName();
+    }
+
+    protected AbstractElement(P parent, String name){
+        this.parent = parent;
+        this.name = name;
     }
 
     private void setName() {

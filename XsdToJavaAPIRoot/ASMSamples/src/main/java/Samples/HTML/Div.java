@@ -3,15 +3,19 @@ package Samples.HTML;
 public class Div<P extends IElement> extends AbstractElement<Div<P>, P> implements ICommonAttributeGroup<Div<P>, P>, IFlowContent<Div<P>, P> {
 
     public Div() {
-        super();
+        super("div");
     }
 
     public Div(P parent) {
-        super(parent);
+        super(parent, "div");
+    }
+
+    public Div(P parent, String name){
+        super(parent, name);
     }
 
     @Override
-    public Div self() {return this; }
+    public Div<P> self() {return this; }
 
     @Override
     public void accept(Visitor visitor) {

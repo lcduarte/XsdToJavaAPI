@@ -11,12 +11,12 @@ public class Country<P extends IElement> extends AbstractElement<Country<P>, P> 
 
     }
 
-    public Country(IElement element){
-
+    public Country(P parent){
+        super(parent);
     }
 
     @Override
-    public Country self() {
+    public Country<P> self() {
         return this;
     }
 
@@ -26,7 +26,7 @@ public class Country<P extends IElement> extends AbstractElement<Country<P>, P> 
     }
 
     @Override
-    public Country cloneElem() {
+    public Country<P> cloneElem() {
         return null;
     }
 }

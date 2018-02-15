@@ -415,6 +415,27 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(3, 1);
         mVisitor.visitEnd();
 
+        mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "(Ljava/lang/String;)V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(NEW, "java/util/ArrayList");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", "<init>", "()V", false);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "children", "Ljava/util/List;");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(NEW, "java/util/ArrayList");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", "<init>", "()V", false);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "attrs", "Ljava/util/List;");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "name", "Ljava/lang/String;");
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(3, 2);
+        mVisitor.visitEnd();
+
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC + ")V", "(TP;)V", null);
         mVisitor.visitLocalVariable("parent", IELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
@@ -436,6 +457,32 @@ class XsdSupportingStructure {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, "setName", "()V", false);mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(3, 2);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "(" + IELEMENT_TYPE_DESC + "Ljava/lang/String;)V", "(TP;Ljava/lang/String;)V", null);
+        mVisitor.visitLocalVariable("parent", IELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
+        mVisitor.visitLocalVariable("name", "Ljava/lang/String;", null, new Label(), new Label(),2);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(NEW, "java/util/ArrayList");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", "<init>", "()V", false);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "children", "Ljava/util/List;");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitTypeInsn(NEW, "java/util/ArrayList");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", "<init>", "()V", false);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "attrs", "Ljava/util/List;");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "parent", IELEMENT_TYPE_DESC);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 2);
+        mVisitor.visitFieldInsn(PUTFIELD, ABSTRACT_ELEMENT_TYPE, "name", "Ljava/lang/String;");
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(3, 3);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PRIVATE, "setName", "()V", null, null);

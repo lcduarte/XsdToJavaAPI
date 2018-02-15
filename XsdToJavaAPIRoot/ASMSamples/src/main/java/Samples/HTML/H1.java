@@ -7,7 +7,7 @@ public class H1<P extends IElement> extends AbstractElement<H1<P>, P> implements
         super(parent);
     }
 
-    public H1 self() {return this; }
+    public H1<P> self() {return this; }
 
     @Override
     public void accept(Visitor visitor) {
@@ -19,8 +19,8 @@ public class H1<P extends IElement> extends AbstractElement<H1<P>, P> implements
     }
 
     @Override
-    public H1 cloneElem() {
-        return this.clone(new H1());
+    public H1<P> cloneElem() {
+        return this.clone(new H1<>());
     }
 
 }

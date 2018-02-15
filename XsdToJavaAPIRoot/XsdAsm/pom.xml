@@ -15,28 +15,6 @@
 
     <build>
         <plugins>
-            <!--plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <id>my-execution</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>XsdAsmMain</mainClass>
-                    <arguments>
-                        <argument>${project.basedir}\src\main\resources\html_5.xsd</argument>
-                        <argument>TestObjects</argument>
-                    </arguments>
-                </configuration>
-            </plugin-->
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -58,53 +36,6 @@
                     </arguments>
                 </configuration>
             </plugin>
-
-            <!-- ->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <id>my-execution</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>XsdAsmMain</mainClass>
-                    <arguments>
-                        <argument>${project.basedir}\src\main\resources\vstst.xsd</argument>
-                        <argument>TestObjects</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <id>my-execution</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>XsdAsmMain</mainClass>
-                    <arguments>
-                        <argument>${project.basedir}\src\main\resources\wpfe.xsd</argument>
-                        <argument>TestObjects</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-
-            < -->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

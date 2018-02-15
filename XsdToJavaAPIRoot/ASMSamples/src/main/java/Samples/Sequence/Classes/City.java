@@ -12,12 +12,12 @@ public class City<P extends IElement> extends AbstractElement<City<P>, P> implem
 
     }
 
-    public City(IElement element) {
-
+    public City(P parent) {
+        super(parent);
     }
 
     @Override
-    public City self() {
+    public City<P> self() {
         return this;
     }
 
@@ -27,7 +27,7 @@ public class City<P extends IElement> extends AbstractElement<City<P>, P> implem
     }
 
     @Override
-    public City cloneElem() {
+    public City<P> cloneElem() {
         return null;
     }
 }

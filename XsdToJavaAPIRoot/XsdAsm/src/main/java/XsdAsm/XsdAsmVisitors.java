@@ -4,7 +4,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
-import java.util.List;
+import java.util.Set;
 
 import static XsdAsm.XsdAsmUtils.*;
 import static XsdAsm.XsdSupportingStructure.*;
@@ -16,7 +16,7 @@ class XsdAsmVisitors {
      * @param elementNames The elements names list.
      * @param apiName The api this classes will belong to.
      */
-    static void generateVisitors(List<String> elementNames, String apiName){
+    static void generateVisitors(Set<String> elementNames, String apiName){
         generateVisitorInterface(elementNames, apiName);
 
         generateAbstractVisitor(elementNames, apiName);
@@ -27,7 +27,7 @@ class XsdAsmVisitors {
      * @param elementNames The elements names list.
      * @param apiName The api this class will belong to.
      */
-    private static void generateVisitorInterface(List<String> elementNames, String apiName) {
+    private static void generateVisitorInterface(Set<String> elementNames, String apiName) {
         ClassWriter classWriter = generateClass(VISITOR, JAVA_OBJECT, null, "<R:Ljava/lang/Object;>Ljava/lang/Object;", ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
         elementNames.forEach(elementName -> addVisitorInterfaceMethod(classWriter, elementName, null, apiName));
@@ -61,7 +61,7 @@ class XsdAsmVisitors {
      * @param elementNames The elements names list.
      * @param apiName The api this class will belong to.
      */
-    private static void generateAbstractVisitor(List<String> elementNames, String apiName) {
+    private static void generateAbstractVisitor(Set<String> elementNames, String apiName) {
         ClassWriter classWriter = generateClass(ABSTRACT_VISITOR, JAVA_OBJECT, new String[]{VISITOR}, "<R:Ljava/lang/Object;>Ljava/lang/Object;L" + VISITOR_TYPE + "<TR;>;", ACC_PUBLIC + ACC_ABSTRACT + ACC_SUPER, apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "()V", null, null);

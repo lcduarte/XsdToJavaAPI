@@ -8,8 +8,13 @@ import Samples.Sequence.Interfaces.PersonalInfoSequence2;
 import Samples.Sequence.Interfaces.PersonalInfoSequence4;
 
 public class PersonalInfoAddress<P extends IElement> extends AbstractElement<PersonalInfoAddress<P>, P> implements PersonalInfoSequence4<PersonalInfoAddress<P>, P> {
+
+    public PersonalInfoAddress(P parent, String personalInfo) {
+        super(parent, personalInfo);
+    }
+
     @Override
-    public PersonalInfoAddress self() {
+    public PersonalInfoAddress<P> self() {
         return this;
     }
 
@@ -19,7 +24,7 @@ public class PersonalInfoAddress<P extends IElement> extends AbstractElement<Per
     }
 
     @Override
-    public PersonalInfoAddress cloneElem() {
+    public PersonalInfoAddress<P> cloneElem() {
         return null;
     }
 }

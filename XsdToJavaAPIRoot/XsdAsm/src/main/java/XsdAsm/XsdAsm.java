@@ -28,16 +28,13 @@ public class XsdAsm {
                 .map(element -> (XsdElement) element)
                 .collect(Collectors.toList());
 
+        elementList.forEach(element -> interfaceGenerator.addCreatedElement(element));
+
         elementList.forEach(element -> generateClassFromElement(element, apiName));
 
         interfaceGenerator.generateInterfaces(createdAttributes, apiName);
 
-        List<String> elementNames = new ArrayList<>();
-
-        elementNames.addAll(elementList.stream().map(XsdReferenceElement::getName).collect(Collectors.toList()));
-        elementNames.addAll(interfaceGenerator.getExtraElementsForVisitor());
-
-        generateVisitors(elementNames, apiName);
+        generateVisitors(interfaceGenerator.getExtraElementsForVisitor(), apiName);
     }
 
     void generateClassFromElement(XsdElement element, String apiName){

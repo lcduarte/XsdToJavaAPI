@@ -7,11 +7,24 @@ import Samples.Sequence.Classes.PersonalInfo;
 
 public interface PersonalInfoSequence1<T extends IElement<T, P>, P extends IElement> extends IElement<T, P> {
 
-    default PersonalInfoFirstName firstName(String value){
-        PersonalInfoFirstName obj = new PersonalInfoFirstName();
+    default PersonalInfoFirstName<P> firstName(String value){
+        PersonalInfoFirstName<P> obj = new PersonalInfoFirstName<>(this.getParent(), "personalInfo");
         this.getChildren().forEach(obj::addChild);
-        obj.addChild(new FirstName().text(value));
+        obj.addChild(new FirstName<>(this.self()).text(value));
+
+        if (this.getParent() != null){
+            this.getParent().getChildren().remove(this);
+            this.getParent().addChild(this);
+        }
         return obj;
     }
+
+    /*
+    default PersonalInfoFirstName<P> firstName(String value){
+        PersonalInfoFirstName<P> obj = new PersonalInfoFirstName<>(this.getParent(), "personalInfo");
+        this.getChildren().forEach(obj::addChild);
+        obj.addChild(new FirstName<>(this.self()).text(value));
+        return obj;
+    }*/
 
 }

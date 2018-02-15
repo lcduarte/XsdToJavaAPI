@@ -5,10 +5,10 @@ import Samples.Sequence.Classes.*;
 
 public interface PersonalInfoSequence5<T extends IElement<T, P>, P extends IElement> extends IElement<T, P> {
 
-    default PersonalInfoComplete country(String value){
-        PersonalInfoComplete obj = new PersonalInfoComplete();
+    default PersonalInfoComplete<P> country(String value){
+        PersonalInfoComplete<P> obj = new PersonalInfoComplete<>(this.getParent(), "personInfo");
         this.self().getChildren().forEach(obj::addChild);
-        obj.addChild(new Country().text(value));
+        obj.addChild(new Country<>(this.self()).text(value));
         return obj;
     }
 
