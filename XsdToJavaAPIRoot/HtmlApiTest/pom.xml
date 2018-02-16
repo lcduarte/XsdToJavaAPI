@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>htmlApi</artifactId>
-            <version>1.0.2-snapshot</version>
+            <version>1.0.3-snapshot</version>
         </dependency>
     </dependencies>
 
