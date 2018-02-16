@@ -18,13 +18,6 @@ public class HtmlApiTest {
     public void testGeneratedClassesIntegrity() throws Exception {
         Html<Html> root = new Html<>();
 
-        Body<Html<Html>> body = root.body();
-        Div<Body<Html<Html>>> div = body.div();
-        Img<Div<Body<Html<Html>>>> img = div.img();
-        Div<Body<Html<Html>>> parent1 = img.$();
-        Body<Html<Html>> parent2 = parent1.$();
-        Html<Html> parent3 = parent2.$();
-
         root.head()
                 .meta().attrCharset("UTF-8").$()
                 .title()

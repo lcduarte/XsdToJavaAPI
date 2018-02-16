@@ -1,6 +1,5 @@
 package XsdElements.XsdRestrictionElements;
 
-import XsdElements.ElementsWrapper.ConcreteElement;
 import XsdElements.ElementsWrapper.ReferenceBase;
 import XsdElements.Visitors.Visitor;
 import org.w3c.dom.Node;

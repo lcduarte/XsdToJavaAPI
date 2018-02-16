@@ -25,19 +25,18 @@ class XsdSupportingStructure {
     static final String VISITOR = "Visitor";
     static final String ABSTRACT_VISITOR = "AbstractVisitor";
     static final String ENUM_INTERFACE = "EnumInterface";
-    static final String IBINDER = "IBinder";
 
     static String TEXT_TYPE;
     private static String TEXT_TYPE_DESC;
     static String ABSTRACT_ELEMENT_TYPE;
     static String ABSTRACT_ELEMENT_TYPE_DESC;
     static String ATTRIBUTE_TYPE;
-    static String ATTRIBUTE_TYPE_DESC;
+    private static String ATTRIBUTE_TYPE_DESC;
     static String IELEMENT_TYPE;
     static String IELEMENT_TYPE_DESC;
     private static String IATTRIBUTE_TYPE;
     static String IATTRIBUTE_TYPE_DESC;
-    static String ITEXT_TYPE;
+    private static String ITEXT_TYPE;
     private static String RESTRICTION_VIOLATION_EXCEPTION_TYPE;
     static String RESTRICTION_VALIDATOR_TYPE;
     static String VISITOR_TYPE;

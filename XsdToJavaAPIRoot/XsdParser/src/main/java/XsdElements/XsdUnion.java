@@ -55,8 +55,6 @@ public class XsdUnion extends XsdAbstractElement {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
         XsdUnion elementCopy = new XsdUnion(this.getParent(), placeHolderAttributes);
 
-        HashMap<String, String> dummy = new HashMap<>();
-
         elementCopy.simpleTypeList = this.simpleTypeList;
 
         return elementCopy;

@@ -95,6 +95,13 @@ public class XsdSimpleType extends XsdAbstractElement {
         return this.list;
     }
 
+    /**
+     * This method obtains all the restrictions for the current XsdSimpleType element.
+     * It also joins multiple restrictions with the same base attribute in the same XsdRestriction
+     * object, if a overlap doesn't occur. In case of restriction overlap an exception is thrown
+     * because the information on the xsd file is contradictory.
+     * @return A list of restrictions.
+     */
     List<XsdRestriction> getAllRestrictions() {
         Map<String, XsdRestriction> restrictions = new HashMap<>();
         Map<String, String> xsdBuiltinTypes = XsdParser.getXsdTypesToJava();
@@ -151,6 +158,12 @@ public class XsdSimpleType extends XsdAbstractElement {
         return new ArrayList<>(restrictions.values());
     }
 
+    /**
+     * Checks for any restriction overlap between two different XsdRestriction objects.
+     * @param existingRestriction The existing restriction.
+     * @param unionMemberRestriction The second restriction found.
+     * @return True if an overlap between the restrictions occur, false if it doesn't ocurr.
+     */
     private boolean existsRestrictionOverlap(XsdRestriction existingRestriction, XsdRestriction unionMemberRestriction) {
         return  (existingRestriction.getWhiteSpace() != null && unionMemberRestriction.getWhiteSpace() != null && existingRestriction.getWhiteSpace() != unionMemberRestriction.getWhiteSpace()) ||
                 (existingRestriction.getPattern() != null && unionMemberRestriction.getPattern() != null && existingRestriction.getPattern() != unionMemberRestriction.getPattern()) ||

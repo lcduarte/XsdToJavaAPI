@@ -212,27 +212,34 @@ public class XsdAsmUtils {
         }
     }
 
+    /**
+     * Indicates if the method is from an interface or a concrete class based on its return type.
+     * @param returnType The method return type.
+     * @return True if the method belongs to an interface and false if it belongs to a concrete class.
+     */
     static boolean isInterfaceMethod(String returnType) {
         return returnType.equals(IELEMENT_TYPE_DESC);
-    }
-
-    static String getFullJavaType(XsdAttribute attribute) {
-        return getJavaType(attribute, getAttributeRestrictions(attribute), xsdFullTypesToJava, JAVA_OBJECT_DESC);
     }
 
     static String getFullJavaType(String itemType) {
         return xsdFullTypesToJava.getOrDefault(itemType, JAVA_OBJECT_DESC);
     }
 
-    private static String getJavaType(XsdAttribute attribute, List<XsdRestriction> restrictions, HashMap<String, String> xsdTypes, String defaultType){
-        String javaType = xsdTypes.getOrDefault(attribute.getType(), null);
+    /**
+     * Obtains the java type descriptor based on the attribute type attribute.
+     * @param attribute The attribute from which the type will be obtained.
+     * @return The java descriptor of the attribute type.
+     */
+    static String getFullJavaType(XsdAttribute attribute){
+        List<XsdRestriction> restrictions = getAttributeRestrictions(attribute);
+        String javaType = xsdFullTypesToJava.getOrDefault(attribute.getType(), null);
 
         if (javaType == null){
             if (restrictions.size() != 0){
-                return xsdTypes.getOrDefault(restrictions.get(0).getBase(), defaultType);
+                return xsdFullTypesToJava.getOrDefault(restrictions.get(0).getBase(), JAVA_OBJECT_DESC);
             }
 
-            return defaultType;
+            return JAVA_OBJECT_DESC;
         }
 
         return javaType;
@@ -306,6 +313,12 @@ public class XsdAsmUtils {
         return signature.toString();
     }
 
+    /**
+     * Obtains the interface signature for a interface.
+     * @param interfaces The extended interfaces.
+     * @param apiName The name of the API to be generated.
+     * @return The interface signature.
+     */
     static String getInterfaceSignature(String[] interfaces, String apiName) {
         StringBuilder signature = new StringBuilder("<T::L" + IELEMENT_TYPE + "<TT;TP;>;P::" + IELEMENT_TYPE_DESC + ">Ljava/lang/Object;");
 

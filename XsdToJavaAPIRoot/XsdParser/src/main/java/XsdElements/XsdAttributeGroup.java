@@ -79,6 +79,7 @@ public class XsdAttributeGroup extends XsdReferenceElement {
         this.attributes.addAll(attributes);
     }
 
+    @SuppressWarnings("unused")
     public List<XsdAttributeGroup> getAttributeGroups() {
         return attributeGroups;
     }

@@ -2,15 +2,13 @@ package XsdAsm;
 
 import XsdElements.XsdAbstractElement;
 import XsdElements.XsdElement;
-import XsdElements.XsdReferenceElement;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static XsdAsm.XsdAsmElements.generateClassFromElement;
-import static XsdAsm.XsdAsmUtils.*;
+import static XsdAsm.XsdAsmUtils.createGeneratedFilesDirectory;
 import static XsdAsm.XsdAsmVisitors.generateVisitors;
 import static XsdAsm.XsdSupportingStructure.createSupportingInfrastructure;
 
@@ -19,6 +17,13 @@ public class XsdAsm {
     private XsdAsmInterfaces interfaceGenerator = new XsdAsmInterfaces(this);
     private List<String> createdAttributes = new ArrayList<>();
 
+    /**
+     * This method is the entry point for the class creation process.
+     * It receives all the XsdAbstractElements and creates the necessary infrastructure for the
+     * generated API, the required interfaces, visitors and all the classes based on the elements received.
+     * @param elements The elements which will serve as base to the generated classes.
+     * @param apiName The resulting API name.
+     */
     public void generateClassFromElements(Stream<XsdAbstractElement> elements, String apiName){
         createGeneratedFilesDirectory(apiName);
 

@@ -22,18 +22,21 @@ public class HtmlParseTest {
                 .filter(element -> element instanceof XsdElement)
                 .map(element -> (XsdElement) element)
                 .collect(Collectors.toList());
-
-
-        XsdElement section = elements.stream().filter(element -> element.getName().equals("section")).findFirst().get();
     }
 
+    /**
+     * Verifies the excepted element count.
+     */
     @Test
-    public void testElementCount() throws Exception {
+    public void testElementCount() {
         Assert.assertEquals(104, elements.size());
     }
 
+    /**
+     * Tests if the first element, which should be the html as all the expected contents.
+     */
     @Test
-    public void testFirstElementContents() throws Exception {
+    public void testFirstElementContents() {
         XsdElement htmlElement = elements.get(0);
 
         Assert.assertEquals("html", htmlElement.getName());
@@ -58,8 +61,11 @@ public class HtmlParseTest {
         Assert.assertEquals("head", ((XsdElement)child2).getName());
     }
 
+    /**
+     * Tests the first element attribute count against the expected count.
+     */
     @Test
-    public void testFirstElementAttributes() throws Exception {
+    public void testFirstElementAttributes() {
         XsdElement htmlElement = elements.get(0);
 
         Assert.assertEquals("html", htmlElement.getName());
@@ -71,8 +77,11 @@ public class HtmlParseTest {
         Assert.assertEquals(84, elementAttributes.size());
     }
 
+    /**
+     * Verifies if there is any unexpected unsolved references in the parsing.
+     */
     @Test
-    public void testUnsolvedReferences() throws Exception {
+    public void testUnsolvedReferences() {
         List<UnsolvedReferenceItem> unsolvedReferenceList = parser.getUnsolvedReferencesForFile(HTML_FILE_NAME);
 
         Assert.assertEquals(4, unsolvedReferenceList.size());
@@ -102,8 +111,11 @@ public class HtmlParseTest {
         Assert.assertEquals("hreflang", parent4Attr.getName());
     }
 
+    /**
+     * Verifies the contents of a XsdSimpleType object against the expected values.
+     */
     @Test
-    public void testSimpleTypes() throws Exception {
+    public void testSimpleTypes() {
         XsdElement htmlElement = elements.get(5);
 
         Assert.assertEquals("meta", htmlElement.getName());
@@ -158,20 +170,11 @@ public class HtmlParseTest {
         Assert.assertNull(restriction.getWhiteSpace());
     }
 
+    /**
+     * Verifies if all the html_5 elements have a attribute with the name 'class'.
+     */
     @Test
     public void testClassAttribute(){
-        elements.forEach(element ->{
-            if (element.getXsdComplexType()
-                    .getXsdAttributeGroup()
-                    .noneMatch(attributeGroup ->
-                            attributeGroup.getXsdElements()
-                                    .filter(groupElement -> groupElement instanceof XsdAttribute)
-                                    .map(attribute -> (XsdAttribute) attribute)
-                                    .anyMatch(attribute -> attribute.getName().equals("class")))){
-                System.out.println(element.getName());
-            }
-        });
-
         elements.forEach(element ->
                 Assert.assertTrue(element.getXsdComplexType()
                         .getXsdAttributeGroup()

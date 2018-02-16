@@ -59,7 +59,7 @@ public abstract class XsdAbstractElement {
     }
 
     /**
-     * This method serves as a base to all XsdElements which need to set their class specific attributes
+     * This method serves as a base to all XsdElements which need to set their class specific attributes.
      * @param elementFieldsMap The node map containing all attributes of a XSDElement
      */
     public void setFields(HashMap<String, String> elementFieldsMap){
@@ -74,10 +74,18 @@ public abstract class XsdAbstractElement {
         return elementFieldsMap;
     }
 
+    /**
+     * Obtains the visitor of an XsdAbstractElement instance.
+     * @return The concrete visitor instance.
+     */
     public abstract Visitor getVisitor();
 
     public abstract void accept(Visitor visitor);
 
+    /**
+     * @param placeHolderAttributes The additional attributes to add to the clone.
+     * @return A deep copy of the object from which is called upon.
+     */
     public abstract XsdAbstractElement clone(HashMap<String, String> placeHolderAttributes);
 
     protected abstract List<ReferenceBase> getElements();
@@ -93,6 +101,8 @@ public abstract class XsdAbstractElement {
     }
 
     /**
+     * The base code for parsing an XsdAbstractElement. All the concrete implementations of this
+     * class should call this method in order to parse its contents.
      * @param node The node from where the element will be parsed
      * @param element The concrete element that will be populated and returned
      * @return A wrapper object that contains the parsed XSD object.
@@ -146,6 +156,9 @@ public abstract class XsdAbstractElement {
         }
     }
 
+    /**
+     * @return The parent of the current XsdAbstractElement.
+     */
     public XsdAbstractElement getParent() {
         return parent;
     }

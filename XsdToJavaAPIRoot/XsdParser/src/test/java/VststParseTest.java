@@ -20,7 +20,7 @@ public class VststParseTest {
     }
 
     @Test
-    public void testClassParent(){
+    public void testElementCount(){
 
     }
 }

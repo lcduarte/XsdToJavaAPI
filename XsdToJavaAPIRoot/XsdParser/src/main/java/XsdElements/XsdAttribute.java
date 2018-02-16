@@ -88,10 +88,6 @@ public class XsdAttribute extends XsdReferenceElement {
     public void replaceUnsolvedElements(ConcreteElement elementWrapper) {
         super.replaceUnsolvedElements(elementWrapper);
 
-        if ((type != null && type.equals("StringToDoubleConverter") || elementWrapper.getName().equals("StringToDoubleConverter"))){
-            int a = 5;
-        }
-
         XsdAbstractElement element = elementWrapper.getElement();
 
         if (element instanceof XsdSimpleType && simpleType != null && type.equals(elementWrapper.getName())){
@@ -107,6 +103,7 @@ public class XsdAttribute extends XsdReferenceElement {
         return type;
     }
 
+    @SuppressWarnings("unused")
     public List<XsdRestriction> getAllRestrictions(){
         XsdSimpleType simpleType = getXsdSimpleType();
 

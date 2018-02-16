@@ -30,17 +30,12 @@ class XsdAsmElements {
 
         ClassWriter classWriter = generateClass(className, ABSTRACT_ELEMENT_TYPE, interfaces, signature,ACC_PUBLIC + ACC_SUPER, apiName);
 
-        generateClassSpecificMethods(classWriter, className, apiName);
+        generateClassSpecificMethods(classWriter, className, apiName, null);
 
         elementAttributes.forEach(elementAttribute -> generateMethodsAndCreateAttribute(createdAttributes, classWriter, elementAttribute, getFullClassTypeNameDesc(className, apiName), apiName));
 
         writeClassToFile(className, classWriter, apiName);
     }
-
-    static void generateClassSpecificMethods(ClassWriter classWriter, String className, String apiName) {
-        generateClassSpecificMethods(classWriter, className, apiName, null);
-    }
-
 
     /**
      * Creates some class specific methods that all implementations of AbstractElement should have, which are:
