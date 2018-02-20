@@ -53,7 +53,7 @@ public abstract class AbstractElement<T extends IElement<T, P>, P extends IEleme
     }
 
     @Override
-    public P getParent() {
+    public P º() {
         return parent;
     }
 

@@ -7,7 +7,6 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.Object;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +18,17 @@ public class HtmlApiTest {
         Html<Html> root = new Html<>();
 
         root.head()
-                .meta().attrCharset("UTF-8").$()
+                .meta().attrCharset("UTF-8").º()
                 .title()
-                    .text("Title").$()
-                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/images/favicon.png").$()
-                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/styles/main.css").$().$()
+                    .text("Title").º()
+                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
+                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
             .body().attrClass("clear")
                 .div()
                     .header()
                         .section()
                             .div()
-                                .img().attrId("brand").attrSrc("./assets/images/logo.png").<Div>$()
+                                .img().attrId("brand").attrSrc("./assets/images/logo.png").º()
                                 .aside()
                                     .em()
                                         .text("Advertisement")
@@ -111,7 +110,7 @@ public class HtmlApiTest {
                             list.forEach(tdValue ->
                                     elem.tr().td().text(tdValue)
                             )
-                    ).$()
+                    ).º()
                 .div();
 
         CustomVisitor<List<String>> customVisitor1 = new CustomVisitor<>(tdValues1);
@@ -122,6 +121,7 @@ public class HtmlApiTest {
                                 "<tr>\n<td>\nval3\r\n</td>\n</tr>\n" +
                             "</table>\n<div>\n</div>\n</body>\n</html>\n";
 
+        Assert.assertTrue(customVisitPrintAssert(customVisitor1, root, expected1));
         Assert.assertTrue(customVisitPrintAssert(customVisitor1, root, expected1));
 
         CustomVisitor<List<String>> customVisitor2 = new CustomVisitor<>(tdValues2);

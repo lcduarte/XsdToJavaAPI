@@ -123,7 +123,7 @@ class XsdSupportingStructure {
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "getAttributes", "()" + JAVA_LIST_DESC, "()Ljava/util/List<" + IATTRIBUTE_TYPE_DESC + ">;", null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "$", "()" + IELEMENT_TYPE_DESC, "()TP;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "º", "()" + IELEMENT_TYPE_DESC, "()TP;", null);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "binder", "(Ljava/util/function/BiConsumer;)" + IELEMENT_TYPE_DESC, "<M:Ljava/lang/Object;>(Ljava/util/function/BiConsumer<TT;TM;>;)TT;", null);
@@ -579,7 +579,7 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "$", "()" + IELEMENT_TYPE_DESC, "()TP;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "º", "()" + IELEMENT_TYPE_DESC, "()TP;", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE, "parent", IELEMENT_TYPE_DESC);

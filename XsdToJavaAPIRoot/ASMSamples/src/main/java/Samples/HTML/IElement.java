@@ -13,7 +13,7 @@ public interface IElement<T extends IElement, P extends IElement> {
 
     List<IElement<T, P>> getChildren();
     List<IAttribute> getAttributes();
-    P getParent();
+    P º();
     String getName();
     void accept(Visitor visitor);
 
