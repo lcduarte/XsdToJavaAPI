@@ -38,9 +38,7 @@ public class Text<R, U, P extends IElement> extends AbstractElement<Text<R, U, P
 
     @Override
     public void accept(Visitor visitor) {
-        visitor.initVisit(this);
-
-        visitor.endVisit(this);
+        visitor.visit(this);
     }
 
     public String getValue() {

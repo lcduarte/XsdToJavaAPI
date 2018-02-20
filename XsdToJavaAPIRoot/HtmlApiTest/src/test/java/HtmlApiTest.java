@@ -104,18 +104,19 @@ public class HtmlApiTest {
 
         Html<Html> root = new Html<>();
 
-        root.body()
-                .table()
-                    .<List<String>>binder((elem, list) ->
-                            list.forEach(tdValue ->
-                                    elem.tr().td().text(tdValue)
-                            )
-                    ).º()
-                .div();
+        Table<Body<Html<Html>>> table = root.body().table();
+        table.tr().th().text("Title");
+        table.<List<String>>binder((elem, list) ->
+                         list.forEach(tdValue ->
+                                 elem.tr().td().text(tdValue)
+                         )
+                 ).º()
+             .div();
 
         CustomVisitor<List<String>> customVisitor1 = new CustomVisitor<>(tdValues1);
 
         String expected1 = "<html>\n<body>\n<table>\n" +
+                                "<tr>\n<th>\nTitle\r\n</th>\n</tr>\n" +
                                 "<tr>\n<td>\nval1\r\n</td>\n</tr>\n" +
                                 "<tr>\n<td>\nval2\r\n</td>\n</tr>\n" +
                                 "<tr>\n<td>\nval3\r\n</td>\n</tr>\n" +
@@ -127,6 +128,7 @@ public class HtmlApiTest {
         CustomVisitor<List<String>> customVisitor2 = new CustomVisitor<>(tdValues2);
 
         String expected2 = "<html>\n<body>\n<table>\n" +
+                                "<tr>\n<th>\nTitle\r\n</th>\n</tr>\n" +
                                 "<tr>\n<td>\nval4\r\n</td>\n</tr>\n" +
                                 "<tr>\n<td>\nval5\r\n</td>\n</tr>\n" +
                                 "<tr>\n<td>\nval6\r\n</td>\n</tr>\n" +

@@ -20,6 +20,6 @@ public interface IElement<T extends IElement, P extends IElement> {
     <M> T binder(BiConsumer<T, M> consumer);
     boolean isBound();
     T cloneElem();
-    IElement<T, P> bindTo(Object model);
+    T bindTo(Object model);
 
 }

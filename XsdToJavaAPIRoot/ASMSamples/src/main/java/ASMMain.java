@@ -15,16 +15,19 @@ public class ASMMain {
             H1<Div<H1>> h2 = new H1<>(div1);
 
 
-            H1<Div<IElement>> x1 = new Div<>(new H1<>(new Div<>())).addSomeAttribute(null).getParent();
-            H1<Div<IElement>> x2 = new Div<>(new H1<>(new Div<>())).addAttrClass("").getParent();
+            H1<Div<IElement>> x1 = new Div<>(new H1<>(new Div<>())).addSomeAttribute(null).º();
+            H1<Div<IElement>> x2 = new Div<>(new H1<>(new Div<>())).addAttrClass("").º();
 
 
-            Div q = h2.getParent();
+            Div<H1> q = h2.º();
 
-            Div<H1> div1Copy = (Div<H1>) h2.getParent();
-            H1 h1Copy = div1Copy.getParent();
+            Div<H1> x = q.cloneElem();
 
-            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\ASMSamples\\target\\classes\\Samples\\HTML\\Text.class"});
+
+            Div<H1> div1Copy = (Div<H1>) h2.º();
+            H1 h1Copy = div1Copy.º();
+
+            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\ASMSamples\\target\\classes\\Samples\\HTML\\AbstractElement.class"});
             //ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\ASMSamples\\target\\classes\\Samples\\Sequence\\Interfaces\\PersonalInfoSequence1.class"});
         } catch (Exception e) {
             e.printStackTrace();

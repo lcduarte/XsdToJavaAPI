@@ -105,12 +105,12 @@ public abstract class AbstractElement<T extends IElement<T, P>, P extends IEleme
     }
 
     @Override
-    public IElement<T, P> bindTo(Object model) {
+    public T bindTo(Object model) {
         if (isBound()){
             binderMethod.accept(this.self(), model);
         }
 
-        return this;
+        return this.self();
     }
 
     protected <X extends AbstractElement> X clone(X clone) {

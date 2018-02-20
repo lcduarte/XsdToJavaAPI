@@ -136,8 +136,8 @@ class XsdSupportingStructure {
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "cloneElem", "()" + IELEMENT_TYPE_DESC, "()TT;", null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "bindTo", "(Ljava/lang/Object;)" + IELEMENT_TYPE_DESC, "(Ljava/lang/Object;)L" + IELEMENT_TYPE + "<TT;TP;>;", null);
-        mVisitor.visitLocalVariable("model", "(Ljava/lang/Object;)" + IELEMENT_TYPE_DESC, "(Ljava/lang/Object;)L" + IELEMENT_TYPE + "<TT;>;", new Label(), new Label(),0);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "bindTo", "(Ljava/lang/Object;)" + IELEMENT_TYPE_DESC, "(Ljava/lang/Object;)TT;", null);
+        mVisitor.visitLocalVariable("model", "(Ljava/lang/Object;)" + IELEMENT_TYPE_DESC, "(Ljava/lang/Object;)TT;", new Label(), new Label(),0);
         mVisitor.visitEnd();
 
         writeClassToFile(IELEMENT, classWriter, apiName);
@@ -313,10 +313,7 @@ class XsdSupportingStructure {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, VISITOR_TYPE, "initVisit", "(" + TEXT_TYPE_DESC + ")V", true);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, VISITOR_TYPE, "endVisit", "(" + TEXT_TYPE_DESC + ")V", true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, VISITOR_TYPE, "visit", "(" + TEXT_TYPE_DESC + ")V", true);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
@@ -750,7 +747,7 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "bindTo", "(Ljava/lang/Object;)" + IELEMENT_TYPE_DESC, "(Ljava/lang/Object;)L" + IELEMENT_TYPE + "<TT;TP;>;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "bindTo", "(Ljava/lang/Object;)" + IELEMENT_TYPE_DESC, "(Ljava/lang/Object;)TT;", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE, "isBound", "()Z", false);
@@ -765,6 +762,7 @@ class XsdSupportingStructure {
         mVisitor.visitLabel(l7);
         mVisitor.visitFrame(Opcodes.F_SAME, 0, new Object[] {IELEMENT_TYPE}, 0, null);
         mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE, "self", "()" + IELEMENT_TYPE_DESC, false);
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();

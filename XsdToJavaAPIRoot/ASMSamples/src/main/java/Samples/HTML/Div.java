@@ -19,11 +19,7 @@ public class Div<P extends IElement> extends AbstractElement<Div<P>, P> implemen
 
     @Override
     public void accept(Visitor visitor) {
-        visitor.initVisit(this);
-
-        getChildren().forEach(child -> child.accept(visitor));
-
-        visitor.endVisit(this);
+        visitor.visit(this);
     }
 
     @Override

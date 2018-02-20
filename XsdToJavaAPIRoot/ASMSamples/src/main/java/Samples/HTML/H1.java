@@ -11,11 +11,7 @@ public class H1<P extends IElement> extends AbstractElement<H1<P>, P> implements
 
     @Override
     public void accept(Visitor visitor) {
-        visitor.initVisit(this);
-
-        getChildren().forEach(child -> child.accept(visitor));
-
-        visitor.endVisit(this);
+        visitor.visit(this);
     }
 
     @Override
