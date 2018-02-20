@@ -5,57 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="611ba528-c614-49c6-b787-6f04700c0670" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_2_snapshot.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdAsm_1_0_3_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdAsm_1_0_3_snapshot.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_2_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_2_snapshot.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/src/test/java/HtmlApiTest.java" afterPath="$PROJECT_DIR$/HtmlApiTest/src/test/java/HtmlApiTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/pom.xml" afterPath="$PROJECT_DIR$/XsdAsm/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/AttributeHierarchyItem.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/AttributeHierarchyItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsm.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmElements.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmElements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmEnum.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmEnum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmInterfaces.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmInterfaces.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmUtils.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ASMSamples/ASMSamples.iml" afterPath="$PROJECT_DIR$/ASMSamples/ASMSamples.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java" afterPath="$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/HtmlApi.iml" afterPath="$PROJECT_DIR$/HtmlApi/HtmlApi.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" afterPath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/XsdAsm.iml" afterPath="$PROJECT_DIR$/XsdAsm/XsdAsm.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdSupportingStructure.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdSupportingStructure.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsmMain.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsmMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/resources/test.xsd" afterPath="$PROJECT_DIR$/XsdAsm/src/main/resources/test.xsd" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmTest.java" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/pom.xml" afterPath="$PROJECT_DIR$/XsdParser/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/ElementsWrapper/UnsolvedReference.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/ElementsWrapper/UnsolvedReference.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAbstractElement.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAbstractElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAll.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAll.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAttribute.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAttribute.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAttributeGroup.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAttributeGroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdChoice.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdChoice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdComplexType.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdComplexType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdElement.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdGroup.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdGroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdList.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdMultipleElements.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdMultipleElements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdReferenceElement.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdReferenceElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestriction.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestriction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdAbstractRestrictionChild.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdAbstractRestrictionChild.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdEnumeration.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdEnumeration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdFractionDigits.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdFractionDigits.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdLength.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdLength.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMaxExclusive.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMaxExclusive.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMaxInclusive.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMaxInclusive.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMaxLength.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMaxLength.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMinExclusive.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMinExclusive.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMinInclusive.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMinInclusive.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMinLength.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMinLength.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdPattern.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdPattern.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdTotalDigits.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdTotalDigits.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdWhiteSpace.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdWhiteSpace.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdSequence.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdSequence.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdSimpleType.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdSimpleType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdUnion.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdUnion.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdParser/UnsolvedReferenceItem.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdParser/UnsolvedReferenceItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/XsdParser/XsdParser.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/XsdParser/XsdParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/HtmlParseTest.java" afterPath="$PROJECT_DIR$/XsdParser/src/test/java/HtmlParseTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/VststParseTest.java" afterPath="$PROJECT_DIR$/XsdParser/src/test/java/VststParseTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/resources/html_5.xsd" afterPath="$PROJECT_DIR$/XsdParser/src/test/resources/html_5.xsd" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/resources/html_5_orig.xsd" afterPath="$PROJECT_DIR$/XsdParser/src/test/resources/html_5_orig.xsd" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/XsdParserTest.java" afterPath="$PROJECT_DIR$/XsdParser/src/test/java/HtmlParseTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/XsdParser.iml" afterPath="$PROJECT_DIR$/XsdParser/XsdParser.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -80,126 +41,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AttributeHierarchyItem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/AttributeHierarchyItem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XsdAsmEnum.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmEnum.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
-              <folding>
-                <element signature="e#7022#7023#0" expanded="true" />
-                <element signature="e#7078#7079#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XsdAsmInterfaces.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmInterfaces.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="770" column="4" lean-forward="false" selection-start-line="770" selection-start-column="4" selection-end-line="770" selection-end-column="4" />
-              <folding>
-                <element signature="docComment;method#generateInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#generateInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#getElementInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#getElementInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#generateAttributesGroupInterface#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#generateAttributesGroupInterface#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="e#3978#4406#0" expanded="false" />
-                <element signature="docComment;method#getAttributeGroupInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#getAttributeGroupInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#getTypeAttributeGroups#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#getTypeAttributeGroups#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#getBaseAttributeGroupInterface#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#getBaseAttributeGroupInterface#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="e#6757#6987#0" expanded="false" />
-                <element signature="docComment;method#addAttributeGroup#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#addAttributeGroup#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#getAttributeGroupSignature#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#getAttributeGroupSignature#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#getAttributeGroupObjectInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#getAttributeGroupObjectInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#getInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#getInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#getElementInterfaces#1;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#getElementInterfaces#1;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#groupMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#groupMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#sequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#sequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#createElementsForSequence#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#createElementsForSequence#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#createElementsForSequence#1;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#createElementsForSequence#1;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#generateSequenceInnerElement#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#generateSequenceInnerElement#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#generateSequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#generateSequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#getSequenceInfo#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#getSequenceInfo#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#allMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#allMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="e#33590#33787#0" expanded="false" />
-                <element signature="docComment;method#choiceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#choiceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="e#35956#36168#0" expanded="false" />
-                <element signature="method#iterativeCreation#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#createElement#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#createElement#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="docComment;method#getAllElementsRecursively#0;class#XsdAsmInterfaces#0" expanded="false" />
-                <element signature="method#getAllElementsRecursively#0;class#XsdAsmInterfaces#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XsdAsmUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="343" column="39" lean-forward="false" selection-start-line="343" selection-start-column="39" selection-end-line="343" selection-end-column="39" />
-              <folding>
-                <element signature="initializer##0;class#XsdAsmUtils#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HtmlApiTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/HtmlApiTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-847">
-              <caret line="109" column="34" lean-forward="false" selection-start-line="109" selection-start-column="34" selection-end-line="109" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XsdAsmVisitors.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmVisitors.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1592">
-              <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/HtmlApiTest/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="282">
+              <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="391">
+              <caret line="23" column="18" lean-forward="false" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -275,7 +131,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/Visitor.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoFirstName.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfo.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoAddress.java" />
@@ -298,11 +153,8 @@
         <option value="$PROJECT_DIR$/HtmlApi/pom.xml" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/AbstractElement.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/Div.java" />
-        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java" />
         <option value="$PROJECT_DIR$/XsdAsmTest/pom.xml" />
-        <option value="$PROJECT_DIR$/HtmlApiTest/pom.xml" />
         <option value="$PROJECT_DIR$/ASMSamples/pom.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/XsdParser/pom.xml" />
         <option value="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMaxLength.java" />
         <option value="$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdFractionDigits.java" />
@@ -324,7 +176,11 @@
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmEnum.java" />
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmInterfaces.java" />
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmUtils.java" />
+        <option value="$PROJECT_DIR$/HtmlApiTest/pom.xml" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/Text.java" />
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdSupportingStructure.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/HtmlApiTest.java" />
       </list>
     </option>
@@ -411,7 +267,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -419,13 +277,87 @@
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="ASMSamples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="ASMSamples" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="ASMSamples" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="ASMSamples" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="ASMSamples" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Samples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="ASMSamples" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Samples" type="462c0819:PsiDirectoryNode" />
+              <item name="HTML" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="HtmlApi" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -464,7 +396,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.XsdAsmTest.testWpfe">
+  <component name="RunManager" selected="JUnit.HtmlApiTest.testText">
     <configuration name="ASMMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="ASMMain" />
@@ -479,19 +411,25 @@
       <module name="ASMSamples" />
       <envs />
     </configuration>
-    <configuration name="XsdAsmMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="HtmlApiTest.testText" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="XsdAsmMain" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\XsdAsm\src\main\resources\test.xsd TestObjects" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <module name="HtmlApiTest" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="HtmlApiTest" />
+      <option name="METHOD_NAME" value="testText" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="XsdAsm" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
       <envs />
+      <patterns />
     </configuration>
     <configuration name="XsdAsmTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -835,19 +773,19 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Application.XsdAsmMain" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.XsdAsmTest" />
-      <item index="2" class="java.lang.String" itemvalue="Application.ASMMain" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.XsdAsmTest.testSequence" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.XsdAsmTest.testWpfe" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.XsdAsmTest" />
+      <item index="1" class="java.lang.String" itemvalue="Application.ASMMain" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.XsdAsmTest.testSequence" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.XsdAsmTest.testWpfe" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.HtmlApiTest.testText" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.XsdAsmTest.testWpfe" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.XsdAsmTest.testSequence" />
-        <item index="2" class="java.lang.String" itemvalue="Application.ASMMain" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.XsdAsmTest" />
-        <item index="4" class="java.lang.String" itemvalue="Application.XsdAsmMain" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.HtmlApiTest.testText" />
+        <item index="1" class="java.lang.String" itemvalue="Application.ASMMain" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.XsdAsmTest.testWpfe" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.XsdAsmTest.testSequence" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.XsdAsmTest" />
       </list>
     </recent_temporary>
   </component>
@@ -937,18 +875,20 @@
       <workItem from="1518626420613" duration="11783000" />
       <workItem from="1518707385646" duration="8063000" />
       <workItem from="1518795011788" duration="8759000" />
+      <workItem from="1518810129700" duration="98000" />
+      <workItem from="1519128140999" duration="3519000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="XsdAsmTest - 2018.02.14 at 20h 20m 31s.xml">
-      <configuration name="XsdAsmTest" configurationId="JUnit" />
+    <history-entry file="HtmlApiTest_testText - 2018.02.20 at 13h 08m 19s.xml">
+      <configuration name="HtmlApiTest.testText" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="XsdAsmTest - 2018.02.14 at 20h 21m 53s.xml">
-      <configuration name="XsdAsmTest" configurationId="JUnit" />
+    <history-entry file="HtmlApiTest_testText - 2018.02.20 at 13h 14m 06s.xml">
+      <configuration name="HtmlApiTest.testText" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="XsdAsmTest - 2018.02.14 at 20h 28m 42s.xml">
-      <configuration name="XsdAsmTest" configurationId="JUnit" />
+    <history-entry file="HtmlApiTest_testText - 2018.02.20 at 13h 24m 25s.xml">
+      <configuration name="HtmlApiTest.testText" configurationId="JUnit" />
     </history-entry>
     <history-entry file="XsdAsmTest - 2018.02.14 at 20h 29m 58s.xml">
       <configuration name="XsdAsmTest" configurationId="JUnit" />
@@ -973,7 +913,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="466200000" />
+    <option name="totallyTimeSpent" value="469817000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -986,6 +926,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -996,13 +937,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45723686" sideWeight="0.50907713" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42927632" sideWeight="0.49092284" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42927632" sideWeight="0.49092284" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2677761" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2753404" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1015,6 +955,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1060,305 +1001,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMaxExclusive.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="24" column="68" lean-forward="false" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
-          <folding>
-            <element signature="method#setFields#0;class#XsdMaxExclusive#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdMaxExclusive#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdMaxExclusive#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdMaxExclusive#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMaxLength.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="method#setFields#0;class#XsdMaxLength#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdMaxLength#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdMaxLength#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMaxInclusive.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="24" column="68" lean-forward="false" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
-          <folding>
-            <element signature="method#setFields#0;class#XsdMaxInclusive#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdMaxInclusive#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdMaxInclusive#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdMaxInclusive#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdAbstractRestrictionChild.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdEnumeration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="24" column="68" lean-forward="true" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
-          <folding>
-            <element signature="method#accept#0;class#XsdEnumeration#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdEnumeration#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdEnumeration#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdFractionDigits.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="11" column="54" lean-forward="true" selection-start-line="11" selection-start-column="54" selection-end-line="11" selection-end-column="54" />
-          <folding>
-            <element signature="method#setFields#0;class#XsdFractionDigits#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdFractionDigits#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdFractionDigits#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdFractionDigits#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMinExclusive.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="method#setFields#0;class#XsdMinExclusive#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdMinExclusive#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdMinExclusive#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdMinExclusive#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMinInclusive.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="19" column="59" lean-forward="false" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
-          <folding>
-            <element signature="method#setFields#0;class#XsdMinInclusive#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdMinInclusive#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdMinInclusive#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdMinInclusive#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdMinLength.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="23" column="13" lean-forward="true" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding>
-            <element signature="method#setFields#0;class#XsdMinLength#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdMinLength#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdMinLength#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdPattern.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="method#setFields#0;class#XsdPattern#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdPattern#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdPattern#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdTotalDigits.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="method#setFields#0;class#XsdTotalDigits#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdTotalDigits#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdTotalDigits#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdTotalDigits#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdRestrictionElements/XsdWhiteSpace.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="31" column="40" lean-forward="false" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
-          <folding>
-            <element signature="method#setFields#0;class#XsdWhiteSpace#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdWhiteSpace#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdWhiteSpace#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdParser/XsdParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="256" column="0" lean-forward="true" selection-start-line="256" selection-start-column="0" selection-end-line="256" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAll.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="45" column="35" lean-forward="true" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
-          <folding>
-            <element signature="method#XsdAll#0;class#XsdAll#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdAll#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdAll#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdAll#0" expanded="false" />
-            <element signature="class#AllVisitor#0;class#XsdAll#0" expanded="false" />
-            <element signature="method#visit#0;class#AllVisitor#0;class#XsdAll#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAbstractElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-          <folding>
-            <element signature="method#XsdAbstractElement#0;class#XsdAbstractElement#0" expanded="false" />
-            <element signature="method#XsdAbstractElement#3;class#XsdAbstractElement#0" expanded="false" />
-            <element signature="docComment;method#setFields#0;class#XsdAbstractElement#0" expanded="false" />
-            <element signature="method#setFields#0;class#XsdAbstractElement#0" expanded="false" />
-            <element signature="docComment;method#getVisitor#0;class#XsdAbstractElement#0" expanded="false" />
-            <element signature="method#getXsdElements#0;class#XsdAbstractElement#0" expanded="false" />
-            <element signature="docComment;method#xsdParseSkeleton#0;class#XsdAbstractElement#0" expanded="false" />
-            <element signature="method#xsdParseSkeleton#0;class#XsdAbstractElement#0" expanded="false" />
-            <element signature="method#convertNodeMap#0;class#XsdAbstractElement#0" expanded="false" />
-            <element signature="docComment;method#replaceUnsolvedElements#0;class#XsdAbstractElement#0" expanded="false" />
-            <element signature="method#replaceUnsolvedElements#0;class#XsdAbstractElement#0" expanded="false" />
-            <element signature="docComment;method#getParent#0;class#XsdAbstractElement#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdAttributeGroup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="104" column="1" lean-forward="true" selection-start-line="104" selection-start-column="1" selection-end-line="104" selection-end-column="1" />
-          <folding>
-            <element signature="method#XsdAttributeGroup#0;class#XsdAttributeGroup#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdAttributeGroup#0" expanded="false" />
-            <element signature="method#getElements#0;class#XsdAttributeGroup#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdAttributeGroup#0" expanded="false" />
-            <element signature="method#replaceUnsolvedElements#0;class#XsdAttributeGroup#0" expanded="false" />
-            <element signature="e#2531#2558#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdAttributeGroup#0" expanded="false" />
-            <element signature="class#AttributeGroupVisitor#0;class#XsdAttributeGroup#0" expanded="false" />
-            <element signature="method#visit#0;class#AttributeGroupVisitor#0;class#XsdAttributeGroup#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdChoice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="method#XsdChoice#0;class#XsdChoice#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdChoice#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdChoice#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdChoice#0" expanded="false" />
-            <element signature="class#ChoiceVisitor#0;class#XsdChoice#0" expanded="false" />
-            <element signature="method#visit#0;class#ChoiceVisitor#0;class#XsdChoice#0" expanded="false" />
-            <element signature="method#visit#1;class#ChoiceVisitor#0;class#XsdChoice#0" expanded="false" />
-            <element signature="method#visit#2;class#ChoiceVisitor#0;class#XsdChoice#0" expanded="false" />
-            <element signature="method#visit#3;class#ChoiceVisitor#0;class#XsdChoice#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="112" column="42" lean-forward="false" selection-start-line="112" selection-start-column="42" selection-end-line="112" selection-end-column="42" />
-          <folding>
-            <element signature="method#XsdElement#0;class#XsdElement#0" expanded="false" />
-            <element signature="method#setFields#0;class#XsdElement#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdElement#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdElement#0" expanded="false" />
-            <element signature="method#replaceUnsolvedElements#0;class#XsdElement#0" expanded="false" />
-            <element signature="method#setComplexType#0;class#XsdElement#0" expanded="false" />
-            <element signature="method#getXsdComplexType#0;class#XsdElement#0" expanded="false" />
-            <element signature="method#getXsdType#0;class#XsdElement#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdElement#0" expanded="false" />
-            <element signature="class#ElementVisitor#0;class#XsdElement#0" expanded="false" />
-            <element signature="method#visit#0;class#ElementVisitor#0;class#XsdElement#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdComplexType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-681">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="method#XsdComplexType#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#setFields#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#getElements#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#replaceUnsolvedElements#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#setChildElement#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#getXsdAttributes#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#getXsdAttributeGroup#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="class#ComplexTypeVisitor#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#visit#0;class#ComplexTypeVisitor#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#visit#1;class#ComplexTypeVisitor#0;class#XsdComplexType#0" expanded="false" />
-            <element signature="method#visit#2;class#ComplexTypeVisitor#0;class#XsdComplexType#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdGroup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-103">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="method#XsdGroup#0;class#XsdGroup#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdGroup#0" expanded="false" />
-            <element signature="method#getElements#0;class#XsdGroup#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdGroup#0" expanded="false" />
-            <element signature="method#setChildElement#0;class#XsdGroup#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdGroup#0" expanded="false" />
-            <element signature="class#GroupVisitor#0;class#XsdGroup#0" expanded="false" />
-            <element signature="method#visit#0;class#GroupVisitor#0;class#XsdGroup#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/XsdElements/XsdList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-137">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="method#XsdList#0;class#XsdList#0" expanded="false" />
-            <element signature="method#setFields#0;class#XsdList#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdList#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdList#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdList#0" expanded="false" />
-            <element signature="class#ListVisitor#0;class#XsdList#0" expanded="false" />
-            <element signature="method#visit#0;class#ListVisitor#0;class#XsdList#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1366,12 +1012,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="12" column="22" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-          <folding>
-            <element signature="method#XsdMultipleElements#0;class#XsdMultipleElements#0" expanded="false" />
-            <element signature="method#setFields#0;class#XsdMultipleElements#0" expanded="false" />
-            <element signature="method#replaceUnsolvedElements#0;class#XsdMultipleElements#0" expanded="false" />
-            <element signature="method#getXsdElements#0;class#XsdMultipleElements#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1379,12 +1019,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="39" column="4" lean-forward="false" selection-start-line="39" selection-start-column="4" selection-end-line="39" selection-end-column="4" />
-          <folding>
-            <element signature="docComment;class#XsdReferenceElement#0" expanded="false" />
-            <element signature="method#XsdReferenceElement#0;class#XsdReferenceElement#0" expanded="false" />
-            <element signature="method#setFields#0;class#XsdReferenceElement#0" expanded="false" />
-            <element signature="docComment;method#getName#0;class#XsdReferenceElement#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1392,26 +1026,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1259">
           <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding>
-            <element signature="method#XsdRestriction#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#setFields#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#0;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#1;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#2;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#3;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#4;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#5;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#6;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#7;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#8;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#9;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#10;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-            <element signature="method#visit#11;class#RestrictionVisitor#0;class#XsdRestriction#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1419,17 +1033,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="method#XsdSequence#0;class#XsdSequence#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdSequence#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdSequence#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdSequence#0" expanded="false" />
-            <element signature="class#SequenceVisitor#0;class#XsdSequence#0" expanded="false" />
-            <element signature="method#visit#0;class#SequenceVisitor#0;class#XsdSequence#0" expanded="false" />
-            <element signature="method#visit#1;class#SequenceVisitor#0;class#XsdSequence#0" expanded="false" />
-            <element signature="method#visit#2;class#SequenceVisitor#0;class#XsdSequence#0" expanded="false" />
-            <element signature="method#visit#3;class#SequenceVisitor#0;class#XsdSequence#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1437,23 +1040,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="833">
           <caret line="160" column="4" lean-forward="false" selection-start-line="160" selection-start-column="4" selection-end-line="160" selection-end-column="4" />
-          <folding>
-            <element signature="method#XsdSimpleType#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="method#setFields#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="method#getList#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="docComment;method#getAllRestrictions#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="method#getAllRestrictions#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="e#3538#7365#0" expanded="false" />
-            <element signature="docComment;method#existsRestrictionOverlap#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="method#existsRestrictionOverlap#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="class#SimpleTypeVisitor#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="method#visit#0;class#SimpleTypeVisitor#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="method#visit#1;class#SimpleTypeVisitor#0;class#XsdSimpleType#0" expanded="false" />
-            <element signature="method#visit#2;class#SimpleTypeVisitor#0;class#XsdSimpleType#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1461,15 +1047,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="53" column="73" lean-forward="false" selection-start-line="53" selection-start-column="73" selection-end-line="53" selection-end-column="73" />
-          <folding>
-            <element signature="method#XsdUnion#0;class#XsdUnion#0" expanded="false" />
-            <element signature="method#setFields#0;class#XsdUnion#0" expanded="false" />
-            <element signature="method#accept#0;class#XsdUnion#0" expanded="false" />
-            <element signature="method#clone#0;class#XsdUnion#0" expanded="false" />
-            <element signature="method#parse#0;class#XsdUnion#0" expanded="false" />
-            <element signature="class#UnionVisitor#0;class#XsdUnion#0" expanded="false" />
-            <element signature="method#visit#0;class#UnionVisitor#0;class#XsdUnion#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1477,7 +1054,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1485,7 +1061,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1683">
           <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1493,7 +1068,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="9" column="114" lean-forward="false" selection-start-line="9" selection-start-column="114" selection-end-line="9" selection-end-column="114" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1501,21 +1075,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="117" column="34" lean-forward="false" selection-start-line="117" selection-start-column="34" selection-end-line="117" selection-end-column="34" />
-          <folding>
-            <element signature="initializer##0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="docComment;method#testElementCount#0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="docComment;method#testFirstElementContents#0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="method#testFirstElementContents#0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="docComment;method#testFirstElementAttributes#0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="method#testFirstElementAttributes#0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="docComment;method#testUnsolvedReferences#0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="method#testUnsolvedReferences#0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="docComment;method#testSimpleTypes#0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="method#testSimpleTypes#0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="docComment;method#testClassAttribute#0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="method#testClassAttribute#0;class#HtmlParseTest#0" expanded="false" />
-            <element signature="method#testClassParent#0;class#HtmlParseTest#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1523,7 +1082,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1531,7 +1089,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1539,22 +1096,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="101" column="7" lean-forward="false" selection-start-line="101" selection-start-column="7" selection-end-line="101" selection-end-column="7" />
-          <folding>
-            <element signature="docComment;method#testListSuccess#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="method#testListSuccess#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="docComment;method#testListFailed#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="method#testListFailed#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="docComment;method#testSequenceWithParent#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="method#testSequenceWithParent#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="docComment;method#testSequenceWithGroups#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="method#testSequenceWithGroups#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="docComment;method#testSequenceInnerElementsName#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="method#testSequenceInnerElementsName#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="docComment;method#testGroupWithInnerSequence#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="method#testGroupWithInnerSequence#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="docComment;method#testWpfe#0;class#XsdAsmTest#0" expanded="false" />
-            <element signature="method#testWpfe#0;class#XsdAsmTest#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1562,7 +1103,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1571,7 +1111,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="0">
             <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor />
         </state>
@@ -1581,7 +1120,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-867">
           <caret line="192" column="43" lean-forward="true" selection-start-line="192" selection-start-column="43" selection-end-line="192" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1589,7 +1127,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2856">
           <caret line="168" column="53" lean-forward="false" selection-start-line="168" selection-start-column="53" selection-end-line="168" selection-end-column="53" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1597,7 +1134,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1605,7 +1141,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="526">
           <caret line="90" column="34" lean-forward="false" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1613,15 +1148,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2515">
           <caret line="366" column="34" lean-forward="false" selection-start-line="366" selection-start-column="33" selection-end-line="366" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmElements.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="39" column="4" lean-forward="false" selection-start-line="39" selection-start-column="4" selection-end-line="39" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1629,7 +1155,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="45" column="85" lean-forward="false" selection-start-line="45" selection-start-column="68" selection-end-line="45" selection-end-column="85" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1637,24 +1162,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmEnum.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
+        <state relative-caret-position="2329">
           <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
           <folding>
-            <element signature="e#7022#7023#0" expanded="true" />
-            <element signature="e#7078#7079#0" expanded="true" />
+            <element signature="e#7022#7023#0" expanded="false" />
+            <element signature="e#7078#7079#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmInterfaces.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
+        <state relative-caret-position="1394">
           <caret line="770" column="4" lean-forward="false" selection-start-line="770" selection-start-column="4" selection-end-line="770" selection-end-column="4" />
           <folding>
             <element signature="docComment;method#generateInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
@@ -1712,16 +1236,173 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmVisitors.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1592">
+        <state relative-caret-position="68">
           <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3961">
+          <caret line="343" column="39" lean-forward="false" selection-start-line="343" selection-start-column="39" selection-end-line="343" selection-end-column="39" />
+          <folding>
+            <element signature="initializer##0;class#XsdAsmUtils#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.2/htmlApi-1.0.2.jar!/XsdToJavaAPI/HtmlApi/Html.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/target/classes/XsdToJavaAPI/HtmlApi/AttrChecked.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#1137#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/target/classes/XsdToJavaAPI/HtmlApi/Enumautofocus.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#417#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/target/classes/XsdToJavaAPI/HtmlApi/IAChoice0.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#241#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/target/classes/XsdToJavaAPI/HtmlApi/IAbbrChoice0.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#248#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/target/classes/XsdToJavaAPI/HtmlApi/IElement.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#673#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/target/classes/XsdToJavaAPI/HtmlApi/IFlowContent.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="100" lean-forward="false" selection-start-line="7" selection-start-column="100" selection-end-line="7" selection-end-column="100" />
+          <folding>
+            <element signature="e#0#251#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.2/htmlApi-1.0.2.jar!/XsdToJavaAPI/HtmlApi/IFlowContentChoice2.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/target/classes/XsdToJavaAPI/HtmlApi/Visitor.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1989">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#6875#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/target/classes/XsdToJavaAPI/HtmlApi/Object.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#1895#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/target/classes/XsdToJavaAPI/Text.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#1133#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmElements.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="151" column="28" lean-forward="false" selection-start-line="133" selection-start-column="8" selection-end-line="151" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="26" column="166" lean-forward="false" selection-start-line="26" selection-start-column="166" selection-end-line="26" selection-end-column="166" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/target/classes/XsdToJavaAPI/HtmlApi/A.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/Text.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/XsdToJavaAPI/TestObjects/Text.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-765">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#1137#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdSupportingStructure.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="33" column="46" lean-forward="true" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
+        <state relative-caret-position="61">
+          <caret line="234" column="29" lean-forward="false" selection-start-line="234" selection-start-column="29" selection-end-line="234" selection-end-column="29" />
           <folding>
             <element signature="docComment;method#createSupportingInfrastructure#0;class#XsdSupportingStructure#0" expanded="false" />
             <element signature="method#createSupportingInfrastructure#0;class#XsdSupportingStructure#0" expanded="false" />
@@ -1734,7 +1415,6 @@
             <element signature="docComment;method#createTextGroupInterface#0;class#XsdSupportingStructure#0" expanded="false" />
             <element signature="method#createTextGroupInterface#0;class#XsdSupportingStructure#0" expanded="false" />
             <element signature="docComment;method#createTextElement#0;class#XsdSupportingStructure#0" expanded="false" />
-            <element signature="method#createTextElement#0;class#XsdSupportingStructure#0" expanded="false" />
             <element signature="docComment;method#createAbstractElement#0;class#XsdSupportingStructure#0" expanded="false" />
             <element signature="method#createAbstractElement#0;class#XsdSupportingStructure#0" expanded="false" />
             <element signature="docComment;method#createAttributeBase#0;class#XsdSupportingStructure#0" expanded="false" />
@@ -1747,28 +1427,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/XsdAsm/XsdAsmUtils.java">
+    <entry file="file://$PROJECT_DIR$/HtmlApi/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="343" column="39" lean-forward="false" selection-start-line="343" selection-start-column="39" selection-end-line="343" selection-end-column="39" />
-          <folding>
-            <element signature="initializer##0;class#XsdAsmUtils#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="-2877">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/HtmlApiTest.java">
+    <entry file="file://$PROJECT_DIR$/HtmlApi/target/classes/XsdToJavaAPI/HtmlApi/Text.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-847">
-          <caret line="109" column="34" lean-forward="false" selection-start-line="109" selection-start-column="34" selection-end-line="109" selection-end-column="34" />
+        <state relative-caret-position="-510">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.2/htmlApi-1.0.2.jar!/XsdToJavaAPI/HtmlApi/Text.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-391">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="391">
+          <caret line="23" column="18" lean-forward="false" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.3-SNAPSHOT/htmlApi-1.0.3-SNAPSHOT.jar!/XsdToJavaAPI/HtmlApi/Text.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-408">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/HtmlApiTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="16" column="4" lean-forward="false" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+          <folding>
+            <element signature="e#3408#3422#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApiTest/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="35" />
           <folding />
         </state>
       </provider>
