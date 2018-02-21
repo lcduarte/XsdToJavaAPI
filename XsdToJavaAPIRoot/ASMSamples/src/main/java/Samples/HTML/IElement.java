@@ -2,17 +2,17 @@ package Samples.HTML;
 
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public interface IElement<T extends IElement, P extends IElement> {
     T addChild(IElement elem);
     T addAttr(IAttribute a);
     T self();
 
-    void setId(String id);
-    String getId();
-
-    List<IElement<T, P>> getChildren();
+    List<IElement> getChildren();
     List<IAttribute> getAttributes();
+    <R extends IElement> Stream<R> find(Predicate<IElement> predicate);
     P º();
     String getName();
     void accept(Visitor visitor);

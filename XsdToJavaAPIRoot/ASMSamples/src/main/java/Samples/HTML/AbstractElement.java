@@ -2,13 +2,14 @@ package Samples.HTML;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public abstract class AbstractElement<T extends IElement<T, P>, P extends IElement> implements IElement<T, P> {
-    protected List<IElement<T, P>> children = new ArrayList<>();
+    protected List<IElement> children = new ArrayList<>();
     protected List<IAttribute> attrs = new ArrayList<>();
-    protected String id;
     protected String name;
     protected P parent;
     protected BiConsumer binderMethod;
@@ -38,10 +39,6 @@ public abstract class AbstractElement<T extends IElement<T, P>, P extends IEleme
         this.name = simpleName.toLowerCase().charAt(0) + simpleName.substring(1);
     }
 
-    public void setId(String id){
-        this.id = id;
-    }
-
     public T addChild(IElement child) {
         this.children.add(child);
         return this.self();
@@ -57,31 +54,24 @@ public abstract class AbstractElement<T extends IElement<T, P>, P extends IEleme
         return parent;
     }
 
-    @Override
-    public String getId() {
-        return id;
-    }
+    public <R extends IElement> Stream<R> find(Predicate<IElement> predicate){
+        Supplier<Stream<R>> resultSupplier = () -> children.stream().filter(predicate).map(child -> (R) child);
 
-    public <R extends IElement> R child(String id) {
-        Optional<R> elem = children.stream()
-                .filter(child -> child.getId() != null && child.getId().equals(id))
-                .map(child -> (R) child)
-                .findFirst();
-
-        if (elem.isPresent()){
-            return elem.get();
+        if (resultSupplier.get().count() != 0){
+            return resultSupplier.get();
         }
 
-        return children.stream()
-                .filter(iElement -> iElement instanceof AbstractElement)
-                .map(iElement -> (AbstractElement) iElement)
-                .filter(element -> (R) element.child(id) != null)
-                .map(element -> (R) element.child(id))
-                .findFirst()
-                .orElse(null);
+        final Stream[] childResult = {Stream.empty()};
+
+        children.forEach(child ->
+            childResult[0] = Stream.concat(childResult[0], child.find(predicate))
+        );
+
+        //noinspection unchecked
+        return (Stream<R>) childResult[0];
     }
 
-    public List<IElement<T, P>> getChildren() {
+    public List<IElement> getChildren() {
         return children;
     }
 
@@ -120,7 +110,6 @@ public abstract class AbstractElement<T extends IElement<T, P>, P extends IEleme
         clone.attrs = new ArrayList();
         clone.attrs.addAll(this.attrs);
 
-        clone.id = this.id;
         clone.name = this.name;
         clone.parent = this.parent;
         clone.binderMethod = this.binderMethod;

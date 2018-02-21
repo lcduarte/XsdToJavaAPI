@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HtmlApiTest {
 
@@ -34,6 +35,37 @@ public class HtmlApiTest {
                                         .text("Advertisement")
                                     .span()
                                         .text("1-833-2GET-REV");
+    }
+
+    @Test
+    public void testFind() throws Exception {
+        Html<Html> root = new Html<>();
+
+        Div<Section<Header<Div<Body<Html<Html>>>>>> div = root.head()
+                                                            .meta().attrCharset("UTF-8").º()
+                                                            .title()
+                                                                 .text("Title").º()
+                                                            .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
+                                                            .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
+                                                            .body().attrClass("clear")
+                                                                .div()
+                                                                    .header()
+                                                                        .section()
+                                                                            .div();
+
+        div.img().attrId("brand").attrSrc("./assets/images/logo.png").º()
+           .aside()
+                .em()
+                    .text("Advertisement")
+                .span()
+                    .text("1-833-2GET-REV");
+
+        List<Div> result = root.<Div>find(child ->
+            child instanceof Div && child.º() instanceof Section
+        ).collect(Collectors.toList());
+
+        Assert.assertEquals(1, result.size());
+        Assert.assertEquals(div, result.get(0));
     }
 
     /**
