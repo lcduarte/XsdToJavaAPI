@@ -29,7 +29,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>XsdAsmMain</mainClass>
+                    <mainClass>org.xmlet.xsdasm.main.XsdAsmMain</mainClass>
                     <arguments>
                         <argument>${project.basedir}\src\main\resources\test.xsd</argument>
                         <argument>TestObjects</argument>

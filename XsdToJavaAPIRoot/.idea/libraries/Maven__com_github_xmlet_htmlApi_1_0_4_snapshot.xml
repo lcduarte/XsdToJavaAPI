@@ -5,8 +5,12 @@
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.4-SNAPSHOT/htmlApi-1.0.4-SNAPSHOT-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.4-SNAPSHOT/htmlApi-1.0.4-SNAPSHOT-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.4-SNAPSHOT/htmlApi-1.0.4-SNAPSHOT-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.4-SNAPSHOT/htmlApi-1.0.4-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.4-SNAPSHOT/htmlApi-1.0.4-SNAPSHOT-sources.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.4-SNAPSHOT/htmlApi-1.0.4-SNAPSHOT-sources.jar!/" />
     </SOURCES>
   </library>

@@ -28,10 +28,10 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>XsdAsmMain</mainClass>
+                    <mainClass>org.xmlet.xsdasm.main.XsdAsmMain</mainClass>
                     <arguments>
                         <argument>${project.basedir}\src\main\resources\html_5.xsd</argument>
-                        <argument>HtmlApi</argument>
+                        <argument>htmlapi</argument>
                     </arguments>
                 </configuration>
             </plugin>
