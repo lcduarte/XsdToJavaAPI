@@ -1,10 +1,10 @@
 package org.xmlet.xsdasm.classes;
 
-import XsdElements.XsdAttribute;
-import XsdElements.XsdElement;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
+import org.xmlet.xsdparser.xsdelements.XsdAttribute;
+import org.xmlet.xsdparser.xsdelements.XsdElement;
 
 import java.util.List;
 import java.util.stream.Stream;

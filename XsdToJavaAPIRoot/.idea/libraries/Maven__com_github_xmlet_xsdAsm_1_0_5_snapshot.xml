@@ -14,8 +14,12 @@
       <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.5-SNAPSHOT/xsdAsm-1.0.5-SNAPSHOT-javadoc.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.5-SNAPSHOT/xsdAsm-1.0.5-SNAPSHOT-javadoc.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.5-SNAPSHOT/xsdAsm-1.0.5-SNAPSHOT-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.5-SNAPSHOT/xsdAsm-1.0.5-SNAPSHOT-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.5-SNAPSHOT/xsdAsm-1.0.5-SNAPSHOT-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.5-SNAPSHOT/xsdAsm-1.0.5-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.5-SNAPSHOT/xsdAsm-1.0.5-SNAPSHOT-sources.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.5-SNAPSHOT/xsdAsm-1.0.5-SNAPSHOT-sources.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.5-SNAPSHOT/xsdAsm-1.0.5-SNAPSHOT-sources.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.5-SNAPSHOT/xsdAsm-1.0.5-SNAPSHOT-sources.jar!/" />

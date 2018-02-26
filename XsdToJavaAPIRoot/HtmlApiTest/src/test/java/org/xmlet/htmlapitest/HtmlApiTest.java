@@ -190,6 +190,14 @@ public class HtmlApiTest {
         Assert.assertEquals(1, root.getAttributes().size());
     }
 
+    @Test
+    public void testTextExceptions(){
+        try {
+            new Text<>(new Html(), "dummy").addAttr(new AttrHref(""));
+            Assert.fail();
+        } catch (UnsupportedOperationException ignored){}
+    }
+
     private boolean customVisitPrintAssert(CustomVisitor customVisitor, Html rootDoc, String expected){
         boolean result = false;
 

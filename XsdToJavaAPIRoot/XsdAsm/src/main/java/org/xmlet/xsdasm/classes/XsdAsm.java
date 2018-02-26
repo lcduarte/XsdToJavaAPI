@@ -1,7 +1,7 @@
 package org.xmlet.xsdasm.classes;
 
-import XsdElements.XsdAbstractElement;
-import XsdElements.XsdElement;
+import org.xmlet.xsdparser.xsdelements.XsdAbstractElement;
+import org.xmlet.xsdparser.xsdelements.XsdElement;
 
 import java.util.ArrayList;
 import java.util.List;

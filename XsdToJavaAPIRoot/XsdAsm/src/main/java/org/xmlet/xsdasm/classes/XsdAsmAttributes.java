@@ -1,10 +1,10 @@
 package org.xmlet.xsdasm.classes;
 
-import XsdElements.XsdAttribute;
-import XsdElements.XsdList;
-import XsdElements.XsdRestriction;
-import XsdElements.XsdRestrictionElements.*;
 import org.objectweb.asm.*;
+import org.xmlet.xsdparser.xsdelements.XsdAttribute;
+import org.xmlet.xsdparser.xsdelements.XsdList;
+import org.xmlet.xsdparser.xsdelements.XsdRestriction;
+import org.xmlet.xsdparser.xsdelements.xsdrestrictions.*;
 
 import java.util.List;
 

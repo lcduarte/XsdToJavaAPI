@@ -1,5 +1,6 @@
 package Samples.HTML;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.function.Function;
 
 public class Text<R, U, P extends IElement> extends AbstractElement<Text<R, U, P>, P>{
@@ -23,12 +24,12 @@ public class Text<R, U, P extends IElement> extends AbstractElement<Text<R, U, P
 
     @Override
     public Text addAttr(IAttribute attribute) {
-        return null;
+        throw new UnsupportedOperationException("Text element can't contain attributes.");
     }
 
     @Override
     public Text addChild(IElement child) {
-        return null;
+        throw new UnsupportedOperationException("Text element can't contain children.");
     }
 
     @Override

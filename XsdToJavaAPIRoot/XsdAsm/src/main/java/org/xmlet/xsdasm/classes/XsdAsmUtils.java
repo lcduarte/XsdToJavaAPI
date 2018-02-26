@@ -1,11 +1,11 @@
 package org.xmlet.xsdasm.classes;
 
-import XsdElements.XsdAttribute;
-import XsdElements.XsdComplexType;
-import XsdElements.XsdElement;
-import XsdElements.XsdRestriction;
-import XsdElements.XsdRestrictionElements.XsdEnumeration;
 import org.objectweb.asm.ClassWriter;
+import org.xmlet.xsdparser.xsdelements.XsdAttribute;
+import org.xmlet.xsdparser.xsdelements.XsdComplexType;
+import org.xmlet.xsdparser.xsdelements.XsdElement;
+import org.xmlet.xsdparser.xsdelements.XsdRestriction;
+import org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdEnumeration;
 
 import java.io.File;
 import java.io.FileOutputStream;

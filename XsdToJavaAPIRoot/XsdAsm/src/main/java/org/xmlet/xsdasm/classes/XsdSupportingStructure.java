@@ -275,9 +275,12 @@ class XsdSupportingStructure {
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "addAttr", "(" + ATTRIBUTE_TYPE_DESC + ")" + TEXT_TYPE_DESC, null, null);
         mVisitor.visitCode();
-        mVisitor.visitInsn(ACONST_NULL);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(1, 2);
+        mVisitor.visitTypeInsn(NEW, "java/lang/UnsupportedOperationException");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitLdcInsn("Text element can't contain attributes.");
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/UnsupportedOperationException", "<init>", "(Ljava/lang/String;)V", false);
+        mVisitor.visitInsn(ATHROW);
+        mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, "addChild", "(" + ELEMENT_TYPE_DESC + ")" + ELEMENT_TYPE_DESC, null, null);
@@ -292,9 +295,13 @@ class XsdSupportingStructure {
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "addChild", "(" + ELEMENT_TYPE_DESC + ")" + TEXT_TYPE_DESC, null, null);
         mVisitor.visitCode();
-        mVisitor.visitInsn(ACONST_NULL);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(1, 2);
+        mVisitor.visitCode();
+        mVisitor.visitTypeInsn(NEW, "java/lang/UnsupportedOperationException");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitLdcInsn("Text element can't contain children.");
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/UnsupportedOperationException", "<init>", "(Ljava/lang/String;)V", false);
+        mVisitor.visitInsn(ATHROW);
+        mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "self", "()" + TEXT_TYPE_DESC, null, null);

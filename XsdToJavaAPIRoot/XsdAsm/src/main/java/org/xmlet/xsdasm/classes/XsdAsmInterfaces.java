@@ -1,9 +1,9 @@
 package org.xmlet.xsdasm.classes;
 
-import XsdElements.*;
 import javafx.util.Pair;
 import org.apache.commons.lang3.ArrayUtils;
 import org.objectweb.asm.*;
+import org.xmlet.xsdparser.xsdelements.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
