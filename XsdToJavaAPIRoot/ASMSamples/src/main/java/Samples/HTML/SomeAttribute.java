@@ -33,10 +33,8 @@ public class SomeAttribute extends AbstractAttribute<String>{
         restrictions.add(restriction2);
     }
 
-    public SomeAttribute(String value) {
-        super(value);
-
-        System.out.println(restrictions.size());
+    SomeAttribute(String value) {
+        super(value, "SomeAttribute");
 
         restrictions.forEach(restriction -> {
             Object toRestrictValue = SomeAttribute.this.getValue();

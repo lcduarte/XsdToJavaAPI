@@ -572,6 +572,7 @@ class XsdSupportingStructure {
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitInvokeDynamicInsn("get", "(" + ABSTRACT_ELEMENT_TYPE_DESC + "Ljava/util/function/Predicate;)Ljava/util/function/Supplier;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("()Ljava/lang/Object;"), new Handle(Opcodes.H_INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, "lambda$find$1", "(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;", false), Type.getType("()Ljava/util/stream/Stream;"));
         mVisitor.visitVarInsn(ASTORE, 2);
+        mVisitor.visitLocalVariable("streamSupplier", "Ljava/util/function/Supplier;", null, new Label(), new Label(),2);
         mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/function/Supplier", "get", "()Ljava/lang/Object;", true);
         mVisitor.visitTypeInsn(CHECKCAST, "java/util/stream/Stream");
@@ -614,6 +615,7 @@ class XsdSupportingStructure {
         mVisitor.visitInsn(ICONST_0);
         mVisitor.visitInsn(AALOAD);
         mVisitor.visitVarInsn(ALOAD, 2);
+        mVisitor.visitTypeInsn(CHECKCAST, ELEMENT_TYPE);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, ELEMENT_TYPE, "find", "(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;", true);
         mVisitor.visitMethodInsn(INVOKESTATIC, "java/util/stream/Stream", "concat", "(Ljava/util/stream/Stream;Ljava/util/stream/Stream;)Ljava/util/stream/Stream;", true);

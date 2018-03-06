@@ -3,6 +3,7 @@ package org.xmlet.xsdparser.xsdelements;
 import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
 import java.util.ArrayList;
@@ -75,8 +76,12 @@ public class XsdComplexType extends XsdAnnotatedElements {
         XsdComplexType elementCopy = new XsdComplexType(this.getParent(), placeHolderAttributes);
 
         elementCopy.childElement = this.childElement;
-        elementCopy.attributes.addAll(this.getAttributes());
-        elementCopy.attributeGroups = this.getAttributeGroups();
+        elementCopy.attributes = this.attributes;
+        elementCopy.attributeGroups = this.attributeGroups;
+
+        elementCopy.complexContent = this.complexContent;
+        elementCopy.simpleContent = this.simpleContent;
+
         return elementCopy;
     }
 
@@ -89,6 +94,17 @@ public class XsdComplexType extends XsdAnnotatedElements {
 
             this.attributeGroups.add(element);
             this.attributes.addAll(attributeGroup.getElements());
+        }
+
+        if (element.getElement() instanceof XsdAttribute ){
+            attributes.stream()
+                    .filter(attribute -> attribute instanceof UnsolvedReference && ((UnsolvedReference) attribute).getRef().equals(element.getName()))
+                    .findFirst().ifPresent(referenceBase -> {
+                attributes.remove(referenceBase);
+                attributes.add(element);
+
+                element.getElement().setParent(this);
+            });
         }
     }
 

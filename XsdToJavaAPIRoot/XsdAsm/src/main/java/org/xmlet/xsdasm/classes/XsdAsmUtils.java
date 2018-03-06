@@ -1,18 +1,17 @@
 package org.xmlet.xsdasm.classes;
 
 import org.objectweb.asm.ClassWriter;
-import org.xmlet.xsdparser.xsdelements.XsdAttribute;
-import org.xmlet.xsdparser.xsdelements.XsdComplexType;
-import org.xmlet.xsdparser.xsdelements.XsdElement;
-import org.xmlet.xsdparser.xsdelements.XsdRestriction;
+import org.xmlet.xsdparser.xsdelements.*;
 import org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdEnumeration;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.objectweb.asm.Opcodes.V1_8;
@@ -258,13 +257,21 @@ public class XsdAsmUtils {
      * @param elementAttribute The attribute element.
      * @param apiName The api this class will belong.
      */
-    static void generateMethodsAndCreateAttribute(List<String> createdAttributes, ClassWriter classWriter, XsdAttribute elementAttribute, String returnType, String apiName) {
+    static void generateMethodsAndCreateAttribute(Map<String, List<XsdAttribute>> createdAttributes, ClassWriter classWriter, XsdAttribute elementAttribute, String returnType, String apiName) {
         generateMethodsForAttribute(classWriter, elementAttribute, returnType, apiName);
 
-        if (!createdAttributes.contains(elementAttribute.getName())){
-            generateAttribute(elementAttribute, apiName);
+        if (!createdAttributes.containsKey(elementAttribute.getName())){
+            List<XsdAttribute> attributes = new ArrayList<>();
 
-            createdAttributes.add(elementAttribute.getName());
+            attributes.add(elementAttribute);
+
+            createdAttributes.put(elementAttribute.getName(), attributes);
+        } else {
+            List<XsdAttribute> attributes = createdAttributes.get(elementAttribute.getName());
+
+            if (!attributes.contains(elementAttribute)){
+                attributes.add(elementAttribute);
+            }
         }
     }
 
@@ -277,8 +284,27 @@ public class XsdAsmUtils {
         XsdComplexType complexType = element.getXsdComplexType();
 
         if (complexType != null) {
-            return complexType.getXsdAttributes()
+            Stream<XsdAttribute> extensionAttributes = null;
+            Stream<XsdAttribute> complexTypeAttributes;
+
+            XsdComplexContent complexContent = complexType.getComplexContent();
+
+            if (complexContent != null){
+                XsdExtension extension = complexContent.getXsdExtension();
+
+                if (extension != null){
+                    extensionAttributes = extension.getXsdAttributes();
+                }
+            }
+
+            complexTypeAttributes = complexType.getXsdAttributes()
                     .filter(attribute -> attribute.getParent().getClass().equals(XsdComplexType.class));
+
+            if (extensionAttributes != null){
+                return Stream.concat(extensionAttributes, complexTypeAttributes);
+            } else {
+                return complexTypeAttributes;
+            }
         }
 
         return Stream.empty();
@@ -291,8 +317,14 @@ public class XsdAsmUtils {
      * @param apiName The api this class will belong.
      * @return The signature of the class.
      */
-    static String getClassSignature(String[] interfaces, String className, String apiName) {
-        StringBuilder signature = new StringBuilder("<P::" + ELEMENT_TYPE_DESC + ">L" + ABSTRACT_ELEMENT_TYPE + "<L" + getFullClassTypeName(className, apiName) + "<TP;>;TP;>;");
+    static String getClassSignature(XsdElement parent, String[] interfaces, String className, String apiName) {
+        StringBuilder signature;
+
+        if (parent == null){
+            signature = new StringBuilder("<P::" + ELEMENT_TYPE_DESC + ">L" + ABSTRACT_ELEMENT_TYPE + "<L" + getFullClassTypeName(className, apiName) + "<TP;>;TP;>;");
+        } else {
+            signature = new StringBuilder("<P::" + ELEMENT_TYPE_DESC + ">L" + getFullClassTypeName(toCamelCase(parent.getName()), apiName) + "<TP;>;");
+        }
 
         if (interfaces != null){
             for (String anInterface : interfaces) {

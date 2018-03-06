@@ -3,7 +3,7 @@ package org.xmlet.xsdparser.xsdelements.elementswrapper;
 import org.xmlet.xsdparser.xsdelements.XsdAbstractElement;
 
 /**
- * ConcreteElement is a wrapper class for XsdAbstractElement which is fully resolved
+ * XsdElement is a wrapper class for XsdAbstractElement which is fully resolved
  */
 public class ConcreteElement extends ReferenceBase {
 

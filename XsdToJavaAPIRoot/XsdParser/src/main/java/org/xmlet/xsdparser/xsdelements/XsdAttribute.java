@@ -74,8 +74,12 @@ public class XsdAttribute extends XsdReferenceElement {
     @Override
     public XsdAttribute clone(Map<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
+
+        placeHolderAttributes.remove(TYPE);
+
         XsdAttribute copy = new XsdAttribute(this.getParent(), placeHolderAttributes);
 
+        copy.type = this.type;
         copy.simpleType = this.simpleType;
 
         return copy;

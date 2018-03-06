@@ -24,8 +24,8 @@ public class HtmlApiTest {
                 .meta().attrCharset("UTF-8").º()
                 .title()
                     .text("Title").º()
-                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
-                .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
             .body().attrClass("clear")
                 .div()
                     .header()
@@ -47,8 +47,8 @@ public class HtmlApiTest {
                                                             .meta().attrCharset("UTF-8").º()
                                                             .title()
                                                                  .text("Title").º()
-                                                            .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
-                                                            .link().attrType(Enumtype.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
+                                                            .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
+                                                            .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
                                                             .body().attrClass("clear")
                                                                 .div()
                                                                     .header()
@@ -81,7 +81,7 @@ public class HtmlApiTest {
      */
     @Test
     public void testRestrictionSuccess(){
-        new AttrRel(Enumrel.HELP);
+        new AttrRelEnumRelLinkType(EnumRelLinkType.HELP);
     }
 
     /**
@@ -173,7 +173,7 @@ public class HtmlApiTest {
 
     @Test
     public void testAttributeName(){
-        Assert.assertEquals("class", new AttrClass(null).getName());
+        Assert.assertEquals("class", new AttrClassString(null).getName());
     }
 
     @Test
@@ -193,7 +193,7 @@ public class HtmlApiTest {
     @Test
     public void testTextExceptions(){
         try {
-            new Text<>(new Html(), "dummy").addAttr(new AttrHref(""));
+            new Text<>(new Html(), "dummy").addAttr(new AttrHrefString(""));
             Assert.fail();
         } catch (UnsupportedOperationException ignored){}
     }

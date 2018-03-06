@@ -1,12 +1,14 @@
 package org.xmlet.xsdparser.xsdelements;
 
+import org.xmlet.xsdparser.core.XsdParser;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 import org.w3c.dom.Node;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class XsdExtension extends XsdAnnotatedElements {
 
@@ -19,7 +21,7 @@ public class XsdExtension extends XsdAnnotatedElements {
     private List<ReferenceBase> attributeGroups = new ArrayList<>();
     private List<ReferenceBase> attributes = new ArrayList<>();
 
-    private String base;
+    private ReferenceBase base;
 
     private XsdExtension(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
@@ -34,7 +36,32 @@ public class XsdExtension extends XsdAnnotatedElements {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.base = elementFieldsMap.getOrDefault(BASE, base);
+            String base = elementFieldsMap.getOrDefault(BASE, null);
+
+            if (base != null){
+                XsdElement placeHolder = new XsdElement(this, null);
+                this.base = new UnsolvedReference(base, placeHolder);
+                XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.base);
+            }
+        }
+    }
+
+    @Override
+    public void replaceUnsolvedElements(ConcreteElement element) {
+        super.replaceUnsolvedElements(element);
+
+        if (this.base != null && this.base instanceof UnsolvedReference && element.getElement() instanceof XsdElement && ((UnsolvedReference) this.base).getRef().equals(element.getName())){
+            this.base = element;
+        }
+
+        if (element.getElement() instanceof XsdAttribute ){
+            attributes.stream()
+                    .filter(attribute -> attribute instanceof UnsolvedReference && ((UnsolvedReference) attribute).getRef().equals(element.getName()))
+                    .findFirst().ifPresent(referenceBase -> {
+                            attributes.remove(referenceBase);
+                            attributes.add(element);
+                            element.getElement().setParent(this);
+                        });
         }
     }
 
@@ -51,12 +78,11 @@ public class XsdExtension extends XsdAnnotatedElements {
 
     @Override
     public XsdExtension clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdExtension elementCopy = new XsdExtension(this.getParent(), placeHolderAttributes);
+        XsdExtension elementCopy = new XsdExtension(this.getParent(), new HashMap<>());
 
         elementCopy.childElement = this.childElement;
-        elementCopy.attributeGroups.addAll(this.attributeGroups);
-        elementCopy.attributes.addAll(this.attributes);
+        elementCopy.attributeGroups = this.attributeGroups;
+        elementCopy.attributes = this.attributes;
         elementCopy.base = this.base;
 
         return elementCopy;
@@ -64,11 +90,29 @@ public class XsdExtension extends XsdAnnotatedElements {
 
     @Override
     protected List<ReferenceBase> getElements() {
-        return childElement == null ? null : childElement.getElement().getElements();
+        return childElement == null ? Collections.emptyList() : childElement.getElement().getElements();
+    }
+
+    public XsdElement getBase() {
+        return base instanceof ConcreteElement ? (XsdElement) base.getElement() : null;
     }
 
     public static ReferenceBase parse(Node node){
         return xsdParseSkeleton(node, new XsdExtension(convertNodeMap(node.getAttributes())));
+    }
+
+    @SuppressWarnings("unused")
+    public Stream<XsdAttribute> getXsdAttributes() {
+        return attributes.stream()
+                .filter(attribute -> attribute instanceof ConcreteElement)
+                .filter(attribute -> attribute.getElement() instanceof  XsdAttribute)
+                .map(attribute -> (XsdAttribute)attribute.getElement());
+    }
+
+    public Stream<XsdAttributeGroup> getXsdAttributeGroup() {
+        return attributeGroups.stream()
+                .filter(attributeGroup -> attributeGroup instanceof ConcreteElement)
+                .map(attributeGroup -> (XsdAttributeGroup) attributeGroup.getElement());
     }
 
     class ExtensionXsdElementVisitor extends AnnotatedXsdElementVisitor {

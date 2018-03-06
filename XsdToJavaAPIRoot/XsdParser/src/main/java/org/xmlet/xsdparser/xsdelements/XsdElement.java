@@ -32,7 +32,7 @@ public class XsdElement extends XsdReferenceElement {
     private Integer minOccurs;
     private String maxOccurs;
 
-    private XsdElement(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
+    protected XsdElement(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
         super(parent, elementFieldsMap);
     }
 
@@ -90,14 +90,21 @@ public class XsdElement extends XsdReferenceElement {
     @Override
     public XsdElement clone(Map<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
-        return new XsdElement(this.getParent(), placeHolderAttributes);
+
+        placeHolderAttributes.remove(TYPE);
+
+        XsdElement elementCopy = new XsdElement(this.getParent(), placeHolderAttributes);
+
+        elementCopy.type = this.type;
+
+        return elementCopy;
     }
 
     @Override
     public void replaceUnsolvedElements(ConcreteElement element) {
         super.replaceUnsolvedElements(element);
 
-        if (this.type != null && this.type instanceof UnsolvedReference && ((UnsolvedReference) this.type).getRef().equals(element.getName())){
+        if (this.type != null && this.type instanceof UnsolvedReference && element.getElement() instanceof XsdComplexType && ((UnsolvedReference) this.type).getRef().equals(element.getName())){
             this.type = element;
             element.getElement().setParent(this);
         }

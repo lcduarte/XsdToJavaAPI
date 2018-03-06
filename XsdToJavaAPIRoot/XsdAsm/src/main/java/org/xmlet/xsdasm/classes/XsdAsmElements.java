@@ -3,10 +3,10 @@ package org.xmlet.xsdasm.classes;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
-import org.xmlet.xsdparser.xsdelements.XsdAttribute;
-import org.xmlet.xsdparser.xsdelements.XsdElement;
+import org.xmlet.xsdparser.xsdelements.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.objectweb.asm.Opcodes.*;
@@ -22,17 +22,39 @@ class XsdAsmElements {
      * @param element The element from which the class will be generated.
      * @param apiName The api this class will belong.
      */
-    static void generateClassFromElement(XsdAsmInterfaces interfaceGenerator, List<String> createdAttributes, XsdElement element, String apiName) {
+    static void generateClassFromElement(XsdAsmInterfaces interfaceGenerator, Map<String, List<XsdAttribute>> createdAttributes, XsdElement element, String apiName) {
         String className = toCamelCase(element.getName());
+
+        XsdElement base = null;
+
+        if (element.getName().equals("LinearLayout")){
+            int a  = 5;
+        }
+
+        XsdComplexType complexType = element.getXsdComplexType();
+
+        if (complexType != null){
+            XsdComplexContent complexContent = complexType.getComplexContent();
+
+            if (complexContent != null){
+                XsdExtension extension = complexContent.getXsdExtension();
+
+                if (extension != null){
+                    base = extension.getBase();
+                }
+            }
+        }
 
         Stream<XsdAttribute> elementAttributes = getOwnAttributes(element);
         String[] interfaces = interfaceGenerator.getInterfaces(element, apiName);
 
-        String signature = getClassSignature(interfaces, className, apiName);
+        String signature = getClassSignature(base, interfaces, className, apiName);
 
-        ClassWriter classWriter = generateClass(className, ABSTRACT_ELEMENT_TYPE, interfaces, signature,ACC_PUBLIC + ACC_SUPER, apiName);
+        String superType = base == null ? ABSTRACT_ELEMENT_TYPE : getFullClassTypeName(toCamelCase(base.getName()), apiName);
 
-        generateClassSpecificMethods(classWriter, className, apiName, null);
+        ClassWriter classWriter = generateClass(className, superType, interfaces, signature,ACC_PUBLIC + ACC_SUPER, apiName);
+
+        generateClassSpecificMethods(classWriter, className, apiName, superType, null);
 
         elementAttributes.forEach(elementAttribute -> generateMethodsAndCreateAttribute(createdAttributes, classWriter, elementAttribute, getFullClassTypeNameDesc(className, apiName), apiName));
 
@@ -48,7 +70,7 @@ class XsdAsmElements {
      * @param className The class name.
      * @param defaultName The defaultName for this element.
      */
-    static void generateClassSpecificMethods(ClassWriter classWriter, String className, String apiName, String defaultName) {
+    static void generateClassSpecificMethods(ClassWriter classWriter, String className, String apiName, String superType, String defaultName) {
         String classType = getFullClassTypeName(className, apiName);
         String classTypeDesc = getFullClassTypeNameDesc(className, apiName);
         String name;
@@ -63,9 +85,19 @@ class XsdAsmElements {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitLdcInsn(name);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "(Ljava/lang/String;)V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(Ljava/lang/String;)V", false);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(2, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(Ljava/lang/String;)V", null, null);
+        mVisitor.visitLocalVariable("name", "Ljava/lang/String;", null, new Label(), new Label(),1);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, "<init>", "(Ljava/lang/String;)V", false);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC + ")V", "(TP;)V", null);
@@ -74,7 +106,7 @@ class XsdAsmElements {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitLdcInsn(name);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC + "Ljava/lang/String;)V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC + "Ljava/lang/String;)V", false);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
@@ -86,7 +118,7 @@ class XsdAsmElements {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, ABSTRACT_ELEMENT_TYPE, "<init>", "(" + ELEMENT_TYPE_DESC + "Ljava/lang/String;)V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, "<init>", "(" + ELEMENT_TYPE_DESC + "Ljava/lang/String;)V", false);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(3, 3);
         mVisitor.visitEnd();

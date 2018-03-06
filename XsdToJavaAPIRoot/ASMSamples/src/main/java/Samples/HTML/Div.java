@@ -6,6 +6,11 @@ public class Div<P extends IElement> extends AbstractElement<Div<P>, P> implemen
         super("div");
     }
 
+    //new
+    protected Div(String name) {
+        super(name);
+    }
+
     public Div(P parent) {
         super(parent, "div");
     }
@@ -27,7 +32,9 @@ public class Div<P extends IElement> extends AbstractElement<Div<P>, P> implemen
         return this.clone(new Div<P>());
     }
 
-    public Div<P> addSomeAttribute(SomeAttribute val){
+    public Div<P> addSomeAttribute(String val){
+        SomeAttribute attribute = new SomeAttribute(val);
+        addAttr(attribute);
         return this;
     }
 }

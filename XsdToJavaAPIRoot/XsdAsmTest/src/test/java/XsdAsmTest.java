@@ -1,4 +1,4 @@
-import XsdToJavaAPI.TestObjects.*;
+import org.xmlet.TestObjects.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class XsdAsmTest {
 
         intList.add(1);
 
-        new AttrIntlist(intList);
+        new AttrIntlistObject(intList);
     }
 
     /**
@@ -39,7 +39,7 @@ public class XsdAsmTest {
         intList.add(6);
 
         try {
-            new AttrIntlist(intList);
+            new AttrIntlistObject(intList);
             Assert.fail();
         } catch (RestrictionViolationException ignored){
 
@@ -151,5 +151,62 @@ public class XsdAsmTest {
 
         canvas.canvas_Clip("")
                 .inkPresenter("");
+    }
+
+    @Test
+    public void testAndroidHierarchy(){
+        new RelativeLayout<>()
+                .attrAndroid_gravity(EnumAndroid_gravity.CENTER) /* Method from RelativeLayout */
+                .attrAndroid_addStatesFromChildren(EnumAndroid_addStatesFromChildren.TRUE) /* Method from ViewGroup */
+                .attrAndroid_layout_x(null); /* Method from View */
+
+        Assert.assertTrue(View.class.isAssignableFrom(ViewGroup.class));
+        Assert.assertTrue(ViewGroup.class.isAssignableFrom(RelativeLayout.class));
+    }
+
+    /**
+     * <LinearLayout
+     *      orientation="vertical"
+     *      width="match_parent"
+     *      height="wrap_content">
+     *
+     *      <LinearLayout
+     *          orientation="horizontal"
+     *          width="match_parent"
+     *          height="wrap_content">
+     *
+     *          <ImageView
+     *              width="wrap_content"
+     *              height="wrap_content">
+     *
+     *          <TextView
+     *              width="match_parent"
+     *              height="wrap_content"
+     *              lines="2">
+     *      </LinearLayout>
+     * </LinearLayout>
+     */
+    @Test
+    public void testSimpleAndroidLayout(){
+        new LinearLayout<>()
+                .attrAndroid_orientation(EnumAndroid_orientation.VERTICAL)
+                .attrAndroid_layout_width("match_parent")
+                .attrAndroid_layout_height("wrap_content")
+                .addChild(
+                        new LinearLayout()
+                                .attrAndroid_orientation(EnumAndroid_orientation.HORIZONTAL)
+                                .attrAndroid_layout_width("match_parent")
+                                .attrAndroid_layout_height("wrap_content")
+                                .addChild(
+                                        new ImageView()
+                                                .attrAndroid_layout_width("wrap_content")
+                                                .attrAndroid_layout_height("wrap_content")
+                                ).addChild(
+                                        new TextView()
+                                                .attrAndroid_width("match_parent")
+                                                .attrAndroid_height("weight_content")
+                                                .attrAndroid_lines("2")
+                                )
+                );
     }
 }

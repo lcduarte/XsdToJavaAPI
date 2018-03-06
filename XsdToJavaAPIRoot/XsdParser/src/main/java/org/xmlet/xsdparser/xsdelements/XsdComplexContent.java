@@ -1,5 +1,6 @@
 package org.xmlet.xsdparser.xsdelements;
 
+import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 import org.w3c.dom.Node;
@@ -11,7 +12,7 @@ import java.util.Map;
 public class XsdComplexContent extends XsdAnnotatedElements {
 
     public static final String XSD_TAG = "xsd:complexContent";
-    public static final String XS_TAG = "xs:complexContet";
+    public static final String XS_TAG = "xs:complexContent";
 
     private XsdElementVisitor xsdElementVisitor = new ComplexContentXsdElementVisitor();
 
@@ -67,6 +68,10 @@ public class XsdComplexContent extends XsdAnnotatedElements {
     @SuppressWarnings("unused")
     public boolean isMixed() {
         return mixed;
+    }
+
+    public XsdExtension getXsdExtension() {
+        return extension instanceof ConcreteElement ? (XsdExtension) extension.getElement() : null;
     }
 
     public static ReferenceBase parse(Node node){

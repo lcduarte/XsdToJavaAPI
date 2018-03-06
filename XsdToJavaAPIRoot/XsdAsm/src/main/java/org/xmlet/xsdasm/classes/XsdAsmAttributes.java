@@ -24,7 +24,7 @@ class XsdAsmAttributes {
     static void generateMethodsForAttribute(ClassWriter classWriter, XsdAttribute elementAttribute, String returnType, String apiName) {
         String className = ATTRIBUTE_PREFIX + toCamelCase(elementAttribute.getName()).replaceAll("\\W+", "");
         String camelCaseName = className.toLowerCase().charAt(0) + className.substring(1);
-        String attributeClassType = getFullClassTypeName(className, apiName);
+        String attributeClassType = getFullClassTypeName(getAttributeName(elementAttribute), apiName);
         MethodVisitor mVisitor;
 
         String javaType = getFullJavaType(elementAttribute);
@@ -39,7 +39,7 @@ class XsdAsmAttributes {
             mVisitor = classWriter.visitMethod(ACC_PUBLIC, camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")" + returnType.substring(0, returnType.length() - 1) + "<TP;>;", null);
         }
 
-        String attrName = elementAttribute.getName();
+        String attrName = "attr" + toCamelCase(elementAttribute.getName());
         attrName = attrName.substring(0, 1).toLowerCase() + attrName.substring(1);
 
         mVisitor.visitLocalVariable(attrName, javaType, null, new Label(), new Label(),1);
@@ -89,7 +89,7 @@ class XsdAsmAttributes {
     static void generateAttribute(XsdAttribute attribute, String apiName){
         //https://www.ibm.com/support/knowledgecenter/en/SSAW57_8.5.5/com.ibm.websphere.nd.doc/ae/txml_mapping.html
 
-        String camelAttributeName = ATTRIBUTE_PREFIX + toCamelCase(attribute.getName()).replaceAll("\\W+", "");
+        String camelAttributeName = getAttributeName(attribute);
         String attributeType = getFullClassTypeName(camelAttributeName, apiName);
 
         List<XsdRestriction> restrictions = getAttributeRestrictions(attribute);
@@ -106,41 +106,63 @@ class XsdAsmAttributes {
 
         ClassWriter attributeWriter = generateClass(camelAttributeName, BASE_ATTRIBUTE_TYPE, null, "L" + BASE_ATTRIBUTE_TYPE + "<" + javaType + ">;", ACC_PUBLIC + ACC_SUPER, apiName);
 
+        attributeWriter.visitInnerClass("java/lang/invoke/MethodHandles$Lookup", "java/lang/invoke/MethodHandles", "Lookup", ACC_PUBLIC + ACC_FINAL + ACC_STATIC);
+
         FieldVisitor fVisitor = attributeWriter.visitField(ACC_PRIVATE + ACC_STATIC, "restrictions", JAVA_LIST_DESC, "L" + JAVA_LIST + "<Ljava/util/Map<" + JAVA_STRING_DESC + JAVA_OBJECT_DESC + ">;>;", null);
         fVisitor.visitEnd();
 
         MethodVisitor mVisitor;
-
+        boolean hasDefaultConstructor = false;
+        
         if (attributeHasEnum(attribute)) {
             String enumName = getEnumName(attribute);
             String enumTypeDesc = getFullClassTypeNameDesc(enumName, apiName);
+
             mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + enumTypeDesc + ")V",  null, null);
+            mVisitor.visitLocalVariable("attrValue", enumTypeDesc, null, new Label(), new Label(),1);
             mVisitor.visitCode();
             mVisitor.visitVarInsn(ALOAD, 0);
             mVisitor.visitVarInsn(ALOAD, 1);
             mVisitor.visitMethodInsn(INVOKEINTERFACE, ENUM_INTERFACE_TYPE, "getValue", "()Ljava/lang/Object;", true);
-            mVisitor.visitMethodInsn(INVOKESPECIAL, BASE_ATTRIBUTE_TYPE, CONSTRUCTOR, "(Ljava/lang/Object;)V", false);
+            mVisitor.visitLdcInsn(attribute.getName());
+            mVisitor.visitMethodInsn(INVOKESPECIAL, BASE_ATTRIBUTE_TYPE, CONSTRUCTOR, "(Ljava/lang/Object;Ljava/lang/String;)V", false);
         } else {
             if (list != null){
                 mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_LIST_DESC + ")V", null, null);
+                mVisitor.visitLocalVariable("attrValue", JAVA_LIST_DESC, null, new Label(), new Label(),1);
             } else {
                 mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", null, null);
+                mVisitor.visitLocalVariable("attrValue", JAVA_OBJECT_DESC, null, new Label(), new Label(),1);
+                hasDefaultConstructor = true;
             }
 
-            mVisitor.visitLocalVariable("attributeValue", JAVA_OBJECT_DESC, null, new Label(), new Label(),1);
             mVisitor.visitCode();
             mVisitor.visitVarInsn(ALOAD, 0);
             mVisitor.visitVarInsn(ALOAD, 1);
-            mVisitor.visitMethodInsn(INVOKESPECIAL, BASE_ATTRIBUTE_TYPE, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", false);
+            mVisitor.visitLdcInsn(attribute.getName());
+            mVisitor.visitMethodInsn(INVOKESPECIAL, BASE_ATTRIBUTE_TYPE, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + "Ljava/lang/String;)V", false);
         }
-
+        
         mVisitor.visitFieldInsn(GETSTATIC, attributeType, "restrictions", JAVA_LIST_DESC);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitInvokeDynamicInsn("accept", "(Ljava/lang/Object;)Ljava/util/function/Consumer;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(Ljava/lang/Object;)V"), new Handle(Opcodes.H_INVOKESTATIC, attributeType, "lambda$new$0", "(Ljava/lang/Object;Ljava/util/Map;)V", false), Type.getType("(Ljava/util/Map;)V"));
         mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "forEach", "(Ljava/util/function/Consumer;)V", true);
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
+        
+        if (!hasDefaultConstructor){
+            mVisitor = attributeWriter.visitMethod(0, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", null, null);
+            mVisitor.visitLocalVariable("attrValue", JAVA_OBJECT_DESC, null, new Label(), new Label(),1);
+            mVisitor.visitCode();
+            mVisitor.visitVarInsn(ALOAD, 0);
+            mVisitor.visitVarInsn(ALOAD, 1);
+            mVisitor.visitLdcInsn(attribute.getName());
+            mVisitor.visitMethodInsn(INVOKESPECIAL, BASE_ATTRIBUTE_TYPE, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + "Ljava/lang/String;)V", false);
+            mVisitor.visitInsn(RETURN);
+            mVisitor.visitMaxs(3, 2);
+            mVisitor.visitEnd();
+        }
 
         mVisitor = attributeWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$new$0", "(Ljava/lang/Object;Ljava/util/Map;)V", null, null);
         mVisitor.visitCode();
@@ -153,6 +175,7 @@ class XsdAsmAttributes {
         Label l0 = new Label();
         mVisitor.visitJumpInsn(IFEQ, l0);
         mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitTypeInsn(CHECKCAST, "java/util/Map");
         mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitTypeInsn(CHECKCAST, "java/lang/String");
         mVisitor.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validate", "(Ljava/util/Map;Ljava/lang/String;)V", false);
@@ -175,6 +198,7 @@ class XsdAsmAttributes {
         mVisitor.visitLabel(l1);
         mVisitor.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
         mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitTypeInsn(CHECKCAST, "java/util/Map");
         mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitTypeInsn(CHECKCAST, "java/lang/Double");
         mVisitor.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validate", "(Ljava/util/Map;Ljava/lang/Double;)V", false);
@@ -185,6 +209,7 @@ class XsdAsmAttributes {
         Label l3 = new Label();
         mVisitor.visitJumpInsn(IFEQ, l3);
         mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitTypeInsn(CHECKCAST, "java/util/Map");
         mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitTypeInsn(CHECKCAST, JAVA_LIST);
         mVisitor.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validate", "(Ljava/util/Map;Ljava/util/List;)V", false);
@@ -197,6 +222,24 @@ class XsdAsmAttributes {
         loadRestrictionsToAttribute(attribute, attributeWriter, restrictions, camelAttributeName, apiName);
 
         writeClassToFile(camelAttributeName, attributeWriter, apiName);
+    }
+
+    private static String getAttributeName(XsdAttribute attribute) {
+        String name = ATTRIBUTE_PREFIX + toCamelCase(attribute.getName()).replaceAll("\\W+", "");
+
+        if (attributeHasEnum(attribute)) {
+            return name + getEnumName(attribute).replaceAll(name, "");
+        }
+
+        String javaType = getFullJavaType(attribute);
+
+        return name + javaType.substring(javaType.lastIndexOf('/') + 1, javaType.length() - 1);
+
+        /**
+         * AttrType (Object/String/Integer)
+         * AttrTypeContentType(EnumTypeContentType) NAMED
+         * AttrTypeStyle(EnumTypeStyle)             NO NAME
+         */
     }
 
     /**

@@ -18,7 +18,7 @@ class XsdAsmInterfaces {
 
     private static final String ATTRIBUTE_CASE_SENSITIVE_DIFERENCE = "Alt";
 
-    private List<String> createdInterfaces = new ArrayList<>();
+    private Map<String, InterfaceInfo> createdInterfaces = new HashMap<>();
     private Map<String, XsdAbstractElement> createdElements = new HashMap<>();
     private Map<String, AttributeHierarchyItem> attributeGroupInterfaces = new HashMap<>();
     private XsdAsm xsdAsmInstance;
@@ -35,7 +35,7 @@ class XsdAsmInterfaces {
      * @param createdAttributes A list with the names of the attribute classes already created.
      * @param apiName The api this class will belong.
      */
-    void generateInterfaces(List<String> createdAttributes, String apiName) {
+    void generateInterfaces(Map<String, List<XsdAttribute>> createdAttributes, String apiName) {
         attributeGroupInterfaces.keySet().forEach(attributeGroupInterface -> generateAttributesGroupInterface(createdAttributes, attributeGroupInterface, attributeGroupInterfaces.get(attributeGroupInterface), apiName));
     }
 
@@ -70,7 +70,7 @@ class XsdAsmInterfaces {
      *                               this interface extends.
      * @param apiName The api this class will belong.
      */
-    private void generateAttributesGroupInterface(List<String> createdAttributes, String attributeGroupName, AttributeHierarchyItem attributeHierarchyItem, String apiName){
+    private void generateAttributesGroupInterface(Map<String, List<XsdAttribute>> createdAttributes, String attributeGroupName, AttributeHierarchyItem attributeHierarchyItem, String apiName){
         String baseClassNameCamelCase = toCamelCase(attributeGroupName);
         String[] interfaces = getAttributeGroupObjectInterfaces(attributeHierarchyItem.getParentsName());
         StringBuilder signature = getAttributeGroupSignature(interfaces, apiName);
@@ -78,7 +78,7 @@ class XsdAsmInterfaces {
         ClassWriter interfaceWriter = generateClass(baseClassNameCamelCase, JAVA_OBJECT, interfaces, signature.toString(), ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
         attributeHierarchyItem.getOwnElements().forEach(elementAttribute -> {
-            if (createdAttributes.stream().anyMatch(createdAttributeName -> createdAttributeName.equalsIgnoreCase(elementAttribute.getName()))){
+            if (createdAttributes.keySet().stream().anyMatch(createdAttributeName -> createdAttributeName.equalsIgnoreCase(elementAttribute.getName()))){
                 elementAttribute.setName(elementAttribute.getName() + ATTRIBUTE_CASE_SENSITIVE_DIFERENCE);
             }
 
@@ -96,9 +96,20 @@ class XsdAsmInterfaces {
     private String[] getAttributeGroupInterfaces(XsdElement element){
         List<String> attributeGroups = new ArrayList<>();
         XsdComplexType complexType = element.getXsdComplexType();
+        Stream<XsdAttributeGroup> extensionAttributeGroups = Stream.empty();
 
         if (complexType != null){
-            attributeGroups.addAll(getTypeAttributeGroups(complexType));
+            XsdComplexContent complexContent = complexType.getComplexContent();
+
+            if (complexContent != null){
+                XsdExtension extension = complexContent.getXsdExtension();
+
+                if (extension != null){
+                    extensionAttributeGroups = extension.getXsdAttributeGroup();
+                }
+            }
+
+            attributeGroups.addAll(getTypeAttributeGroups(complexType, extensionAttributeGroups));
         }
 
         if (!attributeGroups.isEmpty()){
@@ -115,12 +126,14 @@ class XsdAsmInterfaces {
      * @param complexType The XsdComplexType object with the type attribute.
      * @return The names of the attribute groups.
      */
-    private Collection<String> getTypeAttributeGroups(XsdComplexType complexType) {
+    private Collection<String> getTypeAttributeGroups(XsdComplexType complexType, Stream<XsdAttributeGroup> extensionAttributeGroups) {
         List<XsdAttributeGroup> attributeGroups = complexType.getXsdAttributes()
                 .filter(attribute -> attribute.getParent() instanceof XsdAttributeGroup)
                 .map(attribute -> (XsdAttributeGroup) attribute.getParent())
                 .distinct()
                 .collect(Collectors.toList());
+
+        attributeGroups.addAll(extensionAttributeGroups.collect(Collectors.toList()));
 
         attributeGroups.addAll(complexType.getXsdAttributeGroup().collect(Collectors.toList()));
 
@@ -218,7 +231,7 @@ class XsdAsmInterfaces {
         } else {
             interfaces = new String[parentsName.size()];
 
-            parentsName.stream().map(parentName -> toCamelCase(parentName)).collect(Collectors.toList()).toArray(interfaces);
+            parentsName.stream().map(XsdAsmUtils::toCamelCase).collect(Collectors.toList()).toArray(interfaces);
         }
 
         return interfaces;
@@ -245,9 +258,9 @@ class XsdAsmInterfaces {
         XsdAbstractElement child = complexType.getXsdChildElement();
 
         if (child != null){
-            Pair<String, Integer> interfaceInfo = iterativeCreation(child, toCamelCase(((XsdElement) complexType.getParent()).getName()), 0, apiName, null);
+            InterfaceInfo interfaceInfo = iterativeCreation(child, toCamelCase(((XsdElement) complexType.getParent()).getName()), 0, apiName, null);
 
-            return new String[] {interfaceInfo.getKey()};
+            return new String[] {interfaceInfo.getInterfaceName()};
         }
 
         return null;
@@ -264,7 +277,7 @@ class XsdAsmInterfaces {
      * @param apiName The name of the API to be generated.
      * @return A pair with the key being the name of the created group interface and the current interface index after the creation of the interface.
      */
-    private Pair<String, Integer> groupMethod(String groupName, XsdChoice choiceElement, XsdAll allElement, XsdSequence sequenceElement, String className, int interfaceIndex, String apiName){
+    private InterfaceInfo groupMethod(String groupName, XsdChoice choiceElement, XsdAll allElement, XsdSequence sequenceElement, String className, int interfaceIndex, String apiName){
         List<String> extendedInterfaces = new ArrayList<>();
         String interfaceName = className + "Group" + interfaceIndex;
         String[] extendedInterfacesArr;
@@ -273,25 +286,25 @@ class XsdAsmInterfaces {
             interfaceName = toCamelCase(groupName);
         }
 
-        if (allElement != null) {
-            Pair<String, Integer> interfaceInfo = iterativeCreation(allElement, className, interfaceIndex + 1, apiName, groupName);
+        InterfaceInfo interfaceInfo = null;
+        InterfaceInfo groupInterfaceInfo = null;
 
-            interfaceIndex = interfaceInfo.getValue();
-            extendedInterfaces.add(interfaceInfo.getKey());
+        if (allElement != null) {
+            interfaceInfo = iterativeCreation(allElement, className, interfaceIndex + 1, apiName, groupName);
         }
 
         if (choiceElement != null) {
-            Pair<String, Integer> interfaceInfo = iterativeCreation(choiceElement, className, interfaceIndex + 1, apiName, groupName);
-
-            interfaceIndex = interfaceInfo.getValue();
-            extendedInterfaces.add(interfaceInfo.getKey());
+            interfaceInfo = iterativeCreation(choiceElement, className, interfaceIndex + 1, apiName, groupName);
         }
 
         if (sequenceElement != null) {
-            Pair<String, Integer> interfaceInfo = iterativeCreation(sequenceElement, className, interfaceIndex + 1, apiName, groupName);
+            interfaceInfo = iterativeCreation(sequenceElement, className, interfaceIndex + 1, apiName, groupName);
+        }
 
-            interfaceIndex = interfaceInfo.getValue();
-            extendedInterfaces.add(interfaceInfo.getKey());
+        if (interfaceInfo != null){
+            extendedInterfaces.add(interfaceInfo.getInterfaceName());
+
+            groupInterfaceInfo = new InterfaceInfo(interfaceName, interfaceInfo.getInterfaceIndex(), extendedInterfaces);
         }
 
         if (extendedInterfaces.isEmpty()){
@@ -305,7 +318,7 @@ class XsdAsmInterfaces {
 
         writeClassToFile(interfaceName, classWriter, apiName);
 
-        return new Pair<>(interfaceName, interfaceIndex);
+        return groupInterfaceInfo;
     }
 
     /**
@@ -317,7 +330,7 @@ class XsdAsmInterfaces {
      * @param groupName The groupName, that indicates if this sequence belongs to a group.
      * @return A pair with the key being the name of the created sequence interface and the current interface index after the creation of the interface and its dependant interfaces.
      */
-    private Pair<String, Integer> sequenceMethod(Stream<XsdAbstractElement> xsdElements, String className, int interfaceIndex, String apiName, String groupName) {
+    private InterfaceInfo sequenceMethod(Stream<XsdAbstractElement> xsdElements, String className, int interfaceIndex, String apiName, String groupName) {
         String interfaceNameBase = className + "Sequence";
 
         if (groupName != null){
@@ -326,8 +339,8 @@ class XsdAsmInterfaces {
 
         String interfaceName = interfaceNameBase + interfaceIndex;
 
-        if (createdInterfaces.contains(interfaceName)){
-            return new Pair<>(interfaceName, interfaceIndex);
+        if (createdInterfaces.containsKey(interfaceName)){
+            return createdInterfaces.get(interfaceName);
         }
 
         Pair<List<XsdAbstractElement>, List<String>> sequenceInfo = getSequenceInfo(xsdElements, className, interfaceIndex, 0, apiName, groupName).getKey();
@@ -358,7 +371,7 @@ class XsdAsmInterfaces {
             ++interfaceIndex;
         }
 
-        return new Pair<>(interfaceName, interfaceIndex);
+        return new InterfaceInfo(interfaceName, interfaceIndex, sequenceNames.subList(0, 1), new ArrayList<>());
     }
 
     /**
@@ -473,9 +486,9 @@ class XsdAsmInterfaces {
             }
         }
 
-        ClassWriter classWriter = generateClass(typeName, ABSTRACT_ELEMENT_TYPE, nextTypeInterfaces, getClassSignature(nextTypeInterfaces, typeName, apiName), ACC_PUBLIC + ACC_SUPER, apiName);
+        ClassWriter classWriter = generateClass(typeName, ABSTRACT_ELEMENT_TYPE, nextTypeInterfaces, getClassSignature(null, nextTypeInterfaces, typeName, apiName), ACC_PUBLIC + ACC_SUPER, apiName);
 
-        XsdAsmElements.generateClassSpecificMethods(classWriter, typeName, apiName, firstToLower(className));
+        XsdAsmElements.generateClassSpecificMethods(classWriter, typeName, apiName, ABSTRACT_ELEMENT_TYPE, firstToLower(className));
 
         writeClassToFile(typeName, classWriter, apiName);
     }
@@ -604,10 +617,10 @@ class XsdAsmInterfaces {
                     interfaceIndex = innerSequenceInfo.getValue().getKey();
                     unnamedIndex = innerSequenceInfo.getValue().getValue();
                 } else {
-                    Pair<String, Integer> interfaceInfo = iterativeCreation(element, className, interfaceIndex + 1, apiName, groupName);
+                    InterfaceInfo interfaceInfo = iterativeCreation(element, className, interfaceIndex + 1, apiName, groupName);
 
-                    interfaceIndex = interfaceInfo.getValue();
-                    sequenceNames.add(interfaceInfo.getKey());
+                    interfaceIndex = interfaceInfo.getInterfaceIndex();
+                    sequenceNames.add(interfaceInfo.getInterfaceName());
                 }
             }
         }
@@ -624,7 +637,7 @@ class XsdAsmInterfaces {
      * @param groupName The name of the group which contains the XsdAll element, if any.
      * @return A pair with the interface name and the interface index.
      */
-    private Pair<String, Integer> allMethod(List<XsdElement> directElements, String className, int interfaceIndex, String apiName, String groupName){
+    private InterfaceInfo allMethod(List<XsdElement> directElements, String className, int interfaceIndex, String apiName, String groupName){
         String interfaceName;
 
         if (groupName != null){
@@ -633,8 +646,8 @@ class XsdAsmInterfaces {
             interfaceName = className + "All" + interfaceIndex;
         }
 
-        if (createdInterfaces.contains(interfaceName)){
-            return new Pair<>(interfaceName, interfaceIndex);
+        if (createdInterfaces.containsKey(interfaceName)){
+            return createdInterfaces.get(interfaceName);
         }
 
         String[] extendedInterfacesArr = new String[]{TEXT_GROUP};
@@ -648,7 +661,7 @@ class XsdAsmInterfaces {
 
         writeClassToFile(interfaceName, classWriter, apiName);
 
-        return new Pair<>(interfaceName, interfaceIndex);
+        return new InterfaceInfo(interfaceName, interfaceIndex, directElements.stream().map(XsdElement::getName).collect(Collectors.toList()), extendedInterfacesArr);
     }
 
     /**
@@ -661,7 +674,7 @@ class XsdAsmInterfaces {
      * @param groupName The name of the group in which this XsdChoice element is contained, if any.
      * @return A pair with the interface name and the interface index.
      */
-    private Pair<String, Integer> choiceMethod(List<XsdGroup> groupElements, List<XsdElement> directElements, String className, int interfaceIndex, String apiName, String groupName){
+    private InterfaceInfo choiceMethod(List<XsdGroup> groupElements, List<XsdElement> directElements, String className, int interfaceIndex, String apiName, String groupName){
         String interfaceName;
 
         if (groupName != null){
@@ -670,18 +683,18 @@ class XsdAsmInterfaces {
             interfaceName = className + "Choice" + interfaceIndex;
         }
 
-        if (createdInterfaces.contains(interfaceName)){
-            return new Pair<>(interfaceName, interfaceIndex);
+        if (createdInterfaces.containsKey(interfaceName)){
+            return createdInterfaces.get(interfaceName);
         }
 
         String[] extendedInterfacesArr = new String[]{TEXT_GROUP};
         List<String> extendedInterfaces = new ArrayList<>();
 
         for (XsdGroup groupElement : groupElements) {
-            Pair<String, Integer> interfaceInfo = iterativeCreation(groupElement, className, interfaceIndex + 1, apiName, groupName);
+            InterfaceInfo interfaceInfo = iterativeCreation(groupElement, className, interfaceIndex + 1, apiName, groupName);
 
-            interfaceIndex = interfaceInfo.getValue();
-            extendedInterfaces.add(interfaceInfo.getKey());
+            interfaceIndex = interfaceInfo.getInterfaceIndex();
+            extendedInterfaces.add(interfaceInfo.getInterfaceName());
         }
 
         if (!extendedInterfaces.isEmpty()){
@@ -698,11 +711,11 @@ class XsdAsmInterfaces {
 
         writeClassToFile(interfaceName, classWriter, apiName);
 
-        return new Pair<>(interfaceName, interfaceIndex);
+        return new InterfaceInfo(interfaceName, interfaceIndex, directElements.stream().map(XsdElement::getName).collect(Collectors.toList()), extendedInterfaces);
     }
 
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-    private Pair<String, Integer> iterativeCreation(XsdAbstractElement element, String className, int interfaceIndex, String apiName, String groupName){
+    private InterfaceInfo iterativeCreation(XsdAbstractElement element, String className, int interfaceIndex, String apiName, String groupName){
         List<XsdChoice> choiceElements = new ArrayList<>();
         List<XsdGroup> groupElements = new ArrayList<>();
         List<XsdAll> allElements = new ArrayList<>();
@@ -723,35 +736,35 @@ class XsdAsmInterfaces {
                         mapper.get(elementChild.getClass()).add(elementChild)
                 );
 
-        Pair<String, Integer> pair = null;
+        InterfaceInfo interfaceInfo = null;
 
         if (element instanceof XsdGroup){
             XsdChoice choiceElement = choiceElements.size() == 1 ? choiceElements.get(0) : null;
             XsdSequence sequenceElement = sequenceElements.size() == 1 ? sequenceElements.get(0) : null;
             XsdAll allElement = allElements.size() == 1 ? allElements.get(0) : null;
 
-            pair = groupMethod(((XsdGroup) element).getName(), choiceElement, allElement, sequenceElement, className, interfaceIndex, apiName);
+            interfaceInfo = groupMethod(((XsdGroup) element).getName(), choiceElement, allElement, sequenceElement, className, interfaceIndex, apiName);
         }
 
         if (element instanceof XsdAll){
-            pair = allMethod(directElements, className, interfaceIndex, apiName, groupName);
+            interfaceInfo = allMethod(directElements, className, interfaceIndex, apiName, groupName);
         }
 
         if (element instanceof XsdChoice){
-            pair = choiceMethod(groupElements, directElements, className, interfaceIndex, apiName, groupName);
+            interfaceInfo = choiceMethod(groupElements, directElements, className, interfaceIndex, apiName, groupName);
         }
 
         if (element instanceof  XsdSequence){
-            pair = sequenceMethod(element.getXsdElements(), className, interfaceIndex, apiName, groupName);
+            interfaceInfo = sequenceMethod(element.getXsdElements(), className, interfaceIndex, apiName, groupName);
         }
 
-        if (pair == null){
+        if (interfaceInfo == null){
             throw new RuntimeException("Invalid element interface type.");
         }
 
-        createdInterfaces.add(pair.getKey());
+        createdInterfaces.put(interfaceInfo.getInterfaceName(), interfaceInfo);
 
-        return pair;
+        return interfaceInfo;
     }
 
     /**
@@ -798,5 +811,42 @@ class XsdAsmInterfaces {
 
     void addCreatedElement(XsdElement element){
         createdElements.put(element.getName(), element);
+    }
+
+    class InterfaceInfo{
+        String interfaceName;
+        Integer interfaceIndex;
+        List<String> methodNames;
+        List<String> extendedInterfaces;
+
+        InterfaceInfo(String interfaceName, Integer interfaceIndex, List<String> methodNames, List<String> extendedInterfaces){
+            this.interfaceName = interfaceName;
+            this.interfaceIndex = interfaceIndex;
+            this.methodNames = methodNames;
+            this.extendedInterfaces = extendedInterfaces;
+        }
+
+        InterfaceInfo(String interfaceName, Integer interfaceIndex, List<String> methodNames, String[] extendedInterfaces){
+            this.interfaceName = interfaceName;
+            this.interfaceIndex = interfaceIndex;
+            this.methodNames = methodNames;
+            this.extendedInterfaces = new ArrayList<>();
+
+            this.extendedInterfaces.addAll(Arrays.asList(extendedInterfaces));
+        }
+
+        InterfaceInfo(String interfaceName, Integer interfaceIndex, List<String> extendedInterfaces){
+            this.interfaceName = interfaceName;
+            this.interfaceIndex = interfaceIndex;
+            this.extendedInterfaces = extendedInterfaces;
+        }
+
+        String getInterfaceName() {
+            return interfaceName;
+        }
+
+        Integer getInterfaceIndex() {
+            return interfaceIndex;
+        }
     }
 }

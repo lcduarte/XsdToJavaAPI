@@ -53,7 +53,9 @@ public class XsdGroup extends XsdReferenceElement {
     protected List<ReferenceBase> getElements() {
         List<ReferenceBase> list = new ArrayList<>();
 
-        list.add(ReferenceBase.createFromXsd(childElement));
+        if (childElement != null){
+            list.add(ReferenceBase.createFromXsd(childElement));
+        }
 
         return list;
     }

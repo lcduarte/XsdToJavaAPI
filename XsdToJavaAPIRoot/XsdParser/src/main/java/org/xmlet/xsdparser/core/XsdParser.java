@@ -255,14 +255,26 @@ public class XsdParser {
      * @param filePath The name of the file being parsed
      */
     private void resolveRefs(String filePath) {
-        HashMap<String, ConcreteElement> concreteElementsMap = new HashMap<>();
+        HashMap<String, List<ConcreteElement>> concreteElementsMap = new HashMap<>();
 
         parseElements
                 .get(filePath)
                 .stream()
                 .filter(concreteElement -> concreteElement instanceof ConcreteElement)
                 .map(concreteElement -> (ConcreteElement) concreteElement)
-                .forEach(referenceElement -> concreteElementsMap.put(referenceElement.getName(), referenceElement));
+                .forEach(referenceElement -> {
+                    List<ConcreteElement> list = concreteElementsMap.get(referenceElement.getName());
+
+                    if (list != null){
+                        list.add(referenceElement);
+                    } else {
+                        List<ConcreteElement> newList = new ArrayList<>();
+
+                        newList.add(referenceElement);
+
+                        concreteElementsMap.put(referenceElement.getName(), newList);
+                    }
+                });
 
         List<UnsolvedReference> unsolvedElementsList = unsolvedElements.get(filePath);
 
@@ -280,18 +292,19 @@ public class XsdParser {
      * @param unsolvedReference The unsolved reference to solve.
      * @param filePath The name of the file being parsed.
      */
-    private void replaceUnsolvedReference(HashMap<String, ConcreteElement> concreteElementsMap, UnsolvedReference unsolvedReference, String filePath) {
-        ConcreteElement concreteElement = concreteElementsMap.get(unsolvedReference.getRef());
+    private void replaceUnsolvedReference(HashMap<String, List<ConcreteElement>> concreteElementsMap, UnsolvedReference unsolvedReference, String filePath) {
+        List<ConcreteElement> concreteElements = concreteElementsMap.get(unsolvedReference.getRef());
 
-        if (concreteElement != null){
+        if (concreteElements != null){
             Map<String, String> oldElementAttributes = unsolvedReference.getElement().getElementFieldsMap();
 
-            XsdAbstractElement substitutionElement = concreteElement.getElement()
-                    .clone(oldElementAttributes);
+            for (ConcreteElement concreteElement : concreteElements) {
+                XsdAbstractElement substitutionElement = concreteElement.getElement().clone(oldElementAttributes);
 
-            ConcreteElement substitutionElementWrapper = (ConcreteElement) ReferenceBase.createFromXsd(substitutionElement);
+                ConcreteElement substitutionElementWrapper = (ConcreteElement) ReferenceBase.createFromXsd(substitutionElement);
 
-            unsolvedReference.getParent().replaceUnsolvedElements(substitutionElementWrapper);
+                unsolvedReference.getParent().replaceUnsolvedElements(substitutionElementWrapper);
+            }
         } else {
             storeUnsolvedItem(filePath, unsolvedReference);
         }

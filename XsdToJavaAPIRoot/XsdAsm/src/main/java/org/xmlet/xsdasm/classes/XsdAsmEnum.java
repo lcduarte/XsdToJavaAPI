@@ -4,7 +4,9 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
+import org.xmlet.xsdparser.xsdelements.XsdAbstractElement;
 import org.xmlet.xsdparser.xsdelements.XsdAttribute;
+import org.xmlet.xsdparser.xsdelements.XsdElement;
 import org.xmlet.xsdparser.xsdelements.XsdRestriction;
 import org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdEnumeration;
 
@@ -148,7 +150,27 @@ class XsdAsmEnum {
     }
 
     static String getEnumName(XsdAttribute attribute) {
-        return ENUM_PREFIX + attribute.getName();
+        if (attribute.getType() != null){
+            return ENUM_PREFIX + toCamelCase(attribute.getName()) + toCamelCase(attribute.getType());
+        }
+
+        XsdAbstractElement elem = attribute;
+
+        while (elem != null){
+            if (elem instanceof XsdElement){
+                return ENUM_PREFIX + toCamelCase(attribute.getName()) + ((XsdElement) elem).getName();
+            }
+
+            elem = elem.getParent();
+        }
+
+        return ENUM_PREFIX + toCamelCase(attribute.getName());
+
+        /**
+        * AttrTypeContentType(EnumTypeContentType) NAMED
+        * AttrTypeStyle(EnumTypeStyle)             NO NAME
+        */
+
     }
 
 }
