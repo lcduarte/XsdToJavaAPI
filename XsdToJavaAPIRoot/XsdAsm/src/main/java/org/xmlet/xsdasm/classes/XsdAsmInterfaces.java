@@ -155,10 +155,10 @@ class XsdAsmInterfaces {
         List<XsdAttributeGroup> parents = new ArrayList<>();
 
         attributeGroups.forEach(attributeGroup -> {
-            XsdAttributeGroup parent = (XsdAttributeGroup) attributeGroup.getParent();
+            XsdAbstractElement parent = attributeGroup.getParent();
 
-            if (!parents.contains(parent) && parent != null){
-                parents.add(parent);
+            if (parent instanceof XsdAttributeGroup && !parents.contains(parent) && parent != null){
+                parents.add((XsdAttributeGroup) parent);
             }
         });
 
@@ -304,7 +304,7 @@ class XsdAsmInterfaces {
         if (interfaceInfo != null){
             extendedInterfaces.add(interfaceInfo.getInterfaceName());
 
-            groupInterfaceInfo = new InterfaceInfo(interfaceName, interfaceInfo.getInterfaceIndex(), extendedInterfaces);
+            groupInterfaceInfo = new InterfaceInfo(interfaceName, interfaceInfo.getInterfaceIndex(), new InterfaceInfo[] {interfaceInfo});
         }
 
         if (extendedInterfaces.isEmpty()){
@@ -661,7 +661,7 @@ class XsdAsmInterfaces {
 
         writeClassToFile(interfaceName, classWriter, apiName);
 
-        return new InterfaceInfo(interfaceName, interfaceIndex, directElements.stream().map(XsdElement::getName).collect(Collectors.toList()), extendedInterfacesArr);
+        return new InterfaceInfo(interfaceName, interfaceIndex, directElements.stream().map(XsdElement::getName).collect(Collectors.toList()), new InterfaceInfo[]{});
     }
 
     /**
@@ -675,6 +675,7 @@ class XsdAsmInterfaces {
      * @return A pair with the interface name and the interface index.
      */
     private InterfaceInfo choiceMethod(List<XsdGroup> groupElements, List<XsdElement> directElements, String className, int interfaceIndex, String apiName, String groupName){
+        List<InterfaceInfo> interfaceInfos = new ArrayList<>();
         String interfaceName;
 
         if (groupName != null){
@@ -695,6 +696,7 @@ class XsdAsmInterfaces {
 
             interfaceIndex = interfaceInfo.getInterfaceIndex();
             extendedInterfaces.add(interfaceInfo.getInterfaceName());
+            interfaceInfos.add(interfaceInfo);
         }
 
         if (!extendedInterfaces.isEmpty()){
@@ -709,9 +711,46 @@ class XsdAsmInterfaces {
             createElement(child, apiName);
         });
 
+        if (interfaceName.equals("MapChoice0")){
+            int a  = 5;
+        }
+
+        getAmbiguousNames(interfaceInfos).forEach(name ->
+            XsdAsmElements.generateMethodsForElement(classWriter, name, getFullClassTypeName(interfaceName, apiName), ELEMENT_TYPE_DESC, apiName)
+        );
+
         writeClassToFile(interfaceName, classWriter, apiName);
 
-        return new InterfaceInfo(interfaceName, interfaceIndex, directElements.stream().map(XsdElement::getName).collect(Collectors.toList()), extendedInterfaces);
+        return new InterfaceInfo(interfaceName, interfaceIndex, directElements.stream().map(XsdElement::getName).collect(Collectors.toList()), interfaceInfos);
+    }
+
+    private Set<String> getAmbiguousNames(List<InterfaceInfo> interfaceInfos) {
+        Set<String> ambiguousNames = new HashSet<>(), dummy = new HashSet<>();
+        List<String> names = getAllNames(interfaceInfos);
+
+        names.forEach(name -> {
+            if (!dummy.add(name)){
+                ambiguousNames.add(name);
+            }
+        });
+
+        return ambiguousNames;
+    }
+
+    private List<String> getAllNames(List<InterfaceInfo> interfaceInfos) {
+        List<String> names = new ArrayList<>();
+
+        interfaceInfos.forEach(interfaceInfo -> {
+            if (interfaceInfo.getMethodNames() != null && !interfaceInfo.getMethodNames().isEmpty()){
+                names.addAll(interfaceInfo.getMethodNames());
+            }
+
+            if (!interfaceInfo.extendedInterfaces.isEmpty()){
+                names.addAll(getAllNames(interfaceInfo.extendedInterfaces));
+            }
+        });
+
+        return names;
     }
 
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
@@ -817,16 +856,16 @@ class XsdAsmInterfaces {
         String interfaceName;
         Integer interfaceIndex;
         List<String> methodNames;
-        List<String> extendedInterfaces;
+        List<InterfaceInfo> extendedInterfaces;
 
-        InterfaceInfo(String interfaceName, Integer interfaceIndex, List<String> methodNames, List<String> extendedInterfaces){
+        InterfaceInfo(String interfaceName, Integer interfaceIndex, List<String> methodNames, List<InterfaceInfo> extendedInterfaces){
             this.interfaceName = interfaceName;
             this.interfaceIndex = interfaceIndex;
             this.methodNames = methodNames;
             this.extendedInterfaces = extendedInterfaces;
         }
 
-        InterfaceInfo(String interfaceName, Integer interfaceIndex, List<String> methodNames, String[] extendedInterfaces){
+        InterfaceInfo(String interfaceName, Integer interfaceIndex, List<String> methodNames, InterfaceInfo[] extendedInterfaces){
             this.interfaceName = interfaceName;
             this.interfaceIndex = interfaceIndex;
             this.methodNames = methodNames;
@@ -835,10 +874,18 @@ class XsdAsmInterfaces {
             this.extendedInterfaces.addAll(Arrays.asList(extendedInterfaces));
         }
 
-        InterfaceInfo(String interfaceName, Integer interfaceIndex, List<String> extendedInterfaces){
+        InterfaceInfo(String interfaceName, Integer interfaceIndex, List<InterfaceInfo> extendedInterfaces){
             this.interfaceName = interfaceName;
             this.interfaceIndex = interfaceIndex;
             this.extendedInterfaces = extendedInterfaces;
+        }
+
+        InterfaceInfo(String interfaceName, Integer interfaceIndex, InterfaceInfo[] extendedInterfaces){
+            this.interfaceName = interfaceName;
+            this.interfaceIndex = interfaceIndex;
+            this.extendedInterfaces = new ArrayList<>();
+
+            this.extendedInterfaces.addAll(Arrays.asList(extendedInterfaces));
         }
 
         String getInterfaceName() {
@@ -847,6 +894,10 @@ class XsdAsmInterfaces {
 
         Integer getInterfaceIndex() {
             return interfaceIndex;
+        }
+
+        List<String> getMethodNames(){
+            return methodNames;
         }
     }
 }

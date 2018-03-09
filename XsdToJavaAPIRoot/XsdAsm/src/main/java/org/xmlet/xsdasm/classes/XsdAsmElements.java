@@ -185,12 +185,22 @@ class XsdAsmElements {
      * @param classType The type of the class which contains the children elements.
      */
     static void generateMethodsForElement(ClassWriter classWriter, XsdElement child, String classType, String returnType, String apiName) {
-        String childCamelName = toCamelCase(child.getName());
+        generateMethodsForElement(classWriter, child.getName(), classType, returnType, apiName);
+    }
+
+    /**
+     * Generates the methods in a given class for a given child that the class is allowed to have.
+     * @param classWriter The class writer where the method will be written.
+     * @param childName The name of the element which generated the class.
+     * @param classType The type of the class which contains the children elements.
+     */
+    static void generateMethodsForElement(ClassWriter classWriter, String childName, String classType, String returnType, String apiName) {
+        String childCamelName = toCamelCase(childName);
         String childType = getFullClassTypeName(childCamelName, apiName);
         String childTypeDesc = getFullClassTypeNameDesc(childCamelName, apiName);
         boolean isInterface = isInterfaceMethod(returnType);
 
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, child.getName(), "()" + childTypeDesc, "()L" + childType + "<TT;>;", null);
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, childName, "()" + childTypeDesc, "()L" + childType + "<TT;>;", null);
         mVisitor.visitCode();
         mVisitor.visitTypeInsn(NEW, childType);
         mVisitor.visitInsn(DUP);

@@ -54,6 +54,18 @@ public class XsdExtension extends XsdAnnotatedElements {
             this.base = element;
         }
 
+        if (element.getElement() instanceof XsdAttributeGroup){
+            attributeGroups.stream()
+                    .filter(attributeGroup -> attributeGroup instanceof UnsolvedReference && ((UnsolvedReference) attributeGroup).getRef().equals(element.getName()))
+                    .findFirst().ifPresent(referenceBase -> {
+                attributeGroups.remove(referenceBase);
+                attributeGroups.add(element);
+                attributes.addAll(element.getElement().getElements());
+
+                element.getElement().setParent(this);
+            });
+        }
+
         if (element.getElement() instanceof XsdAttribute ){
             attributes.stream()
                     .filter(attribute -> attribute instanceof UnsolvedReference && ((UnsolvedReference) attribute).getRef().equals(element.getName()))
@@ -140,7 +152,12 @@ public class XsdExtension extends XsdAnnotatedElements {
             XsdExtension.this.attributes.add(ReferenceBase.createFromXsd(attribute));
         }
 
-        //TODO AttributeGroup
+        @Override
+        public void visit(XsdAttributeGroup attributeGroup) {
+            super.visit(attributeGroup);
+
+            XsdExtension.this.attributeGroups.add(ReferenceBase.createFromXsd(attributeGroup));
+        }
     }
 
 }
