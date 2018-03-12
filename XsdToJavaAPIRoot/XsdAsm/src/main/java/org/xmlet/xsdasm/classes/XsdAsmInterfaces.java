@@ -205,12 +205,12 @@ class XsdAsmInterfaces {
         StringBuilder signature;
 
         if (interfaces.length == 0){
-            signature = new StringBuilder("<T::L" + ELEMENT_TYPE + "<TT;TP;>;P::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + ELEMENT_TYPE + "<TT;TP;>;");
+            signature = new StringBuilder("<T::L" + ELEMENT_TYPE + "<TT;TZ;>;Z::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + ELEMENT_TYPE + "<TT;TZ;>;");
         } else {
-            signature = new StringBuilder("<T::L" + ELEMENT_TYPE + "<TT;TP;>;P::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC);
+            signature = new StringBuilder("<T::L" + ELEMENT_TYPE + "<TT;TZ;>;Z::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC);
 
             for (String anInterface : interfaces) {
-                signature.append("L").append(getFullClassTypeName(anInterface, apiName)).append("<TT;TP;>;");
+                signature.append("L").append(getFullClassTypeName(anInterface, apiName)).append("<TT;TZ;>;");
             }
         }
 
@@ -528,7 +528,7 @@ class XsdAsmInterfaces {
         }
 
         //TODO Receber o tipo do elemento, se o tiver. Isto implica ter de mudar Text possivelmente.
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, firstToLower(sequenceName), "(Ljava/lang/String;)" + nextTypeDesc, "(Ljava/lang/String;)L" + nextType + "<TP;>;", null);
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, firstToLower(sequenceName), "(Ljava/lang/String;)" + nextTypeDesc, "(Ljava/lang/String;)L" + nextType + "<TZ;>;", null);
         mVisitor.visitLocalVariable(firstToLower(sequenceName), JAVA_STRING_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitTypeInsn(NEW, nextType);
@@ -710,10 +710,6 @@ class XsdAsmInterfaces {
             XsdAsmElements.generateMethodsForElement(classWriter, child, getFullClassTypeName(interfaceName, apiName), ELEMENT_TYPE_DESC, apiName);
             createElement(child, apiName);
         });
-
-        if (interfaceName.equals("MapChoice0")){
-            int a  = 5;
-        }
 
         getAmbiguousNames(interfaceInfos).forEach(name ->
             XsdAsmElements.generateMethodsForElement(classWriter, name, getFullClassTypeName(interfaceName, apiName), ELEMENT_TYPE_DESC, apiName)

@@ -34,7 +34,7 @@
                         <argument>htmlapi</argument>
                     </arguments>
                 </configuration>
-            </plugin>
+            </plugin-->
 
             <plugin>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -42,17 +42,27 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>test_stuff</id>
+                        <id>create_classes</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/test.bat</executable>
+                            <executable>${basedir}/create_classes.bat</executable>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>clean_sources</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${basedir}/clean_sources.bat</executable>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

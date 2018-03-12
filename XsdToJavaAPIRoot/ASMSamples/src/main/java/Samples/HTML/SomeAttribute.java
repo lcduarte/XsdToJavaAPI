@@ -33,6 +33,10 @@ public class SomeAttribute extends AbstractAttribute<String>{
         restrictions.add(restriction2);
     }
 
+    SomeAttribute(Object value) {
+        super((String) value, "SomeAttribute");
+    }
+
     SomeAttribute(String value) {
         super(value, "SomeAttribute");
 

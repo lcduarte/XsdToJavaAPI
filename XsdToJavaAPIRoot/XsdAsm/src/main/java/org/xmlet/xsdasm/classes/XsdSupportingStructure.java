@@ -90,7 +90,7 @@ class XsdSupportingStructure {
      * @param apiName The api this class will belong.
      */
     private static void createElementInterface(String apiName){
-        ClassWriter classWriter = generateClass(ELEMENT, JAVA_OBJECT, null, "<T::" + ELEMENT_TYPE_DESC + "P::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
+        ClassWriter classWriter = generateClass(ELEMENT, JAVA_OBJECT, null, "<T::" + ELEMENT_TYPE_DESC + "Z::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "addChild", "(" + ELEMENT_TYPE_DESC + ")" + ELEMENT_TYPE_DESC, "(" + ELEMENT_TYPE_DESC + ")TT;", null);
         mVisitor.visitLocalVariable("child", ELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
@@ -119,7 +119,7 @@ class XsdSupportingStructure {
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "find", "(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;", "<R::" + ELEMENT_TYPE_DESC + ">(Ljava/util/function/Predicate<" + ELEMENT_TYPE_DESC + ">;)Ljava/util/stream/Stream<TR;>;", null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "º", "()" + ELEMENT_TYPE_DESC, "()TP;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "º", "()" + ELEMENT_TYPE_DESC, "()TZ;", null);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "binder", "(Ljava/util/function/BiConsumer;)" + ELEMENT_TYPE_DESC, "<M:Ljava/lang/Object;>(Ljava/util/function/BiConsumer<TT;TM;>;)TT;", null);
@@ -173,7 +173,7 @@ class XsdSupportingStructure {
      * @param apiName The api this class will belong.
      */
     private static void createTextGroupInterface(String apiName) {
-        ClassWriter classWriter = generateClass(TEXT_GROUP, JAVA_OBJECT, new String[] {ELEMENT}, "<T::" + ELEMENT_TYPE_DESC + "P::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + ELEMENT_TYPE + "<TT;TP;>;", ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
+        ClassWriter classWriter = generateClass(TEXT_GROUP, JAVA_OBJECT, new String[] {ELEMENT}, "<T::" + ELEMENT_TYPE_DESC + "Z::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + ELEMENT_TYPE + "<TT;TZ;>;", ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, TEXT_CLASS.toLowerCase(), "(" + JAVA_STRING_DESC + ")" + ELEMENT_TYPE_DESC, "(" + JAVA_STRING_DESC + ")TT;", null);
         mVisitor.visitLocalVariable("text", JAVA_STRING_DESC, null, new Label(), new Label(),1);
@@ -219,7 +219,7 @@ class XsdSupportingStructure {
      * @param apiName The api this class will belong.
      */
     private static void createTextElement(String apiName) {
-        ClassWriter classWriter = generateClass(TEXT_CLASS, ABSTRACT_ELEMENT_TYPE, null,  "<R:Ljava/lang/Object;U:Ljava/lang/Object;P::" + ELEMENT_TYPE_DESC + ">L"  + ABSTRACT_ELEMENT_TYPE +"<" + TEXT_TYPE_DESC + "TP;>;",ACC_PUBLIC + ACC_SUPER, apiName);
+        ClassWriter classWriter = generateClass(TEXT_CLASS, ABSTRACT_ELEMENT_TYPE, null,  "<R:Ljava/lang/Object;U:Ljava/lang/Object;Z::" + ELEMENT_TYPE_DESC + ">L"  + ABSTRACT_ELEMENT_TYPE +"<" + TEXT_TYPE_DESC + "TZ;>;",ACC_PUBLIC + ACC_SUPER, apiName);
 
         FieldVisitor fVisitor = classWriter.visitField(ACC_PRIVATE, "text", JAVA_STRING_DESC, null, null);
         fVisitor.visitEnd();
@@ -235,7 +235,7 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC +  JAVA_STRING_DESC + ")V", "(TP;Ljava/lang/String;)V", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC +  JAVA_STRING_DESC + ")V", "(TZ;Ljava/lang/String;)V", null);
         mVisitor.visitLocalVariable("parent", ELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
         mVisitor.visitLocalVariable("text", JAVA_STRING_DESC, null, new Label(), new Label(),2);
         mVisitor.visitCode();
@@ -249,7 +249,7 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(2, 3);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC + "Ljava/util/function/Function;)V", "(TP;Ljava/util/function/Function<TR;TU;>;)V", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC + "Ljava/util/function/Function;)V", "(TZ;Ljava/util/function/Function<TR;TU;>;)V", null);
         mVisitor.visitLocalVariable("parent", ELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
         mVisitor.visitLocalVariable("textFunction", "Ljava/util/function/Function;", "Ljava/util/function/Function<TR;TU;>;", new Label(), new Label(),2);
         mVisitor.visitCode();
@@ -311,7 +311,7 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "accept", "(" + ELEMENT_VISITOR_TYPE_DESC + ")V", "<R:Ljava/lang/Object;>(L" + ELEMENT_VISITOR_TYPE + "<TR;>;)V", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "accept", "(" + ELEMENT_VISITOR_TYPE_DESC + ")V", null, null);
         mVisitor.visitLocalVariable("visitor", ELEMENT_VISITOR_TYPE_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 1);
@@ -364,7 +364,7 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "cloneElem", "()" + TEXT_TYPE_DESC, "()L" + TEXT_TYPE + "<TR;TU;TP;>;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "cloneElem", "()" + TEXT_TYPE_DESC, "()L" + TEXT_TYPE + "<TR;TU;TZ;>;", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitTypeInsn(NEW, TEXT_TYPE);
@@ -383,7 +383,7 @@ class XsdSupportingStructure {
      * Generates the AbstractElement class with all the implementations.
      */
     private static void createAbstractElement(String apiName){
-        ClassWriter classWriter = generateClass(ABSTRACT_ELEMENT, JAVA_OBJECT, new String[] {ELEMENT}, "<T::" + ELEMENT_TYPE_DESC + "P::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + ELEMENT_TYPE + "<TT;TP;>;",ACC_PUBLIC + ACC_SUPER + ACC_ABSTRACT, apiName);
+        ClassWriter classWriter = generateClass(ABSTRACT_ELEMENT, JAVA_OBJECT, new String[] {ELEMENT}, "<T::" + ELEMENT_TYPE_DESC + "Z::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + ELEMENT_TYPE + "<TT;TZ;>;",ACC_PUBLIC + ACC_SUPER + ACC_ABSTRACT, apiName);
         FieldVisitor fVisitor;
         MethodVisitor mVisitor;
 
@@ -398,7 +398,7 @@ class XsdSupportingStructure {
         fVisitor = classWriter.visitField(ACC_PROTECTED, "name", "Ljava/lang/String;", null, null);
         fVisitor.visitEnd();
 
-        fVisitor = classWriter.visitField(ACC_PROTECTED, "parent", ELEMENT_TYPE_DESC, "TP;", null);
+        fVisitor = classWriter.visitField(ACC_PROTECTED, "parent", ELEMENT_TYPE_DESC, "TZ;", null);
         fVisitor.visitEnd();
 
         fVisitor = classWriter.visitField(ACC_PROTECTED, "binderMethod", "Ljava/util/function/BiConsumer;", null, null);
@@ -448,7 +448,7 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC + ")V", "(TP;)V", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC + ")V", "(TZ;)V", null);
         mVisitor.visitLocalVariable("parent", ELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
@@ -471,7 +471,7 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC + "Ljava/lang/String;)V", "(TP;Ljava/lang/String;)V", null);
+        mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC + "Ljava/lang/String;)V", "(TZ;Ljava/lang/String;)V", null);
         mVisitor.visitLocalVariable("parent", ELEMENT_TYPE_DESC, null, new Label(), new Label(),1);
         mVisitor.visitLocalVariable("name", "Ljava/lang/String;", null, new Label(), new Label(),2);
         mVisitor.visitCode();
@@ -558,7 +558,7 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "º", "()" + ELEMENT_TYPE_DESC, "()TP;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "º", "()" + ELEMENT_TYPE_DESC, "()TZ;", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, ABSTRACT_ELEMENT_TYPE, "parent", ELEMENT_TYPE_DESC);

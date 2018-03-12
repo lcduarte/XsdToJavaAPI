@@ -36,7 +36,7 @@ class XsdAsmAttributes {
         if (isInterfaceMethod(returnType)){
             mVisitor = classWriter.visitMethod(ACC_PUBLIC, camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")TT;", null);
         } else {
-            mVisitor = classWriter.visitMethod(ACC_PUBLIC, camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")" + returnType.substring(0, returnType.length() - 1) + "<TP;>;", null);
+            mVisitor = classWriter.visitMethod(ACC_PUBLIC, camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")" + returnType.substring(0, returnType.length() - 1) + "<TZ;>;", null);
         }
 
         String attrName = "attr" + toCamelCase(elementAttribute.getName());
@@ -58,11 +58,11 @@ class XsdAsmAttributes {
         mVisitor.visitInsn(DUP);
         mVisitor.visitVarInsn(ALOAD, 1);
 
-        if (attributeHasEnum(elementAttribute)){
+        //if (attributeHasEnum(elementAttribute)){
             mVisitor.visitMethodInsn(INVOKESPECIAL, attributeClassType, CONSTRUCTOR, "(" + javaType + ")V", false);
-        } else  {
-            mVisitor.visitMethodInsn(INVOKESPECIAL, attributeClassType, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", false);
-        }
+        //} else  {
+        //    mVisitor.visitMethodInsn(INVOKESPECIAL, attributeClassType, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", false);
+        //}
 
         if (isInterfaceMethod(returnType)){
             mVisitor.visitMethodInsn(INVOKEINTERFACE, ELEMENT_TYPE_DESC, "addAttr", "(" + ATTRIBUTE_TYPE_DESC + ")" + ELEMENT_TYPE_DESC, true);
@@ -98,6 +98,10 @@ class XsdAsmAttributes {
 
         String javaType = getFullJavaType(attribute);
 
+        if (camelAttributeName.equals("AttrSkinIDString")){
+            int a  = 5;
+        }
+
         if (list != null){
             String fullJavaItemTypeDesc = getFullJavaType(list.getItemType());
 
@@ -112,7 +116,7 @@ class XsdAsmAttributes {
         fVisitor.visitEnd();
 
         MethodVisitor mVisitor;
-        boolean hasDefaultConstructor = false;
+        //boolean hasDefaultConstructor = false;
         
         if (attributeHasEnum(attribute)) {
             String enumName = getEnumName(attribute);
@@ -130,15 +134,19 @@ class XsdAsmAttributes {
             if (list != null){
                 mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_LIST_DESC + ")V", null, null);
                 mVisitor.visitLocalVariable("attrValue", JAVA_LIST_DESC, null, new Label(), new Label(),1);
+                mVisitor.visitCode();
+                mVisitor.visitVarInsn(ALOAD, 0);
+                mVisitor.visitVarInsn(ALOAD, 1);
             } else {
-                mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", null, null);
-                mVisitor.visitLocalVariable("attrValue", JAVA_OBJECT_DESC, null, new Label(), new Label(),1);
-                hasDefaultConstructor = true;
+                mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + javaType + ")V", null, null);
+                mVisitor.visitLocalVariable("attrValue", javaType, null, new Label(), new Label(),1);
+                //hasDefaultConstructor = true;
+                mVisitor.visitCode();
+                mVisitor.visitVarInsn(ALOAD, 0);
+                mVisitor.visitVarInsn(ALOAD, 1);
+                mVisitor.visitTypeInsn(CHECKCAST, javaType);
             }
 
-            mVisitor.visitCode();
-            mVisitor.visitVarInsn(ALOAD, 0);
-            mVisitor.visitVarInsn(ALOAD, 1);
             mVisitor.visitLdcInsn(attribute.getName());
             mVisitor.visitMethodInsn(INVOKESPECIAL, BASE_ATTRIBUTE_TYPE, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + "Ljava/lang/String;)V", false);
         }
@@ -150,19 +158,21 @@ class XsdAsmAttributes {
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
-        
+
+        /*
         if (!hasDefaultConstructor){
             mVisitor = attributeWriter.visitMethod(0, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", null, null);
             mVisitor.visitLocalVariable("attrValue", JAVA_OBJECT_DESC, null, new Label(), new Label(),1);
             mVisitor.visitCode();
             mVisitor.visitVarInsn(ALOAD, 0);
             mVisitor.visitVarInsn(ALOAD, 1);
+            mVisitor.visitTypeInsn(CHECKCAST, javaType);
             mVisitor.visitLdcInsn(attribute.getName());
             mVisitor.visitMethodInsn(INVOKESPECIAL, BASE_ATTRIBUTE_TYPE, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + "Ljava/lang/String;)V", false);
             mVisitor.visitInsn(RETURN);
             mVisitor.visitMaxs(3, 2);
             mVisitor.visitEnd();
-        }
+        }*/
 
         mVisitor = attributeWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$new$0", "(Ljava/lang/Object;Ljava/util/Map;)V", null, null);
         mVisitor.visitCode();
@@ -224,6 +234,11 @@ class XsdAsmAttributes {
         writeClassToFile(camelAttributeName, attributeWriter, apiName);
     }
 
+    /**
+     * AttrType (Object/String/Integer)
+     * AttrTypeContentType(EnumTypeContentType) NAMED
+     * AttrTypeStyle(EnumTypeStyle)             NO NAME
+     */
     private static String getAttributeName(XsdAttribute attribute) {
         String name = ATTRIBUTE_PREFIX + toCamelCase(attribute.getName()).replaceAll("\\W+", "");
 
@@ -234,12 +249,6 @@ class XsdAsmAttributes {
         String javaType = getFullJavaType(attribute);
 
         return name + javaType.substring(javaType.lastIndexOf('/') + 1, javaType.length() - 1);
-
-        /**
-         * AttrType (Object/String/Integer)
-         * AttrTypeContentType(EnumTypeContentType) NAMED
-         * AttrTypeStyle(EnumTypeStyle)             NO NAME
-         */
     }
 
     /**
