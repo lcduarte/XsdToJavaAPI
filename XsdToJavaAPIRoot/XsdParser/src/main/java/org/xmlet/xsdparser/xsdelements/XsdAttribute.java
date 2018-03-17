@@ -7,7 +7,7 @@ import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -41,11 +41,11 @@ public class XsdAttribute extends XsdReferenceElement {
         if (elementFieldsMap != null){
             super.setFields(elementFieldsMap);
 
-            this.defaultElement = elementFieldsMap.getOrDefault(DEFAULT_ELEMENT, defaultElement);
-            this.fixed = elementFieldsMap.getOrDefault(FIXED, fixed);
-            this.type = elementFieldsMap.getOrDefault(TYPE, type);
-            this.form = elementFieldsMap.getOrDefault(FORM, form);
-            this.use = elementFieldsMap.getOrDefault(USE, "optional");
+            this.defaultElement = elementFieldsMap.getOrDefault(DEFAULT_ELEMENT_TAG, defaultElement);
+            this.fixed = elementFieldsMap.getOrDefault(FIXED_TAG, fixed);
+            this.type = elementFieldsMap.getOrDefault(TYPE_TAG, type);
+            this.form = elementFieldsMap.getOrDefault(FORM_TAG, form);
+            this.use = elementFieldsMap.getOrDefault(USE_TAG, "optional");
 
             if (type != null && !XsdParser.getXsdTypesToJava().containsKey(type)){
                 XsdAttribute placeHolder = new XsdAttribute(this, null);
@@ -68,14 +68,14 @@ public class XsdAttribute extends XsdReferenceElement {
 
     @Override
     protected List<ReferenceBase> getElements() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public XsdAttribute clone(Map<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
 
-        placeHolderAttributes.remove(TYPE);
+        placeHolderAttributes.remove(TYPE_TAG);
 
         XsdAttribute copy = new XsdAttribute(this.getParent(), placeHolderAttributes);
 
@@ -83,11 +83,6 @@ public class XsdAttribute extends XsdReferenceElement {
         copy.simpleType = this.simpleType;
 
         return copy;
-    }
-
-    @Override
-    protected void setParent(XsdAbstractElement parent) {
-        super.setParent(parent);
     }
 
     @Override
@@ -105,6 +100,7 @@ public class XsdAttribute extends XsdReferenceElement {
         return simpleType instanceof ConcreteElement ? (XsdSimpleType) simpleType.getElement() : null;
     }
 
+    @SuppressWarnings("unused")
     public String getType() {
         return type;
     }
@@ -116,13 +112,13 @@ public class XsdAttribute extends XsdReferenceElement {
 
     @SuppressWarnings("unused")
     public List<XsdRestriction> getAllRestrictions(){
-        XsdSimpleType simpleType = getXsdSimpleType();
+        XsdSimpleType simpleTypeObj = getXsdSimpleType();
 
-        if (simpleType != null){
-            return simpleType.getAllRestrictions();
+        if (simpleTypeObj != null){
+            return simpleTypeObj.getAllRestrictions();
         }
 
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 
     public static ReferenceBase parse(Node node) {

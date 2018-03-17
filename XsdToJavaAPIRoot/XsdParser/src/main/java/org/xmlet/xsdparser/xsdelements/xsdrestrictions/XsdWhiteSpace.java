@@ -6,10 +6,10 @@ import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
 import java.util.Map;
 
-public class XsdWhiteSpace extends XsdAbstractRestrictionChild {
+public class XsdWhiteSpace extends XsdAbstractRestrictionChild implements StringValue {
 
-    public static String XSD_TAG = "xsd:whiteSpace";
-    public static String XS_TAG = "xs:whiteSpace";
+    public static final String XSD_TAG = "xsd:whiteSpace";
+    public static final String XS_TAG = "xs:whiteSpace";
 
     private boolean fixed;
     private String value;
@@ -28,8 +28,8 @@ public class XsdWhiteSpace extends XsdAbstractRestrictionChild {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            fixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(FIXED, "false"));
-            value = elementFieldsMap.getOrDefault(VALUE, value);
+            fixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(FIXED_TAG, "false"));
+            value = elementFieldsMap.getOrDefault(VALUE_TAG, value);
         }
     }
 

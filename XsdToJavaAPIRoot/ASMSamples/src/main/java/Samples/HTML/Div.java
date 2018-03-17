@@ -29,7 +29,7 @@ public class Div<P extends IElement> extends AbstractElement<Div<P>, P> implemen
 
     @Override
     public Div<P> cloneElem() {
-        return this.clone(new Div<P>());
+        return null;
     }
 
     public Div<P> addSomeAttribute(String val){

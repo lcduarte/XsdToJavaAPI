@@ -46,4 +46,53 @@ public abstract class XsdAbstractRestrictionChild extends XsdAnnotatedElements {
             setAnnotation(element);
         }
     }
+
+    public static boolean hasDifferentValue(IntValue o1, IntValue o2) {
+        if (o1 == null && o2 == null){
+            return false;
+        }
+
+        int o1Value = Integer.MAX_VALUE;
+        int o2Value;
+
+        if (o1 != null){
+            o1Value = o1.getValue();
+        }
+
+        if (o2 != null){
+            o2Value = o2.getValue();
+            return o2Value == o1Value;
+        }
+
+        return true;
+    }
+
+    public static boolean hasDifferentValue(StringValue o1, StringValue o2) {
+        if (o1 == null && o2 == null){
+            return false;
+        }
+
+        String o1Value = null;
+        String o2Value;
+
+        if (o1 != null){
+            o1Value = o1.getValue();
+        }
+
+        if (o2 != null){
+            o2Value = o2.getValue();
+            return o2Value.equals(o1Value);
+        }
+
+        return true;
+    }
 }
+
+interface StringValue{
+    String getValue();
+}
+
+interface IntValue{
+    int getValue();
+}
+

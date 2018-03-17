@@ -1,6 +1,6 @@
-import org.xmlet.TestObjects.*;
 import org.junit.Assert;
 import org.junit.Test;
+import org.xmlet.TestObjects.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,16 +49,16 @@ public class XsdAsmTest {
     /**
      * Based on the following xsd:
      * <xs:element name="personInfo">
-         <xs:complexType>
-             <xs:sequence>
-                 <xs:element name="firstName" type="xs:string"/>
-                 <xs:element name="lastName" type="xs:string"/>
-                 <xs:element name="personAddress" type="xs:string"/>
-                 <xs:element name="city" type="xs:string"/>
-                 <xs:element name="country" type="xs:string"/>
-             </xs:sequence>
-         </xs:complexType>
-       </xs:element>
+     <xs:complexType>
+     <xs:sequence>
+     <xs:element name="firstName" type="xs:string"/>
+     <xs:element name="lastName" type="xs:string"/>
+     <xs:element name="personAddress" type="xs:string"/>
+     <xs:element name="city" type="xs:string"/>
+     <xs:element name="country" type="xs:string"/>
+     </xs:sequence>
+     </xs:complexType>
+     </xs:element>
      * This test allows to demonstrate two things:
      *      * The sequence interfaces work properly, since the methods exist and all the intermediate classes
      *          are coherent.
@@ -72,10 +72,10 @@ public class XsdAsmTest {
         PersonInfo<PersonInfoElementContainer<Html>> personInfo = container.personInfo();
 
         PersonInfoComplete personInfoComplete = personInfo.firstName("Luis")
-                                                            .lastName("Duarte")
-                                                            .personAddress("AnAddress")
-                                                            .city("Lisbon")
-                                                            .country("Portugal");
+                .lastName("Duarte")
+                .personAddress("AnAddress")
+                .city("Lisbon")
+                .country("Portugal");
 
         Assert.assertEquals(1, container.getChildren().size());
         Assert.assertEquals(5, personInfoComplete.getChildren().size());
@@ -84,19 +84,19 @@ public class XsdAsmTest {
     /**
      * Based on:
      *  <xs:element name="studentGrades">
-             <xs:complexType>
-                 <xs:sequence>
-                     <xs:element name="firstName" type="xs:string"/>
-                     <xs:element name="lastName" type="xs:string"/>
-                     <xs:group>
-                         <xsd:all>
-                             <xs:element name="gradeNumeric" />
-                             <xs:element name="gradeQualitative" />
-                         </xsd:all>
-                     </xs:group>
-                 </xs:sequence>
-             </xs:complexType>
-        </xs:element>
+     <xs:complexType>
+     <xs:sequence>
+     <xs:element name="firstName" type="xs:string"/>
+     <xs:element name="lastName" type="xs:string"/>
+     <xs:group>
+     <xsd:all>
+     <xs:element name="gradeNumeric" />
+     <xs:element name="gradeQualitative" />
+     </xsd:all>
+     </xs:group>
+     </xs:sequence>
+     </xs:complexType>
+     </xs:element>
      * This test allows to test a sequence with a group as a member.
      * As we can see we can choose to add a numeric grade or a qualitative, but not both.
      */
@@ -135,9 +135,9 @@ public class XsdAsmTest {
     @Test
     public void testGroupWithInnerSequence(){
         AName elem = new AName().elem1("val1")
-                                .elem2("val2")
-                                .elem1("val1")
-                                .elem2("val2");
+                .elem2("val2")
+                .elem1("val1")
+                .elem2("val2");
 
         Assert.assertEquals(4, elem.getChildren().size());
     }
@@ -202,11 +202,11 @@ public class XsdAsmTest {
                                                 .attrAndroid_layout_width("wrap_content")
                                                 .attrAndroid_layout_height("wrap_content")
                                 ).addChild(
-                                        new TextView()
-                                                .attrAndroid_width("match_parent")
-                                                .attrAndroid_height("weight_content")
-                                                .attrAndroid_lines("2")
-                                )
+                                new TextView()
+                                        .attrAndroid_width("match_parent")
+                                        .attrAndroid_height("weight_content")
+                                        .attrAndroid_lines("2")
+                        )
                 );
     }
 }

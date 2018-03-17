@@ -3,7 +3,6 @@ package org.xmlet.xsdparser.xsdelements;
 import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
-import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
 import java.util.ArrayList;
@@ -46,11 +45,11 @@ public class XsdComplexType extends XsdAnnotatedElements {
         if (elementFieldsMap != null){
             super.setFields(elementFieldsMap);
 
-            this.name = elementFieldsMap.getOrDefault(NAME, name);
-            this.elementAbstract = Boolean.parseBoolean(elementFieldsMap.getOrDefault(ABSTRACT, "false"));
-            this.mixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(MIXED, "false"));
-            this.block = elementFieldsMap.getOrDefault(BLOCK, block);
-            this.elementFinal = elementFieldsMap.getOrDefault(FINAL, elementFinal);
+            this.name = elementFieldsMap.getOrDefault(NAME_TAG, name);
+            this.elementAbstract = Boolean.parseBoolean(elementFieldsMap.getOrDefault(ABSTRACT_TAG, "false"));
+            this.mixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(MIXED_TAG, "false"));
+            this.block = elementFieldsMap.getOrDefault(BLOCK_TAG, block);
+            this.elementFinal = elementFieldsMap.getOrDefault(FINAL_TAG, elementFinal);
         }
     }
 
@@ -89,28 +88,7 @@ public class XsdComplexType extends XsdAnnotatedElements {
     public void replaceUnsolvedElements(ConcreteElement element) {
         super.replaceUnsolvedElements(element);
 
-        if (element.getElement() instanceof XsdAttributeGroup){
-            attributeGroups.stream()
-                    .filter(attributeGroup -> attributeGroup instanceof UnsolvedReference && ((UnsolvedReference) attributeGroup).getRef().equals(element.getName()))
-                    .findFirst().ifPresent(referenceBase -> {
-                attributeGroups.remove(referenceBase);
-                attributeGroups.add(element);
-                attributes.addAll(element.getElement().getElements());
-
-                element.getElement().setParent(this);
-            });
-        }
-
-        if (element.getElement() instanceof XsdAttribute){
-            attributes.stream()
-                    .filter(attribute -> attribute instanceof UnsolvedReference && ((UnsolvedReference) attribute).getRef().equals(element.getName()))
-                    .findFirst().ifPresent(referenceBase -> {
-                attributes.remove(referenceBase);
-                attributes.add(element);
-
-                element.getElement().setParent(this);
-            });
-        }
+        replaceUnsolvedAttributes(element, attributeGroups, attributes);
     }
 
     public XsdAbstractElement getXsdChildElement() {
@@ -140,10 +118,6 @@ public class XsdComplexType extends XsdAnnotatedElements {
         return attributeGroups.stream()
                 .filter(attributeGroup -> attributeGroup instanceof ConcreteElement)
                 .map(attributeGroup -> (XsdAttributeGroup) attributeGroup.getElement());
-    }
-
-    private List<ReferenceBase> getAttributeGroups() {
-        return attributeGroups;
     }
 
     @SuppressWarnings("unused")

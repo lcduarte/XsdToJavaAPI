@@ -23,7 +23,7 @@ public abstract class XsdReferenceElement extends XsdAnnotatedElements {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.name = elementFieldsMap.getOrDefault(NAME, name);
+            this.name = elementFieldsMap.getOrDefault(NAME_TAG, name);
         }
     }
 

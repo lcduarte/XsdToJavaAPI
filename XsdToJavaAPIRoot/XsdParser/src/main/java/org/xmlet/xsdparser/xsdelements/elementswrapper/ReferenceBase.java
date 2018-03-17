@@ -4,7 +4,9 @@ import org.xmlet.xsdparser.xsdelements.XsdAbstractElement;
 import org.xmlet.xsdparser.xsdelements.XsdReferenceElement;
 import org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdAbstractRestrictionChild;
 
-import static org.xmlet.xsdparser.xsdelements.XsdReferenceElement.NAME;
+import java.security.InvalidParameterException;
+
+import static org.xmlet.xsdparser.xsdelements.XsdReferenceElement.NAME_TAG;
 
 public abstract class ReferenceBase {
 
@@ -30,12 +32,12 @@ public abstract class ReferenceBase {
                 return new UnsolvedReference((XsdReferenceElement) element);
             }
 
-            throw new RuntimeException("Invalid element parameter");
+            throw new InvalidParameterException("The element should either have a name attribute or a ref attribute.");
         }
     }
 
     static String getName(XsdAbstractElement element){
-        return getNodeValue(element, NAME);
+        return getNodeValue(element, NAME_TAG);
     }
 
     static String getRef(XsdAbstractElement element){

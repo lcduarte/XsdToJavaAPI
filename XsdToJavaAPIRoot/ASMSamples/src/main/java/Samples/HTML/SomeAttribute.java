@@ -2,12 +2,9 @@ package Samples.HTML;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class SomeAttribute extends AbstractAttribute<String>{
-
-    private static List<Map<String, Object>> restrictions = new ArrayList<>();
+public class SomeAttribute extends BaseAttribute<String> {
 
     static {
         Map<java.lang.String, Object> restriction1 = new HashMap<>();
@@ -33,28 +30,7 @@ public class SomeAttribute extends AbstractAttribute<String>{
         restrictions.add(restriction2);
     }
 
-    SomeAttribute(Object value) {
-        super((String) value, "SomeAttribute");
-    }
-
     SomeAttribute(String value) {
         super(value, "SomeAttribute");
-
-        restrictions.forEach(restriction -> {
-            Object toRestrictValue = SomeAttribute.this.getValue();
-
-            if (toRestrictValue instanceof String){
-                RestrictionValidator.validate(restriction, (String) toRestrictValue);
-            }
-
-            if (toRestrictValue instanceof Integer || toRestrictValue instanceof Short || toRestrictValue instanceof Float || toRestrictValue instanceof Double){
-                RestrictionValidator.validate(restriction, (Double) toRestrictValue);
-            }
-
-            if (toRestrictValue instanceof List){
-                RestrictionValidator.validate(restriction, (List) toRestrictValue);
-            }
-        });
     }
-
 }

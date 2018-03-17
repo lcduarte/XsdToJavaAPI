@@ -19,7 +19,7 @@ public abstract class XsdIdentifierElements extends XsdAbstractElement {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.id = elementFieldsMap.getOrDefault(ID, id);
+            this.id = elementFieldsMap.getOrDefault(ID_TAG, id);
         }
     }
 

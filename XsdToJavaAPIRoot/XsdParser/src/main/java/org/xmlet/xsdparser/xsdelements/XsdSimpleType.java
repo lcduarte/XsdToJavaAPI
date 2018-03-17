@@ -1,14 +1,15 @@
 package org.xmlet.xsdparser.xsdelements;
 
-//TODO XsdLists tem um built in type ou outro ?simple type?, que já está resolvido e devem poder ter XsdRestriction lá dentro.
-
 import org.w3c.dom.Node;
 import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
-import org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdEnumeration;
+import org.xmlet.xsdparser.xsdelements.xsdrestrictions.*;
 
+import java.security.InvalidParameterException;
 import java.util.*;
+
+import static org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdAbstractRestrictionChild.hasDifferentValue;
 
 public class XsdSimpleType extends XsdAnnotatedElements {
 
@@ -37,8 +38,8 @@ public class XsdSimpleType extends XsdAnnotatedElements {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.name = elementFieldsMap.getOrDefault(NAME, name);
-            this.finalObj = elementFieldsMap.getOrDefault(FINAL, finalObj);
+            this.name = elementFieldsMap.getOrDefault(NAME_TAG, name);
+            this.finalObj = elementFieldsMap.getOrDefault(FINAL_TAG, finalObj);
         }
     }
 
@@ -67,7 +68,7 @@ public class XsdSimpleType extends XsdAnnotatedElements {
 
     @Override
     protected List<ReferenceBase> getElements() {
-        return null;
+        return Collections.emptyList();
     }
 
     public static ReferenceBase parse(Node node){
@@ -83,13 +84,11 @@ public class XsdSimpleType extends XsdAnnotatedElements {
     }
 
     public XsdList getList() {
-        if (this.list == null){
-            if (union != null){
-                Optional<XsdSimpleType> simpleType = union.getUnionElements().stream().filter(xsdSimpleType -> xsdSimpleType.list != null).findFirst();
+        if (this.list == null && this.union != null){
+            Optional<XsdSimpleType> simpleType = union.getUnionElements().stream().filter(xsdSimpleType -> xsdSimpleType.list != null).findFirst();
 
-                if (simpleType.isPresent()){
-                    return simpleType.get().list;
-                }
+            if (simpleType.isPresent()){
+                return simpleType.get().list;
             }
         }
 
@@ -120,35 +119,10 @@ public class XsdSimpleType extends XsdAnnotatedElements {
 
                     if (existingRestriction != null){
                         if (existsRestrictionOverlap(existingRestriction, unionMemberRestriction)){
-                            throw new RuntimeException("The xsd file is invalid because has contradictory restrictions.");
+                            throw new InvalidParameterException("The xsd file is invalid because has contradictory restrictions.");
                         }
 
-                        existingRestriction.setPattern(unionMemberRestriction.getPattern() == null ? existingRestriction.getPattern() : unionMemberRestriction.getPattern());
-                        existingRestriction.setMaxExclusive(unionMemberRestriction.getMaxExclusive() == null ? existingRestriction.getMaxExclusive() : unionMemberRestriction.getMaxExclusive());
-                        existingRestriction.setMaxInclusive(unionMemberRestriction.getMaxInclusive() == null ? existingRestriction.getMaxInclusive() : unionMemberRestriction.getMaxInclusive());
-                        existingRestriction.setMaxLength(unionMemberRestriction.getMaxLength() == null ? existingRestriction.getMaxLength() : unionMemberRestriction.getMaxLength());
-                        existingRestriction.setMinExclusive(unionMemberRestriction.getMinExclusive() == null ? existingRestriction.getMinExclusive() : unionMemberRestriction.getMinExclusive());
-                        existingRestriction.setMinInclusive(unionMemberRestriction.getMinInclusive() == null ? existingRestriction.getMinInclusive() : unionMemberRestriction.getMinInclusive());
-                        existingRestriction.setMinLength(unionMemberRestriction.getMinLength() == null ? existingRestriction.getMinLength() : unionMemberRestriction.getMinLength());
-                        existingRestriction.setLength(unionMemberRestriction.getLength() == null ? existingRestriction.getLength() : unionMemberRestriction.getLength());
-                        existingRestriction.setFractionDigits(unionMemberRestriction.getFractionDigits() == null ? existingRestriction.getFractionDigits() : unionMemberRestriction.getFractionDigits());
-                        existingRestriction.setTotalDigits(unionMemberRestriction.getTotalDigits() == null ? existingRestriction.getTotalDigits() : unionMemberRestriction.getTotalDigits());
-                        existingRestriction.setWhiteSpace(unionMemberRestriction.getWhiteSpace() == null ? existingRestriction.getWhiteSpace() : unionMemberRestriction.getWhiteSpace());
-
-                        List<XsdEnumeration> existingEnumeration = existingRestriction.getEnumeration();
-                        List<XsdEnumeration> newRestrictionEnumeration = existingRestriction.getEnumeration();
-
-                        if (existingEnumeration == null){
-                            existingRestriction.setEnumeration(newRestrictionEnumeration);
-                        } else {
-                            if (newRestrictionEnumeration != null){
-                                for (XsdEnumeration enumerationElem : newRestrictionEnumeration){
-                                    if (existingEnumeration.stream().noneMatch(existingEnumerationElem -> existingEnumerationElem.getValue().equals(enumerationElem.getValue()))){
-                                        existingEnumeration.add(enumerationElem);
-                                    }
-                                }
-                            }
-                        }
+                        updateExistingRestriction(existingRestriction, unionMemberRestriction);
                     } else {
                         restrictions.put(xsdBuiltinTypes.get(unionMemberRestriction.getBase()), unionMemberRestriction);
                     }
@@ -159,24 +133,101 @@ public class XsdSimpleType extends XsdAnnotatedElements {
         return new ArrayList<>(restrictions.values());
     }
 
+    private void updateExistingRestriction(XsdRestriction existing, XsdRestriction newRestriction) {
+        XsdPattern pattern = newRestriction.getPattern();
+        XsdMaxExclusive maxExclusive = newRestriction.getMaxExclusive();
+        XsdMaxInclusive maxInclusive = newRestriction.getMaxInclusive();
+        XsdMaxLength maxLength = newRestriction.getMaxLength();
+        XsdMinExclusive minExclusive = newRestriction.getMinExclusive();
+        XsdMinInclusive minInclusive = newRestriction.getMinInclusive();
+        XsdMinLength minLength = newRestriction.getMinLength();
+        XsdLength length = newRestriction.getLength();
+        XsdFractionDigits fractionDigits = newRestriction.getFractionDigits();
+        XsdTotalDigits totalDigits = newRestriction.getTotalDigits();
+        XsdWhiteSpace whiteSpace = newRestriction.getWhiteSpace();
+
+        if (pattern != null){
+            existing.setPattern(pattern);
+        }
+
+        if (maxExclusive != null){
+            existing.setMaxExclusive(maxExclusive);
+        }
+
+        if (maxInclusive != null){
+            existing.setMaxInclusive(maxInclusive);
+        }
+
+        if (maxLength != null){
+            existing.setMaxLength(maxLength);
+        }
+
+        if (minExclusive != null){
+            existing.setMinExclusive(minExclusive);
+        }
+
+        if (minInclusive != null){
+            existing.setMinInclusive(minInclusive);
+        }
+
+        if (minLength != null){
+            existing.setMinLength(minLength);
+        }
+
+        if (length != null){
+            existing.setLength(length);
+        }
+
+        if (fractionDigits != null){
+            existing.setFractionDigits(fractionDigits);
+        }
+
+        if (totalDigits != null){
+            existing.setTotalDigits(totalDigits);
+        }
+
+        if (whiteSpace != null){
+            existing.setWhiteSpace(whiteSpace);
+        }
+
+        updateExistingRestrictionEnumerations(existing);
+    }
+
+    private void updateExistingRestrictionEnumerations(XsdRestriction existing) {
+        List<XsdEnumeration> existingEnumeration = existing.getEnumeration();
+        List<XsdEnumeration> newRestrictionEnumeration = existing.getEnumeration();
+
+        if (existingEnumeration == null){
+            existing.setEnumeration(newRestrictionEnumeration);
+        } else {
+            if (newRestrictionEnumeration != null){
+                for (XsdEnumeration enumerationElem : newRestrictionEnumeration){
+                    if (existingEnumeration.stream().noneMatch(existingEnumerationElem -> existingEnumerationElem.getValue().equals(enumerationElem.getValue()))){
+                        existingEnumeration.add(enumerationElem);
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Checks for any restriction overlap between two different XsdRestriction objects.
-     * @param existingRestriction The existing restriction.
-     * @param unionMemberRestriction The second restriction found.
+     * @param existing The existing restriction.
+     * @param newRestriction The second restriction found.
      * @return True if an overlap between the restrictions occur, false if it doesn't ocurr.
      */
-    private boolean existsRestrictionOverlap(XsdRestriction existingRestriction, XsdRestriction unionMemberRestriction) {
-        return  (existingRestriction.getWhiteSpace() != null && unionMemberRestriction.getWhiteSpace() != null && existingRestriction.getWhiteSpace() != unionMemberRestriction.getWhiteSpace()) ||
-                (existingRestriction.getPattern() != null && unionMemberRestriction.getPattern() != null && existingRestriction.getPattern() != unionMemberRestriction.getPattern()) ||
-                (existingRestriction.getTotalDigits() != null && unionMemberRestriction.getTotalDigits() != null && existingRestriction.getTotalDigits().getValue() != unionMemberRestriction.getTotalDigits().getValue()) ||
-                (existingRestriction.getFractionDigits() != null && unionMemberRestriction.getFractionDigits() != null && existingRestriction.getFractionDigits().getValue() != unionMemberRestriction.getFractionDigits().getValue()) ||
-                (existingRestriction.getMaxExclusive() != null && unionMemberRestriction.getMaxExclusive() != null && existingRestriction.getMaxExclusive().getValue() != unionMemberRestriction.getMaxExclusive().getValue()) ||
-                (existingRestriction.getMaxInclusive() != null && unionMemberRestriction.getMaxInclusive() != null && existingRestriction.getMaxInclusive().getValue() != unionMemberRestriction.getMaxInclusive().getValue()) ||
-                (existingRestriction.getMaxLength() != null && unionMemberRestriction.getMaxLength() != null && existingRestriction.getMaxLength().getValue() != unionMemberRestriction.getMaxLength().getValue()) ||
-                (existingRestriction.getMinExclusive() != null && unionMemberRestriction.getMinExclusive() != null && existingRestriction.getMinExclusive().getValue() != unionMemberRestriction.getMinExclusive().getValue()) ||
-                (existingRestriction.getMinInclusive() != null && unionMemberRestriction.getMinInclusive() != null && existingRestriction.getMinInclusive().getValue() != unionMemberRestriction.getMinInclusive().getValue()) ||
-                (existingRestriction.getMinLength() != null && unionMemberRestriction.getMinLength() != null && existingRestriction.getMinLength().getValue() != unionMemberRestriction.getMinLength().getValue()) ||
-                (existingRestriction.getLength() != null && unionMemberRestriction.getLength() != null && existingRestriction.getLength().getValue() != unionMemberRestriction.getLength().getValue());
+    private boolean existsRestrictionOverlap(XsdRestriction existing, XsdRestriction newRestriction) {
+        return hasDifferentValue(existing.getPattern(), newRestriction.getPattern()) ||
+               hasDifferentValue(existing.getWhiteSpace(), newRestriction.getWhiteSpace()) ||
+               hasDifferentValue(existing.getTotalDigits(), newRestriction.getTotalDigits()) ||
+               hasDifferentValue(existing.getFractionDigits(), newRestriction.getFractionDigits()) ||
+               hasDifferentValue(existing.getMaxExclusive(), newRestriction.getMaxExclusive()) ||
+               hasDifferentValue(existing.getMaxInclusive(), newRestriction.getMaxInclusive()) ||
+               hasDifferentValue(existing.getMaxLength(), newRestriction.getMaxLength()) ||
+               hasDifferentValue(existing.getMinExclusive(), newRestriction.getMinExclusive()) ||
+               hasDifferentValue(existing.getMinInclusive(), newRestriction.getMinInclusive()) ||
+               hasDifferentValue(existing.getMinLength(), newRestriction.getMinLength()) ||
+               hasDifferentValue(existing.getLength(), newRestriction.getLength());
     }
 
     class SimpleTypeXsdElementVisitor extends AnnotatedXsdElementVisitor {

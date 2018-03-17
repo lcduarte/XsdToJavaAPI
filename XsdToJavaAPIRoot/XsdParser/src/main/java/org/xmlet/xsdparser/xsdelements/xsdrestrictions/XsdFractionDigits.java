@@ -7,10 +7,10 @@ import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
 import java.util.Map;
 
-public class XsdFractionDigits extends XsdAbstractRestrictionChild {
+public class XsdFractionDigits extends XsdAbstractRestrictionChild implements IntValue {
 
-    public static String XSD_TAG = "xsd:fractionDigits";
-    public static String XS_TAG = "xs:fractionDigits";
+    public static final String XSD_TAG = "xsd:fractionDigits";
+    public static final String XS_TAG = "xs:fractionDigits";
 
     private boolean fixed;
     private int value;
@@ -29,8 +29,8 @@ public class XsdFractionDigits extends XsdAbstractRestrictionChild {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            fixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(XsdAbstractElement.FIXED, "false"));
-            value = Integer.parseInt(elementFieldsMap.getOrDefault(XsdAbstractElement.VALUE, "0"));
+            fixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(XsdAbstractElement.FIXED_TAG, "false"));
+            value = Integer.parseInt(elementFieldsMap.getOrDefault(XsdAbstractElement.VALUE_TAG, "0"));
         }
     }
 
@@ -56,4 +56,5 @@ public class XsdFractionDigits extends XsdAbstractRestrictionChild {
     public boolean isFixed() {
         return fixed;
     }
+
 }

@@ -5,6 +5,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.objectweb.asm.*;
 import org.xmlet.xsdparser.xsdelements.*;
 
+import java.security.InvalidParameterException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -55,7 +56,7 @@ class XsdAsmInterfaces {
             interfaces = getElementInterfaces(complexType, apiName);
         }
 
-        if (interfaces == null || interfaces.length == 0){
+        if (interfaces.length == 0){
             return new String[]{TEXT_GROUP};
         }
 
@@ -82,7 +83,7 @@ class XsdAsmInterfaces {
                 elementAttribute.setName(elementAttribute.getName() + ATTRIBUTE_CASE_SENSITIVE_DIFERENCE);
             }
 
-            generateMethodsAndCreateAttribute(createdAttributes, interfaceWriter, elementAttribute, ELEMENT_TYPE_DESC, apiName);
+            generateMethodsAndCreateAttribute(createdAttributes, interfaceWriter, elementAttribute, elementTypeDesc, apiName);
         });
 
         writeClassToFile(baseClassNameCamelCase, interfaceWriter, apiName);
@@ -157,7 +158,7 @@ class XsdAsmInterfaces {
         attributeGroups.forEach(attributeGroup -> {
             XsdAbstractElement parent = attributeGroup.getParent();
 
-            if (parent instanceof XsdAttributeGroup && !parents.contains(parent) && parent != null){
+            if (parent instanceof XsdAttributeGroup && !parents.contains(parent)){
                 parents.add((XsdAttributeGroup) parent);
             }
         });
@@ -168,7 +169,7 @@ class XsdAsmInterfaces {
             return interfaces;
         }
 
-        if (parents.size() == 0){
+        if (parents.isEmpty()){
             return attributeGroups.stream()
                     .map(baseClass -> toCamelCase(baseClass.getName()))
                     .collect(Collectors.toList());
@@ -205,9 +206,9 @@ class XsdAsmInterfaces {
         StringBuilder signature;
 
         if (interfaces.length == 0){
-            signature = new StringBuilder("<T::L" + ELEMENT_TYPE + "<TT;TZ;>;Z::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC + "L" + ELEMENT_TYPE + "<TT;TZ;>;");
+            signature = new StringBuilder("<T::L" + elementType + "<TT;TZ;>;Z::" + elementTypeDesc + ">" + JAVA_OBJECT_DESC + "L" + elementType + "<TT;TZ;>;");
         } else {
-            signature = new StringBuilder("<T::L" + ELEMENT_TYPE + "<TT;TZ;>;Z::" + ELEMENT_TYPE_DESC + ">" + JAVA_OBJECT_DESC);
+            signature = new StringBuilder("<T::L" + elementType + "<TT;TZ;>;Z::" + elementTypeDesc + ">" + JAVA_OBJECT_DESC);
 
             for (String anInterface : interfaces) {
                 signature.append("L").append(getFullClassTypeName(anInterface, apiName)).append("<TT;TZ;>;");
@@ -226,7 +227,7 @@ class XsdAsmInterfaces {
     private String[] getAttributeGroupObjectInterfaces(List<String> parentsName) {
         String[] interfaces;
 
-        if (parentsName.size() == 0){
+        if (parentsName.isEmpty()){
             interfaces = new String[]{ELEMENT};
         } else {
             interfaces = new String[parentsName.size()];
@@ -243,10 +244,10 @@ class XsdAsmInterfaces {
      * @return A string array with all the interface names.
      */
     String[] getInterfaces(XsdElement element, String apiName) {
-        String[] attributeGroupInterfaces =  getAttributeGroupInterfaces(element);
-        String[] elementGroupInterfaces =  getElementInterfaces(element, apiName);
+        String[] attributeGroupInterfacesArr =  getAttributeGroupInterfaces(element);
+        String[] elementGroupInterfacesArr =  getElementInterfaces(element, apiName);
 
-        return ArrayUtils.addAll(attributeGroupInterfaces, elementGroupInterfaces);
+        return ArrayUtils.addAll(attributeGroupInterfacesArr, elementGroupInterfacesArr);
     }
 
     /**
@@ -263,7 +264,7 @@ class XsdAsmInterfaces {
             return new String[] {interfaceInfo.getInterfaceName()};
         }
 
-        return null;
+        return new String[] {};
     }
 
     /**
@@ -486,9 +487,9 @@ class XsdAsmInterfaces {
             }
         }
 
-        ClassWriter classWriter = generateClass(typeName, ABSTRACT_ELEMENT_TYPE, nextTypeInterfaces, getClassSignature(null, nextTypeInterfaces, typeName, apiName), ACC_PUBLIC + ACC_SUPER, apiName);
+        ClassWriter classWriter = generateClass(typeName, abstractElementType, nextTypeInterfaces, getClassSignature(null, nextTypeInterfaces, typeName, apiName), ACC_PUBLIC + ACC_SUPER, apiName);
 
-        XsdAsmElements.generateClassSpecificMethods(classWriter, typeName, apiName, ABSTRACT_ELEMENT_TYPE, firstToLower(className));
+        XsdAsmElements.generateClassSpecificMethods(classWriter, typeName, apiName, abstractElementType, firstToLower(className));
 
         writeClassToFile(typeName, classWriter, apiName);
     }
@@ -528,14 +529,14 @@ class XsdAsmInterfaces {
         }
 
         //TODO Receber o tipo do elemento, se o tiver. Isto implica ter de mudar Text possivelmente.
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, firstToLower(sequenceName), "(Ljava/lang/String;)" + nextTypeDesc, "(Ljava/lang/String;)L" + nextType + "<TZ;>;", null);
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, firstToLower(sequenceName), "(" + JAVA_STRING_DESC + ")" + nextTypeDesc, "(" + JAVA_STRING_DESC + ")L" + nextType + "<TZ;>;", null);
         mVisitor.visitLocalVariable(firstToLower(sequenceName), JAVA_STRING_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitTypeInsn(NEW, nextType);
         mVisitor.visitInsn(DUP);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + ELEMENT_TYPE_DESC, true);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, nextType, CONSTRUCTOR, "(" + ELEMENT_TYPE_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + elementTypeDesc, true);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, nextType, CONSTRUCTOR, "(" + elementTypeDesc + ")V", false);
         mVisitor.visitVarInsn(ASTORE, 2);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "getChildren", "()Ljava/util/List;", true);
@@ -543,38 +544,37 @@ class XsdAsmInterfaces {
         mVisitor.visitInsn(DUP);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Object", "getClass", "()Ljava/lang/Class;", false);
         mVisitor.visitInsn(POP);
-        mVisitor.visitInvokeDynamicInsn("accept", "(" + nextTypeDesc + ")Ljava/util/function/Consumer;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(Ljava/lang/Object;)V"), new Handle(Opcodes.H_INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE, "addChild", "(" + ELEMENT_TYPE_DESC + ")" + ELEMENT_TYPE_DESC, false), Type.getType("(" + ELEMENT_TYPE_DESC + ")V"));
+        mVisitor.visitInvokeDynamicInsn("accept", "(" + nextTypeDesc + ")Ljava/util/function/Consumer;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;" + JAVA_STRING_DESC + "Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(" + JAVA_OBJECT_DESC + ")V"), new Handle(Opcodes.H_INVOKEVIRTUAL, abstractElementType, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, false), Type.getType("(" + elementTypeDesc + ")V"));
         mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/List", "forEach", "(Ljava/util/function/Consumer;)V", true);
         mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitTypeInsn(NEW, addingType);
         mVisitor.visitInsn(DUP);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "self", "()" + ELEMENT_TYPE_DESC, true);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, addingType, "<init>", "(" + ELEMENT_TYPE_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "self", "()" + elementTypeDesc, true);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, addingType, CONSTRUCTOR, "(" + elementTypeDesc + ")V", false);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "text", "(Ljava/lang/String;)" + ELEMENT_TYPE_DESC, false);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, nextType, "addChild", "(" + ELEMENT_TYPE_DESC + ")" + ELEMENT_TYPE_DESC, false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "text", "(" + JAVA_STRING_DESC + ")" + elementTypeDesc, false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, nextType, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, false);
         mVisitor.visitInsn(POP);
 
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + ELEMENT_TYPE_DESC, true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + elementTypeDesc, true);
         Label l0 = new Label();
         mVisitor.visitJumpInsn(IFNULL, l0);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + ELEMENT_TYPE_DESC, true);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, ELEMENT_TYPE, "getChildren", "()Ljava/util/List;", true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + elementTypeDesc, true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "getChildren", "()Ljava/util/List;", true);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/List", "remove", "(Ljava/lang/Object;)Z", true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/List", "remove", "(" + JAVA_OBJECT_DESC + ")Z", true);
         mVisitor.visitInsn(POP);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + ELEMENT_TYPE_DESC, true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + elementTypeDesc, true);
         mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, ELEMENT_TYPE, "addChild", "(" + ELEMENT_TYPE_DESC + ")" + ELEMENT_TYPE_DESC, true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, true);
         mVisitor.visitInsn(POP);
         mVisitor.visitLabel(l0);
         mVisitor.visitFrame(Opcodes.F_APPEND,1, new Object[] {nextType}, 0, null);
         mVisitor.visitVarInsn(ALOAD, 2);
-
 
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(4, 3);
@@ -655,7 +655,7 @@ class XsdAsmInterfaces {
         ClassWriter classWriter = generateClass(interfaceName, JAVA_OBJECT, extendedInterfacesArr, getInterfaceSignature(extendedInterfacesArr, apiName), ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
         directElements.forEach(child -> {
-            generateMethodsForElement(classWriter, child, getFullClassTypeName(interfaceName, apiName), ELEMENT_TYPE_DESC, apiName);
+            generateMethodsForElement(classWriter, child, getFullClassTypeName(interfaceName, apiName), elementTypeDesc, apiName);
             createElement(child, apiName);
         });
 
@@ -707,12 +707,12 @@ class XsdAsmInterfaces {
         ClassWriter classWriter = generateClass(interfaceName, JAVA_OBJECT, extendedInterfacesArr, getInterfaceSignature(extendedInterfacesArr, apiName), ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
         directElements.forEach(child -> {
-            XsdAsmElements.generateMethodsForElement(classWriter, child, getFullClassTypeName(interfaceName, apiName), ELEMENT_TYPE_DESC, apiName);
+            XsdAsmElements.generateMethodsForElement(classWriter, child, getFullClassTypeName(interfaceName, apiName), elementTypeDesc, apiName);
             createElement(child, apiName);
         });
 
         getAmbiguousNames(interfaceInfos).forEach(name ->
-            XsdAsmElements.generateMethodsForElement(classWriter, name, getFullClassTypeName(interfaceName, apiName), ELEMENT_TYPE_DESC, apiName)
+            XsdAsmElements.generateMethodsForElement(classWriter, name, getFullClassTypeName(interfaceName, apiName), elementTypeDesc, apiName)
         );
 
         writeClassToFile(interfaceName, classWriter, apiName);
@@ -721,7 +721,8 @@ class XsdAsmInterfaces {
     }
 
     private Set<String> getAmbiguousNames(List<InterfaceInfo> interfaceInfos) {
-        Set<String> ambiguousNames = new HashSet<>(), dummy = new HashSet<>();
+        Set<String> ambiguousNames = new HashSet<>();
+        Set<String> dummy = new HashSet<>();
         List<String> names = getAllNames(interfaceInfos);
 
         names.forEach(name -> {
@@ -794,7 +795,7 @@ class XsdAsmInterfaces {
         }
 
         if (interfaceInfo == null){
-            throw new RuntimeException("Invalid element interface type.");
+            throw new InvalidParameterException("Invalid element interface type.");
         }
 
         createdInterfaces.put(interfaceInfo.getInterfaceName(), interfaceInfo);

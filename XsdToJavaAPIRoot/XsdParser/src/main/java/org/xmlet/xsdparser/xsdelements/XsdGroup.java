@@ -33,8 +33,8 @@ public class XsdGroup extends XsdReferenceElement {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.minOccurs = Integer.parseInt(elementFieldsMap.getOrDefault(MIN_OCCURS, "1"));
-            this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS, "1");
+            this.minOccurs = Integer.parseInt(elementFieldsMap.getOrDefault(MIN_OCCURS_TAG, "1"));
+            this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS_TAG, "1");
         }
     }
 
@@ -76,10 +76,6 @@ public class XsdGroup extends XsdReferenceElement {
         this.childElement = childElement;
         childElement.getElements().forEach(childElementObj -> childElementObj.getElement().setParent(childElement));
         this.childElement.setParent(this);
-    }
-
-    private XsdMultipleElements getChildElement() {
-        return childElement;
     }
 
     public static ReferenceBase parse(Node node){

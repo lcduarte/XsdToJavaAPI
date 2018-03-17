@@ -19,28 +19,28 @@ public abstract class XsdAbstractElement {
 
     protected Map<String, String> elementFieldsMap = new HashMap<>();
 
-    static final String ID = "id";
-    public static final String NAME = "name";
-    static final String ABSTRACT = "abstract";
-    static final String DEFAULT_ELEMENT = "defaultElement";
-    protected static final String FIXED = "fixed";
-    static final String TYPE = "type";
-    static final String MIXED = "mixed";
-    static final String BLOCK = "block";
-    static final String FINAL = "final";
-    static final String USE = "use";
-    static final String SUBSTITUTION_GROUP = "substitutionGroup";
-    static final String DEFAULT = "default";
-    static final String FORM = "form";
-    static final String NILLABLE = "nillable";
-    static final String MIN_OCCURS = "minOccurs";
-    static final String MAX_OCCURS = "maxOccurs";
-    static final String ITEM_TYPE = "itemType";
-    static final String BASE = "base";
-    static final String SOURCE = "source";
-    static final String XML_LANG = "xml:lang";
-    static final String MEMBER_TYPES = "memberTypes";
-    public static final String VALUE = "value";
+    static final String ID_TAG = "id";
+    public static final String NAME_TAG = "name";
+    static final String ABSTRACT_TAG = "abstract";
+    static final String DEFAULT_ELEMENT_TAG = "defaultElement";
+    protected static final String FIXED_TAG = "fixed";
+    static final String TYPE_TAG = "type";
+    static final String MIXED_TAG = "mixed";
+    static final String BLOCK_TAG = "block";
+    static final String FINAL_TAG = "final";
+    static final String USE_TAG = "use";
+    static final String SUBSTITUTION_GROUP_TAG = "substitutionGroup";
+    static final String DEFAULT_TAG = "default";
+    static final String FORM_TAG = "form";
+    static final String NILLABLE_TAG = "nillable";
+    static final String MIN_OCCURS_TAG = "minOccurs";
+    static final String MAX_OCCURS_TAG = "maxOccurs";
+    static final String ITEM_TYPE_TAG = "itemType";
+    static final String BASE_TAG = "base";
+    static final String SOURCE_TAG = "source";
+    static final String XML_LANG_TAG = "xml:lang";
+    static final String MEMBER_TYPES_TAG = "memberTypes";
+    public static final String VALUE_TAG = "value";
 
     private XsdAbstractElement parent;
 
@@ -103,15 +103,11 @@ public abstract class XsdAbstractElement {
     static ReferenceBase xsdParseSkeleton(Node node, XsdAbstractElement element){
         Node child = node.getFirstChild();
 
-        if (element instanceof XsdElement && ((XsdElement) element).getName() != null && ((XsdElement) element).getName().equals("html")){
-            int a  = 5;
-        }
-
         while (child != null) {
             if (child.getNodeType() == Node.ELEMENT_NODE) {
                 String nodeName = child.getNodeName();
 
-                Function<Node, ReferenceBase> parserFunction = XsdParser.parseMappers.get(nodeName);
+                Function<Node, ReferenceBase> parserFunction = XsdParser.getParseMappers().get(nodeName);
 
                 if (parserFunction != null){
                     parserFunction.apply(child).getElement().accept(element.getXsdElementVisitor());

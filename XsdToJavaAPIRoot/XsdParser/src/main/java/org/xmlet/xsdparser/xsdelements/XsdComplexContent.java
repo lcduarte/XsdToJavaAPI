@@ -34,7 +34,7 @@ public class XsdComplexContent extends XsdAnnotatedElements {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.mixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(MIXED, "false"));
+            this.mixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(MIXED_TAG, "false"));
         }
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_9">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -14,12 +14,13 @@
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-util:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-tree:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm:6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.windup.decompiler:decompiler-fernflower:2.3.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.windup.decompiler.fernflower:fernflower:2.3.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-collections4:4.0" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.windup.decompiler:decompiler-api:forge-addon:2.3.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: commons-io:commons-io:2.2" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.windup.utils:windup-utils:forge-addon:2.3.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.3.2" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.windup.decompiler:decompiler-fernflower:4.0.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.windup.decompiler.fernflower:windup-fernflower:1.0.0.20171018" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.windup.decompiler:decompiler-api:forge-addon:4.0.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.windup.utils:windup-utils:forge-addon:4.0.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-collections4:4.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
   </component>
 </module>

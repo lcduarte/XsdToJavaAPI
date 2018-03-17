@@ -7,6 +7,7 @@ import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,34 +41,35 @@ public class XsdElement extends XsdReferenceElement {
         super(elementFieldsMap);
     }
 
+    @Override
     public void setFields(Map<String, String> elementFieldsMap){
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            String type = elementFieldsMap.get(TYPE);
+            String typeString = elementFieldsMap.get(TYPE_TAG);
 
-            if (type != null){
-                if (XsdParser.getXsdTypesToJava().containsKey(type)){
+            if (typeString != null){
+                if (XsdParser.getXsdTypesToJava().containsKey(typeString)){
                     HashMap<String, String> attributes = new HashMap<>();
-                    attributes.put(NAME, type);
+                    attributes.put(NAME_TAG, typeString);
                     this.type = ReferenceBase.createFromXsd(new XsdComplexType(this, attributes));
                 } else {
                     XsdElement placeHolder = new XsdElement(this, null);
-                    this.type = new UnsolvedReference(type, placeHolder);
+                    this.type = new UnsolvedReference(typeString, placeHolder);
                     XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.type);
                 }
             }
 
-            this.substitutionGroup = elementFieldsMap.getOrDefault(SUBSTITUTION_GROUP, substitutionGroup);
-            this.defaultObj = elementFieldsMap.getOrDefault(DEFAULT, defaultObj);
-            this.fixed = elementFieldsMap.getOrDefault(FIXED, fixed);
-            this.form = elementFieldsMap.getOrDefault(FORM, form);
-            this.nillable = Boolean.parseBoolean(elementFieldsMap.getOrDefault(NILLABLE, "false"));
-            this.abstractObj = Boolean.parseBoolean(elementFieldsMap.getOrDefault(ABSTRACT, "false"));
-            this.block = elementFieldsMap.getOrDefault(BLOCK, block);
-            this.finalObj = elementFieldsMap.getOrDefault(FINAL, finalObj);
-            this.minOccurs = Integer.parseInt(elementFieldsMap.getOrDefault(MIN_OCCURS, "1"));
-            this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS, "1");
+            this.substitutionGroup = elementFieldsMap.getOrDefault(SUBSTITUTION_GROUP_TAG, substitutionGroup);
+            this.defaultObj = elementFieldsMap.getOrDefault(DEFAULT_TAG, defaultObj);
+            this.fixed = elementFieldsMap.getOrDefault(FIXED_TAG, fixed);
+            this.form = elementFieldsMap.getOrDefault(FORM_TAG, form);
+            this.nillable = Boolean.parseBoolean(elementFieldsMap.getOrDefault(NILLABLE_TAG, "false"));
+            this.abstractObj = Boolean.parseBoolean(elementFieldsMap.getOrDefault(ABSTRACT_TAG, "false"));
+            this.block = elementFieldsMap.getOrDefault(BLOCK_TAG, block);
+            this.finalObj = elementFieldsMap.getOrDefault(FINAL_TAG, finalObj);
+            this.minOccurs = Integer.parseInt(elementFieldsMap.getOrDefault(MIN_OCCURS_TAG, "1"));
+            this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS_TAG, "1");
         }
     }
 
@@ -84,14 +86,14 @@ public class XsdElement extends XsdReferenceElement {
 
     @Override
     protected List<ReferenceBase> getElements() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public XsdElement clone(Map<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
 
-        placeHolderAttributes.remove(TYPE);
+        placeHolderAttributes.remove(TYPE_TAG);
 
         XsdElement elementCopy = new XsdElement(this.getParent(), placeHolderAttributes);
 
@@ -111,13 +113,12 @@ public class XsdElement extends XsdReferenceElement {
     }
 
     public XsdComplexType getXsdComplexType() {
-        return complexType == null ? type == null ? null : (XsdComplexType) type.getElement() : (XsdComplexType) complexType.getElement();
+        return complexType == null ? getXsdType() : (XsdComplexType) complexType.getElement();
     }
 
-    @SuppressWarnings("unused")
-    public XsdAbstractElement getXsdType(){
+    private XsdComplexType getXsdType(){
         if (type != null && type instanceof ConcreteElement){
-            return type.getElement();
+            return (XsdComplexType) type.getElement();
         }
 
         return null;

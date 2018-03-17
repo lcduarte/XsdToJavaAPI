@@ -5,10 +5,7 @@ import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 import org.xmlet.xsdparser.xsdelements.xsdrestrictions.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class XsdRestriction extends XsdAnnotatedElements {
 
@@ -50,7 +47,7 @@ public class XsdRestriction extends XsdAnnotatedElements {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.base = elementFieldsMap.getOrDefault(BASE, base);
+            this.base = elementFieldsMap.getOrDefault(BASE_TAG, base);
         }
     }
 
@@ -95,7 +92,7 @@ public class XsdRestriction extends XsdAnnotatedElements {
 
     @Override
     protected List<ReferenceBase> getElements() {
-        return null;
+        return Collections.emptyList();
     }
 
     public static ReferenceBase parse(Node node){

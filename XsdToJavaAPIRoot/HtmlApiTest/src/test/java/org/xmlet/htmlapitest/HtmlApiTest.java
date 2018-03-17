@@ -1,10 +1,10 @@
 package org.xmlet.htmlapitest;
 
+import org.junit.Assert;
+import org.junit.Test;
 import org.xmlet.htmlapi.*;
 import org.xmlet.htmlapitest.utils.CustomVisitor;
 import org.xmlet.htmlapitest.utils.Student;
-import org.junit.Assert;
-import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -219,5 +219,4 @@ public class HtmlApiTest {
 
         return result;
     }
-
 }

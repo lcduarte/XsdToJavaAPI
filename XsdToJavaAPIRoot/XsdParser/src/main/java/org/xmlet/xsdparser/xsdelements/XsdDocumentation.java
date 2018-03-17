@@ -31,8 +31,8 @@ public class XsdDocumentation extends XsdAbstractElement {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.source = elementFieldsMap.getOrDefault(SOURCE, source);
-            this.xmlLang = elementFieldsMap.getOrDefault(XML_LANG, xmlLang);
+            this.source = elementFieldsMap.getOrDefault(SOURCE_TAG, source);
+            this.xmlLang = elementFieldsMap.getOrDefault(XML_LANG_TAG, xmlLang);
         }
     }
 

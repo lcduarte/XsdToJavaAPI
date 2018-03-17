@@ -12,6 +12,7 @@ import org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdEnumeration;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.logging.Level;
 
 import static org.objectweb.asm.Opcodes.*;
 import static org.xmlet.xsdasm.classes.XsdAsmUtils.*;
@@ -19,8 +20,7 @@ import static org.xmlet.xsdasm.classes.XsdSupportingStructure.*;
 
 class XsdAsmEnum {
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private static String ENUM_PREFIX = "Enum";
+    private XsdAsmEnum(){}
 
     static void createEnum(XsdAttribute attribute, List<XsdEnumeration> enumerations, String apiName){
         String enumName = getEnumName(attribute);
@@ -30,7 +30,7 @@ class XsdAsmEnum {
         String fullJavaTypeDesc = getFullJavaType(attribute);
         String fullJavaType = fullJavaTypeDesc.substring(1, fullJavaTypeDesc.length() - 1);
 
-        ClassWriter cw = generateClass(enumName, "java/lang/Enum", new String[]{ENUM_INTERFACE}, "Ljava/lang/Enum<" + enumTypeDesc + ">;L" + ENUM_INTERFACE_TYPE + "<" + fullJavaTypeDesc +">;", ACC_PUBLIC + ACC_FINAL + ACC_SUPER + ACC_ENUM, apiName);
+        ClassWriter cw = generateClass(enumName, "java/lang/Enum", new String[]{ENUM_INTERFACE}, "Ljava/lang/Enum<" + enumTypeDesc + ">;L" + enumInterfaceType + "<" + fullJavaTypeDesc +">;", ACC_PUBLIC + ACC_FINAL + ACC_SUPER + ACC_ENUM, apiName);
         FieldVisitor fVisitor;
 
         enumerations.forEach(enumElem -> {
@@ -109,10 +109,9 @@ class XsdAsmEnum {
             try {
                 object = Class.forName(fullJavaType.replaceAll("/", ".")).getConstructor(String.class).newInstance(enumElem.getValue());
             } catch (ClassNotFoundException e){
-                System.err.println("The type " + fullJavaType + " isn't supported as an enum.");
                 System.exit(-1);
             } catch (IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
+                XsdLogger.getLogger().log(Level.SEVERE, "", e);
             }
 
             staticConstructor.visitLdcInsn(object);
@@ -149,28 +148,28 @@ class XsdAsmEnum {
         return restrictions != null && restrictions.size() == 1 && restrictions.get(0).getEnumeration() != null && !restrictions.get(0).getEnumeration().isEmpty();
     }
 
+    /**
+     * AttrTypeContentType(EnumTypeContentType) NAMED
+     * AttrTypeStyle(EnumTypeStyle)             NO NAME
+     */
     static String getEnumName(XsdAttribute attribute) {
+        String enumPrefix = "Enum";
+
         if (attribute.getType() != null){
-            return ENUM_PREFIX + toCamelCase(attribute.getName()) + toCamelCase(attribute.getType());
+            return enumPrefix + toCamelCase(attribute.getName()) + toCamelCase(attribute.getType());
         }
 
         XsdAbstractElement elem = attribute;
 
         while (elem != null){
             if (elem instanceof XsdElement){
-                return ENUM_PREFIX + toCamelCase(attribute.getName()) + ((XsdElement) elem).getName();
+                return enumPrefix + toCamelCase(attribute.getName()) + ((XsdElement) elem).getName();
             }
 
             elem = elem.getParent();
         }
 
-        return ENUM_PREFIX + toCamelCase(attribute.getName());
-
-        /**
-        * AttrTypeContentType(EnumTypeContentType) NAMED
-        * AttrTypeStyle(EnumTypeStyle)             NO NAME
-        */
-
+        return enumPrefix + toCamelCase(attribute.getName());
     }
 
 }

@@ -12,8 +12,11 @@ import org.xmlet.xsdparser.xsdelements.xsdrestrictions.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class XsdParser {
@@ -22,8 +25,8 @@ public class XsdParser {
      * ParseMappers is a map that defines a function to each XsdElement type supported by this mapper,
      * this way, based on the XsdElement TAG, the according parsed is invoked.
      */
-    public static HashMap<String, Function<Node, ReferenceBase>> parseMappers;
-    private static HashMap<String, String> xsdTypesToJava;
+    private static final Map<String, Function<Node, ReferenceBase>> parseMappers;
+    private static Map<String, String> xsdTypesToJava;
     private static XsdParser instance;
 
     private Map<String, List<ReferenceBase>> parseElements = new HashMap<>();
@@ -98,92 +101,98 @@ public class XsdParser {
         parseMappers.put(XsdWhiteSpace.XSD_TAG, XsdWhiteSpace::parse);
         parseMappers.put(XsdWhiteSpace.XS_TAG, XsdWhiteSpace::parse);
 
-        xsdTypesToJava.put("xsd:anyURI", "String");
-        xsdTypesToJava.put("xs:anyURI", "String");
+        String string = "String";
+        String xmlGregorianCalendar = "XMLGregorianCalendar";
+        String duration = "Duration";
+        String bigInteger = "BigInteger";
+        String integer = "Integer";
+        String shortString = "Short";
+        String qName = "QName";
+
+        xsdTypesToJava.put("xsd:anyURI", string);
+        xsdTypesToJava.put("xs:anyURI", string);
         xsdTypesToJava.put("xsd:boolean", "Boolean");
         xsdTypesToJava.put("xs:boolean", "Boolean");
-        //xsdTypesToJava.put("xsd:base64Binary", "[B");
-        //xsdTypesToJava.put("xsd:hexBinary", "[B");
-        xsdTypesToJava.put("xsd:date", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xs:date", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:dateTime", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xs:dateTime", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:time", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xs:time", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:duration", "Duration");
-        xsdTypesToJava.put("xs:duration", "Duration");
-        xsdTypesToJava.put("xsd:dayTimeDuration", "Duration");
-        xsdTypesToJava.put("xs:dayTimeDuration", "Duration");
-        xsdTypesToJava.put("xsd:yearMonthDuration", "Duration");
-        xsdTypesToJava.put("xs:yearMonthDuration", "Duration");
-        xsdTypesToJava.put("xsd:gDay", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xs:gDay", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gMonth", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xs:gMonth", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gMonthDay", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xs:gMonthDay", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gYear", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xs:gYear", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xsd:gYearMonth", "XMLGregorianCalendar");
-        xsdTypesToJava.put("xs:gYearMonth", "XMLGregorianCalendar");
+        xsdTypesToJava.put("xsd:date", xmlGregorianCalendar);
+        xsdTypesToJava.put("xs:date", xmlGregorianCalendar);
+        xsdTypesToJava.put("xsd:dateTime", xmlGregorianCalendar);
+        xsdTypesToJava.put("xs:dateTime", xmlGregorianCalendar);
+        xsdTypesToJava.put("xsd:time", xmlGregorianCalendar);
+        xsdTypesToJava.put("xs:time", xmlGregorianCalendar);
+        xsdTypesToJava.put("xsd:duration", duration);
+        xsdTypesToJava.put("xs:duration", duration);
+        xsdTypesToJava.put("xsd:dayTimeDuration", duration);
+        xsdTypesToJava.put("xs:dayTimeDuration", duration);
+        xsdTypesToJava.put("xsd:yearMonthDuration", duration);
+        xsdTypesToJava.put("xs:yearMonthDuration", duration);
+        xsdTypesToJava.put("xsd:gDay", xmlGregorianCalendar);
+        xsdTypesToJava.put("xs:gDay", xmlGregorianCalendar);
+        xsdTypesToJava.put("xsd:gMonth", xmlGregorianCalendar);
+        xsdTypesToJava.put("xs:gMonth", xmlGregorianCalendar);
+        xsdTypesToJava.put("xsd:gMonthDay", xmlGregorianCalendar);
+        xsdTypesToJava.put("xs:gMonthDay", xmlGregorianCalendar);
+        xsdTypesToJava.put("xsd:gYear", xmlGregorianCalendar);
+        xsdTypesToJava.put("xs:gYear", xmlGregorianCalendar);
+        xsdTypesToJava.put("xsd:gYearMonth", xmlGregorianCalendar);
+        xsdTypesToJava.put("xs:gYearMonth", xmlGregorianCalendar);
         xsdTypesToJava.put("xsd:decimal", "BigDecimal");
         xsdTypesToJava.put("xs:decimal", "BigDecimal");
-        xsdTypesToJava.put("xsd:integer", "BigInteger");
-        xsdTypesToJava.put("xs:integer", "BigInteger");
-        xsdTypesToJava.put("xsd:nonPositiveInteger", "BigInteger");
-        xsdTypesToJava.put("xs:nonPositiveInteger", "BigInteger");
-        xsdTypesToJava.put("xsd:negativeInteger", "BigInteger");
-        xsdTypesToJava.put("xs:negativeInteger", "BigInteger");
+        xsdTypesToJava.put("xsd:integer", bigInteger);
+        xsdTypesToJava.put("xs:integer", bigInteger);
+        xsdTypesToJava.put("xsd:nonPositiveInteger", bigInteger);
+        xsdTypesToJava.put("xs:nonPositiveInteger", bigInteger);
+        xsdTypesToJava.put("xsd:negativeInteger", bigInteger);
+        xsdTypesToJava.put("xs:negativeInteger", bigInteger);
         xsdTypesToJava.put("xsd:long", "Long");
         xsdTypesToJava.put("xs:long", "Long");
-        xsdTypesToJava.put("xsd:int", "Integer");
-        xsdTypesToJava.put("xs:int", "Integer");
-        xsdTypesToJava.put("xsd:short", "Short");
-        xsdTypesToJava.put("xs:short", "Short");
+        xsdTypesToJava.put("xsd:int", integer);
+        xsdTypesToJava.put("xs:int", integer);
+        xsdTypesToJava.put("xsd:short", shortString);
+        xsdTypesToJava.put("xs:short", shortString);
         xsdTypesToJava.put("xsd:byte", "Byte");
         xsdTypesToJava.put("xs:byte", "Byte");
-        xsdTypesToJava.put("xsd:nonNegativeInteger", "BigInteger");
-        xsdTypesToJava.put("xs:nonNegativeInteger", "BigInteger");
-        xsdTypesToJava.put("xsd:unsignedLong", "BigInteger");
-        xsdTypesToJava.put("xs:unsignedLong", "BigInteger");
+        xsdTypesToJava.put("xsd:nonNegativeInteger", bigInteger);
+        xsdTypesToJava.put("xs:nonNegativeInteger", bigInteger);
+        xsdTypesToJava.put("xsd:unsignedLong", bigInteger);
+        xsdTypesToJava.put("xs:unsignedLong", bigInteger);
         xsdTypesToJava.put("xsd:unsignedInt", "Long");
         xsdTypesToJava.put("xs:unsignedInt", "Long");
-        xsdTypesToJava.put("xsd:unsignedShort", "Integer");
-        xsdTypesToJava.put("xs:unsignedShort", "Integer");
-        xsdTypesToJava.put("xsd:unsignedByte", "Short");
-        xsdTypesToJava.put("xs:unsignedByte", "Short");
-        xsdTypesToJava.put("xsd:positiveInteger", "BigInteger");
-        xsdTypesToJava.put("xs:positiveInteger", "BigInteger");
+        xsdTypesToJava.put("xsd:unsignedShort", integer);
+        xsdTypesToJava.put("xs:unsignedShort", integer);
+        xsdTypesToJava.put("xsd:unsignedByte", shortString);
+        xsdTypesToJava.put("xs:unsignedByte", shortString);
+        xsdTypesToJava.put("xsd:positiveInteger", bigInteger);
+        xsdTypesToJava.put("xs:positiveInteger", bigInteger);
         xsdTypesToJava.put("xsd:double", "Double");
         xsdTypesToJava.put("xs:double", "Double");
         xsdTypesToJava.put("xsd:float", "Float");
         xsdTypesToJava.put("xs:float", "Float");
-        xsdTypesToJava.put("xsd:QName", "QName");
-        xsdTypesToJava.put("xs:QName", "QName");
-        xsdTypesToJava.put("xsd:NOTATION", "QName");
-        xsdTypesToJava.put("xs:NOTATION", "QName");
-        xsdTypesToJava.put("xsd:string", "String");
-        xsdTypesToJava.put("xs:string", "String");
-        xsdTypesToJava.put("xsd:normalizedString", "String");
-        xsdTypesToJava.put("xs:normalizedString", "String");
-        xsdTypesToJava.put("xsd:token", "String");
-        xsdTypesToJava.put("xs:token", "String");
-        xsdTypesToJava.put("xsd:language", "String");
-        xsdTypesToJava.put("xs:language", "String");
-        xsdTypesToJava.put("xsd:NMTOKEN", "String");
-        xsdTypesToJava.put("xs:NMTOKEN", "String");
-        xsdTypesToJava.put("xsd:Name", "String");
-        xsdTypesToJava.put("xs:Name", "String");
-        xsdTypesToJava.put("xsd:NCName", "String");
-        xsdTypesToJava.put("xs:NCName", "String");
-        xsdTypesToJava.put("xsd:ID", "String");
-        xsdTypesToJava.put("xs:ID", "String");
-        xsdTypesToJava.put("xsd:IDREF", "String");
-        xsdTypesToJava.put("xs:IDREF", "String");
-        xsdTypesToJava.put("xsd:ENTITY", "String");
-        xsdTypesToJava.put("xs:ENTITY", "String");
-        xsdTypesToJava.put("xsd:untypedAtomic", "String");
-        xsdTypesToJava.put("xs:untypedAtomic", "String");
+        xsdTypesToJava.put("xsd:QName", qName);
+        xsdTypesToJava.put("xs:QName", qName);
+        xsdTypesToJava.put("xsd:NOTATION", qName);
+        xsdTypesToJava.put("xs:NOTATION", qName);
+        xsdTypesToJava.put("xsd:string", string);
+        xsdTypesToJava.put("xs:string", string);
+        xsdTypesToJava.put("xsd:normalizedString", string);
+        xsdTypesToJava.put("xs:normalizedString", string);
+        xsdTypesToJava.put("xsd:token", string);
+        xsdTypesToJava.put("xs:token", string);
+        xsdTypesToJava.put("xsd:language", string);
+        xsdTypesToJava.put("xs:language", string);
+        xsdTypesToJava.put("xsd:NMTOKEN", string);
+        xsdTypesToJava.put("xs:NMTOKEN", string);
+        xsdTypesToJava.put("xsd:Name", string);
+        xsdTypesToJava.put("xs:Name", string);
+        xsdTypesToJava.put("xsd:NCName", string);
+        xsdTypesToJava.put("xs:NCName", string);
+        xsdTypesToJava.put("xsd:ID", string);
+        xsdTypesToJava.put("xs:ID", string);
+        xsdTypesToJava.put("xsd:IDREF", string);
+        xsdTypesToJava.put("xs:IDREF", string);
+        xsdTypesToJava.put("xsd:ENTITY", string);
+        xsdTypesToJava.put("xs:ENTITY", string);
+        xsdTypesToJava.put("xsd:untypedAtomic", string);
+        xsdTypesToJava.put("xs:untypedAtomic", string);
     }
 
     public XsdParser(){
@@ -203,7 +212,7 @@ public class XsdParser {
             File xsdFile = new File(filePath);
 
             if (!xsdFile.exists()){
-                throw new RuntimeException("The file doesn't exist");
+                throw new FileNotFoundException();
             }
 
             currentFile = filePath;
@@ -236,7 +245,7 @@ public class XsdParser {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getAnonymousLogger().log(Level.SEVERE, "Exception while parsing.", e);
         }
 
         resolveRefs(filePath);
@@ -349,7 +358,11 @@ public class XsdParser {
         unsolvedElements.get(currentFile).add(unsolvedReference);
     }
 
-    public static HashMap<String, String> getXsdTypesToJava() {
+    public static Map<String, String> getXsdTypesToJava() {
         return xsdTypesToJava;
+    }
+
+    public static Map<String, Function<Node, ReferenceBase>> getParseMappers() {
+        return parseMappers;
     }
 }

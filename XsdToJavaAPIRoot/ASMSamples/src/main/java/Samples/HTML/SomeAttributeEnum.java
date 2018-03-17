@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SomeAttributeEnum extends AbstractAttribute<EnumUsage> {
+public class SomeAttributeEnum extends BaseAttribute<EnumUsage> {
 
     private static List<Map<String, Object>> restrictions = new ArrayList<>();
 

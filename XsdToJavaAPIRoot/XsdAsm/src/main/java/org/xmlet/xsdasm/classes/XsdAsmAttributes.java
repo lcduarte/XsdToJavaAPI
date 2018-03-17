@@ -15,6 +15,8 @@ import static org.xmlet.xsdasm.classes.XsdSupportingStructure.*;
 
 class XsdAsmAttributes {
 
+    private XsdAsmAttributes(){}
+
     /**
      * Generates a method to add a given attribute.
      * @param classWriter The class where the fields will be added.
@@ -50,30 +52,26 @@ class XsdAsmAttributes {
          * The cast to AbstractElement is needed while writing bytecode, even though it's not needed in regular written code.
          */
 
-        if (returnType.equals(ELEMENT_TYPE_DESC)){
-            mVisitor.visitTypeInsn(CHECKCAST, ELEMENT_TYPE);
+        if (returnType.equals(elementTypeDesc)){
+            mVisitor.visitTypeInsn(CHECKCAST, elementType);
         }
 
         mVisitor.visitTypeInsn(NEW, attributeClassType);
         mVisitor.visitInsn(DUP);
         mVisitor.visitVarInsn(ALOAD, 1);
 
-        //if (attributeHasEnum(elementAttribute)){
-            mVisitor.visitMethodInsn(INVOKESPECIAL, attributeClassType, CONSTRUCTOR, "(" + javaType + ")V", false);
-        //} else  {
-        //    mVisitor.visitMethodInsn(INVOKESPECIAL, attributeClassType, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", false);
-        //}
+        mVisitor.visitMethodInsn(INVOKESPECIAL, attributeClassType, CONSTRUCTOR, "(" + javaType + ")V", false);
 
         if (isInterfaceMethod(returnType)){
-            mVisitor.visitMethodInsn(INVOKEINTERFACE, ELEMENT_TYPE_DESC, "addAttr", "(" + ATTRIBUTE_TYPE_DESC + ")" + ELEMENT_TYPE_DESC, true);
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "addAttr", "(" + attributeTypeDesc + ")" + elementTypeDesc, true);
         } else {
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, ABSTRACT_ELEMENT_TYPE_DESC, "addAttr", "(" + ATTRIBUTE_TYPE_DESC + ")" + ELEMENT_TYPE_DESC, false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, abstractElementType, "addAttr", "(" + attributeTypeDesc + ")" + elementTypeDesc, false);
         }
 
         mVisitor.visitVarInsn(ALOAD, 0);
 
         if (isInterfaceMethod(returnType)){
-            mVisitor.visitMethodInsn(INVOKEINTERFACE, ELEMENT_TYPE, "self", "()" + returnType, true);
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "self", "()" + returnType, true);
         }
 
         mVisitor.visitInsn(ARETURN);
@@ -87,10 +85,9 @@ class XsdAsmAttributes {
      * @param apiName The api this class will belong.
      */
     static void generateAttribute(XsdAttribute attribute, String apiName){
-        //https://www.ibm.com/support/knowledgecenter/en/SSAW57_8.5.5/com.ibm.websphere.nd.doc/ae/txml_mapping.html
-
         String camelAttributeName = getAttributeName(attribute);
         String attributeType = getFullClassTypeName(camelAttributeName, apiName);
+        String attributeTypeDesc = getFullClassTypeNameDesc(camelAttributeName, apiName);
 
         List<XsdRestriction> restrictions = getAttributeRestrictions(attribute);
 
@@ -98,26 +95,16 @@ class XsdAsmAttributes {
 
         String javaType = getFullJavaType(attribute);
 
-        if (camelAttributeName.equals("AttrSkinIDString")){
-            int a  = 5;
-        }
-
         if (list != null){
             String fullJavaItemTypeDesc = getFullJavaType(list.getItemType());
 
             javaType = "L" + JAVA_LIST + "<" + fullJavaItemTypeDesc + ">;";
         }
 
-        ClassWriter attributeWriter = generateClass(camelAttributeName, BASE_ATTRIBUTE_TYPE, null, "L" + BASE_ATTRIBUTE_TYPE + "<" + javaType + ">;", ACC_PUBLIC + ACC_SUPER, apiName);
-
-        attributeWriter.visitInnerClass("java/lang/invoke/MethodHandles$Lookup", "java/lang/invoke/MethodHandles", "Lookup", ACC_PUBLIC + ACC_FINAL + ACC_STATIC);
-
-        FieldVisitor fVisitor = attributeWriter.visitField(ACC_PRIVATE + ACC_STATIC, "restrictions", JAVA_LIST_DESC, "L" + JAVA_LIST + "<Ljava/util/Map<" + JAVA_STRING_DESC + JAVA_OBJECT_DESC + ">;>;", null);
-        fVisitor.visitEnd();
+        ClassWriter attributeWriter = generateClass(camelAttributeName, baseAttributeType, null, "L" + baseAttributeType + "<" + javaType + ">;", ACC_PUBLIC + ACC_SUPER, apiName);
 
         MethodVisitor mVisitor;
-        //boolean hasDefaultConstructor = false;
-        
+
         if (attributeHasEnum(attribute)) {
             String enumName = getEnumName(attribute);
             String enumTypeDesc = getFullClassTypeNameDesc(enumName, apiName);
@@ -127,9 +114,9 @@ class XsdAsmAttributes {
             mVisitor.visitCode();
             mVisitor.visitVarInsn(ALOAD, 0);
             mVisitor.visitVarInsn(ALOAD, 1);
-            mVisitor.visitMethodInsn(INVOKEINTERFACE, ENUM_INTERFACE_TYPE, "getValue", "()Ljava/lang/Object;", true);
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, enumInterfaceType, "getValue", "()" + JAVA_OBJECT_DESC, true);
             mVisitor.visitLdcInsn(attribute.getName());
-            mVisitor.visitMethodInsn(INVOKESPECIAL, BASE_ATTRIBUTE_TYPE, CONSTRUCTOR, "(Ljava/lang/Object;Ljava/lang/String;)V", false);
+            mVisitor.visitMethodInsn(INVOKESPECIAL, baseAttributeType, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + JAVA_STRING_DESC + ")V", false);
         } else {
             if (list != null){
                 mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_LIST_DESC + ")V", null, null);
@@ -140,93 +127,18 @@ class XsdAsmAttributes {
             } else {
                 mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + javaType + ")V", null, null);
                 mVisitor.visitLocalVariable("attrValue", javaType, null, new Label(), new Label(),1);
-                //hasDefaultConstructor = true;
                 mVisitor.visitCode();
                 mVisitor.visitVarInsn(ALOAD, 0);
                 mVisitor.visitVarInsn(ALOAD, 1);
-                mVisitor.visitTypeInsn(CHECKCAST, javaType);
+                mVisitor.visitTypeInsn(CHECKCAST, javaType.substring(1, javaType.length() - 1));
             }
 
             mVisitor.visitLdcInsn(attribute.getName());
-            mVisitor.visitMethodInsn(INVOKESPECIAL, BASE_ATTRIBUTE_TYPE, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + "Ljava/lang/String;)V", false);
+            mVisitor.visitMethodInsn(INVOKESPECIAL, baseAttributeType, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + JAVA_STRING_DESC + ")V", false);
         }
         
-        mVisitor.visitFieldInsn(GETSTATIC, attributeType, "restrictions", JAVA_LIST_DESC);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitInvokeDynamicInsn("accept", "(Ljava/lang/Object;)Ljava/util/function/Consumer;", new Handle(Opcodes.H_INVOKESTATIC, "java/lang/invoke/LambdaMetafactory", "metafactory", "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;", false), Type.getType("(Ljava/lang/Object;)V"), new Handle(Opcodes.H_INVOKESTATIC, attributeType, "lambda$new$0", "(Ljava/lang/Object;Ljava/util/Map;)V", false), Type.getType("(Ljava/util/Map;)V"));
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "forEach", "(Ljava/util/function/Consumer;)V", true);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(3, 2);
-        mVisitor.visitEnd();
-
-        /*
-        if (!hasDefaultConstructor){
-            mVisitor = attributeWriter.visitMethod(0, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + ")V", null, null);
-            mVisitor.visitLocalVariable("attrValue", JAVA_OBJECT_DESC, null, new Label(), new Label(),1);
-            mVisitor.visitCode();
-            mVisitor.visitVarInsn(ALOAD, 0);
-            mVisitor.visitVarInsn(ALOAD, 1);
-            mVisitor.visitTypeInsn(CHECKCAST, javaType);
-            mVisitor.visitLdcInsn(attribute.getName());
-            mVisitor.visitMethodInsn(INVOKESPECIAL, BASE_ATTRIBUTE_TYPE, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + "Ljava/lang/String;)V", false);
-            mVisitor.visitInsn(RETURN);
-            mVisitor.visitMaxs(3, 2);
-            mVisitor.visitEnd();
-        }*/
-
-        mVisitor = attributeWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$new$0", "(Ljava/lang/Object;Ljava/util/Map;)V", null, null);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitTypeInsn(CHECKCAST, attributeType);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, attributeType, "getValue", "()Ljava/lang/Object;", false);
-        mVisitor.visitVarInsn(ASTORE, 2);
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitTypeInsn(INSTANCEOF, "java/lang/String");
-        Label l0 = new Label();
-        mVisitor.visitJumpInsn(IFEQ, l0);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitTypeInsn(CHECKCAST, "java/util/Map");
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitTypeInsn(CHECKCAST, "java/lang/String");
-        mVisitor.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validate", "(Ljava/util/Map;Ljava/lang/String;)V", false);
-        mVisitor.visitLabel(l0);
-        mVisitor.visitFrame(Opcodes.F_APPEND,1, new Object[] {"java/lang/Object"}, 0, null);
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitTypeInsn(INSTANCEOF, "java/lang/Integer");
-        Label l1 = new Label();
-        mVisitor.visitJumpInsn(IFNE, l1);
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitTypeInsn(INSTANCEOF, "java/lang/Short");
-        mVisitor.visitJumpInsn(IFNE, l1);
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitTypeInsn(INSTANCEOF, "java/lang/Float");
-        mVisitor.visitJumpInsn(IFNE, l1);
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitTypeInsn(INSTANCEOF, "java/lang/Double");
-        Label l2 = new Label();
-        mVisitor.visitJumpInsn(IFEQ, l2);
-        mVisitor.visitLabel(l1);
-        mVisitor.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitTypeInsn(CHECKCAST, "java/util/Map");
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitTypeInsn(CHECKCAST, "java/lang/Double");
-        mVisitor.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validate", "(Ljava/util/Map;Ljava/lang/Double;)V", false);
-        mVisitor.visitLabel(l2);
-        mVisitor.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitTypeInsn(INSTANCEOF, "java/util/List");
-        Label l3 = new Label();
-        mVisitor.visitJumpInsn(IFEQ, l3);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitTypeInsn(CHECKCAST, "java/util/Map");
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitTypeInsn(CHECKCAST, JAVA_LIST);
-        mVisitor.visitMethodInsn(INVOKESTATIC, RESTRICTION_VALIDATOR_TYPE, "validate", "(Ljava/util/Map;Ljava/util/List;)V", false);
-        mVisitor.visitLabel(l3);
-        mVisitor.visitFrame(Opcodes.F_APPEND,0, null, 0, null);
-        mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 3);
         mVisitor.visitEnd();
 
         loadRestrictionsToAttribute(attribute, attributeWriter, restrictions, camelAttributeName, apiName);
@@ -295,7 +207,6 @@ class XsdAsmAttributes {
         mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/HashMap", CONSTRUCTOR, "()V", false);
         mVisitor.visitVarInsn(ASTORE, index);
 
-        String base = restriction.getBase();
         XsdLength length = restriction.getLength();
         XsdMaxLength maxLength = restriction.getMaxLength();
         XsdMinLength minLength = restriction.getMinLength();
@@ -318,7 +229,7 @@ class XsdAsmAttributes {
             mVisitor.visitLdcInsn("Length");
             mVisitor.visitIntInsn(BIPUSH, length.getValue());
             mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
             mVisitor.visitInsn(POP);
         }
 
@@ -327,7 +238,7 @@ class XsdAsmAttributes {
             mVisitor.visitLdcInsn("MaxLength");
             mVisitor.visitIntInsn(BIPUSH, maxLength.getValue());
             mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
             mVisitor.visitInsn(POP);
         }
 
@@ -336,7 +247,7 @@ class XsdAsmAttributes {
             mVisitor.visitLdcInsn("MinLength");
             mVisitor.visitIntInsn(BIPUSH, minLength.getValue());
             mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
             mVisitor.visitInsn(POP);
         }
 
@@ -345,7 +256,7 @@ class XsdAsmAttributes {
             mVisitor.visitLdcInsn("MaxExclusive");
             mVisitor.visitIntInsn(BIPUSH, maxExclusive.getValue());
             mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
             mVisitor.visitInsn(POP);
         }
 
@@ -354,7 +265,7 @@ class XsdAsmAttributes {
             mVisitor.visitLdcInsn("MaxInclusive");
             mVisitor.visitIntInsn(BIPUSH, maxInclusive.getValue());
             mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
             mVisitor.visitInsn(POP);
         }
 
@@ -363,7 +274,7 @@ class XsdAsmAttributes {
             mVisitor.visitLdcInsn("MinExclusive");
             mVisitor.visitIntInsn(BIPUSH, minExclusive.getValue());
             mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
             mVisitor.visitInsn(POP);
         }
 
@@ -372,7 +283,7 @@ class XsdAsmAttributes {
             mVisitor.visitLdcInsn("MinInclusive");
             mVisitor.visitIntInsn(BIPUSH, minInclusive.getValue());
             mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
             mVisitor.visitInsn(POP);
         }
 
@@ -381,7 +292,7 @@ class XsdAsmAttributes {
             mVisitor.visitLdcInsn("FractionDigits");
             mVisitor.visitIntInsn(BIPUSH, fractionDigits.getValue());
             mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
             mVisitor.visitInsn(POP);
         }
 
@@ -390,7 +301,7 @@ class XsdAsmAttributes {
             mVisitor.visitLdcInsn("TotalDigits");
             mVisitor.visitIntInsn(BIPUSH, totalDigits.getValue());
             mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
             mVisitor.visitInsn(POP);
         }
 
@@ -398,19 +309,19 @@ class XsdAsmAttributes {
             mVisitor.visitVarInsn(ALOAD, index);
             mVisitor.visitLdcInsn("Pattern");
             mVisitor.visitLdcInsn(pattern.getValue());
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
         }
 
         if (whiteSpace != null){
             mVisitor.visitVarInsn(ALOAD, index);
             mVisitor.visitLdcInsn("WhiteSpace");
             mVisitor.visitLdcInsn(whiteSpace.getValue());
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
         }
 
         mVisitor.visitFieldInsn(GETSTATIC, attributeType, "restrictions", JAVA_LIST_DESC);
         mVisitor.visitVarInsn(ALOAD, index);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "add", "(Ljava/lang/Object;)Z", true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "add", "(" + JAVA_OBJECT_DESC + ")Z", true);
         mVisitor.visitInsn(POP);
 
         return index;

@@ -29,8 +29,8 @@ public abstract class XsdMultipleElements extends XsdAnnotatedElements {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.minOccurs = Integer.parseInt(elementFieldsMap.getOrDefault(MIN_OCCURS, "1"));
-            this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS, "1");
+            this.minOccurs = Integer.parseInt(elementFieldsMap.getOrDefault(MIN_OCCURS_TAG, "1"));
+            this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS_TAG, "1");
         }
     }
 

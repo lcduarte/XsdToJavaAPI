@@ -4,6 +4,7 @@ import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class XsdList extends XsdAnnotatedElements {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.itemType = elementFieldsMap.getOrDefault(ITEM_TYPE, itemType);
+            this.itemType = elementFieldsMap.getOrDefault(ITEM_TYPE_TAG, itemType);
         }
     }
 
@@ -58,7 +59,7 @@ public class XsdList extends XsdAnnotatedElements {
 
     @Override
     protected List<ReferenceBase> getElements() {
-        return null;
+        return Collections.emptyList();
     }
 
     public static ReferenceBase parse(Node node){

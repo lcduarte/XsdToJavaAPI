@@ -1,11 +1,11 @@
 package org.xmlet.xsdparser.xsdelements;
 
+import org.w3c.dom.Node;
 import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
-import org.w3c.dom.Node;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -36,11 +36,11 @@ public class XsdExtension extends XsdAnnotatedElements {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            String base = elementFieldsMap.getOrDefault(BASE, null);
+            String baseValue = elementFieldsMap.getOrDefault(BASE_TAG, null);
 
-            if (base != null){
+            if (baseValue != null){
                 XsdElement placeHolder = new XsdElement(this, null);
-                this.base = new UnsolvedReference(base, placeHolder);
+                this.base = new UnsolvedReference(baseValue, placeHolder);
                 XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.base);
             }
         }
@@ -54,27 +54,7 @@ public class XsdExtension extends XsdAnnotatedElements {
             this.base = element;
         }
 
-        if (element.getElement() instanceof XsdAttributeGroup){
-            attributeGroups.stream()
-                    .filter(attributeGroup -> attributeGroup instanceof UnsolvedReference && ((UnsolvedReference) attributeGroup).getRef().equals(element.getName()))
-                    .findFirst().ifPresent(referenceBase -> {
-                attributeGroups.remove(referenceBase);
-                attributeGroups.add(element);
-                attributes.addAll(element.getElement().getElements());
-
-                element.getElement().setParent(this);
-            });
-        }
-
-        if (element.getElement() instanceof XsdAttribute ){
-            attributes.stream()
-                    .filter(attribute -> attribute instanceof UnsolvedReference && ((UnsolvedReference) attribute).getRef().equals(element.getName()))
-                    .findFirst().ifPresent(referenceBase -> {
-                            attributes.remove(referenceBase);
-                            attributes.add(element);
-                            element.getElement().setParent(this);
-                        });
-        }
+        replaceUnsolvedAttributes(element, attributeGroups, attributes);
     }
 
     @Override
@@ -121,6 +101,7 @@ public class XsdExtension extends XsdAnnotatedElements {
                 .map(attribute -> (XsdAttribute)attribute.getElement());
     }
 
+    @SuppressWarnings("unused")
     public Stream<XsdAttributeGroup> getXsdAttributeGroup() {
         return attributeGroups.stream()
                 .filter(attributeGroup -> attributeGroup instanceof ConcreteElement)

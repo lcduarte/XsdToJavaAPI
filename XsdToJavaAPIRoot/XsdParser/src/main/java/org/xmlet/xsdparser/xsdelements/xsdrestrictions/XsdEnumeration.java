@@ -6,10 +6,10 @@ import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
 import java.util.Map;
 
-public class XsdEnumeration extends XsdAbstractRestrictionChild{
+public class XsdEnumeration extends XsdAbstractRestrictionChild implements StringValue{
 
-    public static String XSD_TAG = "xsd:enumeration";
-    public static String XS_TAG = "xs:enumeration";
+    public static final String XSD_TAG = "xsd:enumeration";
+    public static final String XS_TAG = "xs:enumeration";
 
     private String value;
 
@@ -26,7 +26,7 @@ public class XsdEnumeration extends XsdAbstractRestrictionChild{
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            value = elementFieldsMap.getOrDefault(VALUE, value);
+            value = elementFieldsMap.getOrDefault(VALUE_TAG, value);
         }
     }
 

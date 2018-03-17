@@ -6,10 +6,10 @@ import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
 import java.util.Map;
 
-public class XsdMaxLength extends XsdAbstractRestrictionChild{
+public class XsdMaxLength extends XsdAbstractRestrictionChild implements IntValue{
 
-    public static String XSD_TAG = "xsd:maxLength";
-    public static String XS_TAG = "xs:maxLength";
+    public static final String XSD_TAG = "xsd:maxLength";
+    public static final String XS_TAG = "xs:maxLength";
 
     private boolean fixed;
     private int value;
@@ -28,8 +28,8 @@ public class XsdMaxLength extends XsdAbstractRestrictionChild{
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            fixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(FIXED, "false"));
-            value = Integer.parseInt(elementFieldsMap.getOrDefault(VALUE, "0"));
+            fixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(FIXED_TAG, "false"));
+            value = Integer.parseInt(elementFieldsMap.getOrDefault(VALUE_TAG, "0"));
         }
     }
 

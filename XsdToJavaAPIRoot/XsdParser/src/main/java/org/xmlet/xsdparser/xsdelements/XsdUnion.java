@@ -4,10 +4,7 @@ import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class XsdUnion extends XsdAnnotatedElements {
 
@@ -32,7 +29,7 @@ public class XsdUnion extends XsdAnnotatedElements {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.memberTypes = elementFieldsMap.getOrDefault(MEMBER_TYPES, memberTypes);
+            this.memberTypes = elementFieldsMap.getOrDefault(MEMBER_TYPES_TAG, memberTypes);
         }
     }
 
@@ -59,7 +56,7 @@ public class XsdUnion extends XsdAnnotatedElements {
 
     @Override
     protected List<ReferenceBase> getElements() {
-        return null;
+        return Collections.emptyList();
     }
 
     public List<XsdSimpleType> getUnionElements(){

@@ -7,10 +7,10 @@ import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
 import java.util.Map;
 
-public class XsdMinInclusive extends XsdAbstractRestrictionChild {
+public class XsdMinInclusive extends XsdAbstractRestrictionChild implements IntValue {
 
-    public static String XSD_TAG = "xsd:minInclusive";
-    public static String XS_TAG = "xs:minInclusive";
+    public static final String XSD_TAG = "xsd:minInclusive";
+    public static final String XS_TAG = "xs:minInclusive";
 
     private boolean fixed;
     private int value;
@@ -29,8 +29,8 @@ public class XsdMinInclusive extends XsdAbstractRestrictionChild {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            fixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(XsdAbstractElement.FIXED, "false"));
-            value = Integer.parseInt(elementFieldsMap.getOrDefault(XsdAbstractElement.VALUE, "0"));
+            fixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(XsdAbstractElement.FIXED_TAG, "false"));
+            value = Integer.parseInt(elementFieldsMap.getOrDefault(XsdAbstractElement.VALUE_TAG, "0"));
         }
     }
 

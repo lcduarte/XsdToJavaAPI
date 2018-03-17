@@ -30,7 +30,7 @@ public class XsdAppInfo extends XsdAbstractElement {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.source = elementFieldsMap.getOrDefault(SOURCE, source);
+            this.source = elementFieldsMap.getOrDefault(SOURCE_TAG, source);
         }
     }
 
