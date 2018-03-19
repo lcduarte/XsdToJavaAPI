@@ -2,6 +2,7 @@ package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class XsdComplexType extends XsdAnnotatedElements {
+public class XsdComplexType extends XsdReferenceElement {
 
     public static final String XSD_TAG = "xsd:complexType";
     public static final String XS_TAG = "xs:complexType";
@@ -19,7 +20,6 @@ public class XsdComplexType extends XsdAnnotatedElements {
 
     private ReferenceBase childElement;
 
-    private String name;
     private boolean elementAbstract;
     private boolean mixed;
     private String block;
@@ -30,11 +30,7 @@ public class XsdComplexType extends XsdAnnotatedElements {
     private XsdComplexContent complexContent;
     private XsdSimpleContent simpleContent;
 
-    XsdComplexType(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
-
-    private XsdComplexType(Map<String, String> elementFieldsMap) {
+    XsdComplexType(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
 
@@ -45,7 +41,6 @@ public class XsdComplexType extends XsdAnnotatedElements {
         if (elementFieldsMap != null){
             super.setFields(elementFieldsMap);
 
-            this.name = elementFieldsMap.getOrDefault(NAME_TAG, name);
             this.elementAbstract = Boolean.parseBoolean(elementFieldsMap.getOrDefault(ABSTRACT_TAG, "false"));
             this.mixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(MIXED_TAG, "false"));
             this.block = elementFieldsMap.getOrDefault(BLOCK_TAG, block);
@@ -72,7 +67,10 @@ public class XsdComplexType extends XsdAnnotatedElements {
     @Override
     public XsdComplexType clone(Map<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdComplexType elementCopy = new XsdComplexType(this.getParent(), placeHolderAttributes);
+        placeHolderAttributes.remove(REF_TAG);
+
+        XsdComplexType elementCopy = new XsdComplexType(placeHolderAttributes);
+        elementCopy.setParent(this.getParent());
 
         elementCopy.childElement = this.childElement;
         elementCopy.attributes = this.attributes;
@@ -85,7 +83,7 @@ public class XsdComplexType extends XsdAnnotatedElements {
     }
 
     @Override
-    public void replaceUnsolvedElements(ConcreteElement element) {
+    public void replaceUnsolvedElements(NamedConcreteElement element) {
         super.replaceUnsolvedElements(element);
 
         replaceUnsolvedAttributes(element, attributeGroups, attributes);
@@ -93,10 +91,6 @@ public class XsdComplexType extends XsdAnnotatedElements {
 
     public XsdAbstractElement getXsdChildElement() {
         return childElement == null ? null : childElement.getElement();
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getFinal() {
@@ -120,22 +114,18 @@ public class XsdComplexType extends XsdAnnotatedElements {
                 .map(attributeGroup -> (XsdAttributeGroup) attributeGroup.getElement());
     }
 
-    @SuppressWarnings("unused")
     public XsdSimpleContent getSimpleContent() {
         return simpleContent;
     }
 
-    @SuppressWarnings("unused")
     public XsdComplexContent getComplexContent() {
         return complexContent;
     }
 
-    @SuppressWarnings("unused")
     public boolean isMixed() {
         return mixed;
     }
 
-    @SuppressWarnings("unused")
     public boolean isElementAbstract() {
         return elementAbstract;
     }

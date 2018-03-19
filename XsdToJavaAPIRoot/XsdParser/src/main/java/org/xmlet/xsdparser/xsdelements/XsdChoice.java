@@ -13,10 +13,6 @@ public class XsdChoice extends XsdMultipleElements{
 
     private ChoiceXsdElementVisitor visitor = new ChoiceXsdElementVisitor();
 
-    private XsdChoice(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
-
     private XsdChoice(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -30,16 +26,6 @@ public class XsdChoice extends XsdMultipleElements{
     @Override
     public ChoiceXsdElementVisitor getXsdElementVisitor() {
         return visitor;
-    }
-
-    @Override
-    public XsdAbstractElement clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdChoice elementCopy = new XsdChoice(this.getParent(), placeHolderAttributes);
-
-        elementCopy.addElements(this.getElements());
-
-        return elementCopy;
     }
 
     public static ReferenceBase parse(Node node){

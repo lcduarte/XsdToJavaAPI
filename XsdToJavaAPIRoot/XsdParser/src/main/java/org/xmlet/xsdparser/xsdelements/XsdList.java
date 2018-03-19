@@ -19,10 +19,6 @@ public class XsdList extends XsdAnnotatedElements {
 
     private String itemType;
 
-    private XsdList(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
-
     private XsdList(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -48,16 +44,6 @@ public class XsdList extends XsdAnnotatedElements {
     }
 
     @Override
-    public XsdList clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdList elementCopy = new XsdList(this.getParent(), placeHolderAttributes);
-
-        elementCopy.simpleType = this.simpleType;
-
-        return elementCopy;
-    }
-
-    @Override
     protected List<ReferenceBase> getElements() {
         return Collections.emptyList();
     }
@@ -66,7 +52,10 @@ public class XsdList extends XsdAnnotatedElements {
         return xsdParseSkeleton(node, new XsdList(convertNodeMap(node.getAttributes())));
     }
 
-    @SuppressWarnings("unused")
+    public XsdSimpleType getXsdSimpleType() {
+        return simpleType;
+    }
+
     public String getItemType() {
         return itemType;
     }

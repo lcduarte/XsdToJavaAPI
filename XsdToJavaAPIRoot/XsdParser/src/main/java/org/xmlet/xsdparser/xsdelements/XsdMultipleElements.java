@@ -1,6 +1,7 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 
@@ -15,10 +16,6 @@ public abstract class XsdMultipleElements extends XsdAnnotatedElements {
 
     private String maxOccurs;
     private Integer minOccurs;
-
-    XsdMultipleElements(XsdAbstractElement parent, Map<String, String> nodeAttributes) {
-        super(parent, nodeAttributes);
-    }
 
     XsdMultipleElements(Map<String, String> nodeAttributes) {
         super(nodeAttributes);
@@ -35,7 +32,7 @@ public abstract class XsdMultipleElements extends XsdAnnotatedElements {
     }
 
     @Override
-    public void replaceUnsolvedElements(ConcreteElement elementWrapper) {
+    public void replaceUnsolvedElements(NamedConcreteElement elementWrapper) {
         if (elementWrapper.getElement() instanceof XsdElement){
             super.replaceUnsolvedElements(elementWrapper);
         }

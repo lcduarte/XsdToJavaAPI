@@ -1,8 +1,8 @@
 package org.xmlet.xsdparser.xsdelements;
 
+import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
-import org.w3c.dom.Node;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,12 +16,8 @@ public class XsdAnnotation extends XsdIdentifierElements {
 
     private XsdElementVisitor xsdElementVisitor = new AnnotationXsdElementVisitor();
 
-    private List<XsdAppInfo> appInfos = new ArrayList<>();
+    private List<XsdAppInfo> appInfoList = new ArrayList<>();
     private List<XsdDocumentation> documentations = new ArrayList<>();
-
-    private XsdAnnotation(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
 
     private XsdAnnotation(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
@@ -39,26 +35,15 @@ public class XsdAnnotation extends XsdIdentifierElements {
     }
 
     @Override
-    public XsdAnnotation clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdAnnotation elementCopy = new XsdAnnotation(this.getParent(), placeHolderAttributes);
-
-        elementCopy.appInfos.addAll(this.getAppInfos());
-        elementCopy.documentations.addAll(this.getDocumentations());
-
-        return elementCopy;
-    }
-
-    @Override
     protected List<ReferenceBase> getElements() {
         return Collections.emptyList();
     }
 
-    private List<XsdAppInfo> getAppInfos() {
-        return appInfos;
+    public List<XsdAppInfo> getAppInfoList() {
+        return appInfoList;
     }
 
-    private List<XsdDocumentation> getDocumentations() {
+    public List<XsdDocumentation> getDocumentations() {
         return documentations;
     }
 
@@ -66,23 +51,20 @@ public class XsdAnnotation extends XsdIdentifierElements {
         return xsdParseSkeleton(node, new XsdAnnotation(convertNodeMap(node.getAttributes())));
     }
 
-    class AnnotationXsdElementVisitor extends XsdElementVisitor {
+    class AnnotationXsdElementVisitor implements XsdElementVisitor {
 
-        @Override
         public XsdAbstractElement getOwner() {
             return XsdAnnotation.this;
         }
 
-        @Override
         public void visit(XsdAppInfo element) {
-            super.visit(element);
+            XsdElementVisitor.super.visit(element);
 
-            XsdAnnotation.this.appInfos.add(element);
+            XsdAnnotation.this.appInfoList.add(element);
         }
 
-        @Override
         public void visit(XsdDocumentation element) {
-            super.visit(element);
+            XsdElementVisitor.super.visit(element);
 
             XsdAnnotation.this.documentations.add(element);
         }

@@ -1,7 +1,7 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
-import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
@@ -18,10 +18,6 @@ public class XsdAttributeGroup extends XsdReferenceElement {
 
     private List<XsdAttributeGroup> attributeGroups = new ArrayList<>();
     private List<ReferenceBase> attributes = new ArrayList<>();
-
-    private XsdAttributeGroup(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
 
     private XsdAttributeGroup(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
@@ -50,9 +46,12 @@ public class XsdAttributeGroup extends XsdReferenceElement {
     }
 
     @Override
-    public XsdAbstractElement clone(Map<String, String> placeHolderAttributes) {
+    public XsdReferenceElement clone(Map<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdAttributeGroup elementCopy = new XsdAttributeGroup(this.getParent(), placeHolderAttributes);
+        placeHolderAttributes.remove(REF_TAG);
+
+        XsdAttributeGroup elementCopy = new XsdAttributeGroup(placeHolderAttributes);
+        elementCopy.setParent(this.getParent());
 
         elementCopy.attributes.addAll(this.attributes);
         elementCopy.attributeGroups.addAll(this.attributeGroups);
@@ -61,7 +60,7 @@ public class XsdAttributeGroup extends XsdReferenceElement {
     }
 
     @Override
-    public void replaceUnsolvedElements(ConcreteElement element) {
+    public void replaceUnsolvedElements(NamedConcreteElement element) {
         if (element.getElement() instanceof  XsdAttributeGroup){
             XsdAttributeGroup attributeGroup = (XsdAttributeGroup) element.getElement();
 
@@ -71,7 +70,6 @@ public class XsdAttributeGroup extends XsdReferenceElement {
         }
     }
 
-    @SuppressWarnings("unused")
     public List<XsdAttributeGroup> getAttributeGroups() {
         return attributeGroups;
     }

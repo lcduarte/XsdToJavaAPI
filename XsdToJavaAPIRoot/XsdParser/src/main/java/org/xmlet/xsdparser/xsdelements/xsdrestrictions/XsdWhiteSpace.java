@@ -14,11 +14,6 @@ public class XsdWhiteSpace extends XsdAbstractRestrictionChild implements String
     private boolean fixed;
     private String value;
 
-    private XsdWhiteSpace(String value, boolean fixed){
-        this.value = value;
-        this.fixed = fixed;
-    }
-
     private XsdWhiteSpace(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -41,11 +36,6 @@ public class XsdWhiteSpace extends XsdAbstractRestrictionChild implements String
 
     public static ReferenceBase parse(Node node){
         return ReferenceBase.createFromXsd(new XsdWhiteSpace(convertNodeMap(node.getAttributes())));
-    }
-
-    @Override
-    public XsdWhiteSpace clone(Map<String, String> placeHolderAttributes) {
-        return new XsdWhiteSpace(this.value, this.fixed);
     }
 
     public String getValue() {

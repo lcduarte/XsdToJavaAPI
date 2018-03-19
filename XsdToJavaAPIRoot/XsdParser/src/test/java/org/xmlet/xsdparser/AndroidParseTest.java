@@ -2,7 +2,6 @@ package org.xmlet.xsdparser;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.xmlet.xsdparser.core.UnsolvedReferenceItem;
 import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.XsdComplexContent;
 import org.xmlet.xsdparser.xsdelements.XsdComplexType;
@@ -65,19 +64,5 @@ public class AndroidParseTest {
 
         Assert.assertNotNull(view);
         Assert.assertEquals("View", view.getName());
-    }
-
-    @Test
-    public void testDebug() {
-        Optional<XsdElement> relativeLayoutOptional = elements.stream().filter(element -> element.getName().equals("LinearLayout")).findFirst();
-
-        XsdElement linearLayout = relativeLayoutOptional.get();
-    }
-
-    @Test
-    public void testUnsolved() {
-        List<UnsolvedReferenceItem> var = parser.getUnsolvedReferencesForFile(ANDROID_FILE_NAME);
-
-
     }
 }

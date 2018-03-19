@@ -14,11 +14,6 @@ public class XsdMaxLength extends XsdAbstractRestrictionChild implements IntValu
     private boolean fixed;
     private int value;
 
-    private XsdMaxLength(int value, boolean fixed){
-        this.value = value;
-        this.fixed = fixed;
-    }
-
     private XsdMaxLength(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -41,11 +36,6 @@ public class XsdMaxLength extends XsdAbstractRestrictionChild implements IntValu
 
     public static ReferenceBase parse(Node node){
         return ReferenceBase.createFromXsd(new XsdMaxLength(convertNodeMap(node.getAttributes())));
-    }
-
-    @Override
-    public XsdMaxLength clone(Map<String, String> placeHolderAttributes) {
-        return new XsdMaxLength(this.value, this.fixed);
     }
 
     public int getValue() {

@@ -16,10 +16,6 @@ public class XsdUnion extends XsdAnnotatedElements {
     private List<XsdSimpleType> simpleTypeList = new ArrayList<>();
     private String memberTypes;
 
-    private XsdUnion(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
-
     private XsdUnion(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -42,16 +38,6 @@ public class XsdUnion extends XsdAnnotatedElements {
     public void accept(XsdElementVisitor xsdElementVisitor) {
         xsdElementVisitor.visit(this);
         this.setParent(xsdElementVisitor.getOwner());
-    }
-
-    @Override
-    public XsdUnion clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdUnion elementCopy = new XsdUnion(this.getParent(), placeHolderAttributes);
-
-        elementCopy.simpleTypeList = this.simpleTypeList;
-
-        return elementCopy;
     }
 
     @Override

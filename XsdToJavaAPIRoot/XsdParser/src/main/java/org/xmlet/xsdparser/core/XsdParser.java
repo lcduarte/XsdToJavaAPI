@@ -5,6 +5,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xmlet.xsdparser.xsdelements.*;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.xsdrestrictions.*;
@@ -264,20 +265,20 @@ public class XsdParser {
      * @param filePath The name of the file being parsed
      */
     private void resolveRefs(String filePath) {
-        HashMap<String, List<ConcreteElement>> concreteElementsMap = new HashMap<>();
+        HashMap<String, List<NamedConcreteElement>> concreteElementsMap = new HashMap<>();
 
         parseElements
                 .get(filePath)
                 .stream()
-                .filter(concreteElement -> concreteElement instanceof ConcreteElement)
-                .map(concreteElement -> (ConcreteElement) concreteElement)
+                .filter(concreteElement -> concreteElement instanceof NamedConcreteElement)
+                .map(concreteElement -> (NamedConcreteElement) concreteElement)
                 .forEach(referenceElement -> {
-                    List<ConcreteElement> list = concreteElementsMap.get(referenceElement.getName());
+                    List<NamedConcreteElement> list = concreteElementsMap.get(referenceElement.getName());
 
                     if (list != null){
                         list.add(referenceElement);
                     } else {
-                        List<ConcreteElement> newList = new ArrayList<>();
+                        List<NamedConcreteElement> newList = new ArrayList<>();
 
                         newList.add(referenceElement);
 
@@ -301,16 +302,16 @@ public class XsdParser {
      * @param unsolvedReference The unsolved reference to solve.
      * @param filePath The name of the file being parsed.
      */
-    private void replaceUnsolvedReference(HashMap<String, List<ConcreteElement>> concreteElementsMap, UnsolvedReference unsolvedReference, String filePath) {
-        List<ConcreteElement> concreteElements = concreteElementsMap.get(unsolvedReference.getRef());
+    private void replaceUnsolvedReference(HashMap<String, List<NamedConcreteElement>> concreteElementsMap, UnsolvedReference unsolvedReference, String filePath) {
+        List<NamedConcreteElement> concreteElements = concreteElementsMap.get(unsolvedReference.getRef());
 
         if (concreteElements != null){
             Map<String, String> oldElementAttributes = unsolvedReference.getElement().getElementFieldsMap();
 
-            for (ConcreteElement concreteElement : concreteElements) {
-                XsdAbstractElement substitutionElement = concreteElement.getElement().clone(oldElementAttributes);
+            for (NamedConcreteElement concreteElement : concreteElements) {
+                XsdReferenceElement substitutionElement = concreteElement.getElement().clone(oldElementAttributes);
 
-                ConcreteElement substitutionElementWrapper = (ConcreteElement) ReferenceBase.createFromXsd(substitutionElement);
+                NamedConcreteElement substitutionElementWrapper = (NamedConcreteElement) ReferenceBase.createFromXsd(substitutionElement);
 
                 unsolvedReference.getParent().replaceUnsolvedElements(substitutionElementWrapper);
             }

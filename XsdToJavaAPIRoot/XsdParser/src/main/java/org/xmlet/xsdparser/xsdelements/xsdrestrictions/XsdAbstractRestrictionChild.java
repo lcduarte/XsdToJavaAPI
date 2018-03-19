@@ -32,16 +32,16 @@ public abstract class XsdAbstractRestrictionChild extends XsdAnnotatedElements {
         return Collections.emptyList();
     }
 
-    class AbstractRestrictionChildXsdElementVisitor extends XsdElementVisitor {
+    class AbstractRestrictionChildXsdElementVisitor implements XsdElementVisitor {
 
         @Override
         public XsdAbstractElement getOwner() {
             return XsdAbstractRestrictionChild.this;
         }
 
-        @Override
+
         public void visit(XsdAnnotation element) {
-            super.visit(element);
+            XsdElementVisitor.super.visit(element);
 
             setAnnotation(element);
         }
@@ -64,7 +64,7 @@ public abstract class XsdAbstractRestrictionChild extends XsdAnnotatedElements {
             return o2Value == o1Value;
         }
 
-        return true;
+        return false;
     }
 
     public static boolean hasDifferentValue(StringValue o1, StringValue o2) {
@@ -84,7 +84,7 @@ public abstract class XsdAbstractRestrictionChild extends XsdAnnotatedElements {
             return o2Value.equals(o1Value);
         }
 
-        return true;
+        return false;
     }
 }
 

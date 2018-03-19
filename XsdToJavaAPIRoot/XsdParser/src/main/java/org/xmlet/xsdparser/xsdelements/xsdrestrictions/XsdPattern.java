@@ -13,10 +13,6 @@ public class XsdPattern extends XsdAbstractRestrictionChild implements StringVal
 
     private String value;
 
-    private XsdPattern(String value){
-        this.value = value;
-    }
-
     private XsdPattern(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -38,11 +34,6 @@ public class XsdPattern extends XsdAbstractRestrictionChild implements StringVal
 
     public static ReferenceBase parse(Node node){
         return ReferenceBase.createFromXsd(new XsdPattern(convertNodeMap(node.getAttributes())));
-    }
-
-    @Override
-    public XsdPattern clone(Map<String, String> placeHolderAttributes) {
-        return new XsdPattern(this.value);
     }
 
     public String getValue() {

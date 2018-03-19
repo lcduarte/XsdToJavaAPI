@@ -14,11 +14,6 @@ public class XsdTotalDigits extends XsdAbstractRestrictionChild implements IntVa
     private boolean fixed;
     private int value;
 
-    private XsdTotalDigits(int value, boolean fixed){
-        this.value = value;
-        this.fixed = fixed;
-    }
-
     private XsdTotalDigits(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -41,11 +36,6 @@ public class XsdTotalDigits extends XsdAbstractRestrictionChild implements IntVa
 
     public static ReferenceBase parse(Node node){
         return ReferenceBase.createFromXsd(new XsdTotalDigits(convertNodeMap(node.getAttributes())));
-    }
-
-    @Override
-    public XsdTotalDigits clone(Map<String, String> placeHolderAttributes) {
-        return new XsdTotalDigits(this.value, this.fixed);
     }
 
     public int getValue() {

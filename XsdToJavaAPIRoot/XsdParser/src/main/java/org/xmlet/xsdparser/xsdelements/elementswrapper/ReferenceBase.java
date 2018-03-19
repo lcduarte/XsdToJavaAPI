@@ -2,17 +2,21 @@ package org.xmlet.xsdparser.xsdelements.elementswrapper;
 
 import org.xmlet.xsdparser.xsdelements.XsdAbstractElement;
 import org.xmlet.xsdparser.xsdelements.XsdReferenceElement;
-import org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdAbstractRestrictionChild;
 
-import java.security.InvalidParameterException;
-
+import static org.xmlet.xsdparser.xsdelements.XsdAbstractElement.REF_TAG;
 import static org.xmlet.xsdparser.xsdelements.XsdReferenceElement.NAME_TAG;
 
 public abstract class ReferenceBase {
 
-    private static final String REF = "ref";
+    protected XsdAbstractElement element;
 
-    public abstract XsdAbstractElement getElement();
+    ReferenceBase(XsdAbstractElement element){
+        this.element = element;
+    }
+
+    public XsdAbstractElement getElement(){
+        return element;
+    }
 
     /**
      * This method creates a ReferenceBase object that serves as a Wrapper to xsdelements.
@@ -25,23 +29,27 @@ public abstract class ReferenceBase {
         String ref = getRef(element);
         String name = getName(element);
 
-        if (ref == null || name != null || element instanceof XsdAbstractRestrictionChild){
+        if (!(element instanceof XsdReferenceElement)){
             return new ConcreteElement(element);
-        } else {
-            if (element instanceof XsdReferenceElement){
-                return new UnsolvedReference((XsdReferenceElement) element);
-            }
+        }
 
-            throw new InvalidParameterException("The element should either have a name attribute or a ref attribute.");
+        if (ref == null){
+            if (name == null){
+                return new ConcreteElement(element);
+            } else {
+                return new NamedConcreteElement((XsdReferenceElement) element, name);
+            }
+        } else {
+            return new UnsolvedReference((XsdReferenceElement) element);
         }
     }
 
-    static String getName(XsdAbstractElement element){
+    private static String getName(XsdAbstractElement element){
         return getNodeValue(element, NAME_TAG);
     }
 
     static String getRef(XsdAbstractElement element){
-        return getNodeValue(element, REF);
+        return getNodeValue(element, REF_TAG);
     }
 
     /**

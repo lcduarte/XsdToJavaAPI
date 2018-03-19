@@ -10,13 +10,15 @@ public abstract class XsdReferenceElement extends XsdAnnotatedElements {
 
     private String name;
 
-    XsdReferenceElement(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
-
     XsdReferenceElement(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
+
+    /**
+     * @param placeHolderAttributes The additional attributes to add to the clone.
+     * @return A deep copy of the object from which is called upon.
+     */
+    public abstract XsdReferenceElement clone(Map<String, String> placeHolderAttributes);
 
     @Override
     public void setFields(Map<String, String> elementFieldsMap) {

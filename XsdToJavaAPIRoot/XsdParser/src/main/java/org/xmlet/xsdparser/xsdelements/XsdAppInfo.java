@@ -1,9 +1,9 @@
 package org.xmlet.xsdparser.xsdelements;
 
-import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
-import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
-import org.xmlet.xsdparser.xsdelements.visitors.VisitorNotFoundException;
 import org.w3c.dom.Node;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
+import org.xmlet.xsdparser.xsdelements.visitors.VisitorNotFoundException;
+import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,15 +11,11 @@ import java.util.Map;
 
 public class XsdAppInfo extends XsdAbstractElement {
 
-    public static final String XSD_TAG = "xsd:appInfo";
-    public static final String XS_TAG = "xs:appInfo";
+    public static final String XSD_TAG = "xsd:appinfo";
+    public static final String XS_TAG = "xs:appinfo";
 
     private String source;
     private String content;
-
-    private XsdAppInfo(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
 
     private XsdAppInfo(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
@@ -45,15 +41,12 @@ public class XsdAppInfo extends XsdAbstractElement {
         this.setParent(xsdElementVisitor.getOwner());
     }
 
-    @Override
-    public XsdAppInfo clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdAppInfo elementCopy = new XsdAppInfo(this.getParent(), placeHolderAttributes);
+    public String getSource() {
+        return source;
+    }
 
-        elementCopy.source = this.source;
-        elementCopy.content = this.content;
-
-        return elementCopy;
+    public String getContent() {
+        return content;
     }
 
     @Override

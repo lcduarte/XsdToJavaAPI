@@ -11,7 +11,7 @@ import java.util.*;
 
 import static org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdAbstractRestrictionChild.hasDifferentValue;
 
-public class XsdSimpleType extends XsdAnnotatedElements {
+public class XsdSimpleType extends XsdReferenceElement {
 
     public static final String XSD_TAG = "xsd:simpleType";
     public static final String XS_TAG = "xs:simpleType";
@@ -22,12 +22,7 @@ public class XsdSimpleType extends XsdAnnotatedElements {
     private XsdUnion union;
     private XsdList list;
 
-    private String name;
     private String finalObj;
-
-    private XsdSimpleType(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
 
     private XsdSimpleType(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
@@ -38,7 +33,6 @@ public class XsdSimpleType extends XsdAnnotatedElements {
         super.setFields(elementFieldsMap);
 
         if (elementFieldsMap != null){
-            this.name = elementFieldsMap.getOrDefault(NAME_TAG, name);
             this.finalObj = elementFieldsMap.getOrDefault(FINAL_TAG, finalObj);
         }
     }
@@ -57,7 +51,10 @@ public class XsdSimpleType extends XsdAnnotatedElements {
     @Override
     public XsdSimpleType clone(Map<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdSimpleType copy = new XsdSimpleType(this.getParent(), placeHolderAttributes);
+        placeHolderAttributes.remove(REF_TAG);
+
+        XsdSimpleType copy = new XsdSimpleType(placeHolderAttributes);
+        copy.setParent(this.getParent());
 
         copy.union = this.union;
         copy.list = this.list;
@@ -102,7 +99,7 @@ public class XsdSimpleType extends XsdAnnotatedElements {
      * because the information on the xsd file is contradictory.
      * @return A list of restrictions.
      */
-    List<XsdRestriction> getAllRestrictions() {
+    public List<XsdRestriction> getAllRestrictions() {
         Map<String, XsdRestriction> restrictions = new HashMap<>();
         Map<String, String> xsdBuiltinTypes = XsdParser.getXsdTypesToJava();
 

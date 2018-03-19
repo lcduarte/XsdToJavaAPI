@@ -4,6 +4,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
@@ -40,16 +41,12 @@ public abstract class XsdAbstractElement {
     static final String SOURCE_TAG = "source";
     static final String XML_LANG_TAG = "xml:lang";
     static final String MEMBER_TYPES_TAG = "memberTypes";
+    public static final String REF_TAG = "ref";
     public static final String VALUE_TAG = "value";
 
     private XsdAbstractElement parent;
 
     protected XsdAbstractElement(Map<String, String> elementFieldsMap){
-        setFields(elementFieldsMap);
-    }
-
-    protected XsdAbstractElement(XsdAbstractElement parent, Map<String, String> elementFieldsMap){
-        setParent(parent);
         setFields(elementFieldsMap);
     }
 
@@ -74,12 +71,6 @@ public abstract class XsdAbstractElement {
     public abstract XsdElementVisitor getXsdElementVisitor();
 
     public abstract void accept(XsdElementVisitor xsdElementVisitor);
-
-    /**
-     * @param placeHolderAttributes The additional attributes to add to the clone.
-     * @return A deep copy of the object from which is called upon.
-     */
-    public abstract XsdAbstractElement clone(Map<String, String> placeHolderAttributes);
 
     protected abstract List<ReferenceBase> getElements();
 
@@ -136,7 +127,7 @@ public abstract class XsdAbstractElement {
      * ref attribute that matches a ConcreteElement name attribute
      * @param element A concrete element that will replace a unsolved reference, if existent
      */
-    public void replaceUnsolvedElements(ConcreteElement element){
+    public void replaceUnsolvedElements(NamedConcreteElement element){
         List<ReferenceBase> elements = this.getElements();
 
         if (elements != null){

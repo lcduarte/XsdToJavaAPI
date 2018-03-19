@@ -10,10 +10,6 @@ public abstract class XsdIdentifierElements extends XsdAbstractElement {
         super(elementFieldsMap);
     }
 
-    XsdIdentifierElements(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
-
     @Override
     public void setFields(Map<String, String> elementFieldsMap) {
         super.setFields(elementFieldsMap);
@@ -23,7 +19,6 @@ public abstract class XsdIdentifierElements extends XsdAbstractElement {
         }
     }
 
-    @SuppressWarnings("unused")
     public String getId() {
         return id;
     }

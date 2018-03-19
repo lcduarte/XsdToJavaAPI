@@ -1,6 +1,6 @@
 package org.xmlet.xsdparser.xsdelements;
 
-import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
@@ -16,10 +16,6 @@ public abstract class XsdAnnotatedElements extends XsdIdentifierElements {
         super(elementFieldsMap);
     }
 
-    protected XsdAnnotatedElements(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
-
     protected void setAnnotation(XsdAnnotation annotation){
         this.annotation = annotation;
     }
@@ -29,7 +25,7 @@ public abstract class XsdAnnotatedElements extends XsdIdentifierElements {
         return annotation;
     }
 
-    protected class AnnotatedXsdElementVisitor extends XsdElementVisitor {
+    protected abstract class AnnotatedXsdElementVisitor implements XsdElementVisitor {
         @Override
         public XsdAbstractElement getOwner() {
             return XsdAnnotatedElements.this;
@@ -37,13 +33,13 @@ public abstract class XsdAnnotatedElements extends XsdIdentifierElements {
 
         @Override
         public void visit(XsdAnnotation element) {
-            super.visit(element);
+            XsdElementVisitor.super.visit(element);
 
             setAnnotation(element);
         }
     }
 
-    void replaceUnsolvedAttributes(ConcreteElement element, List<ReferenceBase> attributeGroups, List<ReferenceBase> attributes){
+    void replaceUnsolvedAttributes(NamedConcreteElement element, List<ReferenceBase> attributeGroups, List<ReferenceBase> attributes){
         if (element.getElement() instanceof XsdAttributeGroup){
             attributeGroups.stream()
                     .filter(attributeGroup -> attributeGroup instanceof UnsolvedReference && ((UnsolvedReference) attributeGroup).getRef().equals(element.getName()))

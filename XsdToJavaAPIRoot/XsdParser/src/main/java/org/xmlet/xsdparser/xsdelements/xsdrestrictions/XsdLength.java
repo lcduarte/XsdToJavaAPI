@@ -15,11 +15,6 @@ public class XsdLength extends XsdAbstractRestrictionChild implements IntValue {
     private boolean fixed;
     private int value;
 
-    private XsdLength(int value, boolean fixed){
-        this.value = value;
-        this.fixed = fixed;
-    }
-
     private XsdLength(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -42,11 +37,6 @@ public class XsdLength extends XsdAbstractRestrictionChild implements IntValue {
 
     public static ReferenceBase parse(Node node){
         return ReferenceBase.createFromXsd(new XsdLength(XsdAbstractElement.convertNodeMap(node.getAttributes())));
-    }
-
-    @Override
-    public XsdLength clone(Map<String, String> placeHolderAttributes) {
-        return new XsdLength(this.value, this.fixed);
     }
 
     @Override

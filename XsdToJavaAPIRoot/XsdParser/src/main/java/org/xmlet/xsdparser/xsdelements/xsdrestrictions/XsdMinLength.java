@@ -14,11 +14,6 @@ public class XsdMinLength extends XsdAbstractRestrictionChild implements IntValu
     private boolean fixed;
     private int value;
 
-    private XsdMinLength(int value, boolean fixed){
-        this.value = value;
-        this.fixed = fixed;
-    }
-
     private XsdMinLength(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -41,11 +36,6 @@ public class XsdMinLength extends XsdAbstractRestrictionChild implements IntValu
 
     public static ReferenceBase parse(Node node){
         return ReferenceBase.createFromXsd(new XsdMinLength(convertNodeMap(node.getAttributes())));
-    }
-
-    @Override
-    public XsdMinLength clone(Map<String, String> placeHolderAttributes) {
-        return new XsdMinLength(this.value, this.fixed);
     }
 
     public int getValue() {

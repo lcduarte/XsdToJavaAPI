@@ -1,9 +1,9 @@
 package org.xmlet.xsdparser.xsdelements;
 
+import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
-import org.w3c.dom.Node;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,10 +20,6 @@ public class XsdComplexContent extends XsdAnnotatedElements {
     private ReferenceBase extension;
 
     private boolean mixed;
-
-    private XsdComplexContent(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
 
     private XsdComplexContent(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
@@ -50,28 +46,20 @@ public class XsdComplexContent extends XsdAnnotatedElements {
     }
 
     @Override
-    public XsdComplexContent clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdComplexContent elementCopy = new XsdComplexContent(this.getParent(), placeHolderAttributes);
-
-        elementCopy.restriction = this.restriction;
-        elementCopy.extension = this.extension;
-
-        return elementCopy;
-    }
-
-    @Override
     protected List<ReferenceBase> getElements() {
         return Collections.emptyList();
     }
 
-    @SuppressWarnings("unused")
     public boolean isMixed() {
         return mixed;
     }
 
     public XsdExtension getXsdExtension() {
         return extension instanceof ConcreteElement ? (XsdExtension) extension.getElement() : null;
+    }
+
+    public XsdRestriction getXsdRestriction(){
+        return restriction instanceof ConcreteElement ? (XsdRestriction) restriction.getElement() : null;
     }
 
     public static ReferenceBase parse(Node node){

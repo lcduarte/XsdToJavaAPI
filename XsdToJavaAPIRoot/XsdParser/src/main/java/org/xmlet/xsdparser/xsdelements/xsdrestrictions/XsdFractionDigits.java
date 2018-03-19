@@ -15,11 +15,6 @@ public class XsdFractionDigits extends XsdAbstractRestrictionChild implements In
     private boolean fixed;
     private int value;
 
-    private XsdFractionDigits(int value, boolean fixed){
-        this.value = value;
-        this.fixed = fixed;
-    }
-
     private XsdFractionDigits(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -42,11 +37,6 @@ public class XsdFractionDigits extends XsdAbstractRestrictionChild implements In
 
     public static ReferenceBase parse(Node node){
         return ReferenceBase.createFromXsd(new XsdFractionDigits(XsdAbstractElement.convertNodeMap(node.getAttributes())));
-    }
-
-    @Override
-    public XsdFractionDigits clone(Map<String, String> placeHolderAttributes) {
-        return new XsdFractionDigits(this.value, this.fixed);
     }
 
     public int getValue() {

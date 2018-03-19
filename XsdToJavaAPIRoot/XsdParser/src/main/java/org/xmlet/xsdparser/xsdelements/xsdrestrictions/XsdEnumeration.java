@@ -13,10 +13,6 @@ public class XsdEnumeration extends XsdAbstractRestrictionChild implements Strin
 
     private String value;
 
-    private XsdEnumeration(String value){
-        this.value = value;
-    }
-
     private XsdEnumeration(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -38,11 +34,6 @@ public class XsdEnumeration extends XsdAbstractRestrictionChild implements Strin
 
     public static ReferenceBase parse(Node node){
         return ReferenceBase.createFromXsd(new XsdEnumeration(convertNodeMap(node.getAttributes())));
-    }
-
-    @Override
-    public XsdEnumeration clone(Map<String, String> placeHolderAttributes) {
-        return new XsdEnumeration(this.value);
     }
 
     public String getValue() {

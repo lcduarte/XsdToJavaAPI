@@ -3,11 +3,15 @@ package org.xmlet.xsdparser.xsdelements;
 import org.w3c.dom.Node;
 import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class XsdExtension extends XsdAnnotatedElements {
@@ -23,10 +27,6 @@ public class XsdExtension extends XsdAnnotatedElements {
 
     private ReferenceBase base;
 
-    private XsdExtension(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
-
     private XsdExtension(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -39,7 +39,8 @@ public class XsdExtension extends XsdAnnotatedElements {
             String baseValue = elementFieldsMap.getOrDefault(BASE_TAG, null);
 
             if (baseValue != null){
-                XsdElement placeHolder = new XsdElement(this, null);
+                XsdElement placeHolder = new XsdElement(null);
+                placeHolder.setParent(this);
                 this.base = new UnsolvedReference(baseValue, placeHolder);
                 XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.base);
             }
@@ -47,7 +48,7 @@ public class XsdExtension extends XsdAnnotatedElements {
     }
 
     @Override
-    public void replaceUnsolvedElements(ConcreteElement element) {
+    public void replaceUnsolvedElements(NamedConcreteElement element) {
         super.replaceUnsolvedElements(element);
 
         if (this.base != null && this.base instanceof UnsolvedReference && element.getElement() instanceof XsdElement && ((UnsolvedReference) this.base).getRef().equals(element.getName())){
@@ -69,18 +70,6 @@ public class XsdExtension extends XsdAnnotatedElements {
     }
 
     @Override
-    public XsdExtension clone(Map<String, String> placeHolderAttributes) {
-        XsdExtension elementCopy = new XsdExtension(this.getParent(), new HashMap<>());
-
-        elementCopy.childElement = this.childElement;
-        elementCopy.attributeGroups = this.attributeGroups;
-        elementCopy.attributes = this.attributes;
-        elementCopy.base = this.base;
-
-        return elementCopy;
-    }
-
-    @Override
     protected List<ReferenceBase> getElements() {
         return childElement == null ? Collections.emptyList() : childElement.getElement().getElements();
     }
@@ -93,7 +82,6 @@ public class XsdExtension extends XsdAnnotatedElements {
         return xsdParseSkeleton(node, new XsdExtension(convertNodeMap(node.getAttributes())));
     }
 
-    @SuppressWarnings("unused")
     public Stream<XsdAttribute> getXsdAttributes() {
         return attributes.stream()
                 .filter(attribute -> attribute instanceof ConcreteElement)

@@ -14,11 +14,6 @@ public class XsdMaxExclusive extends XsdAbstractRestrictionChild implements IntV
     private boolean fixed;
     private int value;
 
-    private XsdMaxExclusive(int value, boolean fixed){
-        this.value = value;
-        this.fixed = fixed;
-    }
-
     private XsdMaxExclusive(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -41,11 +36,6 @@ public class XsdMaxExclusive extends XsdAbstractRestrictionChild implements IntV
 
     public static ReferenceBase parse(Node node){
         return ReferenceBase.createFromXsd(new XsdMaxExclusive(convertNodeMap(node.getAttributes())));
-    }
-
-    @Override
-    public XsdMaxExclusive clone(Map<String, String> placeHolderAttributes) {
-        return new XsdMaxExclusive(this.value, this.fixed);
     }
 
     public int getValue() {

@@ -13,10 +13,6 @@ public class XsdSequence extends XsdMultipleElements{
 
     private SequenceXsdElementVisitor visitor = new SequenceXsdElementVisitor();
 
-    private XsdSequence(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
-
     private XsdSequence(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -30,16 +26,6 @@ public class XsdSequence extends XsdMultipleElements{
     @Override
     public SequenceXsdElementVisitor getXsdElementVisitor() {
         return visitor;
-    }
-
-    @Override
-    public XsdAbstractElement clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdSequence elementCopy = new XsdSequence(this.getParent(), placeHolderAttributes);
-
-        elementCopy.addElements(this.getElements());
-
-        return elementCopy;
     }
 
     public static ReferenceBase parse(Node node){

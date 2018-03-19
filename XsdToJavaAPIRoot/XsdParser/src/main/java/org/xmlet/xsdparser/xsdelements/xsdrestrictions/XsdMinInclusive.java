@@ -15,11 +15,6 @@ public class XsdMinInclusive extends XsdAbstractRestrictionChild implements IntV
     private boolean fixed;
     private int value;
 
-    private XsdMinInclusive(int value, boolean fixed){
-        this.value = value;
-        this.fixed = fixed;
-    }
-
     private XsdMinInclusive(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -42,11 +37,6 @@ public class XsdMinInclusive extends XsdAbstractRestrictionChild implements IntV
 
     public static ReferenceBase parse(Node node){
         return ReferenceBase.createFromXsd(new XsdMinInclusive(XsdAbstractElement.convertNodeMap(node.getAttributes())));
-    }
-
-    @Override
-    public XsdMinInclusive clone(Map<String, String> placeHolderAttributes) {
-        return new XsdMinInclusive(this.value, this.fixed);
     }
 
     public int getValue() {

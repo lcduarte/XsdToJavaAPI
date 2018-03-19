@@ -3,6 +3,7 @@ package org.xmlet.xsdparser.xsdelements;
 import org.w3c.dom.Node;
 import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
@@ -20,6 +21,7 @@ public class XsdElement extends XsdReferenceElement {
     private XsdElementVisitor xsdElementVisitor = new ElementXsdElementVisitor();
 
     private ReferenceBase complexType;
+    private ReferenceBase simpleType;
 
     private ReferenceBase type;
     private String substitutionGroup;
@@ -32,10 +34,6 @@ public class XsdElement extends XsdReferenceElement {
     private String finalObj;
     private Integer minOccurs;
     private String maxOccurs;
-
-    protected XsdElement(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
 
     public XsdElement(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
@@ -52,9 +50,12 @@ public class XsdElement extends XsdReferenceElement {
                 if (XsdParser.getXsdTypesToJava().containsKey(typeString)){
                     HashMap<String, String> attributes = new HashMap<>();
                     attributes.put(NAME_TAG, typeString);
-                    this.type = ReferenceBase.createFromXsd(new XsdComplexType(this, attributes));
+                    XsdComplexType placeHolder = new XsdComplexType(attributes);
+                    placeHolder.setParent(this);
+                    this.type = ReferenceBase.createFromXsd(placeHolder);
                 } else {
-                    XsdElement placeHolder = new XsdElement(this, null);
+                    XsdElement placeHolder = new XsdElement( null);
+                    placeHolder.setParent(this);
                     this.type = new UnsolvedReference(typeString, placeHolder);
                     XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.type);
                 }
@@ -92,10 +93,11 @@ public class XsdElement extends XsdReferenceElement {
     @Override
     public XsdElement clone(Map<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
-
         placeHolderAttributes.remove(TYPE_TAG);
+        placeHolderAttributes.remove(REF_TAG);
 
-        XsdElement elementCopy = new XsdElement(this.getParent(), placeHolderAttributes);
+        XsdElement elementCopy = new XsdElement(placeHolderAttributes);
+        elementCopy.setParent(this.getParent());
 
         elementCopy.type = this.type;
 
@@ -103,7 +105,7 @@ public class XsdElement extends XsdReferenceElement {
     }
 
     @Override
-    public void replaceUnsolvedElements(ConcreteElement element) {
+    public void replaceUnsolvedElements(NamedConcreteElement element) {
         super.replaceUnsolvedElements(element);
 
         if (this.type != null && this.type instanceof UnsolvedReference && element.getElement() instanceof XsdComplexType && ((UnsolvedReference) this.type).getRef().equals(element.getName())){
@@ -114,6 +116,10 @@ public class XsdElement extends XsdReferenceElement {
 
     public XsdComplexType getXsdComplexType() {
         return complexType == null ? getXsdType() : (XsdComplexType) complexType.getElement();
+    }
+
+    public XsdSimpleType getXsdSimpleType(){
+        return simpleType instanceof ConcreteElement ? (XsdSimpleType) simpleType.getElement() : null;
     }
 
     private XsdComplexType getXsdType(){
@@ -163,6 +169,12 @@ public class XsdElement extends XsdReferenceElement {
         public void visit(XsdComplexType element) {
             super.visit(element);
             XsdElement.this.complexType = ReferenceBase.createFromXsd(element);
+        }
+
+        @Override
+        public void visit(XsdSimpleType element) {
+            super.visit(element);
+            XsdElement.this.simpleType = ReferenceBase.createFromXsd(element);
         }
     }
 }

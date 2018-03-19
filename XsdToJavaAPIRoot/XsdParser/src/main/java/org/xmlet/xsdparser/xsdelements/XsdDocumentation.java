@@ -1,9 +1,9 @@
 package org.xmlet.xsdparser.xsdelements;
 
-import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
-import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
-import org.xmlet.xsdparser.xsdelements.visitors.VisitorNotFoundException;
 import org.w3c.dom.Node;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
+import org.xmlet.xsdparser.xsdelements.visitors.VisitorNotFoundException;
+import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,10 +17,6 @@ public class XsdDocumentation extends XsdAbstractElement {
     private String source;
     private String xmlLang;
     private String content;
-
-    private XsdDocumentation(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
 
     private XsdDocumentation(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
@@ -47,16 +43,12 @@ public class XsdDocumentation extends XsdAbstractElement {
         this.setParent(xsdElementVisitor.getOwner());
     }
 
-    @Override
-    public XsdDocumentation clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdDocumentation elementCopy = new XsdDocumentation(this.getParent(), placeHolderAttributes);
+    public String getSource() {
+        return source;
+    }
 
-        elementCopy.source = this.source;
-        elementCopy.xmlLang = this.xmlLang;
-        elementCopy.content = this.content;
-
-        return elementCopy;
+    public String getContent() {
+        return content;
     }
 
     public static ReferenceBase parse(Node node){

@@ -1,8 +1,9 @@
 package org.xmlet.xsdparser.xsdelements;
 
+import org.w3c.dom.Node;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
-import org.w3c.dom.Node;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,10 +18,6 @@ public class XsdSimpleContent extends XsdAnnotatedElements {
 
     private ReferenceBase restriction;
     private ReferenceBase extension;
-
-    private XsdSimpleContent(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
 
     private XsdSimpleContent(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
@@ -37,15 +34,12 @@ public class XsdSimpleContent extends XsdAnnotatedElements {
         this.setParent(xsdElementVisitor.getOwner());
     }
 
-    @Override
-    public XsdSimpleContent clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdSimpleContent elementCopy = new XsdSimpleContent(this.getParent(), placeHolderAttributes);
+    public XsdExtension getXsdExtension() {
+        return extension instanceof ConcreteElement ? (XsdExtension) extension.getElement() : null;
+    }
 
-        elementCopy.restriction = this.restriction;
-        elementCopy.extension = this.extension;
-
-        return elementCopy;
+    public XsdRestriction getXsdRestriction(){
+        return restriction instanceof ConcreteElement ? (XsdRestriction) restriction.getElement() : null;
     }
 
     @Override

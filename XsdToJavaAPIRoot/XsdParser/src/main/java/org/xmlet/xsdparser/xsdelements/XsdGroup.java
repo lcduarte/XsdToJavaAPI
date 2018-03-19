@@ -20,10 +20,6 @@ public class XsdGroup extends XsdReferenceElement {
     private Integer minOccurs;
     private String maxOccurs;
 
-    private XsdGroup(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
-
     private XsdGroup(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
     }
@@ -61,9 +57,12 @@ public class XsdGroup extends XsdReferenceElement {
     }
 
     @Override
-    public XsdAbstractElement clone(Map<String, String> placeHolderAttributes) {
+    public XsdReferenceElement clone(Map<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdGroup elementCopy = new XsdGroup(this.getParent(), placeHolderAttributes);
+        placeHolderAttributes.remove(REF_TAG);
+
+        XsdGroup elementCopy = new XsdGroup(placeHolderAttributes);
+        elementCopy.setParent(this.getParent());
 
         if (childElement != null){
             elementCopy.setChildElement(this.childElement);
@@ -82,12 +81,10 @@ public class XsdGroup extends XsdReferenceElement {
         return xsdParseSkeleton(node, new XsdGroup(convertNodeMap(node.getAttributes())));
     }
 
-    @SuppressWarnings("unused")
     public Integer getMinOccurs() {
         return minOccurs;
     }
 
-    @SuppressWarnings("unused")
     public String getMaxOccurs() {
         return maxOccurs;
     }

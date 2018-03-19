@@ -1,11 +1,17 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
+import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 import org.xmlet.xsdparser.xsdelements.xsdrestrictions.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 public class XsdRestriction extends XsdAnnotatedElements {
 
@@ -14,7 +20,7 @@ public class XsdRestriction extends XsdAnnotatedElements {
 
     private RestrictionXsdElementVisitor visitor = new RestrictionXsdElementVisitor();
 
-    private List<XsdAttributeGroup> attributeGroups = new ArrayList<>();
+    private List<ReferenceBase> attributeGroups = new ArrayList<>();
     private List<ReferenceBase> attributes = new ArrayList<>();
 
     private XsdSimpleType simpleType;
@@ -33,10 +39,6 @@ public class XsdRestriction extends XsdAnnotatedElements {
     private XsdWhiteSpace whiteSpace;
 
     private String base;
-
-    private XsdRestriction(XsdAbstractElement parent, Map<String, String> elementFieldsMap) {
-        super(parent, elementFieldsMap);
-    }
 
     private XsdRestriction(Map<String, String> elementFieldsMap) {
         super(elementFieldsMap);
@@ -63,31 +65,10 @@ public class XsdRestriction extends XsdAnnotatedElements {
     }
 
     @Override
-    public XsdRestriction clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
-        XsdRestriction elementCopy = new XsdRestriction(this.getParent(), placeHolderAttributes);
+    public void replaceUnsolvedElements(NamedConcreteElement element) {
+        super.replaceUnsolvedElements(element);
 
-        HashMap<String, String> dummy = new HashMap<>();
-
-        elementCopy.simpleType = this.simpleType;
-
-        elementCopy.attributes = this.attributes;
-        elementCopy.attributeGroups = this.attributeGroups;
-        elementCopy.enumeration = this.enumeration;
-
-        elementCopy.fractionDigits = fractionDigits == null ? null : fractionDigits.clone(dummy);
-        elementCopy.length = length == null ? null : length.clone(dummy);
-        elementCopy.maxExclusive = maxExclusive == null ? null : maxExclusive.clone(dummy);
-        elementCopy.maxInclusive = maxInclusive == null ? null : maxInclusive.clone(dummy);
-        elementCopy.maxLength = maxLength == null ? null : maxLength.clone(dummy);
-        elementCopy.minExclusive = minExclusive == null ? null : minExclusive.clone(dummy);
-        elementCopy.minInclusive = minInclusive == null ? null : minInclusive.clone(dummy);
-        elementCopy.minLength = minLength == null ? null : minLength.clone(dummy);
-        elementCopy.pattern = pattern == null ? null : pattern.clone(dummy);
-        elementCopy.totalDigits = totalDigits == null ? null : totalDigits.clone(dummy);
-        elementCopy.whiteSpace = whiteSpace == null ? null : whiteSpace.clone(dummy);
-
-        return elementCopy;
+        replaceUnsolvedAttributes(element, attributeGroups, attributes);
     }
 
     @Override
@@ -97,6 +78,23 @@ public class XsdRestriction extends XsdAnnotatedElements {
 
     public static ReferenceBase parse(Node node){
         return xsdParseSkeleton(node, new XsdRestriction(convertNodeMap(node.getAttributes())));
+    }
+
+    public Stream<XsdAttribute> getXsdAttributes() {
+        return attributes.stream()
+                .filter(attribute -> attribute instanceof ConcreteElement)
+                .filter(attribute -> attribute.getElement() instanceof  XsdAttribute)
+                .map(attribute -> (XsdAttribute)attribute.getElement());
+    }
+
+    public Stream<XsdAttributeGroup> getXsdAttributeGroup() {
+        return attributeGroups.stream()
+                .filter(attributeGroup -> attributeGroup instanceof ConcreteElement)
+                .map(attributeGroup -> (XsdAttributeGroup) attributeGroup.getElement());
+    }
+
+    public XsdSimpleType getSimpleType() {
+        return simpleType;
     }
 
     public String getBase() {
@@ -288,6 +286,19 @@ public class XsdRestriction extends XsdAnnotatedElements {
             super.visit(element);
 
             XsdRestriction.this.whiteSpace = element;
+        }
+
+        @Override
+        public void visit(XsdAttribute attribute) {
+            super.visit(attribute);
+            XsdRestriction.this.attributes.add(ReferenceBase.createFromXsd(attribute));
+        }
+
+        @Override
+        public void visit(XsdAttributeGroup attributeGroup) {
+            super.visit(attributeGroup);
+
+            XsdRestriction.this.attributeGroups.add(ReferenceBase.createFromXsd(attributeGroup));
         }
     }
 }
