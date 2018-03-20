@@ -5,8 +5,7 @@ import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
-import java.util.Collections;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 public class XsdSimpleContent extends XsdAnnotatedElements {
@@ -19,19 +18,19 @@ public class XsdSimpleContent extends XsdAnnotatedElements {
     private ReferenceBase restriction;
     private ReferenceBase extension;
 
-    private XsdSimpleContent(Map<String, String> elementFieldsMap) {
-        super(elementFieldsMap);
+    private XsdSimpleContent(@NotNull Map<String, String> elementFieldsMapParam) {
+        super(elementFieldsMapParam);
     }
 
     @Override
-    public XsdElementVisitor getXsdElementVisitor() {
+    public XsdElementVisitor getVisitor() {
         return xsdElementVisitor;
     }
 
     @Override
     public void accept(XsdElementVisitor xsdElementVisitor) {
+        super.accept(xsdElementVisitor);
         xsdElementVisitor.visit(this);
-        this.setParent(xsdElementVisitor.getOwner());
     }
 
     public XsdExtension getXsdExtension() {
@@ -40,11 +39,6 @@ public class XsdSimpleContent extends XsdAnnotatedElements {
 
     public XsdRestriction getXsdRestriction(){
         return restriction instanceof ConcreteElement ? (XsdRestriction) restriction.getElement() : null;
-    }
-
-    @Override
-    protected List<ReferenceBase> getElements() {
-        return Collections.emptyList();
     }
 
     public static ReferenceBase parse(Node node){

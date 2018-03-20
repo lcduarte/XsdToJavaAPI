@@ -1,14 +1,13 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
-import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 import org.xmlet.xsdparser.xsdelements.xsdrestrictions.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -19,9 +18,6 @@ public class XsdRestriction extends XsdAnnotatedElements {
     public static final String XS_TAG = "xs:restriction";
 
     private RestrictionXsdElementVisitor visitor = new RestrictionXsdElementVisitor();
-
-    private List<ReferenceBase> attributeGroups = new ArrayList<>();
-    private List<ReferenceBase> attributes = new ArrayList<>();
 
     private XsdSimpleType simpleType;
 
@@ -40,40 +36,33 @@ public class XsdRestriction extends XsdAnnotatedElements {
 
     private String base;
 
-    private XsdRestriction(Map<String, String> elementFieldsMap) {
-        super(elementFieldsMap);
+    private XsdRestriction(@NotNull Map<String, String> elementFieldsMapParam) {
+        super(elementFieldsMapParam);
     }
 
     @Override
-    public void setFields(Map<String, String> elementFieldsMap){
-        super.setFields(elementFieldsMap);
+    public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
+        super.setFields(elementFieldsMapParam);
 
-        if (elementFieldsMap != null){
-            this.base = elementFieldsMap.getOrDefault(BASE_TAG, base);
-        }
+        this.base = elementFieldsMap.getOrDefault(BASE_TAG, base);
     }
 
     @Override
-    public XsdElementVisitor getXsdElementVisitor() {
+    public XsdElementVisitor getVisitor() {
         return visitor;
     }
 
     @Override
     public void accept(XsdElementVisitor xsdElementVisitor) {
+        super.accept(xsdElementVisitor);
         xsdElementVisitor.visit(this);
-        this.setParent(xsdElementVisitor.getOwner());
     }
 
     @Override
     public void replaceUnsolvedElements(NamedConcreteElement element) {
         super.replaceUnsolvedElements(element);
 
-        replaceUnsolvedAttributes(element, attributeGroups, attributes);
-    }
-
-    @Override
-    protected List<ReferenceBase> getElements() {
-        return Collections.emptyList();
+        visitor.replaceUnsolvedAttributes(element);
     }
 
     public static ReferenceBase parse(Node node){
@@ -81,16 +70,11 @@ public class XsdRestriction extends XsdAnnotatedElements {
     }
 
     public Stream<XsdAttribute> getXsdAttributes() {
-        return attributes.stream()
-                .filter(attribute -> attribute instanceof ConcreteElement)
-                .filter(attribute -> attribute.getElement() instanceof  XsdAttribute)
-                .map(attribute -> (XsdAttribute)attribute.getElement());
+        return visitor.getXsdAttributes();
     }
 
     public Stream<XsdAttributeGroup> getXsdAttributeGroup() {
-        return attributeGroups.stream()
-                .filter(attributeGroup -> attributeGroup instanceof ConcreteElement)
-                .map(attributeGroup -> (XsdAttributeGroup) attributeGroup.getElement());
+        return visitor.getXsdAttributeGroup();
     }
 
     public XsdSimpleType getSimpleType() {
@@ -197,7 +181,7 @@ public class XsdRestriction extends XsdAnnotatedElements {
         this.whiteSpace = whiteSpace;
     }
 
-    class RestrictionXsdElementVisitor extends AnnotatedXsdElementVisitor {
+    class RestrictionXsdElementVisitor extends AttributesVisitor {
 
         @Override
         public XsdAbstractElement getOwner() {
@@ -289,16 +273,10 @@ public class XsdRestriction extends XsdAnnotatedElements {
         }
 
         @Override
-        public void visit(XsdAttribute attribute) {
-            super.visit(attribute);
-            XsdRestriction.this.attributes.add(ReferenceBase.createFromXsd(attribute));
-        }
+        public void visit(XsdSimpleType element) {
+            super.visit(element);
 
-        @Override
-        public void visit(XsdAttributeGroup attributeGroup) {
-            super.visit(attributeGroup);
-
-            XsdRestriction.this.attributeGroups.add(ReferenceBase.createFromXsd(attributeGroup));
+            XsdRestriction.this.simpleType = element;
         }
     }
 }

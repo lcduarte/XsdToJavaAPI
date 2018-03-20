@@ -1,5 +1,6 @@
 package org.xmlet.xsdparser.xsdelements;
 
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 /**
@@ -10,23 +11,21 @@ public abstract class XsdReferenceElement extends XsdAnnotatedElements {
 
     private String name;
 
-    XsdReferenceElement(Map<String, String> elementFieldsMap) {
-        super(elementFieldsMap);
+    XsdReferenceElement(@NotNull Map<String, String> elementFieldsMapParam) {
+        super(elementFieldsMapParam);
     }
 
     /**
      * @param placeHolderAttributes The additional attributes to add to the clone.
      * @return A deep copy of the object from which is called upon.
      */
-    public abstract XsdReferenceElement clone(Map<String, String> placeHolderAttributes);
+    public abstract XsdReferenceElement clone(@NotNull Map<String, String> placeHolderAttributes);
 
     @Override
-    public void setFields(Map<String, String> elementFieldsMap) {
-        super.setFields(elementFieldsMap);
+    public void setFields(@NotNull Map<String, String> elementFieldsMapParam) {
+        super.setFields(elementFieldsMapParam);
 
-        if (elementFieldsMap != null){
-            this.name = elementFieldsMap.getOrDefault(NAME_TAG, name);
-        }
+        this.name = elementFieldsMap.getOrDefault(NAME_TAG, name);
     }
 
     /**
@@ -36,7 +35,4 @@ public abstract class XsdReferenceElement extends XsdAnnotatedElements {
         return name == null ? null : name.replaceAll("[^a-zA-Z0-9]", "_");
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }

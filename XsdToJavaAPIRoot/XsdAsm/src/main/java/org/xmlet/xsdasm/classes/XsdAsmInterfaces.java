@@ -422,7 +422,8 @@ class XsdAsmInterfaces {
 
         createElement(sequenceElement, apiName);
 
-        createdElements.put(nextTypeName, null);
+        //TODO Verificar este comentário.
+        //createdElements.put(nextTypeName, null);
     }
 
     /**
@@ -580,7 +581,7 @@ class XsdAsmInterfaces {
         mVisitor.visitMaxs(4, 3);
         mVisitor.visitEnd();
 
-        createdElements.put(addingChildName, null);
+        //createdElements.put(addingChildName, null);
     }
 
     /**

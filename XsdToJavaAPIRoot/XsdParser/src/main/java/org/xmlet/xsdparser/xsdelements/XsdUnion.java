@@ -4,7 +4,11 @@ import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
-import java.util.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class XsdUnion extends XsdAnnotatedElements {
 
@@ -16,40 +20,32 @@ public class XsdUnion extends XsdAnnotatedElements {
     private List<XsdSimpleType> simpleTypeList = new ArrayList<>();
     private String memberTypes;
 
-    private XsdUnion(Map<String, String> elementFieldsMap) {
-        super(elementFieldsMap);
+    private XsdUnion(@NotNull Map<String, String> elementFieldsMapParam) {
+        super(elementFieldsMapParam);
     }
 
     @Override
-    public void setFields(Map<String, String> elementFieldsMap){
-        super.setFields(elementFieldsMap);
+    public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
+        super.setFields(elementFieldsMapParam);
 
-        if (elementFieldsMap != null){
-            this.memberTypes = elementFieldsMap.getOrDefault(MEMBER_TYPES_TAG, memberTypes);
-        }
+        this.memberTypes = elementFieldsMap.getOrDefault(MEMBER_TYPES_TAG, memberTypes);
     }
 
     @Override
-    public XsdElementVisitor getXsdElementVisitor() {
+    public XsdElementVisitor getVisitor() {
         return visitor;
     }
 
     @Override
     public void accept(XsdElementVisitor xsdElementVisitor) {
+        super.accept(xsdElementVisitor);
         xsdElementVisitor.visit(this);
-        this.setParent(xsdElementVisitor.getOwner());
-    }
-
-    @Override
-    protected List<ReferenceBase> getElements() {
-        return Collections.emptyList();
     }
 
     public List<XsdSimpleType> getUnionElements(){
         return simpleTypeList;
     }
 
-    @SuppressWarnings("unused")
     public List<String> getMemberTypesList() {
         return Arrays.asList(memberTypes.split(" "));
     }

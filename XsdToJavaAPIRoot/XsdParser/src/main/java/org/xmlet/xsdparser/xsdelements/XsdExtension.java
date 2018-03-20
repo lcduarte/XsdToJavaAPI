@@ -8,8 +8,9 @@ import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
-import java.util.ArrayList;
+import javax.validation.constraints.NotNull;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -19,31 +20,26 @@ public class XsdExtension extends XsdAnnotatedElements {
     public static final String XSD_TAG = "xsd:extension";
     public static final String XS_TAG = "xs:extension";
 
-    private XsdElementVisitor xsdElementVisitor = new ExtensionXsdElementVisitor();
+    private ExtensionXsdElementVisitor visitor = new ExtensionXsdElementVisitor();
 
     private ReferenceBase childElement;
-    private List<ReferenceBase> attributeGroups = new ArrayList<>();
-    private List<ReferenceBase> attributes = new ArrayList<>();
-
     private ReferenceBase base;
 
-    private XsdExtension(Map<String, String> elementFieldsMap) {
-        super(elementFieldsMap);
+    private XsdExtension(@NotNull Map<String, String> elementFieldsMapParam) {
+        super(elementFieldsMapParam);
     }
 
     @Override
-    public void setFields(Map<String, String> elementFieldsMap) {
-        super.setFields(elementFieldsMap);
+    public void setFields(@NotNull Map<String, String> elementFieldsMapParam) {
+        super.setFields(elementFieldsMapParam);
 
-        if (elementFieldsMap != null){
-            String baseValue = elementFieldsMap.getOrDefault(BASE_TAG, null);
+        String baseValue = elementFieldsMap.getOrDefault(BASE_TAG, null);
 
-            if (baseValue != null){
-                XsdElement placeHolder = new XsdElement(null);
-                placeHolder.setParent(this);
-                this.base = new UnsolvedReference(baseValue, placeHolder);
-                XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.base);
-            }
+        if (baseValue != null){
+            XsdElement placeHolder = new XsdElement(new HashMap<>());
+            placeHolder.setParent(this);
+            this.base = new UnsolvedReference(baseValue, placeHolder);
+            XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.base);
         }
     }
 
@@ -55,18 +51,18 @@ public class XsdExtension extends XsdAnnotatedElements {
             this.base = element;
         }
 
-        replaceUnsolvedAttributes(element, attributeGroups, attributes);
+        visitor.replaceUnsolvedAttributes(element);
     }
 
     @Override
-    public XsdElementVisitor getXsdElementVisitor() {
-        return xsdElementVisitor;
+    public XsdElementVisitor getVisitor() {
+        return visitor;
     }
 
     @Override
     public void accept(XsdElementVisitor xsdElementVisitor) {
+        super.accept(xsdElementVisitor);
         xsdElementVisitor.visit(this);
-        this.setParent(xsdElementVisitor.getOwner());
     }
 
     @Override
@@ -83,20 +79,14 @@ public class XsdExtension extends XsdAnnotatedElements {
     }
 
     public Stream<XsdAttribute> getXsdAttributes() {
-        return attributes.stream()
-                .filter(attribute -> attribute instanceof ConcreteElement)
-                .filter(attribute -> attribute.getElement() instanceof  XsdAttribute)
-                .map(attribute -> (XsdAttribute)attribute.getElement());
+        return visitor.getXsdAttributes();
     }
 
-    @SuppressWarnings("unused")
     public Stream<XsdAttributeGroup> getXsdAttributeGroup() {
-        return attributeGroups.stream()
-                .filter(attributeGroup -> attributeGroup instanceof ConcreteElement)
-                .map(attributeGroup -> (XsdAttributeGroup) attributeGroup.getElement());
+        return visitor.getXsdAttributeGroup();
     }
 
-    class ExtensionXsdElementVisitor extends AnnotatedXsdElementVisitor {
+    class ExtensionXsdElementVisitor extends AttributesVisitor {
 
         @Override
         public XsdAbstractElement getOwner() {
@@ -114,19 +104,5 @@ public class XsdExtension extends XsdAnnotatedElements {
             super.visit(element);
             XsdExtension.this.childElement = ReferenceBase.createFromXsd(element);
         }
-
-        @Override
-        public void visit(XsdAttribute attribute) {
-            super.visit(attribute);
-            XsdExtension.this.attributes.add(ReferenceBase.createFromXsd(attribute));
-        }
-
-        @Override
-        public void visit(XsdAttributeGroup attributeGroup) {
-            super.visit(attributeGroup);
-
-            XsdExtension.this.attributeGroups.add(ReferenceBase.createFromXsd(attributeGroup));
-        }
     }
-
 }

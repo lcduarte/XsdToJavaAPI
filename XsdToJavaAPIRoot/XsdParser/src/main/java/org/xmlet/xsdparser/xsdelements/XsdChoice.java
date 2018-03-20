@@ -4,6 +4,7 @@ import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 public class XsdChoice extends XsdMultipleElements{
@@ -13,18 +14,18 @@ public class XsdChoice extends XsdMultipleElements{
 
     private ChoiceXsdElementVisitor visitor = new ChoiceXsdElementVisitor();
 
-    private XsdChoice(Map<String, String> elementFieldsMap) {
-        super(elementFieldsMap);
+    private XsdChoice(@NotNull Map<String, String> elementFieldsMapParam) {
+        super(elementFieldsMapParam);
     }
 
     @Override
     public void accept(XsdElementVisitor xsdElementVisitor) {
+        super.accept(xsdElementVisitor);
         xsdElementVisitor.visit(this);
-        this.setParent(xsdElementVisitor.getOwner());
     }
 
     @Override
-    public ChoiceXsdElementVisitor getXsdElementVisitor() {
+    public ChoiceXsdElementVisitor getVisitor() {
         return visitor;
     }
 

@@ -4,6 +4,7 @@ import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 public class XsdAll extends XsdMultipleElements {
@@ -13,18 +14,18 @@ public class XsdAll extends XsdMultipleElements {
 
     private final AllXsdElementVisitor visitor = new AllXsdElementVisitor();
 
-    private XsdAll(Map<String, String> elementFieldsMap){
-        super(elementFieldsMap);
+    private XsdAll(@NotNull Map<String, String> elementFieldsMapParam){
+        super(elementFieldsMapParam);
     }
 
     @Override
     public void accept(XsdElementVisitor xsdElementVisitor) {
+        super.accept(xsdElementVisitor);
         xsdElementVisitor.visit(this);
-        this.setParent(xsdElementVisitor.getOwner());
     }
 
     @Override
-    public XsdElementVisitor getXsdElementVisitor() {
+    public XsdElementVisitor getVisitor() {
         return visitor;
     }
 

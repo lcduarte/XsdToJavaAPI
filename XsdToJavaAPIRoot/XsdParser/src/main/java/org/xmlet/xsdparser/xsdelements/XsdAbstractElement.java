@@ -9,10 +9,8 @@ import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.validation.constraints.NotNull;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -44,20 +42,18 @@ public abstract class XsdAbstractElement {
     public static final String REF_TAG = "ref";
     public static final String VALUE_TAG = "value";
 
-    private XsdAbstractElement parent;
+    XsdAbstractElement parent;
 
-    protected XsdAbstractElement(Map<String, String> elementFieldsMap){
-        setFields(elementFieldsMap);
+    protected XsdAbstractElement(@NotNull Map<String, String> elementFieldsMapParam){
+        setFields(elementFieldsMapParam);
     }
 
     /**
      * This method serves as a base to all xsdelements which need to set their class specific attributes.
-     * @param elementFieldsMap The node map containing all attributes of a XSDElement
+     * @param elementFieldsMapParam The node map containing all attributes of a XSDElement
      */
-    public void setFields(Map<String, String> elementFieldsMap){
-        if (elementFieldsMap != null){
-            this.elementFieldsMap = elementFieldsMap;
-        }
+    public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
+        this.elementFieldsMap = elementFieldsMapParam;
     }
 
     public Map<String, String> getElementFieldsMap() {
@@ -68,11 +64,15 @@ public abstract class XsdAbstractElement {
      * Obtains the visitor of an XsdAbstractElement instance.
      * @return The concrete visitor instance.
      */
-    public abstract XsdElementVisitor getXsdElementVisitor();
+    public abstract XsdElementVisitor getVisitor();
 
-    public abstract void accept(XsdElementVisitor xsdElementVisitor);
+    public void accept(XsdElementVisitor xsdElementVisitor){
+        this.setParent(xsdElementVisitor.getOwner());
+    }
 
-    protected abstract List<ReferenceBase> getElements();
+    List<ReferenceBase> getElements(){
+        return Collections.emptyList();
+    }
 
     public Stream<XsdAbstractElement> getXsdElements(){
         List<ReferenceBase> elements = getElements();
@@ -101,7 +101,7 @@ public abstract class XsdAbstractElement {
                 Function<Node, ReferenceBase> parserFunction = XsdParser.getParseMappers().get(nodeName);
 
                 if (parserFunction != null){
-                    parserFunction.apply(child).getElement().accept(element.getXsdElementVisitor());
+                    parserFunction.apply(child).getElement().accept(element.getVisitor());
                 }
             }
 
@@ -147,7 +147,7 @@ public abstract class XsdAbstractElement {
         return parent;
     }
 
-    protected void setParent(XsdAbstractElement parent) {
+    void setParent(XsdAbstractElement parent) {
         this.parent = parent;
     }
 

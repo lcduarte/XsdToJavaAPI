@@ -6,10 +6,12 @@ import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 import org.xmlet.xsdparser.xsdelements.xsdrestrictions.*;
 
+import javax.validation.constraints.NotNull;
 import java.security.InvalidParameterException;
 import java.util.*;
 
-import static org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdAbstractRestrictionChild.hasDifferentValue;
+import static org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdIntegerRestrictions.hasDifferentValue;
+import static org.xmlet.xsdparser.xsdelements.xsdrestrictions.XsdStringRestrictions.hasDifferentValue;
 
 public class XsdSimpleType extends XsdReferenceElement {
 
@@ -24,48 +26,41 @@ public class XsdSimpleType extends XsdReferenceElement {
 
     private String finalObj;
 
-    private XsdSimpleType(Map<String, String> elementFieldsMap) {
-        super(elementFieldsMap);
+    private XsdSimpleType(@NotNull Map<String, String> elementFieldsMapParam) {
+        super(elementFieldsMapParam);
     }
 
     @Override
-    public void setFields(Map<String, String> elementFieldsMap){
-        super.setFields(elementFieldsMap);
+    public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
+        super.setFields(elementFieldsMapParam);
 
-        if (elementFieldsMap != null){
-            this.finalObj = elementFieldsMap.getOrDefault(FINAL_TAG, finalObj);
-        }
+        this.finalObj = elementFieldsMap.getOrDefault(FINAL_TAG, finalObj);
     }
 
     @Override
-    public XsdElementVisitor getXsdElementVisitor() {
+    public XsdElementVisitor getVisitor() {
         return visitor;
     }
 
     @Override
     public void accept(XsdElementVisitor xsdElementVisitor) {
+        super.accept(xsdElementVisitor);
         xsdElementVisitor.visit(this);
-        this.setParent(xsdElementVisitor.getOwner());
     }
 
     @Override
-    public XsdSimpleType clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
+    public XsdSimpleType clone(@NotNull Map<String, String> placeHolderAttributes) {
+        placeHolderAttributes.putAll(elementFieldsMap);
         placeHolderAttributes.remove(REF_TAG);
 
         XsdSimpleType copy = new XsdSimpleType(placeHolderAttributes);
-        copy.setParent(this.getParent());
+        copy.setParent(this.parent);
 
         copy.union = this.union;
         copy.list = this.list;
         copy.restriction = this.restriction;
 
         return copy;
-    }
-
-    @Override
-    protected List<ReferenceBase> getElements() {
-        return Collections.emptyList();
     }
 
     public static ReferenceBase parse(Node node){

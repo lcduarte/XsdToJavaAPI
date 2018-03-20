@@ -4,8 +4,8 @@ import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -19,24 +19,19 @@ public class XsdAnnotation extends XsdIdentifierElements {
     private List<XsdAppInfo> appInfoList = new ArrayList<>();
     private List<XsdDocumentation> documentations = new ArrayList<>();
 
-    private XsdAnnotation(Map<String, String> elementFieldsMap) {
-        super(elementFieldsMap);
+    private XsdAnnotation(@NotNull Map<String, String> elementFieldsMapParam) {
+        super(elementFieldsMapParam);
     }
 
     @Override
-    public XsdElementVisitor getXsdElementVisitor() {
+    public XsdElementVisitor getVisitor() {
         return xsdElementVisitor;
     }
 
     @Override
     public void accept(XsdElementVisitor xsdElementVisitor) {
+        super.accept(xsdElementVisitor);
         xsdElementVisitor.visit(this);
-        this.setParent(xsdElementVisitor.getOwner());
-    }
-
-    @Override
-    protected List<ReferenceBase> getElements() {
-        return Collections.emptyList();
     }
 
     public List<XsdAppInfo> getAppInfoList() {
@@ -57,12 +52,14 @@ public class XsdAnnotation extends XsdIdentifierElements {
             return XsdAnnotation.this;
         }
 
+        @Override
         public void visit(XsdAppInfo element) {
             XsdElementVisitor.super.visit(element);
 
             XsdAnnotation.this.appInfoList.add(element);
         }
 
+        @Override
         public void visit(XsdDocumentation element) {
             XsdElementVisitor.super.visit(element);
 

@@ -1,12 +1,11 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
-import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
-import java.util.ArrayList;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -24,38 +23,32 @@ public class XsdComplexType extends XsdReferenceElement {
     private boolean mixed;
     private String block;
     private String elementFinal;
-    private List<ReferenceBase> attributeGroups = new ArrayList<>();
-    private List<ReferenceBase> attributes = new ArrayList<>();
 
     private XsdComplexContent complexContent;
     private XsdSimpleContent simpleContent;
 
-    XsdComplexType(Map<String, String> elementFieldsMap) {
-        super(elementFieldsMap);
+    XsdComplexType(@NotNull Map<String, String> elementFieldsMapParam) {
+        super(elementFieldsMapParam);
     }
 
     @Override
-    public void setFields(Map<String, String> elementFieldsMap) {
-        super.setFields(elementFieldsMap);
+    public void setFields(@NotNull Map<String, String> elementFieldsMapParam) {
+        super.setFields(elementFieldsMapParam);
 
-        if (elementFieldsMap != null){
-            super.setFields(elementFieldsMap);
-
-            this.elementAbstract = Boolean.parseBoolean(elementFieldsMap.getOrDefault(ABSTRACT_TAG, "false"));
-            this.mixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(MIXED_TAG, "false"));
-            this.block = elementFieldsMap.getOrDefault(BLOCK_TAG, block);
-            this.elementFinal = elementFieldsMap.getOrDefault(FINAL_TAG, elementFinal);
-        }
+        this.elementAbstract = Boolean.parseBoolean(elementFieldsMap.getOrDefault(ABSTRACT_TAG, "false"));
+        this.mixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(MIXED_TAG, "false"));
+        this.block = elementFieldsMap.getOrDefault(BLOCK_TAG, block);
+        this.elementFinal = elementFieldsMap.getOrDefault(FINAL_TAG, elementFinal);
     }
 
     @Override
     public void accept(XsdElementVisitor xsdElementVisitor) {
+        super.accept(xsdElementVisitor);
         xsdElementVisitor.visit(this);
-        this.setParent(xsdElementVisitor.getOwner());
     }
 
     @Override
-    public ComplexTypeXsdElementVisitor getXsdElementVisitor() {
+    public ComplexTypeXsdElementVisitor getVisitor() {
         return visitor;
     }
 
@@ -65,16 +58,16 @@ public class XsdComplexType extends XsdReferenceElement {
     }
 
     @Override
-    public XsdComplexType clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
+    public XsdComplexType clone(@NotNull Map<String, String> placeHolderAttributes) {
+        placeHolderAttributes.putAll(elementFieldsMap);
         placeHolderAttributes.remove(REF_TAG);
 
         XsdComplexType elementCopy = new XsdComplexType(placeHolderAttributes);
-        elementCopy.setParent(this.getParent());
+        elementCopy.setParent(this.parent);
 
         elementCopy.childElement = this.childElement;
-        elementCopy.attributes = this.attributes;
-        elementCopy.attributeGroups = this.attributeGroups;
+        elementCopy.visitor.attributes = this.visitor.attributes;
+        elementCopy.visitor.attributeGroups = this.visitor.attributeGroups;
 
         elementCopy.complexContent = this.complexContent;
         elementCopy.simpleContent = this.simpleContent;
@@ -86,7 +79,7 @@ public class XsdComplexType extends XsdReferenceElement {
     public void replaceUnsolvedElements(NamedConcreteElement element) {
         super.replaceUnsolvedElements(element);
 
-        replaceUnsolvedAttributes(element, attributeGroups, attributes);
+        visitor.replaceUnsolvedAttributes(element);
     }
 
     public XsdAbstractElement getXsdChildElement() {
@@ -98,20 +91,15 @@ public class XsdComplexType extends XsdReferenceElement {
     }
 
     List<ReferenceBase> getAttributes() {
-        return attributes;
+        return visitor.attributes;
     }
 
     public Stream<XsdAttribute> getXsdAttributes() {
-        return attributes.stream()
-                        .filter(attribute -> attribute instanceof ConcreteElement)
-                        .filter(attribute -> attribute.getElement() instanceof  XsdAttribute)
-                        .map(attribute -> (XsdAttribute)attribute.getElement());
+        return visitor.getXsdAttributes();
     }
 
     public Stream<XsdAttributeGroup> getXsdAttributeGroup() {
-        return attributeGroups.stream()
-                .filter(attributeGroup -> attributeGroup instanceof ConcreteElement)
-                .map(attributeGroup -> (XsdAttributeGroup) attributeGroup.getElement());
+        return visitor.getXsdAttributeGroup();
     }
 
     public XsdSimpleContent getSimpleContent() {
@@ -134,7 +122,7 @@ public class XsdComplexType extends XsdReferenceElement {
         return xsdParseSkeleton(node, new XsdComplexType(convertNodeMap(node.getAttributes())));
     }
 
-    class ComplexTypeXsdElementVisitor extends AnnotatedXsdElementVisitor {
+    class ComplexTypeXsdElementVisitor extends AttributesVisitor {
 
         @Override
         public XsdAbstractElement getOwner() {
@@ -167,19 +155,6 @@ public class XsdComplexType extends XsdReferenceElement {
             super.visit(element);
 
             XsdComplexType.this.simpleContent = element;
-        }
-
-        @Override
-        public void visit(XsdAttribute attribute) {
-            super.visit(attribute);
-            XsdComplexType.this.attributes.add(ReferenceBase.createFromXsd(attribute));
-        }
-
-        @Override
-        public void visit(XsdAttributeGroup attributeGroup) {
-            super.visit(attributeGroup);
-
-            XsdComplexType.this.attributeGroups.add(ReferenceBase.createFromXsd(attributeGroup));
         }
     }
 }

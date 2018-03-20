@@ -4,8 +4,7 @@ import org.w3c.dom.Node;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
-import java.util.Collections;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 public class XsdList extends XsdAnnotatedElements {
@@ -19,33 +18,26 @@ public class XsdList extends XsdAnnotatedElements {
 
     private String itemType;
 
-    private XsdList(Map<String, String> elementFieldsMap) {
-        super(elementFieldsMap);
+    private XsdList(@NotNull Map<String, String> elementFieldsMapParam) {
+        super(elementFieldsMapParam);
     }
 
     @Override
-    public void setFields(Map<String, String> elementFieldsMap){
-        super.setFields(elementFieldsMap);
+    public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
+        super.setFields(elementFieldsMapParam);
 
-        if (elementFieldsMap != null){
-            this.itemType = elementFieldsMap.getOrDefault(ITEM_TYPE_TAG, itemType);
-        }
+        this.itemType = elementFieldsMap.getOrDefault(ITEM_TYPE_TAG, itemType);
     }
 
     @Override
-    public XsdElementVisitor getXsdElementVisitor() {
+    public XsdElementVisitor getVisitor() {
         return visitor;
     }
 
     @Override
     public void accept(XsdElementVisitor xsdElementVisitor) {
+        super.accept(xsdElementVisitor);
         xsdElementVisitor.visit(this);
-        this.setParent(xsdElementVisitor.getOwner());
-    }
-
-    @Override
-    protected List<ReferenceBase> getElements() {
-        return Collections.emptyList();
     }
 
     public static ReferenceBase parse(Node node){

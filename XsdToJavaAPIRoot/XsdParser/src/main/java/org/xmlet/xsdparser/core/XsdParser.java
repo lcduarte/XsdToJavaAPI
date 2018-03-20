@@ -109,6 +109,8 @@ public class XsdParser {
         String integer = "Integer";
         String shortString = "Short";
         String qName = "QName";
+        String longString = "Long";
+        String byteString = "Byte";
 
         xsdTypesToJava.put("xsd:anyURI", string);
         xsdTypesToJava.put("xs:anyURI", string);
@@ -144,20 +146,20 @@ public class XsdParser {
         xsdTypesToJava.put("xs:nonPositiveInteger", bigInteger);
         xsdTypesToJava.put("xsd:negativeInteger", bigInteger);
         xsdTypesToJava.put("xs:negativeInteger", bigInteger);
-        xsdTypesToJava.put("xsd:long", "Long");
-        xsdTypesToJava.put("xs:long", "Long");
+        xsdTypesToJava.put("xsd:long", longString);
+        xsdTypesToJava.put("xs:long", longString);
         xsdTypesToJava.put("xsd:int", integer);
         xsdTypesToJava.put("xs:int", integer);
         xsdTypesToJava.put("xsd:short", shortString);
         xsdTypesToJava.put("xs:short", shortString);
-        xsdTypesToJava.put("xsd:byte", "Byte");
-        xsdTypesToJava.put("xs:byte", "Byte");
+        xsdTypesToJava.put("xsd:byte", byteString);
+        xsdTypesToJava.put("xs:byte", byteString);
         xsdTypesToJava.put("xsd:nonNegativeInteger", bigInteger);
         xsdTypesToJava.put("xs:nonNegativeInteger", bigInteger);
         xsdTypesToJava.put("xsd:unsignedLong", bigInteger);
         xsdTypesToJava.put("xs:unsignedLong", bigInteger);
-        xsdTypesToJava.put("xsd:unsignedInt", "Long");
-        xsdTypesToJava.put("xs:unsignedInt", "Long");
+        xsdTypesToJava.put("xsd:unsignedInt", longString);
+        xsdTypesToJava.put("xs:unsignedInt", longString);
         xsdTypesToJava.put("xsd:unsignedShort", integer);
         xsdTypesToJava.put("xs:unsignedShort", integer);
         xsdTypesToJava.put("xsd:unsignedByte", shortString);

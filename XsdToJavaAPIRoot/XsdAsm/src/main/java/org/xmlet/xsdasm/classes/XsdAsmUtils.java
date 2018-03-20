@@ -145,7 +145,7 @@ public class XsdAsmUtils {
         URL resource = XsdAsm.class.getClassLoader().getResource("");
 
         if (resource != null){
-            return resource.getPath() + "/" + getPackage(apiName);
+            return resource.getPath() /*+ "/" */ + getPackage(apiName);
         }
 
         throw new RuntimeException("Target folder not found.");

@@ -86,13 +86,8 @@ class XsdAsmAttributes {
      */
     static void generateAttribute(XsdAttribute attribute, String apiName){
         String camelAttributeName = getAttributeName(attribute);
-        String attributeType = getFullClassTypeName(camelAttributeName, apiName);
-        String attributeTypeDesc = getFullClassTypeNameDesc(camelAttributeName, apiName);
-
         List<XsdRestriction> restrictions = getAttributeRestrictions(attribute);
-
         XsdList list = getAttributeList(attribute);
-
         String javaType = getFullJavaType(attribute);
 
         if (list != null){

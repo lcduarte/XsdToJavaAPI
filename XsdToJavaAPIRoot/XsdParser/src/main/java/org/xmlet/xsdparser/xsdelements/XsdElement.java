@@ -8,9 +8,8 @@ import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
 
-import java.util.Collections;
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class XsdElement extends XsdReferenceElement {
@@ -35,69 +34,62 @@ public class XsdElement extends XsdReferenceElement {
     private Integer minOccurs;
     private String maxOccurs;
 
-    public XsdElement(Map<String, String> elementFieldsMap) {
-        super(elementFieldsMap);
+    public XsdElement(@NotNull Map<String, String> elementFieldsMapParam) {
+        super(elementFieldsMapParam);
     }
 
     @Override
-    public void setFields(Map<String, String> elementFieldsMap){
-        super.setFields(elementFieldsMap);
+    public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
+        super.setFields(elementFieldsMapParam);
 
-        if (elementFieldsMap != null){
-            String typeString = elementFieldsMap.get(TYPE_TAG);
+        String typeString = elementFieldsMap.get(TYPE_TAG);
 
-            if (typeString != null){
-                if (XsdParser.getXsdTypesToJava().containsKey(typeString)){
-                    HashMap<String, String> attributes = new HashMap<>();
-                    attributes.put(NAME_TAG, typeString);
-                    XsdComplexType placeHolder = new XsdComplexType(attributes);
-                    placeHolder.setParent(this);
-                    this.type = ReferenceBase.createFromXsd(placeHolder);
-                } else {
-                    XsdElement placeHolder = new XsdElement( null);
-                    placeHolder.setParent(this);
-                    this.type = new UnsolvedReference(typeString, placeHolder);
-                    XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.type);
-                }
+        if (typeString != null){
+            if (XsdParser.getXsdTypesToJava().containsKey(typeString)){
+                HashMap<String, String> attributes = new HashMap<>();
+                attributes.put(NAME_TAG, typeString);
+                XsdComplexType placeHolder = new XsdComplexType(attributes);
+                placeHolder.setParent(this);
+                this.type = ReferenceBase.createFromXsd(placeHolder);
+            } else {
+                XsdElement placeHolder = new XsdElement( new HashMap<>());
+                placeHolder.setParent(this);
+                this.type = new UnsolvedReference(typeString, placeHolder);
+                XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.type);
             }
-
-            this.substitutionGroup = elementFieldsMap.getOrDefault(SUBSTITUTION_GROUP_TAG, substitutionGroup);
-            this.defaultObj = elementFieldsMap.getOrDefault(DEFAULT_TAG, defaultObj);
-            this.fixed = elementFieldsMap.getOrDefault(FIXED_TAG, fixed);
-            this.form = elementFieldsMap.getOrDefault(FORM_TAG, form);
-            this.nillable = Boolean.parseBoolean(elementFieldsMap.getOrDefault(NILLABLE_TAG, "false"));
-            this.abstractObj = Boolean.parseBoolean(elementFieldsMap.getOrDefault(ABSTRACT_TAG, "false"));
-            this.block = elementFieldsMap.getOrDefault(BLOCK_TAG, block);
-            this.finalObj = elementFieldsMap.getOrDefault(FINAL_TAG, finalObj);
-            this.minOccurs = Integer.parseInt(elementFieldsMap.getOrDefault(MIN_OCCURS_TAG, "1"));
-            this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS_TAG, "1");
         }
+
+        this.substitutionGroup = elementFieldsMap.getOrDefault(SUBSTITUTION_GROUP_TAG, substitutionGroup);
+        this.defaultObj = elementFieldsMap.getOrDefault(DEFAULT_TAG, defaultObj);
+        this.fixed = elementFieldsMap.getOrDefault(FIXED_TAG, fixed);
+        this.form = elementFieldsMap.getOrDefault(FORM_TAG, form);
+        this.nillable = Boolean.parseBoolean(elementFieldsMap.getOrDefault(NILLABLE_TAG, "false"));
+        this.abstractObj = Boolean.parseBoolean(elementFieldsMap.getOrDefault(ABSTRACT_TAG, "false"));
+        this.block = elementFieldsMap.getOrDefault(BLOCK_TAG, block);
+        this.finalObj = elementFieldsMap.getOrDefault(FINAL_TAG, finalObj);
+        this.minOccurs = Integer.parseInt(elementFieldsMap.getOrDefault(MIN_OCCURS_TAG, "1"));
+        this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS_TAG, "1");
     }
 
     @Override
     public void accept(XsdElementVisitor xsdElementVisitor) {
+        super.accept(xsdElementVisitor);
         xsdElementVisitor.visit(this);
-        this.setParent(xsdElementVisitor.getOwner());
     }
 
     @Override
-    public XsdElementVisitor getXsdElementVisitor() {
+    public XsdElementVisitor getVisitor() {
         return xsdElementVisitor;
     }
 
     @Override
-    protected List<ReferenceBase> getElements() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public XsdElement clone(Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(this.getElementFieldsMap());
+    public XsdElement clone(@NotNull Map<String, String> placeHolderAttributes) {
+        placeHolderAttributes.putAll(elementFieldsMap);
         placeHolderAttributes.remove(TYPE_TAG);
         placeHolderAttributes.remove(REF_TAG);
 
         XsdElement elementCopy = new XsdElement(placeHolderAttributes);
-        elementCopy.setParent(this.getParent());
+        elementCopy.setParent(this.parent);
 
         elementCopy.type = this.type;
 
