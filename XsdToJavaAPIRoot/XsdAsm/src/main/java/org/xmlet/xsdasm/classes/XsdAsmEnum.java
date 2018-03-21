@@ -34,7 +34,7 @@ class XsdAsmEnum {
         FieldVisitor fVisitor;
 
         enumerations.forEach(enumElem -> {
-            FieldVisitor fieldVisitor = cw.visitField(ACC_PUBLIC + ACC_FINAL + ACC_STATIC + ACC_ENUM, getEnumElementName(enumElem), enumTypeDesc, null, null);
+            FieldVisitor fieldVisitor = cw.visitField(ACC_PUBLIC + ACC_FINAL + ACC_STATIC + ACC_ENUM, getEnumElementName(enumElem).replaceAll("[^a-zA-Z0-9]", ""), enumTypeDesc, null, null);
             fieldVisitor.visitEnd();
         });
 
@@ -98,7 +98,7 @@ class XsdAsmEnum {
         int iConst = 0;
 
         for (XsdEnumeration enumElem : enumerations) {
-            String elemName = getEnumElementName(enumElem);
+            String elemName = getEnumElementName(enumElem).replaceAll("[^a-zA-Z0-9]", "");
             staticConstructor.visitTypeInsn(NEW, enumType);
             staticConstructor.visitInsn(DUP);
             staticConstructor.visitLdcInsn(elemName);
@@ -129,7 +129,7 @@ class XsdAsmEnum {
         for (XsdEnumeration enumElem : enumerations){
             staticConstructor.visitInsn(DUP);
             staticConstructor.visitIntInsn(BIPUSH, iConst);
-            staticConstructor.visitFieldInsn(GETSTATIC, enumType, getEnumElementName(enumElem), enumTypeDesc);
+            staticConstructor.visitFieldInsn(GETSTATIC, enumType, getEnumElementName(enumElem).replaceAll("[^a-zA-Z0-9]", ""), enumTypeDesc);
             staticConstructor.visitInsn(AASTORE);
             iConst += 1;
         }

@@ -145,6 +145,7 @@ class XsdAsmElements {
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
+        /*
         mVisitor = classWriter.visitMethod(ACC_PRIVATE + ACC_STATIC + ACC_SYNTHETIC, "lambda$accept$0", "(" + elementVisitorTypeDesc + elementTypeDesc + ")V", null, null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 1);
@@ -153,6 +154,7 @@ class XsdAsmElements {
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
+        */
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, "cloneElem", "()" + elementTypeDesc, null, null);
         mVisitor.visitCode();
@@ -184,7 +186,7 @@ class XsdAsmElements {
      * @param classType The type of the class which contains the children elements.
      */
     static void generateMethodsForElement(ClassWriter classWriter, XsdElement child, String classType, String returnType, String apiName) {
-        generateMethodsForElement(classWriter, child.getName(), classType, returnType, apiName);
+        generateMethodsForElement(classWriter, child.getName(), classType, returnType, apiName, new String[]{});
     }
 
     /**
@@ -193,13 +195,18 @@ class XsdAsmElements {
      * @param childName The name of the element which generated the class.
      * @param classType The type of the class which contains the children elements.
      */
-    static void generateMethodsForElement(ClassWriter classWriter, String childName, String classType, String returnType, String apiName) {
+    static void generateMethodsForElement(ClassWriter classWriter, String childName, String classType, String returnType, String apiName, String[] annotationsDesc) {
         String childCamelName = toCamelCase(childName);
         String childType = getFullClassTypeName(childCamelName, apiName);
         String childTypeDesc = getFullClassTypeNameDesc(childCamelName, apiName);
         boolean isInterface = isInterfaceMethod(returnType);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, childName, "()" + childTypeDesc, "()L" + childType + "<TT;>;", null);
+
+        for (String annotationDesc: annotationsDesc) {
+            mVisitor.visitAnnotation(annotationDesc, true);
+        }
+
         mVisitor.visitCode();
         mVisitor.visitTypeInsn(NEW, childType);
         mVisitor.visitInsn(DUP);

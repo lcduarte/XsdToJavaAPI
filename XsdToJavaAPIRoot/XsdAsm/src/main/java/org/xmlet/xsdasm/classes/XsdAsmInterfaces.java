@@ -680,7 +680,7 @@ class XsdAsmInterfaces {
         String interfaceName;
 
         if (groupName != null){
-            interfaceName = toCamelCase(groupName + "Choice" + interfaceIndex);
+            interfaceName = toCamelCase(groupName + "Choice");
         } else {
             interfaceName = className + "Choice" + interfaceIndex;
         }
@@ -707,13 +707,30 @@ class XsdAsmInterfaces {
 
         ClassWriter classWriter = generateClass(interfaceName, JAVA_OBJECT, extendedInterfacesArr, getInterfaceSignature(extendedInterfacesArr, apiName), ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
+        String interfaceType = getFullClassTypeName(interfaceName, apiName);
+
         directElements.forEach(child -> {
-            XsdAsmElements.generateMethodsForElement(classWriter, child, getFullClassTypeName(interfaceName, apiName), elementTypeDesc, apiName);
+            XsdAsmElements.generateMethodsForElement(classWriter, child, interfaceType, elementTypeDesc, apiName);
             createElement(child, apiName);
         });
 
-        getAmbiguousNames(interfaceInfos).forEach(name ->
-            XsdAsmElements.generateMethodsForElement(classWriter, name, getFullClassTypeName(interfaceName, apiName), elementTypeDesc, apiName)
+        getAmbiguousNames(interfaceInfos).forEach(pair ->
+            /*
+            String methodName = pair.getKey();
+            String methodInterfaceName = pair.getValue();
+            String nameType = getFullClassTypeName(toCamelCase(methodName), apiName);
+            String nameTypeDesc = getFullClassTypeNameDesc(toCamelCase(methodName), apiName);
+            String newMethodType = getFullClassTypeName(methodInterfaceName, apiName);
+
+            MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, methodName, "()" + nameTypeDesc, "()L" + nameType + "<TT;>;", null);
+            mVisitor.visitCode();
+            mVisitor.visitVarInsn(ALOAD, 0);
+            mVisitor.visitMethodInsn(INVOKESPECIAL, newMethodType, methodName, "()" + nameTypeDesc, true);
+            mVisitor.visitInsn(ARETURN);
+            mVisitor.visitMaxs(1, 1);
+            mVisitor.visitEnd();
+            */
+            XsdAsmElements.generateMethodsForElement(classWriter, pair.getKey(), getFullClassTypeName(interfaceName, apiName), elementTypeDesc, apiName, new String[]{"Ljava/lang/Override;"})
         );
 
         writeClassToFile(interfaceName, classWriter, apiName);
@@ -721,26 +738,28 @@ class XsdAsmInterfaces {
         return new InterfaceInfo(interfaceName, interfaceIndex, directElements.stream().map(XsdElement::getName).collect(Collectors.toList()), interfaceInfos);
     }
 
-    private Set<String> getAmbiguousNames(List<InterfaceInfo> interfaceInfos) {
-        Set<String> ambiguousNames = new HashSet<>();
+    private Set<Pair<String, String>> getAmbiguousNames(List<InterfaceInfo> interfaceInfos) {
+        Set<Pair<String, String>> ambiguousNames = new HashSet<>();
         Set<String> dummy = new HashSet<>();
-        List<String> names = getAllNames(interfaceInfos);
+        List<Pair<String, String>> names = getAllNames(interfaceInfos);
 
-        names.forEach(name -> {
-            if (!dummy.add(name)){
-                ambiguousNames.add(name);
+        names.forEach(pair -> {
+            if (!dummy.add(pair.getKey())){
+                ambiguousNames.add(pair);
             }
         });
 
         return ambiguousNames;
     }
 
-    private List<String> getAllNames(List<InterfaceInfo> interfaceInfos) {
-        List<String> names = new ArrayList<>();
+    private List<Pair<String, String>> getAllNames(List<InterfaceInfo> interfaceInfos) {
+        List<Pair<String, String>> names = new ArrayList<>();
 
         interfaceInfos.forEach(interfaceInfo -> {
             if (interfaceInfo.getMethodNames() != null && !interfaceInfo.getMethodNames().isEmpty()){
-                names.addAll(interfaceInfo.getMethodNames());
+                interfaceInfo.getMethodNames().forEach(methodName ->
+                    names.add(new Pair<>(methodName, interfaceInfo.getInterfaceName()))
+                );
             }
 
             if (!interfaceInfo.extendedInterfaces.isEmpty()){
@@ -870,12 +889,6 @@ class XsdAsmInterfaces {
             this.extendedInterfaces = new ArrayList<>();
 
             this.extendedInterfaces.addAll(Arrays.asList(extendedInterfaces));
-        }
-
-        InterfaceInfo(String interfaceName, Integer interfaceIndex, List<InterfaceInfo> extendedInterfaces){
-            this.interfaceName = interfaceName;
-            this.interfaceIndex = interfaceIndex;
-            this.extendedInterfaces = extendedInterfaces;
         }
 
         InterfaceInfo(String interfaceName, Integer interfaceIndex, InterfaceInfo[] extendedInterfaces){

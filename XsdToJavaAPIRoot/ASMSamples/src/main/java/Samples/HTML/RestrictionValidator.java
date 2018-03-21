@@ -5,9 +5,7 @@ import java.util.Map;
 
 public class RestrictionValidator {
 
-    static void validate(Map<String, Object> restriction, Object object){
-
-    }
+    private RestrictionValidator() {}
 
     static void validate(Map<String, Object> restriction, List list){
         validateLength((int) restriction.getOrDefault("Length", -1), list);
@@ -25,22 +23,10 @@ public class RestrictionValidator {
     }
 
     static void validate(Map<String, Object> restriction, String string){
-        validateEnumeration((List<String>) restriction.getOrDefault("Enumeration", null), string);
         validateLength((int) restriction.getOrDefault("Length", -1), string);
         validateMinLength((int) restriction.getOrDefault("MinLength", -1), string);
         validateMaxLength((int) restriction.getOrDefault("MaxLength", -1), string);
         validatePattern((String) restriction.getOrDefault("Pattern", null), string);
-        validateWhiteSpace((String) restriction.getOrDefault("WhiteSpace", null), string);
-    }
-
-    private static void validateEnumeration(List<String> enumeration, String string){
-        if (enumeration == null){
-            return;
-        }
-
-        if (!enumeration.contains(string)){
-            throw new RestrictionViolationException("Violation of enumeration restriction, value not acceptable for the current type.");
-        }
     }
 
     private static void validateFractionDigits(int fractionDigits, double value){
@@ -176,7 +162,7 @@ public class RestrictionValidator {
 
         String doubleValue = String.valueOf(value);
 
-        int numberOfDigits = 0;
+        int numberOfDigits;
 
         if (value != ((int) value)){
             numberOfDigits = doubleValue.length() - 1;
@@ -189,13 +175,5 @@ public class RestrictionValidator {
         if (numberOfDigits != totalDigits){
             throw new RestrictionViolationException("Violation of fractionDigits restriction, value should have a exactly " + totalDigits + " decimal places.");
         }
-    }
-
-    private static void validateWhiteSpace(String whiteSpace, String string){
-        if (whiteSpace == null){
-            return;
-        }
-
-        //TODO
     }
 }

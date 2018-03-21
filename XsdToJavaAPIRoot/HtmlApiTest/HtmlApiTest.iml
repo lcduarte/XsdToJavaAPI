@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../Html5Xsd2JavaApiTest/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../Html5Xsd2JavaApiTest/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/../Html5Xsd2JavaApiTest/target" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
@@ -24,6 +25,7 @@
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-xml:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />
     <orderEntry type="library" name="Maven: com.github.xmlet:xsdParser:1.0.5-snapshot" level="project" />
+    <orderEntry type="library" name="Maven: javax.validation:validation-api:1.0.0.GA" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.windup.decompiler:decompiler-fernflower:4.0.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.windup.decompiler.fernflower:windup-fernflower:1.0.0.20171018" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.windup.decompiler:decompiler-api:forge-addon:4.0.0.Final" level="project" />
