@@ -20,10 +20,7 @@ public class HtmlParseTest {
     static{
         parser = new XsdParser();
 
-        elements = parser.parse(HTML_FILE_NAME)
-                .filter(element -> element instanceof XsdElement)
-                .map(element -> (XsdElement) element)
-                .collect(Collectors.toList());
+        elements = parser.parse(HTML_FILE_NAME).collect(Collectors.toList());
     }
 
     /**
@@ -124,7 +121,7 @@ public class HtmlParseTest {
 
         XsdComplexType metaChild = htmlElement.getXsdComplexType();
 
-        Optional<XsdAttribute> attributeOptional = metaChild.getXsdAttributes().filter(attribute1 -> attribute1.getName().equals("httpequiv")).findFirst();
+        Optional<XsdAttribute> attributeOptional = metaChild.getXsdAttributes().filter(attribute1 -> attribute1.getName().equals("http_equiv")).findFirst();
 
         Assert.assertTrue(attributeOptional.isPresent());
 

@@ -156,9 +156,9 @@ public class XsdAsmTest {
     @Test
     public void testAndroidHierarchy(){
         new RelativeLayout<>()
-                .attrAndroidgravity(EnumAndroidgravity.CENTER) /* Method from RelativeLayout */
-                .attrAndroidaddStatesFromChildren(EnumAndroidaddStatesFromChildren.TRUE) /* Method from ViewGroup */
-                .attrAndroidlayoutx(null); /* Method from View */
+                .attrAndroidGravity(EnumAndroidGravity.CENTER) /* Method from RelativeLayout */
+                .attrAndroidAddStatesFromChildren(EnumAndroidAddStatesFromChildren.TRUE) /* Method from ViewGroup */
+                .attrAndroidLayoutX(null); /* Method from View */
 
         Assert.assertTrue(View.class.isAssignableFrom(ViewGroup.class));
         Assert.assertTrue(ViewGroup.class.isAssignableFrom(RelativeLayout.class));
@@ -189,23 +189,23 @@ public class XsdAsmTest {
     @Test
     public void testSimpleAndroidLayout(){
         new LinearLayout<>()
-                .attrAndroidorientation(EnumAndroidorientation.VERTICAL)
-                .attrAndroidlayoutwidth("match_parent")
-                .attrAndroidlayoutheight("wrap_content")
+                .attrAndroidOrientation(EnumAndroidOrientation.VERTICAL)
+                .attrAndroidLayoutWidth("match_parent")
+                .attrAndroidLayoutHeight("wrap_content")
                 .addChild(
                         new LinearLayout()
-                                .attrAndroidorientation(EnumAndroidorientation.HORIZONTAL)
-                                .attrAndroidlayoutwidth("match_parent")
-                                .attrAndroidlayoutheight("wrap_content")
+                                .attrAndroidOrientation(EnumAndroidOrientation.HORIZONTAL)
+                                .attrAndroidLayoutWidth("match_parent")
+                                .attrAndroidLayoutHeight("wrap_content")
                                 .addChild(
                                         new ImageView()
-                                                .attrAndroidlayoutwidth("wrap_content")
-                                                .attrAndroidlayoutheight("wrap_content")
+                                                .attrAndroidLayoutWidth("wrap_content")
+                                                .attrAndroidLayoutHeight("wrap_content")
                                 ).addChild(
                                 new TextView()
-                                        .attrAndroidwidth("match_parent")
-                                        .attrAndroidheight("weight_content")
-                                        .attrAndroidlines("2")
+                                        .attrAndroidWidth("match_parent")
+                                        .attrAndroidHeight("weight_content")
+                                        .attrAndroidLines("2")
                         )
                 );
     }

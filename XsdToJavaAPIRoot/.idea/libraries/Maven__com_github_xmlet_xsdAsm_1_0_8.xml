@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.xmlet:xsdAsm:1.0.8">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.8/xsdAsm-1.0.8.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/XsdAsm/xsdAsm-1.0.8-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.8/xsdAsm-1.0.8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/XsdAsm/xsdAsm-1.0.8-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.8/xsdAsm-1.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

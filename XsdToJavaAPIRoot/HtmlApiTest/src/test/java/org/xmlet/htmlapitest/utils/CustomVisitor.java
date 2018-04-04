@@ -26,10 +26,6 @@ public class CustomVisitor<R> extends AbstractElementVisitor<R> {
         this.printStream = printStream;
     }
 
-    public void init(Html rootDoc1) {
-        rootDoc1.accept(this);
-    }
-
     @Override
     public <T extends Element> void visit(Element<T, ?> element) {
         printStream.printf("<%s>\n", element.getName());

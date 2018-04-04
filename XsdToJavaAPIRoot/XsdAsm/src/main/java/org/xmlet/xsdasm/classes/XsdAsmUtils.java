@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.stream.Stream;
 
-import static org.objectweb.asm.Opcodes.V9;
 import static org.objectweb.asm.Opcodes.V1_8;
 import static org.xmlet.xsdasm.classes.XsdAsmAttributes.generateMethodsForAttribute;
 import static org.xmlet.xsdasm.classes.XsdSupportingStructure.*;
@@ -322,7 +321,7 @@ public class XsdAsmUtils {
         if (parent == null){
             signature = new StringBuilder("<Z::" + elementTypeDesc + ">L" + abstractElementType + "<L" + getFullClassTypeName(className, apiName) + "<TZ;>;TZ;>;");
         } else {
-            signature = new StringBuilder("<Z::" + elementTypeDesc + ">L" + getFullClassTypeName(toCamelCase(parent.getName()), apiName) + "<TZ;>;");
+            signature = new StringBuilder("<Z::" + elementTypeDesc + ">L" + getFullClassTypeName(getCleanName(parent), apiName) + "<TZ;>;");
         }
 
         if (interfaces != null){
@@ -375,10 +374,25 @@ public class XsdAsmUtils {
             }
         }
 
-        classWriter.visit(V9, classModifiers, getFullClassTypeName(className, apiName), signature, superName, interfaces);
+        classWriter.visit(V1_8, classModifiers, getFullClassTypeName(className, apiName), signature, superName, interfaces);
 
         return classWriter;
     }
 
+    static String getCleanName(XsdReferenceElement element){
+        return getCleanName(element.getName());
+    }
+
+    static String getCleanName(String name){
+        String[] parts = name.split("_");
+
+        StringBuilder result = new StringBuilder();
+
+        for (String part : parts) {
+            result.append(toCamelCase(part));
+        }
+
+        return result.toString();
+    }
 }
 

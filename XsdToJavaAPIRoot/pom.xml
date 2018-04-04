@@ -21,6 +21,6 @@
         <module>XsdAsmTest</module>
         <module>HtmlApi</module>
         <module>HtmlApiTest</module>
-        <module>ASMSamples</module>
+        <!--module>ASMSamples</module-->
     </modules>
 </project>

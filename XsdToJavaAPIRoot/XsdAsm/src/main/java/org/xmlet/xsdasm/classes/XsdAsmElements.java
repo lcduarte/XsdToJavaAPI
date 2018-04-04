@@ -25,7 +25,7 @@ class XsdAsmElements {
      * @param apiName The api this class will belong.
      */
     static void generateClassFromElement(XsdAsmInterfaces interfaceGenerator, Map<String, List<XsdAttribute>> createdAttributes, XsdElement element, String apiName) {
-        String className = toCamelCase(element.getName());
+        String className = getCleanName(element);
 
         XsdElement base = null;
         XsdComplexType complexType = element.getXsdComplexType();
@@ -47,7 +47,7 @@ class XsdAsmElements {
 
         String signature = getClassSignature(base, interfaces, className, apiName);
 
-        String superType = base == null ? abstractElementType : getFullClassTypeName(toCamelCase(base.getName()), apiName);
+        String superType = base == null ? abstractElementType : getFullClassTypeName(getCleanName(base), apiName);
 
         ClassWriter classWriter = generateClass(className, superType, interfaces, signature,ACC_PUBLIC + ACC_SUPER, apiName);
 
@@ -196,6 +196,7 @@ class XsdAsmElements {
      * @param classType The type of the class which contains the children elements.
      */
     static void generateMethodsForElement(ClassWriter classWriter, String childName, String classType, String returnType, String apiName, String[] annotationsDesc) {
+        childName = firstToLower(getCleanName(childName));
         String childCamelName = toCamelCase(childName);
         String childType = getFullClassTypeName(childCamelName, apiName);
         String childTypeDesc = getFullClassTypeNameDesc(childCamelName, apiName);

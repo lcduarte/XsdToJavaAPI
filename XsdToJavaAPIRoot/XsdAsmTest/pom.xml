@@ -39,7 +39,12 @@
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>xsdAsm</artifactId>
-            <version>1.0.6-snapshot</version>
+            <version>1.0.9-snapshot</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
         </dependency>
     </dependencies>
 

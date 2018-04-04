@@ -6,7 +6,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ASMSamples" />
         <module name="Html5Xsd2JavaApi" />
         <module name="Html5Xsd2JavaApiTest" />
         <module name="HtmlApi" />
@@ -21,8 +20,8 @@
       <module name="ASMSamples" target="9" />
       <module name="Html5Xsd2JavaApi" target="1.5" />
       <module name="Html5Xsd2JavaApiTest" target="1.8" />
-      <module name="HtmlApi" target="9" />
-      <module name="HtmlApiTest" target="9" />
+      <module name="HtmlApi" target="1.8" />
+      <module name="HtmlApiTest" target="1.8" />
       <module name="XsdAsm" target="9" />
       <module name="XsdAsmTest" target="9" />
       <module name="XsdClassGenerator" target="1.8" />

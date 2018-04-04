@@ -3,52 +3,40 @@
 
     <groupId>com.github.xmlet</groupId>
     <artifactId>htmlApi</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.0.9-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>9</maven.compiler.source>
-        <maven.compiler.target>9</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <build>
         <plugins>
-            <!--plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <id>my-execution</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>org.xmlet.xsdasm.main.XsdAsmMain</mainClass>
-                    <arguments>
-                        <argument>${project.basedir}\src\main\resources\html_5.xsd</argument>
-                        <argument>htmlapi</argument>
-                    </arguments>
-                </configuration>
-            </plugin-->
-
             <plugin>
                 <artifactId>exec-maven-plugin</artifactId>
                 <groupId>org.codehaus.mojo</groupId>
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>create_classes</id>
+                        <id>create_classes1</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/create_classes.bat</executable>
+                            <executable>${basedir}/create_classes1.bat</executable>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create_classes2</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${basedir}/create_classes2.bat</executable>
                         </configuration>
                     </execution>
                     <execution>
@@ -69,8 +57,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>9</source>
-                    <target>9</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
@@ -102,24 +90,21 @@
                 </executions>
             </plugin>
 
-            <!--plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
                 <executions>
                     <execution>
-                        <id>empty-javadoc-jar</id>
-                        <phase>package</phase>
+                        <id>attach-javadocs</id>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>
+                                jar
+                            </goal>
                         </goals>
-                        <configuration>
-                            <classifier>javadoc</classifier>
-                            <classesDirectory>${basedir}/javadoc</classesDirectory>
-                        </configuration>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -201,7 +186,7 @@
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>xsdAsm</artifactId>
-            <version>1.0.6-snapshot</version>
+            <version>1.0.9</version>
             <scope>compile</scope>
         </dependency>
 
