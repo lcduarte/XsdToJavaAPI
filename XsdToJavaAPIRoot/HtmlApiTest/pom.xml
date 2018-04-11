@@ -24,13 +24,23 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>create_classes</id>
+                        <id>create_classes1</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/create_classes.bat</executable>
+                            <executable>${basedir}/create_class_binaries.bat</executable>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create_classes2</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${basedir}/decompile_class_binaries.bat</executable>
                         </configuration>
                     </execution>
                     <execution>
