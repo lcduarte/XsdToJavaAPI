@@ -7,11 +7,11 @@
 # XsdParser
 
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     XsdParser is a library that parses a XML Definition file (.xsd) into a list of java objects. Each different tag has 
     a corresponding java object and its attributes are represented as fields in java. All these objects derive from the 
-    same abstract element, XsdAbstractElement. All java representations of the xsd elements follow the schema definition 
-    for xsd elements. For example, the xsd:annotation tag only allows xsd:appinfo and xsd:documentation as children nodes, 
+    same abstract element, <i>XsdAbstractElement</i>. All java representations of the xsd elements follow the schema definition 
+    for xsd elements. For example, the <i>xsd:annotation</i> tag only allows <i>xsd:appinfo</i> and <i>xsd:documentation</i> as children nodes, 
     and also can have an attribute named id, therefore XsdParser has the following class (simplified for example purposes):
     <br /> 
     <br />    
@@ -26,7 +26,7 @@ public class XsdAnnotation extends XsdIdentifierElements {
 }
 ```
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     The set of rules followed by this library can be consulted in the following URL:
     <br />
     <br />
@@ -35,7 +35,7 @@ public class XsdAnnotation extends XsdIdentifierElements {
 
 ## Installation
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     First, in order to include it to your Maven project, simply add this dependency:
     <br />
     <br />
@@ -51,7 +51,7 @@ public class XsdAnnotation extends XsdIdentifierElements {
 
 ## Usage example
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     Here follows a simple example:
     <br />
     <br />
@@ -67,7 +67,7 @@ public class ParserApp {
     }
 }
 ```
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     After parsing the file like shown above it's possible to start to navigate in the resulting parsed elements. In the 
     image below it is presented the class diagram that could be useful before trying to start navigating in the result. 
     There are multiple abstract classes that allow to implement shared features and reduce duplicated code.
@@ -78,7 +78,7 @@ public class ParserApp {
 
 ### Navigation
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     A simple example of a xsd file is presented with the correspondent code that shows how to navigate in the element 
     list produced by the parse function.
     <br />
@@ -106,7 +106,7 @@ public class ParserApp {
 </xsd:schema>
 ```
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     The result could be consulted in the following way:
     <br />
     <br />
@@ -135,14 +135,14 @@ public class ParserApp {
 
 ### Reference solving
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     This is a big feature of this library. In XSD files the usage os the ref attribute is frequent, in order to avoid 
     repetition of xml code. This generates two problems when handling the parsing which are detailed below.
 </div>
 
 #### Missing ref elements
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     The referenced element does not exist. Even though it should not happen, it might. In order to deal with this 
     problem there were created wrappers to each element.
     <br />
@@ -153,20 +153,20 @@ public class ParserApp {
     <b>ReferenceBase</b> - A common interface between UnsolvedReference and ConcreteElement. <br />
     <br />    
     Any remaining UnsolvedReferences can be consulted after the file parsing using the method 
-    <i>getUnsolvedReferencesForFile</i> passing the full path of the parsed file. Those are the references that were 
+    <i><b>getUnsolvedReferencesForFile(String filePath)</b></i>. Those are the references that were 
     not in the file and the user of the XsdParser library should resolve it by either adding the missing elements to the 
     file or just acknowledging that there are elements missing.
 </div>
 
 #### Parsing Strategy
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     In order to minimize the number of passages in the file, which take more time to perform, this library chose to parse 
     all the elements and then resolve the references present. This means that after parsing all the elements from the 
-    file, those same elements are filtered and obtained all the NamedConcreteElements. Those are the elements that may be 
-    referenced by UnsolvedReferences. This way, we can compare the name present in the NamedConcreteElement and the ref 
-    in the UnsolvedElement. In the case that a match is present a deep copy of the element wrapped in the 
-    NamedConcreteElement is made and accessing the parent of the element wrapped in UnsolvedElement the change can be made. 
+    file, those same elements are filtered and obtained all the <i>NamedConcreteElements</i>. Those are the elements that may be 
+    referenced by <i>UnsolvedReference</i> objects. This way, we can compare the name present in the <i>NamedConcreteElement</i> 
+    and the ref in the <i>UnsolvedElement</i>. In the case that a match is present a deep copy of the element wrapped in the 
+    <i>NamedConcreteElement</i> is made and replaces the <i>UnsolvedElement</i> that served as a placeholder. 
     <br />
     <br />
     Short Example:
@@ -188,24 +188,24 @@ public class ParserApp {
 </xsd:schema>
 ```
 
-<div style="text-align: right"> 
-    In this short example we have a XsdChoice element with an element XsdGroup with a reference attribute as a child. 
-    When replacing the UnsolvedReferences the XsdGroup with the ref attribute is going to be replaced by a deep copy of 
-    the already parsed XsdGroup with the name attribute. This is achieved by accessing the parent of the element to be 
+<div style="text-align:right"> 
+    In this short example we have a <i>XsdChoice</i> element with an element <i>XsdGroup</i> with a reference attribute as a child. 
+    When replacing the <i>UnsolvedReference</i> objects the <i>XsdGroup</i> with the ref attribute is going to be replaced by a deep copy of 
+    the already parsed <i>XsdGroup</i> with the name attribute. This is achieved by accessing the parent of the element to be 
     replaced and removing the element to be replaced and adding the replacement.
 </div>
 
 ### Hierarchy support
 
-<div style="text-align: right"> 
-    The parser supports xsd:base tags, which allow the use of hierarchies in the xsd files. 
-    The extended xsd:element is referenced in the element containing the xsd:base tag so in order to obtain all the 
+<div style="text-align:right"> 
+    The parser supports <i>xsd:base</i> tags, which allow the use of hierarchies in the xsd files. 
+    The extended <i>xsd:element</i> is referenced in the element containing the <i>xsd:base</i> tag so in order to obtain all the 
     attributes/elements that element has the user has to iterate on that base field.
 </div>
 
 ## Code Quality
 
-<div style="text-align: right"> 
+<div style="text-align:right"> 
     There are some tests available using the HTML5 schema and the Android layouts schema, you can give a look at that 
     examples and tweak them in order to gain a better understanding of how the parsing works. The tests also cover most 
     of the code, if you are interested in verifying the code quality, vulnerabilities and other various metrics, check 
@@ -217,8 +217,8 @@ public class ParserApp {
   
 ## Important remarks
 
-<div style="text-align: right"> 
-    <b>xsd:import</b> - XsdParser does not support xsd:import tags, meaning that if there are import tags the content of
+<div style="text-align:right"> 
+    <b>xsd:import</b> - XsdParser does not support <i>xsd:import</i> tags, meaning that if there are import tags the content of
     the imported files should be manually added to the main file. Support for xsd:import tags will be added, when my 
     schedule clears.
     <br />

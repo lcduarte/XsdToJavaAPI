@@ -7,98 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="611ba528-c614-49c6-b787-6f04700c0670" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_5_snapshot.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdAsm_1_0_6_snapshot.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_5_snapshot.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_18_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_collections4_4_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_windup_decompiler_decompiler_api_forge_addon_4_0_0_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_windup_decompiler_decompiler_fernflower_4_0_0_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_windup_decompiler_fernflower_windup_fernflower_1_0_0_20171018.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_windup_utils_windup_utils_forge_addon_4_0_0_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_6_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_analysis_6_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_commons_6_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_tree_6_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_util_6_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_xml_6_0.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HtmlApi/create_classes.bat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HtmlApi/create_classes1.bat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HtmlApi/create_classes2.bat" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ASMSamples/ASMSamples.iml" afterPath="$PROJECT_DIR$/ASMSamples/ASMSamples.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/HtmlApi.iml" afterPath="$PROJECT_DIR$/HtmlApi/HtmlApi.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/README.md" afterPath="$PROJECT_DIR$/HtmlApi/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/create_classes.bat" afterPath="$PROJECT_DIR$/HtmlApi/create_classes.bat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/pom.xml" afterPath="$PROJECT_DIR$/HtmlApi/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" afterPath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/README.md" afterPath="$PROJECT_DIR$/HtmlApiTest/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/pom.xml" afterPath="$PROJECT_DIR$/HtmlApiTest/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" afterPath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java" afterPath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/README.md" afterPath="$PROJECT_DIR$/XsdAsm/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/XsdAsm.iml" afterPath="$PROJECT_DIR$/XsdAsm/XsdAsm.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/pom.xml" afterPath="$PROJECT_DIR$/XsdAsm/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsm.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmEnum.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmEnum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/main/XsdAsmMain.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/main/XsdAsmMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsmTest/XsdAsmTest.iml" afterPath="$PROJECT_DIR$/XsdAsmTest/XsdAsmTest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsmTest/pom.xml" afterPath="$PROJECT_DIR$/XsdAsmTest/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmTest.java" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/README.md" afterPath="$PROJECT_DIR$/XsdParser/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/pom.xml" afterPath="$PROJECT_DIR$/XsdParser/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAbstractElement.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAbstractElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAll.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAll.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAnnotatedElements.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAnnotatedElements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAnnotation.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAnnotation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAnnotationChildren.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAnnotationChildren.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAppInfo.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAppInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAttribute.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAttribute.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAttributeGroup.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAttributeGroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdChoice.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdChoice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdComplexContent.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdComplexContent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdComplexType.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdComplexType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdDocumentation.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdDocumentation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdElement.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdExtension.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdExtension.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdGroup.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdGroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdList.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdMultipleElements.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdMultipleElements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdReferenceElement.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdReferenceElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdRestriction.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdRestriction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSequence.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSequence.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSimpleContent.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSimpleContent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSimpleType.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSimpleType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdUnion.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdUnion.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdElementVisitor.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdElementVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdEnumeration.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdEnumeration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdFractionDigits.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdFractionDigits.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdIntegerRestrictions.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdIntegerRestrictions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdLength.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdLength.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMaxExclusive.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMaxExclusive.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMaxInclusive.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMaxInclusive.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMaxLength.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMaxLength.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMinExclusive.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMinExclusive.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMinInclusive.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMinInclusive.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMinLength.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMinLength.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdPattern.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdPattern.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdStringRestrictions.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdStringRestrictions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdTotalDigits.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdTotalDigits.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdWhiteSpace.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdWhiteSpace.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/AndroidParseTest.java" afterPath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/AndroidParseTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/HtmlParseTest.java" afterPath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/HtmlParseTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/OddTest.java" afterPath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/OddTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/VststParseTest.java" afterPath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/VststParseTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/WpfeParseTest.java" afterPath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/WpfeParseTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -130,7 +46,7 @@
     <favorites_list name="XsdToJavaAPIRoot" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -143,7 +59,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cl</find>
       <find>c</find>
       <find>clone</find>
       <find>public</find>
@@ -173,9 +88,9 @@
       <find>replaceAll(&quot;[^a-zA-Z0-9]&quot;, &quot;&quot;)</find>
       <find>meta</find>
       <find>init</find>
+      <find>text-align: right</find>
     </findStrings>
     <replaceStrings>
-      <replace>&quot; + JAVA_OBJECT_DESC + &quot;</replace>
       <replace>+ &quot;&quot; +</replace>
       <replace>+</replace>
       <replace>JAVA_STRING_DESC</replace>
@@ -205,6 +120,7 @@
       <replace>validateIntegerRestriction(mVisitor);</replace>
       <replace>xsdAsm</replace>
       <replace>htmlApi</replace>
+      <replace>text-align:right</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot</dir>
@@ -271,9 +187,9 @@
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/main/XsdAsmMain.java" />
         <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
         <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdAsm/README.md" />
         <option value="$PROJECT_DIR$/HtmlApi/README.md" />
         <option value="$PROJECT_DIR$/XsdParser/README.md" />
+        <option value="$PROJECT_DIR$/XsdAsm/README.md" />
       </list>
     </option>
   </component>
@@ -359,10 +275,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -373,11 +285,6 @@
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
               <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -389,14 +296,67 @@
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="xsdasm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="xsdasm" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -404,21 +364,28 @@
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="htmlapitest" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="htmlapitest" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
@@ -429,12 +396,16 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/HtmlApiTest/src/main/java/org/xmlet/htmlapi" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -744,6 +715,69 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <module name="Html5Xsd2JavaApiTest" />
     </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="HtmlApi" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="HtmlApi" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="HtmlApi" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Html5Xsd2JavaApiTest" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -865,69 +899,6 @@
       <module name="HtmlApiTest" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Nosetests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="HtmlApi" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_regexPattern" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="HtmlApi" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="py.test">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="HtmlApi" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Nosetests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Html5Xsd2JavaApiTest" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_regexPattern" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
@@ -1102,6 +1073,7 @@
       <workItem from="1522681465333" duration="1920000" />
       <workItem from="1522767289721" duration="5682000" />
       <workItem from="1522856652700" duration="6488000" />
+      <workItem from="1523366034036" duration="5852000" />
     </task>
     <servers />
   </component>
@@ -1138,7 +1110,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="729611000" />
+    <option name="totallyTimeSpent" value="735463000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1159,8 +1131,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45723686" sideWeight="0.50907713" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40131578" sideWeight="0.49092284" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40131578" sideWeight="0.49092284" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1171,8 +1143,8 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4375" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4375" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1205,189 +1177,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="uml://JAVA/org.xmlet.xsdparser.xsdelements">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>JAVA</ID>
-          <OriginalElement>org.xmlet.xsdparser.xsdelements</OriginalElement>
-          <nodes>
-            <node x="0.0" y="257.0">org.xmlet.xsdparser.xsdelements.XsdComplexContent</node>
-            <node x="1267.75" y="257.0">org.xmlet.xsdparser.xsdelements.xsdrestrictions</node>
-            <node x="73.5" y="346.0">org.xmlet.xsdparser.xsdelements.XsdChoice</node>
-            <node x="1441.75" y="257.0">org.xmlet.xsdparser.xsdelements.XsdUnion</node>
-            <node x="963.25" y="158.0">org.xmlet.xsdparser.xsdelements.XsdAnnotation</node>
-            <node x="1002.5" y="346.0">org.xmlet.xsdparser.xsdelements.XsdComplexType</node>
-            <node x="335.49999999999994" y="346.0">org.xmlet.xsdparser.xsdelements.XsdAll</node>
-            <node x="1162.5" y="346.0">org.xmlet.xsdparser.xsdelements.XsdAttribute</node>
-            <node x="1124.75" y="257.0">org.xmlet.xsdparser.xsdelements.XsdRestriction</node>
-            <node x="861.25" y="79.0">org.xmlet.xsdparser.xsdelements.XsdIdentifierElements</node>
-            <node x="723.5" y="346.0">org.xmlet.xsdparser.xsdelements.XsdSimpleType</node>
-            <node x="516.8299999999999" y="257.0">org.xmlet.xsdparser.xsdelements.XsdList</node>
-            <node x="776.75" y="257.0">org.xmlet.xsdparser.xsdelements.XsdReferenceElement</node>
-            <node x="958.75" y="257.0">org.xmlet.xsdparser.xsdelements.XsdSimpleContent</node>
-            <node x="197.5" y="346.0">org.xmlet.xsdparser.xsdelements.XsdSequence</node>
-            <node x="872.5" y="346.0">org.xmlet.xsdparser.xsdelements.XsdElement</node>
-            <node x="536.25" y="79.0">org.xmlet.xsdparser.xsdelements.XsdAnnotationChildren</node>
-            <node x="177.0" y="257.0">org.xmlet.xsdparser.xsdelements.XsdMultipleElements</node>
-            <node x="711.25" y="0.0">org.xmlet.xsdparser.xsdelements.XsdAbstractElement</node>
-            <node x="642.25" y="158.0">org.xmlet.xsdparser.xsdelements.XsdAppInfo</node>
-            <node x="556.5" y="346.0">org.xmlet.xsdparser.xsdelements.XsdAttributeGroup</node>
-            <node x="772.25" y="158.0">org.xmlet.xsdparser.xsdelements.XsdAnnotatedElements</node>
-            <node x="472.24999999999994" y="158.0">org.xmlet.xsdparser.xsdelements.XsdDocumentation</node>
-            <node x="621.8299999999999" y="257.0">org.xmlet.xsdparser.xsdelements.XsdExtension</node>
-            <node x="436.49999999999994" y="346.0">org.xmlet.xsdparser.xsdelements.XsdGroup</node>
-          </nodes>
-          <notes />
-          <edges>
-            <edge source="org.xmlet.xsdparser.xsdelements.xsdrestrictions" target="org.xmlet.xsdparser.xsdelements.XsdAnnotatedElements">
-              <point x="0.0" y="-14.5" />
-              <point x="1344.75" y="217.0" />
-              <point x="914.75" y="217.0" />
-              <point x="57.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdAnnotation" target="org.xmlet.xsdparser.xsdelements.XsdIdentifierElements">
-              <point x="0.0" y="-14.5" />
-              <point x="1026.75" y="133.0" />
-              <point x="982.75" y="133.0" />
-              <point x="40.5" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdRestriction" target="org.xmlet.xsdparser.xsdelements.XsdAnnotatedElements">
-              <point x="0.0" y="-14.5" />
-              <point x="1186.25" y="227.0" />
-              <point x="895.75" y="227.0" />
-              <point x="38.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdAnnotationChildren" target="org.xmlet.xsdparser.xsdelements.XsdAbstractElement">
-              <point x="0.0" y="-14.5" />
-              <point x="622.25" y="54.0" />
-              <point x="749.75" y="54.0" />
-              <point x="-38.5" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdChoice" target="org.xmlet.xsdparser.xsdelements.XsdMultipleElements">
-              <point x="0.0" y="-14.5" />
-              <point x="125.5" y="326.0" />
-              <point x="203.5" y="326.0" />
-              <point x="-53.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdUnion" target="org.xmlet.xsdparser.xsdelements.XsdAnnotatedElements">
-              <point x="0.0" y="-14.5" />
-              <point x="1491.25" y="207.0" />
-              <point x="933.75" y="207.0" />
-              <point x="76.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdSimpleContent" target="org.xmlet.xsdparser.xsdelements.XsdAnnotatedElements">
-              <point x="0.0" y="-14.5" />
-              <point x="1031.75" y="237.0" />
-              <point x="876.75" y="237.0" />
-              <point x="19.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdElement" target="org.xmlet.xsdparser.xsdelements.XsdReferenceElement">
-              <point x="0.0" y="-14.5" />
-              <point x="927.5" y="326.0" />
-              <point x="871.25" y="326.0" />
-              <point x="13.5" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdAnnotatedElements" target="org.xmlet.xsdparser.xsdelements.XsdIdentifierElements">
-              <point x="0.0" y="-14.5" />
-              <point x="857.75" y="133.0" />
-              <point x="901.75" y="133.0" />
-              <point x="-40.5" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdList" target="org.xmlet.xsdparser.xsdelements.XsdAnnotatedElements">
-              <point x="0.0" y="-14.5" />
-              <point x="559.3299999999999" y="227.0" />
-              <point x="819.75" y="227.0" />
-              <point x="-38.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdSequence" target="org.xmlet.xsdparser.xsdelements.XsdMultipleElements">
-              <point x="0.0" y="-14.5" />
-              <point x="0.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdGroup" target="org.xmlet.xsdparser.xsdelements.XsdReferenceElement">
-              <point x="5.6843418860808015E-14" y="-14.5" />
-              <point x="486.5" y="306.0" />
-              <point x="790.25" y="306.0" />
-              <point x="-67.5" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdComplexContent" target="org.xmlet.xsdparser.xsdelements.XsdAnnotatedElements">
-              <point x="0.0" y="-14.5" />
-              <point x="78.5" y="207.0" />
-              <point x="781.75" y="207.0" />
-              <point x="-76.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdAttributeGroup" target="org.xmlet.xsdparser.xsdelements.XsdReferenceElement">
-              <point x="0.0" y="-14.5" />
-              <point x="630.0" y="316.0" />
-              <point x="817.25" y="316.0" />
-              <point x="-40.5" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdAttribute" target="org.xmlet.xsdparser.xsdelements.XsdReferenceElement">
-              <point x="0.0" y="-14.5" />
-              <point x="1219.5" y="306.0" />
-              <point x="925.25" y="306.0" />
-              <point x="67.5" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdAll" target="org.xmlet.xsdparser.xsdelements.XsdMultipleElements">
-              <point x="0.0" y="-14.5" />
-              <point x="375.99999999999994" y="326.0" />
-              <point x="309.5" y="326.0" />
-              <point x="53.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdReferenceElement" target="org.xmlet.xsdparser.xsdelements.XsdAnnotatedElements">
-              <point x="0.0" y="-14.5" />
-              <point x="0.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdSimpleType" target="org.xmlet.xsdparser.xsdelements.XsdReferenceElement">
-              <point x="0.0" y="-14.5" />
-              <point x="788.0" y="326.0" />
-              <point x="844.25" y="326.0" />
-              <point x="-13.5" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdDocumentation" target="org.xmlet.xsdparser.xsdelements.XsdAnnotationChildren">
-              <point x="0.0" y="-14.5" />
-              <point x="547.25" y="133.0" />
-              <point x="579.25" y="133.0" />
-              <point x="-43.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdExtension" target="org.xmlet.xsdparser.xsdelements.XsdAnnotatedElements">
-              <point x="0.0" y="-14.5" />
-              <point x="680.3299999999999" y="237.0" />
-              <point x="838.75" y="237.0" />
-              <point x="-19.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdComplexType" target="org.xmlet.xsdparser.xsdelements.XsdReferenceElement">
-              <point x="0.0" y="-14.5" />
-              <point x="1072.5" y="316.0" />
-              <point x="898.25" y="316.0" />
-              <point x="40.5" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdAppInfo" target="org.xmlet.xsdparser.xsdelements.XsdAnnotationChildren">
-              <point x="0.0" y="-14.5" />
-              <point x="697.25" y="133.0" />
-              <point x="665.25" y="133.0" />
-              <point x="43.0" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdIdentifierElements" target="org.xmlet.xsdparser.xsdelements.XsdAbstractElement">
-              <point x="0.0" y="-14.5" />
-              <point x="942.25" y="54.0" />
-              <point x="826.75" y="54.0" />
-              <point x="38.5" y="14.5" />
-            </edge>
-            <edge source="org.xmlet.xsdparser.xsdelements.XsdMultipleElements" target="org.xmlet.xsdparser.xsdelements.XsdAnnotatedElements">
-              <point x="0.0" y="-14.5" />
-              <point x="256.5" y="217.0" />
-              <point x="800.75" y="217.0" />
-              <point x="-57.0" y="14.5" />
-            </edge>
-          </edges>
-          <settings layout="Hierarchic Group" zoom="0.826521460602178" x="589.0" y="213.0" />
-          <SelectedNodes />
-          <Categories />
-          <SCOPE>All</SCOPE>
-          <VISIBILITY>private</VISIBILITY>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/AttributesVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -1532,22 +1321,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="uml://JAVA/org.xmlet.htmlapi">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>JAVA</ID>
-          <OriginalElement>org.xmlet.htmlapi</OriginalElement>
-          <nodes />
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="1.0" x="-78.0" y="353.0" />
-          <SelectedNodes />
-          <Categories />
-          <SCOPE>All</SCOPE>
-          <VISIBILITY>private</VISIBILITY>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/Noscript.java" />
     <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1667,7 +1440,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1696,7 +1468,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="7" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1704,7 +1475,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="2" column="68" lean-forward="false" selection-start-line="2" selection-start-column="68" selection-end-line="2" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1712,7 +1482,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1734,57 +1503,506 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SECOND">
-          <first_editor relative-caret-position="2040">
-            <caret line="120" column="8" lean-forward="true" selection-start-line="120" selection-start-column="8" selection-end-line="120" selection-end-column="8" />
-            <folding>
-              <marker date="1522864399129" expanded="true" signature="2278:2400" ph="..." />
-              <marker date="1522864399129" expanded="true" signature="2600:2786" ph="{...}" />
-              <marker date="1522864399129" expanded="true" signature="3741:4157" ph="..." />
-              <marker date="1522864399129" expanded="true" signature="3775:3864" ph="..." />
-              <marker date="1522864399129" expanded="true" signature="3790:3850" ph="..." />
-              <marker date="1522864399129" expanded="true" signature="3892:4143" ph="..." />
-              <marker date="1522864399129" expanded="true" signature="3921:4128" ph="..." />
-              <marker date="1522864399129" expanded="true" signature="3950:4031" ph="..." />
-              <marker date="1522864399129" expanded="true" signature="4360:5000" ph="{}" />
-              <marker date="1522864399129" expanded="true" signature="7420:7807" ph="..." />
-              <marker date="1522864399129" expanded="true" signature="7474:7560" ph="..." />
-              <marker date="1522864399129" expanded="true" signature="7579:7793" ph="..." />
-            </folding>
-          </first_editor>
-          <second_editor />
+    <entry file="uml://JAVA/org.xmlet.htmlapi">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>org.xmlet.htmlapi</OriginalElement>
+          <nodes>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnwaitingObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Select</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrRelEnumRelLinkType</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrReadonlyEnumReadonlyTextarea</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrLabelObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrMaxFloat</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumAutofocusTextarea</node>
+            <node x="" y="">org.xmlet.htmlapi.DlChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.Map</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnmouseoverObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrLoopEnumLoopVideo</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumDisabledKeygen</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrFormenctypeEnumFormenctypeButton</node>
+            <node x="" y="">org.xmlet.htmlapi.Mathml</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOncanplayObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AudioChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnredoObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Script</node>
+            <node x="" y="">org.xmlet.htmlapi.LegendChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrClassidObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Hr</node>
+            <node x="" y="">org.xmlet.htmlapi.FigureChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumFormenctypeButton</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnchangeObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAutocompleteObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Code</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDataString</node>
+            <node x="" y="">org.xmlet.htmlapi.RubyChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumContenteditable</node>
+            <node x="" y="">org.xmlet.htmlapi.Thead</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnscrollObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Input</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnbeforeunloadObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrEnableViewStateBoolean</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrStepObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOncontextmenuObject</node>
+            <node x="" y="">org.xmlet.htmlapi.ElementVisitor</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrCoordsObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeStyle</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrHiddenEnumHidden</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrControlsEnumControlsAudio</node>
+            <node x="" y="">org.xmlet.htmlapi.Param</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnseekingObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Nav</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumAutofocusKeygen</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrKeytypeEnumKeytypeKeygen</node>
+            <node x="" y="">org.xmlet.htmlapi.TheadChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.Colgroup</node>
+            <node x="" y="">org.xmlet.htmlapi.Blockquote</node>
+            <node x="" y="">org.xmlet.htmlapi.Dt</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrWrapEnumWrapTextarea</node>
+            <node x="" y="">org.xmlet.htmlapi.Small</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDeferEnumDeferScript</node>
+            <node x="" y="">org.xmlet.htmlapi.ClassAttributeGroup</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrFormenctypeEnumFormenctypeInput</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeButton</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnfocusObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnloadeddataObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumAutocompleteForm</node>
+            <node x="" y="">org.xmlet.htmlapi.Em</node>
+            <node x="" y="">org.xmlet.htmlapi.HgroupChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.Header</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnDisposedObject</node>
+            <node x="" y="">org.xmlet.htmlapi.DialogChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrPlaceholderObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Ruby</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAutoplayEnumAutoplayAudio</node>
+            <node x="" y="">org.xmlet.htmlapi.Dd</node>
+            <node x="" y="">org.xmlet.htmlapi.Head</node>
+            <node x="" y="">org.xmlet.htmlapi.CommonAttributeGroup</node>
+            <node x="" y="">org.xmlet.htmlapi.CoreServerAttributeGroup</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrScopeEnumScopeTh</node>
+            <node x="" y="">org.xmlet.htmlapi.Dl</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAccesskeyObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumKeytypeKeygen</node>
+            <node x="" y="">org.xmlet.htmlapi.CommonEventsGroup</node>
+            <node x="" y="">org.xmlet.htmlapi.Audio</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrContextmenuObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Video</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnclickObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeSimpleContentType</node>
+            <node x="" y="">org.xmlet.htmlapi.Meta</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrRequiredObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumMethodForm</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnstorageObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnresizeObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumWrapTextarea</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumTargetBrowsingContext</node>
+            <node x="" y="">org.xmlet.htmlapi.Canvas</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnInitObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Div</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAutoplayEnumAutoplayVideo</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrCheckedEnumCheckedInput</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnafterprintObject</node>
+            <node x="" y="">org.xmlet.htmlapi.H2</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrSandboxEnumSandboxIframe</node>
+            <node x="" y="">org.xmlet.htmlapi.H1</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrFormmethodEnumFormmethodInput</node>
+            <node x="" y="">org.xmlet.htmlapi.H6</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnseekedObject</node>
+            <node x="" y="">org.xmlet.htmlapi.H5</node>
+            <node x="" y="">org.xmlet.htmlapi.H4</node>
+            <node x="" y="">org.xmlet.htmlapi.H3</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumHidden</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrSelectedEnumSelectedOption</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrListObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOndragoverObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrCharsetString</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrFormtargetEnumFormtargetBrowsingContext</node>
+            <node x="" y="">org.xmlet.htmlapi.Noscript</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrControlsEnumControlsVideo</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrHeightObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumFormmethodInput</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOndurationchangeObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumAutoplayVideo</node>
+            <node x="" y="">org.xmlet.htmlapi.Menu</node>
+            <node x="" y="">org.xmlet.htmlapi.Bdo</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumDir</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumScopeTh</node>
+            <node x="" y="">org.xmlet.htmlapi.Command</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrRadiogroupObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumNovalidateForm</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumDisabledInput</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOninputObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumReversedOl</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnServerClickObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Del</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDataMsgIdObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Address</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnemptiedObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrValidationGroupString</node>
+            <node x="" y="">org.xmlet.htmlapi.Meter</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumAutofocusSelect</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrValueObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Rp</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumLoopVideo</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnbeforeprintObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Progress</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAcceptObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrPingObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnundoObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Rt</node>
+            <node x="" y="">org.xmlet.htmlapi.Dfn</node>
+            <node x="" y="">org.xmlet.htmlapi.Strong</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumFormmethodButton</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnshowObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrSizeObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrManifestString</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrMediaObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumDisabledButton</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAutofocusEnumAutofocusButton</node>
+            <node x="" y="">org.xmlet.htmlapi.RestrictionViolationException</node>
+            <node x="" y="">org.xmlet.htmlapi.Tbody</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrContenteditableEnumContenteditable</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrValueFloat</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnvolumenchangeObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Body</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnmousemoveObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Form</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledKeygen</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumTypeMenu</node>
+            <node x="" y="">org.xmlet.htmlapi.Img</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumRelLinkType</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTargetEnumTargetBrowsingContext</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTabIndexObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Element</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnabortObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumDisabledOption</node>
+            <node x="" y="">org.xmlet.htmlapi.Button</node>
+            <node x="" y="">org.xmlet.htmlapi.Li</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrScopedEnumScopedStyle</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledButton</node>
+            <node x="" y="">org.xmlet.htmlapi.BaseAttribute</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrSpanBigInteger</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOndragenterObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Ins</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumControlsAudio</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrHreflangObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrLangObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumTypeButton</node>
+            <node x="" y="">org.xmlet.htmlapi.PhrasingContentChoice</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrForObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Keygen</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrPubdateObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrRoleObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Ol</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeInput</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrItemObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumAutobufferVideo</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnprogressObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Cite</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrPatternObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumSeamlessIframe</node>
+            <node x="" y="">org.xmlet.htmlapi.Section</node>
+            <node x="" y="">org.xmlet.htmlapi.FieldsetChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnformchangeObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumFormnovalidateInput</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledCommand</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrWidthObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumScopedStyle</node>
+            <node x="" y="">org.xmlet.htmlapi.Datalist</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDisabledObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrReversedEnumReversedOl</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeMenu</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumFormtargetBrowsingContext</node>
+            <node x="" y="">org.xmlet.htmlapi.ObjectChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.Text</node>
+            <node x="" y="">org.xmlet.htmlapi.Table</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumTypeSimpleContentType</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrVisibleBoolean</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnplayObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledInput</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumDisabledOptgroup</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOndragObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Output</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumSpellcheck</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnerrorObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrRowsBigInteger</node>
+            <node x="" y="">org.xmlet.htmlapi.Optgroup</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrSeamlessEnumSeamlessIframe</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumMultipleSelect</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrIconObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnloadedmetadataObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrIsmapEnumIsmapImg</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumTypeContentType</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrSizesObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Fieldset</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrStartObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAsyncEnumAsyncScript</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrMediaEnumMediaMediaType</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrNameEnumNameBrowsingContext</node>
+            <node x="" y="">org.xmlet.htmlapi.TbodyChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumTypeStyle</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnhashchangeObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumNameBrowsingContext</node>
+            <node x="" y="">org.xmlet.htmlapi.VideoChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.ColgroupChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.MenuChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnmouseupObject</node>
+            <node x="" y="">org.xmlet.htmlapi.DatalistChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.MetadataContentChoice</node>
+            <node x="" y="">org.xmlet.htmlapi.Samp</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumFormnovalidateButton</node>
+            <node x="" y="">org.xmlet.htmlapi.Title</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrSpellcheckEnumSpellcheck</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrMinFloat</node>
+            <node x="" y="">org.xmlet.htmlapi.Option</node>
+            <node x="" y="">org.xmlet.htmlapi.OlChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnblurObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAutofocusEnumAutofocusKeygen</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumCheckedInput</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnmouseoutObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAutobufferEnumAutobufferVideo</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrContentObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDatetimeXMLGregorianCalendar</node>
+            <node x="" y="">org.xmlet.htmlapi.Aside</node>
+            <node x="" y="">org.xmlet.htmlapi.AbstractElement</node>
+            <node x="" y="">org.xmlet.htmlapi.DetailsChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrMethodEnumMethodForm</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrActionString</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumRequiredTextarea</node>
+            <node x="" y="">org.xmlet.htmlapi.FlowContentChoice</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOninvalidObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumAutoplayAudio</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrNameObject</node>
+            <node x="" y="">org.xmlet.htmlapi.TrChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.MapChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrCausesValidationBoolean</node>
+            <node x="" y="">org.xmlet.htmlapi.Var</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeScript</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumIsmapImg</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnloadAltObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrHrefString</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrHttpEquivEnumHttpEquivMeta</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDraggableEnumDraggable</node>
+            <node x="" y="">org.xmlet.htmlapi.Ul</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrChallengeObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnPreRenderObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOndblclickObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumAsyncScript</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDataFolderNameObject</node>
+            <node x="" y="">org.xmlet.htmlapi.HtmlChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.Area</node>
+            <node x="" y="">org.xmlet.htmlapi.Td</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumMediaMediaType</node>
+            <node x="" y="">org.xmlet.htmlapi.Attribute</node>
+            <node x="" y="">org.xmlet.htmlapi.Th</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrPosterObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AbstractElementVisitor</node>
+            <node x="" y="">org.xmlet.htmlapi.Tr</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnkeyupObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Iframe</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumEnctypeForm</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOndragleaveObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnkeypressObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrFormnovalidateEnumFormnovalidateInput</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrHighFloat</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumDraggable</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrShapeEnumShapeArea</node>
+            <node x="" y="">org.xmlet.htmlapi.Footer</node>
+            <node x="" y="">org.xmlet.htmlapi.Link</node>
+            <node x="" y="">org.xmlet.htmlapi.Details</node>
+            <node x="" y="">org.xmlet.htmlapi.CoreAttributeGroup</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumOpenDetails</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAutobufferEnumAutobufferAudio</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTitleObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnsubmitObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnpauseObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrMaxObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Tfoot</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOndragstartObject</node>
+            <node x="" y="">org.xmlet.htmlapi.TfootChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumRunat</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrStyleObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrHeadersObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnforminputObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrClassString</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledOption</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrCharsetObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Pre</node>
+            <node x="" y="">org.xmlet.htmlapi.Dialog</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumInterface</node>
+            <node x="" y="">org.xmlet.htmlapi.Abbr</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrEnableThemingBoolean</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnendedObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOncanplaythroughObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrIdObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrSrcString</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnmessageObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Sub</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumDisabledCommand</node>
+            <node x="" y="">org.xmlet.htmlapi.RestrictionValidator</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrFormObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnkeydownObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Legend</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnselectObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAutocompleteEnumAutocompleteForm</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAutofocusEnumAutofocusSelect</node>
+            <node x="" y="">org.xmlet.htmlapi.Sup</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeContentType</node>
+            <node x="" y="">org.xmlet.htmlapi.Span</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAcceptCharsetObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Article</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAutofocusEnumAutofocusTextarea</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnloadstartObject</node>
+            <node x="" y="">org.xmlet.htmlapi.B</node>
+            <node x="" y="">org.xmlet.htmlapi.A</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrCheckedEnumCheckedCommand</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnreadystatechangeObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOntimeupdateObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumLoopAudio</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrMultipleObject</node>
+            <node x="" y="">org.xmlet.htmlapi.I</node>
+            <node x="" y="">org.xmlet.htmlapi.P</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrSkinIDString</node>
+            <node x="" y="">org.xmlet.htmlapi.Embed</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrColspanObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Label</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeCommand</node>
+            <node x="" y="">org.xmlet.htmlapi.Svg</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnratechangeObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Br</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrTypeObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrColsBigInteger</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrFormmethodEnumFormmethodButton</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledSelect</node>
+            <node x="" y="">org.xmlet.htmlapi.SelectChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.Q</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrRowspanObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Object</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumDisabledSelect</node>
+            <node x="" y="">org.xmlet.htmlapi.Caption</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumAutofocusButton</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumSelectedOption</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrRunatEnumRunat</node>
+            <node x="" y="">org.xmlet.htmlapi.Base</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumDeferScript</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumControlsVideo</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrLowFloat</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrSummaryObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrFormactionObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledTextarea</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrAltObject</node>
+            <node x="" y="">org.xmlet.htmlapi.TableChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.Hgroup</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumCheckedCommand</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrFilesObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Textarea</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnmousewheelObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Html</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnpopstateObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnofflineObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrMultipleEnumMultipleSelect</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOpenEnumOpenDetails</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrRequiredEnumRequiredTextarea</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumDisabledTextarea</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrMinObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnstalledObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumHttpEquivMeta</node>
+            <node x="" y="">org.xmlet.htmlapi.Time</node>
+            <node x="" y="">org.xmlet.htmlapi.Mark</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumReadonlyTextarea</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrSubjectObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnonlineObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDirEnumDir</node>
+            <node x="" y="">org.xmlet.htmlapi.UlChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.OptgroupChoice0</node>
+            <node x="" y="">org.xmlet.htmlapi.Kbd</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrEnctypeEnumEnctypeForm</node>
+            <node x="" y="">org.xmlet.htmlapi.Source</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumTypeInput</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrItempropObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrNovalidateEnumNovalidateForm</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumFormenctypeInput</node>
+            <node x="" y="">org.xmlet.htmlapi.Col</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrMaxlengthObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnLoadObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnplayingObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnmousedownObject</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumTypeScript</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumShapeArea</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnunloadObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrUsemapString</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumAutobufferAudio</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOptimumFloat</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrCiteString</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnUnloadAltObject</node>
+            <node x="" y="">org.xmlet.htmlapi.ButtonServerAttributeGroup</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrReadonlyObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnDataBindingObject</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOnsuspendObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Style</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumSandboxIframe</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledOptgroup</node>
+            <node x="" y="">org.xmlet.htmlapi.EnumTypeCommand</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrFormnovalidateEnumFormnovalidateButton</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrOndropObject</node>
+            <node x="" y="">org.xmlet.htmlapi.Figure</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrLoopEnumLoopAudio</node>
+            <node x="" y="">org.xmlet.htmlapi.TextGroup</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.03047557573941308" x="15051.241301059" y="2686.5" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/README.md">
+    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/main/java/org/xmlet/htmlapi/infrastructure.uml">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement />
+          <nodes>
+            <node x="" y="">org.xmlet.htmlapi.ElementVisitor</node>
+            <node x="" y="">org.xmlet.htmlapi.Attribute</node>
+            <node x="" y="">org.xmlet.htmlapi.AbstractElement</node>
+            <node x="" y="">org.xmlet.htmlapi.Element</node>
+            <node x="" y="">org.xmlet.htmlapi.AbstractElementVisitor</node>
+            <node x="" y="">org.xmlet.htmlapi.BaseAttribute</node>
+            <node x="" y="">org.xmlet.htmlapi.AttrManifestString</node>
+            <node x="" y="">org.xmlet.htmlapi.Html</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.5000000000000004" x="204.0" y="118.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdParser/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="510">
-            <caret line="30" column="3" lean-forward="false" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
+          <first_editor relative-caret-position="322">
+            <caret line="219" column="29" lean-forward="false" selection-start-line="219" selection-start-column="29" selection-end-line="219" selection-end-column="29" />
             <folding>
-              <marker date="1522864399211" expanded="true" signature="2137:2257" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="2456:3255" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="2467:2469" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="2467:2692" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="2515:2550" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="2717:3247" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="2745:3235" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="2745:3241" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="2778:3220" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="2826:3198" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="2865:2966" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="2994:3171" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="3023:3142" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="3332:4243" ph="{...}" />
-              <marker date="1522864399211" expanded="true" signature="3351:4242" ph="..." />
-              <marker date="1522864399211" expanded="true" signature="4797:4799" ph="{}" />
-              <marker date="1522864399211" expanded="true" signature="4835:4845" ph=" { " />
-              <marker date="1522864399211" expanded="true" signature="4864:4870" ph=" }" />
-              <marker date="1522864399211" expanded="true" signature="4951:5081" ph="{...}" />
-              <marker date="1522864399211" expanded="true" signature="4951:5145" ph="{...}" />
-              <marker date="1522864399211" expanded="true" signature="5769:6237" ph="{...}" />
+              <marker date="1523374052291" expanded="true" signature="2303:2425" ph="..." />
+              <marker date="1523374052291" expanded="true" signature="2624:2810" ph="{...}" />
+              <marker date="1523374052291" expanded="true" signature="3763:4179" ph="..." />
+              <marker date="1523374052291" expanded="true" signature="3797:3886" ph="..." />
+              <marker date="1523374052291" expanded="true" signature="3812:3872" ph="..." />
+              <marker date="1523374052291" expanded="true" signature="3914:4165" ph="..." />
+              <marker date="1523374052291" expanded="true" signature="3943:4150" ph="..." />
+              <marker date="1523374052291" expanded="true" signature="3972:4053" ph="..." />
+              <marker date="1523374052291" expanded="true" signature="4381:5021" ph="{...}" />
+              <marker date="1523374052291" expanded="true" signature="7442:7829" ph="..." />
+              <marker date="1523374052291" expanded="true" signature="7496:7582" ph="..." />
+              <marker date="1523374052291" expanded="true" signature="7601:7815" ph="..." />
             </folding>
           </first_editor>
           <second_editor />
@@ -1794,39 +2012,51 @@
     <entry file="file://$PROJECT_DIR$/XsdAsm/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="-4897">
-            <caret line="26" column="3" lean-forward="true" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
+          <first_editor relative-caret-position="339">
+            <caret line="264" column="10" lean-forward="false" selection-start-line="264" selection-start-column="10" selection-end-line="264" selection-end-column="10" />
             <folding>
-              <marker date="1522864399278" expanded="true" signature="3636:3646" ph=" { " />
-              <marker date="1522864399278" expanded="true" signature="3697:3707" ph=" }" />
-              <marker date="1522864399278" expanded="true" signature="5350:5638" ph="{...}" />
-              <marker date="1522864399278" expanded="true" signature="5370:5373" ph="{}" />
-              <marker date="1522864399278" expanded="false" signature="5428:5439" ph=" { " />
-              <marker date="1522864399278" expanded="false" signature="5484:5490" ph=" }" />
-              <marker date="1522864399278" expanded="false" signature="5518:5529" ph=" { " />
-              <marker date="1522864399278" expanded="false" signature="5555:5561" ph=" }" />
-              <marker date="1522864399278" expanded="false" signature="5593:5604" ph=" { " />
-              <marker date="1522864399278" expanded="false" signature="5630:5636" ph=" }" />
-              <marker date="1522864399278" expanded="true" signature="5835:5848" ph="{...}" />
-              <marker date="1522864399278" expanded="true" signature="5905:5918" ph="{...}" />
-              <marker date="1522864399278" expanded="true" signature="6160:6235" ph="{...}" />
-              <marker date="1522864399278" expanded="false" signature="6202:6211" ph=" { " />
-              <marker date="1522864399278" expanded="false" signature="6228:6233" ph=" }" />
-              <marker date="1522864399278" expanded="true" signature="6500:6760" ph="{...}" />
-              <marker date="1522864399278" expanded="true" signature="6678:6758" ph="{...}" />
-              <marker date="1522864399278" expanded="true" signature="7422:7828" ph="..." />
-              <marker date="1522864399278" expanded="true" signature="7458:7587" ph="..." />
-              <marker date="1522864399278" expanded="true" signature="7483:7569" ph="..." />
-              <marker date="1522864399278" expanded="true" signature="7629:7815" ph="..." />
-              <marker date="1522864399278" expanded="true" signature="7654:7756" ph="..." />
-              <marker date="1522864399278" expanded="true" signature="8298:8307" ph=" { " />
-              <marker date="1522864399278" expanded="true" signature="8319:8324" ph=" }" />
-              <marker date="1522864399278" expanded="true" signature="9337:9603" ph="..." />
-              <marker date="1522864399278" expanded="true" signature="9357:9587" ph="..." />
-              <marker date="1522864399278" expanded="true" signature="9400:9566" ph="..." />
-              <marker date="1522864399278" expanded="true" signature="10141:10150" ph=" { " />
-              <marker date="1522864399278" expanded="true" signature="10178:10183" ph=" }" />
-              <marker date="1522864399278" expanded="true" signature="11398:11866" ph="{}" />
+              <marker date="1523374283821" expanded="true" signature="1733:1852" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="3886:3896" ph=" { " />
+              <marker date="1523374283821" expanded="true" signature="3947:3957" ph=" }" />
+              <marker date="1523374283821" expanded="true" signature="4793:5081" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="4814:5067" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="4834:4929" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="5784:5787" ph="{}" />
+              <marker date="1523374283821" expanded="true" signature="5842:5853" ph=" { " />
+              <marker date="1523374283821" expanded="true" signature="5898:5904" ph=" }" />
+              <marker date="1523374283821" expanded="true" signature="5932:5943" ph=" { " />
+              <marker date="1523374283821" expanded="true" signature="5969:5975" ph=" }" />
+              <marker date="1523374283821" expanded="true" signature="6007:6018" ph=" { " />
+              <marker date="1523374283821" expanded="true" signature="6044:6050" ph=" }" />
+              <marker date="1523374283821" expanded="true" signature="6642:6651" ph=" { " />
+              <marker date="1523374283821" expanded="true" signature="6668:6673" ph=" }" />
+              <marker date="1523374283821" expanded="true" signature="7117:7197" ph="{...}" />
+              <marker date="1523374283821" expanded="true" signature="7860:8266" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="7896:8025" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="7921:8007" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="8067:8253" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="8092:8194" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="8741:8750" ph=" { " />
+              <marker date="1523374283821" expanded="true" signature="8762:8767" ph=" }" />
+              <marker date="1523374283821" expanded="true" signature="9918:10184" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="9938:10168" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="9981:10147" ph="..." />
+              <marker date="1523374283821" expanded="true" signature="10746:10755" ph=" { " />
+              <marker date="1523374283821" expanded="true" signature="10783:10788" ph=" }" />
+              <marker date="1523374283821" expanded="true" signature="12001:12469" ph="{...}" />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SECOND">
+          <first_editor relative-caret-position="2567">
+            <caret line="187" column="29" lean-forward="false" selection-start-line="187" selection-start-column="29" selection-end-line="187" selection-end-column="29" />
+            <folding>
+              <marker date="1523374052430" expanded="true" signature="2135:2255" ph="..." />
             </folding>
           </first_editor>
           <second_editor />
