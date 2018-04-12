@@ -15,6 +15,10 @@ The process of generating an API based on a xsd file contents is complex, so in 
 
 The parser will have the responsibility to read the XML schema element tree and extract the needed information in order to generate the respective classes. The result of the execution of this component should be a list of elements, each element representing a class that should be created and containing all the information needed for the creation.
 
+\subsection{Document Object Model} % (fold)
+\label{sec:dom}
+
+What is DOM? Why does its usage applies in this project? If DOM exists why does this project implements a XsdParser? Are there any alternatives to DOM, and if so, why was DOM chosen?
 
 \section{Code Generation} % (fold)
 \label{sec:codegeneration}
@@ -61,6 +65,11 @@ The element interfaces are similar to the group interfaces, the difference being
 \textbf{Visitors}
 
 In order to the generated API allow manipulation by the client all the generated elements implement the Visitor pattern, therefore the client of the API can implement its own Visitor class and specify the behavior of the visit methods.
+
+\subsection{ASM} % (fold)
+\label{sec:asm}
+
+What is ASM? Why is it important in this project? Are there any alternatives to ASM? If so why was ASM chosen?
 
 \section{Client} % (fold)
 \label{sec:client}
