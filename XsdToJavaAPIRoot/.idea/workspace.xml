@@ -7,12 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="611ba528-c614-49c6-b787-6f04700c0670" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/HtmlApi/create_classes.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/HtmlApi/create_classes1.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/HtmlApi/create_classes2.bat" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/README.md" afterPath="$PROJECT_DIR$/HtmlApi/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/pom.xml" afterPath="$PROJECT_DIR$/HtmlApi/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" afterPath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/README.md" afterPath="$PROJECT_DIR$/XsdAsm/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/README.md" afterPath="$PROJECT_DIR$/XsdParser/README.md" />
     </list>
@@ -46,7 +43,130 @@
     <favorites_list name="XsdToJavaAPIRoot" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/XsdParser/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="204">
+                <caret line="138" column="68" lean-forward="false" selection-start-line="138" selection-start-column="68" selection-end-line="138" selection-end-column="68" />
+                <folding>
+                  <marker date="1523721440738" expanded="true" signature="2326:2448" ph="..." />
+                  <marker date="1523721440738" expanded="true" signature="2647:2833" ph="{...}" />
+                  <marker date="1523721440738" expanded="true" signature="3769:4185" ph="..." />
+                  <marker date="1523721440738" expanded="true" signature="3803:3892" ph="..." />
+                  <marker date="1523721440738" expanded="true" signature="3818:3878" ph="..." />
+                  <marker date="1523721440738" expanded="true" signature="3920:4171" ph="..." />
+                  <marker date="1523721440738" expanded="true" signature="3949:4156" ph="..." />
+                  <marker date="1523721440738" expanded="true" signature="3978:4059" ph="..." />
+                  <marker date="1523721440738" expanded="true" signature="4387:5027" ph="{...}" />
+                  <marker date="1523721440738" expanded="true" signature="7448:7835" ph="..." />
+                  <marker date="1523721440738" expanded="true" signature="7502:7588" ph="..." />
+                  <marker date="1523721440738" expanded="true" signature="7607:7821" ph="..." />
+                </folding>
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XsdParser.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="178">
+              <caret line="214" column="24" lean-forward="false" selection-start-line="214" selection-start-column="17" selection-end-line="214" selection-end-column="24" />
+              <folding>
+                <element signature="initializer##0;class#XsdParser#0" expanded="false" />
+                <element signature="docComment;method#parse#0;class#XsdParser#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/XsdAsm/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="1819">
+                <caret line="107" column="29" lean-forward="false" selection-start-line="107" selection-start-column="29" selection-end-line="107" selection-end-column="29" />
+                <folding>
+                  <marker date="1523630361944" expanded="true" signature="1733:1852" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="3886:3896" ph=" { " />
+                  <marker date="1523630361944" expanded="true" signature="3947:3957" ph=" }" />
+                  <marker date="1523630361944" expanded="true" signature="4793:5081" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="4814:5067" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="4834:4929" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="5786:5789" ph="{}" />
+                  <marker date="1523630361944" expanded="true" signature="5844:5855" ph=" { " />
+                  <marker date="1523630361944" expanded="true" signature="5900:5906" ph=" }" />
+                  <marker date="1523630361944" expanded="true" signature="5934:5945" ph=" { " />
+                  <marker date="1523630361944" expanded="true" signature="5971:5977" ph=" }" />
+                  <marker date="1523630361944" expanded="true" signature="6009:6020" ph=" { " />
+                  <marker date="1523630361944" expanded="true" signature="6046:6052" ph=" }" />
+                  <marker date="1523630361944" expanded="true" signature="6644:6653" ph=" { " />
+                  <marker date="1523630361944" expanded="true" signature="6670:6675" ph=" }" />
+                  <marker date="1523630361944" expanded="true" signature="7119:7199" ph="{...}" />
+                  <marker date="1523630361944" expanded="true" signature="7862:8268" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="7898:8027" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="7923:8009" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="8069:8255" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="8094:8196" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="8743:8752" ph=" { " />
+                  <marker date="1523630361944" expanded="true" signature="8764:8769" ph=" }" />
+                  <marker date="1523630361944" expanded="true" signature="9920:10186" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="9940:10170" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="9983:10149" ph="..." />
+                  <marker date="1523630361944" expanded="true" signature="10748:10757" ph=" { " />
+                  <marker date="1523630361944" expanded="true" signature="10785:10790" ph=" }" />
+                  <marker date="1523630361944" expanded="true" signature="12003:12471" ph="{...}" />
+                </folding>
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HtmlApi/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="1904">
+                <caret line="112" column="13" lean-forward="true" selection-start-line="112" selection-start-column="13" selection-end-line="112" selection-end-column="13" />
+                <folding>
+                  <marker date="1523718265141" expanded="true" signature="2135:2255" ph="..." />
+                  <marker date="1523718265141" expanded="true" signature="2453:3252" ph="..." />
+                  <marker date="1523718265141" expanded="true" signature="2464:2689" ph="..." />
+                  <marker date="1523718265141" expanded="true" signature="2512:2547" ph="..." />
+                  <marker date="1523718265141" expanded="true" signature="2714:3244" ph="..." />
+                  <marker date="1523718265141" expanded="true" signature="2742:3232" ph="..." />
+                  <marker date="1523718265141" expanded="true" signature="2775:3217" ph="..." />
+                  <marker date="1523718265141" expanded="true" signature="2823:3195" ph="..." />
+                  <marker date="1523718265141" expanded="true" signature="2862:2963" ph="..." />
+                  <marker date="1523718265141" expanded="true" signature="2991:3168" ph="..." />
+                  <marker date="1523718265141" expanded="true" signature="3020:3139" ph="..." />
+                  <marker date="1523718265141" expanded="true" signature="3329:4240" ph="{...}" />
+                  <marker date="1523718265141" expanded="true" signature="5658:5668" ph=" { " />
+                  <marker date="1523718265141" expanded="true" signature="5687:5693" ph=" }" />
+                  <marker date="1523718265141" expanded="true" signature="5774:5968" ph="{...}" />
+                  <marker date="1523718265141" expanded="true" signature="6590:7058" ph="{...}" />
+                </folding>
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XsdSupportingStructure.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="31" column="66" lean-forward="false" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -129,7 +249,7 @@
     </dirStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/XsdParser" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -187,9 +307,9 @@
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/main/XsdAsmMain.java" />
         <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
         <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/README.md" />
         <option value="$PROJECT_DIR$/HtmlApi/README.md" />
         <option value="$PROJECT_DIR$/XsdParser/README.md" />
-        <option value="$PROJECT_DIR$/XsdAsm/README.md" />
       </list>
     </option>
   </component>
@@ -275,6 +395,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -285,17 +407,6 @@
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
               <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -336,30 +447,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="xsdasm" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="classes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
@@ -392,14 +480,52 @@
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
               <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="xsdparser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="xsdparser" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="AndroidView" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1074,6 +1200,9 @@
       <workItem from="1522767289721" duration="5682000" />
       <workItem from="1522856652700" duration="6488000" />
       <workItem from="1523366034036" duration="5852000" />
+      <workItem from="1523544752093" duration="342000" />
+      <workItem from="1523629395531" duration="609000" />
+      <workItem from="1523717134170" duration="3494000" />
     </task>
     <servers />
   </component>
@@ -1110,7 +1239,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="735463000" />
+    <option name="totallyTimeSpent" value="739908000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1131,20 +1260,20 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45723686" sideWeight="0.50907713" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40131578" sideWeight="0.49092284" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30559757" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30484116" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4375" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1177,13 +1306,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/AttributesVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdSimpleContentVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -1303,13 +1425,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="351" column="67" lean-forward="false" selection-start-line="351" selection-start-column="39" selection-end-line="351" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/CoreServerAttributeGroup.java" />
     <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/CommonAttributeGroup.java" />
     <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/HtmlChoice0.java" />
@@ -1387,69 +1502,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/BaseAttribute.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/AttrManifestString.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="48" lean-forward="true" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/CoreAttributeGroup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/EnumTypeButton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/EnumTypeContentType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/EnumTypeSimpleContentType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/TestObjects/AttrIntlistObject.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/AttrTypeEnumTypeCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/A.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/BaseAttribute.java" />
+    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/AttrManifestString.java" />
+    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/CoreAttributeGroup.java" />
+    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/EnumTypeButton.java" />
+    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/EnumTypeContentType.java" />
+    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/EnumTypeSimpleContentType.java" />
+    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/TestObjects/AttrIntlistObject.class" />
+    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/AttrTypeEnumTypeCommand.java" />
+    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/A.java" />
     <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/main/XsdAsmMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1457,39 +1518,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/create_classes1.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="128" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="128" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/EnumTypeCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="7" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/AbstractElementVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="2" column="68" lean-forward="false" selection-start-line="2" selection-start-column="68" selection-end-line="2" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/ElementVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/create_classes1.bat" />
+    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/EnumTypeCommand.java" />
+    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/AbstractElementVisitor.java" />
+    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/ElementVisitor.java" />
     <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="40" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1497,9 +1533,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="373" column="52" lean-forward="false" selection-start-line="373" selection-start-column="41" selection-end-line="373" selection-end-column="52" />
-          <folding>
-            <element signature="e#5539#5553#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1952,7 +1985,7 @@
           </nodes>
           <notes />
           <edges />
-          <settings layout="Hierarchic Group" zoom="0.03047557573941308" x="15051.241301059" y="2686.5" />
+          <settings layout="Hierarchic Group" zoom="0.03047557573941308" x="15051.0" y="2687.0" />
           <SelectedNodes />
           <Categories />
           <SCOPE>All</SCOPE>
@@ -1960,49 +1993,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/main/java/org/xmlet/htmlapi/infrastructure.uml">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>JAVA</ID>
-          <OriginalElement />
-          <nodes>
-            <node x="" y="">org.xmlet.htmlapi.ElementVisitor</node>
-            <node x="" y="">org.xmlet.htmlapi.Attribute</node>
-            <node x="" y="">org.xmlet.htmlapi.AbstractElement</node>
-            <node x="" y="">org.xmlet.htmlapi.Element</node>
-            <node x="" y="">org.xmlet.htmlapi.AbstractElementVisitor</node>
-            <node x="" y="">org.xmlet.htmlapi.BaseAttribute</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrManifestString</node>
-            <node x="" y="">org.xmlet.htmlapi.Html</node>
-          </nodes>
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="1.5000000000000004" x="204.0" y="118.0" />
-          <SelectedNodes />
-          <Categories />
-          <SCOPE>All</SCOPE>
-          <VISIBILITY>private</VISIBILITY>
+    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/main/java/org/xmlet/htmlapi/infrastructure.uml" />
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="31" column="66" lean-forward="false" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/README.md">
+    <entry file="file://$PROJECT_DIR$/HtmlApi/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="322">
-            <caret line="219" column="29" lean-forward="false" selection-start-line="219" selection-start-column="29" selection-end-line="219" selection-end-column="29" />
+          <first_editor relative-caret-position="1904">
+            <caret line="112" column="13" lean-forward="true" selection-start-line="112" selection-start-column="13" selection-end-line="112" selection-end-column="13" />
             <folding>
-              <marker date="1523374052291" expanded="true" signature="2303:2425" ph="..." />
-              <marker date="1523374052291" expanded="true" signature="2624:2810" ph="{...}" />
-              <marker date="1523374052291" expanded="true" signature="3763:4179" ph="..." />
-              <marker date="1523374052291" expanded="true" signature="3797:3886" ph="..." />
-              <marker date="1523374052291" expanded="true" signature="3812:3872" ph="..." />
-              <marker date="1523374052291" expanded="true" signature="3914:4165" ph="..." />
-              <marker date="1523374052291" expanded="true" signature="3943:4150" ph="..." />
-              <marker date="1523374052291" expanded="true" signature="3972:4053" ph="..." />
-              <marker date="1523374052291" expanded="true" signature="4381:5021" ph="{...}" />
-              <marker date="1523374052291" expanded="true" signature="7442:7829" ph="..." />
-              <marker date="1523374052291" expanded="true" signature="7496:7582" ph="..." />
-              <marker date="1523374052291" expanded="true" signature="7601:7815" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="2135:2255" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="2453:3252" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="2464:2689" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="2512:2547" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="2714:3244" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="2742:3232" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="2775:3217" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="2823:3195" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="2862:2963" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="2991:3168" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="3020:3139" ph="..." />
+              <marker date="1523718265141" expanded="true" signature="3329:4240" ph="{...}" />
+              <marker date="1523718265141" expanded="true" signature="5658:5668" ph=" { " />
+              <marker date="1523718265141" expanded="true" signature="5687:5693" ph=" }" />
+              <marker date="1523718265141" expanded="true" signature="5774:5968" ph="{...}" />
+              <marker date="1523718265141" expanded="true" signature="6590:7058" ph="{...}" />
             </folding>
           </first_editor>
           <second_editor />
@@ -2012,54 +2033,76 @@
     <entry file="file://$PROJECT_DIR$/XsdAsm/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="339">
-            <caret line="264" column="10" lean-forward="false" selection-start-line="264" selection-start-column="10" selection-end-line="264" selection-end-column="10" />
+          <first_editor relative-caret-position="1819">
+            <caret line="107" column="29" lean-forward="false" selection-start-line="107" selection-start-column="29" selection-end-line="107" selection-end-column="29" />
             <folding>
-              <marker date="1523374283821" expanded="true" signature="1733:1852" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="3886:3896" ph=" { " />
-              <marker date="1523374283821" expanded="true" signature="3947:3957" ph=" }" />
-              <marker date="1523374283821" expanded="true" signature="4793:5081" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="4814:5067" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="4834:4929" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="5784:5787" ph="{}" />
-              <marker date="1523374283821" expanded="true" signature="5842:5853" ph=" { " />
-              <marker date="1523374283821" expanded="true" signature="5898:5904" ph=" }" />
-              <marker date="1523374283821" expanded="true" signature="5932:5943" ph=" { " />
-              <marker date="1523374283821" expanded="true" signature="5969:5975" ph=" }" />
-              <marker date="1523374283821" expanded="true" signature="6007:6018" ph=" { " />
-              <marker date="1523374283821" expanded="true" signature="6044:6050" ph=" }" />
-              <marker date="1523374283821" expanded="true" signature="6642:6651" ph=" { " />
-              <marker date="1523374283821" expanded="true" signature="6668:6673" ph=" }" />
-              <marker date="1523374283821" expanded="true" signature="7117:7197" ph="{...}" />
-              <marker date="1523374283821" expanded="true" signature="7860:8266" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="7896:8025" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="7921:8007" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="8067:8253" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="8092:8194" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="8741:8750" ph=" { " />
-              <marker date="1523374283821" expanded="true" signature="8762:8767" ph=" }" />
-              <marker date="1523374283821" expanded="true" signature="9918:10184" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="9938:10168" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="9981:10147" ph="..." />
-              <marker date="1523374283821" expanded="true" signature="10746:10755" ph=" { " />
-              <marker date="1523374283821" expanded="true" signature="10783:10788" ph=" }" />
-              <marker date="1523374283821" expanded="true" signature="12001:12469" ph="{...}" />
+              <marker date="1523630361944" expanded="true" signature="1733:1852" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="3886:3896" ph=" { " />
+              <marker date="1523630361944" expanded="true" signature="3947:3957" ph=" }" />
+              <marker date="1523630361944" expanded="true" signature="4793:5081" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="4814:5067" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="4834:4929" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="5786:5789" ph="{}" />
+              <marker date="1523630361944" expanded="true" signature="5844:5855" ph=" { " />
+              <marker date="1523630361944" expanded="true" signature="5900:5906" ph=" }" />
+              <marker date="1523630361944" expanded="true" signature="5934:5945" ph=" { " />
+              <marker date="1523630361944" expanded="true" signature="5971:5977" ph=" }" />
+              <marker date="1523630361944" expanded="true" signature="6009:6020" ph=" { " />
+              <marker date="1523630361944" expanded="true" signature="6046:6052" ph=" }" />
+              <marker date="1523630361944" expanded="true" signature="6644:6653" ph=" { " />
+              <marker date="1523630361944" expanded="true" signature="6670:6675" ph=" }" />
+              <marker date="1523630361944" expanded="true" signature="7119:7199" ph="{...}" />
+              <marker date="1523630361944" expanded="true" signature="7862:8268" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="7898:8027" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="7923:8009" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="8069:8255" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="8094:8196" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="8743:8752" ph=" { " />
+              <marker date="1523630361944" expanded="true" signature="8764:8769" ph=" }" />
+              <marker date="1523630361944" expanded="true" signature="9920:10186" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="9940:10170" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="9983:10149" ph="..." />
+              <marker date="1523630361944" expanded="true" signature="10748:10757" ph=" { " />
+              <marker date="1523630361944" expanded="true" signature="10785:10790" ph=" }" />
+              <marker date="1523630361944" expanded="true" signature="12003:12471" ph="{...}" />
             </folding>
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/README.md">
+    <entry file="file://$PROJECT_DIR$/XsdParser/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SECOND">
-          <first_editor relative-caret-position="2567">
-            <caret line="187" column="29" lean-forward="false" selection-start-line="187" selection-start-column="29" selection-end-line="187" selection-end-column="29" />
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="204">
+            <caret line="138" column="68" lean-forward="false" selection-start-line="138" selection-start-column="68" selection-end-line="138" selection-end-column="68" />
             <folding>
-              <marker date="1523374052430" expanded="true" signature="2135:2255" ph="..." />
+              <marker date="1523721440738" expanded="true" signature="2326:2448" ph="..." />
+              <marker date="1523721440738" expanded="true" signature="2647:2833" ph="{...}" />
+              <marker date="1523721440738" expanded="true" signature="3769:4185" ph="..." />
+              <marker date="1523721440738" expanded="true" signature="3803:3892" ph="..." />
+              <marker date="1523721440738" expanded="true" signature="3818:3878" ph="..." />
+              <marker date="1523721440738" expanded="true" signature="3920:4171" ph="..." />
+              <marker date="1523721440738" expanded="true" signature="3949:4156" ph="..." />
+              <marker date="1523721440738" expanded="true" signature="3978:4059" ph="..." />
+              <marker date="1523721440738" expanded="true" signature="4387:5027" ph="{...}" />
+              <marker date="1523721440738" expanded="true" signature="7448:7835" ph="..." />
+              <marker date="1523721440738" expanded="true" signature="7502:7588" ph="..." />
+              <marker date="1523721440738" expanded="true" signature="7607:7821" ph="..." />
             </folding>
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="214" column="24" lean-forward="false" selection-start-line="214" selection-start-column="17" selection-end-line="214" selection-end-column="24" />
+          <folding>
+            <element signature="initializer##0;class#XsdParser#0" expanded="false" />
+            <element signature="docComment;method#parse#0;class#XsdParser#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

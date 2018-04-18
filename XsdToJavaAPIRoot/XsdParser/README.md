@@ -8,8 +8,8 @@
 
 
 <div style="text-align:right"> 
-    XsdParser is a library that parses a XML Definition file (.xsd) into a list of java objects. Each different tag has 
-    a corresponding java object and its attributes are represented as fields in java. All these objects derive from the 
+    XsdParser is a library that parses a XML Definition file (.xsd) into a list of java objects. Each different xsd tag has 
+    a corresponding java class and the attributes of a given xsd type are represented as fields in java. All these classes derive from the 
     same abstract element, <i>XsdAbstractElement</i>. All java representations of the xsd elements follow the schema definition 
     for xsd elements. For example, the <i>xsd:annotation</i> tag only allows <i>xsd:appinfo</i> and <i>xsd:documentation</i> as children nodes, 
     and also can have an attribute named id, therefore XsdParser has the following class (simplified for example purposes):
@@ -79,8 +79,8 @@ public class ParserApp {
 ### Navigation
 
 <div style="text-align:right"> 
-    A simple example of a xsd file is presented with the correspondent code that shows how to navigate in the element 
-    list produced by the parse function.
+    Below a simple example is presented. After parsing the xsd snippet the parsed elements can be accessed with the respective 
+    java code.
     <br />
     <br />
 </div>
@@ -136,7 +136,7 @@ public class ParserApp {
 ### Reference solving
 
 <div style="text-align:right"> 
-    This is a big feature of this library. In XSD files the usage os the ref attribute is frequent, in order to avoid 
+    This is a big feature of this library. In XSD files the usage of the ref attribute is frequent, in order to avoid 
     repetition of xml code. This generates two problems when handling the parsing which are detailed below.
 </div>
 
