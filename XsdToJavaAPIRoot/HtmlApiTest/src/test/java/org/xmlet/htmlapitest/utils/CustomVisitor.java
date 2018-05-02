@@ -1,18 +1,14 @@
 package org.xmlet.htmlapitest.utils;
 
-import org.xmlet.htmlapi.AbstractElementVisitor;
-import org.xmlet.htmlapi.Element;
-import org.xmlet.htmlapi.Html;
-import org.xmlet.htmlapi.Text;
+import org.xmlet.htmlapi.*;
 
 import java.io.PrintStream;
 import java.util.List;
 
-public class CustomVisitor<R> extends AbstractElementVisitor<R> {
+public class CustomVisitor<R> implements ElementVisitor<R> {
 
     private R model;
-    private PrintStream DEFAULT_PRINT_STREAM = new PrintStream(System.out);
-    private PrintStream printStream = DEFAULT_PRINT_STREAM;
+    private PrintStream printStream = new PrintStream(System.out);
 
     public CustomVisitor(){
 
@@ -26,9 +22,12 @@ public class CustomVisitor<R> extends AbstractElementVisitor<R> {
         this.printStream = printStream;
     }
 
-    @Override
     public <T extends Element> void visit(Element<T, ?> element) {
-        printStream.printf("<%s>\n", element.getName());
+        printStream.printf("<%s", element.getName());
+
+        element.getAttributes().forEach(attribute -> printStream.printf(" %s=\"%s\"", attribute.getName(), attribute.getValue()));
+
+        printStream.print(">\n");
 
         if(element.isBound()) {
             List<Element> children = element.cloneElem().bindTo(model).getChildren();
@@ -51,7 +50,7 @@ public class CustomVisitor<R> extends AbstractElementVisitor<R> {
                 throw new RuntimeException("Text node is missing the model. Usage of new CustomVisitor(model) is required.");
             }
 
-            printStream.println(text.getValue((R) model));
+            printStream.println(text.getValue(model));
         }
     }
 

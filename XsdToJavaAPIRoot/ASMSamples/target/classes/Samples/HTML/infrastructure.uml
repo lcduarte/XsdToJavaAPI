@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="134.8166666666667" y="347.0">Samples.Div</node>
+    <node x="140.3166666666667" y="426.0">Samples.Visitor</node>
+    <node x="72.37916666666665" y="0.0">Samples.IAttribute</node>
+    <node x="-278.0" y="323.0">Samples.ICommonAttributeGroup</node>
+    <node x="60.395833333333314" y="101.0">Samples.IElement</node>
+    <node x="282.3958333333333" y="112.0">Samples.AbstractAttribute</node>
+    <node x="0.0" y="224.0">Samples.AbstractElement</node>
+    <node x="-283.0" y="243.0">Samples.IFlowContent</node>
+    <node x="289.3958333333333" y="246.0">Samples.SomeAttribute</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Samples.SomeAttribute" target="Samples.AbstractAttribute">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="25.5" />
+    </edge>
+    <edge source="Samples.Div" target="Samples.AbstractElement">
+      <point x="-16.25" y="-14.5" />
+      <point x="151.0666666666667" y="322.0" />
+      <point x="101.0" y="322.0" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="Samples.AbstractAttribute" target="Samples.IAttribute">
+      <point x="0.0" y="-25.5" />
+      <point x="351.8958333333333" y="71.0" />
+      <point x="158.12916666666666" y="71.0" />
+      <point x="36.75" y="25.5" />
+    </edge>
+    <edge source="Samples.ICommonAttributeGroup" target="Samples.IElement">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Samples.Div" target="Samples.IFlowContent">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Samples.Div" target="Samples.ICommonAttributeGroup">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Samples.IFlowContent" target="Samples.IElement">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Samples.AbstractElement" target="Samples.IElement">
+      <point x="40.39999999999998" y="-36.5" />
+      <point x="141.39999999999998" y="199.0" />
+      <point x="120.99583333333334" y="199.0" />
+      <point x="-40.39999999999998" y="36.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="131.0" y="234.0" />
+  <SelectedNodes>
+    <node>Samples.ICommonAttributeGroup</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

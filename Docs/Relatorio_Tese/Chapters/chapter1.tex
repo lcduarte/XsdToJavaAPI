@@ -1,44 +1,50 @@
 \chapter{Introduction}
 \label{cha:introduction}
 
-The work described in this dissertation is concerned with the implementation of a Java solution, named xmlet, that allows the automatic generation of a fluent \ac{API} based on a \ac{XSD} file. The generated classes are very similar most of the time and such solution may save time to the user, eliminating repetitive tasks and human error.
+The work described in this dissertation is concerned with the implementation of a Java solution, named \texttt{xmlet}, that allows the automatic generation of a fluent \ac{API} based on a \ac{XSD} file. The generated classes are very similar most of the time and such solution may save time to the programmer, eliminating repetitive tasks and human error.
 
 \section{Motivation}
 
-%TODO Footnote ou citação para intellisense.
+Text has evolved with the advance of technology resulting in the creation of markup languages \cite{markuplanguages}. Markup languages work by adding annotations to text, the annotations being also known as tags, that allow to add additional information to the text. Each markup language has its own tags and each of those tags add a different meaning to the text encapsulated within them. In order to use markup languages the users can write the text and add all the tags manually, either by fully writing them or by using some kind of text helpers such as text editors with IntelliSense\footnote{\href{https://www.techopedia.com/definition/24580/intellisense}{Intellisense Definition}} which can help diminish the errors caused by manually writing the tags. But even with text helpers the resulting document can violate the restrictions of the respective markup language because the editors don't actually enforce the language rules. In the following \ac{HTML} example there is a violation of \ac{HTML} rules, a \texttt{<html>} tag containing a \texttt{<div>} tag, which is not allowed (see Listing \ref{lst:failedhtml}).
 
-Text has evolved with the advance of technology resulting in the creation of markup languages \cite{markuplanguages}. Markup languages work by adding annotations to text, the annotations being also known as tags, that allow to add additional information to the text. Each markup language has its own tags and each of those tags add a different meaning to the text encapsulated within them. In order to use markup languages the users can write the text and add all the tags manually, either by fully writing them or by using some kind of text helpers such as text editors with IntelliSense which can help diminish the errors caused by manually writing the tags. But even with text helpers the resulting document can violate the restrictions of the respective markup language because the editors don't actually enforce the language rules. In the following \ac{HTML} example there is a violation of \ac{HTML} rules, a <html> tag containing a <div> tag, which isn't allowed.
+\bigskip
 
 \lstset{language=HTML}
-\begin{lstlisting}[caption={Failed HTML rule validation},captionpos=b]
+
+\begin{lstlisting}[caption={Failed HTML rule validation},captionpos=b,label={lst:failedhtml}]
 <html>
-	<div>
-		(...)
-	</div>
+    <div>
+        <!-- (...) -->
+    </div>
 </html>
 \end{lstlisting}
 
 \noindent
-The solution to having documents that respect the markup language rules is changing the way the document writing works. If the user has control over the writing process errors can be induced in the document because even though most text editors present the errors its corrections depend on the user correcting them. The suggestion presented is to pass the writing control to an entity which can enforce the markup languages restrictions. This way it is guaranteed that the user can't produce a document with errors. 
+The solution to having documents that respect the markup language rules is changing the way the document writing works. If the user has control over the writing process errors can be induced in the document because even though most text editors present the errors its corrections depend on the programmer correcting them. The suggestion presented is to pass the writing control to an entity which can enforce the markup languages restrictions. This way it is guaranteed that the programmer can't produce a document with errors. 
 
 \noindent
-Moving from the \ac{HTML} representation to a Java representation of the issue there are multiple solutions to solve this issue. In this first code sample the user is allowed to add any child to the Html element, resulting in a violation of the language restrictions, which is not detected unless the user verifies the result manually.
+Moving from the \ac{HTML} representation to a Java representation of the issue there are multiple solutions to solve this issue. In this first code sample the user is allowed to add any child to the \texttt{Html} element (see Listing \ref{lst:runtimevalidationfailure}), resulting in a violation of the language restrictions, which is not detected unless the user verifies the result manually.
 
-\lstset{language=Java}
-\begin{lstlisting}[caption={Error validation in runtime},captionpos=b]
+\bigskip
+
+\lstset{language=Java, morekeywords={Html, Div}}
+
+\begin{lstlisting}[caption={Error validation in runtime},captionpos=b,label={lst:runtimevalidationfailure}]
 	Html root = new Html();
 	root.add(new Div());
 \end{lstlisting}
 
 \noindent
-In order to resolve this problem the entity, Html class, should restrict the children and attributes that accepts based on the existing restrictions on the \ac{HTML}5 specification. In the \ref{motivation_2example}, the generated \ac{API} enforces the language restrictions in compile time, this way guaranteeing that any document generated will be compliant with the respective specification.
+In order to resolve this problem the entity, \texttt{Html} class, should restrict the children and attributes that accepts based on the existing restrictions on the \ac{HTML}5 specification. As shown in the Figure \ref{motivation_2example} the generated \ac{API} enforces the language restrictions in compile time, this way guaranteeing that any document generated will be compliant with the respective specification.
 
-\begin{figure}[ht]
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.4\textwidth]{motivation_2example}
 	\caption{Error validation in compile time}
 	\label{motivation_2example}
 \end{figure}
+
+\newpage
 
 \noindent
 This solution even though apparently solving the main problem introduces a new one. The new problem resides on the fact that manually recreating all the rules of a given markup language is normally a very long process since most markup languages have a vast number of elements and restrictions. 
@@ -48,7 +54,7 @@ The solution for this new problem is automation. An automated process that conve
 
 \section{Use case}
 
-The use case that will be used to test and evaluate the solution will be the \ac{HTML}5 \ac{XSD}. In this case there are multiple elements that share behavior and/or attributes that can be generated automatically. The generated classes allow to create a tree of elements that represent a \ac{XML} document. The resulting classes can then be processed in different ways since the Visitor pattern is used. This way each different Visitor implementation can use the generated classes to write HTML documents to a stream, a socket or a file. 
+The use case that will be used to test and evaluate the solution will be the \ac{HTML}5 \ac{XSD}. In this case there are multiple elements that share behavior and/or attributes that can be generated automatically. The generated classes allow to create a tree of elements that represent a \ac{XML} document. The resulting classes can then be processed in different ways since the Visitor pattern is used. This way each different Visitor implementation can use the generated classes to write \ac{HTML} documents to a stream, a socket or a file. 
 
 \noindent
 The generated \ac{HTML}5 elements \ac{API} will then be used in the HtmlFlow \ac{API}, which is also a fluent Java \ac{API} that is used to write well formed \ac{HTML} files. With the Visitor pattern the HtmlFlow will only need to implement its own Visitor to achieve its goal. At the moment the HtmlFlow library only supports a set of the \ac{HTML} elements which were created manually and the rest of the library interacts with those elements in order to write the \ac{HTML} files. With the help of the solution which will be developed in this work the HtmlFlow will support the whole \ac{HTML} syntax. 

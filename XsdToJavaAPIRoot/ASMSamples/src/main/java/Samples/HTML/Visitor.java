@@ -2,11 +2,18 @@ package Samples.HTML;
 
 public interface Visitor<R> {
 
-    void visit(H1 elem);
+    <T extends IElement> void visit(IElement<T, ?> elem);
 
-    void visit(Div elem);
+    default void visit(H1 elem){
+        visit((IElement) elem);
+    }
 
-    <U> void visit(Text<R, U, ?> elem);
+    default void visit(Div elem){
+        visit((IElement) elem);
+    }
 
+    default <U> void visit(Text<R, U, ?> elem){
+        visit((IElement) elem);
+    }
 }
 

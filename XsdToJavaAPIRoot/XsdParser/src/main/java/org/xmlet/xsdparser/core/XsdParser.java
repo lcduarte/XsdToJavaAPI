@@ -15,10 +15,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class XsdParser {
 
@@ -235,18 +237,9 @@ public class XsdParser {
 
             parseElements.put(filePath, elements);
 
-            for (int temp = 0; temp < nodes.getLength(); temp++) {
-                Node node = nodes.item(temp);
-                String nodeName = node.getNodeName();
-
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Function<Node, ReferenceBase> parseFunction = parseMappers.get(nodeName);
-
-                    if (parseFunction != null){
-                        elements.add(parseFunction.apply(node));
-                    }
-                }
-            }
+            stream(nodes).filter(node -> node.getNodeType() == Node.ELEMENT_NODE && parseMappers.get(node.getNodeName()) != null)
+                         .map(node -> parseMappers.get(node.getNodeName()).apply(node))
+                         .forEach(elements::add);
         } catch (Exception e) {
             Logger.getAnonymousLogger().log(Level.SEVERE, "Exception while parsing.", e);
         }
@@ -368,4 +361,28 @@ public class XsdParser {
     public static Map<String, Function<Node, ReferenceBase>> getParseMappers() {
         return parseMappers;
     }
+
+    private Stream<Node> stream(NodeList nodeList){
+        return StreamSupport.stream(new NodeListSpliterator(nodeList), false);
+    }
+
+    class NodeListSpliterator extends Spliterators.AbstractSpliterator<Node> {
+        final NodeList nodes;
+        int index;
+
+        NodeListSpliterator(NodeList nodeList){
+            super(nodeList.getLength(), SIZED);
+            this.nodes = nodeList;
+        }
+
+        @Override
+        public boolean tryAdvance(Consumer<? super Node> consumer) {
+            if(index >= nodes.getLength()) return false;
+            Node node = nodes.item(index);
+            ++index;
+            consumer.accept(node);
+            return true;
+        }
+    }
+
 }

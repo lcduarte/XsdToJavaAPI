@@ -47,7 +47,11 @@ public class HtmlApiTest {
                                     .em()
                                         .text("Advertisement")
                                     .span()
-                                        .text("1-833-2GET-REV");
+                                        .text("HtmlApi is great!");
+
+        CustomVisitor customVisitor = new CustomVisitor();
+
+        root.accept(customVisitor);
     }
 
     @Test
@@ -100,7 +104,7 @@ public class HtmlApiTest {
      */
     @Test
     public void testVisitsWithoutModel(){
-        Html rootDoc = new Html();
+        Html<Html> rootDoc = new Html<>();
 
         rootDoc.body()
                 .div()
