@@ -20,7 +20,8 @@ XsdParser is a library that parses a \ac{XSD} file into a list of Java objects. 
 
 \bigskip
 
-\lstset{language=Java}
+\lstset{language=Java, morekeywords={XsdAppInfo, XsdDocumentation, ArrayList, List, XsdIdentifierElements}}
+
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={XsdAnnotation class (simplified)},captionpos=b,label={lst:xsdannotationexample}]
 public class XsdAnnotation extends XsdIdentifierElements {
@@ -42,10 +43,10 @@ This means that XsdParser uses \ac{DOM} to parse the \ac{XSD} file into a node l
 
 \bigskip
 
-\lstset{language=Java, morekeywords={Document, parse, getFirstChild, getChildNodes, NodeList}}
+\lstset{language=Java, morekeywords={Document, parse, getFirstChild, getChildNodes, NodeList, DocumentBuilderFactory, DocumentBuilder, newInstance, newDocumentBuilder}}
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={DOM Document Parsing},captionpos=b,label={lst:nodelist}]
-DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+DocumentBuilderFactory dbFactory= DocumentBuilderFactory.newInstance();
 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 //Parses the XSD file
 Document doc = dBuilder.parse(xsdFile);
@@ -132,10 +133,12 @@ static ReferenceBase xsdParseSkeleton(Node node, XsdAbstractElement element){
             //for the respective type.
             Function<Node, ReferenceBase> parserFunction = XsdParser.getParseMappers().get(nodeName);
 
-            //Applies the parsing functions, if any, and notifies passes 
+            //Applies the parsing functions, if any, and notifies 
             //the parent objects Visitor to the newly created object.
             if (parserFunction != null){
-                parserFunction.apply(child).getElement().accept(element.getVisitor());
+                parserFunction.apply(child)
+                                   .getElement()
+                                   .accept(element.getVisitor());
             }
         }
 
@@ -176,7 +179,7 @@ Based on the above explanation, we will give a more detailed description about t
 Step 1 - DOM parsing:
 
 \noindent
-The parsing starts with the \ac{DOM} library parsing the example above, which returns a node list (i.e. nodes) containing only one node, the \texttt{xsd:element} node. Using the \texttt{xsd:element} string the \texttt{XsdElement} parse function will be obtained from an existent string to function mapper (i.e. parseMappers). 
+The parsing starts with the \ac{DOM} library parsing the code snippet (Listing \ref{lst:parsingexample}), which returns a node list (i.e. nodes) containing only one node, the \texttt{xsd:element} node. Using the \texttt{xsd:element} string the \texttt{XsdElement parse} function will be obtained from an existent string to function mapper (i.e. parseMappers). 
 
 Step 2 - XsdElement Attribute Parsing:
 
@@ -241,7 +244,7 @@ Having these wrappers on the elements allow for a detailed filtering, which is h
 \end{minipage}
 
 \noindent
-In this short example we have a \texttt{XsdChoice} element that contains a \texttt{XsdGroup} element with a reference attribute. When replacing the \texttt{UnsolvedReference} objects the \texttt{XsdGroup} with the ref attribute is going to be replaced by a copy of the already parsed \texttt{XsdGroup} with the name attribute. This is achieved by accessing the parent of the element, in this case accessing the parent of the \texttt{XsdGroup} with the ref attribute, in order to remove the element identified by "toBeReplaced" and adding the element identified by "replacement".
+In this short example we have a \texttt{XsdChoice} element that contains a \texttt{XsdGroup} element with a reference attribute. When replacing the \texttt{UnsolvedReference} objects the \texttt{XsdGroup} with the \texttt{ref} attribute is going to be replaced by a copy of the already parsed \texttt{XsdGroup} with the \texttt{name} attribute. This is achieved by accessing the parent of the element, in this case accessing the parent of the \texttt{XsdGroup} with the \texttt{ref} attribute, in order to remove the element identified by "toBeReplaced" and adding the element identified by "replacement".
 
 \noindent
 Having created these classes it is expected that at the end of a successful file parsing only \texttt{ConcreteElement} and/or \texttt{NamedConcreteElement} objects remain. In case there are any remainder \texttt{UnsolvedReference} objects the programmer can query the parser to discover which elements are missing and where were they used. The programmer can then correct the missing elements by adding them to the \ac{XSD} file and repeat the parsing process or just acknowledge that those elements are missing. 
@@ -278,6 +281,8 @@ Visitor classes:
 
 \noindent
 Taking in consideration those classes, a very simplistic \ac{API} could be represented with the class diagram (Figure \ref{img:infrastructure}). In this example we have an element, \texttt{Html}, that extends \texttt{AbstractElement} and an attribute, \texttt{AttrManifestString}, that extends \texttt{BaseAttribute}. 
+
+%TODO Change this figure to remove the AbstractElementVisitor
 
 \begin{figure}[h]
 	\centering
@@ -325,8 +330,8 @@ With this example there is a multitude of classes that need to be created, apart
 
 \begin{itemize}
 	\item Html Element - A class that represents the \texttt{Html} element (Listing \ref{lst:htmlclass}), deriving from \texttt{AbstractElement}.
-	\item Body and Head Methods - Both methods present in the \texttt{Html} class (Listing \ref{lst:htmlclass}) that add \texttt{Body} and \texttt{Head} instances to \texttt{Html} children.
-	\item Manifest Method - A method present in \texttt{Html} class (Listing \ref{lst:htmlclass}) that adds an instance of \texttt{Manifest} attribute to the \texttt{Html} attribute list.
+	\item Body and Head Methods - Both methods present in the \texttt{Html} class (Listing \ref{lst:htmlclass}) that add \texttt{Body} (Listing \ref{lst:bodyclass}) and \texttt{Head} (Listing \ref{lst:headclass}) instances to \texttt{Html} children.
+	\item Manifest Method - A method present in \texttt{Html} class (Listing \ref{lst:htmlclass}) that adds an instance of \texttt{Manifest} attribute (Listing \ref{lst:manifestattributeclass}) to the \texttt{Html} attribute list.
 \end{itemize}
 
 \newpage
@@ -374,7 +379,7 @@ public class Head extends AbstractElement {
 \end{minipage}
 
 \begin{itemize}
-	\item Manifest Attribute - A class that represents the \texttt{Manifest} attribute, deriving from \texttt{BaseAttribute} (Listing \ref{lst:manifestattributeclass}).
+	\item Manifest Attribute - A class that represents the \texttt{Manifest} attribute  (Listing \ref{lst:manifestattributeclass}), deriving from \texttt{BaseAttribute}.
 \end{itemize}
 
 \bigskip
@@ -748,7 +753,7 @@ customVisitor.visit(root);
 \end{minipage}
 
 \noindent
-With this element tree presented (Listing \ref{lst:htmlapicodeexample}) and the previously presented \texttt{CustomVisitor} (Listing \ref{lst:customvisitorexample}) we obtain the following result (Listing \ref{lst:htmlapiresult}). The indentation was added for readability purposes, since the \texttt{CustomVisitor} presented above does not indent the resulting \ac{HTML}.
+With this element tree presented (Listing \ref{lst:htmlapicodeexample}) and the previously presented \texttt{CustomVisitor} (Listing \ref{lst:customvisitorexample}) we obtain the following result (Listing \ref{lst:htmlapiresult}). The indentation was added for readability purposes, since the \texttt{CustomVisitor} implementation presented above does not indent the resulting \ac{HTML}.
 
 \bigskip
 
