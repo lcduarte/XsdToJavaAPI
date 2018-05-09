@@ -22,7 +22,7 @@ public class CustomVisitor<R> implements ElementVisitor<R> {
         this.printStream = printStream;
     }
 
-    public <T extends Element> void visit(Element<T, ?> element) {
+    public <T extends Element> void sharedVisit(Element<T, ?> element) {
         printStream.printf("<%s", element.getName());
 
         element.getAttributes().forEach(attribute -> printStream.printf(" %s=\"%s\"", attribute.getName(), attribute.getValue()));

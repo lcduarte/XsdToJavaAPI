@@ -1,5 +1,5 @@
-\chapter{Existent Tools}
-\label{cha:tools}
+\chapter{State of Art}
+\label{cha:stateofart}
 
 In this chapter we are going to introduce the \ac{XSD} language in order to provide a better understanding of the next chapters and also introduce some tools that were discovered during the development of this dissertation. 
 
@@ -11,9 +11,9 @@ The \ac{XSD} language is a description of a type of \ac{XML} document. Its purpo
 \section{J2html} % (fold)
 \label{sec:j2html}
 
-What is it? What are the similarities? What are the improvements introduced by this dissertation that make it better or worse than j2html?
+During the development of the \texttt{xmlet} solution we encountered a library that performs a similar function to our presented use case (Section \ref{sec:usecase}). This library, J2html\footnote{\href{https://j2html.com/}{J2html}}, is also developed in Java and is used to write \ac{HTML}. The main difference between the two solutions are that the J2html does not verify the specification rules of the \ac{HTML} language either at compile time or at runtime. This library also shows that the issue we are trying to solve with this dissertation is relevant since this library has quite a few forks and watchers on their github page\footnote{\href{https://github.com/tipsy/j2html}{J2html Github Page}}. In Chapter \ref{cha:deployment} we will present some performance tests to verify if our solution is more efficient at writing \ac{HTML}. 
 
 \section{Apache Velocity} % (fold)
 \label{sec:apachevelocity}
 
-What is it? What are the similarities? What are the improvements introduced by this dissertation that make it better or worse than apache velocity?
+Apache Velocity\footnote{\href{http://velocity.apache.org/}{Apache Velocity}} is a template engine that we discovered through J2html. Even though this solution doesn't define itself as a template engine it can also be used to such extent. Since the template engines are based on a template file, with some sort of code embedded in the language (\ac{HTML} for example) the same result can be obtained by using the solution presented in this project. This solution improves the template engine solutions by allowing the users to define the exact same aspects defined in the template files directly into code, allowing the verification of the "template" at compile time by the language compiler. This reduces the overall complexity by removing possible errors in the template files and removing the necessity to separate template files and actual application code, while enforcing the language specification. In Chapter \ref{cha:deployment} we will also compare this solution with the J2html and the \texttt{xmlet} solution.

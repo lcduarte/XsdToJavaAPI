@@ -1266,34 +1266,7 @@ literate=%
   {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
   {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
 }  
-%% R     
-\lstset{ 
-	language = R, 					% the language of the code
-	basicstyle = \scriptsize\ttfamily,  % the size of the fonts that are used for the code
-	commentstyle = \ttfamily\color{dkgreen}, % comment style
-    numbers = left,     % where to put the line-numbers; possible values are (none, left, right)
-   	numberstyle = \ttfamily\color{gray}, 
-	stepnumber = 2,  % the step between two line-numbers. If it's 1, each line will be numbered
-    numbersep = 5pt, 				% how far the line-numbers are from the code	
-    xleftmargin = \parindent,
-    backgroundcolor = \color{white},  % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
-	showspaces = false,   % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  	showstringspaces = false,  % underline spaces within strings only
-  	showtabs = false,               % show tabs within strings adding particular underscores
-	stringstyle = \ttfamily, 		 % typewriter type for strings
-	frame = single, 					 % adds a frame around the code
-	rulesepcolor = \color{black},
-	columns = fullflexible,
-   	tabsize = 2,                       % sets default tabsize to 2 spaces
-   	captionpos = b, 				% sets the caption-position to bottom
-	breakatwhitespace = false,% sets if automatic breaks should only happen at whitespace
-  	breaklines = true,              % sets automatic line breaking
-   	title = \lstname                 % show the filename of files included with \lstinputlisting; also try caption instead of title
-    escapeinside = {},         		% if you want to add LaTeX within your code
-    keywordstyle = \ttfamily\color{midnightblue}\itshape, % keyword style
-	morekeywords = {},
-	inputencoding=latin1 
-	}	
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Common listing def - JAVA
@@ -1306,16 +1279,18 @@ literate=%
 \colorlet{lstCommentsColor}{ForestGreen}
 \colorlet{lstStringColor}{BrickRed}
 % Usage: \begin{javalst}[Caption]{Label}
-\lstnewenvironment{javalst}[2][]%
+\lstnewenvironment{javalst}[3][]%
 {
 \lstset{
 	language = java,
-	basicstyle = \small\tt,
+	basicstyle = \footnotesize\tt,
 	frame = tb,
 	captionpos = b,
 	caption = #1,
 	label = {lst:#2},
-	tabsize = 2}}%
+	tabsize = 2,
+	}
+}%
 {}%
 
 \lstnewenvironment{xmllst}[2][]%
@@ -1327,7 +1302,8 @@ literate=%
 	captionpos = b,
 	caption = #1,
 	label = {lst:#2},
-	tabsize = 2}}%
+	tabsize = 2}
+}%
 {}%
 \lstnewenvironment{lst}[2][]%
 {
@@ -1376,7 +1352,7 @@ literate=%
 	showspaces = false,       % show spaces adding particular underscores
 	showstringspaces = false,      % underline spaces within strings
 	showtabs = false,           % show tabs within strings adding particular underscores
-	frame = single,              % adds a frame around the code
+	frame = tb,              % adds a frame around the code
 	tabsize = 2,                   % sets default tabsize to 2 spaces
 	captionpos = b,             % sets the caption-position to bottom
 	breaklines = true,          % sets automatic line breaking
