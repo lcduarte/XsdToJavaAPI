@@ -2,13 +2,15 @@ package org.xmlet.htmlapitest.utils;
 
 import org.xmlet.htmlapi.*;
 
-import java.io.PrintStream;
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class CustomVisitor<R> implements ElementVisitor<R> {
 
     private R model;
-    private PrintStream printStream = new PrintStream(System.out);
+    private BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new DataOutputStream(System.out));
 
     public CustomVisitor(){
 
@@ -18,16 +20,16 @@ public class CustomVisitor<R> implements ElementVisitor<R> {
         this.model = model;
     }
 
-    public void setPrintStream(PrintStream printStream) {
-        this.printStream = printStream;
+    public void setBufferedOutputStream(BufferedOutputStream bufferedOutputStream) {
+        this.bufferedOutputStream = bufferedOutputStream;
     }
 
     public <T extends Element> void sharedVisit(Element<T, ?> element) {
-        printStream.printf("<%s", element.getName());
+        print(String.format("<%s", element.getName()));
 
-        element.getAttributes().forEach(attribute -> printStream.printf(" %s=\"%s\"", attribute.getName(), attribute.getValue()));
+        element.getAttributes().forEach(attribute -> print(String.format(" %s=\"%s\"", attribute.getName(), attribute.getValue())));
 
-        printStream.print(">\n");
+        print(">\n");
 
         if(element.isBound()) {
             List<Element> children = element.cloneElem().bindTo(model).getChildren();
@@ -36,7 +38,7 @@ public class CustomVisitor<R> implements ElementVisitor<R> {
             element.getChildren().forEach(item -> item.accept(this));
         }
 
-        printStream.printf("</%s>\n", element.getName());
+        print(String.format("</%s>\n", element.getName()));
     }
 
     @Override
@@ -44,14 +46,21 @@ public class CustomVisitor<R> implements ElementVisitor<R> {
         String textValue = text.getValue();
 
         if (textValue != null){
-            printStream.println(textValue);
+            print(textValue + "\n");
         } else {
             if (model == null){
                 throw new RuntimeException("Text node is missing the model. Usage of new CustomVisitor(model) is required.");
             }
 
-            printStream.println(text.getValue(model));
+            print(text.getValue(model).toString() + "\n");
         }
     }
 
+    private void print(String string){
+        try {
+            bufferedOutputStream.write(string.getBytes(), 0, string.length());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

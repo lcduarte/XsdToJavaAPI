@@ -3,8 +3,11 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ASMSamples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/AndroidLayoutsApi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Benchmark" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/HtmlApi" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/HtmlApiTest" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/VelocityBenchmark" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/XsdAsm" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/XsdAsmTest" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/XsdParser" charset="UTF-8" />

@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <table>
+            <tr>
+                <th>
+                    $title
+                </th>
+            </tr>
+            #foreach( $value in $values )
+                <tr>
+                    <td>
+                        $value
+                    </td>
+                </tr>
+            #end
+        </table>
+    </body>
+</html>

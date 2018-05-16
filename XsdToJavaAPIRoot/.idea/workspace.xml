@@ -7,26 +7,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="611ba528-c614-49c6-b787-6f04700c0670" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_7.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Docs/Relatorio_Tese/Chapters/img/infrastructure.png" afterPath="$PROJECT_DIR$/../Docs/Relatorio_Tese/Chapters/img/infrastructure.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Docs/Relatorio_Tese/template.pdf" afterPath="$PROJECT_DIR$/../Docs/Relatorio_Tese/template.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/src/test/resources/infrastructure.png" afterPath="$PROJECT_DIR$/HtmlApiTest/src/test/resources/infrastructure.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Docs/Relatorio_Tese/Chapters/chapter2.tex" afterPath="$PROJECT_DIR$/../Docs/Relatorio_Tese/Chapters/chapter2.tex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Docs/Relatorio_Tese/Chapters/chapter3.tex" afterPath="$PROJECT_DIR$/../Docs/Relatorio_Tese/Chapters/chapter3.tex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Docs/Relatorio_Tese/thesisisel.cls" afterPath="$PROJECT_DIR$/../Docs/Relatorio_Tese/thesisisel.cls" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_9_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_9_snapshot.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdAsm_1_0_10_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdAsm_1_0_10_snapshot.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/HtmlApi.iml" afterPath="$PROJECT_DIR$/HtmlApi/HtmlApi.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/README.md" afterPath="$PROJECT_DIR$/HtmlApi/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/pom.xml" afterPath="$PROJECT_DIR$/HtmlApi/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" afterPath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/pom.xml" afterPath="$PROJECT_DIR$/HtmlApiTest/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" afterPath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java" afterPath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmVisitors.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmVisitors.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/pom.xml" afterPath="$PROJECT_DIR$/XsdAsm/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/resources/android.xsd" afterPath="$PROJECT_DIR$/XsdAsm/src/main/resources/android.xsd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/pom.xml" afterPath="$PROJECT_DIR$/XsdParser/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -39,6 +40,11 @@
     <ignored path="$PROJECT_DIR$/XsdAsm/target/" />
     <ignored path="$PROJECT_DIR$/HtmlApi/target/" />
     <ignored path="$PROJECT_DIR$/XsdAsmTest/target/" />
+    <ignored path="$PROJECT_DIR$/AndroidLayoutsApi/target/" />
+    <ignored path="$PROJECT_DIR$/AndroidLayoutsApiTest/target/" />
+    <ignored path="$PROJECT_DIR$/J2htmlBenchmark/target/" />
+    <ignored path="$PROJECT_DIR$/VelocityBenchmark/target/" />
+    <ignored path="$PROJECT_DIR$/Benchmark/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,9 +53,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\XsdParser\target\jacoco.exec" NAME="jacoco.exec" MODIFIED="1521485073077" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\HtmlApiTest\target\jacoco.exec" NAME="jacoco.exec" MODIFIED="1520876791925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\XsdAsmTest\target\jacoco.exec" NAME="jacoco.exec" MODIFIED="1520876571514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="$PROJECT_DIR$/HtmlApiTest/target/jacoco.exec" NAME="jacoco.exec" MODIFIED="1520876791925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="$PROJECT_DIR$/XsdParser/target/jacoco.exec" NAME="jacoco.exec" MODIFIED="1521485073077" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="$PROJECT_DIR$/XsdAsmTest/target/jacoco.exec" NAME="jacoco.exec" MODIFIED="1520876571514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="ExportToHTMLSettings">
     <option name="OUTPUT_DIRECTORY" value="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\exportToHTML" />
@@ -59,22 +65,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AbstractElement.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/AbstractElement.java">
+      <file leaf-file-name="BenchmarkMain.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Benchmark/src/main/java/benchmark/BenchmarkMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-613">
-              <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="-1462">
+              <caret line="43" column="36" lean-forward="false" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CustomVisitor.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java">
+      <file leaf-file-name="CustomBenchmarkVisitor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Benchmark/src/main/java/benchmark/CustomBenchmarkVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="24" column="4" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="72" />
-              <folding />
+            <state relative-caret-position="645">
+              <caret line="50" column="40" lean-forward="false" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
+              <folding>
+                <element signature="e#1575#1576#0" expanded="true" />
+                <element signature="e#1622#1623#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -92,10 +103,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>c</find>
-      <find>clone</find>
-      <find>public</find>
-      <find>elementFieldsMapParam</find>
       <find>import javax.validation.constraints.NotNull;</find>
       <find>com.sun.istack.internal.NotNull</find>
       <find>&quot;Byte&quot;</find>
@@ -122,6 +129,10 @@
       <find>meta</find>
       <find>init</find>
       <find>text-align: right</find>
+      <find>hasText</find>
+      <find>base</find>
+      <find>org.xmlet.TestObjects.</find>
+      <find>Context</find>
     </findStrings>
     <replaceStrings>
       <replace>+ &quot;&quot; +</replace>
@@ -162,7 +173,7 @@
     </dirStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/HtmlApiTest" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -172,35 +183,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdGroup.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdMultipleElements.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdRestrictionsVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSequence.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSimpleContent.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdSimpleTypeVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSimpleType.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdUnionVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdUnion.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAbstractElement.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdExtension.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdList.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdRestriction.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdAnnotatedElementsVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdIntegerRestrictions.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdStringRestrictions.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdSimpleContentVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdExtensionVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdListVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdSequenceVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdGroupVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdComplexTypeVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdAttributeGroupVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdAllVisitor.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/test/resources/test.xsd" />
-        <option value="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/OddTest.java" />
-        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" />
-        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsm.java" />
-        <option value="$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.8/htmlApi-1.0.8-sources.jar!/org/xmlet/htmlapi/Html.java" />
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/main/XsdAsmMain.java" />
         <option value="$PROJECT_DIR$/XsdAsm/README.md" />
         <option value="$PROJECT_DIR$/XsdParser/README.md" />
@@ -209,11 +191,9 @@
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java" />
         <option value="$PROJECT_DIR$/XsdAsm/pom.xml" />
         <option value="$PROJECT_DIR$/HtmlApi/pom.xml" />
-        <option value="$PROJECT_DIR$/HtmlApiTest/pom.xml" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/Visitor.java" />
         <option value="$PROJECT_DIR$/HtmlApi/README.md" />
         <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java" />
-        <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
         <option value="$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.10-SNAPSHOT/xsdAsm-1.0.10-SNAPSHOT.jar!/org/xmlet/TestObjects/BaseAttribute.class" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/BaseAttribute.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/SomeAttribute.java" />
@@ -222,7 +202,38 @@
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java" />
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmVisitors.java" />
         <option value="$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/Html.java" />
+        <option value="$PROJECT_DIR$/androidLayoutsApi/pom.xml" />
+        <option value="$PROJECT_DIR$/AndroidLayoutsApi/src/main/java/org/xmlet/androidlayoutsapi/AAA.java" />
+        <option value="$PROJECT_DIR$/AndroidLayoutsApi/src/main/java/org/xmlet/androidlayoutsapi/View.java" />
+        <option value="$PROJECT_DIR$/AndroidLayoutsApi/src/main/java/org/xmlet/androidlayoutsapi/ViewGroup.java" />
+        <option value="$PROJECT_DIR$/AndroidLayoutsApi/src/main/java/org/xmlet/androidlayoutsapi/RadioGroup.java" />
+        <option value="$PROJECT_DIR$/AndroidLayoutsApi/pom.xml" />
+        <option value="$PROJECT_DIR$/AndroidLayoutsApiTest/pom.xml" />
+        <option value="$PROJECT_DIR$/AndroidLayoutsApiTest/src/test/java/org/xmlet/androidlayoutsapitest/AndroidLayoutsApiTest.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsm.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" />
+        <option value="$PROJECT_DIR$/AndroidLayoutsApiTest/src/main/java/org/xmlet/androidlayoutsapi/C.java" />
+        <option value="$PROJECT_DIR$/AndroidLayoutsApiTest/src/main/java/org/xmlet/androidlayoutsapi/Button.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java" />
+        <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/Benchmark.java" />
+        <option value="$PROJECT_DIR$/HtmlApiTest/pom.xml" />
         <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java" />
+        <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
+        <option value="$PROJECT_DIR$/J2htmlBenchmark/pom.xml" />
+        <option value="$PROJECT_DIR$/J2htmlBenchmark/src/test/java/J2htmlBenchmark.java" />
+        <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomBenchmarkVisitor.java" />
+        <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlBenchmark.java" />
+        <option value="$PROJECT_DIR$/J2htmlBenchmark/src/test/java/j2html/J2htmlBenchmark.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/VelocityBenchmark/src/main/resources/helloworld.vm" />
+        <option value="$PROJECT_DIR$/VelocityBenchmark/pom.xml" />
+        <option value="$PROJECT_DIR$/VelocityBenchmark/src/main/java/VelocityBenchmark.java" />
+        <option value="$PROJECT_DIR$/Benchmark/src/main/java/CustomBenchmarkVisitor.java" />
+        <option value="$PROJECT_DIR$/Benchmark/src/main/java/BenchmarkMain.java" />
+        <option value="$PROJECT_DIR$/Benchmark/pom.xml" />
+        <option value="$PROJECT_DIR$/Benchmark/src/main/java/benchmark/CustomBenchmarkVisitor.java" />
+        <option value="$PROJECT_DIR$/Benchmark/src/main/java/benchmark/BenchmarkMain.java" />
       </list>
     </option>
   </component>
@@ -246,17 +257,7 @@
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="htmlApiTest" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="htmlApiTest" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-        </path>
-      </expand>
+      <expand />
       <select />
     </treeState>
   </component>
@@ -309,9 +310,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -322,58 +320,59 @@
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="Benchmark" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="Benchmark" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="Benchmark" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="Benchmark" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="Benchmark" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="htmlapitest" type="462c0819:PsiDirectoryNode" />
+              <item name="benchmark" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XsdToJavaAPIRoot" type="b2602c69:ProjectViewProjectNode" />
               <item name="XsdToJavaAPIRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApiTest" type="462c0819:PsiDirectoryNode" />
+              <item name="Benchmark" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="htmlapitest" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/HtmlApiTest/src/test/resources/infrastructure.png" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/J2htmlBenchmark" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -389,6 +388,7 @@
       <recent name="Samples.HTML" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
       <recent name="org.xmlet.xsdparser" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -399,10 +399,11 @@
       <recent name="Samples" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\Benchmark\src\main\resources" />
+      <recent name="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\VelocityBenchmark\src\main\resources" />
+      <recent name="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\VelocityBenchmark\src\main\java" />
+      <recent name="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\J2htmlBenchmark\src" />
       <recent name="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\ASMSamples\src\main\java\Samples\HTML" />
-      <recent name="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\XsdAsm\src\main" />
-      <recent name="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\XsdAsmTest\src\test" />
-      <recent name="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\XsdAsmTest\src\test\java" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -417,10 +418,15 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.HtmlApiTest">
-    <configuration name="ASMMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="ASMMain" />
+  <component name="RunManager" selected="Application.BenchmarkMain">
+    <configuration name="BenchmarkMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="benchmark.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="benchmark.BenchmarkMain" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -429,83 +435,27 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="ASMSamples" />
+      <module name="Benchmark" />
       <envs />
     </configuration>
-    <configuration name="HtmlApiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="XsdAsmMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="org.xmlet.htmlapitest.*" />
+          <option name="PATTERN" value="org.xmlet.xsdasm.main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <module name="HtmlApiTest" />
+      <option name="MAIN_CLASS_NAME" value="org.xmlet.xsdasm.main.XsdAsmMain" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\XsdAsm\src\main\resources\android.xsd androidlayouts" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.xmlet.htmlapitest" />
-      <option name="MAIN_CLASS_NAME" value="org.xmlet.htmlapitest.HtmlApiTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
+      <module name="XsdAsm" />
       <envs />
-      <patterns />
-    </configuration>
-    <configuration name="HtmlApiTest.testGeneratedClassesIntegrity" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="org.xmlet.htmlapitest.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="HtmlApiTest" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.xmlet.htmlapitest" />
-      <option name="MAIN_CLASS_NAME" value="org.xmlet.htmlapitest.HtmlApiTest" />
-      <option name="METHOD_NAME" value="testGeneratedClassesIntegrity" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
-    <configuration name="HtmlParseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="org.xmlet.xsdparser.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="XsdParser" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.xmlet.xsdparser" />
-      <option name="MAIN_CLASS_NAME" value="org.xmlet.xsdparser.HtmlParseTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
@@ -694,69 +644,6 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <module name="Html5Xsd2JavaApiTest" />
     </configuration>
-    <configuration default="true" type="tests" factoryName="py.test">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ASMSamples" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Nosetests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="HtmlApiTest" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_regexPattern" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="HtmlApiTest" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="py.test">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="HtmlApiTest" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Nosetests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -882,45 +769,77 @@
       <option name="_new_target" value="&quot;&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
-    <configuration name="org.xmlet.xsdparser in XsdParser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="org.xmlet.xsdparser.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="XsdParser" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.xmlet.xsdparser" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
       <envs />
-      <patterns />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ASMSamples" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Application.ASMMain" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.org.xmlet.xsdparser in XsdParser" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.HtmlParseTest" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.HtmlApiTest.testGeneratedClassesIntegrity" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.HtmlApiTest" />
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="HtmlApiTest" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="HtmlApiTest" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="HtmlApiTest" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Application.XsdAsmMain" />
+      <item index="1" class="java.lang.String" itemvalue="Application.BenchmarkMain" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.HtmlApiTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.HtmlApiTest.testGeneratedClassesIntegrity" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.org.xmlet.xsdparser in XsdParser" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.HtmlParseTest" />
-        <item index="4" class="java.lang.String" itemvalue="Application.ASMMain" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Application.BenchmarkMain" />
+        <item index="1" class="java.lang.String" itemvalue="Application.XsdAsmMain" />
       </list>
     </recent_temporary>
   </component>
@@ -1063,6 +982,11 @@
       <workItem from="1525717739904" duration="1001000" />
       <workItem from="1525791843175" duration="904000" />
       <workItem from="1525800032771" duration="3377000" />
+      <workItem from="1526301595264" duration="13535000" />
+      <workItem from="1526394957264" duration="6119000" />
+      <workItem from="1526470436596" duration="399000" />
+      <workItem from="1526470928256" duration="7352000" />
+      <workItem from="1526490253910" duration="440000" />
     </task>
     <servers />
   </component>
@@ -1099,7 +1023,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="758846000" />
+    <option name="totallyTimeSpent" value="786691000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1115,17 +1039,18 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45723686" sideWeight="0.50907713" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3223684" sideWeight="0.49092284" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45723686" sideWeight="0.49092284" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26172465" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27752978" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1133,13 +1058,12 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4375" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.56578946" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48108926" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1153,1043 +1077,295 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="311" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java</url>
+          <line>78</line>
+          <properties />
+          <option name="timeStamp" value="322" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="323" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/Div.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidLayoutsApi/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="200" column="0" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="200" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApiTest/create_class_binaries.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidLayoutsApiTest/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="190" column="0" lean-forward="false" selection-start-line="190" selection-start-column="0" selection-end-line="209" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.10-SNAPSHOT/xsdAsm-1.0.10-SNAPSHOT.jar!/org/xmlet/TestObjects/LinearLayout.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="36" column="110" lean-forward="true" selection-start-line="36" selection-start-column="110" selection-end-line="36" selection-end-column="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAnnotatedElements.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="60" lean-forward="true" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdIdentifierElements.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="22" lean-forward="false" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdComplexType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="97" column="48" lean-forward="false" selection-start-line="97" selection-start-column="32" selection-end-line="97" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdReferenceElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="9" column="56" lean-forward="false" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdComplexTypeVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="52" lean-forward="false" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/main/XsdAsmMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="9" lean-forward="false" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/create_classes1.bat" />
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/EnumTypeCommand.java" />
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/AbstractElementVisitor.java" />
-    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/main/java/org/xmlet/htmlapi/infrastructure.uml" />
-    <entry file="file://$PROJECT_DIR$/XsdAsm/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="1819">
-            <caret line="107" column="29" lean-forward="false" selection-start-line="107" selection-start-column="29" selection-end-line="107" selection-end-column="29" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="2346">
-            <caret line="138" column="68" lean-forward="false" selection-start-line="138" selection-start-column="68" selection-end-line="138" selection-end-column="68" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/AbstractVisitor.java" />
-    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="1335" column="53" lean-forward="false" selection-start-line="1335" selection-start-column="53" selection-end-line="1335" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state relative-caret-position="136">
+          <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="27" column="16" lean-forward="false" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+        <state relative-caret-position="187">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/pom.xml">
+    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdElement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="1054">
+          <caret line="110" column="47" lean-forward="false" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/pom.xml">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.7-snapshot/xsdParser-1.0.7-SNAPSHOT-sources.jar!/org/xmlet/xsdparser/xsdelements/XsdExtension.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3859">
-          <caret line="227" column="35" lean-forward="false" selection-start-line="227" selection-start-column="35" selection-end-line="227" selection-end-column="35" />
+        <state relative-caret-position="96">
+          <caret line="82" column="32" lean-forward="false" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApiTest/pom.xml">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.7-snapshot/xsdParser-1.0.7-SNAPSHOT-sources.jar!/org/xmlet/xsdparser/xsdelements/visitors/AttributesVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="89" column="46" lean-forward="false" selection-start-line="89" selection-start-column="46" selection-end-line="89" selection-end-column="46" />
+        <state relative-caret-position="79">
+          <caret line="52" column="32" lean-forward="false" selection-start-line="52" selection-start-column="32" selection-end-line="52" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.9-SNAPSHOT/htmlApi-1.0.9-SNAPSHOT-sources.jar!/org/xmlet/htmlapi/ElementVisitor.java">
+    <entry file="file://$PROJECT_DIR$/AndroidLayoutsApiTest/src/main/java/org/xmlet/androidlayoutsapi/LinearLayout.java" />
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="41" lean-forward="false" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/Visitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="186" column="47" lean-forward="false" selection-start-line="186" selection-start-column="47" selection-end-line="186" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="-834">
-            <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/Spliterators.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-673">
-          <caret line="1255" column="33" lean-forward="false" selection-start-line="1255" selection-start-column="33" selection-end-line="1255" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/AndroidParseTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/function/Predicate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="48" column="12" lean-forward="false" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/HtmlParseTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1802">
-          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/main/java/org/xmlet/htmlapi/ElementVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/TestObjects/AttrListObject.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/TestObjects/AttrLineNumberString.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/TestObjects/AttrValueObject.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/TestObjects/AttrValueString.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/TestObjects/AttrValueFloat.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/TestObjects/AttrIntlistObject.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="11" column="49" lean-forward="false" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSimpleType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1581">
-          <caret line="113" column="52" lean-forward="false" selection-start-line="113" selection-start-column="28" selection-end-line="113" selection-end-column="52" />
+        <state relative-caret-position="120">
+          <caret line="470" column="117" lean-forward="false" selection-start-line="470" selection-start-column="117" selection-end-line="470" selection-end-column="117" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.10-SNAPSHOT/xsdAsm-1.0.10-SNAPSHOT.jar!/org/xmlet/TestObjects/BaseAttribute.class">
+    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/TestObjects/Button.class" />
+    <entry file="file://$PROJECT_DIR$/AndroidLayoutsApiTest/src/main/java/org/xmlet/androidlayoutsapi/Button.java" />
+    <entry file="file://$PROJECT_DIR$/AndroidLayoutsApiTest/src/main/java/org/xmlet/androidlayoutsapi/CalendarView.java" />
+    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdExtension.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="26" column="55" lean-forward="false" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.7-snapshot/xsdParser-1.0.7-SNAPSHOT-sources.jar!/org/xmlet/xsdparser/xsdelements/XsdSimpleType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26">
-          <caret line="193" column="35" lean-forward="false" selection-start-line="193" selection-start-column="21" selection-end-line="193" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.7-snapshot/xsdParser-1.0.7-SNAPSHOT-sources.jar!/org/xmlet/xsdparser/xsdelements/XsdAttribute.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="118" column="41" lean-forward="false" selection-start-line="118" selection-start-column="41" selection-end-line="118" selection-end-column="41" />
+        <state relative-caret-position="221">
+          <caret line="38" column="31" lean-forward="false" selection-start-line="38" selection-start-column="31" selection-end-line="38" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1403">
-          <caret line="242" column="56" lean-forward="false" selection-start-line="242" selection-start-column="32" selection-end-line="242" selection-end-column="56" />
-          <folding />
+        <state relative-caret-position="5015">
+          <caret line="321" column="0" lean-forward="false" selection-start-line="321" selection-start-column="0" selection-end-line="321" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/BaseAttribute.java">
+    <entry file="file://$PROJECT_DIR$/AndroidLayoutsApiTest/src/test/java/org/xmlet/androidlayoutsapitest/AndroidLayoutsApiTest.java" />
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" column="26" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/SomeAttribute.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="23" column="8" lean-forward="false" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.10-SNAPSHOT/xsdAsm-1.0.10-SNAPSHOT.jar!/org/xmlet/TestObjects/RestrictionValidator.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/main/java/org/xmlet/htmlapi/BaseAttribute.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/modules.uml">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>MODULES</ID>
-          <OriginalElement />
-          <nodes />
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="-100.0" />
-          <SelectedNodes />
-          <Categories />
-        </state>
-      </provider>
-    </entry>
-    <entry file="uml://JAVA/org.xmlet.htmlapi">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>JAVA</ID>
-          <OriginalElement>org.xmlet.htmlapi</OriginalElement>
-          <nodes>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnwaitingObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Select</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrRelEnumRelLinkType</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrReadonlyEnumReadonlyTextarea</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrLabelObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrMaxFloat</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumAutofocusTextarea</node>
-            <node x="" y="">org.xmlet.htmlapi.DlChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.Map</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnmouseoverObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrLoopEnumLoopVideo</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumDisabledKeygen</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrFormenctypeEnumFormenctypeButton</node>
-            <node x="" y="">org.xmlet.htmlapi.Mathml</node>
-            <node x="" y="">org.xmlet.htmlapi.AudioChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOncanplayObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnredoObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Script</node>
-            <node x="" y="">org.xmlet.htmlapi.LegendChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrClassidObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Hr</node>
-            <node x="" y="">org.xmlet.htmlapi.FigureChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumFormenctypeButton</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnchangeObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAutocompleteObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Code</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDataString</node>
-            <node x="" y="">org.xmlet.htmlapi.RubyChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumContenteditable</node>
-            <node x="" y="">org.xmlet.htmlapi.Thead</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnscrollObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Input</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnbeforeunloadObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrEnableViewStateBoolean</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrStepObject</node>
-            <node x="" y="">org.xmlet.htmlapi.ElementVisitor</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOncontextmenuObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrCoordsObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeStyle</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrHiddenEnumHidden</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrControlsEnumControlsAudio</node>
-            <node x="" y="">org.xmlet.htmlapi.Param</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnseekingObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Nav</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumAutofocusKeygen</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrKeytypeEnumKeytypeKeygen</node>
-            <node x="" y="">org.xmlet.htmlapi.TheadChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.Blockquote</node>
-            <node x="" y="">org.xmlet.htmlapi.Colgroup</node>
-            <node x="" y="">org.xmlet.htmlapi.Dt</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrWrapEnumWrapTextarea</node>
-            <node x="" y="">org.xmlet.htmlapi.Small</node>
-            <node x="" y="">org.xmlet.htmlapi.ClassAttributeGroup</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDeferEnumDeferScript</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrFormenctypeEnumFormenctypeInput</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeButton</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnfocusObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnloadeddataObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumAutocompleteForm</node>
-            <node x="" y="">org.xmlet.htmlapi.Em</node>
-            <node x="" y="">org.xmlet.htmlapi.HgroupChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.Header</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnDisposedObject</node>
-            <node x="" y="">org.xmlet.htmlapi.DialogChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.Ruby</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrPlaceholderObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAutoplayEnumAutoplayAudio</node>
-            <node x="" y="">org.xmlet.htmlapi.Dd</node>
-            <node x="" y="">org.xmlet.htmlapi.Head</node>
-            <node x="" y="">org.xmlet.htmlapi.CommonAttributeGroup</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrScopeEnumScopeTh</node>
-            <node x="" y="">org.xmlet.htmlapi.CoreServerAttributeGroup</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAccesskeyObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Dl</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumKeytypeKeygen</node>
-            <node x="" y="">org.xmlet.htmlapi.CommonEventsGroup</node>
-            <node x="" y="">org.xmlet.htmlapi.Audio</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrContextmenuObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Video</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnclickObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeSimpleContentType</node>
-            <node x="" y="">org.xmlet.htmlapi.Meta</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumMethodForm</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrRequiredObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnstorageObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumWrapTextarea</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnresizeObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumTargetBrowsingContext</node>
-            <node x="" y="">org.xmlet.htmlapi.Canvas</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnInitObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Div</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAutoplayEnumAutoplayVideo</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrCheckedEnumCheckedInput</node>
-            <node x="" y="">org.xmlet.htmlapi.H2</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnafterprintObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrSandboxEnumSandboxIframe</node>
-            <node x="" y="">org.xmlet.htmlapi.H1</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrFormmethodEnumFormmethodInput</node>
-            <node x="" y="">org.xmlet.htmlapi.H6</node>
-            <node x="" y="">org.xmlet.htmlapi.H5</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnseekedObject</node>
-            <node x="" y="">org.xmlet.htmlapi.H4</node>
-            <node x="" y="">org.xmlet.htmlapi.H3</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumHidden</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrSelectedEnumSelectedOption</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrListObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOndragoverObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrCharsetString</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrFormtargetEnumFormtargetBrowsingContext</node>
-            <node x="" y="">org.xmlet.htmlapi.Noscript</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrControlsEnumControlsVideo</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrHeightObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumFormmethodInput</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOndurationchangeObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumAutoplayVideo</node>
-            <node x="" y="">org.xmlet.htmlapi.Menu</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumDir</node>
-            <node x="" y="">org.xmlet.htmlapi.Bdo</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumScopeTh</node>
-            <node x="" y="">org.xmlet.htmlapi.Command</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrRadiogroupObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumNovalidateForm</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumDisabledInput</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOninputObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Del</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumReversedOl</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnServerClickObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDataMsgIdObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Address</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnemptiedObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrValidationGroupString</node>
-            <node x="" y="">org.xmlet.htmlapi.Meter</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumAutofocusSelect</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrValueObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumLoopVideo</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnbeforeprintObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Rp</node>
-            <node x="" y="">org.xmlet.htmlapi.Progress</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAcceptObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrPingObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Rt</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnundoObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Dfn</node>
-            <node x="" y="">org.xmlet.htmlapi.Strong</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumFormmethodButton</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnshowObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrSizeObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrMediaObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrManifestString</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumDisabledButton</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAutofocusEnumAutofocusButton</node>
-            <node x="" y="">org.xmlet.htmlapi.RestrictionViolationException</node>
-            <node x="" y="">org.xmlet.htmlapi.Tbody</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrContenteditableEnumContenteditable</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrValueFloat</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnvolumenchangeObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Body</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnmousemoveObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Form</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledKeygen</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumTypeMenu</node>
-            <node x="" y="">org.xmlet.htmlapi.Img</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumRelLinkType</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTargetEnumTargetBrowsingContext</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTabIndexObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnabortObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Element</node>
-            <node x="" y="">org.xmlet.htmlapi.Button</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumDisabledOption</node>
-            <node x="" y="">org.xmlet.htmlapi.Li</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrScopedEnumScopedStyle</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledButton</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrSpanBigInteger</node>
-            <node x="" y="">org.xmlet.htmlapi.BaseAttribute</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOndragenterObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Ins</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumControlsAudio</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrHreflangObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrLangObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumTypeButton</node>
-            <node x="" y="">org.xmlet.htmlapi.PhrasingContentChoice</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrForObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Keygen</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrPubdateObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrRoleObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Ol</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeInput</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrItemObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumAutobufferVideo</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnprogressObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Cite</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrPatternObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumSeamlessIframe</node>
-            <node x="" y="">org.xmlet.htmlapi.Section</node>
-            <node x="" y="">org.xmlet.htmlapi.FieldsetChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnformchangeObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumFormnovalidateInput</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledCommand</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrWidthObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumScopedStyle</node>
-            <node x="" y="">org.xmlet.htmlapi.Datalist</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDisabledObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrReversedEnumReversedOl</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeMenu</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumFormtargetBrowsingContext</node>
-            <node x="" y="">org.xmlet.htmlapi.ObjectChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.Text</node>
-            <node x="" y="">org.xmlet.htmlapi.Table</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumTypeSimpleContentType</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrVisibleBoolean</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnplayObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledInput</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumDisabledOptgroup</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOndragObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Output</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumSpellcheck</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnerrorObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrRowsBigInteger</node>
-            <node x="" y="">org.xmlet.htmlapi.Optgroup</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrSeamlessEnumSeamlessIframe</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumMultipleSelect</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrIconObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnloadedmetadataObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrIsmapEnumIsmapImg</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumTypeContentType</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrSizesObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrStartObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Fieldset</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAsyncEnumAsyncScript</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrMediaEnumMediaMediaType</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrNameEnumNameBrowsingContext</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumTypeStyle</node>
-            <node x="" y="">org.xmlet.htmlapi.TbodyChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnhashchangeObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumNameBrowsingContext</node>
-            <node x="" y="">org.xmlet.htmlapi.VideoChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.ColgroupChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.MenuChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnmouseupObject</node>
-            <node x="" y="">org.xmlet.htmlapi.DatalistChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.MetadataContentChoice</node>
-            <node x="" y="">org.xmlet.htmlapi.Samp</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumFormnovalidateButton</node>
-            <node x="" y="">org.xmlet.htmlapi.Title</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrSpellcheckEnumSpellcheck</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrMinFloat</node>
-            <node x="" y="">org.xmlet.htmlapi.Option</node>
-            <node x="" y="">org.xmlet.htmlapi.OlChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnblurObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAutofocusEnumAutofocusKeygen</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumCheckedInput</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnmouseoutObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAutobufferEnumAutobufferVideo</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrContentObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDatetimeXMLGregorianCalendar</node>
-            <node x="" y="">org.xmlet.htmlapi.AbstractElement</node>
-            <node x="" y="">org.xmlet.htmlapi.Aside</node>
-            <node x="" y="">org.xmlet.htmlapi.DetailsChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrMethodEnumMethodForm</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumRequiredTextarea</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrActionString</node>
-            <node x="" y="">org.xmlet.htmlapi.FlowContentChoice</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOninvalidObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumAutoplayAudio</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrNameObject</node>
-            <node x="" y="">org.xmlet.htmlapi.TrChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.MapChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrCausesValidationBoolean</node>
-            <node x="" y="">org.xmlet.htmlapi.Var</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeScript</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumIsmapImg</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrHrefString</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnloadAltObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrHttpEquivEnumHttpEquivMeta</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDraggableEnumDraggable</node>
-            <node x="" y="">org.xmlet.htmlapi.Ul</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrChallengeObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnPreRenderObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOndblclickObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumAsyncScript</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDataFolderNameObject</node>
-            <node x="" y="">org.xmlet.htmlapi.HtmlChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.Area</node>
-            <node x="" y="">org.xmlet.htmlapi.Td</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumMediaMediaType</node>
-            <node x="" y="">org.xmlet.htmlapi.Attribute</node>
-            <node x="" y="">org.xmlet.htmlapi.Th</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrPosterObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Tr</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnkeyupObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Iframe</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOndragleaveObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumEnctypeForm</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnkeypressObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrFormnovalidateEnumFormnovalidateInput</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrHighFloat</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumDraggable</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrShapeEnumShapeArea</node>
-            <node x="" y="">org.xmlet.htmlapi.Footer</node>
-            <node x="" y="">org.xmlet.htmlapi.Link</node>
-            <node x="" y="">org.xmlet.htmlapi.CoreAttributeGroup</node>
-            <node x="" y="">org.xmlet.htmlapi.Details</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumOpenDetails</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTitleObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAutobufferEnumAutobufferAudio</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnsubmitObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnpauseObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrMaxObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Tfoot</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOndragstartObject</node>
-            <node x="" y="">org.xmlet.htmlapi.TfootChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumRunat</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrStyleObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrHeadersObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnforminputObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledOption</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrClassString</node>
-            <node x="" y="">org.xmlet.htmlapi.Pre</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrCharsetObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Dialog</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumInterface</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrEnableThemingBoolean</node>
-            <node x="" y="">org.xmlet.htmlapi.Abbr</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnendedObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOncanplaythroughObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrIdObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrSrcString</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnmessageObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumDisabledCommand</node>
-            <node x="" y="">org.xmlet.htmlapi.Sub</node>
-            <node x="" y="">org.xmlet.htmlapi.RestrictionValidator</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrFormObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnkeydownObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnselectObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Legend</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAutocompleteEnumAutocompleteForm</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAutofocusEnumAutofocusSelect</node>
-            <node x="" y="">org.xmlet.htmlapi.Sup</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeContentType</node>
-            <node x="" y="">org.xmlet.htmlapi.Span</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAcceptCharsetObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAutofocusEnumAutofocusTextarea</node>
-            <node x="" y="">org.xmlet.htmlapi.Article</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnloadstartObject</node>
-            <node x="" y="">org.xmlet.htmlapi.B</node>
-            <node x="" y="">org.xmlet.htmlapi.A</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrCheckedEnumCheckedCommand</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnreadystatechangeObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOntimeupdateObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumLoopAudio</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrMultipleObject</node>
-            <node x="" y="">org.xmlet.htmlapi.I</node>
-            <node x="" y="">org.xmlet.htmlapi.P</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrSkinIDString</node>
-            <node x="" y="">org.xmlet.htmlapi.Embed</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrColspanObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Label</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTypeEnumTypeCommand</node>
-            <node x="" y="">org.xmlet.htmlapi.Svg</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnratechangeObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Br</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrTypeObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrColsBigInteger</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrFormmethodEnumFormmethodButton</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledSelect</node>
-            <node x="" y="">org.xmlet.htmlapi.SelectChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.Q</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrRowspanObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Object</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumDisabledSelect</node>
-            <node x="" y="">org.xmlet.htmlapi.Caption</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumSelectedOption</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumAutofocusButton</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrRunatEnumRunat</node>
-            <node x="" y="">org.xmlet.htmlapi.Base</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumDeferScript</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumControlsVideo</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrLowFloat</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrSummaryObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrFormactionObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledTextarea</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrAltObject</node>
-            <node x="" y="">org.xmlet.htmlapi.TableChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.Hgroup</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumCheckedCommand</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrFilesObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Textarea</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnmousewheelObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Html</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnofflineObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnpopstateObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrMultipleEnumMultipleSelect</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrRequiredEnumRequiredTextarea</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOpenEnumOpenDetails</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumDisabledTextarea</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrMinObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnstalledObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumHttpEquivMeta</node>
-            <node x="" y="">org.xmlet.htmlapi.Time</node>
-            <node x="" y="">org.xmlet.htmlapi.Mark</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumReadonlyTextarea</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrSubjectObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnonlineObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDirEnumDir</node>
-            <node x="" y="">org.xmlet.htmlapi.UlChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.OptgroupChoice0</node>
-            <node x="" y="">org.xmlet.htmlapi.Kbd</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrEnctypeEnumEnctypeForm</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumTypeInput</node>
-            <node x="" y="">org.xmlet.htmlapi.Source</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrItempropObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumFormenctypeInput</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrNovalidateEnumNovalidateForm</node>
-            <node x="" y="">org.xmlet.htmlapi.Col</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrMaxlengthObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnLoadObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnplayingObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnmousedownObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumTypeScript</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumShapeArea</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnunloadObject</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumAutobufferAudio</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrUsemapString</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOptimumFloat</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnUnloadAltObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrCiteString</node>
-            <node x="" y="">org.xmlet.htmlapi.ButtonServerAttributeGroup</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrReadonlyObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnDataBindingObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOnsuspendObject</node>
-            <node x="" y="">org.xmlet.htmlapi.Style</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumSandboxIframe</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrDisabledEnumDisabledOptgroup</node>
-            <node x="" y="">org.xmlet.htmlapi.EnumTypeCommand</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrOndropObject</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrFormnovalidateEnumFormnovalidateButton</node>
-            <node x="" y="">org.xmlet.htmlapi.Figure</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrLoopEnumLoopAudio</node>
-            <node x="" y="">org.xmlet.htmlapi.TextGroup</node>
-          </nodes>
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="0.02249936605269831" x="21679.5" y="2552.0" />
-          <SelectedNodes />
-          <Categories />
-          <SCOPE>All</SCOPE>
-          <VISIBILITY>private</VISIBILITY>
-        </state>
-      </provider>
-    </entry>
-    <entry file="uml://JAVA/org.xmlet.htmlapi.A">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>JAVA</ID>
-          <OriginalElement>org.xmlet.htmlapi.A</OriginalElement>
-          <nodes>
-            <node x="" y="">org.xmlet.htmlapi.ElementVisitor</node>
-            <node x="" y="">org.xmlet.htmlapi.Attribute</node>
-            <node x="" y="">org.xmlet.htmlapi.AbstractElement</node>
-            <node x="" y="">org.xmlet.htmlapi.BaseAttribute</node>
-            <node x="" y="">org.xmlet.htmlapi.Element</node>
-            <node x="" y="">org.xmlet.htmlapi.AttrManifestString</node>
-            <node x="" y="">org.xmlet.htmlapi.Html</node>
-          </nodes>
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="1.0" x="155.5" y="227.0" />
-          <SelectedNodes />
-          <Categories />
-          <SCOPE>All</SCOPE>
-          <VISIBILITY>private</VISIBILITY>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/resources/infrastructure.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/A.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="344" column="67" lean-forward="false" selection-start-line="344" selection-start-column="39" selection-end-line="344" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="177" column="83" lean-forward="false" selection-start-line="177" selection-start-column="83" selection-end-line="177" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmVisitors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="35" column="108" lean-forward="false" selection-start-line="35" selection-start-column="108" selection-end-line="35" selection-end-column="108" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/Html.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="23" column="32" lean-forward="false" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
-          <folding>
-            <element signature="e#506#507#0" expanded="true" />
-            <element signature="e#538#539#0" expanded="true" />
-            <marker date="1525803838694" expanded="false" signature="570:579" ph=" { " />
-            <marker date="1525803838694" expanded="false" signature="615:620" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/ElementVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-          <folding>
-            <element signature="e#162#163#0" expanded="true" />
-            <element signature="e#197#198#0" expanded="true" />
-            <element signature="e#235#236#0" expanded="true" />
-            <element signature="e#270#271#0" expanded="true" />
-            <element signature="e#310#311#0" expanded="true" />
-            <element signature="e#345#346#0" expanded="true" />
-            <element signature="e#384#385#0" expanded="true" />
-            <element signature="e#419#420#0" expanded="true" />
-            <element signature="e#454#455#0" expanded="true" />
-            <element signature="e#489#490#0" expanded="true" />
-            <element signature="e#523#524#0" expanded="true" />
-            <element signature="e#558#559#0" expanded="true" />
-            <element signature="e#596#597#0" expanded="true" />
-            <element signature="e#631#632#0" expanded="true" />
-            <element signature="e#668#669#0" expanded="true" />
-            <element signature="e#703#704#0" expanded="true" />
-            <element signature="e#739#740#0" expanded="true" />
-            <element signature="e#774#775#0" expanded="true" />
-            <element signature="e#812#813#0" expanded="true" />
-            <element signature="e#847#848#0" expanded="true" />
-            <element signature="e#882#883#0" expanded="true" />
-            <element signature="e#917#918#0" expanded="true" />
-            <element signature="e#952#953#0" expanded="true" />
-            <element signature="e#987#988#0" expanded="true" />
-            <element signature="e#1025#1026#0" expanded="true" />
-            <element signature="e#1060#1061#0" expanded="true" />
-            <element signature="e#1095#1096#0" expanded="true" />
-            <element signature="e#1130#1131#0" expanded="true" />
-            <element signature="e#1168#1169#0" expanded="true" />
-            <element signature="e#1203#1204#0" expanded="true" />
-            <element signature="e#1240#1241#0" expanded="true" />
-            <element signature="e#1275#1276#0" expanded="true" />
-            <element signature="e#1311#1312#0" expanded="true" />
-            <element signature="e#1346#1347#0" expanded="true" />
-            <element signature="e#1383#1384#0" expanded="true" />
-            <element signature="e#1418#1419#0" expanded="true" />
-            <element signature="e#1452#1453#0" expanded="true" />
-            <element signature="e#1487#1488#0" expanded="true" />
-            <element signature="e#1525#1526#0" expanded="true" />
-            <element signature="e#1560#1561#0" expanded="true" />
-            <element signature="e#1595#1596#0" expanded="true" />
-            <element signature="e#1630#1631#0" expanded="true" />
-            <element signature="e#1668#1669#0" expanded="true" />
-            <element signature="e#1703#1704#0" expanded="true" />
-            <element signature="e#1737#1738#0" expanded="true" />
-            <element signature="e#1772#1773#0" expanded="true" />
-            <element signature="e#1808#1809#0" expanded="true" />
-            <element signature="e#1843#1844#0" expanded="true" />
-            <element signature="e#1881#1882#0" expanded="true" />
-            <element signature="e#1916#1917#0" expanded="true" />
-            <element signature="e#1951#1952#0" expanded="true" />
-            <element signature="e#1986#1987#0" expanded="true" />
-            <element signature="e#2020#2021#0" expanded="true" />
-            <element signature="e#2055#2056#0" expanded="true" />
-            <element signature="e#2092#2093#0" expanded="true" />
-            <element signature="e#2127#2128#0" expanded="true" />
-            <element signature="e#2165#2166#0" expanded="true" />
-            <element signature="e#2200#2201#0" expanded="true" />
-            <element signature="e#2235#2236#0" expanded="true" />
-            <element signature="e#2270#2271#0" expanded="true" />
-            <element signature="e#2307#2308#0" expanded="true" />
-            <element signature="e#2342#2343#0" expanded="true" />
-            <element signature="e#2375#2376#0" expanded="true" />
-            <element signature="e#2410#2411#0" expanded="true" />
-            <element signature="e#2443#2444#0" expanded="true" />
-            <element signature="e#2478#2479#0" expanded="true" />
-            <element signature="e#2517#2518#0" expanded="true" />
-            <element signature="e#2552#2553#0" expanded="true" />
-            <element signature="e#2587#2588#0" expanded="true" />
-            <element signature="e#2622#2623#0" expanded="true" />
-            <element signature="e#2655#2656#0" expanded="true" />
-            <element signature="e#2690#2691#0" expanded="true" />
-            <element signature="e#2725#2726#0" expanded="true" />
-            <element signature="e#2760#2761#0" expanded="true" />
-            <element signature="e#2796#2797#0" expanded="true" />
-            <element signature="e#2831#2832#0" expanded="true" />
-            <element signature="e#2864#2865#0" expanded="true" />
-            <element signature="e#2899#2900#0" expanded="true" />
-            <element signature="e#2936#2937#0" expanded="true" />
-            <element signature="e#2971#2972#0" expanded="true" />
-            <element signature="e#3005#3006#0" expanded="true" />
-            <element signature="e#3040#3041#0" expanded="true" />
-            <element signature="e#3073#3074#0" expanded="true" />
-            <element signature="e#3108#3109#0" expanded="true" />
-            <element signature="e#3142#3143#0" expanded="true" />
-            <element signature="e#3177#3178#0" expanded="true" />
-            <element signature="e#3213#3214#0" expanded="true" />
-            <element signature="e#3248#3249#0" expanded="true" />
-            <element signature="e#3288#3289#0" expanded="true" />
-            <element signature="e#3323#3324#0" expanded="true" />
-            <element signature="e#3357#3358#0" expanded="true" />
-            <element signature="e#3392#3393#0" expanded="true" />
-            <element signature="e#3426#3427#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#3497#3498#0" expanded="true" />
-            <element signature="e#3532#3533#0" expanded="true" />
-            <element signature="e#3569#3570#0" expanded="true" />
-            <element signature="e#3604#3605#0" expanded="true" />
-            <element signature="e#3638#3639#0" expanded="true" />
-            <element signature="e#3673#3674#0" expanded="true" />
-            <element signature="e#3708#3709#0" expanded="true" />
-            <element signature="e#3743#3744#0" expanded="true" />
-            <element signature="e#3783#3784#0" expanded="true" />
-            <element signature="e#3818#3819#0" expanded="true" />
-            <element signature="e#3855#3856#0" expanded="true" />
-            <element signature="e#3890#3891#0" expanded="true" />
-            <element signature="e#3924#3925#0" expanded="true" />
-            <element signature="e#3959#3960#0" expanded="true" />
-            <element signature="e#3999#4000#0" expanded="true" />
-            <element signature="e#4034#4035#0" expanded="true" />
-            <element signature="e#4073#4074#0" expanded="true" />
-            <element signature="e#4108#4109#0" expanded="true" />
-            <element signature="e#4146#4147#0" expanded="true" />
-            <element signature="e#4181#4182#0" expanded="true" />
-            <element signature="e#4217#4218#0" expanded="true" />
-            <element signature="e#4252#4253#0" expanded="true" />
-            <element signature="e#4287#4288#0" expanded="true" />
-            <element signature="e#4322#4323#0" expanded="true" />
-            <element signature="e#4356#4357#0" expanded="true" />
-            <element signature="e#4391#4392#0" expanded="true" />
-            <element signature="e#4425#4426#0" expanded="true" />
-            <element signature="e#4460#4461#0" expanded="true" />
-            <element signature="e#4496#4497#0" expanded="true" />
-            <element signature="e#4531#4532#0" expanded="true" />
-            <element signature="e#4570#4571#0" expanded="true" />
-            <element signature="e#4605#4606#0" expanded="true" />
-            <element signature="e#4641#4642#0" expanded="true" />
-            <element signature="e#4676#4677#0" expanded="true" />
-            <element signature="e#4718#4719#0" expanded="true" />
-            <element signature="e#4753#4754#0" expanded="true" />
-            <element signature="e#4788#4789#0" expanded="true" />
-            <element signature="e#4823#4824#0" expanded="true" />
-            <element signature="e#4860#4861#0" expanded="true" />
-            <element signature="e#4895#4896#0" expanded="true" />
-            <element signature="e#4929#4930#0" expanded="true" />
-            <element signature="e#4964#4965#0" expanded="true" />
-            <element signature="e#5003#5004#0" expanded="true" />
-            <element signature="e#5038#5039#0" expanded="true" />
-            <element signature="e#5075#5076#0" expanded="true" />
-            <element signature="e#5110#5111#0" expanded="true" />
-            <element signature="e#5150#5151#0" expanded="true" />
-            <element signature="e#5185#5186#0" expanded="true" />
-            <element signature="e#5223#5224#0" expanded="true" />
-            <element signature="e#5258#5259#0" expanded="true" />
-            <element signature="e#5296#5297#0" expanded="true" />
-            <element signature="e#5331#5332#0" expanded="true" />
-            <element signature="e#5366#5367#0" expanded="true" />
-            <element signature="e#5401#5402#0" expanded="true" />
-            <element signature="e#5437#5438#0" expanded="true" />
-            <element signature="e#5472#5473#0" expanded="true" />
-            <element signature="e#5510#5511#0" expanded="true" />
-            <element signature="e#5545#5546#0" expanded="true" />
-            <element signature="e#5582#5583#0" expanded="true" />
-            <element signature="e#5617#5618#0" expanded="true" />
-            <element signature="e#5653#5654#0" expanded="true" />
-            <element signature="e#5688#5689#0" expanded="true" />
-            <element signature="e#5722#5723#0" expanded="true" />
-            <element signature="e#5757#5758#0" expanded="true" />
-            <element signature="e#5791#5792#0" expanded="true" />
-            <element signature="e#5826#5827#0" expanded="true" />
-            <element signature="e#5860#5861#0" expanded="true" />
-            <element signature="e#5895#5896#0" expanded="true" />
-            <element signature="e#5932#5933#0" expanded="true" />
-            <element signature="e#5967#5968#0" expanded="true" />
-            <element signature="e#6004#6005#0" expanded="true" />
-            <element signature="e#6039#6040#0" expanded="true" />
-            <element signature="e#6073#6074#0" expanded="true" />
-            <element signature="e#6108#6109#0" expanded="true" />
-            <element signature="e#6142#6143#0" expanded="true" />
-            <element signature="e#6177#6178#0" expanded="true" />
-            <element signature="e#6211#6212#0" expanded="true" />
-            <element signature="e#6246#6247#0" expanded="true" />
-            <element signature="e#6284#6285#0" expanded="true" />
-            <element signature="e#6319#6320#0" expanded="true" />
-            <element signature="e#6355#6356#0" expanded="true" />
-            <element signature="e#6390#6391#0" expanded="true" />
-            <element signature="e#6428#6429#0" expanded="true" />
-            <element signature="e#6463#6464#0" expanded="true" />
-            <element signature="e#6501#6502#0" expanded="true" />
-            <element signature="e#6536#6537#0" expanded="true" />
-            <element signature="e#6573#6574#0" expanded="true" />
-            <element signature="e#6608#6609#0" expanded="true" />
-            <element signature="e#6642#6643#0" expanded="true" />
-            <element signature="e#6677#6678#0" expanded="true" />
-            <element signature="e#6715#6716#0" expanded="true" />
-            <element signature="e#6750#6751#0" expanded="true" />
-            <element signature="e#6790#6791#0" expanded="true" />
-            <element signature="e#6825#6826#0" expanded="true" />
-            <element signature="e#6862#6863#0" expanded="true" />
-            <element signature="e#6897#6898#0" expanded="true" />
-            <element signature="e#6937#6938#0" expanded="true" />
-            <element signature="e#6972#6973#0" expanded="true" />
-            <element signature="e#7007#7008#0" expanded="true" />
-            <element signature="e#7042#7043#0" expanded="true" />
-            <element signature="e#7081#7082#0" expanded="true" />
-            <element signature="e#7116#7117#0" expanded="true" />
-            <element signature="e#7151#7152#0" expanded="true" />
-            <element signature="e#7186#7187#0" expanded="true" />
-            <element signature="e#7222#7223#0" expanded="true" />
-            <element signature="e#7257#7258#0" expanded="true" />
-            <element signature="e#7293#7294#0" expanded="true" />
-            <element signature="e#7328#7329#0" expanded="true" />
-            <element signature="e#7364#7365#0" expanded="true" />
-            <element signature="e#7399#7400#0" expanded="true" />
-            <element signature="e#7435#7436#0" expanded="true" />
-            <element signature="e#7470#7471#0" expanded="true" />
-            <element signature="e#7506#7507#0" expanded="true" />
-            <element signature="e#7541#7542#0" expanded="true" />
-            <element signature="e#7590#7591#0" expanded="true" />
-            <element signature="e#7625#7626#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/AbstractElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-613">
-          <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        <state relative-caret-position="225">
+          <caret line="43" column="130" lean-forward="false" selection-start-line="43" selection-start-column="130" selection-end-line="43" selection-end-column="130" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="549">
-          <caret line="282" column="0" lean-forward="false" selection-start-line="282" selection-start-column="0" selection-end-line="282" selection-end-column="0" />
+        <state relative-caret-position="6103">
+          <caret line="383" column="32" lean-forward="false" selection-start-line="383" selection-start-column="32" selection-end-line="383" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/j2html/j2html/1.3.0/j2html-1.3.0.jar!/j2html/tags/Renderable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/j2html/j2html/1.3.0/j2html-1.3.0.jar!/j2html/tags/DomContent.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="49" lean-forward="false" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/j2html/j2html/1.3.0/j2html-1.3.0.jar!/j2html/tags/Tag.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="12" column="58" lean-forward="true" selection-start-line="12" selection-start-column="58" selection-end-line="12" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/j2html/j2html/1.3.0/j2html-1.3.0.jar!/j2html/tags/ContainerTag.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="13" column="36" lean-forward="true" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/j2html/j2html/1.3.0/j2html-1.3.0.jar!/j2html/tags/UnescapedText.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="12" column="11" lean-forward="false" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/io/javalin/javalin/1.6.0/javalin-1.6.0.jar!/io/javalin/Javalin.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="268" column="61" lean-forward="false" selection-start-line="268" selection-start-column="54" selection-end-line="268" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/io/javalin/javalin/1.6.0/javalin-1.6.0.jar!/io/javalin/Context.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/J2htmlBenchmark/src/main/java/app/views/MainView.java" />
+    <entry file="file://$PROJECT_DIR$/J2htmlBenchmark/src/main/java/app/views/pages/DownloadView.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/j2html/j2html/1.3.0/j2html-1.3.0.jar!/j2html/TagCreator.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="72" column="25" lean-forward="false" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/J2htmlBenchmark/src/main/java/app/controllers/PageController.java" />
+    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="64" column="5" lean-forward="true" selection-start-line="9" selection-start-column="30" selection-end-line="64" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/J2htmlBenchmark/src/main/java/app/Main.java" />
+    <entry file="file://$PROJECT_DIR$/Benchmark/src/main/resources/helloworld.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApiTest/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="112" column="0" lean-forward="true" selection-start-line="112" selection-start-column="0" selection-end-line="124" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java">
+    <entry file="file://$PROJECT_DIR$/VelocityBenchmark/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/VelocityBenchmark/src/main/java/VelocityBenchmark.java" />
+    <entry file="file://$PROJECT_DIR$/J2htmlBenchmark/src/test/java/j2html/J2htmlBenchmark.java" />
+    <entry file="file://$PROJECT_DIR$/J2htmlBenchmark/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="24" column="4" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="72" />
+        <state relative-caret-position="323">
+          <caret line="19" column="32" lean-forward="false" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApi/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlBenchmark.java" />
+    <entry file="file://$PROJECT_DIR$/Benchmark/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="53" column="31" lean-forward="false" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Benchmark/src/main/java/benchmark/CustomBenchmarkVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="50" column="40" lean-forward="false" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
+          <folding>
+            <element signature="e#1575#1576#0" expanded="true" />
+            <element signature="e#1622#1623#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Benchmark/src/main/java/benchmark/BenchmarkMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1462">
+          <caret line="43" column="36" lean-forward="false" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2245,7 +1421,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>HtmlApiTest</last-edited>
+          <last-edited>Benchmark</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

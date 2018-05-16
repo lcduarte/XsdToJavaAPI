@@ -53,6 +53,20 @@
                             <executable>${basedir}/clean_sources.bat</executable>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>deploy_test_results</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${basedir}/run_sonar.bat</executable>
+                            <arguments>
+                                <argument>${sonarcloud.name}</argument>
+                                <argument>${sonarcloud.key}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 
@@ -95,6 +109,19 @@
             <artifactId>htmlApi</artifactId>
             <version>1.0.9-snapshot</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>1.21</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>1.21</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

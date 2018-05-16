@@ -6,10 +6,7 @@ import org.xmlet.htmlapi.*;
 import org.xmlet.htmlapitest.utils.CustomVisitor;
 import org.xmlet.htmlapitest.utils.Student;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.lang.Object;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -373,17 +370,17 @@ public class HtmlApiTest {
 
         try {
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            PrintStream printStream = new PrintStream(buffer, false, "utf-8");
+            DataOutputStream dataOutputStream = new DataOutputStream(buffer);
 
-            customVisitor.setPrintStream(printStream);
+            customVisitor.setBufferedOutputStream(new BufferedOutputStream(dataOutputStream));
             rootDoc.accept(customVisitor);
 
             String content = new String(buffer.toByteArray(), StandardCharsets.UTF_8);
 
             result = expected.equals(content);
 
-            printStream.close();
-        } catch (UnsupportedEncodingException e) {
+            dataOutputStream.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
