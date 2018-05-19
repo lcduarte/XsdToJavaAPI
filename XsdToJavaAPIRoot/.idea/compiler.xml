@@ -25,7 +25,7 @@
       <module name="androidLayoutsApiTest" target="9" />
       <module name="AndroidLayoutsApiTest" target="1.8" />
       <module name="ASMSamples" target="9" />
-      <module name="Benchmark" target="9" />
+      <module name="Benchmark" target="1.8" />
       <module name="Html5Xsd2JavaApi" target="1.5" />
       <module name="Html5Xsd2JavaApiTest" target="1.8" />
       <module name="HtmlApi" target="1.8" />

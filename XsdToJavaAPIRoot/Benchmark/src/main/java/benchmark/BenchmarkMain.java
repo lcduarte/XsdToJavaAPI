@@ -1,5 +1,7 @@
 package benchmark;
 
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
@@ -8,21 +10,34 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.xmlet.htmlapi.Body;
+import org.xmlet.htmlapi.Div;
 import org.xmlet.htmlapi.Html;
 import org.xmlet.htmlapi.Table;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
+import static j2html.TagCreator.*;
+
+@OutputTimeUnit(TimeUnit.SECONDS)
+@BenchmarkMode(Mode.Throughput)
+@Measurement(iterations = 8, time=1)
+@Warmup(iterations = 12, time=1)
+@Fork(1)
 @State(Scope.Benchmark)
 public class BenchmarkMain {
 
-    @Param({"100", "1000", "10000", "100000", "1000000"})
+    @Param({"10000"})//, "1000"}), "10000", "100000", "1000000"})
     private int elementCount;
     private List<String> values;
     private VelocityEngine ve;
+    private Template t;
+    private VelocityContext context;
+    private StringWriter writer;
+    private CustomBenchmarkVisitor<List<String>> customVisitor;
 
     @Setup
     public void setup() {
@@ -37,23 +52,57 @@ public class BenchmarkMain {
         ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
 
         ve.init();
+
+        t = ve.getTemplate("helloworld.vm");
+    }
+
+    @Setup(value=Level.Invocation)
+    public void invocationSetup(){
+        // Velocity
+        context = new VelocityContext();
+        context.put("title", "Title");
+        context.put("values", values);
+
+        writer = new StringWriter();
+
+        // HtmlApi
+        customVisitor = new CustomBenchmarkVisitor<>();
     }
 
     @Benchmark
-    //@BenchmarkMode({Mode.Throughput, Mode.AverageTime, Mode.SingleShotTime})
-    @BenchmarkMode({Mode.AverageTime})
-    public String testHtmlApiMethod() {
-        CustomBenchmarkVisitor<List<String>> customVisitor = new CustomBenchmarkVisitor<>(values);
-
+    public String htmlApiBenchmarkDivs() {
         Html<Html> root = new Html<>();
+        Body<Html<Html>> body = root.body();
 
         Table<Body<Html<Html>>> table = root.body().table();
         table.tr().th().text("Title");
-        table.<List<String>>binder((elem, list) ->
-                list.forEach(tdValue ->
-                        elem.tr().td().text(tdValue)
-                )
-        ).º().div();
+        Div<Body<Html<Html>>> d1 = body.div();
+
+        for (String value : values){
+            d1 = d1.div().text(value).º().div().º();
+        }
+        /*
+        values.forEach(tdValue -> {
+            d1 = d1.text(tdValue).div();
+
+            //table.tr().td().text(tdValue)
+        });
+        */
+
+        root.accept(customVisitor);
+
+        return customVisitor.getResult();
+    }
+
+    @Benchmark
+    public String htmlApiBenchmarkTable() {
+        Html<Html> root = new Html<>();
+        Body<Html<Html>> body = root.body();
+
+        Table<Body<Html<Html>>> table = root.body().table();
+        table.tr().th().text("Title");
+
+        values.forEach(value -> table.tr().td().text(value));
 
         root.accept(customVisitor);
 
@@ -62,25 +111,13 @@ public class BenchmarkMain {
 
     /*
     @Benchmark
-    @BenchmarkMode({Mode.Throughput, Mode.AverageTime, Mode.SingleShotTime})
     public String velocityBenchmark() {
-        Template t = ve.getTemplate("helloworld.vm");
-
-        VelocityContext context = new VelocityContext();
-        context.put("title", "Title");
-        context.put("values", values);
-
-        StringWriter writer = new StringWriter();
-
         t.merge( context, writer );
 
         return writer.toString();
     }
-    */
 
-    /*
     @Benchmark
-    @BenchmarkMode({Mode.Throughput, Mode.AverageTime, Mode.SingleShotTime})
     public String j2htmlBenchmark() {
         return document(
                 html(
@@ -94,7 +131,8 @@ public class BenchmarkMain {
                                                         td(value)
                                                 )
                                         )
-                                )
+                                ),
+                                div()
                         )
                 )
         );
@@ -104,7 +142,7 @@ public class BenchmarkMain {
     public static void main( String[] args ) throws Exception {
         Options opts = new OptionsBuilder()
                 .include(".*")
-                .warmupIterations(5)
+                .warmupIterations(10)
                 .measurementIterations(10)
                 .jvmArgs("-Xms2g", "-Xmx2g")
                 .shouldDoGC(true)

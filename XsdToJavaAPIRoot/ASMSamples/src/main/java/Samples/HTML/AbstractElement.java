@@ -39,11 +39,13 @@ public abstract class AbstractElement<T extends IElement<T, P>, P extends IEleme
         this.name = simpleName.toLowerCase().charAt(0) + simpleName.substring(1);
     }
 
-    public T addChild(IElement child) {
+    @Override
+    public <R extends IElement> R addChild(R child) {
         this.children.add(child);
-        return this.self();
+        return child;
     }
 
+    @Override
     public T addAttr(IAttribute attribute) {
         this.attrs.add(attribute);
         return this.self();

@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public interface IElement<T extends IElement, P extends IElement> {
-    T addChild(IElement elem);
+    <R extends IElement> R addChild(R elem);
     T addAttr(IAttribute a);
     T self();
 

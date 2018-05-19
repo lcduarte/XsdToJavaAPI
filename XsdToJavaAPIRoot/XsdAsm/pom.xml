@@ -34,10 +34,9 @@
                             </arguments>
                         </configuration>
                     </execution>
-
                     <execution>
                         <id>deploy_test_results</id>
-                        <phase>install</phase>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>

@@ -97,7 +97,7 @@ class XsdSupportingStructure {
     private static void createElementInterface(String apiName){
         ClassWriter classWriter = generateClass(ELEMENT, JAVA_OBJECT, null, "<T::" + elementTypeDesc + "Z::" + elementTypeDesc + ">" + JAVA_OBJECT_DESC, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, "(" + elementTypeDesc + ")TT;", null);
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, "<R::" + elementTypeDesc + ">(TR;)TR;", null);
         mVisitor.visitLocalVariable("child", elementTypeDesc, null, new Label(), new Label(),1);
         mVisitor.visitEnd();
 
@@ -471,13 +471,34 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(4, 2);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, "(" + elementTypeDesc + ")TT;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, "<R::" + elementTypeDesc + ">(TR;)TR;", null);
         mVisitor.visitLocalVariable("child", elementTypeDesc, null, new Label(), new Label(),1);
-        addToList(mVisitor, "children");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, abstractElementType, "children", JAVA_LIST_DESC);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "add", "(" + JAVA_OBJECT_DESC + ")Z", true);
+        mVisitor.visitInsn(POP);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
+        //addToList(mVisitor, "children");
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "addAttr", "(" + attributeTypeDesc + ")" + elementTypeDesc, "(" + attributeTypeDesc + ")TT;", null);
         mVisitor.visitLocalVariable("attribute", attributeTypeDesc, null, new Label(), new Label(),1);
-        addToList(mVisitor, "attrs");
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, abstractElementType, "attrs", JAVA_LIST_DESC);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "add", "(" + JAVA_OBJECT_DESC + ")Z", true);
+        mVisitor.visitInsn(POP);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, abstractElementType, "self", "()" + elementTypeDesc , false);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
+        //addToList(mVisitor, "attrs");
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getName", "()" + JAVA_STRING_DESC, null, null);
         mVisitor.visitCode();
