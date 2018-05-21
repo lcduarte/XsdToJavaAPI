@@ -1,6 +1,6 @@
 package Samples.HTML;
 
-public class Div<P extends IElement> extends AbstractElement<Div<P>, P> implements ICommonAttributeGroup<Div<P>, P>, IMiniFlowContent<Div<P>, P> {
+public class Div<P extends Element> extends AbstractElement<Div<P>, P> implements CommonAttributeGroup<Div<P>, P>, MiniFlowContent<Div<P>, P> {
 
     public Div() {
         super("div");

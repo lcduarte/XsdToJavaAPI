@@ -5,14 +5,14 @@ import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public interface IElement<T extends IElement, P extends IElement> {
-    <R extends IElement> R addChild(R elem);
+public interface Element<T extends Element, P extends Element> {
+    <R extends Element> R addChild(R elem);
     T addAttr(IAttribute a);
     T self();
 
-    List<IElement> getChildren();
+    List<Element> getChildren();
     List<IAttribute> getAttributes();
-    <R extends IElement> Stream<R> find(Predicate<IElement> predicate);
+    <R extends Element> Stream<R> find(Predicate<Element> predicate);
     P º();
     String getName();
     void accept(Visitor visitor);

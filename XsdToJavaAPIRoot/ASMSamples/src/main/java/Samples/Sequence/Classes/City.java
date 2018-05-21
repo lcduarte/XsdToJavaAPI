@@ -1,12 +1,10 @@
 package Samples.Sequence.Classes;
 
-import Samples.HTML.AbstractElement;
-import Samples.HTML.IElement;
-import Samples.HTML.ITextGroup;
-import Samples.HTML.Visitor;
-import Samples.Sequence.Interfaces.Location;
+import Samples.HTML.*;
+import Samples.HTML.Element;
+import Samples.HTML.TextGroup;
 
-public class City<P extends IElement> extends AbstractElement<City<P>, P> implements ITextGroup<City<P>, P> {
+public class City<P extends Element> extends AbstractElement<City<P>, P> implements TextGroup<City<P>, P> {
 
     public City(){
 

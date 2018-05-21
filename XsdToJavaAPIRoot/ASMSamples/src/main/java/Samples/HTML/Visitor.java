@@ -2,7 +2,7 @@ package Samples.HTML;
 
 public interface Visitor<R> {
 
-    <T extends IElement> void sharedVisit(IElement<T, ?> elem);
+    <T extends Element> void sharedVisit(Element<T, ?> elem);
 
     default void visit(H1 elem){
         sharedVisit(elem);
@@ -12,7 +12,11 @@ public interface Visitor<R> {
         sharedVisit(elem);
     }
 
-    default <U> void visit(Text<R, U, ?> elem){
+    default void visit(Text elem){
+        sharedVisit(elem);
+    }
+
+    default <U> void visit(TextFunction<R, U, ?> elem){
         sharedVisit(elem);
     }
 }

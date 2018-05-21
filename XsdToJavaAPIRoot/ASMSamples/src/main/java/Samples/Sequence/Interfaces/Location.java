@@ -1,10 +1,10 @@
 package Samples.Sequence.Interfaces;
 
-import Samples.HTML.IElement;
+import Samples.HTML.Element;
 import Samples.Sequence.Classes.City;
 import Samples.Sequence.Classes.Country;
 
-public interface Location<T extends IElement<T, P>, P extends IElement> extends IElement<T, P> {
+public interface Location<T extends Element<T, P>, P extends Element> extends Element<T, P> {
 
     default City<P> city() {
         City<P> city = new City<>(this.º());

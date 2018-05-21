@@ -3,34 +3,51 @@ package benchmark;
 import org.xmlet.htmlapi.Element;
 import org.xmlet.htmlapi.ElementVisitor;
 import org.xmlet.htmlapi.Text;
+import org.xmlet.htmlapi.TextFunction;
 
-public class CustomBenchmarkVisitor<R> implements ElementVisitor<R> {
+public class CustomBenchmarkVisitor<R> extends ElementVisitor<R> {
 
     private StringBuilder stringBuilder = new StringBuilder();
 
-    public <T extends Element> void sharedVisit(Element<T, ?> element) {
+    @Override
+    public  <T extends Element> void visit(Element<T, ?> element) {
+        /*
         String elementName = element.getName();
 
-        stringBuilder.append("<").append(elementName);
+        stringBuilder.append('<').append(elementName);
+        */
+        element.getAttributes().forEach(attribute ->{
+                    return;
+                    //stringBuilder.append(' ').append(attribute.getName()).append("=\"").append(attribute.getValue()).append('\"')
+        });
 
-        element.getAttributes().forEach(attribute ->
-            stringBuilder.append(" ").append(attribute.getName()).append("=").append(attribute.getValue())
-        );
-
-        stringBuilder.append(">\n");
+        //stringBuilder.append(">\n");
 
         element.getChildren().forEach(item -> item.accept(this));
 
-        stringBuilder.append("</").append(elementName).append("\n");
+        //stringBuilder.append("</").append(elementName).append('\n');
     }
 
     @Override
-    public <U> void visit(Text<R, U, ?> text) {
+    public void visit(Text text) {
+        /*
+        String textValue = text.getValue();
+
+        if (textValue != null) {
+            stringBuilder.append(textValue).append('\n');
+        }
+        */
+    }
+
+    @Override
+    public <U> void visit(TextFunction<R, U, ?> text) {
+        /*
         String textValue = text.getValue();
 
         if (textValue != null) {
             stringBuilder.append(textValue).append("\n");
         }
+        */
     }
 
     String getResult() {

@@ -1,11 +1,11 @@
 package Samples.Sequence.Classes;
 
 import Samples.HTML.AbstractElement;
-import Samples.HTML.IElement;
-import Samples.HTML.ITextGroup;
+import Samples.HTML.Element;
+import Samples.HTML.TextGroup;
 import Samples.HTML.Visitor;
 
-public class Address<P extends IElement> extends AbstractElement<Address<P>, P> implements ITextGroup<Address<P>, P> {
+public class Address<P extends Element> extends AbstractElement<Address<P>, P> implements TextGroup<Address<P>, P> {
 
     public Address(P parent){
         super(parent);

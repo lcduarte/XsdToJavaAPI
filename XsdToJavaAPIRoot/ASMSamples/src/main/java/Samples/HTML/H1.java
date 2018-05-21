@@ -1,6 +1,6 @@
 package Samples.HTML;
 
-public class H1<P extends IElement> extends AbstractElement<H1<P>, P> implements IFlowContent<H1<P>, P> {
+public class H1<P extends Element> extends AbstractElement<H1<P>, P> implements FlowContent<H1<P>, P> {
     public H1() {}
 
     public H1(P parent) {

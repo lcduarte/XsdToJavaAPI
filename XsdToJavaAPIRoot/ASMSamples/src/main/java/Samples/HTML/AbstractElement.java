@@ -7,8 +7,8 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public abstract class AbstractElement<T extends IElement<T, P>, P extends IElement> implements IElement<T, P> {
-    protected List<IElement> children = new ArrayList<>();
+public abstract class AbstractElement<T extends Element<T, P>, P extends Element> implements Element<T, P> {
+    protected List<Element> children = new ArrayList<>();
     protected List<IAttribute> attrs = new ArrayList<>();
     protected String name;
     protected P parent;
@@ -40,7 +40,7 @@ public abstract class AbstractElement<T extends IElement<T, P>, P extends IEleme
     }
 
     @Override
-    public <R extends IElement> R addChild(R child) {
+    public <R extends Element> R addChild(R child) {
         this.children.add(child);
         return child;
     }
@@ -56,7 +56,7 @@ public abstract class AbstractElement<T extends IElement<T, P>, P extends IEleme
         return parent;
     }
 
-    public <R extends IElement> Stream<R> find(Predicate<IElement> predicate){
+    public <R extends Element> Stream<R> find(Predicate<Element> predicate){
         Supplier<Stream<R>> resultSupplier = () -> children.stream().filter(predicate).map(child -> (R) child);
 
         if (resultSupplier.get().count() != 0){
@@ -73,7 +73,7 @@ public abstract class AbstractElement<T extends IElement<T, P>, P extends IEleme
         return (Stream<R>) childResult[0];
     }
 
-    public List<IElement> getChildren() {
+    public List<Element> getChildren() {
         return children;
     }
 

@@ -1,9 +1,9 @@
 package Samples.Sequence.Interfaces;
 
-import Samples.HTML.IElement;
+import Samples.HTML.Element;
 import Samples.Sequence.Classes.*;
 
-public interface PersonalInfoSequence2<T extends IElement<T, P>, P extends IElement> extends IElement<T, P> {
+public interface PersonalInfoSequence2<T extends Element<T, P>, P extends Element> extends Element<T, P> {
 
     default PersonalInfoLastName<P> lastName(String value){
         PersonalInfoLastName<P> obj = new PersonalInfoLastName<P>(this.º(), "personInfo");

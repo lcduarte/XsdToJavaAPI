@@ -1,11 +1,10 @@
 package Samples.Sequence.Classes;
 
-import Samples.HTML.AbstractElement;
-import Samples.HTML.IElement;
-import Samples.HTML.ITextGroup;
-import Samples.HTML.Visitor;
+import Samples.HTML.*;
+import Samples.HTML.Element;
+import Samples.HTML.TextGroup;
 
-public class FirstName<P extends IElement> extends AbstractElement<FirstName<P>, P> implements ITextGroup<FirstName<P>, P> {
+public class FirstName<P extends Element> extends AbstractElement<FirstName<P>, P> implements TextGroup<FirstName<P>, P> {
 
     public FirstName(P parent){
         super(parent);
