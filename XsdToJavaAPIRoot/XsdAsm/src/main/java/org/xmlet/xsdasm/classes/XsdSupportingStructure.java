@@ -118,6 +118,9 @@ class XsdSupportingStructure {
         mVisitor.visitLocalVariable("visitor", elementVisitorTypeDesc, null, new Label(), new Label(),0);
         mVisitor.visitEnd();
 
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "getDepth", "()I", null, null);
+        mVisitor.visitEnd();
+
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "getName", "()" + JAVA_STRING_DESC, null, null);
         mVisitor.visitEnd();
 
@@ -237,9 +240,10 @@ class XsdSupportingStructure {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitLdcInsn("text");
-        mVisitor.visitMethodInsn(INVOKESPECIAL, abstractElementType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitInsn(ICONST_0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, abstractElementType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + "I)V", false);
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 1);
+        mVisitor.visitMaxs(3, 1);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + elementTypeDesc +  JAVA_STRING_DESC + ")V", "(TZ;" + JAVA_STRING_DESC + ")V", null);
@@ -354,9 +358,10 @@ class XsdSupportingStructure {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitLdcInsn("text");
-        mVisitor.visitMethodInsn(INVOKESPECIAL, abstractElementType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitInsn(ICONST_0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, abstractElementType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + "I)V", false);
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 1);
+        mVisitor.visitMaxs(3, 1);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + elementTypeDesc + "Ljava/util/function/Function;)V", "(TZ;Ljava/util/function/Function<TR;TU;>;)V", null);
@@ -503,15 +508,21 @@ class XsdSupportingStructure {
         fVisitor = classWriter.visitField(ACC_PROTECTED, "binderMethod", "Ljava/util/function/BiConsumer;", null, null);
         fVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", null, null);
+        fVisitor = classWriter.visitField(ACC_PROTECTED, "depth", "I", null, null);
+        fVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "(" + JAVA_STRING_DESC + "I)V", null, null);
         mVisitor.visitLocalVariable("name", JAVA_STRING_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         abstractElementConstructorBase(mVisitor);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitFieldInsn(PUTFIELD, abstractElementType, "name", JAVA_STRING_DESC);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ILOAD, 2);
+        mVisitor.visitFieldInsn(PUTFIELD, abstractElementType, "depth", "I");
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(3, 2);
+        mVisitor.visitMaxs(3, 3);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "(" + elementTypeDesc + "" + JAVA_STRING_DESC + ")V", "(TZ;" + JAVA_STRING_DESC + ")V", null);
@@ -525,8 +536,22 @@ class XsdSupportingStructure {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitFieldInsn(PUTFIELD, abstractElementType, "name", JAVA_STRING_DESC);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "getDepth", "()I", true);
+        mVisitor.visitInsn(ICONST_1);
+        mVisitor.visitInsn(IADD);
+        mVisitor.visitFieldInsn(PUTFIELD, abstractElementType, "depth", "I");
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(3, 3);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getDepth", "()I", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, abstractElementType, "depth", "I");
+        mVisitor.visitInsn(IRETURN);
+        mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, "<R::" + elementTypeDesc + ">(TR;)TR;", null);

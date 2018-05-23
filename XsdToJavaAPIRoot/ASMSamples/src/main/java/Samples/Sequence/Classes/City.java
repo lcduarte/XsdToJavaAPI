@@ -6,12 +6,8 @@ import Samples.HTML.TextGroup;
 
 public class City<P extends Element> extends AbstractElement<City<P>, P> implements TextGroup<City<P>, P> {
 
-    public City(){
-
-    }
-
     public City(P parent) {
-        super(parent);
+        super(parent, "city");
     }
 
     @Override

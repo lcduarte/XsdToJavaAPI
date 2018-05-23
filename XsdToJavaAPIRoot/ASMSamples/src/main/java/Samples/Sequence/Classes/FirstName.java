@@ -7,7 +7,7 @@ import Samples.HTML.TextGroup;
 public class FirstName<P extends Element> extends AbstractElement<FirstName<P>, P> implements TextGroup<FirstName<P>, P> {
 
     public FirstName(P parent){
-        super(parent);
+        super(parent, "firstName");
     }
 
     @Override

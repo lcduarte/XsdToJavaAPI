@@ -7,12 +7,8 @@ import Samples.HTML.Visitor;
 
 public class Country<P extends Element> extends AbstractElement<Country<P>, P> implements TextGroup<Country<P>, P> {
 
-    public Country(){
-
-    }
-
     public Country(P parent){
-        super(parent);
+        super(parent, "country");
     }
 
     @Override

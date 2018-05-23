@@ -6,9 +6,6 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.openjdk.jmh.annotations.*;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.xmlet.htmlapi.Body;
 import org.xmlet.htmlapi.Div;
 import org.xmlet.htmlapi.Html;
@@ -16,7 +13,6 @@ import org.xmlet.htmlapi.Table;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -38,6 +34,7 @@ public class BenchmarkMain {
     private VelocityContext context;
     private StringWriter writer;
     private CustomBenchmarkVisitor<List<String>> customVisitor;
+    private NoIndentationVisitor<List<String>> noIndentationVisitor;
 
     @Setup
     public void setup() {
@@ -67,6 +64,7 @@ public class BenchmarkMain {
 
         // HtmlApi
         customVisitor = new CustomBenchmarkVisitor<>();
+        noIndentationVisitor = new NoIndentationVisitor<>();
     }
 
     @Benchmark
@@ -74,17 +72,35 @@ public class BenchmarkMain {
         Html<Html> root = new Html<>();
         Body<Html<Html>> body = root.body();
 
-        Table<Body<Html<Html>>> table = root.body().table();
+        Table<Body<Html<Html>>> table = body.table();
         table.tr().th().text("Title");
-        Div<Body<Html<Html>>> d1 = body.div();
+        Div d1 = body.div();
 
         for (String value : values){
-            d1 = d1.div().text(value).º().div().º();
+            d1 = ((Div) d1.div().text(value)).div();
         }
 
         root.accept(customVisitor);
 
         return customVisitor.getResult();
+    }
+
+    @Benchmark
+    public String htmlApiBenchmarkDivsNoIndentation() {
+        Html<Html> root = new Html<>();
+        Body<Html<Html>> body = root.body();
+
+        Table<Body<Html<Html>>> table = body.table();
+        table.tr().th().text("Title");
+        Div d1 = body.div();
+
+        for (String value : values){
+            d1 = ((Div) d1.div().text(value)).div();
+        }
+
+        root.accept(noIndentationVisitor);
+
+        return noIndentationVisitor.getResult();
     }
 
     @Benchmark
@@ -99,6 +115,20 @@ public class BenchmarkMain {
         root.accept(customVisitor);
 
         return customVisitor.getResult();
+    }
+
+    @Benchmark
+    public String htmlApiBenchmarkTableNoIndentation() {
+        Html<Html> root = new Html<>();
+
+        Table<Body<Html<Html>>> table = root.body().table();
+        table.tr().th().text("Title");
+
+        values.forEach(value -> table.tr().td().text(value));
+
+        root.accept(noIndentationVisitor);
+
+        return noIndentationVisitor.getResult();
     }
 
     @Benchmark
@@ -130,27 +160,36 @@ public class BenchmarkMain {
     }
 
     public static void main( String[] args ) throws Exception {
-        Options opts = new OptionsBuilder()
-                .include(".*")
-                .warmupIterations(10)
-                .measurementIterations(10)
-                .jvmArgs("-Xms2g", "-Xmx2g")
-                .shouldDoGC(true)
-                .forks(1)
-                .build();
+        List<String> values = new ArrayList<>();
+        NoIndentationVisitor<List<String>> customVisitor = new NoIndentationVisitor<>();
 
-        new Runner(opts).run();
+        for (int i = 0; i < 100; i++) {
+            values.add("val" + i);
+        }
+
+        Html<Html> root = new Html<>();
+
+        Table<Body<Html<Html>>> table = root.body().table();
+        table.tr().th().text("Title");
+
+        values.forEach(value -> table.tr().td().text(value));
+
+        root.accept(customVisitor);
+
+        System.out.println(customVisitor.getResult());
     }
 }
 
 /*
 Regular test
 
-Benchmark                            (elementCount)   Mode  Cnt   Score   Error   Units
-BenchmarkMain.htmlApiBenchmarkDivs              100  thrpt    8  24$052 ± 0$795  ops/ms
-BenchmarkMain.htmlApiBenchmarkTable             100  thrpt    8  18$834 ± 0$666  ops/ms
-BenchmarkMain.j2htmlBenchmark                   100  thrpt    8  15$664 ± 0$475  ops/ms
-BenchmarkMain.velocityBenchmark                 100  thrpt    8   7$301 ± 0$217  ops/ms
+Benchmark                                         (elementCount)   Mode  Cnt   Score   Error   Units
+BenchmarkMain.htmlApiBenchmarkDivs                           100  thrpt    8   4$089 ± 0$069  ops/ms
+BenchmarkMain.htmlApiBenchmarkDivsNoIndentation              100  thrpt    8  19$241 ± 0$290  ops/ms
+BenchmarkMain.htmlApiBenchmarkTable                          100  thrpt    8  13$876 ± 0$076  ops/ms
+BenchmarkMain.htmlApiBenchmarkTableNoIndentation             100  thrpt    8  18$460 ± 0$215  ops/ms
+BenchmarkMain.j2htmlBenchmark                                100  thrpt    8  15$666 ± 1$682  ops/ms
+BenchmarkMain.velocityBenchmark                              100  thrpt    8   6$357 ± 0$174  ops/ms
 
 "Emtpy" visitor
 

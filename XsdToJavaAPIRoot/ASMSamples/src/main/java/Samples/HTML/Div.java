@@ -3,12 +3,11 @@ package Samples.HTML;
 public class Div<P extends Element> extends AbstractElement<Div<P>, P> implements CommonAttributeGroup<Div<P>, P>, MiniFlowContent<Div<P>, P> {
 
     public Div() {
-        super("div");
+        super("div", 0);
     }
 
-    //new
-    protected Div(String name) {
-        super(name);
+    public Div(String name, int depth) {
+        super(name, depth);
     }
 
     public Div(P parent) {
@@ -29,7 +28,7 @@ public class Div<P extends Element> extends AbstractElement<Div<P>, P> implement
 
     @Override
     public Div<P> cloneElem() {
-        return null;
+        return clone(new Div<>(parent));
     }
 
     public Div<P> addSomeAttribute(String val){

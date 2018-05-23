@@ -5,42 +5,25 @@ import org.xmlet.htmlapi.ElementVisitor;
 import org.xmlet.htmlapi.Text;
 import org.xmlet.htmlapi.TextFunction;
 
-public class CustomBenchmarkVisitor<R> extends ElementVisitor<R> {
+public class NoIndentationVisitor<R> extends ElementVisitor<R> {
 
     private StringBuilder stringBuilder = new StringBuilder();
 
     @Override
     public  <T extends Element> void visit(Element<T, ?> element) {
         String elementName = element.getName();
-        int depth = element.getDepth();
-
-        doTabs(depth);
 
         stringBuilder.append('<').append(elementName);
 
         element.getAttributes().forEach(attribute ->
-                    stringBuilder.append(' ').append(attribute.getName()).append("=\"").append(attribute.getValue()).append('\"')
+                stringBuilder.append(' ').append(attribute.getName()).append("=\"").append(attribute.getValue()).append('\"')
         );
 
-        stringBuilder.append(">\n");
+        stringBuilder.append('>');
 
-
-        ++depth;
         element.getChildren().forEach(item -> item.accept(this));
-        --depth;
 
-        doTabs(depth);
-        stringBuilder.append("</").append(elementName).append(">\n");
-    }
-
-    private void doTabs(int tabCount) {
-        char[] tabs = new char[tabCount];
-
-        for (int i = 0; i < tabCount; i++) {
-            tabs[i] = '\t';
-        }
-
-        stringBuilder.append(tabs);
+        stringBuilder.append("</").append(elementName).append('>');
     }
 
     @Override
@@ -48,8 +31,7 @@ public class CustomBenchmarkVisitor<R> extends ElementVisitor<R> {
         String textValue = text.getValue();
 
         if (textValue != null) {
-            doTabs(text.getDepth());
-            stringBuilder.append(textValue).append('\n');
+            stringBuilder.append(textValue);
         }
     }
 

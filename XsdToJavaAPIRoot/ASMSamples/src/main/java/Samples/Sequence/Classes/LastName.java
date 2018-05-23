@@ -8,7 +8,7 @@ import Samples.HTML.Visitor;
 public class LastName<P extends Element> extends AbstractElement<LastName<P>, P> implements TextGroup<LastName<P>, P> {
 
     public LastName(P parent){
-        super(parent);
+        super(parent, "lastName");
     }
 
     @Override

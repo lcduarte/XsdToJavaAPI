@@ -21,7 +21,7 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>my-execution</id>
+                        <id>generate_classes</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>java</goal>

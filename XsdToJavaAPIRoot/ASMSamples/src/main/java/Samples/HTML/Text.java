@@ -5,7 +5,7 @@ public class Text<P extends Element> extends AbstractElement<Text<P>, P>{
     private String text;
 
     private Text() {
-        super("text");
+        super("text", 0);
     }
 
     public Text(P parent, String text) {

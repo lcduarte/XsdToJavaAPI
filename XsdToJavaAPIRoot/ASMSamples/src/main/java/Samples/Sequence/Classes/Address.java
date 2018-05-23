@@ -8,7 +8,7 @@ import Samples.HTML.Visitor;
 public class Address<P extends Element> extends AbstractElement<Address<P>, P> implements TextGroup<Address<P>, P> {
 
     public Address(P parent){
-        super(parent);
+        super(parent, "address");
     }
 
     @Override

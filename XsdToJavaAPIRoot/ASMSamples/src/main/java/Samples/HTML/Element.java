@@ -12,6 +12,8 @@ public interface Element<T extends Element, P extends Element> {
 
     List<Element> getChildren();
     List<IAttribute> getAttributes();
+
+    int getDepth();
     <R extends Element> Stream<R> find(Predicate<Element> predicate);
     P º();
     String getName();

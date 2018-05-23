@@ -13,30 +13,22 @@ public abstract class AbstractElement<T extends Element<T, P>, P extends Element
     protected String name;
     protected P parent;
     protected BiConsumer binderMethod;
+    protected int depth;
 
-    protected AbstractElement(){
-        setName();
-    }
-
-    protected AbstractElement(String name){
+    protected AbstractElement(String name, int depth){
         this.name = name;
-    }
-
-    protected AbstractElement(P parent){
-        this.parent = parent;
-
-        setName();
+        this.depth = depth;
     }
 
     protected AbstractElement(P parent, String name){
         this.parent = parent;
         this.name = name;
+        this.depth = parent.getDepth() + 1;
     }
 
-    private void setName() {
-        String simpleName = getClass().getSimpleName();
-
-        this.name = simpleName.toLowerCase().charAt(0) + simpleName.substring(1);
+    @Override
+    public int getDepth() {
+        return depth;
     }
 
     @Override
