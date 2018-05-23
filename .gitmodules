@@ -1,0 +1,6 @@
+[submodule "XsdToJavaAPIRoot/AndroidLayouts"]
+	path = XsdToJavaAPIRoot/AndroidLayouts
+	url = https://github.com/xmlet/AndroidLayouts.git
+[submodule "XsdToJavaAPIRoot/AndroidLayoutsApi"]
+	path = XsdToJavaAPIRoot/AndroidLayoutsApi
+	url = https://github.com/xmlet/AndroidLayoutsApi.git
