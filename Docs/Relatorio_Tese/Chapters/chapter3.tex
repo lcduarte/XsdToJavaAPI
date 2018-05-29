@@ -453,8 +453,6 @@ In the description of any given \ac{XSD} file there are many restrictions in the
 \noindent
 In this example (Listing \ref{lst:restrictionexample}) we have an element (i.e. testElement) that has an attribute called \texttt{intList}. This attribute has some restrictions, it is represented by a \texttt{xs:list}, the list elements have the \texttt{xsd:int} type and its element count should be between 1 and 5. Transporting this example to the Java language will result in the following class (Listing \ref{lst:attributeclassexample}):
 
-\bigskip
-
 \lstset{language=Java, morekeywords={BaseAttribute, List, Integer}}
 
 \begin{minipage}{\linewidth}

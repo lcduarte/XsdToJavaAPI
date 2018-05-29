@@ -8,12 +8,46 @@ In this chapter we are going to introduce the \ac{XSD} language in order to prov
 
 The \ac{XSD} language is a description of a type of \ac{XML} document. Its purpose is to create a set of rules and constraints that a given type of \ac{XML} document must follow in order to be considered valid. These rules are meant to create a contract on the type of information contained in the \ac{XML} documents, apart from having well formed \ac{XML}. To describe the rules and restrictions for a given \ac{XML} document the \ac{XSD} language relies on two types of data, elements and attributes. Elements are the most complex data type, they can contain other elements as children and can also have attributes. Attributes on the other hand are just pairs of information, defined by their name and their value. The value of a given attribute can be then restricted by multiple constraints existing on the language. There are multiple elements and attributes present in the \ac{XSD} language, which are specified at \href{http://www.datypic.com/sc/xsd/s-xmlschema.xsd.html}{XSD Schema}. In this dissertation we will use the set of rules and restrictions of the \ac{XSD} files provided to build a fluent \ac{API} that will enforce the rules and restrictions specified by the given file.
 
-\section{J2html} % (fold)
+\section{Template Engines}
+\label{sec:templateengines}
+
+Templates engines are systems based on template files. A template file contains two types of information:
+
+\begin{enumerate}
+\item Static - This information doesn't change and should always be present.
+\item Dynamic - This information depends on external input.
+\end{enumerate}
+
+\noindent
+By using template files, the template engines are able to separate the presentation aspect of a given project from its business logic. This is usually important since by having these aspects separated posterior changes to the visual presentation will be implemented faster since there are very few dependencies between the project different layers. By using this approach bring other advantages, such as:
+
+\begin{enumerate}
+\item Performance - By reusing the template files the engine avoids repetitive tasks.
+\item Deployment Speed - It becomes easier to create new outputs, such as new web pages, fill a document, etc.
+\end{enumerate}
+
+\noindent
+Template engines have been around for a long time, such as \ac{JSP}\footnote{\href{http://www.oracle.com/technetwork/java/javaee/jsp/index.html} {JavaServer Pages}} used with the Java language back in 1999, but gained a new significance with its application on the world of Web technologies. Multiple solutions have appeared that run the substitution process either on the client side of the web sites or all the way on the server side. Apart from this kind of usage there are also templates for full websites that  can be used by people that don't have a real understanding of programming and website design. This kind of pre-made websites can either be used freely but more complex solutions are sold by companies that specialize on this kind of product. 
+
+\noindent
+In the Sections \ref{sec:j2html} and \ref{sec:apachevelocity} we introduce two solutions, J2html and Apache Velocity, which may be used in a similar way to \texttt{xmlet}.
+
+\subsection{Xmlet Similarities}
+\label{sec:similarities}
+
+Even though \texttt{xmlet} doesn't aim to be a template engine, both technologies share a few similarities. What similarities does \texttt{xmlet} share with most template engines?
+
+\begin{itemize}
+	\item Template definition - \texttt{xmlet} can define a template within the Java language, removing the need to use external files which usually implies using an extra "language" or syntax in order to define the template. This template definition has the disadvantage of being tied to a concrete language such as Java, which shouldn't be problematic if a project isn't supposed to change language. 
+	\item Template substitution - \texttt{xmlet} can also define a template to receive a certain type of data in order to fill the dynamic information of any given template. This should be faster than the regular behaviour of template engines since \texttt{xmlet} doesn't need to read its template from a file on the file system.
+\end{itemize}
+
+\subsection{J2html} % (fold)
 \label{sec:j2html}
 
-During the development of the \texttt{xmlet} solution we encountered a library that performs a similar function to our presented use case (Section \ref{sec:usecase}). This library, J2html\footnote{\href{https://j2html.com/}{J2html}}, is also developed in Java and is used to write \ac{HTML}. The main difference between the two solutions are that the J2html does not verify the specification rules of the \ac{HTML} language either at compile time or at runtime. This library also shows that the issue we are trying to solve with this dissertation is relevant since this library has quite a few forks and watchers on their github page\footnote{\href{https://github.com/tipsy/j2html}{J2html Github Page}}. In Chapter \ref{cha:deployment} we will present some performance tests to verify if our solution is more efficient at writing \ac{HTML}. 
+J2html\footnote{\href{https://j2html.com/}{J2html}} is a Java library used to write \ac{HTML}, a very similar solution to the used case presented in Section \ref{sec:usecase}. The main difference between the two solutions are that the J2html does not verify the specification rules of the \ac{HTML} language either at compile time or at runtime. This library also shows that the issue we are trying to solve with this dissertation is relevant since this library has quite a few forks and watchers on their github page\footnote{\href{https://github.com/tipsy/j2html}{J2html Github Page}}. In Chapter \ref{cha:deployment} we will present some performance tests to verify if our solution is more efficient at writing \ac{HTML}. 
 
-\section{Apache Velocity} % (fold)
+\subsection{Apache Velocity} % (fold)
 \label{sec:apachevelocity}
 
-Apache Velocity\footnote{\href{http://velocity.apache.org/}{Apache Velocity}} is a template engine that we discovered through J2html. Even though this solution doesn't define itself as a template engine it can also be used to such extent. Since the template engines are based on a template file, with some sort of code embedded in the language (\ac{HTML} for example) the same result can be obtained by using the solution presented in this project. This solution improves the template engine solutions by allowing the users to define the exact same aspects defined in the template files directly into code, allowing the verification of the "template" at compile time by the language compiler. This reduces the overall complexity by removing possible errors in the template files and removing the necessity to separate template files and actual application code, while enforcing the language specification. In Chapter \ref{cha:deployment} we will also compare this solution with the J2html and the \texttt{xmlet} solution.
+Apache Velocity\footnote{\href{http://velocity.apache.org/}{Apache Velocity}} is a template engine that we discovered through J2html. Even though the  \texttt{xmlet} solution doesn't define itself as a template engine it can also be used to such extent. Since the template engines are based on a template file, with some sort of code embedded in the language (\ac{HTML} for example) the same result can be obtained by using the solution presented in this project. This solution improves the template engine solutions by allowing the users to define the exact same aspects defined in the template files directly into code, allowing the verification of the "template" at compile time by the language compiler. This reduces the overall complexity by removing possible errors in the template files and removing the necessity to separate template files and actual application code, while enforcing the language specification. In Chapter \ref{cha:deployment} we will also compare this solution with the J2html and the \texttt{xmlet} solution.
