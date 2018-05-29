@@ -34,6 +34,7 @@ public class CustomBenchmarkVisitor<R> extends ElementVisitor<R> {
     }
 
     private void doTabs(int tabCount) {
+        /*
         char[] tabs = new char[tabCount];
 
         for (int i = 0; i < tabCount; i++) {
@@ -41,6 +42,11 @@ public class CustomBenchmarkVisitor<R> extends ElementVisitor<R> {
         }
 
         stringBuilder.append(tabs);
+        */
+
+        for (int i = 0; i < tabCount; i++) {
+            stringBuilder.append('\t');
+        }
     }
 
     @Override

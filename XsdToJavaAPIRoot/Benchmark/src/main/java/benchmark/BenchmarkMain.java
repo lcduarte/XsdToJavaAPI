@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import static j2html.TagCreator.*;
 
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
 @BenchmarkMode(Mode.Throughput)
 @Measurement(iterations = 8, time=1)
 @Warmup(iterations = 12, time=1)
@@ -26,7 +26,7 @@ import static j2html.TagCreator.*;
 @State(Scope.Benchmark)
 public class BenchmarkMain {
 
-    @Param({"100"})//, "1000"}), "10000", "100000", "1000000"})
+    @Param({"10", "100", "1000", "10000"})//, "1000"}), "10000", "100000", "1000000"})
     private int elementCount;
     private List<String> values;
     private VelocityEngine ve;
@@ -130,7 +130,7 @@ public class BenchmarkMain {
 
         return noIndentationVisitor.getResult();
     }
-
+/*
     @Benchmark
     public String velocityBenchmark() {
         t.merge( context, writer );
@@ -158,7 +158,7 @@ public class BenchmarkMain {
                 )
         );
     }
-
+*/
     public static void main( String[] args ) throws Exception {
         List<String> values = new ArrayList<>();
         NoIndentationVisitor<List<String>> customVisitor = new NoIndentationVisitor<>();
