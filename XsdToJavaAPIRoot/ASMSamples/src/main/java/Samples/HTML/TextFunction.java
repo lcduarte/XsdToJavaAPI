@@ -7,7 +7,7 @@ public class TextFunction<R, U, P extends Element> extends AbstractElement<TextF
     private Function<R, U> textFunction;
 
     private TextFunction() {
-        super("text", 0);
+        super("text");
     }
 
     public TextFunction(P parent, Function<R, U> textFunction) {

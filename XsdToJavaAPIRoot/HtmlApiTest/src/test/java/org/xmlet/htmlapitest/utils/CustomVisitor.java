@@ -7,14 +7,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class CustomVisitor<R> implements ElementVisitor<R> {
+public class CustomVisitor<R> extends ElementVisitor<R> {
 
     private R model;
-    private BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new DataOutputStream(System.out));
+    private BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(System.out);
 
-    public CustomVisitor(){
-
-    }
+    public CustomVisitor(){ }
 
     public CustomVisitor(R model){
         this.model = model;
@@ -24,6 +22,7 @@ public class CustomVisitor<R> implements ElementVisitor<R> {
         this.bufferedOutputStream = bufferedOutputStream;
     }
 
+    @Override
     public <T extends Element> void sharedVisit(Element<T, ?> element) {
         print(String.format("<%s", element.getName()));
 
@@ -42,18 +41,21 @@ public class CustomVisitor<R> implements ElementVisitor<R> {
     }
 
     @Override
-    public <U> void visit(Text<R, U, ?> text){
+    public void visit(Text text){
         String textValue = text.getValue();
 
         if (textValue != null){
             print(textValue + "\n");
-        } else {
-            if (model == null){
-                throw new RuntimeException("Text node is missing the model. Usage of new CustomVisitor(model) is required.");
-            }
-
-            print(text.getValue(model).toString() + "\n");
         }
+    }
+
+    @Override
+    public <U> void visit(TextFunction<R, U, ?> text){
+        if (model == null){
+            throw new RuntimeException("Text node is missing the model. Usage of new CustomVisitor(model) is required.");
+        }
+
+        print(text.getValue(model).toString() + "\n");
     }
 
     private void print(String string){

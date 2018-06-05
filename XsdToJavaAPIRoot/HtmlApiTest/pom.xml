@@ -53,6 +53,14 @@
                             <executable>${basedir}/clean_sources.bat</executable>
                         </configuration>
                     </execution>
+                </executions>
+            </plugin>
+
+            <!--plugin>
+                <artifactId>exec-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <version>1.6.0</version>
+                <executions>
                     <execution>
                         <id>deploy_test_results</id>
                         <phase>install</phase>
@@ -68,7 +76,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
 
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -96,12 +104,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.xmlet</groupId>
-            <artifactId>xsdAsm</artifactId>
-            <version>1.0.10-snapshot</version>
         </dependency>
 
         <dependency>

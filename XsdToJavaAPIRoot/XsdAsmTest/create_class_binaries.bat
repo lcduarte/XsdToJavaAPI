@@ -1,0 +1,2 @@
+if not exist "./target/classes/org/xmlet/TestObjects" mkdir "./target/classes/org/xmlet/TestObjects"
+call mvn exec:java -D"exec.mainClass"="org.xmlet.xsdasm.main.XsdAsmMain" -D"exec.args"="./src/test/resources/test.xsd TestObjects"

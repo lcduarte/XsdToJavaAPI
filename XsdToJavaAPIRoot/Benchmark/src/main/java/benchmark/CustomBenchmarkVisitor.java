@@ -8,14 +8,13 @@ import org.xmlet.htmlapi.TextFunction;
 public class CustomBenchmarkVisitor<R> extends ElementVisitor<R> {
 
     private StringBuilder stringBuilder = new StringBuilder();
+    private int depth = 0;
 
     @Override
-    public  <T extends Element> void visit(Element<T, ?> element) {
+    public  <T extends Element> void sharedVisit(Element<T, ?> element) {
         String elementName = element.getName();
-        int depth = element.getDepth();
 
         doTabs(depth);
-
         stringBuilder.append('<').append(elementName);
 
         element.getAttributes().forEach(attribute ->
@@ -34,7 +33,6 @@ public class CustomBenchmarkVisitor<R> extends ElementVisitor<R> {
     }
 
     private void doTabs(int tabCount) {
-        /*
         char[] tabs = new char[tabCount];
 
         for (int i = 0; i < tabCount; i++) {
@@ -42,11 +40,6 @@ public class CustomBenchmarkVisitor<R> extends ElementVisitor<R> {
         }
 
         stringBuilder.append(tabs);
-        */
-
-        for (int i = 0; i < tabCount; i++) {
-            stringBuilder.append('\t');
-        }
     }
 
     @Override
@@ -54,7 +47,7 @@ public class CustomBenchmarkVisitor<R> extends ElementVisitor<R> {
         String textValue = text.getValue();
 
         if (textValue != null) {
-            doTabs(text.getDepth());
+            doTabs(depth);
             stringBuilder.append(textValue).append('\n');
         }
     }

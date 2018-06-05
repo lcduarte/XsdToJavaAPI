@@ -10,7 +10,7 @@ public class NoIndentationVisitor<R> extends ElementVisitor<R> {
     private StringBuilder stringBuilder = new StringBuilder();
 
     @Override
-    public  <T extends Element> void visit(Element<T, ?> element) {
+    public  <T extends Element> void sharedVisit(Element<T, ?> element) {
         String elementName = element.getName();
 
         stringBuilder.append('<').append(elementName);

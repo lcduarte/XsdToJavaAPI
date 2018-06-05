@@ -1,7 +1,7 @@
 package Samples.HTML;
 
 public class H1<P extends Element> extends AbstractElement<H1<P>, P> implements FlowContent<H1<P>, P> {
-    public H1() {super("h1", 0);}
+    public H1() {super("h1");}
 
     public H1(P parent) {
         super(parent, "h1");
@@ -16,7 +16,7 @@ public class H1<P extends Element> extends AbstractElement<H1<P>, P> implements 
 
     @Override
     public H1<P> cloneElem() {
-        return this.clone(new H1<>(parent));
+        return this.clone(new H1<>());
     }
 
 }

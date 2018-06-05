@@ -112,22 +112,19 @@ class XsdAsmElements {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitLdcInsn(name);
-        mVisitor.visitInsn(ICONST_0);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + "I)V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(3, 1);
+        mVisitor.visitMaxs(2, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_STRING_DESC + "I)V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", null, null);
         mVisitor.visitLocalVariable("name", JAVA_STRING_DESC, null, new Label(), new Label(),1);
-        mVisitor.visitLocalVariable("depth", "I", null, new Label(), new Label(),2);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitVarInsn(ILOAD, 2);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + "I)V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(3, 3);
+        mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + elementTypeDesc + ")V", "(TZ;)V", null);
@@ -191,13 +188,11 @@ class XsdAsmElements {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitTypeInsn(NEW, classType);
         mVisitor.visitInsn(DUP);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitFieldInsn(GETFIELD, classType, "parent", elementTypeDesc);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, classType, CONSTRUCTOR, "(" + elementTypeDesc + ")V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, classType, CONSTRUCTOR, "()V", false);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, classType, "clone", "(" + abstractElementTypeDesc + ")" + abstractElementTypeDesc, false);
         mVisitor.visitTypeInsn(CHECKCAST, classType);
         mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(4, 1);
+        mVisitor.visitMaxs(3, 1);
         mVisitor.visitEnd();
 
     }

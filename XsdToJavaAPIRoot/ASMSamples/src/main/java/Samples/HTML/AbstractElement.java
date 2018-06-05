@@ -13,22 +13,14 @@ public abstract class AbstractElement<T extends Element<T, P>, P extends Element
     protected String name;
     protected P parent;
     protected BiConsumer binderMethod;
-    protected int depth;
 
-    protected AbstractElement(String name, int depth){
+    protected AbstractElement(String name){
         this.name = name;
-        this.depth = depth;
     }
 
     protected AbstractElement(P parent, String name){
         this.parent = parent;
         this.name = name;
-        this.depth = parent.getDepth() + 1;
-    }
-
-    @Override
-    public int getDepth() {
-        return depth;
     }
 
     @Override
