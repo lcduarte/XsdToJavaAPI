@@ -19,174 +19,441 @@ Code quality and its various implications such as security, low performance and 
 \section{Testing metrics} % (fold)
 \label{sec:testingmetrics}
 
-Perform efficiency tests comparing the HtmlApi, j2html and Apache Velocity. The test should be based on a html page with multiple elements and attributes, probably the test should be performed with different number of html elements, like 10, 50, 100, 1000.
+To assert the performance of the \texttt{xmlet} solution we used the \ac{HTML}5 use case to compare it against the J2html (Section \ref{sec:j2html}) and Apache Velocity (Section \ref{sec:apachevelocity}), presented earlier. This two libraries have a difference that is crucial when dealing with performance, J2html doesn't indent the generated \ac{HTML} while Apache Velocity does it. In order to perform a fair comparison between solutions two Visitors were used with the \ac{HTML}5 solution, one that indents the \ac{HTML} to compare it with Velocity and other that doesn't indent it to compare it to J2html. The computer used to perform all the tests present in this section has the following specs:
 
+Processor: Intel Core i3-3217U 1.80GHz\\
+RAM: 4GB
+
+\noindent
+The tests that are presented below consist in a simple \ac{HTML} document, with a table and a variable amount of table entries. The first tests presented were performed using \ac{JMH}\footnote{\href{http://openjdk.java.net/projects/code-tools/jmh/}{JMH Website}}, which is a tool used for benchmarking. The values gathered are result of the mean values of 8 iterations after 12 iterations of warm up. 
+
+\newpage
+\begin{multicols}{2}
 \begin{tikzpicture}
     \begin{axis}[
-        width  = 0.85*\textwidth,
+        width  = 0.4*\textwidth,
         height = 8cm,
         major x tick style = transparent,
         ybar=2*\pgflinewidth,
         bar width=14pt,
         ymajorgrids = true,
         ylabel = {Iterations per ms},
-		symbolic x coords={10 elements},
+		symbolic x coords={10 elems, 100 elems},
         xtick = data,
         scaled y ticks = false,
         enlarge x limits=0.25,
         ymin=0,
-        legend cell align=left,
-        legend style={
-                at={(1,1.05)},
-                anchor=south east,
-                column sep=1ex
-        }
-    ]
+        legend cell align=left,]
+        
         \addplot[style={blue,fill=blue,mark=none}]
-            coordinates {(10 elements, 170)};
+            coordinates {(10 elems, 170)(100 elems, 19)};
 
         \addplot[style={red,fill=red,mark=none}]
-             coordinates {(10 elements, 117)};
+             coordinates {(10 elems, 117)(100 elems, 16)};
 
-        \addplot[style={green,fill=green,mark=none}]
-             coordinates {(10 elements, 71)};
-
-        \legend{HtmlApi,J2html,Apache Velocity}
+        \legend{HtmlApi,J2html}
     \end{axis}
 \end{tikzpicture}
-
-
+\columnbreak
 \begin{tikzpicture}
     \begin{axis}[
-        width  = 0.85*\textwidth,
+        width  = 0.4*\textwidth,
+        height = 8cm,
+        major x tick style = transparent,
+        ybar=2*\pgflinewidth,
+        bar width=14pt,
+        ymajorgrids = true,
+        ylabel = {Iterations per s},
+		symbolic x coords={1000 elems, 10000 elems},
+        xtick = data,
+        scaled y ticks = false,
+        enlarge x limits=0.25,
+        ymin=0,
+        legend cell align=left,]
+        
+        \addplot[style={blue,fill=blue,mark=none}]
+            coordinates {(1000 elems, 2008)(10000 elems, 241)};%(100000 elems, 22)};
+
+        \addplot[style={red,fill=red,mark=none}]
+             coordinates {(1000 elems, 1787)(10000 elems, 194)};%(100000 elems, 17)};
+
+        \legend{HtmlApi,J2html}
+    \end{axis}
+\end{tikzpicture}
+\end{multicols}
+
+%BenchmarkMain.htmlApiBenchmarkTableNoIndentation              10  thrpt    8  171915$712 ± 1822$305  ops/s
+%BenchmarkMain.htmlApiBenchmarkTableNoIndentation             100  thrpt    8   19760$504 ±  560$734  ops/s
+%BenchmarkMain.htmlApiBenchmarkTableNoIndentation            1000  thrpt    8    2008$911 ±   28$104  ops/s
+%BenchmarkMain.htmlApiBenchmarkTableNoIndentation           10000  thrpt    8     241$873 ±    3$225  ops/s
+%BenchmarkMain.htmlApiBenchmarkTableNoIndentation          100000  thrpt    8      22$169 ±    0$652  ops/s
+%BenchmarkMain.j2htmlBenchmark                                 10  thrpt    8  114187$062 ± 1852$635  ops/s
+%BenchmarkMain.j2htmlBenchmark                                100  thrpt    8   16572$066 ±  174$217  ops/s
+%BenchmarkMain.j2htmlBenchmark                               1000  thrpt    8    1787$735 ±   27$369  ops/s
+%BenchmarkMain.j2htmlBenchmark                              10000  thrpt    8     194$768 ±    2$181  ops/s
+%BenchmarkMain.j2htmlBenchmark                             100000  thrpt    8      17$708 ±    0$793  ops/s
+
+\begin{multicols}{2}
+\begin{tikzpicture}
+    \begin{axis}[
+        width  = 0.4*\textwidth,
         height = 8cm,
         major x tick style = transparent,
         ybar=2*\pgflinewidth,
         bar width=14pt,
         ymajorgrids = true,
         ylabel = {Iterations per ms},
-		symbolic x coords={100 elements},
+		symbolic x coords={10 elems, 100 elems},
         xtick = data,
         scaled y ticks = false,
         enlarge x limits=0.25,
         ymin=0,
         legend cell align=left,
-        legend style={
-                at={(1,1.05)},
-                anchor=south east,
-                column sep=1ex
-        }
     ]
         \addplot[style={blue,fill=blue,mark=none}]
-            coordinates {(100 elements, 19)};
+            coordinates {(10 elems, 115)(100 elems, 15)};
 
         \addplot[style={red,fill=red,mark=none}]
-             coordinates {(100 elements, 17)};
+             coordinates {(10 elems, 65)(100 elems, 7)};
 
-        \addplot[style={green,fill=green,mark=none}]
-             coordinates {(100 elements, 7)};
-
-        \legend{HtmlApi,J2html,Apache Velocity}
+        \legend{HtmlApi,Velocity}
     \end{axis}
 \end{tikzpicture}
-
-
+\columnbreak
 \begin{tikzpicture}
     \begin{axis}[
-        width  = 0.85*\textwidth,
+        width  = 0.4*\textwidth,
         height = 8cm,
         major x tick style = transparent,
         ybar=2*\pgflinewidth,
         bar width=14pt,
         ymajorgrids = true,
-        ylabel = {Iterations per second},
-		symbolic x coords={1000 elements},
+        ylabel = {Iterations per s},
+		symbolic x coords={1000 elems, 10000 elems},
         xtick = data,
         scaled y ticks = false,
         enlarge x limits=0.25,
         ymin=0,
-        legend cell align=left,
-        legend style={
-                at={(1,1.05)},
-                anchor=south east,
-                column sep=1ex
-        }
-    ]
+        legend cell align=left,]
+        
         \addplot[style={blue,fill=blue,mark=none}]
-            coordinates {(1000 elements, 2088)};
+            coordinates {(1000 elems, 1515)(10000 elems, 152)};%(100000 elems, 22)};
 
         \addplot[style={red,fill=red,mark=none}]
-             coordinates {(1000 elements, 1842)};
+             coordinates {(1000 elems, 781)(10000 elems, 73)};%(100000 elems, 17)};
 
-        \addplot[style={green,fill=green,mark=none}]
-             coordinates {(1000 elements, 813)};
-
-        \legend{HtmlApi,J2html,Apache Velocity}
+        \legend{HtmlApi,Velocity}
     \end{axis}
 \end{tikzpicture}
+\end{multicols}
 
+%Benchmark                            (elementCount)   Mode  Cnt       Score      Error  Units
+%BenchmarkMain.htmlApiBenchmarkTable              10  thrpt    8  115288$479 ± 3165$561  ops/s
+%BenchmarkMain.htmlApiBenchmarkTable             100  thrpt    8   15434$480 ±  214$479  ops/s
+%BenchmarkMain.htmlApiBenchmarkTable            1000  thrpt    8    1515$100 ±   35$935  ops/s
+%BenchmarkMain.htmlApiBenchmarkTable           10000  thrpt    8     152$280 ±    1$940  ops/s
+%BenchmarkMain.velocityBenchmark                  10  thrpt    8   65338$534 ± 1238$090  ops/s
+%BenchmarkMain.velocityBenchmark                 100  thrpt    8    7586$455 ±  192$201  ops/s
+%BenchmarkMain.velocityBenchmark                1000  thrpt    8     781$837 ±   16$412  ops/s
+%BenchmarkMain.velocityBenchmark               10000  thrpt    8      73$138 ±    3$134  ops/s
+
+\noindent
+As we can see by the presented results the HtmlApi outperforms the other solutions, either with few elements or with a large number of elements. A second benchmark was performed by using a preexisting project that compares 10 different template engines. The spring-comparing-template-engines project\footnote{\href{https://github.com/jreijn/spring-comparing-template-engines}{Template Engines Benchmark}} uses a tomcat server to launch a WebApi based on Java Spring\footnote{\href{https://spring.io/}{Java Spring}} which can be queried using the name of the template engine, i.e. if we want to use the \ac{API} with the Apache Velocity template engine we  can query http://localhost:8080/velocity. The \ac{API} always returns the same \ac{HTML} page, the only difference is the template engine that was used to generate that page. In order to use this benchmark to also test the HtmlApi another entry was added in the project configuration to make it as if HtmlApi was a template engine solution. 
+
+\noindent
+After launching the tomcat server running the Java Spring WebApi another tool is needed to perform the benchmark, ApacheBench\footnote{\href{https://httpd.apache.org/docs/2.4/programs/ab.html}{ApacheBench}}. This tool is used to flood a given \ac{URL} with requests and measures how much time it took for the server to respond to those requests. The values presented below are the result of a single iteration after running two warm up iterations. Multiple variants were used to test the template engines and the HtmlApi solution, the results are as follow.
+
+Performing 10.000 requests, with 10 concurrent threads:
 
 \begin{tikzpicture}
     \begin{axis}[
-        width  = 0.85*\textwidth,
-        height = 8cm,
+        width  = 1*\textwidth,
+        height = 7.5cm,
         major x tick style = transparent,
-        ybar=2*\pgflinewidth,
-        bar width=14pt,
+        ybar=1*\pgflinewidth,
+        bar width=10pt,
         ymajorgrids = true,
-        ylabel = {Iterations per second},
-		symbolic x coords={10000 elements},
-        xtick = data,
+        ylabel = {Response time in s},
+		symbolic x coords={htmlApi,jade,mustache,pebble,velocity,chunk,jsp,jtwig,freemarker,thymeleaf,handlebars, dummy1, dummy2, dummy3},
+        %xtick = data,
+        xticklabels = {},
         scaled y ticks = false,
-        enlarge x limits=0.25,
-        ymin=0,
-        legend cell align=left,
-        legend style={
-                at={(1,1.05)},
-                anchor=south east,
-                column sep=1ex
-        }
-    ]
+        enlarge x limits=0.8,
+        ymin=2,
+        ymax=4,
+        legend cell align=left,]
+                
         \addplot[style={blue,fill=blue,mark=none}]
-            coordinates {(10000 elements, 231)};
-
-        \addplot[style={red,fill=red,mark=none}]
-             coordinates {(10000 elements, 170)};
-
+            coordinates {(htmlApi, 2.578)};
+        \addplot[style={olive,fill=olive,mark=none}]
+            coordinates {(jade, 2.750)};
         \addplot[style={green,fill=green,mark=none}]
-             coordinates {(10000 elements, 76)};
-
-        \legend{HtmlApi,J2html,Apache Velocity}
+            coordinates {(mustache, 3.189)};
+        \addplot[style={gray,fill=gray,mark=none}]
+            coordinates {(pebble, 3.266)};
+        \addplot[style={brown,fill=brown,mark=none}]
+            coordinates {(velocity, 3.297)};
+        \addplot[style={yellow,fill=yellow,mark=none}]
+            coordinates {(chunk, 3.313)};
+        \addplot[style={orange,fill=orange,mark=none}]
+            coordinates {(jsp, 3.402)};
+        \addplot[style={black,fill=black,mark=none}]
+            coordinates {(jtwig, 3.406)};
+        \addplot[style={magenta,fill=magenta,mark=none}]
+            coordinates {(freemarker, 3.438)};
+        \addplot[style={red,fill=red,mark=none}]
+            coordinates {(thymeleaf, 3.781)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(handlebars, 3.922)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy1, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy2, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy3, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy1, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy2, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy3, 0)};
+        \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
     \end{axis}
 \end{tikzpicture}
 
-%% Benchmark                           (elementCount)   Mode  Cnt       Score      Error  Units \\
-%% htmlApiBenchmarkTableNoIndentation              10  thrpt    8  170328$693 ± 1614$096  ops/s \\
-%% htmlApiBenchmarkTableNoIndentation             100  thrpt    8   19741$036 ±   51$216  ops/s \\
-%% htmlApiBenchmarkTableNoIndentation            1000  thrpt    8    2088$301 ±   11$389  ops/s \\
-%% htmlApiBenchmarkTableNoIndentation           10000  thrpt    8     231$082 ±    2$331  ops/s \\
-%%  
-%% J2html / Apache Velocity \\
-%%  
-%% j2htmlBenchmark                                 10  thrpt    8  117115$030 ± 1271$023  ops/s \\
-%% j2htmlBenchmark                                100  thrpt    8   17911$202 ±   50$985  ops/s \\
-%% j2htmlBenchmark                               1000  thrpt    8    1842$156 ±    4$667  ops/s \\
-%% j2htmlBenchmark                              10000  thrpt    8     170$310 ±    1$490  ops/s \\
-%% velocityBenchmark                               10  thrpt    8   71651$471 ±  477$994  ops/s \\
-%% velocityBenchmark                              100  thrpt    8    7886$456 ±  204$865  ops/s \\
-%% velocityBenchmark                             1000  thrpt    8     813$229 ±    3$891  ops/s \\
-%% velocityBenchmark                            10000  thrpt    8      76$934 ±    0$795  ops/s \\
-%%  
-%% In Depth w/ char [] \\
-%%  
-%% htmlApiBenchmarkDivs                            10  thrpt    8   96242$098 ±  358$183  ops/s \\
-%% htmlApiBenchmarkDivs                           100  thrpt    8    4871$983 ±   15$870  ops/s \\
-%% htmlApiBenchmarkDivsNoIndentation               10  thrpt    8  153090$042 ± 5601$598  ops/s \\
-%% htmlApiBenchmarkDivsNoIndentation              100  thrpt    8   20894$867 ±   54$526  ops/s \\
-%% 
-%% With indentation
-%% 
-%% htmlApiBenchmarkTable                           10  thrpt    8  131608$951 ±  2366$956  ops/s \\
-%% htmlApiBenchmarkTable                          100  thrpt    8   15414$713 ±   110$575  ops/s \\
-%% htmlApiBenchmarkTable                         1000  thrpt    8    1562$108 ±    53$736  ops/s \\
-%% htmlApiBenchmarkTable                        10000  thrpt    8     174$760 ±     1$149  ops/s \\
+Performing 30.000 requests, with 10 concurrent threads:
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width  = 1*\textwidth,
+        height = 7.5cm,
+        major x tick style = transparent,
+        ybar=1*\pgflinewidth,
+        bar width=10pt,
+        ymajorgrids = true,
+        ylabel = {Response time in s},
+		symbolic x coords={htmlApi,jade,mustache,pebble,velocity,chunk,jsp,jtwig,freemarker,thymeleaf,handlebars, dummy1, dummy2, dummy3},
+        %xtick = data,
+        xticklabels = {},
+        scaled y ticks = false,
+        enlarge x limits=0.8,
+        ymin=6,
+        ymax=12,
+        legend cell align=left,]
+                
+        \addplot[style={blue,fill=blue,mark=none}]
+            coordinates {(htmlApi, 7.735)};
+        \addplot[style={olive,fill=olive,mark=none}]
+            coordinates {(jade, 8.547)};
+        \addplot[style={green,fill=green,mark=none}]
+            coordinates {(mustache, 9.438)};
+        \addplot[style={gray,fill=gray,mark=none}]
+            coordinates {(pebble, 9.750)};
+        \addplot[style={brown,fill=brown,mark=none}]
+            coordinates {(velocity, 9.782)};
+        \addplot[style={yellow,fill=yellow,mark=none}]
+            coordinates {(chunk, 9.922)};
+        \addplot[style={orange,fill=orange,mark=none}]
+            coordinates {(jsp, 9.938)};
+        \addplot[style={black,fill=black,mark=none}]
+            coordinates {(jtwig, 10.172)};
+        \addplot[style={magenta,fill=magenta,mark=none}]
+            coordinates {(freemarker, 10.172)};
+        \addplot[style={red,fill=red,mark=none}]
+            coordinates {(thymeleaf, 11.251)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(handlebars, 11.844)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy1, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy2, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy3, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy1, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy2, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy3, 0)};
+        \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
+    \end{axis}
+\end{tikzpicture}
+
+\newpage
+
+Performing 30.000 requests, with 25 concurrent threads:
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width  = 1*\textwidth,
+        height = 7.5cm,
+        major x tick style = transparent,
+        ybar=1*\pgflinewidth,
+        bar width=10pt,
+        ymajorgrids = true,
+        ylabel = {Response time in s},
+		symbolic x coords={htmlApi,jade,mustache,pebble,velocity,chunk,jsp,jtwig,freemarker,thymeleaf,handlebars, dummy1, dummy2, dummy3},
+        %xtick = data,
+        xticklabels = {},
+        scaled y ticks = false,
+        enlarge x limits=0.8,
+        ymin=7,
+        ymax=13,
+        legend cell align=left,]
+                
+        \addplot[style={blue,fill=blue,mark=none}]
+            coordinates {(htmlApi, 7.938)};
+        \addplot[style={olive,fill=olive,mark=none}]
+            coordinates {(jade,8.344)};
+        \addplot[style={green,fill=green,mark=none}]
+            coordinates {(mustache, 9.235)};
+        \addplot[style={gray,fill=gray,mark=none}]
+            coordinates {(pebble, 9.375)};
+        \addplot[style={brown,fill=brown,mark=none}]
+            coordinates {(velocity, 9.459)};
+        \addplot[style={yellow,fill=yellow,mark=none}]
+            coordinates {(chunk, 9.485)};
+        \addplot[style={orange,fill=orange,mark=none}]
+            coordinates {(jsp, 9.829)};
+        \addplot[style={black,fill=black,mark=none}]
+            coordinates {(jtwig, 9.922)};
+        \addplot[style={magenta,fill=magenta,mark=none}]
+            coordinates {(freemarker, 10.094)};
+        \addplot[style={red,fill=red,mark=none}]
+            coordinates {(thymeleaf, 11.188)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(handlebars, 12.110)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy1, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy2, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy3, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy1, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy2, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy3, 0)};
+        \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
+    \end{axis}
+\end{tikzpicture}
+
+Performing 100.000 requests, with 10 concurrent threads:
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width  = 1*\textwidth,
+        height = 7.5cm,
+        major x tick style = transparent,
+        ybar=1*\pgflinewidth,
+        bar width=10pt,
+        ymajorgrids = true,
+        ylabel = {Response time in s},
+		symbolic x coords={htmlApi,jade,mustache,pebble,velocity,chunk,jsp,jtwig,freemarker,thymeleaf,handlebars, dummy1, dummy2, dummy3},
+        %xtick = data,
+        xticklabels = {},
+        scaled y ticks = false,
+        enlarge x limits=0.8,
+        ymin=20,
+        ymax=40,
+        legend cell align=left,]
+                
+        \addplot[style={blue,fill=blue,mark=none}]
+            coordinates {(htmlApi, 24.939)};
+        \addplot[style={olive,fill=olive,mark=none}]
+            coordinates {(jade, 29.001)};
+        \addplot[style={green,fill=green,mark=none}]
+            coordinates {(mustache, 31.673)};
+        \addplot[style={gray,fill=gray,mark=none}]
+            coordinates {(pebble, 32.267)};
+        \addplot[style={brown,fill=brown,mark=none}]
+            coordinates {(velocity, 32.653)};
+        \addplot[style={yellow,fill=yellow,mark=none}]
+            coordinates {(chunk, 32.814)};
+        \addplot[style={orange,fill=orange,mark=none}]
+            coordinates {(jsp, 32.877)};
+        \addplot[style={black,fill=black,mark=none}]
+            coordinates {(jtwig, 33.752)};
+        \addplot[style={magenta,fill=magenta,mark=none}]
+            coordinates {(freemarker, 34.806)};
+        \addplot[style={red,fill=red,mark=none}]
+            coordinates {(thymeleaf, 38.846)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(handlebars, 38.924)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy1, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy2, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy3, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy1, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy2, 0)};
+        \addplot[style={violet,fill=violet,mark=none}]
+            coordinates {(dummy3, 0)};
+        \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
+    \end{axis}
+\end{tikzpicture}
+
+\noindent
+As the results show, HtmlApi outperforms all the template engines in the examples presented with the gap in performance increasing as the number of elements grows. With the two examples presented with 30.000 requests we can observe that the results are approximately the same, even though the concurrent request count increased from 10 to 25, with some template engines performing a bit better and other a bit worse, which may be due to invariable execution variations.
+
+% 10k requests - 10 concurrence
+% 
+% htmlApi    - 2.578 seconds
+% jade       - 2.750 seconds
+% mustache   - 3.189 seconds
+% pebble     - 3.266 seconds
+% velocity   - 3.297 seconds
+% chunk      - 3.313 seconds
+% jsp        - 3.402 seconds
+% jtwig      - 3.406 seconds
+% freemarker - 3.438 seconds
+% thymeleaf  - 3.781 seconds
+% handlebars - 3.922 seconds
+% 
+% 30k requests - 10 concurrence
+% 
+% htmlApi    - 7.735 seconds
+% jade       - 8.547 seconds
+% mustache   - 9.438 seconds
+% pebble     - 9.750 seconds
+% freemarker - 9.782 seconds
+% velocity   - 9.922 seconds
+% chunk      - 9.938 seconds
+% jsp        - 10.172 seconds
+% jtwig      - 10.172 seconds
+% thymeleaf  - 11.251 seconds
+% handlebars - 11.844 seconds
+% 
+% 30k requests - 25 concurrence
+% 
+% htmlApi    - 7.938 seconds
+% jade       - 8.344 seconds
+% mustache   - 9.235 seconds
+% pebble     - 9.375 seconds
+% freemarker - 9.459 seconds
+% velocity   - 9.485 seconds
+% chunk      - 9.829 seconds
+% jsp        - 9.922 seconds
+% jtwig      - 10.094 seconds
+% thymeleaf  - 11.188 seconds
+% handlebars - 12.110 seconds
+% 
+% 
+% 100k requests - 10 concurrence
+% 
+% htmlApi    - 24.939 seconds
+% jade       - 29.001 seconds
+% mustache   - 31.673 seconds
+% pebble     - 32.267 seconds
+% freemarker - 32.653 seconds
+% chunk      - 32.814 seconds
+% velocity   - 32.877 seconds
+% jtwig      - 33.752 seconds
+% jsp        - 34.806 seconds
+% thymeleaf  - 38.846 seconds
+% handlebars - 38.924 seconds
+

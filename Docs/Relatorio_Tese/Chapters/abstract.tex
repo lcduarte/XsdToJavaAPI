@@ -1,22 +1,21 @@
 \abstractEN % Do NOT modify this line
 
-The dissertation must contain two versions of the abstract, one in the same language as the main text, another in a different language.  The package assumes the two languages under consideration are always Portuguese and English.
+%Introdução - Informar, em poucas palavras, o contexto em que o trabalho se insere, sintetizando a problemática estudada. 
+The use of markup languages is recurrent in the world of technology today, with \ac{HTML} being the most prominent one due to its use in the Web. The need of tools that can automatically generate well formed documents with good performance is clear. Currently in order to tackle this problem the most used solution are template engines which base their solution on the usage of an external file, which doesn't ensure well formed documents and introduces the overhead of loading the template files to memory which degrades the overall performance.
 
-The package will sort the abstracts in the proper order. This means the first abstract will be in the same language as the main text, followed by the abstract in the other language, and then followed by the main text. 
+% Objectivo - Deve ser explicitado claramente. 
+\noindent
+Our objective is to create the required tools to generate fluent \ac{API}s based on a language definition file, \ac{XSD}, while enforcing the restrictions of the given language. The generation of the \ac{API}s should be automated in order to avoid human error and expedite the coding process. By automating the \ac{API} generation we also create a uniform approach to these languages.  
 
-The abstract is critical because many researchers will read only that part. Your abstract should provide an accurate and sufficiently detailed summary of your work so that readers will understand what you did, why you did it, what your findings are, and why your findings are useful and important. The abstract must be able to stand alone as an overview of your study that can be understood without reading the entire text. However, your abstract should not be overly detailed. For example, it does not need to include a detailed methods section.
+%Métodos - Destacar os procedimentos metodológicos adoptados. 
+\noindent
+To achieve our objectives we will use the Java language to extract the data from the language definition file. Based on the information provided by the language definition file we can then generate the adequate bytecodes to reflect the language definition to the Java language. To implement the language restrictions in Java we will always prioritize compile time validations, only performing run time validations of information that isn't available when the \ac{API} is generated.
 
-Even though the abstract is one of the first parts of the document, it should be written last. You should write it soon after finishing the other chapters, while the rest of the manuscript is fresh in your mind. 
-
-The abstract should not contain bibliography citations, tables, charts or diagrams. Give preference to the use of the verbs in the third person singular. Time and word must not dissociate yourself within the abstract. Abbreviations should be limited. Abbreviations that are defined in the abstract will need to be defined again at first use in the main text. 
-
-Finally, you must avoid the use of expressions such as "The present work deals with ... ", "In this thesis are discussed .... ", "The document concludes that .... ", "apparently and .... " etc.
-
-The word limit should be observed, 300 words is the limit.
-
-Abstracts are usually followed by a list of keywords selected by the author. Choosing appropriate keywords is important, because these are used for indexing purposes. Well-chosen keywords enable your manuscript to be more easily identified and cited. 
+%Resultados - Destacar os mais relevantes para os objectivos pretendidos. 
+\noindent
+By comparing the developed solution to some existing solutions, including ten template engines and one other solution similar to the one we are proposing, we obtained very favorable results with the suggested solution being the best performance-wise in all the tests we performed. These results are important, specially considering that apart from being a more efficient solution it also introduces validations of the language usage based on its syntax definition.
 
 % Keywords of abstract in English
 \begin{keywords}
-Keywords (in English) \ldots
+XML, XSD, Automatic Code Generation, fluent API \ldots
 \end{keywords} 

@@ -66,7 +66,7 @@ public class BenchmarkMain {
         customVisitor = new CustomBenchmarkVisitor<>();
         noIndentationVisitor = new NoIndentationVisitor<>();
     }
-
+/*
     @Benchmark
     public String htmlApiBenchmarkDivs() {
         Html<Html> root = new Html<>();
@@ -102,7 +102,7 @@ public class BenchmarkMain {
 
         return noIndentationVisitor.getResult();
     }
-
+*/
     @Benchmark
     public String htmlApiBenchmarkTable() {
         Html<Html> root = new Html<>();
@@ -116,7 +116,7 @@ public class BenchmarkMain {
 
         return customVisitor.getResult();
     }
-
+/*
     @Benchmark
     public String htmlApiBenchmarkTableNoIndentation() {
         Html<Html> root = new Html<>();
@@ -130,14 +130,15 @@ public class BenchmarkMain {
 
         return noIndentationVisitor.getResult();
     }
-/*
+*/
+
     @Benchmark
     public String velocityBenchmark() {
         t.merge( context, writer );
 
         return writer.toString();
     }
-
+/*
     @Benchmark
     public String j2htmlBenchmark() {
         return document(
