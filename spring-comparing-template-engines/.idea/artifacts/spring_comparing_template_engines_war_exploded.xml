@@ -1,0 +1,125 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="spring-comparing-template-engines:war exploded">
+    <output-path>$PROJECT_DIR$/target/template-engines</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="spring-comparing-template-engines" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.2.RELEASE" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.3.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.3.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:4.3.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.3.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.3.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.3.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.webjars:bootstrap:3.3.7-1" />
+          <element id="library" level="project" name="Maven: org.webjars:jquery:3.1.1" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf:3.0.2.RELEASE" />
+          <element id="library" level="project" name="Maven: ognl:ognl:3.1.10" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.20.0-GA" />
+          <element id="library" level="project" name="Maven: org.attoparser:attoparser:2.0.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.unbescape:unbescape:1.1.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf-spring4:3.0.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.25-incubating" />
+          <element id="library" level="project" name="Maven: org.apache.velocity:velocity:1.7" />
+          <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
+          <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.4" />
+          <element id="library" level="project" name="Maven: org.apache.velocity:velocity-tools:2.0" />
+          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.7.0" />
+          <element id="library" level="project" name="Maven: commons-digester:commons-digester:1.8" />
+          <element id="library" level="project" name="Maven: commons-chain:commons-chain:1.1" />
+          <element id="library" level="project" name="Maven: commons-validator:commons-validator:1.3.1" />
+          <element id="library" level="project" name="Maven: dom4j:dom4j:1.1" />
+          <element id="library" level="project" name="Maven: oro:oro:2.0.8" />
+          <element id="library" level="project" name="Maven: sslext:sslext:1.2-0" />
+          <element id="library" level="project" name="Maven: org.apache.struts:struts-core:1.3.8" />
+          <element id="library" level="project" name="Maven: antlr:antlr:2.7.2" />
+          <element id="library" level="project" name="Maven: org.apache.struts:struts-taglib:1.3.8" />
+          <element id="library" level="project" name="Maven: org.apache.struts:struts-tiles:1.3.8" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.5" />
+          <element id="library" level="project" name="Maven: org.scalatra.scalate:scalate-core_2.11:1.7.1" />
+          <element id="library" level="project" name="Maven: org.scalatra.scalate:scalate-util_2.11:1.7.1" />
+          <element id="library" level="project" name="Maven: org.scala-lang.modules:scala-xml_2.11:1.0.1" />
+          <element id="library" level="project" name="Maven: org.scala-lang.modules:scala-parser-combinators_2.11:1.0.1" />
+          <element id="library" level="project" name="Maven: org.scala-lang:scala-compiler:2.11.0" />
+          <element id="library" level="project" name="Maven: org.scala-lang:scala-reflect:2.11.0" />
+          <element id="library" level="project" name="Maven: org.scalatra.scalate:scalate-spring-mvc_2.11:1.7.1" />
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/org/rythmengine/spring-rythm/1.1.1-SNAPSHOT/spring-rythm-1.1.1-20150223.014556-1.jar" output-file-name="spring-rythm-1.1.1-SNAPSHOT.jar" />
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/org/rythmengine/rythm-engine/1.1.0-SNAPSHOT/rythm-engine-1.1.0-20141221.215926-11.jar" output-file-name="rythm-engine-1.1.0-SNAPSHOT.jar" />
+          <element id="library" level="project" name="Maven: org.eclipse.jdt.core.compiler:ecj:4.4" />
+          <element id="library" level="project" name="Maven: com.stevesoft.pat:pat:1.5.3" />
+          <element id="library" level="project" name="Maven: org.mvel:mvel2:2.1.5.Final" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.1.39" />
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/org/osgl/osgl-tool/0.3-SNAPSHOT/osgl-tool-0.3-20141108.092919-40.jar" output-file-name="osgl-tool-0.3-SNAPSHOT.jar" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.8" />
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/org/osgl/osgl-logging/0.3-SNAPSHOT/osgl-logging-0.3-20141026.212850-4.jar" output-file-name="osgl-logging-0.3-SNAPSHOT.jar" />
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/org/osgl/osgl-cache/0.2-SNAPSHOT/osgl-cache-0.2-20141111.225513-4.jar" output-file-name="osgl-cache-0.2-SNAPSHOT.jar" />
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/org/osgl/osgl-storage/0.3-SNAPSHOT/osgl-storage-0.3-20150306.021557-5.jar" output-file-name="osgl-storage-0.3-SNAPSHOT.jar" />
+          <element id="library" level="project" name="Maven: com.github.sps.mustache:mustache-spring-view:1.3" />
+          <element id="library" level="project" name="Maven: com.github.spullara.mustache.java:compiler:0.9.4" />
+          <element id="library" level="project" name="Maven: com.samskivert:jmustache:1.13" />
+          <element id="library" level="project" name="Maven: de.neuland-bfi:spring-jade4j:1.2.5" />
+          <element id="library" level="project" name="Maven: de.neuland-bfi:jade4j:1.2.5" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-jexl:2.1.1" />
+          <element id="library" level="project" name="Maven: com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2" />
+          <element id="library" level="project" name="Maven: org.pegdown:pegdown:1.6.0" />
+          <element id="library" level="project" name="Maven: org.parboiled:parboiled-java:1.1.7" />
+          <element id="library" level="project" name="Maven: org.parboiled:parboiled-core:1.1.7" />
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
+          <element id="library" level="project" name="Maven: com.github.httl:httl-springmvc:1.0.11" />
+          <element id="library" level="project" name="Maven: com.github.httl:httl:1.0.11" />
+          <element id="library" level="project" name="Maven: com.mitchellbosecke:pebble-spring4:2.2.3" />
+          <element id="library" level="project" name="Maven: com.mitchellbosecke:pebble:2.2.3" />
+          <element id="library" level="project" name="Maven: com.coverity.security:coverity-escapers:1.1" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.6.6" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+          <element id="library" level="project" name="Maven: com.github.jknack:handlebars-springmvc:4.0.6" />
+          <element id="library" level="project" name="Maven: com.github.jknack:handlebars:4.0.6" />
+          <element id="library" level="project" name="Maven: org.antlr:antlr4-runtime:4.5.1-1" />
+          <element id="library" level="project" name="Maven: org.mozilla:rhino:1.7R4" />
+          <element id="library" level="project" name="Maven: org.jtwig:jtwig-spring:5.80" />
+          <element id="library" level="project" name="Maven: org.jtwig:jtwig-web:1.72" />
+          <element id="library" level="project" name="Maven: org.jtwig:jtwig-core:5.74" />
+          <element id="library" level="project" name="Maven: org.jtwig:jtwig-reflection:1.21" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.4.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.1" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:18.0" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.12" />
+          <element id="library" level="project" name="Maven: org.jtwig:jtwig-spring-translate-extension:1.2" />
+          <element id="library" level="project" name="Maven: org.jtwig:jtwig-translate-extension:1.69" />
+          <element id="library" level="project" name="Maven: org.jtwig:jtwig-pluralization:1.8" />
+          <element id="library" level="project" name="Maven: com.x5dev:chunk-templates:3.2.4" />
+          <element id="library" level="project" name="Maven: net.minidev:json-smart:1.1.1" />
+          <element id="library" level="project" name="Maven: com.x5dev:chunk-springmvc:0.1.0" />
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/com/github/xmlet/htmlApi/1.0.9-SNAPSHOT/htmlApi-1.0.9-SNAPSHOT.jar" output-file-name="htmlApi-1.0.9-snapshot.jar" />
+          <element id="library" level="project" name="Maven: com.github.xmlet:xsdAsm:1.0.10-SNAPSHOT" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm:6.0" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-tree:6.0" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-analysis:6.0" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-commons:6.0" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-util:6.0" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-xml:6.0" />
+          <element id="library" level="project" name="Maven: com.github.xmlet:xsdParser:1.0.7-SNAPSHOT" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:1.0.0.GA" />
+          <element id="library" level="project" name="Maven: org.jboss.windup.decompiler:decompiler-fernflower:4.0.0.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.windup.decompiler.fernflower:windup-fernflower:1.0.0.20171018" />
+          <element id="library" level="project" name="Maven: org.jboss.windup.decompiler:decompiler-api:forge-addon:4.0.0.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.windup.utils:windup-utils:forge-addon:4.0.0.Final" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.1" />
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/com/github/xmlet/htmlApiFaster/1.0.9-snapshot/htmlApiFaster-1.0.9-SNAPSHOT.jar" output-file-name="htmlApiFaster-1.0.9-snapshot.jar" />
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsmFaster/1.0.10-SNAPSHOT/xsdAsmFaster-1.0.10-SNAPSHOT.jar" output-file-name="xsdAsmFaster-1.0.10-snapshot.jar" />
+          <element id="library" level="project" name="Maven: org.scala-lang:scala-library:2.11.8" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/template-engines/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="spring-comparing-template-engines/web/Web" />
+    </root>
+  </artifact>
+</component>

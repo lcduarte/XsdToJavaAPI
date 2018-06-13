@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'head.twig' %}
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <h1>{{ 'example.title' | translate }} - jtwig</h1>
+    </div>
+    {% for presentation in presentations %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ presentation.title }} - {{ presentation.speakerName }}</h3>
+            </div>
+            <div class="panel-body">
+                {{ presentation.summary }}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% include 'scripts.twig' %}
+</body>
+</html>
