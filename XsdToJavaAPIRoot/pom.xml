@@ -20,8 +20,8 @@
         <module>HtmlApi</module>
         <module>HtmlApiTest</module>
         <module>Benchmark</module>
-        <!--module>AndroidLayoutsApi</module-->
-        <!--module>AndroidLayouts</module-->
-        <!--module>ASMSamples</module-->
+        <module>AndroidLayoutsApi</module>
+        <module>AndroidLayouts</module>
+        <module>ASMSamples</module>
     </modules>
 </project>

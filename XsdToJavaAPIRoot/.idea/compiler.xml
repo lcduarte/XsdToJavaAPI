@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="androidLayouts" />
         <module name="AndroidLayoutsApi" />
         <module name="androidLayoutsApiTest" />
         <module name="AndroidLayoutsApiTest" />
+        <module name="ASMSamples" />
         <module name="Benchmark" />
         <module name="Html5Xsd2JavaApi" />
         <module name="Html5Xsd2JavaApiTest" />
@@ -21,6 +23,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="androidLayouts" target="1.8" />
       <module name="AndroidLayoutsApi" target="1.8" />
       <module name="androidLayoutsApiTest" target="9" />
       <module name="AndroidLayoutsApiTest" target="1.8" />

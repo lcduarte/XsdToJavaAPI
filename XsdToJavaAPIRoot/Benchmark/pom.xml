@@ -40,7 +40,7 @@
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>htmlApi</artifactId>
-            <version>1.0.9-snapshot</version>
+            <version>1.0.9-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
