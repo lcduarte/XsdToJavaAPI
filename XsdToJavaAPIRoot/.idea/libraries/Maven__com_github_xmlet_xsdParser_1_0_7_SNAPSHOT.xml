@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.xmlet:xsdParser:1.0.7-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.7-snapshot/xsdParser-1.0.7-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.7-snapshot/xsdParser-1.0.7-SNAPSHOT-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.7-snapshot/xsdParser-1.0.7-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.7-snapshot/xsdParser-1.0.7-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.7-snapshot/xsdParser-1.0.7-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
