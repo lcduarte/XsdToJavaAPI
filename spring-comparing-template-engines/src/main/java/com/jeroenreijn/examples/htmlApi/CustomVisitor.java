@@ -9,7 +9,7 @@ public class CustomVisitor<R> extends ElementVisitor<R> {
 
     private R model;
     private PrintWriter printWriter;
-    private StringBuilder stringBuilder = new StringBuilder();
+    //private StringBuilder stringBuilder = new StringBuilder();
 
     public CustomVisitor(PrintWriter printWriter, R model) {
         this.printWriter = printWriter;
@@ -57,7 +57,9 @@ public class CustomVisitor<R> extends ElementVisitor<R> {
         printWriter.write(string);
     }
 
+    /*
     public void performPrint(){
         //printWriter.write(stringBuilder.toString(), 0, stringBuilder.length());
     }
+    */
 }

@@ -49,8 +49,6 @@ public class HtmlApiView extends AbstractTemplateView {
 
         //System.out.println("Normal" + System.currentTimeMillis());
 
-        visitor.performPrint();
-
-        //httpServletResponse.getWriter().write("This doesn't make any sense.");
+        //visitor.performPrint();
     }
 }

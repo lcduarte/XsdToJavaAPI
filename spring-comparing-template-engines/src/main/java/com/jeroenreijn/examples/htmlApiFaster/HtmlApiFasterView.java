@@ -6,29 +6,25 @@ import org.xmlet.htmlapifaster.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.lang.Object;
 import java.util.Map;
 
 public class HtmlApiFasterView extends AbstractTemplateView {
 
-    private Html<Html> documentRoot;
-
     @Override
     protected void renderMergedTemplateModel(Map<String, Object> map, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
         Iterable<Presentation> presentations = (Iterable<Presentation>) map.get("presentations");
-        FasterCustomVisitor visitor = new FasterCustomVisitor(httpServletResponse.getWriter());
+        PrintWriter printWriter = httpServletResponse.getWriter();
+        FasterCustomVisitor visitor = new FasterCustomVisitor(printWriter);
 
-        documentRoot = new Html<>(visitor);
-        presentationsTemplate(presentations);
-
-        visitor.printToWriter(documentRoot);
+        Html<Html> documentRoot = new Html<>(visitor);
+        presentationsTemplate(documentRoot, presentations);
 
         //System.out.println("Faster" + System.currentTimeMillis());
-
-        //httpServletResponse.getWriter().write("This doesn't make any sense.");
     }
 
-    private void presentationsTemplate(Iterable<Presentation> presentations){
+    private void presentationsTemplate(Html<Html> documentRoot, Iterable<Presentation> presentations){
         Head<Html<Html>> head = documentRoot.head();
         Body<Html<Html>> body = documentRoot.body();
 

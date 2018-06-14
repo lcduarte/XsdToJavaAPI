@@ -7,6 +7,93 @@ import java.io.PrintWriter;
 public class FasterCustomVisitor extends ElementVisitor<java.lang.Object> {
 
     private PrintWriter printWriter;
+    private boolean empty = true;
+    private boolean isNewlined = false;
+    private boolean isClosed = false;
+
+    public FasterCustomVisitor(PrintWriter printWriter){
+        this.printWriter = printWriter;
+    }
+
+    @Override
+    public void visit(Element elem) {
+        String str = "";
+
+        if (!empty && !isNewlined){
+            if (!isClosed){
+                str = ">\n";
+            } else {
+                str = "\n";
+            }
+        }
+
+        //doTabs(elem.getDepth());
+        print(str + '<' + elem.getName());
+        isClosed = false;
+        isNewlined = false;
+        empty = false;
+    }
+
+    private void doTabs(int tabCount) {
+        char[] tabs = new char[tabCount];
+
+        for (int i = 0; i < tabCount; i++) {
+            tabs[i] = '\t';
+        }
+
+        printWriter.write(tabs);
+    }
+
+    @Override
+    public void visit(Attribute attribute) {
+        print(' ' + attribute.getName() + "=\"" + attribute.getValue().toString() + '\"');
+    }
+
+    @Override
+    public void visitParent(Element element) {
+        if (!isNewlined && !isClosed){
+            print(">");
+            isClosed = true;
+        }
+
+        if (!isNewlined){
+            print("\n");
+            isNewlined = true;
+        }
+
+        //doTabs(element.getDepth());
+        print("</" + element.getName() + '>');
+        isClosed = true;
+        isNewlined = false;
+    }
+
+    @Override
+    public void visit(Text text){
+        String textValue = text.getValue();
+
+        if (textValue != null){
+            //print(">\n");
+            //doTabs(text.getDepth());
+            print(">\n" + textValue + '\n');
+            isNewlined = true;
+            isClosed = false;
+        }
+    }
+
+    private void print(String string){
+        printWriter.write(string);
+        //printWriter.flush();
+    }
+}
+
+/*
+
+
+
+ */
+
+/*
+private PrintWriter printWriter;
     private StringBuilder stringBuilder = new StringBuilder();
 
     public FasterCustomVisitor(PrintWriter printWriter){
@@ -31,7 +118,7 @@ public class FasterCustomVisitor extends ElementVisitor<java.lang.Object> {
             }
         }
 
-        doTabs(elem.getDepth());
+        //doTabs(elem.getDepth());
         stringBuilder.append('<').append(elem.getName());
     }
 
@@ -52,7 +139,7 @@ public class FasterCustomVisitor extends ElementVisitor<java.lang.Object> {
             stringBuilder.append('\n');
         }
 
-        doTabs(element.getDepth());
+        //doTabs(element.getDepth());
         stringBuilder.append("</").append(element.getName()).append('>');
     }
 
@@ -62,7 +149,7 @@ public class FasterCustomVisitor extends ElementVisitor<java.lang.Object> {
 
         if (textValue != null){
             stringBuilder.append(">\n");
-            doTabs(text.getDepth());
+            //doTabs(text.getDepth());
             stringBuilder.append(textValue).append('\n');
         }
     }
@@ -86,84 +173,4 @@ public class FasterCustomVisitor extends ElementVisitor<java.lang.Object> {
 
         printWriter.write(stringBuilder.toString(), 0, stringBuilder.length());
     }
-}
-
-/*
- private PrintWriter printWriter;
-    private boolean empty = true;
-    private boolean isNewlined = false;
-    private boolean isClosed = false;
-
-    public FasterCustomVisitor(PrintWriter printWriter){
-        this.printWriter = printWriter;
-    }
-
-    @Override
-    public void visit(Element elem) {
-        if (!empty && !isNewlined){
-            if (!isClosed){
-                printWriter.write(">\n");
-            } else {
-                printWriter.write('\n');
-            }
-        }
-
-        doTabs(elem.getDepth());
-        printWriter.write('<' + elem.getName());
-        //isClosed = false;
-        //isNewlined = false;
-        //empty = false;
-    }
-
-    private void doTabs(int tabCount) {
-        char[] tabs = new char[tabCount];
-
-        for (int i = 0; i < tabCount; i++) {
-            tabs[i] = '\t';
-        }
-
-        printWriter.write(tabs);
-    }
-
-    @Override
-    public void visit(Attribute attribute) {
-        printWriter.write(' ' + attribute.getName() + "=\"" + attribute.getValue().toString() + '\"');
-    }
-
-    @Override
-    public void visitParent(Element element) {
-        if (!isNewlined && !isClosed){
-            printWriter.write('>');
-            //isClosed = true;
-        }
-
-        if (!isNewlined){
-            printWriter.write('\n');
-            //isNewlined = true;
-        }
-
-        doTabs(element.getDepth());
-        printWriter.write("</" + element.getName() + '>');
-        //isClosed = true;
-        //isNewlined = false;
-    }
-
-    @Override
-    public void visit(Text text){
-        String textValue = text.getValue();
-
-        if (textValue != null){
-            printWriter.write(">\n");
-            doTabs(text.getDepth());
-            printWriter.write(textValue + '\n');
-            //isNewlined = true;
-            //isClosed = false;
-        }
-    }
-
-
- */
-
-/*
-
  */
