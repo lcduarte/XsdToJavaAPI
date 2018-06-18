@@ -14,7 +14,14 @@ In order to manage the developed projects a tool for project organization and de
 \section{Sonarcloud} % (fold)
 \label{sec:sonarcloud}
 
-Code quality and its various implications such as security, low performance and bugs should always be an important issue to a programmer. With that in mind all the projects contained in the \texttt{xmlet} solution were evaluated in various metrics and the results made public for consultation. This way, either future users of those projects or developers trying to improve the projects can check the metrics as another way of validating the quality of the produced code. The tool to perform this evaluation was Sonarcloud\footnote{\href{https://sonarcloud.io/organizations/xmlet/projects}{Sonarcloud xmlet page}}, which provides free of charge evaluations and stores the results which are available for everyone.
+Code quality and its various implications such as security, low performance and bugs should always be an important issue to a programmer. With that in mind all the projects contained in the \texttt{xmlet} solution were evaluated in various metrics and the results made public for consultation. This way, either future users of those projects or developers trying to improve the projects can check the metrics as another way of validating the quality of the produced code. The tool to perform this evaluation was Sonarcloud\footnote{\href{https://sonarcloud.io/organizations/xmlet/projects}{Sonarcloud xmlet page}}, which provides free of charge evaluations and stores the results which are available for everyone. Sonarcloud also provides an \ac{API} to show badges that allow to inform users of different metrics regarding a project. Those badges are presented in the \texttt{xmlet} modules Github pages, as shown in Figure \ref{project_badges}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{badges}
+	\caption{XsdParser Github badges}
+	\label{project_badges}
+\end{figure}
 
 \section{Testing metrics} % (fold)
 \label{sec:testingmetrics}
@@ -53,6 +60,8 @@ The tests that are presented below consist in a simple \ac{HTML} document, with 
 \end{minipage}
 
 The textual elements to feature in the table data rows are stored in a data structure and each solution should iterate that structure when generating the expected \ac{HTML}. To assert which solution is the fastest each one of them will generate the same code and we will verify the number of iterations that are possible to perform in a unit of time. To achieve this objective we will use \ac{JMH}\footnote{\href{http://openjdk.java.net/projects/code-tools/jmh/}{JMH Website}}, which is a tool used for benchmarking. The values gathered are result of the mean values of 8 testing iterations after 12 iterations of warm up. 
+
+\newpage
 
 Generating a table with 10 elements: 
 
@@ -216,6 +225,8 @@ As we can see by the presented results the HtmlApi outperforms the other solutio
 \noindent
 After launching the tomcat server running the Java Spring WebApi another tool is needed to perform the benchmark, ApacheBench\footnote{\href{https://httpd.apache.org/docs/2.4/programs/ab.html}{ApacheBench}}. This tool is used to flood a given \ac{URL} with requests and measures how much time it took for the server to respond to those requests. The values presented below are the result of a single iteration after running two warm up iterations. Multiple variants were used to test the template engines and the HtmlApi solution. The presented results are obtained after running the specified benchmark and \textit{removing} the Spring overhead. The Spring overhead is obtained by performing the respective benchmark to a route that simply returns a empty string.
 
+\newpage
+
 10.000 requests, 10 threads, Spring overhead 1.031 seconds:
 
 \begin{tikzpicture}
@@ -273,8 +284,6 @@ After launching the tomcat server running the Java Spring WebApi another tool is
         \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
     \end{axis}
 \end{tikzpicture}
-
-\newpage
 
 30.000 requests, 10 threads, Spring overhead 3.285 seconds:
 
@@ -391,6 +400,8 @@ After launching the tomcat server running the Java Spring WebApi another tool is
         \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
     \end{axis}
 \end{tikzpicture}
+
+\newpage
 
 100.000 requests, 10 threads, Spring overhead 9.890 seconds:
 

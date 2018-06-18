@@ -71,3 +71,123 @@ public class Body{
 
 \noindent
 With this solution the overhead of using this solution is minimized, because as we can see the overhead of the code structure almost resumes itself to the overhead of instantiating classes. All the rules of the language are still enforced due to the way that the classes are organized and the usage keeps its fluent nature since the existent methods and its return type are unchanged. This also removes all the overhead of storing and iterating data from a data structure. Using this solution in the web world should improve the response times of servers in a very significant way since the solution can write to the response stream as soon as it executes the method code for adding an element, opposed to having to wait that the whole tree is built and only then iterated. 
+
+\subsection{Early Results}
+
+After implementing a first version of this improved solution, called HtmlApiFaster, we ran a few tests in order to evaluate its performance. The benchmark used was the same presented in Section \ref{sec:testingmetrics} with the spring-comparing-template-engines project. All the results presented below are presented without the respective Spring overhead, which was previously explained in Section \ref{sec:testingmetrics}.
+
+\begin{multicols}{2}
+10.000 requests, 10 threads:\\
+\begin{tikzpicture}
+    \begin{axis}[
+        width  = 0.4*\textwidth,
+        height = 6.5cm,
+        major x tick style = transparent,
+        ybar=2*\pgflinewidth,
+        bar width=14pt,
+        ymajorgrids = true,
+        ylabel = {Response time in seconds},
+		symbolic x coords={HtmlApiFaster, HtmlApi},
+        xticklabels = {},
+        scaled y ticks = false,
+        enlarge x limits=0.25,
+        ymin=0,
+        ymax=2.5,
+        legend cell align=left,]
+        
+        \addplot[style={blue,fill=blue,mark=none}]
+            coordinates {(HtmlApiFaster, 0.313)};
+        \addplot[style={red,fill=red,mark=none}]
+             coordinates {(HtmlApi, 1.547 )};
+             
+        \legend{HtmlApiFaster, HtmlApi}
+    \end{axis}
+\end{tikzpicture}
+\columnbreak
+\\
+30.000 requests, 10 threads:\\
+\begin{tikzpicture}
+    \begin{axis}[
+        width  = 0.4*\textwidth,
+        height = 6.5cm,
+        major x tick style = transparent,
+        ybar=2*\pgflinewidth,
+        bar width=14pt,
+        ymajorgrids = true,
+        ylabel = {Response time in seconds},
+		symbolic x coords={HtmlApiFaster, HtmlApi},
+        xticklabels = {},
+        scaled y ticks = false,
+        enlarge x limits=0.25,
+        ymin=0,
+        ymax=7,
+        legend cell align=left,]
+        
+        \addplot[style={blue,fill=blue,mark=none}]
+            coordinates {(HtmlApiFaster, 0.590)};
+        \addplot[style={red,fill=red,mark=none}]
+             coordinates {(HtmlApi, 4.450)};
+
+        \legend{HtmlApiFaster, HtmlApi}
+    \end{axis}
+\end{tikzpicture}
+\end{multicols}
+
+\begin{multicols}{2}
+30.000 requests, 25 threads:\\
+\begin{tikzpicture}
+    \begin{axis}[
+        width  = 0.4*\textwidth,
+        height = 7cm,
+        major x tick style = transparent,
+        ybar=2*\pgflinewidth,
+        bar width=14pt,
+        ymajorgrids = true,
+        ylabel = {Response time in seconds},
+		symbolic x coords={HtmlApiFaster, HtmlApi},
+        xticklabels = {},
+        scaled y ticks = false,
+        enlarge x limits=0.25,
+        ymin=0,
+        ymax=6,
+        legend cell align=left,]
+        
+        \addplot[style={blue,fill=blue,mark=none}]
+            coordinates {(HtmlApiFaster, 0.494)};
+        \addplot[style={red,fill=red,mark=none}]
+             coordinates {(HtmlApi, 4.151 )};
+             
+        \legend{HtmlApiFaster, HtmlApi}
+    \end{axis}
+\end{tikzpicture}
+\columnbreak
+\\
+100.000 requests, 10 threads:\\
+\begin{tikzpicture}
+    \begin{axis}[
+        width  = 0.4*\textwidth,
+        height = 7cm,
+        major x tick style = transparent,
+        ybar=2*\pgflinewidth,
+        bar width=14pt,
+        ymajorgrids = true,
+        ylabel = {Response time in seconds},
+		symbolic x coords={HtmlApiFaster, HtmlApi},
+        xticklabels = {},
+        scaled y ticks = false,
+        enlarge x limits=0.25,
+        ymin=0,
+        ymax=25,
+        legend cell align=left,]
+        
+        \addplot[style={blue,fill=blue,mark=none}]
+            coordinates {(HtmlApiFaster, 3.095)};
+        \addplot[style={red,fill=red,mark=none}]
+             coordinates {(HtmlApi, 15.049)};
+
+        \legend{HtmlApiFaster, HtmlApi}
+    \end{axis}
+\end{tikzpicture}
+\end{multicols}
+
+As we can see the performance gains are very good, with the lowest gap being with the example using 100.000 requests where HtmlApiFaster is 4 times faster than HtmlApi. On the other hand the biggest difference is present in the example using 30.000 requests and 25 concurrent threads, where HtmlApiFaster is 8 times faster than HtmlApi which was already the better option when comparing to the template engines. These results are promising and the HtmlApiFaster will be further developed in order to deploy it as an alternative to HtmlApi.

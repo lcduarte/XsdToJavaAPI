@@ -288,7 +288,7 @@
 \parbox[t][6cm][c]{12cm}{%
 \vfill
 \centering
-\includegraphics[height=6cm,width=12cm]{#1}%
+\includegraphics[height=6cm,width=6cm]{#1}%
 \vfill
 }}
 

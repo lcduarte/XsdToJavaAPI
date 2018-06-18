@@ -278,7 +278,8 @@ Attribute classes:
 Visitor classes:
 
 \begin{itemize}
-	\item ElementVisitor - An interface that defines methods for all the generated elements that can be visited with the Visitor pattern. All the methods have a default implementation that point to a single method. This behaviour aims to reduce the amount of code needed to create concrete implementations of  Visitors.
+	\item ElementVisitor - An interface that defines methods for all the generated elements that can be visited with the Visitor pattern. 
+	\item AbstractElementVisitor - An abstract class that implements ElementVisitor. All the implemented methods point to a single method. This behaviour aims to reduce the amount of code needed to create concrete implementations of  Visitors.
 \end{itemize}
 
 \noindent

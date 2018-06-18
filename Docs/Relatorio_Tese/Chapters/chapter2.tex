@@ -19,7 +19,7 @@ Templates engines are systems based on template files. A template file contains 
 \end{enumerate}
 
 \noindent
-By using template files, the template engines are able to separate the presentation aspect of a given project from its business logic. This is usually important since by having these aspects separated posterior changes to the visual presentation will be implemented faster since there are very few dependencies between the project different layers. By using this approach bring other advantages, such as:
+By using template files, the template engines are able to separate the presentation aspect of a given project from its business logic. This is usually important since by having these aspects separated posterior changes to the visual presentation will be implemented faster since there are very few dependencies between the project different layers. By using this approach template engines benefit on the following points:
 
 \begin{enumerate}
 \item Performance - By reusing the template files the engine avoids repetitive tasks.
@@ -39,7 +39,7 @@ Even though \texttt{xmlet} doesn't aim to be a template engine, both technologie
 
 \begin{itemize}
 	\item Template definition - \texttt{xmlet} can define a template within the Java language, removing the need to use external files which usually implies using an extra "language" or syntax in order to define the template. This template definition has the disadvantage of being tied to a concrete language such as Java, which shouldn't be problematic if a project isn't supposed to change language. 
-	\item Template substitution - \texttt{xmlet} can also define a template to receive a certain type of data in order to fill the dynamic information of any given template. This should be faster than the regular behaviour of template engines since \texttt{xmlet} doesn't need to read its template from a file on the file system.
+	\item Template substitution - \texttt{xmlet} can also define a template to receive a certain type of data in order to fill the dynamic information of the template. This should be faster than the regular behaviour of template engines since \texttt{xmlet} doesn't need to read its template from a file on the file system.
 \end{itemize}
 
 \subsection{J2html} % (fold)
