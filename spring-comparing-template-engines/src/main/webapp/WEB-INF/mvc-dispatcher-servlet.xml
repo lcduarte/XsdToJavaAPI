@@ -147,6 +147,14 @@
         <property name="cache" value="true"/>
     </bean>
 
+    <!-- EmptyView -->
+    <bean id="empty" class="com.jeroenreijn.examples.emptyview.EmptyViewResolver">
+        <property name="viewNames" value="*-empty"/>
+        <property name="order" value="15"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="cache" value="true"/>
+    </bean>
+
     <!-- Scalate -->
     <bean id="scalateViewResolver" class="org.fusesource.scalate.spring.view.ScalateViewResolver">
         <property name="prefix" value="/WEB-INF/scalate/"/>

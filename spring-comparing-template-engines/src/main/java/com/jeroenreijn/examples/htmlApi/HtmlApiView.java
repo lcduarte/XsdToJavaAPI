@@ -20,22 +20,22 @@ public class HtmlApiView extends AbstractTemplateView {
 
         documentRoot.
                 head()
-                    .meta().attrCharset("utf-8").º()
-                    .meta().attrName("viewport").attrContent("width=device-width, initial-scale=1.0").º()
-                    .meta().attrHttpEquiv(EnumHttpEquivMeta.CONTENT_LANGUAGE).attrContent("IE=Edge").º()
-                    .title().text("JFall 2013 Presentations - htmlApi").º()
-                    .link().attrRel(EnumRelLinkType.STYLESHEET).attrHref("/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css").attrMedia(EnumMediaMediaType.SCREEN).º().º()
+                .meta().attrCharset("utf-8").º()
+                .meta().attrName("viewport").attrContent("width=device-width, initial-scale=1.0").º()
+                .meta().attrHttpEquiv(EnumHttpEquivMeta.CONTENT_LANGUAGE).attrContent("IE=Edge").º()
+                .title().text("JFall 2013 Presentations - htmlApi").º()
+                .link().attrRel(EnumRelLinkType.STYLESHEET).attrHref("/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css").attrMedia(EnumMediaMediaType.SCREEN).º().º()
                 .body()
-                    .div().attrClass("container")
-                        .div().attrClass("page-header")
-                            .h1().text("JFall 2013 Presentations - htmlApi").º().º()
-                        .<Iterable<Presentation>>binder( (elem, presentations) ->
-                                    presentations.forEach(presentation ->
-                                        elem.div().attrClass("panel panel-default")
-                                                .div().attrClass("panel-heading")
-                                                    .h3().attrClass("panel-title").text(presentation.getTitle() + " - " + presentation.getSpeakerName()).º().º()
-                                                .div().attrClass("panel-body").text(presentation.getSummary()).º().º()
-                )).º()
+                .div().attrClass("container")
+                .div().attrClass("page-header")
+                .h1().text("JFall 2013 Presentations - htmlApi").º().º()
+                .<Iterable<Presentation>>binder( (elem, presentations) ->
+                        presentations.forEach(presentation ->
+                                elem.div().attrClass("panel panel-default")
+                                        .div().attrClass("panel-heading")
+                                        .h3().attrClass("panel-title").text(presentation.getTitle() + " - " + presentation.getSpeakerName()).º().º()
+                                        .div().attrClass("panel-body").text(presentation.getSummary()).º().º()
+                        )).º()
                 .script().attrSrc("/webjars/jquery/3.1.1/jquery.min.js").º()
                 .script().attrSrc("/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js");
     }

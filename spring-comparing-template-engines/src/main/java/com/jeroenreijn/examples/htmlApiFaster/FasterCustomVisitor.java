@@ -17,18 +17,16 @@ public class FasterCustomVisitor extends ElementVisitor<java.lang.Object> {
 
     @Override
     public void visit(Element elem) {
-        String str = "";
-
         if (!empty && !isNewlined){
             if (!isClosed){
-                str = ">\n";
+                print(">\n");
             } else {
-                str = "\n";
+                print("\n");
             }
         }
 
         //doTabs(elem.getDepth());
-        print(str + '<' + elem.getName());
+        print('<' + elem.getName());
         isClosed = false;
         isNewlined = false;
         empty = false;
@@ -72,9 +70,9 @@ public class FasterCustomVisitor extends ElementVisitor<java.lang.Object> {
         String textValue = text.getValue();
 
         if (textValue != null){
-            //print(">\n");
+            print(">\n");
             //doTabs(text.getDepth());
-            print(">\n" + textValue + '\n');
+            print(textValue + '\n');
             isNewlined = true;
             isClosed = false;
         }
