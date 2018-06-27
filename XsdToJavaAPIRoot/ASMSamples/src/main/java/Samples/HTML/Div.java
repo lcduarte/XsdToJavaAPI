@@ -32,8 +32,6 @@ public class Div<P extends Element> extends AbstractElement<Div<P>, P> implement
     }
 
     public Div<P> addSomeAttribute(String val){
-        SomeAttribute attribute = new SomeAttribute(val);
-        addAttr(attribute);
-        return this;
+        return this.addAttr(new SomeAttribute(val));
     }
 }

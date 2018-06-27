@@ -2,10 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/AndroidLayouts" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/AndroidLayoutsApi" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/HtmlApi" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/HtmlApiTest" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/XsdAsm" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/XsdParser" vcs="Git" />
   </component>

@@ -35,6 +35,10 @@ public abstract class XsdReferenceElement extends XsdAnnotatedElements {
         return name == null ? null : name.replaceAll("[^a-zA-Z0-9]", "_");
     }
 
+    String getRawName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

@@ -48,8 +48,16 @@ public class XsdExtension extends XsdAnnotatedElements {
     public void replaceUnsolvedElements(NamedConcreteElement element) {
         super.replaceUnsolvedElements(element);
 
-        if (this.base != null && this.base instanceof UnsolvedReference && element.getElement() instanceof XsdElement && ((UnsolvedReference) this.base).getRef().equals(element.getName())){
+        XsdReferenceElement elem = element.getElement();
+        String elemName = elem.getRawName();
+
+        if (this.base != null && this.base instanceof UnsolvedReference && elem instanceof XsdElement && ((UnsolvedReference) this.base).getRef().equals(elemName)){
             this.base = element;
+        }
+
+        if (this.childElement != null && this.childElement instanceof UnsolvedReference &&
+                elem instanceof XsdGroup && ((UnsolvedReference) this.childElement).getRef().equals(elemName)){
+            this.childElement = element;
         }
 
         visitor.replaceUnsolvedAttributes(element);
@@ -85,6 +93,14 @@ public class XsdExtension extends XsdAnnotatedElements {
 
     public Stream<XsdAttributeGroup> getXsdAttributeGroup() {
         return visitor.getXsdAttributeGroup();
+    }
+
+    public XsdAbstractElement getXsdChildElement(){
+        if (childElement == null) {
+            return null;
+        }
+
+        return childElement instanceof UnsolvedReference ? null : ((ConcreteElement) childElement).getElement();
     }
 
     public void setChildElement(ReferenceBase childElement) {

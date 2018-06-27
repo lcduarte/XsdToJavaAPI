@@ -11,6 +11,10 @@ public class PersonalInfo<P extends Element> extends AbstractElement<PersonalInf
         super(parent, personalInfo);
     }
 
+    public PersonalInfo(P parent) {
+        super(parent, "personalInfo");
+    }
+
     @Override
     public PersonalInfo<P> self() {
         return this;

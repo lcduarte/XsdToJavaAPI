@@ -6,17 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="AndroidLayouts" />
         <module name="androidLayouts" />
-        <module name="AndroidLayoutsApi" />
         <module name="androidLayoutsApiTest" />
         <module name="AndroidLayoutsApiTest" />
-        <module name="ASMSamples" />
-        <module name="Benchmark" />
         <module name="Html5Xsd2JavaApi" />
         <module name="Html5Xsd2JavaApiTest" />
-        <module name="HtmlApi" />
-        <module name="HtmlApiTest" />
         <module name="XsdAsm" />
         <module name="XsdAsmTest" />
         <module name="XsdClassGenerator" />

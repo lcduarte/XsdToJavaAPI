@@ -63,7 +63,7 @@
       <xs:element ref="Space" />
       <xs:element ref="Spinner" />
       <xs:element ref="StackView" />
-      <xs:element ref="Switch" />
+      <xs:element ref="Switchh" />
       <xs:element ref="TabHost" />
       <xs:element ref="TabWidget" />
       <xs:element ref="TableLayout" />
@@ -1090,12 +1090,12 @@
       <xs:extension base="AdapterViewAnimator" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="Switch" type="Switch">
+  <xs:element name="Switchh" type="Switchh">
     <xs:annotation>
-      <xs:documentation>Runtime Type: Android.Widget.Switch</xs:documentation>
+      <xs:documentation>Runtime Type: Android.Widget.Switchh</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:complexType name="Switch">
+  <xs:complexType name="Switchh">
     <xs:complexContent mixed="false">
       <xs:extension base="CompoundButton">
         <xs:attribute ref="android:switchMinWidth" />
