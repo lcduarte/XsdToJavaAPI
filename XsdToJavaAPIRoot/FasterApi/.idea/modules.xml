@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ASMSamples/ASMSamples.iml" filepath="$PROJECT_DIR$/ASMSamples/ASMSamples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FasterApi.iml" filepath="$PROJECT_DIR$/FasterApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HtmlApiFaster/HtmlApiFaster.iml" filepath="$PROJECT_DIR$/HtmlApiFaster/HtmlApiFaster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HtmlApiFasterTest/HtmlApiFasterTest.iml" filepath="$PROJECT_DIR$/HtmlApiFasterTest/HtmlApiFasterTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XsdAsmFaster/XsdAsmFaster.iml" filepath="$PROJECT_DIR$/XsdAsmFaster/XsdAsmFaster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XsdAsmFasterTest/XsdAsmFasterTest.iml" filepath="$PROJECT_DIR$/XsdAsmFasterTest/XsdAsmFasterTest.iml" />
+    </modules>
+  </component>
+</project>

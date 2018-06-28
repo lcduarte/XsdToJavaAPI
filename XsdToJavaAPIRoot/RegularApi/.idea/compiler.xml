@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="AndroidLayouts" />
+        <module name="androidLayouts" />
+        <module name="androidLayoutsApi" />
+        <module name="AndroidLayoutsApi" />
+        <module name="ASMSamples" />
+        <module name="HtmlApi" />
+        <module name="htmlApi" />
+        <module name="htmlApiTest" />
+        <module name="HtmlApiTest" />
+        <module name="xsdAsm" />
+        <module name="XsdAsm" />
+        <module name="XsdAsmTest" />
+        <module name="xsdAsmTest" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AndroidLayouts" target="1.8" />
+      <module name="androidLayouts" target="1.8" />
+      <module name="androidLayoutsApi" target="1.8" />
+      <module name="AndroidLayoutsApi" target="1.8" />
+      <module name="ASMSamples" target="9" />
+      <module name="htmlApi" target="1.8" />
+      <module name="HtmlApi" target="1.8" />
+      <module name="htmlApiTest" target="1.8" />
+      <module name="HtmlApiTest" target="1.8" />
+      <module name="RegularApi" target="9" />
+      <module name="xsdAsm" target="9" />
+      <module name="XsdAsm" target="9" />
+      <module name="XsdAsmTest" target="9" />
+      <module name="xsdAsmTest" target="9" />
+      <module name="XsdToJavaAPIRoot" target="9" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
