@@ -17,6 +17,7 @@
     <orderEntry type="jdk" jdkName="9.0" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: com.github.xmlet:htmlApi:1.0.8-snapshot" level="project" />
+    <orderEntry type="library" name="Maven: com.github.xmlet:htmlApi:1.0.9" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="module" module-name="XsdAsm" />
@@ -27,9 +28,9 @@
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-util:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-xml:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />
-    <orderEntry type="library" name="Maven: com.github.xmlet:xsdParser:1.0.8" level="project" />
+    <orderEntry type="library" name="Maven: com.github.xmlet:xsdParser:1.0.9" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:1.0.0.GA" level="project" />
-    <orderEntry type="library" name="Maven: com.github.xmlet:htmlApi:1.0.9" level="project" />
+    <orderEntry type="library" name="Maven: com.github.xmlet:htmlApi:1.0.10" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.windup.decompiler:decompiler-fernflower:4.0.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.windup.decompiler.fernflower:windup-fernflower:1.0.0.20171018" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.windup.decompiler:decompiler-api:forge-addon:4.0.0.Final" level="project" />
