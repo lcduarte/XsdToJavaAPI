@@ -9,9 +9,9 @@ public abstract class Visitor {
 
     abstract void visitParent(Element element);
 
-    void visit(Text elem){
-        visit((Element) elem);
-    }
+    abstract void visit(Text elem);
+
+    abstract void visit(Comment elem);
 
 }
 

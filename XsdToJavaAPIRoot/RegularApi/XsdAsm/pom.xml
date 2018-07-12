@@ -3,7 +3,7 @@
 
     <groupId>com.github.xmlet</groupId>
     <artifactId>xsdAsm</artifactId>
-    <version>1.0.11-SNAPSHOT</version>
+    <version>1.0.12-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
@@ -29,8 +29,50 @@
                         <configuration>
                             <mainClass>org.xmlet.xsdasm.main.XsdAsmMain</mainClass>
                             <arguments>
-                                <argument>${project.basedir}\src\main\resources\test.xsd</argument>
-                                <argument>TestObjects</argument>
+                                <argument>${project.basedir}\src\main\resources\test_min.xsd</argument>
+                                <argument>testMin</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>my-execution2</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.xmlet.xsdasm.main.XsdAsmMain</mainClass>
+                            <arguments>
+                                <argument>${project.basedir}\src\main\resources\android.xsd</argument>
+                                <argument>android</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>my-execution3</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.xmlet.xsdasm.main.XsdAsmMain</mainClass>
+                            <arguments>
+                                <argument>${project.basedir}\src\main\resources\html_5.xsd</argument>
+                                <argument>html</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>my-execution4</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.xmlet.xsdasm.main.XsdAsmMain</mainClass>
+                            <arguments>
+                                <argument>${project.basedir}\src\main\resources\wpfe.xsd</argument>
+                                <argument>wpfe</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -92,7 +134,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -146,7 +188,7 @@
                 </dependencies>
             </plugin>
 
-            <plugin>
+            <!--plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.0</version>
@@ -164,7 +206,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
         </plugins>
     </build>
 
@@ -193,7 +235,7 @@
         <connection>scm:git:git@github.com:xmlet/XsdAsm.git</connection>
         <developerConnection>scm:git:git@github.com:xmlet/XsdAsm.git</developerConnection>
         <url>git@github.com:xmlet/XsdAsm.git</url>
-        <tag>xsdAsm-1.0.9</tag>
+        <tag>xsdAsm-1.0.12</tag>
     </scm>
     <distributionManagement>
         <snapshotRepository>
@@ -266,7 +308,7 @@
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>xsdParser</artifactId>
-            <version>1.0.9</version>
+            <version>1.0.10-snapshot</version>
         </dependency>
     </dependencies>
 

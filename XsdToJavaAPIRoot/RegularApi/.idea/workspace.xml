@@ -2,15 +2,75 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e30ea7a4-15f0-4688-9f40-c54abc55b475" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AndroidLayouts/src/test/java/org/xmlet/androidlayoutsapitest/CustomVisitor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceMethodInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/SequenceMethodInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorAndroid.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorMin.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorWpfe.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmAndroidTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmHtmlTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmMinTest.java" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/XsdAsmTest.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/android.xsd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/html_5.xsd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/html_5_orig.xsd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/test.xsd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/test_min.xsd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/vstst.xsd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/wpfe.xsd" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser" afterPath="$PROJECT_DIR$/../Common/XsdParser" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/HtmlApiFaster" afterPath="$PROJECT_DIR$/../FasterApi/HtmlApiFaster" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest" afterPath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFasterTest" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFasterTest" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Common/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" afterPath="$PROJECT_DIR$/../FasterApi/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../FasterApi/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidLayouts/AndroidLayouts.iml" afterPath="$PROJECT_DIR$/AndroidLayouts/AndroidLayouts.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_androidLayoutsApi_1_0_0_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_androidLayoutsApi_1_0_0_snapshot.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_11_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_11_snapshot.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidLayouts/androidLayouts.iml" afterPath="$PROJECT_DIR$/AndroidLayouts/androidLayouts.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidLayouts/pom.xml" afterPath="$PROJECT_DIR$/AndroidLayouts/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidLayouts/src/main/resources/android.xsd" afterPath="$PROJECT_DIR$/AndroidLayouts/src/main/resources/android.xsd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidLayouts/src/test/java/org/xmlet/androidlayoutsapitest/AndroidLayoutsApiTest.java" afterPath="$PROJECT_DIR$/AndroidLayouts/src/test/java/org/xmlet/androidlayoutsapitest/AndroidLayoutsApiTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidLayoutsApi/AndroidLayoutsApi.iml" afterPath="$PROJECT_DIR$/AndroidLayoutsApi/AndroidLayoutsApi.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidLayoutsApi/pom.xml" afterPath="$PROJECT_DIR$/AndroidLayoutsApi/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidLayoutsApi/src/main/resources/android.xsd" afterPath="$PROJECT_DIR$/AndroidLayoutsApi/src/main/resources/android.xsd" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/HtmlApi.iml" afterPath="$PROJECT_DIR$/HtmlApi/HtmlApi.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/README.md" afterPath="$PROJECT_DIR$/HtmlApi/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/pom.xml" afterPath="$PROJECT_DIR$/HtmlApi/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/src/main/resources/html_5.xsd" afterPath="$PROJECT_DIR$/HtmlApi/src/main/resources/html_5.xsd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApi/src/main/resources/html_5_orig.xsd" afterPath="$PROJECT_DIR$/HtmlApi/src/main/resources/html_5_orig.xsd" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" afterPath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/pom.xml" afterPath="$PROJECT_DIR$/HtmlApiTest/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/src/main/resources/html_5.xsd" afterPath="$PROJECT_DIR$/HtmlApiTest/src/main/resources/html_5.xsd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" afterPath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/Utils/CustomVisitor.java" afterPath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/Utils/CustomVisitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/Utils/Student.java" afterPath="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/Utils/Student.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/XsdAsm.iml" afterPath="$PROJECT_DIR$/XsdAsm/XsdAsm.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/pom.xml" afterPath="$PROJECT_DIR$/XsdAsm/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsm.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmEnum.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmEnum.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmVisitors.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmVisitors.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdLogger.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdLogger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/main/XsdAsmMain.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/main/XsdAsmMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/resources/android.xsd" afterPath="$PROJECT_DIR$/XsdAsm/src/main/resources/android.xsd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/resources/html_5.xsd" afterPath="$PROJECT_DIR$/XsdAsm/src/main/resources/html_5.xsd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/resources/html_5_orig.xsd" afterPath="$PROJECT_DIR$/XsdAsm/src/main/resources/html_5_orig.xsd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/resources/test.xsd" afterPath="$PROJECT_DIR$/XsdAsm/src/main/resources/test.xsd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/resources/test_min.xsd" afterPath="$PROJECT_DIR$/XsdAsm/src/main/resources/test_min.xsd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/resources/wpfe.xsd" afterPath="$PROJECT_DIR$/XsdAsm/src/main/resources/wpfe.xsd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsmTest/pom.xml" afterPath="$PROJECT_DIR$/XsdAsmTest/pom.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/AttributeHierarchyItem.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/AttributeHierarchyItem.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/ElementHierarchyItem.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/ElementHierarchyItem.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmTest.java" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmWpfeTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/ASMSamples/target/" />
@@ -29,10 +89,65 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/XsdAsmTest/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-749">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/XsdAsm/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="137" column="21" lean-forward="false" selection-start-line="137" selection-start-column="21" selection-end-line="137" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XsdAsmUtils.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="445" column="47" lean-forward="false" selection-start-line="445" selection-start-column="47" selection-end-line="445" selection-end-column="47" />
+              <folding>
+                <element signature="e#19185#19186#0" expanded="true" />
+                <element signature="e#19239#19240#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>textType</find>
+      <find>textTypeDesc</find>
+      <find>include</find>
+      <find>Canvas_Clip</find>
+      <find>name=&quot;simpleFlowContentElement&quot;</find>
+      <find>CHECKCAST</find>
+      <find>attr</find>
+      <find>&quot;&lt;T::L&quot; + elementType + &quot;&lt;TT;TZ;&gt;;Z::&quot; + elementTypeDesc + &quot;&gt;&quot; + JAVA_OBJECT_DESC</find>
+      <find>XsdAsmInterfaces.</find>
+      <find>listToArray</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/XsdAsm" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -42,8 +157,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/HtmlApi/pom.xml" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Interfaces/PersonalInfoSequence3.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Interfaces/PersonalInfoSequence4.java" />
+        <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorWpfe.java" />
+        <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorMin.java" />
+        <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorHtml.java" />
+        <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorAndroid.java" />
+        <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmHtmlTest.java" />
+        <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/Utils/CustomVisitor.java" />
+        <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
+        <option value="$PROJECT_DIR$/AndroidLayoutsApi/pom.xml" />
+        <option value="$PROJECT_DIR$/AndroidLayouts/pom.xml" />
+        <option value="$PROJECT_DIR$/AndroidLayouts/src/test/java/org/xmlet/androidlayoutsapitest/CustomVisitor.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsm.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/pom.xml" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoComplete.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/Element.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/CustomVisitor.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/AbstractElement.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/BaseAttribute.java" />
+        <option value="$PROJECT_DIR$/HtmlApi/src/main/java/org/xmlet/htmlapi/A.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Interfaces/PersonalInfoSequence5.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/testMin/GroupWSequenceSequence2.class" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Classes/Elem1.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Classes/Elem2.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Interfaces/ANameSequence1.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Classes/AName.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Classes/ANameElem1.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Interfaces/ANameSequence2.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/HTML/SomeAttribute.java" />
+        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmEnum.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmVisitors.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdLogger.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/InterfaceInfo.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/AttributeHierarchyItem.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/ElementHierarchyItem.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceInfo.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceMethodInfo.java" />
+        <option value="$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/html/Html.class" />
+        <option value="$PROJECT_DIR$/XsdAsmTest/src/test/resources/test_min.xsd" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/resources/test_min.xsd" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/SequenceMethodInfo.java" />
+        <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmMinTest.java" />
+        <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmAndroidTest.java" />
+        <option value="$PROJECT_DIR$/AndroidLayouts/src/test/java/org/xmlet/androidlayoutsapitest/AndroidLayoutsApiTest.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" />
+        <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java" />
       </list>
     </option>
   </component>
@@ -81,6 +245,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -88,14 +256,115 @@
               <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
               <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="HtmlApi" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="xsdasm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="xsdasm" type="462c0819:PsiDirectoryNode" />
+              <item name="classes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="xsdasm" type="462c0819:PsiDirectoryNode" />
+              <item name="classes" type="462c0819:PsiDirectoryNode" />
+              <item name="Utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="xsdasm" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
+              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -106,6 +375,12 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.xmlet.androidlayoutsapitest" />
+      <recent name="" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -119,7 +394,100 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.XsdAsmMain">
+    <configuration name="ASMMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="ASMMain" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ASMSamples" />
+      <envs />
+    </configuration>
+    <configuration name="XsdAsmAndroidTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="XsdAsmTest" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="XsdAsmAndroidTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="XsdAsmHtmlTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="XsdAsmTest" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="XsdAsmHtmlTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="XsdAsmMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="org.xmlet.xsdasm.main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="org.xmlet.xsdasm.main.XsdAsmMain" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;D:\ISEL\Tese\Desenvolvimento\Repositorio\XsdToJavaAPI\XsdToJavaAPIRoot\RegularApi\XsdAsm\src\main\resources\test_min.xsd&quot; &quot;testMin&quot;" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="XsdAsm" />
+      <envs />
+    </configuration>
+    <configuration name="XsdAsmMinTest.testGroupWithInnerSequence" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="XsdAsmTest" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="XsdAsmMinTest" />
+      <option name="METHOD_NAME" value="testGroupWithInnerSequence" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -248,6 +616,22 @@
       <option name="_new_target" value="&quot;&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="Application.XsdAsmMain" />
+      <item index="1" class="java.lang.String" itemvalue="Application.ASMMain" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.XsdAsmAndroidTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.XsdAsmHtmlTest" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.XsdAsmMinTest.testGroupWithInnerSequence" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Application.XsdAsmMain" />
+        <item index="1" class="java.lang.String" itemvalue="Application.ASMMain" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.XsdAsmMinTest.testGroupWithInnerSequence" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.XsdAsmHtmlTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.XsdAsmAndroidTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -269,28 +653,83 @@
       <workItem from="1530213589827" duration="45000" />
       <workItem from="1530213643526" duration="17000" />
       <workItem from="1530213669261" duration="5000" />
+      <workItem from="1530545248190" duration="241000" />
+      <workItem from="1530548934867" duration="4672000" />
+      <workItem from="1530555247476" duration="857000" />
+      <workItem from="1530632007227" duration="214000" />
+      <workItem from="1530639278055" duration="5143000" />
+      <workItem from="1530720088816" duration="9854000" />
+      <workItem from="1530807545593" duration="8281000" />
+      <workItem from="1530895420952" duration="567000" />
+      <workItem from="1531146309461" duration="7990000" />
+      <workItem from="1531226416249" duration="5687000" />
+      <workItem from="1531302097436" duration="19533000" />
+      <workItem from="1531331852685" duration="1689000" />
+      <workItem from="1531497966666" duration="360000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="XsdAsmHtmlTest - 2018.07.04 at 19h 16m 12s.xml">
+      <configuration name="XsdAsmHtmlTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdAsmHtmlTest - 2018.07.04 at 19h 17m 44s.xml">
+      <configuration name="XsdAsmHtmlTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdAsmHtmlTest - 2018.07.04 at 19h 18m 11s.xml">
+      <configuration name="XsdAsmHtmlTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdAsmMinTest - 2018.07.04 at 18h 28m 15s.xml">
+      <configuration name="XsdAsmMinTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdAsmMinTest - 2018.07.04 at 18h 28m 36s.xml">
+      <configuration name="XsdAsmMinTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdAsmMinTest - 2018.07.04 at 18h 33m 38s.xml">
+      <configuration name="XsdAsmMinTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdAsmMinTest - 2018.07.04 at 18h 38m 29s.xml">
+      <configuration name="XsdAsmMinTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdAsmMinTest - 2018.07.04 at 18h 39m 18s.xml">
+      <configuration name="XsdAsmMinTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdAsmMinTest_testGroupWithInnerSequence - 2018.07.09 at 15h 55m 12s.xml">
+      <configuration name="XsdAsmMinTest.testGroupWithInnerSequence" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="XsdAsmWpfeTest - 2018.07.04 at 18h 28m 05s.xml">
+      <configuration name="XsdAsmWpfeTest" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="631000" />
+    <option name="totallyTimeSpent" value="65719000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47982708" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27609682" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3184569" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -298,14 +737,15 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45821327" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32853025" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32053423" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,15 +760,260 @@
     </ignored-roots>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorWpfe.java</url>
+          <line>28</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="26" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="102">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.10-SNAPSHOT/xsdParser-1.0.10-SNAPSHOT-sources.jar!/org/xmlet/xsdparser/xsdelements/XsdExtension.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="58" column="40" lean-forward="false" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/ElementHierarchyItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="33" column="11" lean-forward="false" selection-start-line="33" selection-start-column="11" selection-end-line="33" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/AttributeHierarchyItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.10-SNAPSHOT/xsdParser-1.0.10-SNAPSHOT-sources.jar!/org/xmlet/xsdparser/xsdelements/XsdGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/html/Html.class" />
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/Set.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="251" column="12" lean-forward="false" selection-start-line="251" selection-start-column="12" selection-end-line="251" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.10-SNAPSHOT/xsdParser-1.0.10-SNAPSHOT-sources.jar!/org/xmlet/xsdparser/xsdelements/XsdAll.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/html/CommonEventsGroup.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/html/CoreServerAttributeGroup.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/html/CommonAttributeGroup.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="101" lean-forward="true" selection-start-line="7" selection-start-column="101" selection-end-line="7" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/html/CoreAttributeGroup.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/target/classes/org/xmlet/html/Button.class" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/html/Html.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/PersonInfoPersonAddress.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="127" lean-forward="false" selection-start-line="7" selection-start-column="127" selection-end-line="7" selection-end-column="127" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/PersonInfoSequence3.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/PersonInfoSequence2.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="12" column="31" lean-forward="true" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/PersonInfoLastName.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="123" lean-forward="false" selection-start-line="7" selection-start-column="123" selection-end-line="7" selection-end-column="123" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/PersonInfoSequence1.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="12" column="28" lean-forward="false" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/PersonInfoFirstName.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="117" lean-forward="true" selection-start-line="7" selection-start-column="117" selection-end-line="7" selection-end-column="117" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/PersonInfoSequence0.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="12" column="20" lean-forward="false" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/PersonInfo.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="106" lean-forward="true" selection-start-line="7" selection-start-column="106" selection-end-line="7" selection-end-column="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsmTest/src/test/resources/test.xsd" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/InnerSequencesSequence1.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/InnerSequencesV1.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="118" lean-forward="false" selection-start-line="7" selection-start-column="118" selection-end-line="7" selection-end-column="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/InnerSequencesSequence0.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="14" column="21" lean-forward="true" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsm/1.0.12-SNAPSHOT/xsdAsm-1.0.12-SNAPSHOT.jar!/org/xmlet/testMin/InnerSequences.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="111" lean-forward="false" selection-start-line="7" selection-start-column="111" selection-end-line="7" selection-end-column="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsmTest/src/test/resources/test_min.xsd" />
+    <entry file="file://$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmWpfeTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmHtmlTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="10" column="15" lean-forward="false" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmAndroidTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-983">
+          <caret line="13" column="38" lean-forward="false" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidLayouts/src/test/java/org/xmlet/androidlayoutsapitest/AndroidLayoutsApiTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="14" column="89" lean-forward="false" selection-start-line="14" selection-start-column="89" selection-end-line="14" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceMethodInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="18" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="63" column="5" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="63" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/SequenceMethodInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/resources/test_min.xsd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="86" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmMinTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="301" column="5" lean-forward="true" selection-start-line="243" selection-start-column="4" selection-end-line="301" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -340,123 +1025,121 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorHtml.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="441">
+          <caret line="86" column="5" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="86" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/pom.xml">
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdLogger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="170">
+          <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+          <folding>
+            <element signature="e#213#214#0" expanded="false" />
+            <element signature="e#242#243#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmVisitors.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="61" column="121" lean-forward="false" selection-start-line="61" selection-start-column="121" selection-end-line="61" selection-end-column="121" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmEnum.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="254">
+          <caret line="158" column="42" lean-forward="true" selection-start-line="158" selection-start-column="42" selection-end-line="158" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/pom.xml">
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="288">
+          <caret line="404" column="54" lean-forward="false" selection-start-line="404" selection-start-column="54" selection-end-line="404" selection-end-column="54" />
+          <folding>
+            <element signature="docComment;method#getInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="docComment;method#groupMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="docComment;method#sequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="docComment;method#createElementsForSequence#0;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="docComment;method#createElementsForSequence#1;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="docComment;method#generateSequenceInnerElement#0;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="method#reusableSequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="method#firstRegularSequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="method#remainingRegularSequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="docComment;method#getSequenceInfo#0;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="method#getSequenceInfo#0;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="docComment;method#allMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
+            <element signature="docComment;method#choiceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="194">
+          <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="35" column="45" lean-forward="false" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/pom.xml">
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApi/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="191">
+          <caret line="22" column="24" lean-forward="false" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsmTest/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="-749">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/XsdAsm/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+        <state relative-caret-position="340">
+          <caret line="137" column="21" lean-forward="false" selection-start-line="137" selection-start-column="21" selection-end-line="137" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="445" column="47" lean-forward="false" selection-start-line="445" selection-start-column="47" selection-end-line="445" selection-end-column="47" />
+          <folding>
+            <element signature="e#19185#19186#0" expanded="true" />
+            <element signature="e#19239#19240#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

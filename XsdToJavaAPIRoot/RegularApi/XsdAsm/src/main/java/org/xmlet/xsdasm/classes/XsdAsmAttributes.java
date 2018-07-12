@@ -8,8 +8,6 @@ import org.xmlet.xsdparser.xsdelements.XsdList;
 import org.xmlet.xsdparser.xsdelements.XsdRestriction;
 import org.xmlet.xsdparser.xsdelements.xsdrestrictions.*;
 
-import java.util.List;
-
 import static org.objectweb.asm.Opcodes.*;
 import static org.xmlet.xsdasm.classes.XsdAsmEnum.*;
 import static org.xmlet.xsdasm.classes.XsdAsmUtils.*;
@@ -29,24 +27,22 @@ class XsdAsmAttributes {
         String camelCaseName = attributeName.toLowerCase().charAt(0) + attributeName.substring(1);
         String attributeClassType = getFullClassTypeName(getAttributeName(elementAttribute), apiName);
         String attributeGroupInterfaceType = getFullClassTypeName(className, apiName);
-        MethodVisitor mVisitor;
         boolean isInterfaceMethod = isInterfaceMethod(returnType);
-
+        String attrName = firstToLower(ATTRIBUTE_PREFIX + getCleanName(elementAttribute));
         String javaType = getFullJavaType(elementAttribute);
+        String signature;
 
         if (attributeHasEnum(elementAttribute)){
             javaType = getFullClassTypeNameDesc(getEnumName(elementAttribute), apiName);
         }
 
         if (isInterfaceMethod){
-            mVisitor = classWriter.visitMethod(ACC_PUBLIC, camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")TT;", null);
+            signature = "(" + javaType + ")TT;";
         } else {
-            mVisitor = classWriter.visitMethod(ACC_PUBLIC, camelCaseName, "(" + javaType + ")" + returnType, "(" + javaType + ")" + returnType.substring(0, returnType.length() - 1) + "<TZ;>;", null);
+            signature = "(" + javaType + ")" + returnType.substring(0, returnType.length() - 1) + "<TZ;>;";
         }
 
-        String attrName = "attr" + getCleanName(elementAttribute);
-        attrName = attrName.substring(0, 1).toLowerCase() + attrName.substring(1);
-
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, camelCaseName, "(" + javaType + ")" + returnType, signature, null);
         mVisitor.visitLocalVariable(attrName, javaType, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
@@ -74,23 +70,18 @@ class XsdAsmAttributes {
      */
     static void generateAttribute(XsdAttribute attribute, String apiName){
         String camelAttributeName = getAttributeName(attribute);
-        List<XsdRestriction> restrictions = getAttributeRestrictions(attribute);
         XsdList list = getAttributeList(attribute);
         String javaType = getFullJavaType(attribute);
+        MethodVisitor mVisitor;
 
         if (list != null){
-            String fullJavaItemTypeDesc = getFullJavaType(list.getItemType());
-
-            javaType = "L" + JAVA_LIST + "<" + fullJavaItemTypeDesc + ">;";
+            javaType = "L" + JAVA_LIST + "<" + getFullJavaType(list.getItemType()) + ">;";
         }
 
         ClassWriter attributeWriter = generateClass(camelAttributeName, baseAttributeType, null, "L" + baseAttributeType + "<" + javaType + ">;", ACC_PUBLIC + ACC_SUPER, apiName);
 
-        MethodVisitor mVisitor;
-
         if (attributeHasEnum(attribute)) {
-            String enumName = getEnumName(attribute);
-            String enumTypeDesc = getFullClassTypeNameDesc(enumName, apiName);
+            String enumTypeDesc = getFullClassTypeNameDesc(getEnumName(attribute), apiName);
 
             mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + enumTypeDesc + ")V",  null, null);
             mVisitor.visitLocalVariable("attrValue", enumTypeDesc, null, new Label(), new Label(),1);
@@ -98,8 +89,6 @@ class XsdAsmAttributes {
             mVisitor.visitVarInsn(ALOAD, 0);
             mVisitor.visitVarInsn(ALOAD, 1);
             mVisitor.visitMethodInsn(INVOKEINTERFACE, enumInterfaceType, "getValue", "()" + JAVA_OBJECT_DESC, true);
-            mVisitor.visitLdcInsn(attribute.getName().replaceAll("[^a-zA-Z0-9]", ""));
-            mVisitor.visitMethodInsn(INVOKESPECIAL, baseAttributeType, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + JAVA_STRING_DESC + ")V", false);
         } else {
             if (list != null){
                 mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_LIST_DESC + ")V", null, null);
@@ -115,68 +104,43 @@ class XsdAsmAttributes {
                 mVisitor.visitVarInsn(ALOAD, 1);
                 mVisitor.visitTypeInsn(CHECKCAST, javaType.substring(1, javaType.length() - 1));
             }
-
-            mVisitor.visitLdcInsn(attribute.getName().replaceAll("[^a-zA-Z0-9]", ""));
-            mVisitor.visitMethodInsn(INVOKESPECIAL, baseAttributeType, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + JAVA_STRING_DESC + ")V", false);
         }
-        
+
+        mVisitor.visitLdcInsn(attribute.getName().replaceAll("[^a-zA-Z0-9]", ""));
+        mVisitor.visitMethodInsn(INVOKESPECIAL, baseAttributeType, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + JAVA_STRING_DESC + ")V", false);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
 
-        loadRestrictionsToAttribute(attribute, attributeWriter, restrictions, camelAttributeName, apiName);
+        loadRestrictionsToAttribute(attribute, attributeWriter, camelAttributeName, apiName);
 
         writeClassToFile(camelAttributeName, attributeWriter, apiName);
     }
 
     /**
-     * AttrType (Object/String/Integer)
-     * AttrTypeContentType(EnumTypeContentType) NAMED
-     * AttrTypeStyle(EnumTypeStyle)             NO NAME
-     */
-    private static String getAttributeName(XsdAttribute attribute) {
-        String name = ATTRIBUTE_PREFIX + getCleanName(attribute);
-
-        if (attributeHasEnum(attribute)) {
-            return name + getEnumName(attribute).replaceAll(name, "");
-        }
-
-        String javaType = getFullJavaType(attribute);
-
-        return name + javaType.substring(javaType.lastIndexOf('/') + 1, javaType.length() - 1);
-    }
-
-    /**
      * Loads all the existing restrictions to the attribute class. It inserts entries in a list on the static
-     * constructor of the class.
+     * constructor of the class. The maxStack value is three due to the way maps work, the put action always
+     * require three values, the map object, the key and the value.
      * @param attributeWriter The class writer of the attribute class.
-     * @param restrictions The list of restrictions for the attribute.
      * @param camelAttributeName The attribute class name.
      * @param apiName The api this attribute will belong.
      */
-    private static void loadRestrictionsToAttribute(XsdAttribute attribute, ClassWriter attributeWriter, List<XsdRestriction> restrictions, String camelAttributeName, String apiName) {
+    private static void loadRestrictionsToAttribute(XsdAttribute attribute, ClassWriter attributeWriter, String camelAttributeName, String apiName) {
         String attributeType = getFullClassTypeName(camelAttributeName, apiName);
+        int maxStack = 3;
 
-        MethodVisitor mVisitor = attributeWriter.visitMethod(ACC_STATIC, "<clinit>", "()V", null, null);
+        MethodVisitor mVisitor = attributeWriter.visitMethod(ACC_STATIC, STATIC_CONSTRUCTOR, "()V", null, null);
         mVisitor.visitCode();
-
-
-        //TODO Ver porque é que se retirar esta criação gera o problema com o float
-
-        mVisitor.visitTypeInsn(NEW, "java/util/ArrayList");
-        mVisitor.visitInsn(DUP);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/ArrayList", CONSTRUCTOR, "()V", false);
-        mVisitor.visitFieldInsn(PUTSTATIC, attributeType, "restrictions", JAVA_LIST_DESC);
 
         int currIndex = 0;
 
-        for (XsdRestriction restriction : restrictions) {
+        for (XsdRestriction restriction : getAttributeRestrictions(attribute)) {
             currIndex = loadRestrictionToAttribute(attribute, mVisitor, restriction, attributeType, currIndex, apiName);
             currIndex = currIndex + 1;
         }
 
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(4, currIndex);
+        mVisitor.visitMaxs(maxStack, currIndex);
         mVisitor.visitEnd();
     }
 
@@ -189,11 +153,6 @@ class XsdAsmAttributes {
      * @return The value of the last stack index used.
      */
     private static int loadRestrictionToAttribute(XsdAttribute attribute, MethodVisitor mVisitor, XsdRestriction restriction, String attributeType, int index, String apiName) {
-        mVisitor.visitTypeInsn(NEW, "java/util/HashMap");
-        mVisitor.visitInsn(DUP);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/HashMap", CONSTRUCTOR, "()V", false);
-        mVisitor.visitVarInsn(ASTORE, index);
-
         XsdLength length = restriction.getLength();
         XsdMaxLength maxLength = restriction.getMaxLength();
         XsdMinLength minLength = restriction.getMinLength();
@@ -205,10 +164,16 @@ class XsdAsmAttributes {
         XsdPattern pattern = restriction.getPattern();
         XsdTotalDigits totalDigits = restriction.getTotalDigits();
         XsdWhiteSpace whiteSpace = restriction.getWhiteSpace();
-        List<XsdEnumeration> enumerations = restriction.getEnumeration();
 
         if (attributeHasEnum(attribute)){
-            createEnum(attribute, enumerations, apiName);
+            createEnum(attribute, restriction.getEnumeration(), apiName);
+        }
+
+        boolean hasRestriction = length != null || maxLength != null || minLength != null || fractionDigits != null || maxExclusive != null ||
+                maxInclusive != null || minExclusive != null || minInclusive != null || pattern != null || totalDigits != null || whiteSpace != null;
+
+        if (hasRestriction){
+            createHashMap(mVisitor, index);
         }
 
         if (length != null){
@@ -306,19 +271,41 @@ class XsdAsmAttributes {
             mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
         }
 
-        mVisitor.visitFieldInsn(GETSTATIC, attributeType, "restrictions", JAVA_LIST_DESC);
-        mVisitor.visitVarInsn(ALOAD, index);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "add", "(" + JAVA_OBJECT_DESC + ")Z", true);
-        mVisitor.visitInsn(POP);
+        if (hasRestriction){
+            mVisitor.visitFieldInsn(GETSTATIC, attributeType, "restrictions", JAVA_LIST_DESC);
+            mVisitor.visitVarInsn(ALOAD, index);
+            mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "add", "(" + JAVA_OBJECT_DESC + ")Z", true);
+            mVisitor.visitInsn(POP);
+        }
 
         return index;
     }
 
-    private static XsdList getAttributeList(XsdAttribute attribute) {
-        if (attribute.getXsdSimpleType() != null){
-            return attribute.getXsdSimpleType().getList();
+    /**
+     * AttrType (Object/String/Integer)
+     * AttrTypeContentType(EnumTypeContentType) NAMED
+     * AttrTypeStyle(EnumTypeStyle)             NO NAME
+     */
+    private static String getAttributeName(XsdAttribute attribute) {
+        String name = ATTRIBUTE_PREFIX + getCleanName(attribute);
+
+        if (attributeHasEnum(attribute)) {
+            return name + getEnumName(attribute).replaceAll(name, "");
         }
 
-        return null;
+        String javaType = getFullJavaType(attribute);
+
+        return name + javaType.substring(javaType.lastIndexOf('/') + 1, javaType.length() - 1);
+    }
+
+    private static void createHashMap(MethodVisitor mVisitor, int hashMapStackIndex){
+        mVisitor.visitTypeInsn(NEW, "java/util/HashMap");
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/HashMap", CONSTRUCTOR, "()V", false);
+        mVisitor.visitVarInsn(ASTORE, hashMapStackIndex);
+    }
+
+    private static XsdList getAttributeList(XsdAttribute attribute) {
+        return attribute.getXsdSimpleType() != null ? attribute.getXsdSimpleType().getList() : null;
     }
 }

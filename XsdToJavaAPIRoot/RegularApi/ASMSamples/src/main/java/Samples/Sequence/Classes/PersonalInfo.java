@@ -2,8 +2,8 @@ package Samples.Sequence.Classes;
 
 import Samples.HTML.AbstractElement;
 import Samples.HTML.Element;
-import Samples.Sequence.Interfaces.PersonalInfoSequence1;
 import Samples.HTML.Visitor;
+import Samples.Sequence.Interfaces.PersonalInfoSequence1;
 
 public class PersonalInfo<P extends Element> extends AbstractElement<PersonalInfo<P>, P> implements PersonalInfoSequence1<PersonalInfo<P>, P> {
 

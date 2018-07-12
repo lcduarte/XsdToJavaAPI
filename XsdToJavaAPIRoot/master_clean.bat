@@ -6,3 +6,4 @@ call mvn clean
 cd..
 cd RegularApi
 call mvn clean
+cd..

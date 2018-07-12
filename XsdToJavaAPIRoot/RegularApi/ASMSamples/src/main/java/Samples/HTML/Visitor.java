@@ -12,12 +12,10 @@ public interface Visitor<R> {
         sharedVisit(elem);
     }
 
-    default void visit(Text elem){
-        sharedVisit(elem);
-    }
+    void visit(Text elem);
 
-    default <U> void visit(TextFunction<R, U, ?> elem){
-        sharedVisit(elem);
-    }
+    void visit(Comment elem);
+
+    <U> void visit(TextFunction<R, U, ?> elem);
 }
 

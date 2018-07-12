@@ -1,15 +1,16 @@
 package Samples.Sequence.Interfaces;
 
 import Samples.HTML.Element;
-import Samples.Sequence.Classes.*;
+import Samples.Sequence.Classes.LastName;
+import Samples.Sequence.Classes.PersonalInfoLastName;
 
 public interface PersonalInfoSequence2<T extends Element<T, P>, P extends Element> extends Element<T, P> {
 
     default PersonalInfoLastName<P> lastName(String value){
-        PersonalInfoLastName<P> obj = new PersonalInfoLastName<P>(this.º(), "personInfo");
-        this.self().getChildren().forEach(obj::addChild);
-        obj.addChild(new LastName<>(this.self()).text(value));
-        return obj;
+        º().addChild(new LastName<>(self()).text(value));
+        PersonalInfoLastName<P> var = new PersonalInfoLastName<>(º(), "personalInfo");
+        this.getChildren().forEach(var::addChild);
+        return var;
     }
 
 }

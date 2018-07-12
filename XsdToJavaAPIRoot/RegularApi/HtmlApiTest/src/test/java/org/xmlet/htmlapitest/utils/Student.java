@@ -1,4 +1,4 @@
-package org.xmlet.htmlapitest.utils;
+package org.xmlet.htmlapitest.Utils;
 
 public class Student {
     private String name;

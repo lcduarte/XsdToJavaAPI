@@ -7,4 +7,9 @@ public interface TextGroup<T extends Element, P extends Element> extends Element
         return this.self();
     }
 
+    default T comment(String text){
+        new Comment<>(this, text);
+        return this.self();
+    }
+
 }

@@ -8,10 +8,14 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public abstract class AbstractElement<T extends Element<T, P>, P extends Element> implements Element<T, P> {
+    @SuppressWarnings("WeakerAccess")
     protected List<Element> children = new ArrayList<>();
+    @SuppressWarnings("WeakerAccess")
     protected List<IAttribute> attrs = new ArrayList<>();
+    @SuppressWarnings("WeakerAccess")
     protected String name;
     protected P parent;
+    @SuppressWarnings("WeakerAccess")
     protected BiConsumer binderMethod;
 
     protected AbstractElement(String name){
@@ -35,6 +39,7 @@ public abstract class AbstractElement<T extends Element<T, P>, P extends Element
         return this.self();
     }
 
+    @SuppressWarnings("NonAsciiCharacters")
     @Override
     public P º() {
         return parent;
@@ -81,7 +86,7 @@ public abstract class AbstractElement<T extends Element<T, P>, P extends Element
     }
 
     @Override
-    public T bindTo(Object model) {
+    public Element<T, P> bindTo(Object model) {
         if (isBound()){
             binderMethod.accept(this.self(), model);
         }
@@ -89,12 +94,9 @@ public abstract class AbstractElement<T extends Element<T, P>, P extends Element
         return this.self();
     }
 
-    protected <X extends AbstractElement> X clone(X clone) {
-        clone.children = new ArrayList();
-        clone.children.addAll(this.children);
-
-        clone.attrs = new ArrayList();
-        clone.attrs.addAll(this.attrs);
+    <X extends AbstractElement<T, P>> X clone(X clone) {
+        clone.children = new ArrayList<>(this.children);
+        clone.attrs = new ArrayList<>(this.attrs);
 
         clone.name = this.name;
         clone.parent = this.parent;

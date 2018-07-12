@@ -109,14 +109,14 @@
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>xsdAsm</artifactId>
-            <version>1.0.11-SNAPSHOT</version>
+            <version>1.0.12-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>htmlApi</artifactId>
-            <version>1.0.10</version>
+            <version>1.0.11-snapshot</version>
             <scope>compile</scope>
         </dependency>
 

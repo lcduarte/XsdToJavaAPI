@@ -9,6 +9,11 @@ public interface TextGroup<T extends Element, P extends Element> extends Element
         return this.self();
     }
 
+    default T comment(String text){
+        this.addChild(new Comment<>(this, text));
+        return this.self();
+    }
+
     default <R, U> T text(Function<R, U> textFunction){
         this.addChild(new TextFunction<>(this, textFunction));
         return this.self();

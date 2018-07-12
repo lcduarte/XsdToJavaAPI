@@ -16,8 +16,8 @@
     <modules>
         <module>XsdAsm</module>
         <module>XsdAsmTest</module>
-        <module>HtmlApiTest</module>
         <module>HtmlApi</module>
+        <module>HtmlApiTest</module>
         <module>AndroidLayoutsApi</module>
         <module>AndroidLayouts</module>
         <module>ASMSamples</module>

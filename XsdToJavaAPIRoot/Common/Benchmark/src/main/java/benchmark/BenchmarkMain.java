@@ -1,17 +1,18 @@
 package benchmark;
 
+import benchmark.Faster.FasterNoIndentationVisitor;
+import benchmark.Faster.FasterWithIndentationVisitor;
+import benchmark.Regular.RegularNoIndentationVisitor;
+import benchmark.Regular.RegularWithIndentationVisitor;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.openjdk.jmh.annotations.*;
-import org.xmlet.htmlapi.Body;
-import org.xmlet.htmlapi.Div;
-import org.xmlet.htmlapi.Html;
-import org.xmlet.htmlapi.Table;
+import org.openjdk.jmh.annotations.Param;
+import org.xmlet.htmlapi.*;
 
-import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import static j2html.TagCreator.*;
 
+@SuppressWarnings("Duplicates")
 @OutputTimeUnit(TimeUnit.SECONDS)
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 10, time=1)
@@ -33,16 +35,11 @@ public class BenchmarkMain {
     private Template t;
     private VelocityContext context;
     private StringWriter writer;
-    private CustomBenchmarkVisitor<List<String>> customVisitor;
-    private NoIndentationVisitor<List<String>> noIndentationVisitor;
-    private PrintWriter printWriter;
+    private FasterNoIndentationVisitor fasterNoIndentationVisitor;
+    private FasterWithIndentationVisitor fasterWithIndentationVisitor;
+    private RegularNoIndentationVisitor<List<String>> regularNoIndentationVisitor;
+    private RegularWithIndentationVisitor<List<String>> regularWithIndentationVisitor;
     private String toWrite;
-
-    /*
-    private StringBuilder stringBuilder;
-    @Param({"2", "10", "25", "100"})
-    private int tabCount;
-    */
 
     @Setup
     public void setup() {
@@ -71,37 +68,17 @@ public class BenchmarkMain {
         writer = new StringWriter();
 
         // HtmlApi
-        customVisitor = new CustomBenchmarkVisitor<>();
-        noIndentationVisitor = new NoIndentationVisitor<>();
+        regularNoIndentationVisitor = new RegularNoIndentationVisitor<>();
+        regularWithIndentationVisitor = new RegularWithIndentationVisitor<>();
 
-        printWriter = new PrintWriter()
+        // HtmlApiFaster
+        fasterNoIndentationVisitor = new FasterNoIndentationVisitor();
+        fasterWithIndentationVisitor = new FasterWithIndentationVisitor();
     }
-
-    /*
-    @Benchmark
-    public StringBuilder old() {
-        for (int i = 0; i < tabCount; ++i){
-            stringBuilder.append('\t');
-        }
-
-        return stringBuilder;
-    }
-
-    @Benchmark
-    public StringBuilder charArr() {
-        char[] tabs = new char[tabCount];
-
-        for (int i = 0; i < tabCount; i++) {
-            tabs[i] = '\t';
-        }
-
-        return stringBuilder.append(tabs);
-    }
-    */
-
+/*
     @Benchmark
     public String htmlApiFasterDivs() {
-        Html<Html> root = new Html<>(customVisitor);
+        Html<Html> root = new Html<>(fasterWithIndentationVisitor);
         Body<Html<Html>> body = root.body();
 
         Table<Body<Html<Html>>> table = root.body().table();
@@ -112,12 +89,12 @@ public class BenchmarkMain {
             d1 = ((Div) d1.div().text(value)).div();
         }
 
-        return customVisitor.getResult(d1);
+        return fasterWithIndentationVisitor.getResult(d1);
     }
 
     @Benchmark
     public String htmlApiFasterDivsNoIndentation() {
-        Html<Html> root = new Html<>(noIndentationVisitor);
+        Html<Html> root = new Html<>(fasterNoIndentationVisitor);
         Body<Html<Html>> body = root.body();
 
         Table<Body<Html<Html>>> table = root.body().table();
@@ -128,12 +105,12 @@ public class BenchmarkMain {
             d1 = ((Div) d1.div().text(value)).div();
         }
 
-        return noIndentationVisitor.getResult(d1);
+        return fasterNoIndentationVisitor.getResult(d1);
     }
 
     @Benchmark
     public String htmlApiFasterTable() {
-        Html<Html> root = new Html<>(customVisitor);
+        Html<Html> root = new Html<>(fasterWithIndentationVisitor);
 
         Table<Body<Html<Html>>> table = root.body().table();
         table.tr().th().text("Title").º().º();
@@ -142,12 +119,12 @@ public class BenchmarkMain {
             table.tr().td().text(value).º().º();
         }
 
-        return customVisitor.getResult(table);
+        return fasterWithIndentationVisitor.getResult(table);
     }
 
     @Benchmark
     public String htmlApiFasterTableNoIndentation() {
-        Html<Html> root = new Html<>(noIndentationVisitor);
+        Html<Html> root = new Html<>(fasterNoIndentationVisitor);
 
         Table<Body<Html<Html>>> table = root.body().table();
         table.tr().th().text("Title").º().º();
@@ -156,7 +133,71 @@ public class BenchmarkMain {
             table.tr().td().text(value).º().º();
         }
 
-        return noIndentationVisitor.getResult(table);
+        return fasterNoIndentationVisitor.getResult(table);
+    }
+*/
+    @Benchmark
+    public String htmlApiDivs() {
+        Html<Html> root = new Html<>();
+        Body<Html<Html>> body = root.body();
+
+        Table<Body<Html<Html>>> table = root.body().table();
+        table.tr().th().text("Title");
+        Div d1 = body.div();
+
+        for (String value : values){
+            d1 = ((Div) d1.div().text(value)).div();
+        }
+
+        root.accept(regularWithIndentationVisitor);
+        return regularWithIndentationVisitor.getResult();
+    }
+
+    @Benchmark
+    public String htmlApiDivsNoIndentation() {
+        Html<Html> root = new Html<>();
+        Body<Html<Html>> body = root.body();
+
+        Table<Body<Html<Html>>> table = root.body().table();
+        table.tr().th().text("Title");
+        Div d1 = body.div();
+
+        for (String value : values){
+            d1 = ((Div) d1.div().text(value)).div();
+        }
+
+        root.accept(regularNoIndentationVisitor);
+        return regularNoIndentationVisitor.getResult();
+    }
+
+    @Benchmark
+    public String htmlApiTable() {
+        Html<Html> root = new Html<>();
+
+        Table<Body<Html<Html>>> table = root.body().table();
+        table.tr().th().text("Title").º().º();
+
+        for (String value : values){
+            table.tr().td().text(value).º().º();
+        }
+
+        root.accept(regularWithIndentationVisitor);
+        return regularWithIndentationVisitor.getResult();
+    }
+
+    @Benchmark
+    public String htmlApiTableNoIndentation() {
+        Html<Html> root = new Html<>();
+
+        Table<Body<Html<Html>>> table = root.body().table();
+        table.tr().th().text("Title").º().º();
+
+        for (String value : values){
+            table.tr().td().text(value).º().º();
+        }
+
+        root.accept(regularNoIndentationVisitor);
+        return regularNoIndentationVisitor.getResult();
     }
 
     @Benchmark
@@ -188,24 +229,7 @@ public class BenchmarkMain {
     }
 
     public static void main( String[] args ) throws Exception {
-        List<String> values = new ArrayList<>();
 
-        for (int i = 0; i < 100; i++) {
-            values.add("val" + i);
-        }
-
-        NoIndentationVisitor customVisitor = new NoIndentationVisitor<>();
-
-        Html<Html> root = new Html<>(customVisitor);
-
-        Table<Body<Html<Html>>> table = root.body().table();
-        table.tr().attrClass("c").th().text("Title").º().º();
-
-        for (String value : values){
-             table.tr().td().text(value).a().º().º();
-        }
-
-        System.out.println(customVisitor.getResult(table));
     }
 }
 

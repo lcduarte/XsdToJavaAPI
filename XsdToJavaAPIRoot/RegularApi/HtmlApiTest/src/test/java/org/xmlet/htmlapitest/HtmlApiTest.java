@@ -3,10 +3,10 @@ package org.xmlet.htmlapitest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlet.htmlapi.*;
-import org.xmlet.htmlapitest.utils.CustomVisitor;
-import org.xmlet.htmlapitest.utils.Student;
+import org.xmlet.htmlapitest.Utils.CustomVisitor;
+import org.xmlet.htmlapitest.Utils.Student;
 
-import java.io.*;
+import java.io.File;
 import java.lang.Object;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -16,21 +16,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.jar.JarEntry;
-import java.util.jar.JarInputStream;
 import java.util.stream.Collectors;
 
 public class HtmlApiTest {
 
-    static final String PACKAGE = "org.xmlet.htmlapi";
+    private static final String PACKAGE = "org.xmlet.htmlapi";
 
     @Test
     public void testGeneratedClassesIntegrity() throws Exception {
+        CustomVisitor customVisitor = new CustomVisitor();
+
         Html<Html> root = new Html<>();
 
         root.head()
+                .comment("This is a comment.")
                 .meta().attrCharset("UTF-8").º()
                 .title()
                     .text("Title").º()
@@ -45,12 +45,48 @@ public class HtmlApiTest {
                                 .aside()
                                     .em()
                                         .text("Advertisement")
-                                    .span()
-                                        .text("HtmlApi is great!");
-
-        CustomVisitor customVisitor = new CustomVisitor();
+                                        .span()
+                                            .text("HtmlApi is great!");
 
         root.accept(customVisitor);
+        String result = customVisitor.getResult();
+
+        String expected =   "<html>\n" +
+                                "\t<head>\n" +
+                                    "\t\t<!-- This is a comment. -->\n" +
+                                    "\t\t<meta charset=\"UTF-8\">\n" +
+                                    "\t\t</meta>\n" +
+                                    "\t\t<title>\n" +
+                                        "\t\t\tTitle\n" +
+                                    "\t\t</title>\n" +
+                                    "\t\t<link type=\"text/css\" href=\"/assets/images/favicon.png\">\n" +
+                                    "\t\t</link>\n" +
+                                    "\t\t<link type=\"text/css\" href=\"/assets/styles/main.css\">\n" +
+                                    "\t\t</link>\n" +
+                                "\t</head>\n" +
+                                "\t<body class=\"clear\">\n" +
+                                    "\t\t<div>\n" +
+                                        "\t\t\t<header>\n" +
+                                            "\t\t\t\t<section>\n" +
+                                                "\t\t\t\t\t<div>\n" +
+                                                    "\t\t\t\t\t\t<img id=\"brand\" src=\"./assets/images/logo.png\">\n" +
+                                                    "\t\t\t\t\t\t</img>\n" +
+                                                    "\t\t\t\t\t\t<aside>\n" +
+                                                        "\t\t\t\t\t\t\t<em>\n" +
+                                                            "\t\t\t\t\t\t\t\tAdvertisement\n" +
+                                                            "\t\t\t\t\t\t\t\t<span>\n" +
+                                                                "\t\t\t\t\t\t\t\t\tHtmlApi is great!\n" +
+                                                            "\t\t\t\t\t\t\t\t</span>\n" +
+                                                        "\t\t\t\t\t\t\t</em>\n" +
+                                                    "\t\t\t\t\t\t</aside>\n" +
+                                                "\t\t\t\t\t</div>\n" +
+                                            "\t\t\t\t</section>\n" +
+                                        "\t\t\t</header>\n" +
+                                    "\t\t</div>\n" +
+                                "\t</body>\n" +
+                            "</html>\n";
+
+        Assert.assertEquals(expected, result);
     }
 
     @Test
@@ -103,17 +139,27 @@ public class HtmlApiTest {
      */
     @Test
     public void testVisitsWithoutModel(){
+        CustomVisitor visitor = new CustomVisitor();
+
         Html<Html> rootDoc = new Html<>();
 
         rootDoc.body()
-                .div()
-                .text("This is a regular String.");
+                    .div()
+                        .text("This is a regular String.");
 
-        CustomVisitor customVisitor = new CustomVisitor();
+        rootDoc.accept(visitor);
 
-        String expected = "<html>\n<body>\n<div>\nThis is a regular String.\n</div>\n</body>\n</html>\n";
+        String result = visitor.getResult();
 
-        Assert.assertTrue(customVisitPrintAssert(customVisitor, rootDoc, expected));
+        String expected =   "<html>\n" +
+                                "\t<body>\n" +
+                                    "\t\t<div>\n" +
+                                        "\t\t\tThis is a regular String.\n" +
+                                    "\t\t</div>\n" +
+                                "\t</body>\n" +
+                            "</html>\n";
+
+        Assert.assertEquals(expected, result);
     }
 
     /**
@@ -121,20 +167,28 @@ public class HtmlApiTest {
      */
     @Test
     public void testVisitsWithModel(){
+        CustomVisitor<Student> visitor = new CustomVisitor<>(new Student("Luis", 123));
+
         Html<Html> rootDoc = new Html<>();
 
         rootDoc.body()
-                .div()
-                .text(Student::getName)
-                .text(Student::getNumber);
+                    .div()
+                        .text(Student::getName)
+                        .text(Student::getNumber);
 
-        CustomVisitor<Student> customVisitor = new CustomVisitor<>(new Student("Luis", 123));
+        rootDoc.accept(visitor);
+        String result = visitor.getResult();
 
-        String expected = "<html>\n<body>\n<div>" +
-                            "\nLuis\n123\n" +
-                          "</div>\n</body>\n</html>\n";
+        String expected =   "<html>\n" +
+                                "\t<body>\n" +
+                                    "\t\t<div>\n" +
+                                        "\t\t\tLuis\n" +
+                                        "\t\t\t123\n" +
+                                    "\t\t</div>\n" +
+                                "\t</body>\n" +
+                            "</html>\n";
 
-        Assert.assertTrue(customVisitPrintAssert(customVisitor, rootDoc, expected));
+        Assert.assertEquals(expected, result);
     }
 
     @Test
@@ -162,27 +216,74 @@ public class HtmlApiTest {
              .div();
 
         CustomVisitor<List<String>> customVisitor1 = new CustomVisitor<>(tdValues1);
-
-        String expected1 = "<html>\n<body>\n<table>\n" +
-                                "<tr>\n<th>\nTitle\n</th>\n</tr>\n" +
-                                "<tr>\n<td>\nval1\n</td>\n</tr>\n" +
-                                "<tr>\n<td>\nval2\n</td>\n</tr>\n" +
-                                "<tr>\n<td>\nval3\n</td>\n</tr>\n" +
-                            "</table>\n<div>\n</div>\n</body>\n</html>\n";
-
-        Assert.assertTrue(customVisitPrintAssert(customVisitor1, root, expected1));
-        Assert.assertTrue(customVisitPrintAssert(customVisitor1, root, expected1));
-
         CustomVisitor<List<String>> customVisitor2 = new CustomVisitor<>(tdValues2);
 
-        String expected2 = "<html>\n<body>\n<table>\n" +
-                                "<tr>\n<th>\nTitle\n</th>\n</tr>\n" +
-                                "<tr>\n<td>\nval4\n</td>\n</tr>\n" +
-                                "<tr>\n<td>\nval5\n</td>\n</tr>\n" +
-                                "<tr>\n<td>\nval6\n</td>\n</tr>\n" +
-                            "</table>\n<div>\n</div>\n</body>\n</html>\n";
+        root.accept(customVisitor1);
+        String result1 = customVisitor1.getResult();
 
-        Assert.assertTrue(customVisitPrintAssert(customVisitor2, root, expected2));
+        root.accept(customVisitor2);
+        String result2 = customVisitor2.getResult();
+
+        String expected1 =  "<html>\n" +
+                                "\t<body>\n" +
+                                    "\t\t<table>\n" +
+                                        "\t\t\t<tr>\n" +
+                                            "\t\t\t\t<th>\n" +
+                                                "\t\t\t\t\tTitle\n" +
+                                            "\t\t\t\t</th>\n" +
+                                        "\t\t\t</tr>\n" +
+                                        "\t\t\t<tr>\n" +
+                                            "\t\t\t\t<td>\n" +
+                                                "\t\t\t\t\tval1\n" +
+                                            "\t\t\t\t</td>\n" +
+                                        "\t\t\t</tr>\n" +
+                                        "\t\t\t<tr>\n" +
+                                            "\t\t\t\t<td>\n" +
+                                                "\t\t\t\t\tval2\n" +
+                                            "\t\t\t\t</td>\n" +
+                                        "\t\t\t</tr>\n" +
+                                        "\t\t\t<tr>\n" +
+                                            "\t\t\t\t<td>\n" +
+                                                "\t\t\t\t\tval3\n" +
+                                            "\t\t\t\t</td>\n" +
+                                        "\t\t\t</tr>\n" +
+                                    "\t\t</table>\n" +
+                                    "\t\t<div>\n" +
+                                    "\t\t</div>\n" +
+                                "\t</body>\n" +
+                            "</html>\n";
+
+        String expected2 =  "<html>\n" +
+                                "\t<body>\n" +
+                                    "\t\t<table>\n" +
+                                        "\t\t\t<tr>\n" +
+                                            "\t\t\t\t<th>\n" +
+                                                "\t\t\t\t\tTitle\n" +
+                                            "\t\t\t\t</th>\n" +
+                                        "\t\t\t</tr>\n" +
+                                        "\t\t\t<tr>\n" +
+                                            "\t\t\t\t<td>\n" +
+                                                "\t\t\t\t\tval4\n" +
+                                            "\t\t\t\t</td>\n" +
+                                        "\t\t\t</tr>\n" +
+                                        "\t\t\t<tr>\n" +
+                                            "\t\t\t\t<td>\n" +
+                                                "\t\t\t\t\tval5\n" +
+                                            "\t\t\t\t</td>\n" +
+                                        "\t\t\t</tr>\n" +
+                                        "\t\t\t<tr>\n" +
+                                            "\t\t\t\t<td>\n" +
+                                                "\t\t\t\t\tval6\n" +
+                                            "\t\t\t\t</td>\n" +
+                                        "\t\t\t</tr>\n" +
+                                    "\t\t</table>\n" +
+                                    "\t\t<div>\n" +
+                                    "\t\t</div>\n" +
+                                "\t</body>\n" +
+                            "</html>\n";
+
+        Assert.assertEquals(expected1, result1);
+        Assert.assertEquals(expected2, result2);
     }
 
     @Test
@@ -241,7 +342,9 @@ public class HtmlApiTest {
                     continue;
                 }
 
-                if (AbstractElement.class.isAssignableFrom(klass)){
+                String name = klass.getSimpleName();
+
+                if (AbstractElement.class.isAssignableFrom(klass) && !name.equals("Text") && !name.equals("Comment")){
                     Constructor ctor1 = klass.getConstructor();
                     Constructor ctor2 = klass.getConstructor(String.class);
                     Constructor ctor3 = klass.getConstructor(Element.class);
@@ -365,29 +468,5 @@ public class HtmlApiTest {
         new AttrTypeEnumTypeSimpleContentType(EnumTypeSimpleContentType.TEXT_ASA);
         new AttrTypeEnumTypeStyle(EnumTypeStyle.TEXT_CSS);
         new AttrWrapEnumWrapTextarea(EnumWrapTextarea.HARD);
-    }
-
-    private boolean customVisitPrintAssert(CustomVisitor customVisitor, Html rootDoc, String expected){
-        boolean result = false;
-
-        try {
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(buffer);
-            BufferedOutputStream bos = new BufferedOutputStream(dataOutputStream);
-
-            customVisitor.setBufferedOutputStream(bos);
-            rootDoc.accept(customVisitor);
-            bos.flush();
-
-            String content = new String(buffer.toByteArray());
-
-            result = expected.equals(content);
-
-            dataOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return result;
     }
 }

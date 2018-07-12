@@ -8,7 +8,6 @@ import org.xmlet.xsdparser.xsdelements.XsdElement;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import static org.objectweb.asm.Opcodes.*;
 import static org.xmlet.xsdasm.classes.XsdAsmUtils.*;
@@ -28,8 +27,6 @@ class XsdAsmElements {
     static void generateClassFromElement(XsdAsmInterfaces interfaceGenerator, Map<String, List<XsdAttribute>> createdAttributes, XsdElement element, String apiName) {
         String className = getCleanName(element);
 
-        Stream<XsdAttribute> elementAttributes = getOwnAttributes(element);
-
         String[] interfaces = interfaceGenerator.getInterfaces(element, apiName);
         String signature = getClassSignature(interfaces, className, apiName);
         String superType = abstractElementType;
@@ -38,7 +35,7 @@ class XsdAsmElements {
 
         generateClassSpecificMethods(classWriter, className, apiName, superType, null);
 
-        elementAttributes.forEach(elementAttribute -> generateMethodsAndCreateAttribute(createdAttributes, classWriter, elementAttribute, getFullClassTypeNameDesc(className, apiName), className, apiName));
+        getOwnAttributes(element).forEach(elementAttribute -> generateMethodsAndCreateAttribute(createdAttributes, classWriter, elementAttribute, getFullClassTypeNameDesc(className, apiName), className, apiName));
 
         writeClassToFile(className, classWriter, apiName);
     }
@@ -55,13 +52,7 @@ class XsdAsmElements {
     static void generateClassSpecificMethods(ClassWriter classWriter, String className, String apiName, String superType, String defaultName) {
         String classType = getFullClassTypeName(className, apiName);
         String classTypeDesc = getFullClassTypeNameDesc(className, apiName);
-        String name;
-
-        if (defaultName != null){
-            name = defaultName;
-        } else {
-            name = firstToLower(className);
-        }
+        String name = defaultName != null ? defaultName : firstToLower(className);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "()V", null, null);
         mVisitor.visitCode();

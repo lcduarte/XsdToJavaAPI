@@ -1,8 +1,9 @@
 package Samples.Sequence.Classes;
 
-import Samples.HTML.*;
+import Samples.HTML.AbstractElement;
 import Samples.HTML.Element;
 import Samples.HTML.TextGroup;
+import Samples.HTML.Visitor;
 
 public class City<P extends Element> extends AbstractElement<City<P>, P> implements TextGroup<City<P>, P> {
 

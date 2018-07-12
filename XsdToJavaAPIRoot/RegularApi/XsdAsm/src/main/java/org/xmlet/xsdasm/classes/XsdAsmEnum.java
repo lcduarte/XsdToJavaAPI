@@ -92,7 +92,7 @@ class XsdAsmEnum {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        MethodVisitor staticConstructor = cw.visitMethod(ACC_STATIC, "<clinit>", "()V", null, null);
+        MethodVisitor staticConstructor = cw.visitMethod(ACC_STATIC, STATIC_CONSTRUCTOR, "()V", null, null);
         staticConstructor.visitCode();
 
         int iConst = 0;
@@ -116,7 +116,7 @@ class XsdAsmEnum {
 
             staticConstructor.visitLdcInsn(object);
             staticConstructor.visitMethodInsn(INVOKESTATIC, fullJavaType, "valueOf", "(" + JAVA_OBJECT_DESC + ")" + fullJavaTypeDesc, false);
-            staticConstructor.visitMethodInsn(INVOKESPECIAL, enumType, CONSTRUCTOR, "(Ljava/lang/String;I" + fullJavaTypeDesc + ")V", false);
+            staticConstructor.visitMethodInsn(INVOKESPECIAL, enumType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + "I" + fullJavaTypeDesc + ")V", false);
             staticConstructor.visitFieldInsn(PUTSTATIC, enumType, elemName, enumTypeDesc);
             iConst += 1;
         }

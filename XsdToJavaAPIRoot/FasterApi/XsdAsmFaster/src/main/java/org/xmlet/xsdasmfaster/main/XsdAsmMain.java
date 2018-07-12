@@ -1,0 +1,13 @@
+package org.xmlet.xsdasmfaster.main;
+
+import org.xmlet.xsdasmfaster.classes.XsdAsm;
+import org.xmlet.xsdparser.core.XsdParser;
+
+public class XsdAsmMain {
+
+    public static void main(String[] args){
+        if (args.length == 2){
+            new XsdAsm().generateClassFromElements(new XsdParser(args[0]).getParseResult(), args[1]);
+        }
+    }
+}

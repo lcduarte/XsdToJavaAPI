@@ -1,0 +1,2 @@
+# HtmlApiFasterTests
+Tests for HtmlApiFaster

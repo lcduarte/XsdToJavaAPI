@@ -1,16 +1,15 @@
-package org.xmlet.htmlapitest.utils;
+package org.xmlet.htmlapitest.Utils;
 
 import org.xmlet.htmlapi.*;
 
-import java.io.BufferedOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.util.List;
 
-public class CustomVisitor<R> extends ElementVisitor<R> {
+@SuppressWarnings("Duplicates")
+public class CustomVisitor<R> implements ElementVisitor<R> {
 
     private R model;
-    private BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(System.out);
+    private StringBuilder stringBuilder = new StringBuilder();
+    private int tabCount = 0;
 
     public CustomVisitor(){ }
 
@@ -18,17 +17,16 @@ public class CustomVisitor<R> extends ElementVisitor<R> {
         this.model = model;
     }
 
-    public void setBufferedOutputStream(BufferedOutputStream bufferedOutputStream) {
-        this.bufferedOutputStream = bufferedOutputStream;
-    }
-
     @Override
     public <T extends Element> void sharedVisit(Element<T, ?> element) {
+        doTabs();
         print(String.format("<%s", element.getName()));
 
         element.getAttributes().forEach(attribute -> print(String.format(" %s=\"%s\"", attribute.getName(), attribute.getValue())));
 
         print(">\n");
+
+        ++tabCount;
 
         if(element.isBound()) {
             List<Element> children = element.cloneElem().bindTo(model).getChildren();
@@ -37,6 +35,8 @@ public class CustomVisitor<R> extends ElementVisitor<R> {
             element.getChildren().forEach(item -> item.accept(this));
         }
 
+        --tabCount;
+        doTabs();
         print(String.format("</%s>\n", element.getName()));
     }
 
@@ -45,7 +45,18 @@ public class CustomVisitor<R> extends ElementVisitor<R> {
         String textValue = text.getValue();
 
         if (textValue != null){
+            doTabs();
             print(textValue + "\n");
+        }
+    }
+
+    @Override
+    public void visit(Comment comment){
+        String textValue = comment.getValue();
+
+        if (textValue != null){
+            doTabs();
+            print("<!-- " + textValue + " -->\n");
         }
     }
 
@@ -55,14 +66,25 @@ public class CustomVisitor<R> extends ElementVisitor<R> {
             throw new RuntimeException("Text node is missing the model. Usage of new CustomVisitor(model) is required.");
         }
 
+        doTabs();
         print(text.getValue(model).toString() + "\n");
     }
 
     private void print(String string){
-        try {
-            bufferedOutputStream.write(string.getBytes(), 0, string.length());
-        } catch (IOException e) {
-            e.printStackTrace();
+        stringBuilder.append(string);
+    }
+
+    public String getResult(){
+        return stringBuilder.toString();
+    }
+
+    private void doTabs() {
+        char[] tabs = new char[tabCount];
+
+        for (int i = 0; i < tabCount; i++) {
+            tabs[i] = '\t';
         }
+
+        stringBuilder.append(tabs);
     }
 }

@@ -20,7 +20,7 @@ public interface Element<T extends Element, P extends Element> {
 
     <M> T binder(BiConsumer<T, M> consumer);
     boolean isBound();
-    T cloneElem();
-    T bindTo(Object model);
+    Element<T, P> cloneElem();
+    Element<T, P> bindTo(Object model);
 
 }
