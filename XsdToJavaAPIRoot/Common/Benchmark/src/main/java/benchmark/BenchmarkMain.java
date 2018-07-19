@@ -200,6 +200,22 @@ public class BenchmarkMain {
         return regularNoIndentationVisitor.getResult();
     }
 
+    public String htmlFlow(){
+        Html<Html> html = new Html<>();
+
+        String userName = "Luís";
+
+        html.
+            body()
+                .div()
+                    .b()
+                        .text("Hello").º()
+                    .i()
+                        .text(userName);
+
+        return "";
+    }
+
     @Benchmark
     public String velocity() {
         t.merge( context, writer );

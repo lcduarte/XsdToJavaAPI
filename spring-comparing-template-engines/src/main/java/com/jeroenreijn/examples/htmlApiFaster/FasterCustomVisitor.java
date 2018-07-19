@@ -4,7 +4,7 @@ import org.xmlet.htmlapifaster.*;
 
 import java.io.PrintWriter;
 
-public class FasterCustomVisitor extends ElementVisitor<java.lang.Object> {
+public class FasterCustomVisitor extends ElementVisitor {
 
     private PrintWriter printWriter;
     private boolean empty = true;

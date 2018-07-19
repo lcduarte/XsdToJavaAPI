@@ -1,65 +1,129 @@
 \chapter{Introduction}
 \label{cha:introduction}
 
-The work described in this dissertation is concerned with the implementation of a Java solution, named \texttt{xmlet}, that allows the automatic generation of a fluent \ac{API} based on a \ac{XSD} file. The generated classes are very similar most of the time and such solution may save time to the programmer, eliminating repetitive tasks and human error.
+The research work that I describe in this dissertation is concerned with the implementation of a Java framework, named \texttt{xmlet}, which allows the automatic generation of a fluent \ac{API} based on a \ac{XSD} file. 
 
-\section{Motivation}
+\section{Scope}
 
-Text has evolved with the advance of technology resulting in the creation of markup languages \cite{markuplanguages}. Markup languages work by adding annotations to text, the annotations being also known as tags, that allow to add additional information to the text. Each markup language has its own tags and each of those tags add a different meaning to the text encapsulated within them. In order to use markup languages the users can write the text and add all the tags manually, either by fully writing them or by using some kind of text helpers such as text editors with IntelliSense\footnote{\href{https://www.techopedia.com/definition/24580/intellisense}{Intellisense Definition}} which can help diminish the errors caused by manually writing the tags. But even with text helpers the resulting document can violate the restrictions of the respective markup language because the editors don't actually enforce the language rules. In the following \ac{HTML} example there is a violation of \ac{HTML} rules, a \texttt{<html>} tag containing a \texttt{<div>} tag, which is not allowed (Listing \ref{lst:failedhtml}).
+The work that is presented in this dissertation will be about Java applications that use \textit{dynamic views}. A \textit{dynamic view} is a concept that can be described as view that contains two distinct parts:
 
-\bigskip
+\begin{itemize}
+	\item Static part - Represented by all the information of the view that doesn't depend on any kind of external input.
+	\item Dynamic part - Represented by placeholders that should be replaced at runtime with information received from a source of input.
+\end{itemize} 
 
-\lstset{language=HTML}
+\noindent
+A simple example of a \textit{dynamic view} can be an \ac{HTML} page that greets a given user as shown in Listing \ref{lst:dynamichello}. 
 
-\begin{lstlisting}[caption={Failed HTML rule validation},captionpos=b,label={lst:failedhtml}]
+\lstset{language=html}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Dynamic Hello}, label={lst:dynamichello}]
 <html>
-    <div>
-        <!-- (...) -->
-    </div>
+	<body>
+		<div>
+			<b>
+				Hello
+			</b> 
+			<i>
+				{{userName}}
+			</i>
+		</div>
+	</body>
 </html>
 \end{lstlisting}
+\end{minipage} 
 
 \noindent
-The solution to having documents that respect the markup language rules is changing the way the document writing works. As long as the writing process is fully controlled by the programmer errors will always happen because even though most text editors present the errors its corrections depend on the programmer correcting them. The suggestion presented is to move the writing control to an entity which can enforce the markup languages restrictions. This way it is guaranteed that the programmer won't be able to produce a document with errors. 
+In this example we can observe the distinct parts: 1) the dynamic part is represented by \texttt{\char`\{\char`\{userName\char`\}\char`\}} and 2) the static part is represented by all the remaining information of the example. To generate a complete view this dynamic view needs to receive information at runtime to replace the dynamic aspect of the view, in the previous example, Listing \ref{lst:dynamichello}, the view needs to receive a value for the variable named \texttt{\char`\{\char`\{userName\char`\}\char`\}}. The example presented in Listing \ref{lst:dynamichello} is defined in the Mustache\footnote{\href{https://mustache.github.io/}{Mustache GitHub}} idiom, which is a template engine with implementations for the most used programming environments, including Java.
 
 \noindent
-Moving from the \ac{HTML} representation to a Java representation of the issue there are multiple solutions to solve it. In this first code sample the programmer is allowed to add any child to the \texttt{Html} element (Listing \ref{lst:runtimevalidationfailure}), resulting in a violation of the language restrictions, which is not detected unless the programmer verifies the result manually.
+The most common method to manipulate \textit{dynamic views} are \textit{template engines}. Template engines are responsible for performing the combination between the \textit{dynamic view}, also named \textit{template}, and a data model, which contains all the information required to generate a complete document as shown in Figure \ref{img:templateengineprocess}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{template_engines}
+	\caption{Template Engine Process}
+	\label{img:templateengineprocess}
+\end{figure}
+
+\noindent
+Since the Web appearance to this day there is a wide consensus around the use of template engines to generate dynamic \ac{HTML} document generation. The consensus is such that there isn't a real alternative to the usage of template engines for dynamic generation of documents.  The template engine scope is also wide, even that they are mostly associated with Web and its associated technologies they are also widely used to generate other types of documents such as emails and reports. Although there is a wide consensus in the usage of this kind of solution it still contains some handicaps, we will list the four main handicaps of template engines:
+
+\begin{itemize}
+	\item Language Compilation - There is no compilation of the language used in the templates nor the dynamic information. This can result in documents that don't follow the language rules.
+	\item Performance - This aspect can be divided in two, one regarding the text files that are used as templates which have to be loaded and therefore slow the overall performance of the application and the heavy usage of string operations which are inherently slow.
+	\item Flexibility - The syntax provided by the template engines is sometimes very limited which limits the operations that can be performed in the template files, often to if/else operations and a for each to loop data.
+	\item Complexity - It introduces more languages to the programmer, for example a Java application using the Mustache template engine to generate \ac{HTML} forces the programmer to use three distinct languages, Java, the Mustache syntax in the template file and the \ac{HTML} language.
+\end{itemize}
+
+\noindent
+To suppress all the handicaps presented above we propose a new solution, xmlet, which allows the automatic creation of a strongly typed and fluent \ac{API} for a specific domain language defined with its syntax defined in a \ac{XSD} file, such as \ac{HTML}. How will the \texttt{xmlet} solution address the handicaps of the template engines?
+
+\begin{itemize}
+	\item Language Compilation - The generated \ac{API} will guarantee the implementation of the language restrictions defined in the \ac{XSD} file by reflecting those restrictions to the Java language.
+	\item Performance - The text files to contain templates are replaced by Java functions that represent templates, removing the need to load an additional file.
+	\item Flexibility - The syntax to perform operations on templates is changed to the Java syntax which is much more flexible than any template engine syntax.
+	\item Complexity - It removes the use of three distinct languages, the programmer only needs to program in Java.
+\end{itemize}
+
+\noindent
+To understand how the generated \ac{API} will work we will present a little example, Listing \ref{lst:xmletdynamichello}, that shows how the previous example in the Mustache idiom (Listing \ref{lst:dynamichello}) will be recreated with the \texttt{xmlet} solution. The specific details on how the code presented in this example works will be provided in the Chapter \ref{cha:solution}.
+
+\lstset{language=java, morekeywords={String, Html, body, div, b, i, text}}
 
 \bigskip
 
-\lstset{language=Java, morekeywords={Html, Div}}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Xmlet Dynamic Hello}, label={lst:xmletdynamichello}, literate={º}{\textdegree}1]
+Html<Html> html = new Html<>();
 
-\begin{lstlisting}[caption={Lack of rule validation},captionpos=b,label={lst:runtimevalidationfailure}]
-	Html root = new Html();
-	root.add(new Div());
+String userName = "Luis";
+
+html.
+    body()
+        .div()
+            .b()
+                .text("Hello").º()
+            .i()
+                .text(userName);
 \end{lstlisting}
+\end{minipage} 
+
+\section{Template Engines Handicaps}
+\label{sec:usecase}
 
 \noindent
-To solve this problem the entity, \texttt{Html} class, should restrict the children and attributes that accepts based on the existing restrictions on the \ac{HTML}5 specification. As shown in the Figure \ref{motivation_2example} the generated \ac{API} enforces the language restrictions in compile time, this way guaranteeing that any document generated will be compliant with the respective specification.
+Currently there are dozens of different template engine idioms implemented for a vast diversity of programming environments. Despite the vast number of different solutions they all share the same approach depicted in Figure \ref{img:templateengineprocess}. This means that they all share the handicaps enumerated previously. These handicaps tend to become even worse when the complexity of the template escalates. How do the handicaps behave when the complexity escalates then?
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.4\textwidth]{motivation_2example}
-	\caption{Error validation in compile time}
-	\label{motivation_2example}
-\end{figure}
+\begin{itemize}
+	\item Language Compilation - With more complex templates the language violation tend to be more frequent.
+	\item Performance - Often to ease the complexity of the template the file is divided in multiple files (which facilitates re usability), this increases the number of text files that the template engine has to load. Regarding string operations, the bigger the template the slower the string operations will become and most likely the number of string operations will also escalate with the number of placeholders.
+	\item Flexibility - With poor flexibility regarding operations in the template engine syntax the complexity will generate complex templates which will become hard for programmers to understand and write.
+	\item Complexity - The complexity of having three languages escalates with the complexity of the template files, since the programmer has to be focused not only on the inherent complexity of the template but on the complexity of all the different syntaxs that are being used.
+\end{itemize}
+
+\noindent
+The solutions that existed prior to this dissertation were already aiming to solve some of those handicaps. We had two different solutions, J2html\footnote{\href{https://j2html.com/}{J2html}}, which is a solution that removes the necessity of text files to define the templates and using some Java instructions to replace the syntax provided by template engines. J2html however did not guaranteed that the language rules were being followed while creating the documents and is only designed to work for \ac{HTML}. The second solution, HtmlFlow\footnote{\href{https://github.com/xmlet/HtmlFlow}{HtmlFlow}} removed the necessity of text files to define the templates and also used the Java syntax to manipulate the templates. HtmlFlow had already implemented some restrictions of the \ac{HTML} language manually but only supported a few core \ac{HTML} elements, since recreating all the \ac{HTML} elements and their restrictions manually is very time consuming. Both of theses solutions had also problems regarding maintainability, if any change was needed it had to be performed manually. 
+
+\noindent
+While both these solutions were a step in the right direction some aspects became clear, we needed to create a process that could automatically create a fluent \ac{API} based on the set of rules of a given language. The generated \ac{API}s should take advantage of the Java language to enforce the language restrictions and use its syntax to generated templates without having the need to create templates in text files.
 
 \newpage
 
-\noindent
-This solution even though apparently solving the main problem introduces a new one. The new problem resides on the fact that manually recreating all the rules of a given markup language is normally a very long process since most markup languages have a vast number of elements, attributes and restrictions. 
+\section{Thesis statement}
+
+This dissertation thesis is that it is possible to reduce the time spent by programmers by creating a process that automatizes the creation of fluent \ac{API}s based on a set of rules present in a \ac{XSD} file. The process encompasses three distinct aspects:
+
+\begin{itemize}
+	\item XsdParser - Which parses the \ac{XSD} file in order to extract information needed to generate the \ac{API}.
+	\item XsdAsm - Which uses XsdParser to extract the information needed to generate the \ac{API} and uses it to generate an \ac{API}.
+	\item HtmlApi - A concrete \ac{API} generated by XsdAsm using the \ac{HTML}5 \ac{XSD} file.
+\end{itemize}
 
 \noindent
-The solution for this new problem is automation. An automated process that converts the markup language definition of elements, its attributes and restrictions to classes that represent those elements and methods which enforce the specification rules. With this automated process the application can generate a fluent \ac{API} that allow the users to write their texts in a fluent way without errors and respecting the markup language specification. This is the main objective of this work, creating an infrastructure that reads a markup language definition, from a \ac{XSD} file, and generates an \ac{API} that allows the users to write well formed documents.
-
-\section{Use case}
-\label{sec:usecase}
-
-The use case that will be used to test and evaluate the solution will be the \ac{HTML}5 \ac{XSD}. In this case there are multiple elements that share behavior and/or attributes that can be generated automatically. The generated classes allow to create a tree of elements that represent a \ac{XML} document. The resulting tree of elements can then be processed in different ways by using the Visitor pattern. This way each different Visitor implementation can use the generated tree of elements to write \ac{HTML} documents to a stream, a socket or a file. 
-
-\noindent
-The generated \ac{HTML}5 elements \ac{API} will then be used in the HtmlFlow \ac{API}, which is also a fluent Java \ac{API} that is used to write well formed \ac{HTML} files. With the Visitor pattern the HtmlFlow will only need to implement its own Visitor to achieve its goal. At the moment the HtmlFlow library only supports a set of the \ac{HTML} elements which were created manually and the rest of the library interacts with those elements in order to write the \ac{HTML} files. By using the solution which will be developed in this work the HtmlFlow will support the whole \ac{HTML} syntax. 
+The use case used in this dissertation will be the \ac{HTML} language but the process is designed to support any domain language that has its definition in the \ac{XSD} syntax. This means that any \ac{XML} language should be supported as long as it has its set of rules properly defined in a \ac{XSD} file. To show that this solution is viable with other \ac{XSD} files we used another \ac{XSD} file that detailed the rules of the \ac{XML} syntax used to generated Android\footnote{\href{https://www.android.com/}{Android}} visual layouts.
 
 \section{Document Organization}
 
-This document will be separated in five distinct chapters. The first chapter, this one, introduces the problem that was presented. The second chapter presents existent technology that is relevant to this solution. The third chapter explains in detail the different components of the suggested solution. The fourth chapter approaches the deployment and testing of the suggested solution. The fifth and last chapter of this document contains some final remarks and description of future work.
+This document will be separated in six distinct chapters. The first chapter, this one, introduces the concept that will be explored in this dissertation. The second chapter introduces the motivation for this dissertation. The third chapter presents existent technology that is relevant to this solution. The fourth chapter explains in detail the different components of the suggested solution. The fifth chapter approaches the deployment, testing and compares the \ac{xmlet} solution to other existing solutions. The sixth and last chapter of this document contains some final remarks and description of future work.

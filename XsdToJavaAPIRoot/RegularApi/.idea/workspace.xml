@@ -6,31 +6,22 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceInfo.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceMethodInfo.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/SequenceMethodInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorAndroid.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorMin.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorWpfe.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmAndroidTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmHtmlTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmMinTest.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/XsdAsmTest.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/android.xsd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/html_5.xsd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/html_5_orig.xsd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/test.xsd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/test_min.xsd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/vstst.xsd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/resources/wpfe.xsd" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser" afterPath="$PROJECT_DIR$/../Common/XsdParser" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/HtmlApiFaster" afterPath="$PROJECT_DIR$/../FasterApi/HtmlApiFaster" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest" afterPath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFasterTest" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFasterTest" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Apresentações/A39378_XsdToJavaApi_Apresentacao_intercalar.pptx" afterPath="$PROJECT_DIR$/../../Apresentações/A39378_XsdToJavaApi_Apresentacao_intercalar.pptx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.pdf" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.pdf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter1.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter1.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter2.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter2.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter3.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter3.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter4.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter4.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter5.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter5.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/.idea/libraries/Maven__com_github_xmlet_htmlApiFaster_1_0_1_snapshot.xml" afterPath="$PROJECT_DIR$/../Common/.idea/libraries/Maven__com_github_xmlet_htmlApiFaster_1_0_1_snapshot.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_11_snapshot.xml" afterPath="$PROJECT_DIR$/../Common/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_11_snapshot.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" afterPath="$PROJECT_DIR$/../Common/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Common/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" afterPath="$PROJECT_DIR$/../FasterApi/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../FasterApi/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_androidLayoutsApi_1_0_0_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_androidLayoutsApi_1_0_0_snapshot.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/Benchmark/src/main/java/benchmark/BenchmarkMain.java" afterPath="$PROJECT_DIR$/../Common/Benchmark/src/main/java/benchmark/BenchmarkMain.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_11_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_11_snapshot.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidLayouts/androidLayouts.iml" afterPath="$PROJECT_DIR$/AndroidLayouts/androidLayouts.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidLayouts/pom.xml" afterPath="$PROJECT_DIR$/AndroidLayouts/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidLayouts/src/main/resources/android.xsd" afterPath="$PROJECT_DIR$/AndroidLayouts/src/main/resources/android.xsd" />
@@ -67,10 +58,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/resources/test.xsd" afterPath="$PROJECT_DIR$/XsdAsm/src/main/resources/test.xsd" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/resources/test_min.xsd" afterPath="$PROJECT_DIR$/XsdAsm/src/main/resources/test_min.xsd" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsm/src/main/resources/wpfe.xsd" afterPath="$PROJECT_DIR$/XsdAsm/src/main/resources/wpfe.xsd" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsmTest/pom.xml" afterPath="$PROJECT_DIR$/XsdAsmTest/pom.xml" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/AttributeHierarchyItem.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/AttributeHierarchyItem.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/ElementHierarchyItem.java" afterPath="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/ElementHierarchyItem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmTest.java" afterPath="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmWpfeTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/ASMSamples/target/" />
@@ -89,41 +78,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XsdAsmTest/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-749">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XsdAsm/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="137" column="21" lean-forward="false" selection-start-line="137" selection-start-column="21" selection-end-line="137" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XsdAsmUtils.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="445" column="47" lean-forward="false" selection-start-line="445" selection-start-column="47" selection-end-line="445" selection-end-column="47" />
-              <folding>
-                <element signature="e#19185#19186#0" expanded="true" />
-                <element signature="e#19239#19240#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -147,7 +102,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/XsdAsm" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/HtmlApiTest" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -157,7 +112,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Interfaces/PersonalInfoSequence3.java" />
         <option value="$PROJECT_DIR$/ASMSamples/src/main/java/Samples/Sequence/Interfaces/PersonalInfoSequence4.java" />
         <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorWpfe.java" />
         <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorMin.java" />
@@ -165,7 +119,6 @@
         <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/CustomVisitorAndroid.java" />
         <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmHtmlTest.java" />
         <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/Utils/CustomVisitor.java" />
-        <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
         <option value="$PROJECT_DIR$/AndroidLayoutsApi/pom.xml" />
         <option value="$PROJECT_DIR$/AndroidLayouts/pom.xml" />
         <option value="$PROJECT_DIR$/AndroidLayouts/src/test/java/org/xmlet/androidlayoutsapitest/CustomVisitor.java" />
@@ -203,11 +156,13 @@
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/SequenceMethodInfo.java" />
         <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmMinTest.java" />
         <option value="$PROJECT_DIR$/XsdAsmTest/src/test/java/XsdAsmAndroidTest.java" />
-        <option value="$PROJECT_DIR$/AndroidLayouts/src/test/java/org/xmlet/androidlayoutsapitest/AndroidLayoutsApiTest.java" />
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java" />
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java" />
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" />
         <option value="$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java" />
+        <option value="$PROJECT_DIR$/HtmlApiTest/pom.xml" />
+        <option value="$PROJECT_DIR$/AndroidLayouts/src/test/java/org/xmlet/androidlayoutsapitest/AndroidLayoutsApiTest.java" />
+        <option value="$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
       </list>
     </option>
   </component>
@@ -224,14 +179,14 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="676" />
     <option name="width" value="697" />
     <option name="height" value="735" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -244,128 +199,7 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="HtmlApi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdasm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdasm" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdasm" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-              <item name="Utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdasm" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RegularApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RegularApi" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdAsmTest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -666,6 +500,9 @@
       <workItem from="1531302097436" duration="19533000" />
       <workItem from="1531331852685" duration="1689000" />
       <workItem from="1531497966666" duration="360000" />
+      <workItem from="1531838445646" duration="341000" />
+      <workItem from="1531928211108" duration="3027000" />
+      <workItem from="1532002793068" duration="584000" />
     </task>
     <servers />
   </component>
@@ -702,7 +539,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65719000" />
+    <option name="totallyTimeSpent" value="69671000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -714,8 +551,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="676" y="0" width="697" height="735" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -724,20 +560,20 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47982708" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3184569" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8791209" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45821327" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -774,13 +610,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ASMSamples/src/main/java/ASMMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdParser/1.0.10-SNAPSHOT/xsdParser-1.0.10-SNAPSHOT-sources.jar!/org/xmlet/xsdparser/xsdelements/XsdExtension.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -967,20 +796,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidLayouts/src/test/java/org/xmlet/androidlayoutsapitest/AndroidLayoutsApiTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="14" column="89" lean-forward="false" selection-start-line="14" selection-start-column="89" selection-end-line="14" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceMethodInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -992,7 +807,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="415">
           <caret line="63" column="5" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="63" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1021,7 +835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1029,7 +842,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="86" column="5" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="86" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1037,10 +849,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-          <folding>
-            <element signature="e#213#214#0" expanded="false" />
-            <element signature="e#242#243#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1048,7 +856,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="61" column="121" lean-forward="false" selection-start-line="61" selection-start-column="121" selection-end-line="61" selection-end-column="121" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1056,7 +863,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="254">
           <caret line="158" column="42" lean-forward="true" selection-start-line="158" selection-start-column="42" selection-end-line="158" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1064,21 +870,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="404" column="54" lean-forward="false" selection-start-line="404" selection-start-column="54" selection-end-line="404" selection-end-column="54" />
-          <folding>
-            <element signature="docComment;method#getInterfaces#0;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="docComment;method#groupMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="docComment;method#sequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="docComment;method#createElementsForSequence#0;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="docComment;method#createElementsForSequence#1;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="docComment;method#generateSequenceInnerElement#0;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="method#reusableSequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="method#firstRegularSequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="method#remainingRegularSequenceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="docComment;method#getSequenceInfo#0;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="method#getSequenceInfo#0;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="docComment;method#allMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-            <element signature="docComment;method#choiceMethod#0;class#XsdAsmInterfaces#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1086,7 +877,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1094,9 +884,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1104,42 +891,55 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="35" column="45" lean-forward="false" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="22" column="24" lean-forward="false" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsmTest/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-749">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsm/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
+        <state relative-caret-position="2329">
           <caret line="137" column="21" lean-forward="false" selection-start-line="137" selection-start-column="21" selection-end-line="137" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
-          <caret line="445" column="47" lean-forward="false" selection-start-line="445" selection-start-column="47" selection-end-line="445" selection-end-column="47" />
-          <folding>
-            <element signature="e#19185#19186#0" expanded="true" />
-            <element signature="e#19239#19240#0" expanded="true" />
-          </folding>
+          <caret line="38" column="78" lean-forward="true" selection-start-line="38" selection-start-column="78" selection-end-line="38" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApiTest/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="133" column="21" lean-forward="false" selection-start-line="133" selection-start-column="21" selection-end-line="133" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidLayouts/src/test/java/org/xmlet/androidlayoutsapitest/AndroidLayoutsApiTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="115" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="922" column="42" lean-forward="true" selection-start-line="922" selection-start-column="42" selection-end-line="922" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="88" column="46" lean-forward="false" selection-start-line="88" selection-start-column="46" selection-end-line="88" selection-end-column="46" />
         </state>
       </provider>
     </entry>

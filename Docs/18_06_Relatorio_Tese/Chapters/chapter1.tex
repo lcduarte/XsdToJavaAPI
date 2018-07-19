@@ -1,11 +1,11 @@
-\chapter{Problem Statement}
-\label{cha:problemstatement}
+\chapter{Introduction}
+\label{cha:introduction}
+
+The work described in this dissertation is concerned with the implementation of a Java solution, named \texttt{xmlet}, that allows the automatic generation of a fluent \ac{API} based on a \ac{XSD} file. The generated classes are very similar most of the time and such solution may save time to the programmer, eliminating repetitive tasks and human error.
 
 \section{Motivation}
 
-Text has evolved with the advance of technology resulting in the creation of markup languages \cite{markuplanguages}. Markup languages work by adding annotations to text, the annotations being also known as tags, that allow to add additional information to the text. Each markup language has its own tags and each of those tags add a different meaning to the text encapsulated within them. In order to use markup languages the users can write the text and add all the tags manually, either by fully writing them or by using some kind of text helpers such as text editors with IntelliSense\footnote{\href{https://www.techopedia.com/definition/24580/intellisense}{Intellisense Definition}} which can help diminish the errors caused by manually writing the tags. But even with text helpers the resulting document can violate the restrictions of the respective markup language because the editors don't actually enforce the language rules. 
-
-In the following \ac{HTML} example there is a violation of \ac{HTML} rules, a \texttt{<html>} tag containing a \texttt{<div>} tag, which is not allowed (Listing \ref{lst:failedhtml}).
+Text has evolved with the advance of technology resulting in the creation of markup languages \cite{markuplanguages}. Markup languages work by adding annotations to text, the annotations being also known as tags, that allow to add additional information to the text. Each markup language has its own tags and each of those tags add a different meaning to the text encapsulated within them. In order to use markup languages the users can write the text and add all the tags manually, either by fully writing them or by using some kind of text helpers such as text editors with IntelliSense\footnote{\href{https://www.techopedia.com/definition/24580/intellisense}{Intellisense Definition}} which can help diminish the errors caused by manually writing the tags. But even with text helpers the resulting document can violate the restrictions of the respective markup language because the editors don't actually enforce the language rules. In the following \ac{HTML} example there is a violation of \ac{HTML} rules, a \texttt{<html>} tag containing a \texttt{<div>} tag, which is not allowed (Listing \ref{lst:failedhtml}).
 
 \bigskip
 

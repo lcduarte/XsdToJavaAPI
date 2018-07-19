@@ -101,5 +101,35 @@ public class AndroidLayoutsApiTest {
                             "</linearLayout>\n";
 
         Assert.assertEquals(expected, result);
+
+new LinearLayout<>()
+  .attrAndroidLayoutWidth("wrap_content")
+  .attrAndroidLayoutHeight("wrap_content")
+  .attrAndroidGravity(EnumAndroidGravity.CENTER)
+  .textView()
+    .attrAndroidText("Hi there!")
+    .attrAndroidLayoutWidth("wrap_content")
+    .attrAndroidLayoutHeight("wrap_content")
+    .attrAndroidTextSize("36sp")
+    .attrAndroidTextColor("@android:color/black")
+    .attrAndroidBackground("#ccddff")
+    .attrAndroidPadding("20dp");
     }
+
+    /*
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <TextView
+        android:text="Hi there!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:textColor="@android:color/black"
+        android:background="#ccddff"
+        android:padding="20dp"/>
+</LinearLayout>
+     */
 }
