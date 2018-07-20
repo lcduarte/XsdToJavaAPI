@@ -1,4 +1,4 @@
-import org.xmlet.android.*;
+import org.xmlet.androidFaster.*;
 
 @SuppressWarnings("Duplicates")
 public class CustomVisitorAndroid extends ElementVisitor {

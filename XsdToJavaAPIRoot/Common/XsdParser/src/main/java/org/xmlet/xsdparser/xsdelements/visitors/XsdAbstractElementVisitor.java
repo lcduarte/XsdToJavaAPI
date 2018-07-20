@@ -48,7 +48,7 @@ public interface XsdAbstractElementVisitor {
         ReferenceBase referenceBase = ReferenceBase.createFromXsd(element);
 
         if (referenceBase instanceof UnsolvedReference){
-            XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) referenceBase);
+            element.getParser().addUnsolvedReference((UnsolvedReference) referenceBase);
         }
     }
 
@@ -95,6 +95,10 @@ public interface XsdAbstractElementVisitor {
     default void visit(XsdAppInfo element) {}
 
     default void visit(XsdAnnotation xsdAnnotation) {}
+
+    default void visit(XsdImport xsdImport) {}
+
+    default void visit(XsdInclude xsdInclude) {}
 
     XsdAbstractElement getOwner();
 

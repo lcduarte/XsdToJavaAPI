@@ -1,6 +1,7 @@
 package org.xmlet.xsdasm.classes;
 
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.Set;
@@ -57,9 +58,11 @@ class XsdAsmVisitors {
      * @param apiName The api name from the Visitor interface.
      */
     private static void addVisitorInterfaceMethod(ClassWriter classWriter, String elementName, String apiName){
-        String methodTypeDesc = getFullClassTypeNameDesc(toCamelCase(getCleanName(elementName)), apiName);
+        String cleanElementName = toCamelCase(getCleanName(elementName));
+        String methodTypeDesc = getFullClassTypeNameDesc(cleanElementName, apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, VISIT_METHOD_NAME, "(" + methodTypeDesc + ")V", null, null);
+        mVisitor.visitLocalVariable(firstToLower(cleanElementName), methodTypeDesc, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);

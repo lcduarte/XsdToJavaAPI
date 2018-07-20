@@ -1,6 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
-import org.xmlet.android.*;
+import org.xmlet.androidFaster.*;
 
 public class XsdAsmAndroidTest {
 

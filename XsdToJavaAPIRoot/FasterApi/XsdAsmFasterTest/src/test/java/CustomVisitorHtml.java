@@ -1,4 +1,4 @@
-import org.xmlet.html.*;
+import org.xmlet.htmlFaster.*;
 
 @SuppressWarnings("Duplicates")
 public class CustomVisitorHtml extends ElementVisitor {

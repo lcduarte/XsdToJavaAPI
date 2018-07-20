@@ -1,6 +1,7 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
+import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
@@ -56,7 +57,6 @@ public class XsdComplexType extends XsdNamedElements {
      */
     private boolean mixed;
 
-
     /**
      * Prevents a complex type that has a specified type of derivation from being used in place of this complex type.
      * Possible values are extension, restriction or #all.
@@ -80,8 +80,13 @@ public class XsdComplexType extends XsdNamedElements {
      */
     private XsdSimpleContent simpleContent;
 
-    XsdComplexType(@NotNull Map<String, String> elementFieldsMapParam) {
-        super(elementFieldsMapParam);
+    XsdComplexType(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        super(parser, elementFieldsMapParam);
+    }
+
+    XsdComplexType(XsdAbstractElement parent, @NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        super(parser, elementFieldsMapParam);
+        setParent(parent);
     }
 
     /**
@@ -130,8 +135,7 @@ public class XsdComplexType extends XsdNamedElements {
         placeHolderAttributes.putAll(elementFieldsMap);
         placeHolderAttributes.remove(REF_TAG);
 
-        XsdComplexType elementCopy = new XsdComplexType(placeHolderAttributes);
-        elementCopy.setParent(this.parent);
+        XsdComplexType elementCopy = new XsdComplexType(this.parent, this.parser, placeHolderAttributes);
 
         elementCopy.childElement = this.childElement;
         elementCopy.visitor.setAttributes(this.visitor.getAttributes());
@@ -194,8 +198,8 @@ public class XsdComplexType extends XsdNamedElements {
         return elementAbstract;
     }
 
-    public static ReferenceBase parse(Node node){
-        return xsdParseSkeleton(node, new XsdComplexType(convertNodeMap(node.getAttributes())));
+    public static ReferenceBase parse(@NotNull XsdParser parser, Node node){
+        return xsdParseSkeleton(node, new XsdComplexType(parser, convertNodeMap(node.getAttributes())));
     }
 
     public void setChildElement(ReferenceBase childElement) {

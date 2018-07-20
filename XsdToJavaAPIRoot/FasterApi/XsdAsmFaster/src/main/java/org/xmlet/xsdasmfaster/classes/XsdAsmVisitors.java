@@ -75,7 +75,7 @@ class XsdAsmVisitors {
         String methodTypeDesc = getFullClassTypeNameDesc(toCamelCase(getCleanName(elementName)), apiName);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, VISIT_METHOD_NAME, "(" + methodTypeDesc + ")V", null, null);
-        mVisitor.visitLocalVariable(toCamelCase(elementName), methodTypeDesc, null, new Label(), new Label(),1);
+        mVisitor.visitLocalVariable(firstToLower(toCamelCase(elementName)), methodTypeDesc, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);

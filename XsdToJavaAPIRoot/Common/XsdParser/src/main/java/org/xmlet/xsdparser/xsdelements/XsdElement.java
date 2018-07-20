@@ -115,8 +115,13 @@ public class XsdElement extends XsdNamedElements {
      */
     private String maxOccurs;
 
-    public XsdElement(@NotNull Map<String, String> elementFieldsMapParam) {
-        super(elementFieldsMapParam);
+    public XsdElement(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        super(parser, elementFieldsMapParam);
+    }
+
+    public XsdElement(XsdAbstractElement parent, @NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        super(parser, elementFieldsMapParam);
+        setParent(parent);
     }
 
     /**
@@ -137,14 +142,10 @@ public class XsdElement extends XsdNamedElements {
             if (XsdParser.getXsdTypesToJava().containsKey(typeString)){
                 HashMap<String, String> attributes = new HashMap<>();
                 attributes.put(NAME_TAG, typeString);
-                XsdComplexType placeHolder = new XsdComplexType(attributes);
-                placeHolder.setParent(this);
-                this.type = ReferenceBase.createFromXsd(placeHolder);
+                this.type = ReferenceBase.createFromXsd(new XsdComplexType(this, this.parser, attributes));
             } else {
-                XsdElement placeHolder = new XsdElement( new HashMap<>());
-                placeHolder.setParent(this);
-                this.type = new UnsolvedReference(typeString, placeHolder);
-                XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.type);
+                this.type = new UnsolvedReference(typeString, new XsdElement(this, this.parser, new HashMap<>()));
+                parser.addUnsolvedReference((UnsolvedReference) this.type);
             }
         }
 
@@ -183,9 +184,10 @@ public class XsdElement extends XsdNamedElements {
         placeHolderAttributes.remove(TYPE_TAG);
         placeHolderAttributes.remove(REF_TAG);
 
-        XsdElement elementCopy = new XsdElement(placeHolderAttributes);
-        elementCopy.setParent(this.parent);
+        XsdElement elementCopy = new XsdElement(this.parent, this.parser, placeHolderAttributes);
 
+        elementCopy.simpleType = this.simpleType;
+        elementCopy.complexType = this.complexType;
         elementCopy.type = this.type;
 
         return elementCopy;
@@ -228,8 +230,8 @@ public class XsdElement extends XsdNamedElements {
         return null;
     }
 
-    public static ReferenceBase parse(Node node){
-        return xsdParseSkeleton(node, new XsdElement(convertNodeMap(node.getAttributes())));
+    public static ReferenceBase parse(@NotNull XsdParser parser, Node node){
+        return xsdParseSkeleton(node, new XsdElement(parser, convertNodeMap(node.getAttributes())));
     }
 
     public String getFinal() {

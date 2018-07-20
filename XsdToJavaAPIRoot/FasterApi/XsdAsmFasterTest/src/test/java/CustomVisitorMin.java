@@ -1,8 +1,4 @@
-import org.xmlet.testMin.Comment;
-import org.xmlet.testMin.Attribute;
-import org.xmlet.testMin.Element;
-import org.xmlet.testMin.ElementVisitor;
-import org.xmlet.testMin.Text;
+import org.xmlet.testMinFaster.*;
 
 @SuppressWarnings("Duplicates")
 public class CustomVisitorMin extends ElementVisitor {

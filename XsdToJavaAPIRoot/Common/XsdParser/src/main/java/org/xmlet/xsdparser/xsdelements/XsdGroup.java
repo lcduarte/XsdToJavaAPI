@@ -1,6 +1,7 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
+import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAbstractElementVisitor;
@@ -50,8 +51,13 @@ public class XsdGroup extends XsdNamedElements {
      */
     private String maxOccurs;
 
-    private XsdGroup(@NotNull Map<String, String> elementFieldsMapParam) {
-        super(elementFieldsMapParam);
+    private XsdGroup(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        super(parser, elementFieldsMapParam);
+    }
+
+    private XsdGroup(XsdAbstractElement parent, @NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        super(parser, elementFieldsMapParam);
+        setParent(parent);
     }
 
     /**
@@ -102,8 +108,7 @@ public class XsdGroup extends XsdNamedElements {
         placeHolderAttributes.putAll(elementFieldsMap);
         placeHolderAttributes.remove(REF_TAG);
 
-        XsdGroup elementCopy = new XsdGroup(placeHolderAttributes);
-        elementCopy.setParent(this.parent);
+        XsdGroup elementCopy = new XsdGroup(this.parent, this.parser, placeHolderAttributes);
 
         if (childElement != null){
             elementCopy.setChildElement(this.childElement);
@@ -123,8 +128,8 @@ public class XsdGroup extends XsdNamedElements {
         return childElement;
     }
 
-    public static ReferenceBase parse(Node node){
-        return xsdParseSkeleton(node, new XsdGroup(convertNodeMap(node.getAttributes())));
+    public static ReferenceBase parse(@NotNull XsdParser parser, Node node){
+        return xsdParseSkeleton(node, new XsdGroup(parser, convertNodeMap(node.getAttributes())));
     }
 
     public Integer getMinOccurs() {

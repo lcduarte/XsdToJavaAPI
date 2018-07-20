@@ -56,32 +56,10 @@
                 </executions>
             </plugin>
 
-            <!--plugin>
-                <artifactId>exec-maven-plugin</artifactId>
-                <groupId>org.codehaus.mojo</groupId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <id>deploy_test_results</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>${basedir}/run_sonar.bat</executable>
-                            <arguments>
-                                <argument>${sonarcloud.name}</argument>
-                                <argument>${sonarcloud.key}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin-->
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.0</version>
+                <version>0.8.1</version>
                 <executions>
                     <execution>
                         <goals>
@@ -118,19 +96,6 @@
             <artifactId>htmlApi</artifactId>
             <version>1.0.11-snapshot</version>
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjdk.jmh</groupId>
-            <artifactId>jmh-core</artifactId>
-            <version>1.21</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjdk.jmh</groupId>
-            <artifactId>jmh-generator-annprocess</artifactId>
-            <version>1.21</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 

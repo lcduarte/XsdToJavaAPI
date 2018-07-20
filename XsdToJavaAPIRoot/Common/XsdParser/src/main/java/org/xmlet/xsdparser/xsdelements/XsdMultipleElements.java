@@ -1,5 +1,6 @@
 package org.xmlet.xsdparser.xsdelements;
 
+import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
@@ -40,8 +41,8 @@ public abstract class XsdMultipleElements extends XsdAnnotatedElements {
      */
     private String maxOccurs;
 
-    XsdMultipleElements(@NotNull Map<String, String> elementFieldsMapParam) {
-        super(elementFieldsMapParam);
+    XsdMultipleElements(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        super(parser, elementFieldsMapParam);
     }
 
     /**

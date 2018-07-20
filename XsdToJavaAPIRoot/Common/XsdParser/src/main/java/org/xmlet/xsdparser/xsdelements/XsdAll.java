@@ -1,6 +1,7 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
+import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAbstractElementVisitor;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAllVisitor;
@@ -26,8 +27,8 @@ public class XsdAll extends XsdMultipleElements {
      */
     private final XsdAllVisitor visitor = new XsdAllVisitor(this);
 
-    private XsdAll(@NotNull Map<String, String> elementFieldsMapParam){
-        super(elementFieldsMapParam);
+    private XsdAll(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam){
+        super(parser, elementFieldsMapParam);
     }
 
     @Override
@@ -41,8 +42,8 @@ public class XsdAll extends XsdMultipleElements {
         return visitor;
     }
 
-    public static ReferenceBase parse(Node node) {
-        return xsdParseSkeleton(node, new XsdAll(convertNodeMap(node.getAttributes())));
+    public static ReferenceBase parse(@NotNull XsdParser parser, Node node) {
+        return xsdParseSkeleton(node, new XsdAll(parser, convertNodeMap(node.getAttributes())));
     }
 
 }

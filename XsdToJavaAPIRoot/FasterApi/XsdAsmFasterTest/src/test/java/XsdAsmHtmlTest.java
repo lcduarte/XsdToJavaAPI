@@ -1,7 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
-import org.xmlet.html.EnumTypeContentType;
-import org.xmlet.html.Html;
+import org.xmlet.htmlFaster.*;
 
 public class XsdAsmHtmlTest {
 

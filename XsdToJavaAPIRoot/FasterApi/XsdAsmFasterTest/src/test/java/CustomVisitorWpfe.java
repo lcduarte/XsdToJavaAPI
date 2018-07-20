@@ -1,8 +1,4 @@
-import org.xmlet.wpfe.Comment;
-import org.xmlet.wpfe.Attribute;
-import org.xmlet.wpfe.Element;
-import org.xmlet.wpfe.ElementVisitor;
-import org.xmlet.wpfe.Text;
+import org.xmlet.wpfeFaster.*;
 
 @SuppressWarnings("Duplicates")
 public class CustomVisitorWpfe extends ElementVisitor {

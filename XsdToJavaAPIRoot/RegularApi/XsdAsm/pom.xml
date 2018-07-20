@@ -21,7 +21,7 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>my-execution1</id>
+                        <id>createTestMinClasses</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>java</goal>
@@ -35,7 +35,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>my-execution2</id>
+                        <id>createAndroidClasses</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>java</goal>
@@ -49,7 +49,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>my-execution3</id>
+                        <id>createHtmlClasses</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>java</goal>
@@ -63,7 +63,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>my-execution4</id>
+                        <id>createWpfeClasses</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>java</goal>
@@ -76,20 +76,6 @@
                             </arguments>
                         </configuration>
                     </execution>
-                    <!--execution>
-                        <id>deploy_test_results</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>${basedir}/run_sonar.bat</executable>
-                            <arguments>
-                                <argument>${sonarcloud.name}</argument>
-                                <argument>${sonarcloud.key}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution-->
                 </executions>
             </plugin>
 
@@ -106,7 +92,7 @@
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
+                <version>1.6.8</version>
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>ossrh</serverId>
@@ -118,7 +104,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -150,7 +136,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
+                <version>1.6</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -160,13 +146,6 @@
                                 sign
                             </goal>
                         </goals>
-                        <!--configuration>
-                            <gpgArguments>
-                                If uncommented add another - before -pinentry
-                                <arg>-pinentry-mode</arg>
-                                <arg>loopback</arg>
-                            </gpgArguments>
-                        </configuration-->
                     </execution>
                 </executions>
             </plugin>
@@ -174,7 +153,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>2.5.3</version>
                 <configuration>
                     <localCheckout>true</localCheckout>
                     <pushChanges>false</pushChanges>
@@ -191,7 +170,7 @@
             <!--plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.0</version>
+                <version>0.8.1</version>
                 <executions>
                     <execution>
                         <goals>

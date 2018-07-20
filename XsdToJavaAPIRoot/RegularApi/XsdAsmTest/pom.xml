@@ -12,27 +12,9 @@
     <build>
         <plugins>
             <!--plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <id>create_classes</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>${basedir}/create_class_binaries.bat</executable>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin-->
-
-            <!--plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.0</version>
+                <version>0.8.1</version>
                 <executions>
                     <execution>
                         <goals>

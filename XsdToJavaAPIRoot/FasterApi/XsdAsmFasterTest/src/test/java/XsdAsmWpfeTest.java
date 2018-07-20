@@ -1,7 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
-import org.xmlet.wpfe.Canvas;
-import org.xmlet.wpfe.Element;
+import org.xmlet.wpfeFaster.*;
 
 public class XsdAsmWpfeTest {
 

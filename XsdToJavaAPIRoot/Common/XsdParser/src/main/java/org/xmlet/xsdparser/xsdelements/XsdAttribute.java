@@ -70,8 +70,13 @@ public class XsdAttribute extends XsdNamedElements {
      */
     private String use;
 
-    private XsdAttribute(@NotNull Map<String, String> elementFieldsMapParam) {
-        super(elementFieldsMapParam);
+    private XsdAttribute(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        super(parser, elementFieldsMapParam);
+    }
+
+    private XsdAttribute(XsdAbstractElement parent, @NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        super(parser, elementFieldsMapParam);
+        setParent(parent);
     }
 
     /**
@@ -92,10 +97,8 @@ public class XsdAttribute extends XsdNamedElements {
         this.use = elementFieldsMap.getOrDefault(USE_TAG, "optional");
 
         if (type != null && !XsdParser.getXsdTypesToJava().containsKey(type)){
-            XsdAttribute placeHolder = new XsdAttribute(new HashMap<>());
-            placeHolder.setParent(this);
-            this.simpleType = new UnsolvedReference(type, placeHolder);
-            XsdParser.getInstance().addUnsolvedReference((UnsolvedReference) this.simpleType);
+            this.simpleType = new UnsolvedReference(type, new XsdAttribute(this, parser, new HashMap<>()));
+            parser.addUnsolvedReference((UnsolvedReference) this.simpleType);
         }
     }
 
@@ -119,10 +122,10 @@ public class XsdAttribute extends XsdNamedElements {
     @Override
     public XsdAttribute clone(@NotNull Map<String, String> placeHolderAttributes) {
         placeHolderAttributes.putAll(elementFieldsMap);
+        placeHolderAttributes.remove(TYPE_TAG);
         placeHolderAttributes.remove(REF_TAG);
 
-        XsdAttribute copy = new XsdAttribute(placeHolderAttributes);
-        copy.setParent(this.parent);
+        XsdAttribute copy = new XsdAttribute(this.parent, this.parser, placeHolderAttributes);
 
         copy.type = this.type;
         copy.simpleType = this.simpleType;
@@ -185,8 +188,8 @@ public class XsdAttribute extends XsdNamedElements {
         return Collections.emptyList();
     }
 
-    public static ReferenceBase parse(Node node) {
-        return xsdParseSkeleton(node, new XsdAttribute(convertNodeMap(node.getAttributes())));
+    public static ReferenceBase parse(@NotNull XsdParser parser, Node node) {
+        return xsdParseSkeleton(node, new XsdAttribute(parser, convertNodeMap(node.getAttributes())));
     }
 
 }

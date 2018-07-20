@@ -53,8 +53,13 @@ public class XsdSimpleType extends XsdNamedElements {
      */
     private String finalObj;
 
-    private XsdSimpleType(@NotNull Map<String, String> elementFieldsMapParam) {
-        super(elementFieldsMapParam);
+    private XsdSimpleType(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        super(parser, elementFieldsMapParam);
+    }
+
+    private XsdSimpleType(XsdAbstractElement parent, XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        super(parser, elementFieldsMapParam);
+        setParent(parent);
     }
 
     @Override
@@ -86,8 +91,7 @@ public class XsdSimpleType extends XsdNamedElements {
         placeHolderAttributes.putAll(elementFieldsMap);
         placeHolderAttributes.remove(REF_TAG);
 
-        XsdSimpleType copy = new XsdSimpleType(placeHolderAttributes);
-        copy.setParent(this.parent);
+        XsdSimpleType copy = new XsdSimpleType(this.parent, this.parser, placeHolderAttributes);
 
         copy.union = this.union;
         copy.list = this.list;
@@ -96,8 +100,8 @@ public class XsdSimpleType extends XsdNamedElements {
         return copy;
     }
 
-    public static ReferenceBase parse(Node node){
-        return xsdParseSkeleton(node, new XsdSimpleType(convertNodeMap(node.getAttributes())));
+    public static ReferenceBase parse(@NotNull XsdParser parser, Node node){
+        return xsdParseSkeleton(node, new XsdSimpleType(parser, convertNodeMap(node.getAttributes())));
     }
 
     public XsdRestriction getRestriction() {
