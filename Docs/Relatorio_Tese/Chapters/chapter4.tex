@@ -25,153 +25,157 @@ XsdParser is a library that parses a \ac{XSD} file into a list of Java objects. 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={XsdAnnotation class (Simplified)}, label={lst:xsdannotationexample}]
 public class XsdAnnotation extends XsdIdentifierElements {
-
     //The id field is inherited from XsdIdentifierElements.
     private List<XsdAppInfo> appInfoList = new ArrayList<>();
     private List<XsdDocumentation> documentations = new ArrayList<>();
+    
+    // (...)
+}
 \end{lstlisting}
 \end{minipage}
 
 \subsection{Parsing Strategy}
 \label{sec:parsingstrategy}
 
-The first step of this library is handling the \ac{XSD} file. The Java language has no built in library that parses \ac{XSD} files, so we needed to look for other options. The main libraries found that address this problem were \ac{DOM} and \ac{SAX}. After evaluating the pros and cons of those libraries the choice ended up being \ac{DOM}. This choice was based mostly on the fact that \ac{SAX} is an event driven parser and \ac{DOM} is a tree based parser, which is more adequate for the present issue. \ac{DOM} is a library that maps \ac{HTML}, \ac{XHTML} and \ac{XML} files into a tree structure composed by multiple elements, also named nodes. This is exactly what XsdParser requires to obtain all the information from the \ac{XSD} files, which is described in \ac{XML}. 
+The first step of this library is handling the \ac{XSD} file. The Java language has no built in library that parses \ac{XSD} files, so we needed to look for other options. The main libraries found that address this problem were \ac{DOM} and \ac{SAX}. After evaluating the pros and cons of those libraries the choice ended up being \ac{DOM}, since a \ac{XSD} file is a tree of \ac{XML} elements. This choice was based mostly on the fact that \ac{SAX} is an event driven parser and \ac{DOM} is a tree based parser, which is more adequate for the present issue. \ac{DOM} is a library that maps \ac{HTML}, \ac{XHTML} and \ac{XML} files into a tree structure composed by multiple elements, also named nodes. This is exactly what XsdParser requires to obtain all the information from the \ac{XSD} files, which is described in \ac{XML}. 
 
 \noindent
-This means that XsdParser uses \ac{DOM} to parse the \ac{XSD} file into a node list, performing a single read on the \ac{XSD} file, avoiding multiple reads which is less efficient (Listing \ref{lst:nodelist}). 
+This means that XsdParser uses \ac{DOM} to parse the \ac{XSD} file and obtain its root element, a \texttt{xs:schema} node, performing a single read on the \ac{XSD} file, avoiding multiple reads which is less efficient (Listing \ref{lst:nodelist}). 
 
 \bigskip
 
-\lstset{language=java, morekeywords={Document, parse, getFirstChild, getChildNodes, NodeList, DocumentBuilderFactory, DocumentBuilder, newInstance, newDocumentBuilder}}
+\lstset{language=java, morekeywords={Document, parse, getFirstChild, getChildNodes, NodeList, DocumentBuilderFactory, DocumentBuilder, newInstance, newDocumentBuilder, IOException, SAXException, ParserConfigurationException, Node}}
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={DOM Document Parsing}, label={lst:nodelist}]
-DocumentBuilderFactory dbFactory= DocumentBuilderFactory.newInstance();
-DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-//Parses the XSD file
-Document doc = dBuilder.parse(xsdFile);
-//Obtains the XSD file node list
-NodeList nodes = doc.getFirstChild().getChildNodes();
+private Node getSchemaNode(String filePath) 
+    throws IOException, SAXException, ParserConfigurationException {
+    DocumentBuilderFactory dbFactory =                                                              
+                                DocumentBuilderFactory.newInstance();
+    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+    Document doc = dBuilder.parse(xsdFile);   //Parses the XSD file.
+
+    //Obtains the first node, which is the xs:schema node.
+    return doc.getFirstChild();
+}
 \end{lstlisting}
 \end{minipage}
 
 \newpage
 
 \noindent
-Then parsing the continues by iterating this list (i.e. nodes) and obtaining the name of the element represented by that node, e.g. \texttt{xsd:element} or \texttt{xsd:complexType}. The name of the element will be needed to perform a lookup search to find the corresponding parsing function (Listing \ref{lst:nodeparsingprocess}). 
+After obtaining the root node of the \ac{XSD} file the XsdParser verifies if that node is a \texttt{XsdSchema} node as shown in Listing \ref{lst:nodeparsingprocess}. If that is the case it proceeds by performing the \texttt{parse} function of the \texttt{XsdSchema} class.  
 
 \medskip
 
-\lstset{language=Java, morekeywords={stream, filter, map, forEach, apply, add, getNodeType, getNodeName, get, Node}}
+\lstset{language=Java, morekeywords={stream, filter, map, forEach, apply, add, getNodeType, getNodeName, get, Node, getSchemaNode, isXsdSchema, XsdSchema, parse}}
+
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={XsdParser Node Parsing Process},captionpos=b,label={lst:nodeparsingprocess}]
-stream(nodes)
-    .filter(node -> 
-        node.getNodeType() == Node.ELEMENT_NODE && 
-        parseMappers.get(node.getNodeName()) != null)
-    .map(node -> 
-        parseMappers.get(node.getNodeName())
-                        .apply(node))
-    .forEach(elements::add);
+Node schemaNode = getSchemaNode(filePath);
+            
+if (isXsdSchema(schemaNode)){
+    XsdSchema.parse(this, schemaNode);
+}
 \end{lstlisting}
 \end{minipage}
 
 \noindent
-From that moment on each element obtains all its attribute information directly from its node object (Listing \ref{lst:xsdattributeparsing}). 
+The \texttt{XsdSchema} element \texttt{parse} function converts the \texttt{Node} attributes into a \texttt{Map} object, which \texttt{XsdSchema} receives in the constructor. Each class extracts their field information from that \texttt{Map} object in their \texttt{setFields} method (Listing \ref{lst:xsdschemaparsing}). 
 
-\medskip
+\lstset{language=Java, morekeywords={getOrDefault, NamedNodeMap, Map, String, getAttributes, convertNodeMap, XsdSchema, XsdParser, ELEMENT_FORM_DEFAULT, ATTRIBUTE_FORM_DEFAULT, BLOCK_DEFAULT, FINAL_DEFAULT, TARGET_NAMESPACE, VERSION, XMLNS, @Override, XsdAnnotatedElements}}
 
-\lstset{language=Java, morekeywords={getOrDefault, NamedNodeMap, Map, String, getAttributes, convertNodeMap}}
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[caption={XsdAttribute Information Extraction (Simplified)},captionpos=b,label={lst:xsdattributeparsing}]
-public class XsdAttribute extends XsdReferenceElement {
-    private XsdAttribute(Map<String, String> elementFieldsMapParam) {
-        setFields(elementFieldsMapParam);
+\begin{lstlisting}[caption={XsdSchema Information Extraction (Simplified)},captionpos=b,label={lst:xsdschemaparsing}]
+public class XsdSchema extends XsdAnnotatedElements {
+    private XsdSchema(XsdParser parser, Map<String, String> fieldsMap){
+        super(parser, fieldsMap);
     }
-
     @Override
-    public void setFields(Map<String, String> elementFieldsMapParam) {
-        super.setFields(elementFieldsMapParam);
+    public void setFields(Map<String, String> fieldsMap) {
+        super.setFields(fieldsMap);
 
-        this.fixed = elementFieldsMap.getOrDefault(FIXED_TAG, fixed);
-        this.type = elementFieldsMap.getOrDefault(TYPE_TAG, type);
-        this.form = elementFieldsMap.getOrDefault(FORM_TAG, form);
-        this.use = elementFieldsMap.getOrDefault(USE_TAG, "optional");
-        this.defaultElement = elementFieldsMap.getOrDefault(DEFAULT_ELEMENT_TAG, defaultElement);
+        this.attributeFormDefault = fieldsMap.getOrDefault(ATTRIBUTE_FORM_DEFAULT, "unqualified");
+        this.elementFormDefault = fieldsMap.getOrDefault(ELEMENT_FORM_DEFAULT, "unqualified");
+        this.blockDefault = fieldsMap.getOrDefault(BLOCK_DEFAULT, "");
+        this.finalDefault = fieldsMap.getOrDefault(FINAL_DEFAULT, "");
+        this.targetNamespace = fieldsMap.getOrDefault(TARGET_NAMESPACE, targetNamespace);
+        this.version = fieldsMap.getOrDefault(VERSION, version);
+        this.xmlns = fieldsMap.getOrDefault(XMLNS, xmlns);
     }
     
-    public static ReferenceBase parse(Node node) {
+    public static ReferenceBase parse(XsdParser parser, Node node) {
         NamedNodeMap nodeAttributes = node.getAttributes();
         Map<String, String> attrMap = convertNodeMap(nodeAttributes);        
-        XsdAttribute attribute = new XsdAttribute(attrMap);    
+        XsdSchema schema = new XsdSchema(parser, attrMap);    
     
-        return xsdParseSkeleton(node, attribute);
+        return xsdParseSkeleton(node, schema);
     }
 }
 \end{lstlisting}
 \end{minipage}
 
 \noindent
-Regarding the other elements that may be contained in a given node they are all similarly parsed. The \texttt{xsdParseSkeleton} function existing in the \texttt{XsdAbstractElement} class (Listing \ref{lst:skeletonfunction}) will iterate in all the children of a given node, invoke the respective \texttt{parse} function of each one and then notify the parent element, using the Visitor pattern, so that the parent element can perform the changes needed based on the element received.
+The parsing of the \texttt{XsdSchema} continues by parsing its children nodes. To parse children elements of any given \texttt{XsdAbstractElement} type we have the \texttt{xsdParseSkeleton} function present in the \texttt{XsdAbstractElement} class (Listing \ref{lst:skeletonfunction}). This function will iterate in all the children of a given node, invoke the respective \texttt{parse} function of each children and then notify the parent element, using the Visitor pattern, so that the parent can perform the changes needed based on the type of element received. By using this strategy just by invoking the \texttt{parse} function of \texttt{XsdSchema}, which is the top element of all the \ac{XSD} files, we effectively parse the whole document since each \texttt{parse} function of any \texttt{XsdAsbtractElement} concrete type also invokes the \texttt{xsdParseSkeleton} function, which parses all the children.
 
-\bigskip
+\lstset{language=Java, morekeywords={Node, XsdAbstractElement, getFirstChild, getNodeType, getNodeName, String, Function, getParseMappers, get, apply, getElement, accept, getVisitor, getNextSibling, createFromXsd, ReferenceBase, XsdParser, getParser, ELEMENT_NODE, BiFunction, XsdParser, addParsedElement}}
 
-\lstset{language=Java, morekeywords={Node, XsdAbstractElement, getFirstChild, getNodeType, getNodeName, String, Function, getParseMappers, get, apply, getElement, accept, getVisitor, getNextSibling, createFromXsd, ReferenceBase}}
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={XsdParseSkeleton Parsing Children From a Node},captionpos=b,label={lst:skeletonfunction}]
-static ReferenceBase xsdParseSkeleton(Node node, XsdAbstractElement element){
+ReferenceBase xsdParseSkeleton(Node node, XsdAbstractElement element){
+    XsdParser parser = element.getParser();
     Node child = node.getFirstChild();
 
-    //Iterates in all children from the received Node object, node.
-    while (child != null) {   
+    while (child != null) { //Iterates in all children from node.
         //Only parses element nodes, ignoring comments and text nodes.
         if (child.getNodeType() == Node.ELEMENT_NODE) { 
-            //Obtains the name of the node, e.g. xsd:element.
             String nodeName = child.getNodeName();
 
             //Searches on a mapper for a parsing functions 
             //for the respective type.
-            Function<Node, ReferenceBase> parserFunction = XsdParser.getParseMappers().get(nodeName);
+            BiFunction<XsdParser, Node, ReferenceBase> parserFunction = XsdParser.getParseMappers().get(nodeName);
 
             //Applies the parsing functions, if any, and notifies 
             //the parent objects Visitor to the newly created object.
             if (parserFunction != null){
-                parserFunction.apply(child)
-                                   .getElement()
-                                   .accept(element.getVisitor());
+                parserFunction.apply(parser, child).getElement()
+                              .accept(element.getVisitor());
             }
         }
 
-        //Moves on to the next sibling.
-        child = child.getNextSibling();
+        child = child.getNextSibling(); //Moves on to the next sibling.
     }
 
-    //Wraps the element in a ReferenceBase object, 
-    //which will be explained further ahead.
-    return ReferenceBase.createFromXsd(element);
+    ReferenceBase wrappedElement= ReferenceBase.createFromXsd(element);
+    parser.addParsedElement(wrappedElement);
+    return wrappedElement;
 }
 \end{lstlisting}
 \end{minipage}
 
-\newpage
-
 \noindent
-Based on the explanation provided above, we will give a more detailed description about the parsing process made by XsdParser using a concrete example with the \ac{XSD} code present in Listing \ref{lst:parsingexample}.
+Based on the explanation provided above, we will give a more detailed description about the parsing process made by \texttt{XsdParser} using a small concrete example extracted from the \ac{HTML} \ac{XSD} file, present in Listing \ref{lst:parsingexample}.
 
 \bigskip
 
 \lstset{
 	language=XML,
-	morekeywords={xsd:element, xsd:complexType, id}
+	morekeywords={xs:schema, xmlns, targetNamespace, xmlns:xs, name, xs:element, xs:complexType, id}
 }
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Parsing Concrete Example},captionpos=b,label={lst:parsingexample}]
-<xsd:element>
-		<xsd:complexType id="complexId">
-				<!-- (...) -->
-		</xsd:complexType>
-</xsd:element>
+<xs:schema xmlns='http://schemas.microsoft.com/intellisense/html-5'
+           version="1.0"
+           targetNamespace='http://schemas.microsoft.com/intellisense/html-5'
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="html">
+        <xs:complexType>
+            <!-- -->
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
 \end{lstlisting}
 \end{minipage}
 
@@ -179,41 +183,41 @@ Based on the explanation provided above, we will give a more detailed descriptio
 Step 1 - DOM parsing:
 
 \noindent
-The parsing starts with the \ac{DOM} library parsing the code (Listing \ref{lst:parsingexample}), which returns a node list (i.e. nodes) containing only one node, the \texttt{xsd:element} node. Using the \texttt{xsd:element} string the \texttt{XsdElement parse} function will be obtained from an existent string to function mapper (i.e. parseMappers). 
+The parsing starts with the \ac{DOM} library parsing the code (Listing \ref{lst:parsingexample}), which returns the \texttt{xs:schema} node (i.e. schemaNode in Listing \ref{lst:nodeparsingprocess}). \texttt{XsdParser} verifies if the node is in fact a \texttt{xs:schema} node and after verifying that in fact it is, it invokes the \texttt{XsdSchema parse} function (line 19 of Listing \ref{lst:xsdschemaparsing}). 
 
-Step 2 - XsdElement Attribute Parsing:
-
-\noindent
-The \texttt{XsdElement parse} function receives the \texttt{Node} object and extracts all the attribute information (similar to the example presented in Listing \ref{lst:xsdattributeparsing}), which in this case is empty since the element has no attributes. 
-
-Step 3 - XsdElement Children:
+Step 2 - XsdSchema Attribute Parsing:
 
 \noindent
-To parse the \texttt{XsdElement} children the \texttt{XsdAbstractElement xsdParseSkeleton} function is called (Listing \ref{lst:skeletonfunction}) and starts to iterate the \texttt{xsd:element} node children, which is a node list containing a single element, the \texttt{xsd:complexType} node. 
+The \texttt{XsdSchema parse} function receives the \texttt{Node} object and converts it to a \texttt{Map} object (line 21 of Listing \ref{lst:xsdschemaparsing}). The map object is then passed to the \texttt{XsdSchema} constructor which will result in the invocation of the \texttt{setFields} method (line 7 of Listing \ref{lst:xsdschemaparsing}), which will extract the information from the \texttt{Map} object to the class fields.
 
-Step 4 - XsdComplexType Attribute Parsing:
-
-\noindent
-The parsing of the \texttt{xsd:complexType} node is similar to \texttt{xsd:element}, it extracts the attribute information from its respective node, in this case it will obtain a value from the node attribute named \texttt{id} and assigning it to the \texttt{id} field of the \texttt{XsdCompleType} object (similar to the example presented in Listing \ref{lst:xsdattributeparsing}). 
-
-Step 5 - XsdElement Visitor Notification:
+Step 3 - XsdSchema Children:
 
 \noindent
-After parsing the \texttt{xsd:compleType} node the previously created \texttt{XsdElement} object is notified. This notification informs the \texttt{XsdElement} object that it contains the newly created \texttt{XsdCompleType} object using the Visitor pattern. The \texttt{XsdElement} should then act accordingly based on the type of the object received as his children, since different types of objects should be treated differently. 
+To parse the \texttt{XsdSchema} children the \texttt{XsdAbstractElement xsdParseSkeleton} (Listing \ref{lst:skeletonfunction}) function is called (line 24 of Listing \ref{lst:xsdschemaparsing}) and starts to iterate the \texttt{xs:schema} node children, which, in this case, is a node list containing a single element, the \texttt{xs:element} node. 
+
+Step 4 - XsdElement Attribute Parsing:
 
 \noindent
-This whole behaviour is shared by all the classes that represent a \ac{XSD} element. The Visitor pattern is a very important tool in the parsing process since it allows each element to define a different behaviour for each element received as children. This is also useful to implement the schema rules, since it can be used to define empty methods to reject any children that a given element type shouldn't contain as per definition on the schema specification. The same happens to the attributes present in the parsed \ac{DOM} nodes, each XsdParser object only extracts the attributes defined in the \ac{XSD} schema specification, ignoring other attributes present.
+The parsing of the \texttt{xs:element} node is similar to \texttt{xs:schema}, it extracts the attribute information from its respective node in its \texttt{setFields} function. 
+
+Step 5 - XsdSchema Visitor Notification:
+
+\noindent
+After parsing the \texttt{xs:element} node the previously created \texttt{XsdSchema} object is notified. This notification informs the \texttt{XsdSchema} object that it contains the newly created \texttt{XsdElement} object using the Visitor pattern. The \texttt{XsdSchema} should then act accordingly based on the type of the object received as his children, since different types of objects should be treated differently. 
+
+\noindent
+This whole behaviour is shared by all the classes that represent a \ac{XSD} element. The Visitor pattern is a very important tool in the parsing process since it allows each element to define a different behavior for each element received as children. This is also useful to implement the schema rules, since it can be used to define empty methods to reject any children that a given element type shouldn't contain as per definition on the schema specification. The same happens to the attributes present in the parsed \ac{DOM} nodes, each \texttt{XsdAbstractElement} concrete type only extracts the attributes defined in the \ac{XSD} schema specification, ignoring other attributes present.
 
 \subsection{Reference solving}
 \label{sec:refsolving}
 
-After the parsing process described previously, there is still an issue to solve regarding the existing references in the \ac{XSD} schema definition. In \ac{XSD} files the usage of the ref attribute is frequent to avoid repetition of \ac{XML} code. This generates two main problems when handling reference solving, the first one being existing elements with ref attributes referencing non existent elements and the other being the replacement of the reference object by the referenced object when present. In order to effectively help resolve the referencing problem some wrapper classes were added. These wrapper classes contain the wrapped element and serve as a classifier for the wrapped element. The existing wrapper classes are as follow:
+After the parsing process described previously, there is still an issue to solve regarding the existing references in the \ac{XSD} schema definition. In \ac{XSD} files the usage of the \texttt{ref} attribute is frequent to avoid repetition of \ac{XML} code. This generates two main problems when handling reference solving, the first one being existing elements with \texttt{ref} attributes referencing non existent elements and the other being the replacement of the reference object by the referenced object when present. In order to effectively help resolve the referencing problem some wrapper classes were added. These wrapper classes contain the wrapped element and serve as a classifier for the wrapped element. The existing wrapper classes are as follow:
 
 \begin{itemize}  
-	\item UnsolvedElement - Wrapper class to each element that was not found in the file.
-	\item ConcreteElement - Wrapper class to each element that is present in the file.
-	\item NamedConcreteElement - Wrapper class to each element that is present in the file and has a name attribute present.
-	\item ReferenceBase - A common interface between UnsolvedReference and ConcreteElement.
+	\item \texttt{UnsolvedElement} - Wrapper class to each element that has a \texttt{ref} attribute.
+	\item \texttt{ConcreteElement} - Wrapper class to each element that is present in the file.
+	\item \texttt{NamedConcreteElement} - Wrapper class to each element that is present in the file and has a \texttt{name} attribute present.
+	\item \texttt{ReferenceBase} - A common interface between \texttt{UnsolvedReference} and \texttt{ConcreteElement}.
 \end{itemize}
 
 \noindent
@@ -228,7 +232,6 @@ Having these wrappers on the elements allow for a detailed filtering, which is h
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Reference Solving Example},captionpos=b,label={lst:refsolvingexample}]
-<?xml version='1.0' encoding='utf-8' ?>
 <xsd:schema xmlns='http://schemas.microsoft.com/intellisense/html-5' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
 	
     <!-- NamedConcreteType wrapping a XsdGroup -->
@@ -246,10 +249,10 @@ Having these wrappers on the elements allow for a detailed filtering, which is h
 \end{minipage}
 
 \noindent
-In this short example we have a \texttt{XsdChoice} element that contains a \texttt{XsdGroup} element with a reference attribute. When replacing the \texttt{UnsolvedReference} objects the \texttt{XsdGroup} with the \texttt{ref} attribute is going to be replaced by a copy of the already parsed \texttt{XsdGroup} with the \texttt{name} attribute. This is achieved by accessing the parent of the element, in this case accessing the parent of the \texttt{XsdGroup} with the \texttt{ref} attribute, in order to remove the element identified by "toBeReplaced" and adding the element identified by "replacement".
+In this short example we have a \texttt{XsdChoice} element that contains a \texttt{XsdGroup} element with a \texttt{ref} attribute. When replacing the \texttt{UnsolvedReference} objects the \texttt{XsdGroup} with the \texttt{ref} attribute is going to be replaced by a copy of the already parsed \texttt{XsdGroup} with the \texttt{name} attribute. This is achieved by accessing the parent of the element, in this case accessing the parent of the \texttt{XsdGroup} with the \texttt{ref} attribute, in order to remove the element identified by "toBeReplaced" and adding the element identified by "replacement".
 
 \noindent
-Having created these classes it is expected that at the end of a successful file parsing only \texttt{ConcreteElement} and/or \texttt{NamedConcreteElement} objects remain. In case there are any remainder \texttt{UnsolvedReference} objects the programmer can query the parser, using the function \texttt{getUnsolvedReferencesForFile(String filePath)}, to discover which elements are missing and where were they used. The programmer can then correct the missing elements by adding them to the \ac{XSD} file and repeat the parsing process or just acknowledge that those elements are missing. 
+Having created these classes it is expected that at the end of a successful file parsing only \texttt{ConcreteElement} and/or \texttt{NamedConcreteElement} objects remain. In case there are any remainder \texttt{UnsolvedReference} objects the programmer can query the parser, using the function \texttt{getUnsolvedReferences} of the \texttt{XsdParser} class, to discover which elements are missing and where were they used. The programmer can then correct the missing elements by adding them to the \ac{XSD} file and repeat the parsing process or just acknowledge that those elements are missing. 
 
 \section{XsdAsm} % (fold)
 \label{sec:xsdasm}
@@ -418,6 +421,118 @@ public interface CommonAttributeGroup extends Element {
 
 \noindent
 As we can see from the previous example this solution focus on how the code is organized instead of making complex code. All the methods present in the generated classes have very low complexity, mainly adding information to the element children and attribute list. To reduce repeated code many interfaces with default methods are created so different classes can implement them and reuse the code. The complexity of the generated code is mostly present in the \texttt{AbstractElement} class, which implements most of the \texttt{Element} interface methods. Another very important aspect of the generated classes is the extensive use of type arguments which allows the \ac{API} to navigate in the element tree while maintaining type information which is essential to guarantee the specific language restrictions.
+
+\subsubsection{Type Arguments}
+\label{sec:typearguments}
+
+As this solution was designed an objective became clear, the generated \ac{API} should be easily navigable. This is crucial to provide a good user experience while creating templates through the \texttt{xmlet} \ac{API}s. So, there are two main aspects, the \ac{API} should be easily navigable and always implement the concrete language restrictions. To tackle this issue we rely on type arguments. Through type arguments we can always keep track of the tree structure of the elements that are being created and keep adding elements or moving up in the tree structure. In Listing \ref{lst:typeargumentsexplicit} we can observe how the type arguments work. 
+
+\lstset{language=Java, morekeywords={Html, Body, Div, body, div, attrClass, Element}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Explicit Example of Type Arguments},captionpos=b,label={lst:typeargumentsexplicit}, literate={º}{\textdegree}1]
+Html<Element> html = new Html<>();
+Body<Html<Element>> body = html.body();
+Div<Body<Html<Element>>> div = body.div();
+Div<Body<Html<Element>>> divAfterAttribute = 
+                         div.attrClass("attrClassValue");
+Body<Html<Element>> bodyAgain = divAfterAttribute.º();
+Html<Element> htmlAgain = bodyAgain.º();
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+When we create the \texttt{Html} element we should indicate that he has a parent, for consistency. Then, as we add elements such as \texttt{Body} we automatically return the recently created \texttt{Body} element, but with parent information that indicates that this \texttt{Body} instance is descendant of an \texttt{Html} element. The same happens with the \texttt{Div} element. This behavior changes when adding attributes, in which case we return the object which had the attribute added to them, while maintaining all the parent information. The last two lines show how to move up in the element tree by using the method \texttt{º}. The method name is meant to be as short as possible and to avoid distractions while reading the template. 
+
+\noindent
+While in the example presented in Listing \ref{lst:typeargumentsexplicit} the usage of the \ac{API} might seem to have excessive verbose to define a simple \ac{HTML} document that verbose isn't exactly needed. For specific purposes it might be needed to extract variables, e.g. to perform a loop and add some repeated table rows to a table, resulting in a code similar to the Listing \ref{lst:typeargumentsexplicit} but the most common usage of the \ac{API} should be more similar to Listing \ref{lst:typeargumentshidden}.  
+
+\bigskip
+
+\lstset{language=Java, morekeywords={Html, body, div,attrClass}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Simpler Example of Type Arguments},captionpos=b,label={lst:typeargumentshidden}, literate={º}{\textdegree}1]
+new Html<>()
+      .body()
+           .div().attrClass("attrClassValue").º()
+      .º();
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+To provide a better understanding on how this is possible we need to showcase three distinct classes. First we have the \texttt{AbstractElement} class, Listing \ref{lst:abstractelement}, from which all concrete elements derive. This class receives two type arguments: 
+
+\begin{itemize}
+	\item \textbf{T} - Represents the type of the concrete element; 
+	\item \textbf{Z} - Represents the type of the parent of the concrete element.
+\end{itemize}	
+
+\lstset{language=Java, morekeywords={AbstractElement, Element, T, Z}}
+
+\noindent
+In the \texttt{º} method, which returns the parent of any concrete element, the type parameter is guaranteed by returning \texttt{Z}, which is the type of the parent of the current element, as shown in the last two lines of code in Listing \ref{lst:typeargumentsexplicit}.
+
+\bigskip
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Type Arguments - AbstractElement class},captionpos=b,label={lst:abstractelement}, literate={º}{\textdegree}1]
+class AbstractElement<T extends Element, Z extends Element>
+	protected Z parent;
+	
+	public Z º() {
+		return this.parent;
+	}
+	
+	// (...)
+}
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+The second class is the \texttt{Html} class, which is representative of every concrete element of an \texttt{xmlet} \ac{API}. It has a single type argument, Z which represents the type of its parent. It extends \texttt{AbstractElement} and therefore indicates that his type is \texttt{Html<Z>} and its parent type is \texttt{Z}. Any  interface implemented by the concrete elements should receive the same type information as the \texttt{AbstractElement} class, as shown with \texttt{HtmlChoice0}. Regarding the \texttt{attrManifest} method, it indicates that returns the exact same instance as the one from which the method is called, keeping the type information by returning \texttt{Html<Z>}.
+
+\bigskip
+
+\lstset{language=Java, morekeywords={Html, Element, Z, AbstractElement, HtmlChoice0, addAttr, AttrManifestString, String}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Type Arguments - AbstractElement class},captionpos=b,label={lst:abstractelement}, literate={º}{\textdegree}1]
+class Html<Z extends Element> extends AbstractElement<Html<Z>, Z>
+                               implements HtmlChoice0<Html<Z>, Z>
+    // (...)
+    
+    public Html<Z> attrManifest(String attrManifest) {
+        return this.addAttr(new AttrManifestString(attrManifest));
+    }
+}
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+As the third class we have the \texttt{HtmlChoice0} interface which is representative of most interfaces of an \texttt{xmlet} \ac{API}. It should receive the same type arguments as \texttt{AbstractElement}:
+
+\begin{itemize}
+	\item \textbf{T} - Represents the type of the concrete element; 
+	\item \textbf{Z} - Represents the type of the parent of the concrete element.
+\end{itemize}	
+
+\noindent
+Since the \texttt{Html} is the only class implementing this interface its \texttt{T} type parameter is always \texttt{Html<Z>} which results in a return type of \texttt{Body<Html<Z>}\texttt{>} when the method \texttt{body} is called. 
+
+\bigskip
+
+\lstset{language=Java, morekeywords={Html, Element, Z, Body, T, addChild, AbstractElement, HtmlChoice0, addAttr, AttrManifestString}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Type Arguments - AbstractElement class},captionpos=b,label={lst:abstractelement}, literate={º}{\textdegree}1]
+interface HtmlChoice0<T extends Element<T, Z>, Z extends Element> 		                                           extends Element<T, Z> {
+    default Body<T> body() {
+        return (Body)this.addChild(new Body(this.self()));
+    }
+}
+\end{lstlisting}
+\end{minipage}
 
 \subsection{Restriction Validation}
 \label{sec:restrictionvalidation}

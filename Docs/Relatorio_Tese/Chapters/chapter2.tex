@@ -3,7 +3,37 @@
 
 \section{Motivation}
 
-Text has evolved with the advance of technology resulting in the creation of markup languages \cite{markuplanguages}. Markup languages work by adding annotations to text, the annotations being also known as tags, that allow to add additional information to the text. Each markup language has its own tags and each of those tags add a different meaning to the text encapsulated within them. In order to use markup languages the users can write the text and add all the tags manually, either by fully writing them or by using some kind of text helpers such as text editors with IntelliSense\footnote{\href{https://www.techopedia.com/definition/24580/intellisense}{Intellisense Definition}} which can help diminish the errors caused by manually writing the tags. But even with text helpers the resulting document can violate the restrictions of the respective markup language because the editors don't actually enforce the language rules. 
+Text has evolved with the advance of technology resulting in the creation of \textit{markup languages} \cite{markuplanguages}. Markup languages work by adding annotations to text, the annotations being also known as tags, that allow to add additional information to the text. Each markup language has its own tags and each of those tags add a different meaning to the text encapsulated within them. In order to use markup languages the users can write the text and add all the tags manually, either by fully writing them or by using some kind of text helpers such as text editors with IntelliSense\footnote{\href{https://www.techopedia.com/definition/24580/intellisense}{Intellisense Definition}} which can help diminish the errors caused by manually writing the tags. But even with text helpers the resulting document can violate the restrictions of the respective markup language because the editors don't actually enforce the language rules. 
+
+\noindent
+The most common markup language is the \ac{HTML} language, which is heavily used in Web applications. Other uses of the \ac{HTML} language are writing emails, writing reports, etc. The function of \ac{HTML} in Web applications is to define the user-interface, which is also known as the view of the website. To generate the end view the most common solution is the usage of \textit{template engine}  solutions, which can be considered the \textit{controller} which is responsible for joining the domain data with the views. This approach separates the \textit{view} from the \textit{controller}, which allows both of the different layers of a project to be more independent. But, with the usage of \textit{template engines}, there is another layers of complexity between the \textit{view} and the \textit{controller}, since both of these aspects of the project use different programming languages. In the following examples we will show the Java code necessary to generate a table, using the \ac{HTML} language and the Mustache template engine.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 In the following \ac{HTML} example there is a violation of \ac{HTML} rules, a \texttt{<html>} tag containing a \texttt{<div>} tag, which is not allowed (Listing \ref{lst:failedhtml}).
 
@@ -59,7 +89,3 @@ The use case that will be used to test and evaluate the solution will be the \ac
 
 \noindent
 The generated \ac{HTML}5 elements \ac{API} will then be used in the HtmlFlow \ac{API}, which is also a fluent Java \ac{API} that is used to write well formed \ac{HTML} files. With the Visitor pattern the HtmlFlow will only need to implement its own Visitor to achieve its goal. At the moment the HtmlFlow library only supports a set of the \ac{HTML} elements which were created manually and the rest of the library interacts with those elements in order to write the \ac{HTML} files. By using the solution which will be developed in this work the HtmlFlow will support the whole \ac{HTML} syntax. 
-
-\section{Document Organization}
-
-This document will be separated in five distinct chapters. The first chapter, this one, introduces the problem that was presented. The second chapter presents existent technology that is relevant to this solution. The third chapter explains in detail the different components of the suggested solution. The fourth chapter approaches the deployment and testing of the suggested solution. The fifth and last chapter of this document contains some final remarks and description of future work.

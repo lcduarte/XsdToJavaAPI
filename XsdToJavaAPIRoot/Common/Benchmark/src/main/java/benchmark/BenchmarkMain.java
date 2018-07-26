@@ -4,6 +4,11 @@ import benchmark.Faster.FasterNoIndentationVisitor;
 import benchmark.Faster.FasterWithIndentationVisitor;
 import benchmark.Regular.RegularNoIndentationVisitor;
 import benchmark.Regular.RegularWithIndentationVisitor;
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
+import com.github.mustachejava.MustacheFactory;
+import com.github.mustachejava.reflect.ReflectionObjectHandler;
+import com.github.mustachejava.util.DecoratedCollection;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -13,8 +18,12 @@ import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.annotations.Param;
 import org.xmlet.htmlapi.*;
 
-import java.io.StringWriter;
+import java.io.*;
+import java.lang.Object;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +36,7 @@ import static j2html.TagCreator.*;
 @Measurement(iterations = 10, time=1)
 @Fork(1)
 @State(Scope.Benchmark)
-public class BenchmarkMain {
+public class BenchmarkMain<T> {
 
     @Param({"10", "100", "1000", "10000", "100000", "1000000"})//, "1000"}), "10000", "100000", "1000000"})
     private int elementCount;
@@ -200,22 +209,6 @@ public class BenchmarkMain {
         return regularNoIndentationVisitor.getResult();
     }
 
-    public String htmlFlow(){
-        Html<Html> html = new Html<>();
-
-        String userName = "Luís";
-
-        html.
-            body()
-                .div()
-                    .b()
-                        .text("Hello").º()
-                    .i()
-                        .text(userName);
-
-        return "";
-    }
-
     @Benchmark
     public String velocity() {
         t.merge( context, writer );
@@ -244,12 +237,176 @@ public class BenchmarkMain {
         );
     }
 
-    public static void main( String[] args ) throws Exception {
+    String hello = "Hello";
+    String world() {return "world";}
 
+    Iterable<TableElement> tableElementsEx1 = getTableElementsEx1();
+
+    private static List<TableElement> getTableElementsEx1(){
+        List<TableElement> tableElements = new ArrayList<>();
+
+        tableElements.add(new TableElement("Alfreds Futterkiste", "Maria Anders", "Germany"));
+        tableElements.add(new TableElement("Centro comercial Moctezuma", "Francisco Chang", "Mexico"));
+        tableElements.add(new TableElement("Ernst Handel", "Roland Mendel", "Austria"));
+        tableElements.add(new TableElement("Island Trading", "Helen Bennett", "UK"));
+        tableElements.add(new TableElement("Laughing Bacchus Winecellars", "Yoshi Tannamuri", "Canada"));
+        tableElements.add(new TableElement("Magazzini Alimentari Riuniti", "Giovanni Rovelli", "Italy"));
+
+        return tableElements;
+    }
+
+    Iterable<T> tableElementsEx2 = getTableElementsEx2();
+
+    private static <T> List<T> getTableElementsEx2(){
+        List<T> tableElements = new ArrayList<>();
+
+        tableElements.add((T) new TableElement("Alfreds Futterkiste", "Maria Anders", "Germany"));
+        tableElements.add((T) new TableElement("Centro comercial Moctezuma", "Francisco Chang", "Mexico"));
+        tableElements.add((T) new TableElement("Ernst Handel", "Roland Mendel", "Austria"));
+        tableElements.add((T) new TableElement("Island Trading", "Helen Bennett", "UK"));
+        tableElements.add((T) new TableElement("Laughing Bacchus Winecellars", "Yoshi Tannamuri", "Canada"));
+        tableElements.add((T) new TableElement("Magazzini Alimentari Riuniti", "Giovanni Rovelli", "Italy"));
+
+        return tableElements;
+    }
+
+    public static void main( String[] args ) throws Exception {
+        //ex1();
+        //ex2();
+        //ex1HtmlApi();
+        ex2HtmlApi();
+
+
+        new Html<>()
+                .body()
+                    .div().attrClass("attrClassValue").º()
+                .º();
+    }
+
+    static void ex1() throws IOException {
+        Writer writer = new OutputStreamWriter(System.out);
+        MustacheFactory mf = new DefaultMustacheFactory();
+
+        Mustache mustache = mf.compile(new StringReader(
+                "<table>\n" +
+                        "    <tr>\n" +
+                        "        <th>company</th>\n" +
+                        "        <th>contact</th>\n" +
+                        "        <th>country</th>\n" +
+                        "    </tr>\n" +
+                        "    {{#tableElementsEx1}}\n" +
+                        "    <tr>\n" +
+                        "        <td>{{company}}</td>\n" +
+                        "        <td>{{contact}}</td>\n" +
+                        "        <td>{{country}}</td>\n" +
+                        "    </tr>\n" +
+                        "    {{/tableElementsEx1}}" +
+                        "</table>"), "helloworld");
+
+        mustache.execute(writer, new BenchmarkMain());
+        writer.flush();
+    }
+
+    static <T> void ex2() throws IOException {
+        Writer writer = new OutputStreamWriter(System.out);
+        MustacheFactory mf = new DefaultMustacheFactory();
+
+        List<T> elementList = BenchmarkMain.getTableElementsEx2();
+        List<String> names = new ArrayList<>();
+
+        if (!elementList.isEmpty()){
+            Arrays.asList(elementList.get(0).getClass().getDeclaredFields()).forEach(field -> names.add(field.getName()));
+        }
+
+        StringBuilder templateString = new StringBuilder(
+                "<table>\n" +
+                "    <tr>\n");
+
+        names.forEach(name ->
+                templateString
+                        .append("        <th>").append(name).append("</th>\n"));
+
+        templateString.append("    </tr>\n").append("    {{#tableElementsEx2}}\n    <tr>\n");
+
+        names.forEach(name -> templateString.append("        <td>").append("{{").append(name).append("}}</td>\n"));
+
+        templateString.append("    </tr>\n").append("    {{/tableElementsEx2}}\n").append("</table>");
+
+        Mustache mustache = mf.compile(new StringReader(templateString.toString()), "helloworld");
+
+        mustache.execute(writer, new BenchmarkMain<TableElement>());
+        writer.flush();
+    }
+
+    static void ex1HtmlApi() throws IOException {
+        RegularWithIndentationVisitor<List<TableElement>> visitor = new RegularWithIndentationVisitor<>(getTableElementsEx1());
+        Table<Element> table = new Table<>();
+
+        table.tr()
+                .th().text("company").º()
+                .th().text("contact").º()
+                .th().text("country").º().º()
+             .<List<TableElement>>binder((tableObj, tableElements) ->
+                tableElements.forEach(tableElement ->
+                    tableObj.tr()
+                                .td().text(tableElement.company).º()
+                                .td().text(tableElement.contact).º()
+                                .td().text(tableElement.country)
+                )
+             );
+
+        table.accept(visitor);
+        System.out.println(visitor.getResult());
+    }
+
+    static <T> void ex2HtmlApi() throws IOException {
+        List<T> elementList = getTableElementsEx2();
+        List<Field> fields = elementList.isEmpty() ? new ArrayList<>() : Arrays.asList(elementList.get(0).getClass().getDeclaredFields());
+
+        RegularWithIndentationVisitor<List<T>> visitor = new RegularWithIndentationVisitor<>(elementList);
+        Table<Element> table = new Table<>();
+        Tr<Table<Element>> titleRow = table.tr();
+
+        fields.forEach(field -> titleRow.th().text(field.getName()));
+
+        table.<List<T>>binder((tableObj, tableElements) ->
+                    tableElements.forEach(tableElement -> {
+                        Tr<Table<Element>> tableRow = tableObj.tr();
+                        fields.forEach(field -> {
+                            try {
+                                tableRow.td().text(field.get(tableElement).toString());
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    })
+            );
+
+        table.accept(visitor);
+        System.out.println(visitor.getResult());
     }
 }
 
-/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
 Benchmark                                      (elementCount)   Mode  Cnt   Score   Error   Units
 BenchmarkMain.htmlApiFasterDivs                           100  thrpt   10   5$245 ± 0$094  ops/ms
 BenchmarkMain.htmlApiFasterDivsNoIndentation              100  thrpt   10  40$284 ± 0$656  ops/ms
@@ -263,8 +420,6 @@ BenchmarkMain.velocity                                    100  thrpt   10   6$36
 Benchmark                         (elementCount)   Mode  Cnt    Score    Error   Units
 BenchmarkMain.htmlApiFasterDivs              100  thrpt   10  445$449 ± 4$441  ops/ms
 BenchmarkMain.htmlApiFasterTable             100  thrpt   10  234$206 ± 2$983  ops/ms
-
-
 
 Tabs
 Benchmark              (tabCount)   Mode  Cnt      Score     Error   Units

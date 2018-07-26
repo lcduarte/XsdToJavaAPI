@@ -40,5 +40,6 @@
     <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.xmlet:htmlApi:1.0.11-snapshot" level="project" />
     <orderEntry type="library" name="Maven: com.github.xmlet:xsdAsm:1.0.12-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.github.spullara.mustache.java:compiler:0.9.5" level="project" />
   </component>
 </module>

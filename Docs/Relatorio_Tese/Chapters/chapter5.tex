@@ -32,7 +32,9 @@ Processor: Intel Core i3-3217U 1.80GHz\\
 RAM: 4GB
 
 \noindent
-The tests that are presented below consist in a simple \ac{HTML} document, with a table and a variable amount of table entries as shown in Listing \ref{lst:testhtml}. 
+The tests that are presented below consist in the generation of a simple \ac{HTML} document, with a table and a variable amount of table entries as shown in Listing \ref{lst:testhtml}. 
+
+\bigskip
 
 \lstset{language=html}
 
@@ -53,83 +55,86 @@ The tests that are presented below consist in a simple \ac{HTML} document, with 
                     ElemX
                 </td>
             </tr>
+            
         </table>
     </body>
 </html>
 \end{lstlisting}
 \end{minipage}
 
-The textual elements to feature in the table data rows are stored in a data structure and each solution should iterate that structure when generating the expected \ac{HTML}. To assert which solution is the fastest each one of them will generate the same code and we will verify the number of iterations that are possible to perform in a unit of time. To achieve this objective we will use \ac{JMH}\footnote{\href{http://openjdk.java.net/projects/code-tools/jmh/}{JMH Website}}, which is a tool used for benchmarking. The values gathered are result of the mean values of 8 testing iterations after 12 iterations of warm up. 
+The textual elements to feature in the table data rows are stored in the same data structure and each solution should iterate that structure when generating the expected \ac{HTML}. To assert which solution is the fastest each one of them will generate the same \ac{HTML} document and we will verify the number of iterations that are possible to perform in a certain unit of time. To achieve this objective we will use \ac{JMH}\footnote{\href{http://openjdk.java.net/projects/code-tools/jmh/}{JMH Website}}, which is a tool used for benchmarking. The values gathered are result of the mean values of 8 testing iterations after 12 iterations of warm up. 
 
 \newpage
 
-Generating a table with 10 elements: 
-
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
     \begin{axis}[
-        width  = 0.9*\textwidth,
-        height = 7.5cm,
+        width  = 0.45*\textwidth,
+        height = 7cm,
         major x tick style = transparent,
         ybar=2*\pgflinewidth,
         bar width=14pt,
         ymajorgrids = true,
-        ylabel = {Iterations per ms},
-		symbolic x coords={HtmlApi, J2Html, HtmlApiIndent, Velocity},
+        ylabel = {Nº of iterations/millisecond},
+		symbolic x coords={Html, J2Html, HtmlIndent, Velocity},
         xticklabels = {},
         scaled y ticks = false,
-        enlarge x limits=0.25,
+        enlarge x limits=0.85,
         ymin=0,
-        ymax=200,
+        ymax=225,
         legend cell align=left,]
         
         \addplot[style={blue,fill=blue,mark=none}]
-            coordinates {(HtmlApi, 170)};
+            coordinates {(Html, 170)};
         \addplot[style={red,fill=red,mark=none}]
              coordinates {(J2Html, 117)};
         \addplot[style={black,fill=black,mark=none}]
-             coordinates {(HtmlApiIndent, 115)};
+             coordinates {(HtmlIndent, 115)};
 		\addplot[style={green,fill=green,mark=none}]
              coordinates {(Velocity, 65)};
 
-        \legend{HtmlApi, J2html, HtmlApiIndent, Velocity}
+        \legend{Html, J2html, HtmlIndent, Velocity}
     \end{axis}
 \end{tikzpicture}
-\end{center}
+\caption{Benchmark: Generating an Html Table with 10 Elements}
+\label{fig:graphbench10table}
+\end{figure}
 
-Generating a table with 100 elements: 
-
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
     \begin{axis}[
-        width  = 0.9*\textwidth,
-        height = 7.5cm,
+        width  = 0.45*\textwidth,
+        height = 7cm,
         major x tick style = transparent,
         ybar=2*\pgflinewidth,
         bar width=14pt,
         ymajorgrids = true,
-        ylabel = {Iterations per ms},
-		symbolic x coords={HtmlApi, J2Html, HtmlApiIndent, Velocity},
+        ylabel = {Nº of iterations/millisecond},
+		symbolic x coords={Html, J2Html, HtmlIndent, Velocity},
         xticklabels = {},
         scaled y ticks = false,
-        enlarge x limits=0.25,
+        enlarge x limits=0.85,
         ymin=0,
-        ymax=25,
+        ymax=30,
         legend cell align=left,]
         
 		\addplot[style={blue,fill=blue,mark=none}]
-            coordinates {(HtmlApi, 19)};
+            coordinates {(Html, 19)};
         \addplot[style={red,fill=red,mark=none}]
              coordinates {(J2Html, 16)};
         \addplot[style={black,fill=black,mark=none}]
-             coordinates {(HtmlApiIndent, 15)};
+             coordinates {(HtmlIndent, 15)};
 		\addplot[style={green,fill=green,mark=none}]
              coordinates {(Velocity, 7)};
 
-        \legend{HtmlApi, J2html, HtmlApiIndent, Velocity}
+        \legend{Html, J2html, HtmlIndent, Velocity}
     \end{axis}
 \end{tikzpicture}
-\end{center}
+\caption{Benchmark: Generating an Html Table with 100 Elements}
+\label{fig:graphbench100table}
+\end{figure}
 
 %BenchmarkMain.htmlApiBenchmarkTableNoIndentation              10  thrpt    8  171915$712 ± 1822$305  ops/s
 %BenchmarkMain.htmlApiBenchmarkTableNoIndentation             100  thrpt    8   19760$504 ±  560$734  ops/s
@@ -142,72 +147,75 @@ Generating a table with 100 elements:
 %BenchmarkMain.j2htmlBenchmark                              10000  thrpt    8     194$768 ±    2$181  ops/s
 %BenchmarkMain.j2htmlBenchmark                             100000  thrpt    8      17$708 ±    0$793  ops/s
 
-Generating a table with 1.000 elements: 
-
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
     \begin{axis}[
-        width  = 0.9*\textwidth,
-        height = 7.5cm,
+        width  = 0.45*\textwidth,
+        height = 7cm,
         major x tick style = transparent,
         ybar=2*\pgflinewidth,
         bar width=14pt,
         ymajorgrids = true,
-        ylabel = {Iterations per s},
-		symbolic x coords={HtmlApi, J2Html, HtmlApiIndent, Velocity},
+        ylabel = {Nº of iterations/second},
+		symbolic x coords={Html, J2Html, HtmlIndent, Velocity},
         xticklabels = {},
         scaled y ticks = false,
-        enlarge x limits=0.25,
+        enlarge x limits=0.85,
         ymin=0,
-        ymax=2500,
+        ymax=3500,
         legend cell align=left,
     ]
 		\addplot[style={blue,fill=blue,mark=none}]
-            coordinates {(HtmlApi, 2008)};
+            coordinates {(Html, 2008)};
         \addplot[style={red,fill=red,mark=none}]
              coordinates {(J2Html, 1787)};
         \addplot[style={black,fill=black,mark=none}]
-             coordinates {(HtmlApiIndent, 1515)};
+             coordinates {(HtmlIndent, 1515)};
 		\addplot[style={green,fill=green,mark=none}]
              coordinates {(Velocity, 781)};   
 
-        \legend{HtmlApi, J2html, HtmlApiIndent, Velocity}
+        \legend{Html, J2html, HtmlIndent, Velocity}
     \end{axis}
 \end{tikzpicture}
-\end{center}
+\caption{Benchmark: Generating an Html Table with 1.000 Elements}
+\label{fig:graphbench1000table}
+\end{figure}
 
-Generating a table with 10.000 elements: 
-
-\begin{center}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
     \begin{axis}[
-        width  = 0.9*\textwidth,
-        height = 7.5cm,
+        width  = 0.45*\textwidth,
+        height = 7cm,
         major x tick style = transparent,
         ybar=2*\pgflinewidth,
         bar width=14pt,
         ymajorgrids = true,
-        ylabel = {Iterations per s},
-		symbolic x coords={HtmlApi, J2Html, HtmlApiIndent, Velocity},
+        ylabel = {Nº of iterations/second},
+		symbolic x coords={Html, J2Html, HtmlIndent, Velocity},
         xticklabels = {},
         scaled y ticks = false,
-        enlarge x limits=0.25,
+        enlarge x limits=0.85,
         ymin=0,
+        ymax=375,
         legend cell align=left,]
 
 		\addplot[style={blue,fill=blue,mark=none}]
-            coordinates {(HtmlApi, 241)};
+            coordinates {(Html, 241)};
         \addplot[style={red,fill=red,mark=none}]
              coordinates {(J2Html, 194)};
         \addplot[style={black,fill=black,mark=none}]
-             coordinates {(HtmlApiIndent, 152)};
+             coordinates {(HtmlIndent, 152)};
 		\addplot[style={green,fill=green,mark=none}]
              coordinates {(Velocity, 73)};      
              
-        \legend{HtmlApi, J2html, HtmlApiIndent, Velocity}
+        \legend{Html, J2html, HtmlIndent, Velocity}
     \end{axis}
 \end{tikzpicture}
-\end{center}
+\caption{Benchmark: Generating an Html Table with 10.000 Elements}
+\label{fig:graphbench10000table}
+\end{figure}
 
 %Benchmark                            (elementCount)   Mode  Cnt       Score      Error  Units
 %BenchmarkMain.htmlApiBenchmarkTable              10  thrpt    8  115288$479 ± 3165$561  ops/s
@@ -220,19 +228,95 @@ Generating a table with 10.000 elements:
 %BenchmarkMain.velocityBenchmark               10000  thrpt    8      73$138 ±    3$134  ops/s
 
 \noindent
-As we can see by the presented results the HtmlApi outperforms the other solutions, either with few elements or with a large number of elements. A second benchmark was performed by using a preexisting project that compares 10 different template engines. The spring-comparing-template-engines project\footnote{\href{https://github.com/jreijn/spring-comparing-template-engines}{Template Engines Benchmark}} uses a tomcat server to launch a WebApi based on Java Spring\footnote{\href{https://spring.io/}{Java Spring}} which can be queried using the name of the template engine, i.e. if we want to use the \ac{API} with the Apache Velocity template engine we  can query http://localhost:8080/velocity. The \ac{API} always returns the same \ac{HTML} page, the only difference is the template engine that was used to generate that page. In order to use this benchmark to also test the HtmlApi another entry was added in the project configuration to make it as if HtmlApi was a template engine solution. 
+As we can see by the presented results the HtmlApi outperforms the other solutions, either with few elements or with a large number of elements. 
+
+\subsection{Spring benchmark}
+\label{sec:springbenchmark}
+
+To assert that the results obtained through the previous benchmark weren't in any way biased in favor of the \texttt{HtmlApi} we performed another benchmark. This second benchmark was performed by using a preexisting project that compares ten different template engines such as Jade\footnote{\href{http://jade-lang.com/}{Jade Template Engine}}, Mustache\footnote{\href{https://mustache.github.io/}{Mustache Template Engine}}, Pebble\footnote{\href{http://www.mitchellbosecke.com/pebble/home}{Pebble Template Engine}}, Velocity\footnote{\href{http://velocity.apache.org/}{Velocity Template Engine}}, Chunk\footnote{\href{http://www.x5software.com/chunk/examples/ChunkExample}{Chunk Template Engine}}, JSP\footnote{\href{http://www.oracle.com/technetwork/java/index-jsp-138231.html}{JSP Template Engine}}, Jtwig\footnote{\href{http://jtwig.org/}{Jtwig Template Engine}}, FreeMarker\footnote{\href{https://freemarker.apache.org/}{FreeMarker Template Engine}}, Thymeleaf\footnote{\href{https://www.thymeleaf.org/}{Thymeleaf Template Engine}}, Handlebars\footnote{\href{https://handlebarsjs.com/}{Handlebars Template Engine}}. This benchmark, named spring-comparing-template-engines \footnote{\href{https://github.com/jreijn/spring-comparing-template-engines}{Template Engines Benchmark}}, uses a tomcat server\footnote{\href{http://tomcat.apache.org/}{Apache Tomcat}} to launch a WebApi based on the Java Spring\footnote{\href{https://spring.io/}{Java Spring}} framework. This WebApi provides routes for each solution to test, e.g. http://localhost:8080/mustache, which returns a standard \ac{HTML} page based in two distinct aspects. 
+
+\begin{itemize}
+	\item Template - Each solution under benchmark defines the same template, in their own syntax. An example is the Mustache template in Listing \ref{lst:mustachespringtemplate}.
+	\item Data - A \texttt{List} of \texttt{Presentation} objects (Listing \ref{lst:presentationobject}), which all the solutions receive to complete their templates.
+\end{itemize}
+
+\lstset{
+	language=html,
+	morekeywords={encoding, xsd:schema, xmlns, xmlns:xsd, xsd:group, xsd:choice, id, name,  ref}
+}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Spring Benchmark Mustache Template},captionpos=b,label={lst:mustachespringtemplate}]
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <title>{{#i18n}}example.title{{/i18n}} - Mustache</title>
+        <link rel="stylesheet" href="{{rc.contextPath}}/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>{{#i18n}}example.title{{/i18n}} - Mustache</h1>
+            </div>
+            {{#presentations}}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{title}} - {{speakerName}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{{summary}}}
+                    </div>
+                </div>
+            {{/presentations}}
+        </div>
+        <script src="{{rc.contextPath}}/webjars/jquery/3.1.1/jquery.min.js"></script>
+        <script src="{{rc.contextPath}}/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+    </body>
+</html>
+\end{lstlisting}
+\end{minipage}
+
+\lstset{
+	language=Java,
+	morekeywords={Long, String, Date}
+}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Spring Benchmark Presentation Object},captionpos=b,label={lst:presentationobject}]
+public class Presentation {
+    private Long id;
+    private String title;
+    private String speakerName;
+    private String summary;
+    private String room;
+    private Date startTime;
+    private Date endTime;
+}
+\end{lstlisting}
+\end{minipage}
 
 \noindent
-After launching the tomcat server running the Java Spring WebApi another tool is needed to perform the benchmark, ApacheBench\footnote{\href{https://httpd.apache.org/docs/2.4/programs/ab.html}{ApacheBench}}. This tool is used to flood a given \ac{URL} with requests and measures how much time it took for the server to respond to those requests. The values presented below are the result of a single iteration after running two warm up iterations. Multiple variants were used to test the template engines and the HtmlApi solution. The presented results are obtained after running the specified benchmark and \textit{removing} the Spring overhead. The Spring overhead is obtained by performing the respective benchmark to a route that simply returns a empty string.
+Since all the different solutions used in this \ac{API} generate the same \ac{HTML} document using the same information we can evaluate which solution is faster. To incorporate the \texttt{HtmlApi} solution in this WebApi we registered another entry in Spring settings and defined the same template as the other solutions. 
+
+\noindent
+After setting the Spring project with our solution we need to introduce other tool, the ApacheBench\footnote{\href{https://httpd.apache.org/docs/2.4/programs/ab.html}{ApacheBench}}. This tool is used to flood a given \ac{URL} with requests and measures how much time it takes for the server to respond to those requests. The goal is to flood every route with a set number of requests and evaluate the time that each solution needs to respond to the same number of requests, effectively measuring each solution performances. As a last step we also evaluated the overhead that the Spring framework introduces in this process by creating a route that returns an empty answer. By obtaining this overhead value we can subtract it to the results obtained in each benchmark route in order to exclusively compare the time that the respective solution needs to generate their response. 
+
+\noindent
+The benchmark values presented below are the result of a single iteration after running two warm up iterations. Multiple variants were used to test the template engines and the HtmlApi solution. The presented results are obtained after running the specified benchmark and \textit{removing} the Spring overhead.
 
 \newpage
 
-10.000 requests, 10 threads, Spring overhead 1.031 seconds:
+10.000 requests using 10 threads with a Spring overhead of 1.031 seconds:
 
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
     \begin{axis}[
         width  = 1*\textwidth,
-        height = 7.5cm,
+        height = 8cm,
         major x tick style = transparent,
         ybar=1*\pgflinewidth,
         bar width=10pt,
@@ -284,13 +368,18 @@ After launching the tomcat server running the Java Spring WebApi another tool is
         \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
     \end{axis}
 \end{tikzpicture}
+\caption{Benchmark: Spring Benchmark with 10.000 requests}
+\label{fig:graphbench10table}
+\end{figure}
 
-30.000 requests, 10 threads, Spring overhead 3.285 seconds:
+30.000 requests using 10 threads with a Spring overhead of 3.285 seconds:
 
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
     \begin{axis}[
         width  = 1*\textwidth,
-        height = 7.5cm,
+        height = 8cm,
         major x tick style = transparent,
         ybar=1*\pgflinewidth,
         bar width=10pt,
@@ -342,13 +431,20 @@ After launching the tomcat server running the Java Spring WebApi another tool is
         \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
     \end{axis}
 \end{tikzpicture}
+\caption{Benchmark: Spring Benchmark with 30.000 requests issued with 10 threads}
+\label{fig:graphbench10table}
+\end{figure}
 
-30.000 requests, 25 threads, Spring overhead 3.787 seconds:
+\newpage
 
+30.000 requests using 25 threads with a Spring overhead of 3.787 seconds:
+
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
     \begin{axis}[
         width  = 1*\textwidth,
-        height = 7.5cm,
+        height = 8cm,
         major x tick style = transparent,
         ybar=1*\pgflinewidth,
         bar width=10pt,
@@ -400,15 +496,18 @@ After launching the tomcat server running the Java Spring WebApi another tool is
         \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
     \end{axis}
 \end{tikzpicture}
+\caption{Benchmark: Spring Benchmark with 30.000 requests issued with 25 threads}
+\label{fig:graphbench10table}
+\end{figure}
 
-\newpage
+100.000 requests using 10 threads with a Spring overhead of 9.890 seconds:
 
-100.000 requests, 10 threads, Spring overhead 9.890 seconds:
-
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
     \begin{axis}[
         width  = 1*\textwidth,
-        height = 7.5cm,
+        height = 8cm,
         major x tick style = transparent,
         ybar=1*\pgflinewidth,
         bar width=10pt,
@@ -460,6 +559,9 @@ After launching the tomcat server running the Java Spring WebApi another tool is
         \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
     \end{axis}
 \end{tikzpicture}
+\caption{Benchmark: Spring Benchmark with 100.000 requests}
+\label{fig:graphbench10table}
+\end{figure}
 
 \noindent
 As the results show, HtmlApi outperforms all the template engines in the examples presented with the gap in performance increasing as the number of elements grows. With the two examples presented with 30.000 requests we can observe that the results are approximately the same, even though the concurrent request count increased from 10 to 25, with some template engines performing a bit better and other a bit worse, which may be due to invariable execution variations.

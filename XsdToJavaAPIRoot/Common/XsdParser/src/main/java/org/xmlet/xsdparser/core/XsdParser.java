@@ -254,7 +254,6 @@ public class XsdParser {
             ++index;
         }
 
-        //parseEnded = true;
         resolveRefs();
     }
 
@@ -273,14 +272,19 @@ public class XsdParser {
             }
 
             Node schemaNode = getSchemaNode(filePath);
-            String schemaNodeName = schemaNode.getNodeName();
 
-            if (schemaNodeName.equals(XsdSchema.XSD_TAG) || schemaNodeName.equals(XsdSchema.XS_TAG)){
+            if (isXsdSchema(schemaNode)){
                 XsdSchema.parse(this, schemaNode);
             }
         } catch (Exception e) {
             Logger.getAnonymousLogger().log(Level.SEVERE, "Exception while parsing.", e);
         }
+    }
+
+    private boolean isXsdSchema(Node node){
+        String schemaNodeName = node.getNodeName();
+
+        return schemaNodeName.equals(XsdSchema.XSD_TAG) || schemaNodeName.equals(XsdSchema.XS_TAG);
     }
 
     /**
@@ -423,9 +427,7 @@ public class XsdParser {
      * @param unsolvedReference The unsolvedReference to add to the unsolvedElements list.
      */
     public void addUnsolvedReference(UnsolvedReference unsolvedReference){
-        if (!parseEnded){
-            unsolvedElements.add(unsolvedReference);
-        }
+        unsolvedElements.add(unsolvedReference);
     }
 
     /**
