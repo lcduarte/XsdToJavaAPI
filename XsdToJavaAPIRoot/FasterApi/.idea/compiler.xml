@@ -23,9 +23,9 @@
       <module name="htmlApiFaster" target="1.8" />
       <module name="HtmlApiFasterTest" target="1.8" />
       <module name="htmlApiFasterTest" target="1.8" />
-      <module name="XsdAsmFaster" target="9" />
+      <module name="XsdAsmFaster" target="1.8" />
       <module name="xsdAsmFaster" target="9" />
-      <module name="XsdAsmFasterTest" target="9" />
+      <module name="XsdAsmFasterTest" target="1.8" />
       <module name="XsdToJavaAPIRoot" target="9" />
     </bytecodeTargetLevel>
   </component>

@@ -5,10 +5,10 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 import org.xmlet.xsdparser.core.utils.UnsolvedReferenceItem;
 import org.xmlet.xsdparser.xsdelements.*;
-import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
+import org.xmlet.xsdparser.xsdelements.exceptions.ParsingException;
 import org.xmlet.xsdparser.xsdelements.xsdrestrictions.*;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -22,6 +22,8 @@ import java.util.function.BiFunction;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.groupingBy;
 
 /**
  * {@link XsdParser} in the core class of the XsdParser project. It functions as a one shot class, receiving the name
@@ -42,7 +44,6 @@ public class XsdParser {
      * language.
      */
     private static final Map<String, String> xsdTypesToJava;
-    private boolean parseEnded = false;
 
     /**
      * parseElements contains all the top elements parsed by this class.
@@ -275,8 +276,10 @@ public class XsdParser {
 
             if (isXsdSchema(schemaNode)){
                 XsdSchema.parse(this, schemaNode);
+            } else {
+                throw new ParsingException("The top level element of a XSD file should be the xsd:schema node.");
             }
-        } catch (Exception e) {
+        } catch (SAXException | IOException | ParserConfigurationException e) {
             Logger.getAnonymousLogger().log(Level.SEVERE, "Exception while parsing.", e);
         }
     }
@@ -317,25 +320,10 @@ public class XsdParser {
      * name attribute of the {@link NamedConcreteElement}.
      */
     private void resolveRefs() {
-        HashMap<String, List<NamedConcreteElement>> concreteElementsMap = new HashMap<>();
-
-        parseElements
-                .stream()
-                .filter(concreteElement -> concreteElement instanceof NamedConcreteElement)
-                .map(concreteElement -> (NamedConcreteElement) concreteElement)
-                .forEach(referenceElement -> {
-                    List<NamedConcreteElement> list = concreteElementsMap.get(referenceElement.getName());
-
-                    if (list != null){
-                        list.add(referenceElement);
-                    } else {
-                        List<NamedConcreteElement> newList = new ArrayList<>();
-
-                        newList.add(referenceElement);
-
-                        concreteElementsMap.put(referenceElement.getName(), newList);
-                    }
-                });
+        Map<String, List<NamedConcreteElement>> concreteElementsMap = parseElements.stream()
+                                                                                   .filter(concreteElement -> concreteElement instanceof NamedConcreteElement)
+                                                                                   .map(concreteElement -> (NamedConcreteElement) concreteElement)
+                                                                                   .collect(groupingBy(NamedConcreteElement::getName));
 
         unsolvedElements.forEach(unsolvedElement -> replaceUnsolvedReference(concreteElementsMap, unsolvedElement));
     }
@@ -347,7 +335,7 @@ public class XsdParser {
      * @param concreteElementsMap The map containing all named concreteElements.
      * @param unsolvedReference The unsolved reference to solve.
      */
-    private void replaceUnsolvedReference(HashMap<String, List<NamedConcreteElement>> concreteElementsMap, UnsolvedReference unsolvedReference) {
+    private void replaceUnsolvedReference(Map<String, List<NamedConcreteElement>> concreteElementsMap, UnsolvedReference unsolvedReference) {
         List<NamedConcreteElement> concreteElements = concreteElementsMap.get(unsolvedReference.getRef());
 
         if (concreteElements != null){

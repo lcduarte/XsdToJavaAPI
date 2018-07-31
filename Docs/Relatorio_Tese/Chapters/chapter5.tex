@@ -66,8 +66,10 @@ The textual elements to feature in the table data rows are stored in the same da
 
 \newpage
 
+\begin{multicols}{2}
 \begin{figure}[H]
 \centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 0.45*\textwidth,
@@ -101,8 +103,11 @@ The textual elements to feature in the table data rows are stored in the same da
 \label{fig:graphbench10table}
 \end{figure}
 
+\columnbreak
+
 \begin{figure}[H]
 \centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 0.45*\textwidth,
@@ -117,7 +122,7 @@ The textual elements to feature in the table data rows are stored in the same da
         scaled y ticks = false,
         enlarge x limits=0.85,
         ymin=0,
-        ymax=30,
+        ymax=31,
         legend cell align=left,]
         
 		\addplot[style={blue,fill=blue,mark=none}]
@@ -135,6 +140,7 @@ The textual elements to feature in the table data rows are stored in the same da
 \caption{Benchmark: Generating an Html Table with 100 Elements}
 \label{fig:graphbench100table}
 \end{figure}
+\end{multicols}
 
 %BenchmarkMain.htmlApiBenchmarkTableNoIndentation              10  thrpt    8  171915$712 ± 1822$305  ops/s
 %BenchmarkMain.htmlApiBenchmarkTableNoIndentation             100  thrpt    8   19760$504 ±  560$734  ops/s
@@ -147,8 +153,10 @@ The textual elements to feature in the table data rows are stored in the same da
 %BenchmarkMain.j2htmlBenchmark                              10000  thrpt    8     194$768 ±    2$181  ops/s
 %BenchmarkMain.j2htmlBenchmark                             100000  thrpt    8      17$708 ±    0$793  ops/s
 
+\begin{multicols}{2}
 \begin{figure}[H]
 \centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 0.45*\textwidth,
@@ -182,8 +190,11 @@ The textual elements to feature in the table data rows are stored in the same da
 \label{fig:graphbench1000table}
 \end{figure}
 
+\columnbreak
+
 \begin{figure}[H]
 \centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 0.45*\textwidth,
@@ -216,6 +227,7 @@ The textual elements to feature in the table data rows are stored in the same da
 \caption{Benchmark: Generating an Html Table with 10.000 Elements}
 \label{fig:graphbench10000table}
 \end{figure}
+\end{multicols}
 
 %Benchmark                            (elementCount)   Mode  Cnt       Score      Error  Units
 %BenchmarkMain.htmlApiBenchmarkTable              10  thrpt    8  115288$479 ± 3165$561  ops/s
@@ -313,6 +325,7 @@ The benchmark values presented below are the result of a single iteration after 
 
 \begin{figure}[H]
 \centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 1*\textwidth,
@@ -376,6 +389,7 @@ The benchmark values presented below are the result of a single iteration after 
 
 \begin{figure}[H]
 \centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 1*\textwidth,
@@ -441,6 +455,7 @@ The benchmark values presented below are the result of a single iteration after 
 
 \begin{figure}[H]
 \centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 1*\textwidth,
@@ -504,6 +519,7 @@ The benchmark values presented below are the result of a single iteration after 
 
 \begin{figure}[H]
 \centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 1*\textwidth,

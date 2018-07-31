@@ -6,6 +6,10 @@ import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
+import org.xmlet.xsdparser.xsdelements.enums.BlockEnum;
+import org.xmlet.xsdparser.xsdelements.enums.EnumUtils;
+import org.xmlet.xsdparser.xsdelements.enums.FinalEnum;
+import org.xmlet.xsdparser.xsdelements.enums.FormEnum;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAbstractElementVisitor;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAnnotatedElementsVisitor;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdElementVisitor;
@@ -70,7 +74,7 @@ public class XsdElement extends XsdNamedElements {
     /**
      * Specifies if the current {@link XsdElement} attribute is "qualified" or "unqualified".
      */
-    private String form;
+    private FormEnum form;
 
     /**
      * Specifies if the this {@link XsdElement} support a null value.
@@ -90,7 +94,7 @@ public class XsdElement extends XsdNamedElements {
         * substitution - prevents elements derived by substitution;
         * #all - all of the above.
      */
-    private String block;
+    private BlockEnum block;
 
     /**
      * Prevents other elements to derive depending on its value. This attribute cannot be present unless this
@@ -99,7 +103,7 @@ public class XsdElement extends XsdNamedElements {
          * restriction - prevents elements derived by restriction;
          * #all - all of the above.
      */
-    private String finalObj;
+    private FinalEnum finalObj;
 
     /**
      * Specifies the minimum number of times this element can occur in the parent element. The value can be any
@@ -152,13 +156,13 @@ public class XsdElement extends XsdNamedElements {
         this.substitutionGroup = elementFieldsMap.getOrDefault(SUBSTITUTION_GROUP_TAG, substitutionGroup);
         this.defaultObj = elementFieldsMap.getOrDefault(DEFAULT_TAG, defaultObj);
         this.fixed = elementFieldsMap.getOrDefault(FIXED_TAG, fixed);
-        this.form = elementFieldsMap.getOrDefault(FORM_TAG, form);
+        this.form = EnumUtils.belongsToEnum(FormEnum.QUALIFIED, elementFieldsMap.get(FORM_TAG));
         this.nillable = Boolean.parseBoolean(elementFieldsMap.getOrDefault(NILLABLE_TAG, "false"));
         this.abstractObj = Boolean.parseBoolean(elementFieldsMap.getOrDefault(ABSTRACT_TAG, "false"));
-        this.block = elementFieldsMap.getOrDefault(BLOCK_TAG, block);
-        this.finalObj = elementFieldsMap.getOrDefault(FINAL_TAG, finalObj);
-        this.minOccurs = Integer.parseInt(elementFieldsMap.getOrDefault(MIN_OCCURS_TAG, "1"));
-        this.maxOccurs = elementFieldsMap.getOrDefault(MAX_OCCURS_TAG, "1");
+        this.block = EnumUtils.belongsToEnum(BlockEnum.ALL, elementFieldsMap.get(BLOCK_TAG));
+        this.finalObj = EnumUtils.belongsToEnum(FinalEnum.ALL, elementFieldsMap.get(FINAL_TAG));
+        this.minOccurs = EnumUtils.minOccursValidation(elementFieldsMap.getOrDefault(MIN_OCCURS_TAG, "1"));
+        this.maxOccurs = EnumUtils.maxOccursValidation(elementFieldsMap.getOrDefault(MAX_OCCURS_TAG, "1"));
     }
 
     @Override
@@ -235,7 +239,7 @@ public class XsdElement extends XsdNamedElements {
     }
 
     public String getFinal() {
-        return finalObj;
+        return finalObj.getValue();
     }
 
     @SuppressWarnings("unused")
@@ -264,5 +268,15 @@ public class XsdElement extends XsdNamedElements {
 
     public void setSimpleType(ReferenceBase simpleType) {
         this.simpleType = simpleType;
+    }
+
+    @SuppressWarnings("unused")
+    public String getBlock() {
+        return block.getValue();
+    }
+
+    @SuppressWarnings("unused")
+    public String getForm() {
+        return form.getValue();
     }
 }

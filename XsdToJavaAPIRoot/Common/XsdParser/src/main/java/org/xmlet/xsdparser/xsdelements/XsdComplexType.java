@@ -5,6 +5,9 @@ import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
+import org.xmlet.xsdparser.xsdelements.enums.ComplexTypeBlockEnum;
+import org.xmlet.xsdparser.xsdelements.enums.EnumUtils;
+import org.xmlet.xsdparser.xsdelements.enums.FinalEnum;
 import org.xmlet.xsdparser.xsdelements.visitors.AttributesVisitor;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAbstractElementVisitor;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAnnotatedElementsVisitor;
@@ -61,13 +64,13 @@ public class XsdComplexType extends XsdNamedElements {
      * Prevents a complex type that has a specified type of derivation from being used in place of this complex type.
      * Possible values are extension, restriction or #all.
      */
-    private String block;
+    private ComplexTypeBlockEnum block;
 
     /**
      * Prevents a specified type of derivation of this complex type element.
      * Possible values are extension, restriction or #all.
      */
-    private String elementFinal;
+    private FinalEnum elementFinal;
 
     /**
      * A {@link XsdComplexContent} child.
@@ -101,8 +104,8 @@ public class XsdComplexType extends XsdNamedElements {
 
         this.elementAbstract = Boolean.parseBoolean(elementFieldsMap.getOrDefault(ABSTRACT_TAG, "false"));
         this.mixed = Boolean.parseBoolean(elementFieldsMap.getOrDefault(MIXED_TAG, "false"));
-        this.block = elementFieldsMap.getOrDefault(BLOCK_TAG, block);
-        this.elementFinal = elementFieldsMap.getOrDefault(FINAL_TAG, elementFinal);
+        this.block = EnumUtils.belongsToEnum(ComplexTypeBlockEnum.ALL, elementFieldsMap.get(BLOCK_TAG));
+        this.elementFinal = EnumUtils.belongsToEnum(FinalEnum.ALL, elementFieldsMap.get(FINAL_TAG));
     }
 
     @Override
@@ -164,7 +167,7 @@ public class XsdComplexType extends XsdNamedElements {
     }
 
     public String getFinal() {
-        return elementFinal;
+        return elementFinal.getValue();
     }
 
     List<ReferenceBase> getAttributes() {
@@ -212,5 +215,10 @@ public class XsdComplexType extends XsdNamedElements {
 
     public void setSimpleContent(XsdSimpleContent simpleContent) {
         this.simpleContent = simpleContent;
+    }
+
+    @SuppressWarnings("unused")
+    public String getBlock() {
+        return block.getValue();
     }
 }

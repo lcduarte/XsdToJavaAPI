@@ -4,6 +4,10 @@ import org.w3c.dom.Node;
 import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
+import org.xmlet.xsdparser.xsdelements.enums.BlockFinalEnum;
+import org.xmlet.xsdparser.xsdelements.enums.EnumUtils;
+import org.xmlet.xsdparser.xsdelements.enums.FinalDefaultEnum;
+import org.xmlet.xsdparser.xsdelements.enums.FormEnum;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAbstractElementVisitor;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdSchemaVisitor;
 
@@ -18,16 +22,58 @@ public class XsdSchema extends XsdAnnotatedElements {
     public static final String XSD_TAG = "xsd:schema";
     public static final String XS_TAG = "xs:schema";
 
+    /**
+     * {@link XsdSchemaVisitor} which restricts its children to {@link XsdInclude}, {@link XsdImport},
+     * {@link XsdAnnotation}, {@link XsdSimpleType}, {@link XsdComplexType}, {@link XsdGroup}, {@link XsdAttribute},
+     * {@link XsdAttributeGroup} and {@link XsdElement} instances.
+     */
     private XsdSchemaVisitor visitor = new XsdSchemaVisitor(this);
 
-    private String attributeFormDefault;
-    private String elementFormDefault;
-    private String blockDefault;
-    private String finalDefault;
+    /**
+     * Specifies if the form attribute for the current {@link XsdSchema} children attributes. The default value is
+     * "unqualified". Other possible value is "qualified".
+     */
+    private FormEnum attributeFormDefault;
+
+    /**
+     * Specifies if the form attribute for the current {@link XsdSchema} children elements. The default value is
+     * "unqualified". Other possible value is "qualified".
+     */
+    private FormEnum elementFormDefault;
+
+    /**
+     * Specifies if the block attribute for the current {@link XsdSchema} children such as {@link XsdElement} and
+     * {@link XsdComplexType}. The default value is "". Other possible value are "extension", "restriction",
+     * "substitution" and "#all".
+     */
+    private BlockFinalEnum blockDefault;
+
+    /**
+     * Specifies if the final attribute for the current {@link XsdSchema} children such as {@link XsdElement},
+     * {@link XsdSimpleType} and {@link XsdComplexType}. The default value is "". Other possible value are "extension",
+     * "restriction", "list", "union" and "#all".
+     */
+    private FinalDefaultEnum finalDefault;
+
+    /**
+     * A URI reference of the namespace of this {@link XsdSchema} element.
+     */
     private String targetNamespace;
+
+    /**
+     * The version of this {@link XsdSchema} element.
+     */
     private String version;
+
+    /**
+     * A URI reference that specifies one or more namespaces for use in this {@link XsdSchema}. If no prefix is assigned,
+     * the schema components of the namespace can be used with unqualified references.
+     */
     private String xmlns;
 
+    /**
+     * The children elements contained in this {@link XsdSchema} element.
+     */
     private List<XsdAbstractElement> elements = new ArrayList<>();
 
     private XsdSchema(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam){
@@ -45,10 +91,10 @@ public class XsdSchema extends XsdAnnotatedElements {
     public void setFields(@NotNull Map<String, String> elementFieldsMapParam) {
         super.setFields(elementFieldsMapParam);
 
-        this.attributeFormDefault = elementFieldsMap.getOrDefault(ATTRIBUTE_FORM_DEFAULT, "unqualified");
-        this.elementFormDefault = elementFieldsMap.getOrDefault(ELEMENT_FORM_DEFAULT, "unqualified");
-        this.blockDefault = elementFieldsMap.getOrDefault(BLOCK_DEFAULT, "");
-        this.finalDefault = elementFieldsMap.getOrDefault(FINAL_DEFAULT, "");
+        this.attributeFormDefault = EnumUtils.belongsToEnum(FormEnum.UNQUALIFIED, elementFieldsMap.getOrDefault(ATTRIBUTE_FORM_DEFAULT, FormEnum.UNQUALIFIED.getValue()));
+        this.elementFormDefault = EnumUtils.belongsToEnum(FormEnum.UNQUALIFIED, elementFieldsMap.getOrDefault(ELEMENT_FORM_DEFAULT, FormEnum.UNQUALIFIED.getValue()));
+        this.blockDefault = EnumUtils.belongsToEnum(BlockFinalEnum.DEFAULT, elementFieldsMap.getOrDefault(BLOCK_DEFAULT, BlockFinalEnum.DEFAULT.getValue()));
+        this.finalDefault = EnumUtils.belongsToEnum(FinalDefaultEnum.DEFAULT, elementFieldsMap.getOrDefault(FINAL_DEFAULT, FinalDefaultEnum.DEFAULT.getValue()));
         this.targetNamespace = elementFieldsMap.getOrDefault(TARGET_NAMESPACE, targetNamespace);
         this.version = elementFieldsMap.getOrDefault(VERSION, version);
         this.xmlns = elementFieldsMap.getOrDefault(XMLNS, xmlns);
@@ -106,22 +152,22 @@ public class XsdSchema extends XsdAnnotatedElements {
 
     @SuppressWarnings("unused")
     public String getAttributeFormDefault() {
-        return attributeFormDefault;
+        return attributeFormDefault.getValue();
     }
 
     @SuppressWarnings("unused")
     public String getElementFormDefault() {
-        return elementFormDefault;
+        return elementFormDefault.getValue();
     }
 
     @SuppressWarnings("unused")
     public String getBlockDefault() {
-        return blockDefault;
+        return blockDefault.getValue();
     }
 
     @SuppressWarnings("unused")
     public String getFinalDefault() {
-        return finalDefault;
+        return finalDefault.getValue();
     }
 
     @SuppressWarnings("unused")

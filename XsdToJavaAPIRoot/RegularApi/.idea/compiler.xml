@@ -33,8 +33,8 @@
       <module name="HtmlApiTest" target="1.8" />
       <module name="RegularApi" target="9" />
       <module name="xsdAsm" target="9" />
-      <module name="XsdAsm" target="9" />
-      <module name="XsdAsmTest" target="9" />
+      <module name="XsdAsm" target="1.8" />
+      <module name="XsdAsmTest" target="1.8" />
       <module name="xsdAsmTest" target="9" />
       <module name="XsdToJavaAPIRoot" target="9" />
     </bytecodeTargetLevel>

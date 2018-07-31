@@ -4,6 +4,8 @@ import org.w3c.dom.Node;
 import org.xmlet.xsdparser.core.XsdParser;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
+import org.xmlet.xsdparser.xsdelements.enums.EnumUtils;
+import org.xmlet.xsdparser.xsdelements.enums.SimpleTypeFinalEnum;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAbstractElementVisitor;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAnnotatedElementsVisitor;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdSimpleTypeVisitor;
@@ -51,7 +53,7 @@ public class XsdSimpleType extends XsdNamedElements {
     /**
      * Prevents other elements to derive depending on its value.
      */
-    private String finalObj;
+    private SimpleTypeFinalEnum finalObj;
 
     private XsdSimpleType(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
         super(parser, elementFieldsMapParam);
@@ -66,7 +68,7 @@ public class XsdSimpleType extends XsdNamedElements {
     public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
         super.setFields(elementFieldsMapParam);
 
-        this.finalObj = elementFieldsMap.getOrDefault(FINAL_TAG, finalObj);
+        this.finalObj = EnumUtils.belongsToEnum(SimpleTypeFinalEnum.ALL, elementFieldsMap.get(FINAL_TAG));
     }
 
     @Override
@@ -279,5 +281,10 @@ public class XsdSimpleType extends XsdNamedElements {
 
     public void setRestriction(XsdRestriction restriction) {
         this.restriction = restriction;
+    }
+
+    @SuppressWarnings("unused")
+    public String getFinalObj() {
+        return finalObj.getValue();
     }
 }

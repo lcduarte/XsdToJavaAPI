@@ -7,8 +7,6 @@ import benchmark.Regular.RegularWithIndentationVisitor;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
-import com.github.mustachejava.reflect.ReflectionObjectHandler;
-import com.github.mustachejava.util.DecoratedCollection;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -21,11 +19,11 @@ import org.xmlet.htmlapi.*;
 import java.io.*;
 import java.lang.Object;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static j2html.TagCreator.*;
 
@@ -237,11 +235,6 @@ public class BenchmarkMain<T> {
         );
     }
 
-    String hello = "Hello";
-    String world() {return "world";}
-
-    Iterable<TableElement> tableElementsEx1 = getTableElementsEx1();
-
     private static List<TableElement> getTableElementsEx1(){
         List<TableElement> tableElements = new ArrayList<>();
 
@@ -272,15 +265,9 @@ public class BenchmarkMain<T> {
 
     public static void main( String[] args ) throws Exception {
         //ex1();
-        //ex2();
+        ex2();
         //ex1HtmlApi();
-        ex2HtmlApi();
-
-
-        new Html<>()
-                .body()
-                    .div().attrClass("attrClassValue").º()
-                .º();
+        //ex2HtmlApi();
     }
 
     static void ex1() throws IOException {
@@ -294,19 +281,83 @@ public class BenchmarkMain<T> {
                         "        <th>contact</th>\n" +
                         "        <th>country</th>\n" +
                         "    </tr>\n" +
-                        "    {{#tableElementsEx1}}\n" +
+                        "    {{#tableElements}}\n" +
                         "    <tr>\n" +
                         "        <td>{{company}}</td>\n" +
                         "        <td>{{contact}}</td>\n" +
                         "        <td>{{country}}</td>\n" +
                         "    </tr>\n" +
-                        "    {{/tableElementsEx1}}" +
+                        "    {{/tableElements}}" +
                         "</table>"), "helloworld");
 
-        mustache.execute(writer, new BenchmarkMain());
+        mustache.execute(writer, new Object(){
+            Iterable<TableElement> tableElements = getTableElementsEx1();
+        });
         writer.flush();
     }
 
+    static void ex2() throws IOException {
+        Writer writer = new OutputStreamWriter(System.out);
+        MustacheFactory mf = new DefaultMustacheFactory();
+
+        StringBuilder templateString = new StringBuilder(
+                "<table>\n" +
+                "    <tr>\n" +
+                "    {{#headerNames}}\n" +
+                "        <th>{{.}}</th>\n" +
+                "    {{/headerNames}}" +
+                "    {{#data}}\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "       {{#.}}" +
+                "       <td>{{.}}</td>\n" +
+                "       {{/.}}" +
+                "    </tr>\n" +
+                "    {{/data}}\n" +
+                "</table>");
+
+        Mustache mustache = mf.compile(new StringReader(templateString.toString()), "helloworld");
+
+        mustache.execute(writer, new Object(){
+            List<String> headerNames = getNames();
+            List<List<String>> data = getData();
+
+            List<String> getNames() {
+                return getFields().stream().map(Field::getName).collect(Collectors.toList());
+            }
+
+            List<List<String>> getData() {
+                List<Field> fields = getFields();
+
+                List<List<String>> rawData = new ArrayList<>();
+
+                getTableElementsEx2()
+                        .forEach(elem ->
+                            rawData.add(fields.stream().map(field -> {
+                                try {
+                                    return field.get(elem).toString();
+                                } catch (IllegalAccessException e) {
+                                    e.printStackTrace();
+                                }
+
+                                return "";
+                            }).collect(Collectors.toList())));
+
+                return rawData;
+            }
+
+            private List<Field> getFields() {
+                List<Field> fields = new ArrayList<>();
+
+                getTableElementsEx2().stream().findFirst().ifPresent(elem -> fields.addAll(Arrays.asList(elem.getClass().getDeclaredFields())));
+
+                return fields;
+            }
+        });
+
+        writer.flush();
+    }
+/*
     static <T> void ex2() throws IOException {
         Writer writer = new OutputStreamWriter(System.out);
         MustacheFactory mf = new DefaultMustacheFactory();
@@ -320,23 +371,40 @@ public class BenchmarkMain<T> {
 
         StringBuilder templateString = new StringBuilder(
                 "<table>\n" +
-                "    <tr>\n");
-
-        names.forEach(name ->
-                templateString
-                        .append("        <th>").append(name).append("</th>\n"));
-
-        templateString.append("    </tr>\n").append("    {{#tableElementsEx2}}\n    <tr>\n");
-
-        names.forEach(name -> templateString.append("        <td>").append("{{").append(name).append("}}</td>\n"));
-
-        templateString.append("    </tr>\n").append("    {{/tableElementsEx2}}\n").append("</table>");
+                        "    <tr>\n" +
+                        "    {{#headerNames}}\n" +
+                        "        <th>{{.}}</th>\n" +
+                        "    {{/headerNames}}" +
+                        "    {{#data}}\n" +
+                        "    <tr>\n" +
+                        "        <td>" +
+                        "{{#key}}" +
+                        "{{.}}" +
+                        //  "{{.}}" +
+                        //"{{/value}}" +
+                        "{{/key}}" +
+                        "</td>\n" +
+                        "    </tr>\n" +
+                        "    {{/data}}\n" +
+                        "</table>");
 
         Mustache mustache = mf.compile(new StringReader(templateString.toString()), "helloworld");
 
-        mustache.execute(writer, new BenchmarkMain<TableElement>());
+        mustache.execute(writer, new Object(){
+            List<String> headerNames = Arrays.asList("company", "contact", "country");
+            Set<java.util.Map.Entry<T, String>> data = getData();
+
+            Set<java.util.Map.Entry<T, String>> getData() {
+                java.util.Map<T, String> map = new HashMap<>();
+
+                getTableElementsEx2()
+                        .forEach(elem -> headerNames.forEach(elem2 -> map.put((T) elem, elem2)));
+
+                return map.entrySet();
+            }
+        });
         writer.flush();
-    }
+    }*/
 
     static void ex1HtmlApi() throws IOException {
         RegularWithIndentationVisitor<List<TableElement>> visitor = new RegularWithIndentationVisitor<>(getTableElementsEx1());
