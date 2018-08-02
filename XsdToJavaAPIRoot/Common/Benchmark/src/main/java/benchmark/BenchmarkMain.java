@@ -268,6 +268,7 @@ public class BenchmarkMain<T> {
         ex2();
         //ex1HtmlApi();
         //ex2HtmlApi();
+
     }
 
     static void ex1() throws IOException {
@@ -275,20 +276,20 @@ public class BenchmarkMain<T> {
         MustacheFactory mf = new DefaultMustacheFactory();
 
         Mustache mustache = mf.compile(new StringReader(
-                "<table>\n" +
-                        "    <tr>\n" +
-                        "        <th>company</th>\n" +
-                        "        <th>contact</th>\n" +
-                        "        <th>country</th>\n" +
-                        "    </tr>\n" +
-                        "    {{#tableElements}}\n" +
-                        "    <tr>\n" +
-                        "        <td>{{company}}</td>\n" +
-                        "        <td>{{contact}}</td>\n" +
-                        "        <td>{{country}}</td>\n" +
-                        "    </tr>\n" +
-                        "    {{/tableElements}}" +
-                        "</table>"), "helloworld");
+                 "<table>\n" +
+                    "    <tr>\n" +
+                    "        <th>company</th>\n" +
+                    "        <th>contact</th>\n" +
+                    "        <th>country</th>\n" +
+                    "    </tr>\n" +
+                    "    {{#tableElements}}\n" +
+                    "    <tr>\n" +
+                    "        <td>{{company}}</td>\n" +
+                    "        <td>{{contact}}</td>\n" +
+                    "        <td>{{country}}</td>\n" +
+                    "    </tr>\n" +
+                    "    {{/tableElements}}" +
+                    "</table>"), "helloworld");
 
         mustache.execute(writer, new Object(){
             Iterable<TableElement> tableElements = getTableElementsEx1();
@@ -306,8 +307,8 @@ public class BenchmarkMain<T> {
                 "    {{#headerNames}}\n" +
                 "        <th>{{.}}</th>\n" +
                 "    {{/headerNames}}" +
-                "    {{#data}}\n" +
                 "    </tr>\n" +
+                "    {{#data}}\n" +
                 "    <tr>\n" +
                 "       {{#.}}" +
                 "       <td>{{.}}</td>\n" +
@@ -329,27 +330,28 @@ public class BenchmarkMain<T> {
             List<List<String>> getData() {
                 List<Field> fields = getFields();
 
-                List<List<String>> rawData = new ArrayList<>();
+                return getTableElementsEx2()
+                        .stream()
+                        .map(elem ->
+                                fields.stream().map(field -> {
+                                    try {
+                                        return field.get(elem).toString();
+                                    } catch (IllegalAccessException e) {
+                                        e.printStackTrace();
+                                    }
 
-                getTableElementsEx2()
-                        .forEach(elem ->
-                            rawData.add(fields.stream().map(field -> {
-                                try {
-                                    return field.get(elem).toString();
-                                } catch (IllegalAccessException e) {
-                                    e.printStackTrace();
-                                }
-
-                                return "";
-                            }).collect(Collectors.toList())));
-
-                return rawData;
+                                    return "";
+                                }).collect(Collectors.toList()))
+                        .collect(Collectors.toList());
             }
 
             private List<Field> getFields() {
                 List<Field> fields = new ArrayList<>();
 
-                getTableElementsEx2().stream().findFirst().ifPresent(elem -> fields.addAll(Arrays.asList(elem.getClass().getDeclaredFields())));
+                getTableElementsEx2().stream()
+                                    .findFirst()
+                                    .ifPresent(elem ->
+                                            fields.addAll(Arrays.asList(elem.getClass().getDeclaredFields())));
 
                 return fields;
             }

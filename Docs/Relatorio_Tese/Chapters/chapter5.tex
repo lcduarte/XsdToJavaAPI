@@ -245,7 +245,28 @@ As we can see by the presented results the HtmlApi outperforms the other solutio
 \subsection{Spring benchmark}
 \label{sec:springbenchmark}
 
-To assert that the results obtained through the previous benchmark weren't in any way biased in favor of the \texttt{HtmlApi} we performed another benchmark. This second benchmark was performed by using a preexisting project that compares ten different template engines such as Jade\footnote{\href{http://jade-lang.com/}{Jade Template Engine}}, Mustache\footnote{\href{https://mustache.github.io/}{Mustache Template Engine}}, Pebble\footnote{\href{http://www.mitchellbosecke.com/pebble/home}{Pebble Template Engine}}, Velocity\footnote{\href{http://velocity.apache.org/}{Velocity Template Engine}}, Chunk\footnote{\href{http://www.x5software.com/chunk/examples/ChunkExample}{Chunk Template Engine}}, JSP\footnote{\href{http://www.oracle.com/technetwork/java/index-jsp-138231.html}{JSP Template Engine}}, Jtwig\footnote{\href{http://jtwig.org/}{Jtwig Template Engine}}, FreeMarker\footnote{\href{https://freemarker.apache.org/}{FreeMarker Template Engine}}, Thymeleaf\footnote{\href{https://www.thymeleaf.org/}{Thymeleaf Template Engine}}, Handlebars\footnote{\href{https://handlebarsjs.com/}{Handlebars Template Engine}}. This benchmark, named spring-comparing-template-engines \footnote{\href{https://github.com/jreijn/spring-comparing-template-engines}{Template Engines Benchmark}}, uses a tomcat server\footnote{\href{http://tomcat.apache.org/}{Apache Tomcat}} to launch a WebApi based on the Java Spring\footnote{\href{https://spring.io/}{Java Spring}} framework. This WebApi provides routes for each solution to test, e.g. http://localhost:8080/mustache, which returns a standard \ac{HTML} page based in two distinct aspects. 
+To assert that the results obtained through the previous benchmark weren't in any way biased in favor of the \texttt{HtmlApi} we performed another benchmark. This second benchmark was performed by using a preexisting project that compares ten different template engines. To give some insight about each of the template engines used in this benchmark project we have Table \ref{tab:templateengines} which enumerates the functionalities that each template engine provides. From this table we can observe that all these solutions being compared provide similar features. 
+
+\begin{table}[H]
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+Name & Variables & Functions & Loops & Includes & Exceptions & Hierarchy \\ \hline
+\href{http://jade-lang.com/}{Jade}                                                     & \Checkmark &  & \Checkmark &  &  & \Checkmark \\ \hline
+\href{https://mustache.github.io/}{Mustache}                                           & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark &  \\ \hline
+\href{http://www.mitchellbosecke.com/pebble/home}{Pebble}                              & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark \\ \hline
+\href{http://velocity.apache.org/}{Velocity}                                           & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \XSolid \\ \hline
+\href{http://www.x5software.com/chunk/examples/ChunkExample}{Chunk}                    & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark \\ \hline
+\href{http://www.oracle.com/technetwork/java/index-jsp-138231.html}{JSP} & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark &  \\ \hline
+\href{http://jtwig.org/}{Jtwig}                                                        &  &  &  &  &  &  \\ \hline
+\href{https://freemarker.apache.org/}{FreeMarker}                                       & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark \\ \hline
+\href{https://www.thymeleaf.org/}{Thymeleaf}                                           & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark \\ \hline
+\href{https://handlebarsjs.com/}{Handlebars}                                           & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \Checkmark & \XSolid \\ \hline
+\end{tabular}
+\caption{\label{tab:templateengines} Template Engines Functionality Comparison}
+\end{table}
+
+\noindent
+The project used to perform this benchmark, named spring-comparing-template-engines \footnote{\href{https://github.com/jreijn/spring-comparing-template-engines}{Template Engines Benchmark}}, uses a tomcat server\footnote{\href{http://tomcat.apache.org/}{Apache Tomcat}} to launch a WebApi based on the Java Spring\footnote{\href{https://spring.io/}{Java Spring}} framework. This WebApi provides routes for each solution to test, e.g. http://localhost:8080/mustache, which returns a standard \ac{HTML} page based in two distinct aspects. 
 
 \begin{itemize}
 	\item Template - Each solution under benchmark defines the same template, in their own syntax. An example is the Mustache template in Listing \ref{lst:mustachespringtemplate}.
@@ -381,7 +402,7 @@ The benchmark values presented below are the result of a single iteration after 
         \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
     \end{axis}
 \end{tikzpicture}
-\caption{Benchmark: Spring Benchmark with 10.000 requests}
+\caption{Benchmark: Spring Benchmark with 10.000 requests issued with 10 threads}
 \label{fig:graphbench10table}
 \end{figure}
 
@@ -575,7 +596,7 @@ The benchmark values presented below are the result of a single iteration after 
         \legend{htmlApi, jade, mustache, pebble, velocity, chunk, jsp, jtwig, freemarker, thymeleaf, handlebars}
     \end{axis}
 \end{tikzpicture}
-\caption{Benchmark: Spring Benchmark with 100.000 requests}
+\caption{Benchmark: Spring Benchmark with 100.000 requests issued with 10 threads}
 \label{fig:graphbench10table}
 \end{figure}
 

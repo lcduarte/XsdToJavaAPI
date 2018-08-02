@@ -2,33 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d04d41f-ff4a-4069-b6d9-beb5ab7b4181" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Common/Benchmark/src/main/java/benchmark/Student.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../RegularApi/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter5.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter5.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/img/template_engines.png" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/img/template_engines.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.pdf" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.pdf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter1.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter1.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter2.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter2.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter4.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter4.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter6.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter6.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Other/acronyms.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Other/acronyms.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/bibliography.bib" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/bibliography.bib" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.tex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../Common/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Common/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/Benchmark/src/main/java/benchmark/BenchmarkMain.java" afterPath="$PROJECT_DIR$/../Common/Benchmark/src/main/java/benchmark/BenchmarkMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/XsdParser.iml" afterPath="$PROJECT_DIR$/../Common/XsdParser/XsdParser.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/pom.xml" afterPath="$PROJECT_DIR$/../Common/XsdParser/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAll.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAll.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAttribute.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAttribute.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdChoice.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdChoice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdComplexType.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdComplexType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdElement.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdGroup.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdGroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdMultipleElements.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdMultipleElements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSchema.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSchema.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSequence.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSequence.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSimpleType.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdSimpleType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdAbstractElementVisitor.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/XsdAbstractElementVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdFractionDigits.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdFractionDigits.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdLength.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdLength.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMinInclusive.java" afterPath="$PROJECT_DIR$/../Common/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdMinInclusive.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdAsmFaster_1_0_1_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdAsmFaster_1_0_1_snapshot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiFaster/decompile_class_binaries.bat" afterPath="$PROJECT_DIR$/HtmlApiFaster/decompile_class_binaries.bat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiFaster/pom.xml" afterPath="$PROJECT_DIR$/HtmlApiFaster/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HtmlApiFasterTest/HtmlApiFasterTest.iml" afterPath="$PROJECT_DIR$/HtmlApiFasterTest/HtmlApiFasterTest.iml" />
@@ -48,16 +36,15 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsmFasterTest/src/test/java/XsdAsmHtmlTest.java" afterPath="$PROJECT_DIR$/XsdAsmFasterTest/src/test/java/XsdAsmHtmlTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsmFasterTest/src/test/java/XsdAsmMinTest.java" afterPath="$PROJECT_DIR$/XsdAsmFasterTest/src/test/java/XsdAsmMinTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdAsmFasterTest/src/test/java/XsdAsmWpfeTest.java" afterPath="$PROJECT_DIR$/XsdAsmFasterTest/src/test/java/XsdAsmWpfeTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../RegularApi/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/.idea/libraries/Maven__com_github_xmlet_androidLayoutsApi_1_0_0_snapshot.xml" afterPath="$PROJECT_DIR$/../RegularApi/.idea/libraries/Maven__com_github_xmlet_androidLayoutsApi_1_0_0_snapshot.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_11_snapshot.xml" afterPath="$PROJECT_DIR$/../RegularApi/.idea/libraries/Maven__com_github_xmlet_htmlApi_1_0_11_snapshot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/.idea/libraries/Maven__com_github_xmlet_xsdAsm_1_0_12_snapshot.xml" afterPath="$PROJECT_DIR$/../RegularApi/.idea/libraries/Maven__com_github_xmlet_xsdAsm_1_0_12_snapshot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" afterPath="$PROJECT_DIR$/../RegularApi/.idea/libraries/Maven__com_github_xmlet_xsdParser_1_0_10_snapshot.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../RegularApi/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/AndroidLayouts/AndroidLayouts.iml" afterPath="$PROJECT_DIR$/../RegularApi/AndroidLayouts/AndroidLayouts.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/AndroidLayoutsApi/AndroidLayoutsApi.iml" afterPath="$PROJECT_DIR$/../RegularApi/AndroidLayoutsApi/AndroidLayoutsApi.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/HtmlApi/HtmlApi.iml" afterPath="$PROJECT_DIR$/../RegularApi/HtmlApi/HtmlApi.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/HtmlApiTest.iml" afterPath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/HtmlApiTest.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/XsdAsm.iml" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/XsdAsm.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/pom.xml" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsmTest/XsdAsmTest.iml" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsmTest/XsdAsmTest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsmTest/pom.xml" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsmTest/pom.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/ASMSamples/target/" />
     <ignored path="$PROJECT_DIR$/XsdAsmFaster/target/" />
@@ -86,11 +73,11 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/XsdAsmFasterTest/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="424">
+            <state relative-caret-position="0">
               <caret line="54" column="34" lean-forward="false" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
               <folding />
             </state>
@@ -100,7 +87,7 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/XsdAsmFaster/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3976">
+            <state relative-caret-position="204">
               <caret line="12" column="34" lean-forward="false" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
               <folding />
             </state>
@@ -117,11 +104,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HtmlApiFaster/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2176">
+            <state relative-caret-position="526">
               <caret line="128" column="30" lean-forward="false" selection-start-line="128" selection-start-column="30" selection-end-line="128" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HtmlApiTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HtmlApiFasterTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="25" column="50" lean-forward="true" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomVisitor.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/HtmlApiFasterTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="43" lean-forward="true" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -148,7 +155,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/HtmlApiFaster" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/HtmlApiFasterTest" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -203,6 +210,7 @@
         <option value="$PROJECT_DIR$/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmVisitors.java" />
         <option value="$PROJECT_DIR$/XsdAsmFasterTest/pom.xml" />
         <option value="$PROJECT_DIR$/XsdAsmFaster/pom.xml" />
+        <option value="$MAVEN_REPOSITORY$/com/github/xmlet/htmlApiFaster/1.0.1-SNAPSHOT/htmlApiFaster-1.0.1-SNAPSHOT-sources.jar!/org/xmlet/htmlapifaster/ElementVisitor.java" />
       </list>
     </option>
   </component>
@@ -246,9 +254,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -269,6 +276,36 @@
             <path>
               <item name="FasterApi" type="b2602c69:ProjectViewProjectNode" />
               <item name="FasterApi" type="462c0819:PsiDirectoryNode" />
+              <item name="HtmlApiFasterTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FasterApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FasterApi" type="462c0819:PsiDirectoryNode" />
+              <item name="HtmlApiFasterTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FasterApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FasterApi" type="462c0819:PsiDirectoryNode" />
+              <item name="HtmlApiFasterTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FasterApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FasterApi" type="462c0819:PsiDirectoryNode" />
+              <item name="HtmlApiFasterTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="htmlapitest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FasterApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FasterApi" type="462c0819:PsiDirectoryNode" />
               <item name="XsdAsmFaster" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -281,6 +318,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -590,6 +628,7 @@
       <workItem from="1532107942317" duration="685000" />
       <workItem from="1532109198004" duration="687000" />
       <workItem from="1533051875422" duration="99000" />
+      <workItem from="1533229424556" duration="248000" />
     </task>
     <servers />
   </component>
@@ -620,7 +659,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25408000" />
+    <option name="totallyTimeSpent" value="25656000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -678,9 +717,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsmFaster/1.0.1-SNAPSHOT/xsdAsmFaster-1.0.1-SNAPSHOT.jar!/org/xmlet/wpfe/CanvaspeCanvasChoice.class" />
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsmFaster/1.0.1-SNAPSHOT/xsdAsmFaster-1.0.1-SNAPSHOT.jar!/org/xmlet/wpfe/CanvaspeCanvasChoice.class" />
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsmFaster/1.0.1-SNAPSHOT/xsdAsmFaster-1.0.1-SNAPSHOT.jar!/org/xmlet/wpfe/CanvaspeCanvasChoice.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsmFaster/1.0.1-SNAPSHOT/xsdAsmFaster-1.0.1-SNAPSHOT.jar!/org/xmlet/wpfe/CanvaspeCanvasChoice.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsmFaster/1.0.1-SNAPSHOT/xsdAsmFaster-1.0.1-SNAPSHOT.jar!/org/xmlet/wpfe/CanvaspeCanvasChoice.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/xsdAsmFaster/1.0.1-SNAPSHOT/xsdAsmFaster-1.0.1-SNAPSHOT.jar!/org/xmlet/wpfe/CanvaspeCanvasChoice.class" />
@@ -826,16 +862,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HtmlApiFaster/src/main/java/org/xmlet/htmlapifaster/ElementVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApiFaster/src/main/java/org/xmlet/htmlapifaster/ElementVisitor.java" />
     <entry file="file://$PROJECT_DIR$/XsdAsmFasterTest/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
+        <state relative-caret-position="0">
           <caret line="54" column="34" lean-forward="false" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
           <folding />
         </state>
@@ -843,7 +873,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/XsdAsmFaster/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3976">
+        <state relative-caret-position="204">
           <caret line="12" column="34" lean-forward="false" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
           <folding />
         </state>
@@ -859,8 +889,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/HtmlApiFaster/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2176">
+        <state relative-caret-position="526">
           <caret line="128" column="30" lean-forward="false" selection-start-line="128" selection-start-column="30" selection-end-line="128" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApiFasterTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="25" column="50" lean-forward="true" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/xmlet/htmlApiFaster/1.0.1-SNAPSHOT/htmlApiFaster-1.0.1-SNAPSHOT-sources.jar!/org/xmlet/htmlapifaster/ElementVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HtmlApiFasterTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="43" lean-forward="true" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
           <folding />
         </state>
       </provider>

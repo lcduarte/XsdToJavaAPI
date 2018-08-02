@@ -77,7 +77,9 @@ With this solution the overhead of using this solution is minimized, because as 
 After implementing a first version of this improved solution, called HtmlApiFaster, we ran a few tests in order to evaluate its performance. The benchmark used was the same presented in Section \ref{sec:testingmetrics} with the spring-comparing-template-engines project. All the results presented below are presented without the respective Spring overhead, which was previously explained in Section \ref{sec:testingmetrics}.
 
 \begin{multicols}{2}
-10.000 requests, 10 threads:\\
+\begin{figure}[H]
+\centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 0.4*\textwidth,
@@ -90,7 +92,7 @@ After implementing a first version of this improved solution, called HtmlApiFast
 		symbolic x coords={HtmlApiFaster, HtmlApi},
         xticklabels = {},
         scaled y ticks = false,
-        enlarge x limits=0.25,
+        enlarge x limits=0.85,
         ymin=0,
         ymax=2.5,
         legend cell align=left,]
@@ -103,9 +105,15 @@ After implementing a first version of this improved solution, called HtmlApiFast
         \legend{HtmlApiFaster, HtmlApi}
     \end{axis}
 \end{tikzpicture}
+\caption{HtmlApiFaster Benchmark: Spring Benchmark with 10.000 requests issued with 10 threads}
+\label{fig:fastergraphbench1000table}
+\end{figure}
+
 \columnbreak
-\\
-30.000 requests, 10 threads:\\
+
+\begin{figure}[H]
+\centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 0.4*\textwidth,
@@ -118,7 +126,7 @@ After implementing a first version of this improved solution, called HtmlApiFast
 		symbolic x coords={HtmlApiFaster, HtmlApi},
         xticklabels = {},
         scaled y ticks = false,
-        enlarge x limits=0.25,
+        enlarge x limits=0.85,
         ymin=0,
         ymax=7,
         legend cell align=left,]
@@ -131,10 +139,16 @@ After implementing a first version of this improved solution, called HtmlApiFast
         \legend{HtmlApiFaster, HtmlApi}
     \end{axis}
 \end{tikzpicture}
+\caption{HtmlApiFaster Benchmark: Spring Benchmark with 30.000 requests issued with 10 threads}
+\label{fig:fastergraphbench1000table}
+\end{figure}
 \end{multicols}
 
 \begin{multicols}{2}
-30.000 requests, 25 threads:\\
+
+\begin{figure}[H]
+\centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 0.4*\textwidth,
@@ -147,7 +161,7 @@ After implementing a first version of this improved solution, called HtmlApiFast
 		symbolic x coords={HtmlApiFaster, HtmlApi},
         xticklabels = {},
         scaled y ticks = false,
-        enlarge x limits=0.25,
+        enlarge x limits=0.85,
         ymin=0,
         ymax=6,
         legend cell align=left,]
@@ -160,9 +174,15 @@ After implementing a first version of this improved solution, called HtmlApiFast
         \legend{HtmlApiFaster, HtmlApi}
     \end{axis}
 \end{tikzpicture}
+\caption{HtmlApiFaster Benchmark: Spring Benchmark with 30.000 requests issued with 25 threads}
+\label{fig:fastergraphbench1000table}
+\end{figure}
+
 \columnbreak
-\\
-100.000 requests, 10 threads:\\
+
+\begin{figure}[H]
+\centering
+\captionsetup{justification=centering}
 \begin{tikzpicture}
     \begin{axis}[
         width  = 0.4*\textwidth,
@@ -175,7 +195,7 @@ After implementing a first version of this improved solution, called HtmlApiFast
 		symbolic x coords={HtmlApiFaster, HtmlApi},
         xticklabels = {},
         scaled y ticks = false,
-        enlarge x limits=0.25,
+        enlarge x limits=0.85,
         ymin=0,
         ymax=25,
         legend cell align=left,]
@@ -188,6 +208,10 @@ After implementing a first version of this improved solution, called HtmlApiFast
         \legend{HtmlApiFaster, HtmlApi}
     \end{axis}
 \end{tikzpicture}
+\caption{HtmlApiFaster Benchmark: Spring Benchmark with 100.000 requests issued with 10 threads}
+\label{fig:fastergraphbench1000table}
+\end{figure}
+
 \end{multicols}
 
 As we can see the performance gains are very good, with the lowest gap being with the example using 100.000 requests where HtmlApiFaster is 4 times faster than HtmlApi. On the other hand the biggest difference is present in the example using 30.000 requests and 25 concurrent threads, where HtmlApiFaster is 8 times faster than HtmlApi which was already the better option when comparing to the template engines. These results are promising and the HtmlApiFaster will be further developed in order to deploy it as an alternative to HtmlApi.
