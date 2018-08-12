@@ -19,23 +19,33 @@ public class CustomVisitor extends ElementVisitor {
         }
 
         if (length != 0 && isClosed && !isNewlined){
-            stringBuilder.append("\n");
+            stringBuilder.append('\n');
         }
 
         doTabs();
-        stringBuilder.append("<").append(elem.getName());
+        stringBuilder.append('<').append(elem.getName());
         ++tabCount;
     }
 
     private void doTabs() {
+        /*
         for (int i = 0; i < tabCount; i++) {
-            stringBuilder.append("\t");
+            stringBuilder.append('\t');
         }
+        */
+
+        char[] tabs = new char[tabCount];
+
+        for (int i = 0; i < tabCount; i++) {
+            tabs[i] = '\t';
+        }
+
+        stringBuilder.append(tabs);
     }
 
     @Override
     public void visit(Attribute attribute) {
-        stringBuilder.append(" ").append(attribute.getName()).append("=\"").append(attribute.getValue()).append("\"");
+        stringBuilder.append(' ').append(attribute.getName()).append("=\"").append(attribute.getValue()).append('\"');
     }
 
     @Override
@@ -43,18 +53,18 @@ public class CustomVisitor extends ElementVisitor {
         closeIfNeeded();
 
         if (!stringBuilder.toString().endsWith("\n")){
-            stringBuilder.append("\n");
+            stringBuilder.append('\n');
         }
 
         --tabCount;
         doTabs();
-        stringBuilder.append("</").append(element.getName()).append(">");
+        stringBuilder.append("</").append(element.getName()).append('>');
 
     }
 
     private void closeIfNeeded(){
         if (!stringBuilder.toString().endsWith("\n") && !stringBuilder.toString().endsWith(">")){
-            stringBuilder.append(">");
+            stringBuilder.append('>');
         }
     }
 
@@ -75,7 +85,7 @@ public class CustomVisitor extends ElementVisitor {
         if (textValue != null){
             stringBuilder.append(">\n");
             doTabs();
-            stringBuilder.append(textValue).append("\n");
+            stringBuilder.append(textValue).append('\n');
         }
     }
 

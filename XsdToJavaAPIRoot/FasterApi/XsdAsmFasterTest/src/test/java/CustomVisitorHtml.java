@@ -3,6 +3,7 @@ import org.xmlet.htmlFaster.*;
 @SuppressWarnings("Duplicates")
 public class CustomVisitorHtml extends ElementVisitor {
 
+    private int tabCount = 0;
     private StringBuilder stringBuilder = new StringBuilder();
 
     @Override
@@ -23,18 +24,15 @@ public class CustomVisitorHtml extends ElementVisitor {
             }
         }
 
-        doTabs(elem.getDepth());
+        doTabs();
         stringBuilder.append('<').append(elem.getName());
+        ++tabCount;
     }
 
-    private void doTabs(int tabCount) {
-        char[] tabs = new char[tabCount];
-
+    private void doTabs() {
         for (int i = 0; i < tabCount; i++) {
-            tabs[i] = '\t';
+            stringBuilder.append("\t");
         }
-
-        stringBuilder.append(tabs);
     }
 
     @Override
@@ -54,12 +52,13 @@ public class CustomVisitorHtml extends ElementVisitor {
             stringBuilder.append('\n');
         }
 
-        doTabs(element.getDepth());
+        --tabCount;
+        doTabs();
         stringBuilder.append("</").append(element.getName()).append('>');
     }
 
     String getResult(Element x){
-        while (!(x instanceof Html) ){
+        while (!(x instanceof Element) ){
             x = x.º();
         }
 
@@ -74,7 +73,7 @@ public class CustomVisitorHtml extends ElementVisitor {
 
         if (textValue != null){
             stringBuilder.append(">\n");
-            doTabs(text.getDepth());
+            doTabs();
             stringBuilder.append(textValue).append('\n');
         }
     }
@@ -85,7 +84,7 @@ public class CustomVisitorHtml extends ElementVisitor {
 
         if (textValue != null){
             stringBuilder.append(">\n");
-            doTabs(comment.getDepth());
+            doTabs();
             stringBuilder.append("<!-- ").append(textValue).append(" -->\n");
         }
     }

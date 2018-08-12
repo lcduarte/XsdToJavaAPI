@@ -31,7 +31,7 @@ class XsdAsmElements {
         String signature = getClassSignature(interfaces, className, apiName);
         String superType = abstractElementType;
 
-        ClassWriter classWriter = generateClass(className, superType, interfaces, signature,ACC_PUBLIC + ACC_SUPER, apiName);
+        ClassWriter classWriter = generateClass(className, superType, interfaces, signature,ACC_PUBLIC + ACC_SUPER + ACC_FINAL, apiName);
 
         generateClassSpecificMethods(classWriter, className, apiName, superType);
 
@@ -59,29 +59,12 @@ class XsdAsmElements {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitLdcInsn(name);
-        mVisitor.visitInsn(ICONST_0);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, abstractElementType, CONSTRUCTOR, "(" + elementVisitorTypeDesc + JAVA_STRING_DESC + "I)V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, abstractElementType, CONSTRUCTOR, "(" + elementVisitorTypeDesc + JAVA_STRING_DESC + ")V", false);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visit", "(" + classTypeDesc + ")V", false);
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(4, 2);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PRIVATE, CONSTRUCTOR, "(" + elementVisitorTypeDesc + "I)V", null, null);
-        mVisitor.visitLocalVariable("visitor", elementVisitorTypeDesc, null, new Label(), new Label(),1);
-        mVisitor.visitLocalVariable("depth", "I", null, new Label(), new Label(),2);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitLdcInsn(name);
-        mVisitor.visitVarInsn(ILOAD, 2);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(" + elementVisitorTypeDesc + JAVA_STRING_DESC + "I)V", false);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visit", "(" + classTypeDesc + ")V", false);
-        mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(4, 3);
+        mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + elementTypeDesc + ")V", "(TZ;)V", null);
@@ -99,35 +82,6 @@ class XsdAsmElements {
         mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + elementTypeDesc + "" + JAVA_STRING_DESC + ")V", "(TZ;" + JAVA_STRING_DESC + ")V", null);
-        mVisitor.visitLocalVariable("parent", elementTypeDesc, null, new Label(), new Label(),1);
-        mVisitor.visitLocalVariable("name", JAVA_STRING_DESC, null, new Label(), new Label(),2);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(" + elementTypeDesc + JAVA_STRING_DESC + ")V", false);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitFieldInsn(GETFIELD, classType, "visitor", elementVisitorTypeDesc);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visit", "(" + classTypeDesc + ")V", false);
-        mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(3, 3);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + elementTypeDesc + "I)V", "(TZ;I)V", null);
-        mVisitor.visitLocalVariable("parent", elementTypeDesc, null, new Label(), new Label(),1);
-        mVisitor.visitLocalVariable("depth", "I", null, new Label(), new Label(),2);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitLdcInsn(firstToLower(className));
-        mVisitor.visitVarInsn(ILOAD, 2);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, abstractElementType, CONSTRUCTOR, "(" + elementTypeDesc + JAVA_STRING_DESC + "I)V", false);
-        mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(4, 3);
-        mVisitor.visitEnd();
-
         generateSelfMethods(classWriter, className, apiName);
     }
 
@@ -135,7 +89,7 @@ class XsdAsmElements {
         String classType = getFullClassTypeName(className, apiName);
         String classTypeDesc = getFullClassTypeNameDesc(className, apiName);
 
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, "self", "()" + classTypeDesc, "()L" + classType + "<TZ;>;", null);
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, "self", "()" + classTypeDesc, "()L" + classType + "<TZ;>;", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitInsn(ARETURN);

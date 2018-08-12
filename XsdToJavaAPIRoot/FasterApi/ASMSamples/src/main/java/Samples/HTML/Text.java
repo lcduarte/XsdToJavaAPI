@@ -1,11 +1,12 @@
 package Samples.HTML;
 
-public class Text<P extends Element> extends AbstractElement<Text<P>, P>{
+public final class Text<P extends Element> extends AbstractElement<Text<P>, P>{
 
-    private String text;
+    private final String text;
 
-    private Text(Visitor visitor, int depth) {
-        super(visitor, "text", depth);
+    private Text(Visitor visitor, String text) {
+        super(visitor, "text");
+        this.text = text;
         visitor.visit(this);
     }
 
@@ -16,11 +17,11 @@ public class Text<P extends Element> extends AbstractElement<Text<P>, P>{
     }
 
     @Override
-    public Text<P> self() {
+    public final Text<P> self() {
         return this;
     }
 
-    public String getValue() {
+    public final String getValue() {
         return text;
     }
 

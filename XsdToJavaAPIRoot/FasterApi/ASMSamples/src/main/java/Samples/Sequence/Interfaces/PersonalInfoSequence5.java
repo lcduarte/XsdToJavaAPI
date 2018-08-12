@@ -8,7 +8,7 @@ public interface PersonalInfoSequence5<T extends Element<T, P>, P extends Elemen
 
     default PersonalInfoComplete<P> country(String value){
         new Country<>(this.self()).text(value).º();
-        return new PersonalInfoComplete<>(getParent(), getDepth());
+        return new PersonalInfoComplete<>(getParent());
     }
 
 }

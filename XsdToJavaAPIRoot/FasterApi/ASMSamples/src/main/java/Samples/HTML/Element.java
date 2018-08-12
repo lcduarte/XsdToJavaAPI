@@ -8,6 +8,5 @@ public interface Element<T extends Element, P extends Element> {
 
     String getName();
     Visitor getVisitor();
-    int getDepth();
 
 }

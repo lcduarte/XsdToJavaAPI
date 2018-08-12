@@ -28,7 +28,15 @@ public class XsdAsmHtmlTest {
                                             .em()
                                                 .text("Advertisement")
                                             .span()
-                                                .text("HtmlApi is great!"));
+                                                .text("HtmlApi is great!")
+                                            .º()
+                                        .º()
+                                    .º()
+                                .º()
+                            .º()
+                        .º()
+                    .º()
+                .º());
 
         String expected =   "<html>\n" +
                                 "\t<head>\n" +

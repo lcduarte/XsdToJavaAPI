@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SomeAttribute extends BaseAttribute<String> {
+public final class SomeAttribute extends BaseAttribute<String> {
 
     static {
         Map<java.lang.String, Object> restriction1 = new HashMap<>();

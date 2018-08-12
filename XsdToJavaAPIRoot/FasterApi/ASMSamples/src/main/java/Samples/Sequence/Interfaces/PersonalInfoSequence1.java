@@ -8,7 +8,7 @@ public interface PersonalInfoSequence1<T extends Element<T, P>, P extends Elemen
 
     default PersonalInfoFirstName<T> firstName(String value){
         new FirstName<>(self()).text(value).º();
-        return new PersonalInfoFirstName<>(self(), getDepth());
+        return new PersonalInfoFirstName<>(self());
     }
 
     /*

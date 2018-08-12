@@ -16,7 +16,8 @@ public enum EnumExample implements EnumInterface<String>{
         this.value = value;
     }
 
-    public String getValue(){
+    @Override
+    public final String getValue(){
         return value;
     }
 }

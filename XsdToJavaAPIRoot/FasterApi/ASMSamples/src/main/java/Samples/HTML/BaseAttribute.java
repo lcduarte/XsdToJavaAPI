@@ -1,20 +1,26 @@
 package Samples.HTML;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 public class BaseAttribute<T> implements IAttribute<T> {
 
-    protected static List<Map<String, Object>> restrictions = new ArrayList<>();
+    final static List<Map<String, Object>> restrictions;
+    private final static Map<Class, BiConsumer<Map<String, Object>, Object>> mapper;
 
-    private T value;
-    private String name;
+    private final T value;
+    private final String name;
 
-    public BaseAttribute(T value){
-        this.value = value;
-        this.name = getDefaultName(this);
-        restrictions.forEach(this::validateRestrictions);
+    static {
+        restrictions = new ArrayList<>();
+        mapper = new HashMap<>();
+
+        mapper.put(String.class, RestrictionValidator::validateString);
+        mapper.put(Double.class, RestrictionValidator::validateNumeric);
+        mapper.put(List.class, RestrictionValidator::validateList);
     }
 
     public BaseAttribute(T value, String name){
@@ -24,34 +30,20 @@ public class BaseAttribute<T> implements IAttribute<T> {
     }
 
     @Override
-    public T getValue() {
+    public final T getValue() {
         return value;
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    static String getDefaultName(BaseAttribute attribute){
-        String simpleName = attribute.getClass().getSimpleName().replace("Attr", "");
-
-        return simpleName.toLowerCase().charAt(0) + simpleName.substring(1);
-    }
-
     private void validateRestrictions(Map<String, Object> restriction){
-        T toRestrictValue = getValue();
+        BiConsumer<Map<String, Object>, Object> validationFunction = mapper.get(value.getClass());
 
-        if (toRestrictValue instanceof String){
-            RestrictionValidator.validate(restriction, (String) toRestrictValue);
-        }
-
-        if (toRestrictValue instanceof Integer || toRestrictValue instanceof Short || toRestrictValue instanceof Float || toRestrictValue instanceof Double){
-            RestrictionValidator.validate(restriction, (Double) toRestrictValue);
-        }
-
-        if (toRestrictValue instanceof List){
-            RestrictionValidator.validate(restriction, (List) toRestrictValue);
+        if (validationFunction != null){
+            validationFunction.accept(restriction, value);
         }
     }
 }

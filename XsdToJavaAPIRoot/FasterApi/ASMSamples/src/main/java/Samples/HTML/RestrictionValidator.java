@@ -3,30 +3,36 @@ package Samples.HTML;
 import java.util.List;
 import java.util.Map;
 
-public class RestrictionValidator {
+public final class RestrictionValidator {
 
     private RestrictionValidator() {}
 
-    static void validate(Map<String, Object> restriction, List list){
-        validateLength((int) restriction.getOrDefault("Length", -1), list);
-        validateMinLength((int) restriction.getOrDefault("MinLength", -1), list);
-        validateMaxLength((int) restriction.getOrDefault("MaxLength", -1), list);
+    static void validateList(Map<String, Object> restriction, Object list){
+        List listObj = (List) list;
+
+        validateLength((int) restriction.getOrDefault("Length", -1), listObj);
+        validateMinLength((int) restriction.getOrDefault("MinLength", -1), listObj);
+        validateMaxLength((int) restriction.getOrDefault("MaxLength", -1), listObj);
     }
 
-    static void validate(Map<String, Object> restriction, Double value){
-        validateMaxExclusive((int)restriction.getOrDefault("MaxExclusive", -1), value);
-        validateMaxInclusive((int)restriction.getOrDefault("MaxInclusive", -1), value);
-        validateMinExclusive((int)restriction.getOrDefault("MinExclusive", -1), value);
-        validateMinInclusive((int)restriction.getOrDefault("MinInclusive", -1), value);
-        validateFractionDigits((int)restriction.getOrDefault("FractionDigits", -1), value);
-        validateTotalDigits((int)restriction.getOrDefault("TotalDigits", -1), value);
+    static void validateNumeric(Map<String, Object> restriction, Object value){
+        Double doubleObj = (Double) value;
+
+        validateMaxExclusive((int)restriction.getOrDefault("MaxExclusive", -1), doubleObj);
+        validateMaxInclusive((int)restriction.getOrDefault("MaxInclusive", -1), doubleObj);
+        validateMinExclusive((int)restriction.getOrDefault("MinExclusive", -1), doubleObj);
+        validateMinInclusive((int)restriction.getOrDefault("MinInclusive", -1), doubleObj);
+        validateFractionDigits((int)restriction.getOrDefault("FractionDigits", -1), doubleObj);
+        validateTotalDigits((int)restriction.getOrDefault("TotalDigits", -1), doubleObj);
     }
 
-    static void validate(Map<String, Object> restriction, String string){
-        validateLength((int) restriction.getOrDefault("Length", -1), string);
-        validateMinLength((int) restriction.getOrDefault("MinLength", -1), string);
-        validateMaxLength((int) restriction.getOrDefault("MaxLength", -1), string);
-        validatePattern((String) restriction.getOrDefault("Pattern", null), string);
+    static void validateString(Map<String, Object> restriction, Object string){
+        String stringObj = (String) string;
+
+        validateLength((int) restriction.getOrDefault("Length", -1), stringObj);
+        validateMinLength((int) restriction.getOrDefault("MinLength", -1), stringObj);
+        validateMaxLength((int) restriction.getOrDefault("MaxLength", -1), stringObj);
+        validatePattern((String) restriction.getOrDefault("Pattern", null), stringObj);
     }
 
     private static void validateFractionDigits(int fractionDigits, double value){

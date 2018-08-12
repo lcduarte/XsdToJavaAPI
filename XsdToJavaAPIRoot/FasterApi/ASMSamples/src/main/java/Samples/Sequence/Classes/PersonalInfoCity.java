@@ -4,10 +4,10 @@ import Samples.HTML.AbstractElement;
 import Samples.HTML.Element;
 import Samples.Sequence.Interfaces.PersonalInfoSequence5;
 
-public class PersonalInfoCity<P extends Element> extends AbstractElement<PersonalInfoCity<P>, P> implements PersonalInfoSequence5<PersonalInfoCity<P>, P> {
+public class PersonalInfoCity<P extends Element> extends AbstractElement<PersonalInfoCity<P>, P> {
 
-    public PersonalInfoCity(P parent, int depth) {
-        super(parent, "personalInfo", depth);
+    public PersonalInfoCity(P parent) {
+        super(parent, "personalInfo");
     }
 
     @Override
@@ -15,5 +15,9 @@ public class PersonalInfoCity<P extends Element> extends AbstractElement<Persona
         return this;
     }
 
+    public PersonalInfoComplete<P> country(String value){
+        new Country<>(this.self()).text(value).º();
+        return new PersonalInfoComplete<>(parent);
+    }
 }
 

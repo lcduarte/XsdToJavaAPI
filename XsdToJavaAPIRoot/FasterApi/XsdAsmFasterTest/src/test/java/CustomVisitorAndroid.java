@@ -3,6 +3,7 @@ import org.xmlet.androidFaster.*;
 @SuppressWarnings("Duplicates")
 public class CustomVisitorAndroid extends ElementVisitor {
 
+    private int tabCount = 0;
     private StringBuilder stringBuilder = new StringBuilder();
 
     @Override
@@ -23,18 +24,15 @@ public class CustomVisitorAndroid extends ElementVisitor {
             }
         }
 
-        doTabs(elem.getDepth());
+        doTabs();
         stringBuilder.append('<').append(elem.getName());
+        ++tabCount;
     }
 
-    private void doTabs(int tabCount) {
-        char[] tabs = new char[tabCount];
-
+    private void doTabs() {
         for (int i = 0; i < tabCount; i++) {
-            tabs[i] = '\t';
+            stringBuilder.append("\t");
         }
-
-        stringBuilder.append(tabs);
     }
 
     @Override
@@ -54,7 +52,8 @@ public class CustomVisitorAndroid extends ElementVisitor {
             stringBuilder.append('\n');
         }
 
-        doTabs(element.getDepth());
+        --tabCount;
+        doTabs();
         stringBuilder.append("</").append(element.getName()).append('>');
     }
 
@@ -74,7 +73,7 @@ public class CustomVisitorAndroid extends ElementVisitor {
 
         if (textValue != null){
             stringBuilder.append(">\n");
-            doTabs(text.getDepth());
+            doTabs();
             stringBuilder.append(textValue).append('\n');
         }
     }
@@ -85,7 +84,7 @@ public class CustomVisitorAndroid extends ElementVisitor {
 
         if (textValue != null){
             stringBuilder.append(">\n");
-            doTabs(comment.getDepth());
+            doTabs();
             stringBuilder.append("<!-- ").append(textValue).append(" -->\n");
         }
     }

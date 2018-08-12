@@ -44,7 +44,9 @@ class XsdAsmAttributes {
             signature = "(" + javaType + ")" + returnType.substring(0, returnType.length() - 1) + "<TZ;>;";
         }
 
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, camelCaseName, "(" + javaType + ")" + returnType, signature, null);
+        int access = isInterfaceMethod ? ACC_PUBLIC : ACC_PUBLIC + ACC_FINAL;
+
+        MethodVisitor mVisitor = classWriter.visitMethod(access, camelCaseName, "(" + javaType + ")" + returnType, signature, null);
         mVisitor.visitLocalVariable(attrName, javaType, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
@@ -89,7 +91,7 @@ class XsdAsmAttributes {
             javaType = "L" + JAVA_LIST + "<" + getFullJavaType(list.getItemType()) + ">;";
         }
 
-        ClassWriter attributeWriter = generateClass(camelAttributeName, baseAttributeType, null, "L" + baseAttributeType + "<" + javaType + ">;", ACC_PUBLIC + ACC_SUPER, apiName);
+        ClassWriter attributeWriter = generateClass(camelAttributeName, baseAttributeType, null, "L" + baseAttributeType + "<" + javaType + ">;", ACC_PUBLIC + ACC_FINAL + ACC_SUPER, apiName);
 
         if (attributeHasEnum(attribute)) {
             String enumName = getEnumName(attribute);

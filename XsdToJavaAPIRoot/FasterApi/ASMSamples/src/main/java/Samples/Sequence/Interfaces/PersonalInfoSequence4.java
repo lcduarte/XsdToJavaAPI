@@ -8,7 +8,7 @@ public interface PersonalInfoSequence4<T extends Element<T, P>, P extends Elemen
 
     default PersonalInfoCity<P> city(String value){
         new City<>(this.self()).text(value).º();
-        return new PersonalInfoCity<>(getParent(), getDepth());
+        return new PersonalInfoCity<>(getParent());
     }
 
 }

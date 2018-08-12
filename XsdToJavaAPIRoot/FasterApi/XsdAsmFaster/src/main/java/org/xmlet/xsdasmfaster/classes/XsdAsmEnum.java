@@ -73,7 +73,7 @@ class XsdAsmEnum {
         mVisitor.visitMaxs(3, 4);
         mVisitor.visitEnd();
 
-        mVisitor = cw.visitMethod(ACC_PUBLIC, "getValue", "()" + fullJavaTypeDesc, null, null);
+        mVisitor = cw.visitMethod(ACC_PUBLIC + ACC_FINAL, "getValue", "()" + fullJavaTypeDesc, null, null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, enumType, "value", fullJavaTypeDesc);

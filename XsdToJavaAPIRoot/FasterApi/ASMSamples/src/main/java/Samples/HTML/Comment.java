@@ -1,11 +1,12 @@
 package Samples.HTML;
 
-public class Comment<P extends Element> extends AbstractElement<Comment<P>, P> {
+public final class Comment<P extends Element> extends AbstractElement<Comment<P>, P> {
 
-    private String text;
+    private final String text;
 
-    private Comment(Visitor visitor, int depth) {
-        super(visitor, "text", depth);
+    private Comment(Visitor visitor, String text) {
+        super(visitor, "text");
+        this.text = text;
         visitor.visit(this);
     }
 
@@ -16,11 +17,11 @@ public class Comment<P extends Element> extends AbstractElement<Comment<P>, P> {
     }
 
     @Override
-    public Comment<P> self() {
+    public final Comment<P> self() {
         return this;
     }
 
-    public String getValue() {
+    public final String getValue() {
         return text;
     }
 }

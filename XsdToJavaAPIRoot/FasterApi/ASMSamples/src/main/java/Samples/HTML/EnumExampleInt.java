@@ -16,7 +16,8 @@ public enum EnumExampleInt implements EnumInterface<Double>{
         this.value = value;
     }
 
-    public Double getValue(){
+    @Override
+    public final Double getValue(){
         return value;
     }
 }

@@ -21,6 +21,14 @@ public class HtmlApiTest {
 
     private static final String PACKAGE = "org.xmlet.htmlapi";
 
+    public void dummy(){
+        CustomVisitor customVisitor = new CustomVisitor();
+
+        Body<Element> body = new Body<>(customVisitor);
+
+        body.table();
+    }
+
     @Test
     public void testGeneratedClassesIntegrity() throws Exception {
         CustomVisitor customVisitor = new CustomVisitor();

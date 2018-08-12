@@ -181,11 +181,11 @@ public class XsdAsmMinTest {
         PersonInfo<Element> personInfo = new PersonInfo<>(new CustomVisitorMin());
 
         Assert.assertEquals("personInfo", personInfo.getName());
-        Assert.assertEquals("personInfo", new PersonInfoComplete<>(personInfo, personInfo.getDepth()).getName());
-        Assert.assertEquals("personInfo", new PersonInfoFirstName<>(personInfo, personInfo.getDepth()).getName());
-        Assert.assertEquals("personInfo", new PersonInfoLastName<>(personInfo, personInfo.getDepth()).getName());
-        Assert.assertEquals("personInfo", new PersonInfoCity<>(personInfo, personInfo.getDepth()).getName());
-        Assert.assertEquals("personInfo", new PersonInfoPersonAddress<>(personInfo, personInfo.getDepth()).getName());
+        Assert.assertEquals("personInfo", new PersonInfoComplete<>(personInfo).getName());
+        Assert.assertEquals("personInfo", new PersonInfoFirstName<>(personInfo).getName());
+        Assert.assertEquals("personInfo", new PersonInfoLastName<>(personInfo).getName());
+        Assert.assertEquals("personInfo", new PersonInfoCity<>(personInfo).getName());
+        Assert.assertEquals("personInfo", new PersonInfoPersonAddress<>(personInfo).getName());
     }
 
     /**
@@ -231,9 +231,9 @@ public class XsdAsmMinTest {
         AName<Element> elem = new AName<>(visitor);
 
         elem.elem1("val1")
-                .elem2("val2")
-                .elem1("val1")
-                .elem2("val2");
+            .elem2("val2")
+            .elem1("val1")
+            .elem2("val2");
 
         String result = visitor.getResult(elem);
 

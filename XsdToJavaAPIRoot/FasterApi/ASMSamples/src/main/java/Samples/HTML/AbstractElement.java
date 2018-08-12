@@ -1,29 +1,20 @@
 package Samples.HTML;
 
 public abstract class AbstractElement<T extends Element<T, P>, P extends Element> implements Element<T, P> {
-    protected String name;
-    protected P parent;
-    protected Visitor visitor;
-    protected int depth;
+    protected final String name;
+    protected final P parent;
+    protected final Visitor visitor;
 
-    protected AbstractElement(Visitor visitor, String name, int depth){
+    protected AbstractElement(Visitor visitor, String name){
         this.visitor = visitor;
         this.name = name;
-        this.depth = depth;
+        this.parent = null;
     }
 
     protected AbstractElement(P parent, String name){
         this.visitor = parent.getVisitor();
         this.parent = parent;
         this.name = name;
-        this.depth = parent.getDepth() + 1;
-    }
-
-    protected AbstractElement(P parent, String name, int depth){
-        this.visitor = parent.getVisitor();
-        this.parent = parent;
-        this.name = name;
-        this.depth = depth;
     }
 
     @Override
@@ -38,17 +29,12 @@ public abstract class AbstractElement<T extends Element<T, P>, P extends Element
     }
 
     @Override
-    public Visitor getVisitor() {
+    public final Visitor getVisitor() {
         return visitor;
     }
 
-    public String getName(){
+    public final String getName(){
         return name;
-    }
-
-    @Override
-    public int getDepth() {
-        return depth;
     }
 
 }

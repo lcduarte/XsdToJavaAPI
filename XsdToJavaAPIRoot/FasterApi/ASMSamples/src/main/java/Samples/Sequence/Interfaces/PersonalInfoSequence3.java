@@ -8,7 +8,7 @@ public interface PersonalInfoSequence3<T extends Element<T, P>, P extends Elemen
 
     default PersonalInfoAddress<P> address(String value){
         new Address<>(this.self()).text(value).º();
-        return new PersonalInfoAddress<>(getParent(), getDepth());
+        return new PersonalInfoAddress<>(getParent());
     }
 
 }

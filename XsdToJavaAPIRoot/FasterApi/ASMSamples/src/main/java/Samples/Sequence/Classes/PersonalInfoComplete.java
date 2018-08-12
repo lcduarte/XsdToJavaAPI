@@ -5,8 +5,8 @@ import Samples.HTML.Element;
 
 public class PersonalInfoComplete<P extends Element> extends AbstractElement<PersonalInfoComplete<P>, P> {
 
-    public PersonalInfoComplete(P parent, int depth) {
-        super(parent, "personalInfo", depth);
+    public PersonalInfoComplete(P parent) {
+        super(parent, "personalInfo");
     }
 
     @Override

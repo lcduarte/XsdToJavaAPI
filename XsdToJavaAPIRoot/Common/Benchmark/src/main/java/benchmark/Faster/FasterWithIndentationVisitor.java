@@ -5,6 +5,7 @@ import org.xmlet.htmlapifaster.*;
 @SuppressWarnings("Duplicates")
 public class FasterWithIndentationVisitor extends ElementVisitor {
 
+    private int tabCount = 0;
     private StringBuilder stringBuilder = new StringBuilder();
 
     @Override
@@ -25,18 +26,15 @@ public class FasterWithIndentationVisitor extends ElementVisitor {
             }
         }
 
-        doTabs(elem.getDepth());
+        doTabs();
         stringBuilder.append('<').append(elem.getName());
+        ++tabCount;
     }
 
-    private void doTabs(int tabCount) {
-        char[] tabs = new char[tabCount];
-
+    private void doTabs() {
         for (int i = 0; i < tabCount; i++) {
-            tabs[i] = '\t';
+            stringBuilder.append('\t');
         }
-
-        stringBuilder.append(tabs);
     }
 
     @Override
@@ -56,8 +54,9 @@ public class FasterWithIndentationVisitor extends ElementVisitor {
             stringBuilder.append('\n');
         }
 
-        doTabs(element.getDepth());
+        doTabs();
         stringBuilder.append("</").append(element.getName()).append('>');
+        --tabCount;
     }
 
     public String getResult(Element x){
@@ -76,7 +75,7 @@ public class FasterWithIndentationVisitor extends ElementVisitor {
 
         if (textValue != null){
             stringBuilder.append(">\n");
-            doTabs(text.getDepth());
+            doTabs();
             stringBuilder.append(textValue).append('\n');
         }
     }
@@ -87,7 +86,7 @@ public class FasterWithIndentationVisitor extends ElementVisitor {
 
         if (textValue != null){
             stringBuilder.append(">\n");
-            doTabs(comment.getDepth());
+            doTabs();
             stringBuilder.append("<!-- ").append(textValue).append(" -->\n");
         }
     }
