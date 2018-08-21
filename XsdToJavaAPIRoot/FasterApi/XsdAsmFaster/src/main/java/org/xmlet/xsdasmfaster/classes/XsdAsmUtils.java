@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.stream.Stream;
 
 import static org.objectweb.asm.Opcodes.V1_8;
+import static org.xmlet.xsdasmfaster.classes.XsdSupportingStructure.*;
 
 public class XsdAsmUtils {
 
@@ -169,6 +170,12 @@ public class XsdAsmUtils {
      * @return The full type of the class, e.g. Html -> XsdAsm/ParsedObjects/Html
      */
     static String getFullClassTypeName(String className, String apiName){
+        String infrastructureClass = infrastructureVars.get(className);
+
+        if (infrastructureClass != null){
+            return infrastructureClass;
+        }
+
         return getPackage(apiName) + className;
     }
 
@@ -177,7 +184,7 @@ public class XsdAsmUtils {
      * @return The full type descriptor of the class, e.g. Html -> LXsdClassGenerator/ParsedObjects/Html;
      */
     static String getFullClassTypeNameDesc(String className, String apiName){
-        return "L" + getPackage(apiName) + className + ";";
+        return "L" + getFullClassTypeName(className, apiName) + ";";
     }
 
     /**
@@ -219,7 +226,7 @@ public class XsdAsmUtils {
     }
 
     static String getFullJavaType(String itemType) {
-        return xsdFullTypesToJava.getOrDefault(itemType, XsdSupportingStructure.JAVA_OBJECT_DESC);
+        return xsdFullTypesToJava.getOrDefault(itemType, JAVA_OBJECT_DESC);
     }
 
     /**
@@ -233,10 +240,10 @@ public class XsdAsmUtils {
 
         if (javaType == null){
             if (!restrictions.isEmpty()){
-                return xsdFullTypesToJava.getOrDefault(restrictions.get(0).getBase(), XsdSupportingStructure.JAVA_OBJECT_DESC);
+                return xsdFullTypesToJava.getOrDefault(restrictions.get(0).getBase(), JAVA_OBJECT_DESC);
             }
 
-            return XsdSupportingStructure.JAVA_OBJECT_DESC;
+            return JAVA_OBJECT_DESC;
         }
 
         return javaType;
@@ -393,7 +400,7 @@ public class XsdAsmUtils {
     static String getClassSignature(String[] interfaces, String className, String apiName) {
         StringBuilder signature;
 
-        signature = new StringBuilder("<Z::" + XsdSupportingStructure.elementTypeDesc + ">L" + XsdSupportingStructure.abstractElementType + "<L" + getFullClassTypeName(className, apiName) + "<TZ;>;TZ;>;");
+        signature = new StringBuilder("<Z::" + XsdSupportingStructure.elementTypeDesc + ">" + JAVA_OBJECT_DESC);
 
         if (interfaces != null){
             for (String anInterface : interfaces) {
@@ -408,6 +415,13 @@ public class XsdAsmUtils {
         return signature.toString();
     }
 
+    static String getSequenceClassSignature(String typeName, String parentName, boolean isLast, String apiName){
+        String type = getFullClassTypeName(typeName, apiName);
+        String parentType = getFullClassTypeName(parentName, apiName);
+
+        return "<Z:L" + parentType + "<TGZ;>;GZ::" + elementTypeDesc + ">" + JAVA_OBJECT_DESC + "L" + elementType + "<L" + type + "<TZ;TGZ;>;" + (isLast ? "TGZ" : "TZ") + ";>;";
+    }
+
     /**
      * Obtains the interface signature for a interface.
      * @param interfaces The extended interfaces.
@@ -415,7 +429,7 @@ public class XsdAsmUtils {
      * @return The interface signature.
      */
     static String getInterfaceSignature(String[] interfaces, String apiName) {
-        StringBuilder signature = new StringBuilder("<T::L" + XsdSupportingStructure.elementType + "<TT;TZ;>;Z::" + XsdSupportingStructure.elementTypeDesc + ">" + XsdSupportingStructure.JAVA_OBJECT_DESC);
+        StringBuilder signature = new StringBuilder("<T::L" + XsdSupportingStructure.elementType + "<TT;TZ;>;Z::" + XsdSupportingStructure.elementTypeDesc + ">" + JAVA_OBJECT_DESC);
 
         if (interfaces != null){
             for (String anInterface : interfaces) {
@@ -466,6 +480,22 @@ public class XsdAsmUtils {
         return result.toString();
     }
 
+    static String getCleanName(String name, boolean camelCase){
+        String[] parts = name.split("_");
+
+        StringBuilder result = new StringBuilder();
+
+        for (String part : parts) {
+            if (camelCase){
+                result.append(toCamelCase(part));
+            } else {
+                result.append(part);
+            }
+        }
+
+        return result.toString();
+    }
+
     static Set<InterfaceMethodInfo> getAmbiguousMethods(List<InterfaceInfo> interfaceInfoList) {
         Set<InterfaceMethodInfo> ambiguousNames = new HashSet<>();
         Set<String> dummy = new HashSet<>();
@@ -500,6 +530,10 @@ public class XsdAsmUtils {
         });
 
         return names;
+    }
+
+    static String getJavaType(String xsdType){
+        return xsdFullTypesToJava.get(xsdType);
     }
 }
 

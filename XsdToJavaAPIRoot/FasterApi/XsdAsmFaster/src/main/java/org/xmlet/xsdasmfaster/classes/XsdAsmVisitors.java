@@ -23,7 +23,7 @@ class XsdAsmVisitors {
      * @param apiName The api this classes will belong to.
      */
     static void generateVisitors(Set<String> elementNames, List<String> attributes, String apiName){
-        generateVisitorInterface(elementNames, attributes, apiName);
+        //generateVisitorInterface(elementNames, attributes, apiName);
     }
 
     /**
@@ -43,33 +43,33 @@ class XsdAsmVisitors {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, VISIT_METHOD_NAME, "(" + elementTypeDesc + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "visitElement", "(" + JAVA_STRING_DESC + ")V", null, null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, VISIT_METHOD_NAME, "("  + attributeTypeDesc + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "visitAttribute", "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")V", null, null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "visitParent", "(" + elementTypeDesc + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "visitParent", "(" + JAVA_STRING_DESC + ")V", null, null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, VISIT_METHOD_NAME, "("  + textTypeDesc + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "visitText", "(" + JAVA_STRING_DESC + ")V", null, null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC +ACC_ABSTRACT, VISIT_METHOD_NAME, "(" + commentTypeDesc + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "visitComment", "(" + JAVA_STRING_DESC + ")V", null, null);
         mVisitor.visitEnd();
 
-        elementNames.forEach(elementName -> addVisitorInterfaceMethod(classWriter, elementName, elementTypeDesc, apiName));
+        //elementNames.forEach(elementName -> addVisitorInterfaceMethod(classWriter, elementName, elementTypeDesc, apiName));
 
-        attributes.forEach(attribute -> addVisitorInterfaceMethod(classWriter, attribute, attributeTypeDesc, apiName));
+        //attributes.forEach(attribute -> addVisitorInterfaceMethod(classWriter, attribute, attributeTypeDesc, apiName));
 
         writeClassToFile(VISITOR, classWriter, apiName);
     }
 
     /**
      * Adds methods for each element to the visitor interface.
-     * @param classWriter The Visitor interface class writer.
+     * @param classWriter The ElementVisitor interface class writer.
      * @param elementName The element for which the methods will be generated.
-     * @param apiName The api name from the Visitor interface.
+     * @param apiName The api name from the ElementVisitor interface.
      */
     private static void addVisitorInterfaceMethod(ClassWriter classWriter, String elementName, String paramType, String apiName){
         String methodTypeDesc = getFullClassTypeNameDesc(toCamelCase(getCleanName(elementName)), apiName);

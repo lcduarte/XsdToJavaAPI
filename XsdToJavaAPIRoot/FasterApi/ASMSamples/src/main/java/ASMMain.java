@@ -1,23 +1,58 @@
+import Samples.HTML.Div;
+import Samples.HTML.Element;
+import Samples.HTML.Visitor;
+import Samples.Sequence.Classes.*;
 import org.objectweb.asm.util.ASMifier;
 
 public class ASMMain {
 
     public static void main(String[] args){
         try {
-            /*
-            Element element = null;
+            Visitor visitor = new Visitor() {
+                @Override
+                public void visitElement(String elementName) {
 
-            PersonalInfo<Element> p = new PersonalInfo<Element>(element);
+                }
 
-            PersonalInfoFirstName<PersonalInfo<Element>> f = p.firstName("");
-            PersonalInfoLastName<PersonalInfo<Element>> l = f.lastName("");
-            PersonalInfoAddress<PersonalInfo<Element>> a = l.address("");
-            PersonalInfoCity<PersonalInfo<Element>> c = a.city("");
-            PersonalInfoComplete<PersonalInfo<Element>> c1 = c.country("");
-            */
+                @Override
+                public void visitAttribute(String attributeName, String attributeValue) {
 
-            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\FasterApi\\ASMSamples\\target\\classes\\Samples\\HTML\\AbstractElement.class"});
-            //ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\FasterApi\\ASMSamples\\target\\classes\\Samples\\Sequence\\Classes\\PersonalInfoFirstName.class"});
+                }
+
+                @Override
+                public void visitParent(String elementName) {
+
+                }
+
+                @Override
+                public void visitText(String text) {
+
+                }
+
+                @Override
+                public void visitComment(String comment) {
+
+                }
+            };
+            Div<Element> element = new Div<Element>(visitor);
+
+            PersonalInfo<Div<Element>> p = new PersonalInfo<>(element);
+
+            PersonalInfoFirstName<Div<Element>> f = p.firstName("");
+            PersonalInfoLastName<Div<Element>> l = f.lastName("");
+            PersonalInfoAddress<Div<Element>> a = l.address("");
+            PersonalInfoCity<Div<Element>> c = a.city("");
+            PersonalInfoComplete<Div<Element>> c1 = c.country("");
+
+            Div<Element> z = c1.º();
+
+            AName<Div<Element>> aName = new AName<>(element);
+
+            ANameElem1<Div<Element>> a1 = aName.elem1("elem1");
+            AName<Div<Element>> a2 = a1.elem2("elem2");
+
+            //ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\FasterApi\\ASMSamples\\target\\classes\\Samples\\HTML\\CommonAttributeGroup.class"});
+            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\FasterApi\\ASMSamples\\target\\classes\\Samples\\Sequence\\Classes\\ANameElem1.class"});
             //ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\FasterApi\\ASMSamples\\target\\classes\\Samples\\Sequence\\Interfaces\\PersonalInfoSequence1.class"});
         } catch (Exception e) {
             e.printStackTrace();

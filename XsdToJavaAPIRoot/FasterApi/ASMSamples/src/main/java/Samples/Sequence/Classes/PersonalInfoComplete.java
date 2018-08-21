@@ -1,12 +1,21 @@
 package Samples.Sequence.Classes;
 
-import Samples.HTML.AbstractElement;
 import Samples.HTML.Element;
+import Samples.HTML.Visitor;
 
-public class PersonalInfoComplete<P extends Element> extends AbstractElement<PersonalInfoComplete<P>, P> {
+public class PersonalInfoComplete<P extends Element> implements Element<PersonalInfoComplete<P>, P> {
+
+    protected final P parent;
+    protected final Visitor visitor;
+
+    public PersonalInfoComplete(Visitor visitor) {
+        this.visitor = visitor;
+        this.parent = null;
+    }
 
     public PersonalInfoComplete(P parent) {
-        super(parent, "personalInfo");
+        this.parent = parent;
+        this.visitor = parent.getVisitor();
     }
 
     @Override
@@ -15,7 +24,22 @@ public class PersonalInfoComplete<P extends Element> extends AbstractElement<Per
     }
 
     @Override
+    public P getParent() {
+        return parent;
+    }
+
+    @Override
+    public final Visitor getVisitor() {
+        return visitor;
+    }
+
+    @Override
     public P º() {
-        return super.parent;
+        return parent;
+    }
+
+    @Override
+    public String getName() {
+        return "personInfo";
     }
 }

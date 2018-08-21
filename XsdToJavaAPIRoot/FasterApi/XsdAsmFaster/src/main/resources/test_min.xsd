@@ -57,6 +57,7 @@
 
     <!-- **************************************************************** -->
 
+
     <xsd:element name="intvalues">
         <xsd:complexType>
             <xsd:attribute name="intlist" type="valuelist"/>
@@ -70,7 +71,7 @@
         </xsd:restriction>
         <xsd:list itemType="xsd:int"/>
     </xsd:simpleType>
-
+    
     <!-- **************************************************************** -->
 
     <xs:element name="innerSequences">

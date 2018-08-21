@@ -2,8 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/HtmlApiFaster" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/HtmlApiFasterTest" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/XsdAsmFaster" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/XsdAsmFasterTest" vcs="Git" />
   </component>

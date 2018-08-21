@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlet.androidFaster.*;
+import org.xmlet.xsdasmfaster.classes.infrastructure.Element;
 
 public class XsdAsmAndroidTest {
 
@@ -11,7 +12,7 @@ public class XsdAsmAndroidTest {
         RelativeLayout<Element> relativeLayout = new RelativeLayout<>(visitor)
                                                 .attrAndroidGravity(EnumAndroidGravity.CENTER)                              /* Method from RelativeLayout */
                                                 .attrAndroidAddStatesFromChildren(EnumAndroidAddStatesFromChildren.TRUE)    /* Method from ViewGroup */
-                                                .attrAndroidLayoutX(null);                                                  /* Method from View */
+                                                .attrAndroidLayoutX("");                                                    /* Method from View */
 
         boolean implementsView = false;
         boolean implementsViewGroup = false;
@@ -28,9 +29,11 @@ public class XsdAsmAndroidTest {
             }
         }
 
-        String result = visitor.getResult(relativeLayout);
+        relativeLayout.º();
 
-        String expected =   "<relativeLayout androidgravity=\"center\" androidaddStatesFromChildren=\"true\" androidlayoutx=\"null\">\n" +
+        String result = visitor.getResult();
+
+        String expected =   "<relativeLayout androidgravity=\"center\" androidaddStatesFromChildren=\"true\" androidlayoutx=\"\">\n" +
                             "</relativeLayout>";
 
 
@@ -65,7 +68,6 @@ public class XsdAsmAndroidTest {
     public void testSimpleAndroidLayout(){
         CustomVisitorAndroid visitor = new CustomVisitorAndroid();
 
-        LinearLayout<Element> linearLayout =
             new LinearLayout<>(visitor)
                 .attrAndroidOrientation(EnumAndroidOrientation.VERTICAL)
                 .attrAndroidLayoutWidth("match_parent")
@@ -83,9 +85,10 @@ public class XsdAsmAndroidTest {
                         .attrAndroidHeight("weight_content")
                         .attrAndroidLines("2")
                     .º()
-                .º();
+                .º()
+            .º();
 
-        String result = visitor.getResult(linearLayout);
+        String result = visitor.getResult();
 
         String expected =   "<linearLayout androidorientation=\"vertical\" androidlayoutwidth=\"match_parent\" androidlayoutheight=\"wrap_content\">\n" +
 	                            "\t<linearLayout androidorientation=\"horizontal\" androidlayoutwidth=\"match_parent\" androidlayoutheight=\"wrap_content\">\n" +

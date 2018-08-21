@@ -8,7 +8,7 @@ public class CustomVisitor extends ElementVisitor {
     private StringBuilder stringBuilder = new StringBuilder();
 
     @Override
-    public void visit(Element elem) {
+    public void visitElement(String elementName) {
         int length = stringBuilder.length();
         boolean isClosed = stringBuilder.lastIndexOf(">") == length - 1;
         boolean isNewlined = stringBuilder.lastIndexOf("\n") == length - 1;
@@ -23,7 +23,7 @@ public class CustomVisitor extends ElementVisitor {
         }
 
         doTabs();
-        stringBuilder.append('<').append(elem.getName());
+        stringBuilder.append('<').append(elementName);
         ++tabCount;
     }
 
@@ -44,12 +44,12 @@ public class CustomVisitor extends ElementVisitor {
     }
 
     @Override
-    public void visit(Attribute attribute) {
-        stringBuilder.append(' ').append(attribute.getName()).append("=\"").append(attribute.getValue()).append('\"');
+    public void visitAttribute(String attributeName, String attributeValue) {
+        stringBuilder.append(' ').append(attributeName).append("=\"").append(attributeValue).append('\"');
     }
 
     @Override
-    public void visitParent(Element element) {
+    public void visitParent(String elementName) {
         closeIfNeeded();
 
         if (!stringBuilder.toString().endsWith("\n")){
@@ -58,7 +58,7 @@ public class CustomVisitor extends ElementVisitor {
 
         --tabCount;
         doTabs();
-        stringBuilder.append("</").append(element.getName()).append('>');
+        stringBuilder.append("</").append(elementName).append('>');
 
     }
 
@@ -79,24 +79,20 @@ public class CustomVisitor extends ElementVisitor {
     }
 
     @Override
-    public void visit(Text text){
-        String textValue = text.getValue();
-
-        if (textValue != null){
+    public void visitText(String text){
+        if (text != null){
             stringBuilder.append(">\n");
             doTabs();
-            stringBuilder.append(textValue).append('\n');
+            stringBuilder.append(text).append('\n');
         }
     }
 
     @Override
-    public void visit(Comment comment){
-        String textValue = comment.getValue();
-
-        if (textValue != null){
+    public void visitComment(String comment){
+        if (comment != null){
             stringBuilder.append(">\n");
             doTabs();
-            stringBuilder.append("<!-- ").append(textValue).append(" -->\n");
+            stringBuilder.append("<!-- ").append(comment).append(" -->\n");
         }
     }
 }

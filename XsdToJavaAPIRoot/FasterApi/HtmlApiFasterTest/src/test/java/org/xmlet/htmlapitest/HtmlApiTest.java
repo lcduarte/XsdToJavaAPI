@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HtmlApiTest {
@@ -27,6 +28,11 @@ public class HtmlApiTest {
         Body<Element> body = new Body<>(customVisitor);
 
         body.table();
+
+        Html<Element> html = new Html<>(customVisitor);
+
+        html.attrDir(EnumDir.LTR);
+        html.attrManifest("manifestValue");
     }
 
     @Test
@@ -90,20 +96,6 @@ public class HtmlApiTest {
                             "</html>";
 
         Assert.assertEquals(expected, result);
-    }
-
-    /**
-     *  <xsd:restriction base="xsd:NMTOKEN">
-             (...)
-             <xsd:enumeration value="Help" />
-             (...)
-     *  </xsd:restriction>
-     *
-     *  This attribute creation should be successful because the value "Help" is a possible value for the Rel attribute.
-     */
-    @Test
-    public void testRestrictionSuccess(){
-        new AttrRelEnumRelLinkType(EnumRelLinkType.HELP);
     }
 
     /**
@@ -192,11 +184,6 @@ public class HtmlApiTest {
     }
 
     @Test
-    public void testAttributeName(){
-        Assert.assertEquals("class", new AttrClassString(null).getName());
-    }
-
-    @Test
     public void testElementName(){
         CustomVisitor visitor = new CustomVisitor();
         Assert.assertEquals("html", new Html<>(visitor).getName());
@@ -228,12 +215,13 @@ public class HtmlApiTest {
 
                 Class<?> klass = ucl.loadClass(PACKAGE + "." + className);
 
-                if (Modifier.isAbstract(klass.getModifiers()) || Modifier.isInterface(klass.getModifiers()) ||
-                        klass.isEnum() || klass.getSimpleName().equals("Text") || klass.getSimpleName().equals("Comment")){
+                if (Modifier.isAbstract(klass.getModifiers()) || Modifier.isInterface(klass.getModifiers()) || klass.isEnum()){
                     continue;
                 }
 
-                if (AbstractElement.class.isAssignableFrom(klass)){
+                boolean isXmletElement = Arrays.asList(klass.getInterfaces()).contains(Element.class);
+
+                if (isXmletElement){
                     Constructor ctor1 = klass.getConstructor(ElementVisitor.class);
                     Constructor ctor2 = klass.getConstructor(Element.class);
                     Constructor ctor3 = klass.getConstructor(Element.class, String.class);
@@ -286,73 +274,75 @@ public class HtmlApiTest {
 
     @Test
     public void testEnums(){
-        new AttrRelEnumRelLinkType(EnumRelLinkType.HELP);
-        new AttrTargetEnumTargetBrowsingContext(EnumTargetBrowsingContext._BLANK);
-        new AttrFormtargetEnumFormtargetBrowsingContext(EnumFormtargetBrowsingContext._BLANK);
-        new AttrMediaEnumMediaMediaType(EnumMediaMediaType.ALL);
-        new AttrAsyncEnumAsyncScript(EnumAsyncScript.ASYNC);
-        new AttrCheckedEnumCheckedCommand(EnumCheckedCommand.CHECKED);
-        new AttrControlsEnumControlsAudio(EnumControlsAudio.CONTROLS);
-        new AttrControlsEnumControlsVideo(EnumControlsVideo.CONTROLS);
-        new AttrAutofocusEnumAutofocusButton(EnumAutofocusButton.AUTOFOCUS);
-        new AttrAutofocusEnumAutofocusKeygen(EnumAutofocusKeygen.AUTOFOCUS);
-        new AttrAutofocusEnumAutofocusSelect(EnumAutofocusSelect.AUTOFOCUS);
-        new AttrAutofocusEnumAutofocusTextarea(EnumAutofocusTextarea.AUTOFOCUS);
-        new AttrAutobufferEnumAutobufferAudio(EnumAutobufferAudio.AUTOBUFFER);
-        new AttrAutobufferEnumAutobufferVideo(EnumAutobufferVideo.AUTOBUFFER);
-        new AttrAutocompleteEnumAutocompleteForm(EnumAutocompleteForm.ON);
-        new AttrAutoplayEnumAutoplayAudio(EnumAutoplayAudio.AUTOPLAY);
-        new AttrCheckedEnumCheckedInput(EnumCheckedInput.CHECKED);
-        new AttrDisabledEnumDisabledCommand(EnumDisabledCommand.DISABLED);
-        new AttrContenteditableEnumContenteditable(EnumContenteditable.FALSE);
-        new AttrDeferEnumDeferScript(EnumDeferScript.DEFER);
-        new AttrDirEnumDir(EnumDir.RTL);
-        new AttrDisabledEnumDisabledButton(EnumDisabledButton.AUTOFOCUS);
-        new AttrDisabledEnumDisabledCommand(EnumDisabledCommand.DISABLED);
-        new AttrDisabledEnumDisabledInput(EnumDisabledInput.DISABLED);
-        new AttrDisabledEnumDisabledKeygen(EnumDisabledKeygen.DISABLED);
-        new AttrDisabledEnumDisabledOptgroup(EnumDisabledOptgroup.DISABLED);
-        new AttrDisabledEnumDisabledOption(EnumDisabledOption.DISABLED);
-        new AttrDisabledEnumDisabledSelect(EnumDisabledSelect.AUTOFOCUS);
-        new AttrDisabledEnumDisabledTextarea(EnumDisabledTextarea.DISABLED);
-        new AttrDraggableEnumDraggable(EnumDraggable.AUTO);
-        new AttrEnctypeEnumEnctypeForm(EnumEnctypeForm.MULTIPART_FORM_DATA);
-        new AttrAutoplayEnumAutoplayVideo(EnumAutoplayVideo.AUTOPLAY);
-        new AttrFormenctypeEnumFormenctypeButton(EnumFormenctypeButton.APPLICATION_X_WWW_FORM_URLENCODED);
-        new AttrFormenctypeEnumFormenctypeInput(EnumFormenctypeInput.APPLICATION_X_WWW_FORM_URLENCODED);
-        new AttrFormmethodEnumFormmethodButton(EnumFormmethodButton.DELETE);
-        new AttrFormmethodEnumFormmethodInput(EnumFormmethodInput.DELETE);
-        new AttrFormnovalidateEnumFormnovalidateButton(EnumFormnovalidateButton.FORMNOVALIDATE);
-        new AttrFormnovalidateEnumFormnovalidateInput(EnumFormnovalidateInput.FORMNOVALIDATE);
-        new AttrHiddenEnumHidden(EnumHidden.HIDDEN);
-        new AttrHttpEquivEnumHttpEquivMeta(EnumHttpEquivMeta.REFRESH);
-        new AttrIsmapEnumIsmapImg(EnumIsmapImg.ISMAP);
-        new AttrKeytypeEnumKeytypeKeygen(EnumKeytypeKeygen.RSA);
-        new AttrLoopEnumLoopAudio(EnumLoopAudio.LOOP);
-        new AttrLoopEnumLoopVideo(EnumLoopVideo.LOOP);
-        new AttrMethodEnumMethodForm(EnumMethodForm.DELETE);
-        new AttrMultipleEnumMultipleSelect(EnumMultipleSelect.MULTIPLE);
-        new AttrNameEnumNameBrowsingContext(EnumNameBrowsingContext._BLANK);
-        new AttrNovalidateEnumNovalidateForm(EnumNovalidateForm.NOVALIDATE);
-        new AttrOpenEnumOpenDetails(EnumOpenDetails.OPEN);
-        new AttrReadonlyEnumReadonlyTextarea(EnumReadonlyTextarea.READONLY);
-        new AttrRequiredEnumRequiredTextarea(EnumRequiredTextarea.REQUIRED);
-        new AttrReversedEnumReversedOl(EnumReversedOl.REVERSED);
-        new AttrRunatEnumRunat(EnumRunat.SERVER);
-        new AttrSandboxEnumSandboxIframe(EnumSandboxIframe.ALLOW_FORMS);
-        new AttrScopedEnumScopedStyle(EnumScopedStyle.SCOPED);
-        new AttrScopeEnumScopeTh(EnumScopeTh.COL);
-        new AttrSeamlessEnumSeamlessIframe(EnumSeamlessIframe.SEAMLESS);
-        new AttrSelectedEnumSelectedOption(EnumSelectedOption.SELECTED);
-        new AttrShapeEnumShapeArea(EnumShapeArea.CIRCLE);
-        new AttrSpellcheckEnumSpellcheck(EnumSpellcheck.FALSE);
-        new AttrTypeEnumTypeButton(EnumTypeButton.BUTTON);
-        new AttrTypeEnumTypeCommand(EnumTypeCommand.CHECKBOX);
-        new AttrTypeEnumTypeInput(EnumTypeInput.BUTTON);
-        new AttrTypeEnumTypeMenu(EnumTypeMenu.CONTEXT);
-        new AttrTypeEnumTypeScript(EnumTypeScript.TEXT_ECMASCRIPT);
-        new AttrTypeEnumTypeSimpleContentType(EnumTypeSimpleContentType.TEXT_ASA);
-        new AttrTypeEnumTypeStyle(EnumTypeStyle.TEXT_CSS);
-        new AttrWrapEnumWrapTextarea(EnumWrapTextarea.HARD);
+        /*
+        AttrRelEnumRelLinkType.validateRestrictions(EnumRelLinkType.HELP);
+        AttrTargetEnumTargetBrowsingContext.validateRestrictions(EnumTargetBrowsingContext._BLANK);
+        AttrFormtargetEnumFormtargetBrowsingContext.validateRestrictions(EnumFormtargetBrowsingContext._BLANK);
+        AttrMediaEnumMediaMediaType.validateRestrictions(EnumMediaMediaType.ALL);
+        AttrAsyncEnumAsyncScript.validateRestrictions(EnumAsyncScript.ASYNC);
+        AttrCheckedEnumCheckedCommand.validateRestrictions(EnumCheckedCommand.CHECKED);
+        AttrControlsEnumControlsAudio.validateRestrictions(EnumControlsAudio.CONTROLS);
+        AttrControlsEnumControlsVideo.validateRestrictions(EnumControlsVideo.CONTROLS);
+        AttrAutofocusEnumAutofocusButton.validateRestrictions(EnumAutofocusButton.AUTOFOCUS);
+        AttrAutofocusEnumAutofocusKeygen.validateRestrictions(EnumAutofocusKeygen.AUTOFOCUS);
+        AttrAutofocusEnumAutofocusSelect.validateRestrictions(EnumAutofocusSelect.AUTOFOCUS);
+        AttrAutofocusEnumAutofocusTextarea.validateRestrictions(EnumAutofocusTextarea.AUTOFOCUS);
+        AttrAutobufferEnumAutobufferAudio.validateRestrictions(EnumAutobufferAudio.AUTOBUFFER);
+        AttrAutobufferEnumAutobufferVideo.validateRestrictions(EnumAutobufferVideo.AUTOBUFFER);
+        AttrAutocompleteEnumAutocompleteForm.validateRestrictions(EnumAutocompleteForm.ON);
+        AttrAutoplayEnumAutoplayAudio.validateRestrictions(EnumAutoplayAudio.AUTOPLAY);
+        AttrCheckedEnumCheckedInput.validateRestrictions(EnumCheckedInput.CHECKED);
+        AttrDisabledEnumDisabledCommand.validateRestrictions(EnumDisabledCommand.DISABLED);
+        AttrContenteditableEnumContenteditable.validateRestrictions(EnumContenteditable.FALSE);
+        AttrDeferEnumDeferScript.validateRestrictions(EnumDeferScript.DEFER);
+        AttrDirEnumDir.validateRestrictions(EnumDir.RTL);
+        AttrDisabledEnumDisabledButton.validateRestrictions(EnumDisabledButton.AUTOFOCUS);
+        AttrDisabledEnumDisabledCommand.validateRestrictions(EnumDisabledCommand.DISABLED);
+        AttrDisabledEnumDisabledInput.validateRestrictions(EnumDisabledInput.DISABLED);
+        AttrDisabledEnumDisabledKeygen.validateRestrictions(EnumDisabledKeygen.DISABLED);
+        AttrDisabledEnumDisabledOptgroup.validateRestrictions(EnumDisabledOptgroup.DISABLED);
+        AttrDisabledEnumDisabledOption.validateRestrictions(EnumDisabledOption.DISABLED);
+        AttrDisabledEnumDisabledSelect.validateRestrictions(EnumDisabledSelect.AUTOFOCUS);
+        AttrDisabledEnumDisabledTextarea.validateRestrictions(EnumDisabledTextarea.DISABLED);
+        AttrDraggableEnumDraggable.validateRestrictions(EnumDraggable.AUTO);
+        AttrEnctypeEnumEnctypeForm.validateRestrictions(EnumEnctypeForm.MULTIPART_FORM_DATA);
+        AttrAutoplayEnumAutoplayVideo.validateRestrictions(EnumAutoplayVideo.AUTOPLAY);
+        AttrFormenctypeEnumFormenctypeButton.validateRestrictions(EnumFormenctypeButton.APPLICATION_X_WWW_FORM_URLENCODED);
+        AttrFormenctypeEnumFormenctypeInput.validateRestrictions(EnumFormenctypeInput.APPLICATION_X_WWW_FORM_URLENCODED);
+        AttrFormmethodEnumFormmethodButton.validateRestrictions(EnumFormmethodButton.DELETE);
+        AttrFormmethodEnumFormmethodInput.validateRestrictions(EnumFormmethodInput.DELETE);
+        AttrFormnovalidateEnumFormnovalidateButton.validateRestrictions(EnumFormnovalidateButton.FORMNOVALIDATE);
+        AttrFormnovalidateEnumFormnovalidateInput.validateRestrictions(EnumFormnovalidateInput.FORMNOVALIDATE);
+        AttrHiddenEnumHidden.validateRestrictions(EnumHidden.HIDDEN);
+        AttrHttpEquivEnumHttpEquivMeta.validateRestrictions(EnumHttpEquivMeta.REFRESH);
+        AttrIsmapEnumIsmapImg.validateRestrictions(EnumIsmapImg.ISMAP);
+        AttrKeytypeEnumKeytypeKeygen.validateRestrictions(EnumKeytypeKeygen.RSA);
+        AttrLoopEnumLoopAudio.validateRestrictions(EnumLoopAudio.LOOP);
+        AttrLoopEnumLoopVideo.validateRestrictions(EnumLoopVideo.LOOP);
+        AttrMethodEnumMethodForm.validateRestrictions(EnumMethodForm.DELETE);
+        AttrMultipleEnumMultipleSelect.validateRestrictions(EnumMultipleSelect.MULTIPLE);
+        AttrNameEnumNameBrowsingContext.validateRestrictions(EnumNameBrowsingContext._BLANK);
+        AttrNovalidateEnumNovalidateForm.validateRestrictions(EnumNovalidateForm.NOVALIDATE);
+        AttrOpenEnumOpenDetails.validateRestrictions(EnumOpenDetails.OPEN);
+        AttrReadonlyEnumReadonlyTextarea.validateRestrictions(EnumReadonlyTextarea.READONLY);
+        AttrRequiredEnumRequiredTextarea.validateRestrictions(EnumRequiredTextarea.REQUIRED);
+        AttrReversedEnumReversedOl.validateRestrictions(EnumReversedOl.REVERSED);
+        AttrRunatEnumRunat.validateRestrictions(EnumRunat.SERVER);
+        AttrSandboxEnumSandboxIframe.validateRestrictions(EnumSandboxIframe.ALLOW_FORMS);
+        AttrScopedEnumScopedStyle.validateRestrictions(EnumScopedStyle.SCOPED);
+        AttrScopeEnumScopeTh.validateRestrictions(EnumScopeTh.COL);
+        AttrSeamlessEnumSeamlessIframe.validateRestrictions(EnumSeamlessIframe.SEAMLESS);
+        AttrSelectedEnumSelectedOption.validateRestrictions(EnumSelectedOption.SELECTED);
+        AttrShapeEnumShapeArea.validateRestrictions(EnumShapeArea.CIRCLE);
+        AttrSpellcheckEnumSpellcheck.validateRestrictions(EnumSpellcheck.FALSE);
+        AttrTypeEnumTypeButton.validateRestrictions(EnumTypeButton.BUTTON);
+        AttrTypeEnumTypeCommand.validateRestrictions(EnumTypeCommand.CHECKBOX);
+        AttrTypeEnumTypeInput.validateRestrictions(EnumTypeInput.BUTTON);
+        AttrTypeEnumTypeMenu.validateRestrictions(EnumTypeMenu.CONTEXT);
+        AttrTypeEnumTypeScript.validateRestrictions(EnumTypeScript.TEXT_ECMASCRIPT);
+        AttrTypeEnumTypeSimpleContentType.validateRestrictions(EnumTypeSimpleContentType.TEXT_ASA);
+        AttrTypeEnumTypeStyle.validateRestrictions(EnumTypeStyle.TEXT_CSS);
+        AttrWrapEnumWrapTextarea.validateRestrictions(EnumWrapTextarea.HARD);
+        */
     }
 }

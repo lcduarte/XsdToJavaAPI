@@ -1,4 +1,5 @@
 import org.xmlet.testMinFaster.*;
+import org.xmlet.xsdasmfaster.classes.infrastructure.ElementVisitor;
 
 @SuppressWarnings("Duplicates")
 public class CustomVisitorMin extends ElementVisitor {
@@ -7,7 +8,7 @@ public class CustomVisitorMin extends ElementVisitor {
     private StringBuilder stringBuilder = new StringBuilder();
 
     @Override
-    public void visit(Element elem) {
+    public void visitElement(String elementName) {
         int length = stringBuilder.length() - 1;
 
         if (length != -1){
@@ -25,7 +26,7 @@ public class CustomVisitorMin extends ElementVisitor {
         }
 
         doTabs();
-        stringBuilder.append('<').append(elem.getName());
+        stringBuilder.append('<').append(elementName);
         ++tabCount;
     }
 
@@ -36,12 +37,12 @@ public class CustomVisitorMin extends ElementVisitor {
     }
 
     @Override
-    public void visit(Attribute attribute) {
-        stringBuilder.append(' ').append(attribute.getName()).append("=\"").append(attribute.getValue()).append('\"');
+    public void visitAttribute(String attributeName, String attributeValue) {
+        stringBuilder.append(' ').append(attributeName).append("=\"").append(attributeValue).append('\"');
     }
 
     @Override
-    public void visitParent(Element element) {
+    public void visitParent(String elementName) {
         char lastChar = stringBuilder.charAt(stringBuilder.length() - 1);
 
         if (lastChar != '\n' && lastChar != '>'){
@@ -54,38 +55,28 @@ public class CustomVisitorMin extends ElementVisitor {
 
         --tabCount;
         doTabs();
-        stringBuilder.append("</").append(element.getName()).append('>');
+        stringBuilder.append("</").append(elementName).append('>');
     }
 
-    String getResult(Element x){
-        while (!(x instanceof Element) ){
-            x = x.º();
-        }
-
-        x.º();
-
+    String getResult(){
         return stringBuilder.toString();
     }
 
     @Override
-    public void visit(Text text){
-        String textValue = text.getValue();
-
-        if (textValue != null){
+    public void visitText(String text){
+        if (text != null){
             stringBuilder.append(">\n");
             doTabs();
-            stringBuilder.append(textValue).append('\n');
+            stringBuilder.append(text).append('\n');
         }
     }
 
     @Override
-    public void visit(Comment comment){
-        String textValue = comment.getValue();
-
-        if (textValue != null){
+    public void visitComment(String comment){
+        if (comment != null){
             stringBuilder.append(">\n");
             doTabs();
-            stringBuilder.append("<!-- ").append(textValue).append(" -->\n");
+            stringBuilder.append("<!-- ").append(comment).append(" -->\n");
         }
     }
 }

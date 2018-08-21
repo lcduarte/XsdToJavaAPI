@@ -8,35 +8,35 @@ public class XsdAsmHtmlTest {
     public void testGeneratedClassesIntegrity() throws Exception {
         CustomVisitorHtml customVisitor = new CustomVisitorHtml();
 
-        Html<Html> root = new Html<>(customVisitor);
-
-        String result = customVisitor.getResult(
-                root.head()
-                        .comment("This is a comment.")
-                        .meta().attrCharset("UTF-8").º()
-                        .title()
-                            .text("Title").º()
-                        .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
-                        .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
-                    .body().attrClass("clear")
-                        .div()
-                            .header()
-                                .section()
-                                    .div()
-                                        .img().attrId("brand").attrSrc("./assets/images/logo.png").º()
-                                        .aside()
-                                            .em()
-                                                .text("Advertisement")
-                                            .span()
-                                                .text("HtmlApi is great!")
-                                            .º()
-                                        .º()
+        new Html<>(customVisitor)
+            .head()
+                .comment("This is a comment.")
+                .meta().attrCharset("UTF-8").º()
+                .title()
+                    .text("Title").º()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
+            .body().attrClass("clear")
+                .div()
+                    .header()
+                        .section()
+                            .div()
+                                .img().attrId("brand").attrSrc("./assets/images/logo.png").º()
+                                .aside()
+                                    .em()
+                                        .text("Advertisement")
+                                    .span()
+                                        .text("HtmlApi is great!")
                                     .º()
                                 .º()
                             .º()
                         .º()
                     .º()
-                .º());
+                .º()
+            .º()
+        .º().º();
+
+        String result = customVisitor.getResult();
 
         String expected =   "<html>\n" +
                                 "\t<head>\n" +

@@ -3,15 +3,15 @@ package Samples.HTML;
 
 public abstract class Visitor {
 
-    public abstract void visit(Element elem);
+    public abstract void visitElement(String elementName);
 
-    abstract void visit(BaseAttribute attr);
+    public abstract void visitAttribute(String attributeName, String attributeValue);
 
-    abstract void visitParent(Element element);
+    public abstract void visitParent(String elementName);
 
-    abstract void visit(Text elem);
+    public abstract void visitText(String text);
 
-    abstract void visit(Comment elem);
+    public abstract void visitComment(String comment);
 
 }
 

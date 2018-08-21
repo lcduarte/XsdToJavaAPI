@@ -1,13 +1,23 @@
 package Samples.Sequence.Classes;
 
-import Samples.HTML.AbstractElement;
 import Samples.HTML.Element;
-import Samples.Sequence.Interfaces.PersonalInfoSequence4;
+import Samples.HTML.Visitor;
 
-public class PersonalInfoAddress<P extends Element> extends AbstractElement<PersonalInfoAddress<P>, P> {
+public class PersonalInfoAddress<P extends Element> implements Element<PersonalInfoAddress<P>, P>{
+
+    protected final P parent;
+    protected final Visitor visitor;
+
+    public PersonalInfoAddress(Visitor visitor) {
+        this.visitor = visitor;
+        this.parent = null;
+        visitor.visitElement("personInfo");
+    }
 
     public PersonalInfoAddress(P parent) {
-        super(parent, "personalInfo");
+        this.parent = parent;
+        this.visitor = parent.getVisitor();
+        visitor.visitElement("personInfo");
     }
 
     @Override
@@ -15,8 +25,31 @@ public class PersonalInfoAddress<P extends Element> extends AbstractElement<Pers
         return this;
     }
 
+    @Override
+    public P º() {
+        visitor.visitParent("personInfo");
+        return parent;
+    }
+
+    @Override
+    public P getParent() {
+        return parent;
+    }
+
+    @Override
+    public final Visitor getVisitor() {
+        return visitor;
+    }
+
+    @Override
+    public String getName() {
+        return "personInfo";
+    }
+
     public PersonalInfoCity<P> city(String value){
-        new City<>(this.self()).text(value).º();
+        visitor.visitElement("city");
+        visitor.visitText(value);
+        visitor.visitParent("city");
         return new PersonalInfoCity<>(parent);
     }
 

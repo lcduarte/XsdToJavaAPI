@@ -7,9 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ASMSamples" />
-        <module name="HtmlApiFaster" />
         <module name="htmlApiFaster" />
-        <module name="HtmlApiFasterTest" />
         <module name="htmlApiFasterTest" />
         <module name="XsdAsmFaster" />
         <module name="xsdAsmFaster" />

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ASMSamples/ASMSamples.iml" filepath="$PROJECT_DIR$/ASMSamples/ASMSamples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HtmlApiStatic/HtmlApiStatic.iml" filepath="$PROJECT_DIR$/HtmlApiStatic/HtmlApiStatic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HtmlApiStaticTest/HtmlApiStaticTest.iml" filepath="$PROJECT_DIR$/HtmlApiStaticTest/HtmlApiStaticTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StaticApi.iml" filepath="$PROJECT_DIR$/StaticApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XsdAsmStatic/XsdAsmStatic.iml" filepath="$PROJECT_DIR$/XsdAsmStatic/XsdAsmStatic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XsdAsmStaticTest/XsdAsmStaticTest.iml" filepath="$PROJECT_DIR$/XsdAsmStaticTest/XsdAsmStaticTest.iml" />
+    </modules>
+  </component>
+</project>

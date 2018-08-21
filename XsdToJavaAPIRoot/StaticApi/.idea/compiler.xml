@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ASMSamples" />
+        <module name="HtmlApiFaster" />
+        <module name="htmlApiFaster" />
+        <module name="HtmlApiFasterTest" />
+        <module name="htmlApiFasterTest" />
+        <module name="HtmlApiStatic" />
+        <module name="XsdAsmFaster" />
+        <module name="xsdAsmFaster" />
+        <module name="XsdAsmFasterTest" />
+        <module name="XsdAsmStatic" />
+        <module name="XsdAsmStaticTest" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ASMSamples" target="9" />
+      <module name="FasterApi" target="9" />
+      <module name="HtmlApiFaster" target="1.8" />
+      <module name="htmlApiFaster" target="1.8" />
+      <module name="HtmlApiFasterTest" target="1.8" />
+      <module name="htmlApiFasterTest" target="1.8" />
+      <module name="HtmlApiStatic" target="1.8" />
+      <module name="StaticApi" target="9" />
+      <module name="XsdAsmFaster" target="1.8" />
+      <module name="xsdAsmFaster" target="9" />
+      <module name="XsdAsmFasterTest" target="1.8" />
+      <module name="XsdAsmStatic" target="1.8" />
+      <module name="XsdAsmStaticTest" target="1.8" />
+      <module name="XsdToJavaAPIRoot" target="9" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

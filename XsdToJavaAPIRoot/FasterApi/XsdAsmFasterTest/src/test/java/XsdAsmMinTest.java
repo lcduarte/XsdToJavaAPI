@@ -1,11 +1,36 @@
 import org.junit.Assert;
 import org.junit.Test;
+import org.xmlet.htmlFaster.Div;
 import org.xmlet.testMinFaster.*;
+import org.xmlet.xsdasmfaster.classes.infrastructure.Element;
+import org.xmlet.xsdasmfaster.classes.infrastructure.RestrictionViolationException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class XsdAsmMinTest {
+
+    void dummy(){
+        Div<Element> element = null;
+
+        PersonInfo<Div<Element>> p = new PersonInfo<>(element);
+
+
+        new PersonInfoFirstName<>(p);
+
+        PersonInfoFirstName<Div<Element>> f = p.firstName("");
+        PersonInfoLastName<Div<Element>> l = f.lastName("");
+        PersonInfoPersonAddress<Div<Element>> a = l.personAddress("");
+        PersonInfoCity<Div<Element>> c = a.city("");
+        PersonInfoComplete<Div<Element>> c1 = c.country("");
+
+        Div<Element> div = c1.º();
+
+        AName<Div<Element>> aName = new AName<>(element);
+
+        ANameElem1<Div<Element>> a1 = aName.elem1("elem1");
+        AName<Div<Element>> a2 = a1.elem2("elem2");
+    }
 
     /**
      * Tests if the restrictions in the attribute IntList are functioning. The attribute has
@@ -14,11 +39,7 @@ public class XsdAsmMinTest {
      */
     @Test
     public void testListSuccess(){
-        List<Integer> intList = new ArrayList<>();
-
-        intList.add(1);
-
-        new AttrIntlistObject(intList);
+        AttrIntlistObject.validateRestrictions(Collections.singletonList(1));
     }
 
     /**
@@ -27,21 +48,9 @@ public class XsdAsmMinTest {
      * The expectation is that the constructor of AttrIntlist throws an exception, resulting in the sucess of the test,
      * since the list passed to the constructor exceeds the maximum allowed length.
      */
-    @Test
+    @Test(expected = RestrictionViolationException.class)
     public void testListFailed(){
-        List<Integer> intList = new ArrayList<>();
-
-        intList.add(1);
-        intList.add(2);
-        intList.add(3);
-        intList.add(4);
-        intList.add(5);
-        intList.add(6);
-
-        try {
-            new AttrIntlistObject(intList);
-            Assert.fail();
-        } catch (RestrictionViolationException ignored){  }
+        AttrIntlistObject.validateRestrictions(Arrays.asList(1, 2, 3, 4, 5, 6));
     }
 
     /**
@@ -67,36 +76,37 @@ public class XsdAsmMinTest {
     public void testSequenceWithParent(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
-        PersonInfoElementContainer<Element> container =
-                new PersonInfoElementContainer<>(visitor)
-                        .personInfo()
-                            .firstName("Luis")
-                            .lastName("Duarte")
-                            .personAddress("AnAddress")
-                            .city("Lisbon")
-                            .country("Portugal").º().º();
+        new PersonInfoElementContainer<>(visitor)
+                .personInfo()
+                .firstName("Luis")
+                .lastName("Duarte")
+                .personAddress("AnAddress")
+                .city("Lisbon")
+                .country("Portugal")
+                .º()
+                .º();
 
-        String result = visitor.getResult(container);
+        String result = visitor.getResult();
 
         String expected =   "<personInfoElementContainer>\n" +
-                                "\t<personInfo>\n" +
-                                    "\t\t<firstName>\n" +
-                                        "\t\t\tLuis\n" +
-                                    "\t\t</firstName>\n" +
-                                    "\t\t<lastName>\n" +
-                                        "\t\t\tDuarte\n" +
-                                    "\t\t</lastName>\n" +
-                                    "\t\t<personAddress>\n" +
-                                    "\t\t\tAnAddress\n" +
-                                    "\t\t</personAddress>\n" +
-                                    "\t\t<city>\n" +
-                                        "\t\t\tLisbon\n" +
-                                    "\t\t</city>\n" +
-                                    "\t\t<country>\n" +
-                                        "\t\t\tPortugal\n" +
-                                    "\t\t</country>\n" +
-                                "\t</personInfo>\n" +
-                            "</personInfoElementContainer>";
+                "\t<personInfo>\n" +
+                "\t\t<firstName>\n" +
+                "\t\t\tLuis\n" +
+                "\t\t</firstName>\n" +
+                "\t\t<lastName>\n" +
+                "\t\t\tDuarte\n" +
+                "\t\t</lastName>\n" +
+                "\t\t<personAddress>\n" +
+                "\t\t\tAnAddress\n" +
+                "\t\t</personAddress>\n" +
+                "\t\t<city>\n" +
+                "\t\t\tLisbon\n" +
+                "\t\t</city>\n" +
+                "\t\t<country>\n" +
+                "\t\t\tPortugal\n" +
+                "\t\t</country>\n" +
+                "\t</personInfo>\n" +
+                "</personInfoElementContainer>";
 
         Assert.assertEquals(expected, result);
     }
@@ -124,51 +134,51 @@ public class XsdAsmMinTest {
     public void testSequenceWithGroups(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
-        StudentGrades<Element> studentGradesCompleteNumeric =
-                new StudentGrades<>(visitor)
-                        .firstName("Luis")
-                        .lastName("Duarte")
-                        .gradeNumeric(String.valueOf(20)).º();
+        new StudentGrades<>(visitor)
+                .firstName("Luis")
+                .lastName("Duarte")
+                .gradeNumeric(String.valueOf(20))
+                .º();
 
-        String result = visitor.getResult(studentGradesCompleteNumeric);
+        String result = visitor.getResult();
 
         String expected =
                 "<studentGrades>\n" +
-                    "\t<firstName>\n" +
+                        "\t<firstName>\n" +
                         "\t\tLuis\n" +
-                    "\t</firstName>\n" +
-                    "\t<lastName>\n" +
+                        "\t</firstName>\n" +
+                        "\t<lastName>\n" +
                         "\t\tDuarte\n" +
-                    "\t</lastName>\n" +
-                    "\t<gradeNumeric>\n" +
+                        "\t</lastName>\n" +
+                        "\t<gradeNumeric>\n" +
                         "\t\t20\n" +
-                    "\t</gradeNumeric>\n" +
-                "</studentGrades>";
+                        "\t</gradeNumeric>\n" +
+                        "</studentGrades>";
 
         Assert.assertEquals(expected, result);
 
         visitor = new CustomVisitorMin();
 
-        StudentGrades<Element> studentGradesCompleteQualitative =
-                new StudentGrades<>(visitor)
-                        .firstName("Luis")
-                        .lastName("Duarte")
-                        .gradeQualitative("Excellent").º();
+        new StudentGrades<>(visitor)
+                .firstName("Luis")
+                .lastName("Duarte")
+                .gradeQualitative("Excellent")
+                .º();
 
-        result = visitor.getResult(studentGradesCompleteQualitative);
+        result = visitor.getResult();
 
         expected =
                 "<studentGrades>\n" +
-                    "\t<firstName>\n" +
+                        "\t<firstName>\n" +
                         "\t\tLuis\n" +
-                    "\t</firstName>\n" +
-                    "\t<lastName>\n" +
+                        "\t</firstName>\n" +
+                        "\t<lastName>\n" +
                         "\t\tDuarte\n" +
-                    "\t</lastName>\n" +
-                    "\t<gradeQualitative>\n" +
+                        "\t</lastName>\n" +
+                        "\t<gradeQualitative>\n" +
                         "\t\tExcellent\n" +
-                    "\t</gradeQualitative>\n" +
-                "</studentGrades>";
+                        "\t</gradeQualitative>\n" +
+                        "</studentGrades>";
 
         Assert.assertEquals(expected, result);
     }
@@ -196,30 +206,30 @@ public class XsdAsmMinTest {
     public void testGroupWithInnerSequence(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
-        AName aName =
-                new AName(visitor)
-                        .elem1("val1")
-                        .elem2("val2")
-                        .elem1("val1")
-                        .elem2("val2");
+        new AName(visitor)
+                .elem1("val1")
+                .elem2("val2")
+                .elem1("val1")
+                .elem2("val2")
+                .º();
 
-        String result = visitor.getResult(aName);
+        String result = visitor.getResult();
 
         String expected =
                 "<aName>\n" +
-                    "\t<elem1>\n" +
+                        "\t<elem1>\n" +
                         "\t\tval1\n" +
-                    "\t</elem1>\n" +
-                    "\t<elem2>\n" +
+                        "\t</elem1>\n" +
+                        "\t<elem2>\n" +
                         "\t\tval2\n" +
-                    "\t</elem2>\n" +
-                    "\t<elem1>\n" +
+                        "\t</elem2>\n" +
+                        "\t<elem1>\n" +
                         "\t\tval1\n" +
-                    "\t</elem1>\n" +
-                    "\t<elem2>\n" +
+                        "\t</elem1>\n" +
+                        "\t<elem2>\n" +
                         "\t\tval2\n" +
-                    "\t</elem2>\n" +
-                "</aName>";
+                        "\t</elem2>\n" +
+                        "</aName>";
 
         Assert.assertEquals(expected, result);
     }
@@ -231,27 +241,28 @@ public class XsdAsmMinTest {
         AName<Element> elem = new AName<>(visitor);
 
         elem.elem1("val1")
-            .elem2("val2")
-            .elem1("val1")
-            .elem2("val2");
+                .elem2("val2")
+                .elem1("val1")
+                .elem2("val2")
+                .º();
 
-        String result = visitor.getResult(elem);
+        String result = visitor.getResult();
 
         String expected =
                 "<aName>\n" +
-                    "\t<elem1>\n" +
+                        "\t<elem1>\n" +
                         "\t\tval1\n" +
-                    "\t</elem1>\n" +
-                    "\t<elem2>\n" +
+                        "\t</elem1>\n" +
+                        "\t<elem2>\n" +
                         "\t\tval2\n" +
-                    "\t</elem2>\n" +
-                    "\t<elem1>\n" +
+                        "\t</elem2>\n" +
+                        "\t<elem1>\n" +
                         "\t\tval1\n" +
-                    "\t</elem1>\n" +
-                    "\t<elem2>\n" +
+                        "\t</elem1>\n" +
+                        "\t<elem2>\n" +
                         "\t\tval2\n" +
-                    "\t</elem2>\n" +
-                "</aName>";
+                        "\t</elem2>\n" +
+                        "</aName>";
 
         Assert.assertEquals(expected, result);
     }
@@ -260,22 +271,22 @@ public class XsdAsmMinTest {
     public void testSequencesContainingSequences() {
         CustomVisitorMin visitor = new CustomVisitorMin();
 
-        InnerSequences<Element> innerSequences = new InnerSequences<>(visitor);
+        new InnerSequences<>(visitor)
+                .v1("v1")
+                .v2("v2")
+                .º();
 
-        innerSequences.v1("v1")
-                      .v2("v2");
-
-        String result = visitor.getResult(innerSequences);
+        String result = visitor.getResult();
 
         String expected =
                 "<innerSequences>\n" +
-                    "\t<v1>\n" +
+                        "\t<v1>\n" +
                         "\t\tv1\n" +
-                    "\t</v1>\n" +
-                    "\t<v2>\n" +
+                        "\t</v1>\n" +
+                        "\t<v2>\n" +
                         "\t\tv2\n" +
-                    "\t</v2>\n" +
-                "</innerSequences>";
+                        "\t</v2>\n" +
+                        "</innerSequences>";
 
         Assert.assertEquals(expected, result);
     }
