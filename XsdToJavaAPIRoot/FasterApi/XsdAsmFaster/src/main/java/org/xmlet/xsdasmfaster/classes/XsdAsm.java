@@ -2,6 +2,7 @@ package org.xmlet.xsdasmfaster.classes;
 
 import org.xmlet.xsdparser.xsdelements.XsdAttribute;
 import org.xmlet.xsdparser.xsdelements.XsdElement;
+import org.xmlet.xsdparser.xsdelements.XsdNamedElements;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
 
 import static org.xmlet.xsdasmfaster.classes.XsdAsmAttributes.generateAttribute;
 import static org.xmlet.xsdasmfaster.classes.XsdAsmUtils.createGeneratedFilesDirectory;
-import static org.xmlet.xsdasmfaster.classes.XsdAsmVisitors.generateVisitors;
+import static org.xmlet.xsdasmfaster.classes.XsdAsmVisitor.generateVisitors;
 import static org.xmlet.xsdasmfaster.classes.XsdSupportingStructure.createSupportingInfrastructure;
 
 public class XsdAsm {
@@ -46,9 +47,7 @@ public class XsdAsm {
 
         generateAttributes(attributes, apiName);
 
-        List<String> attributeNames = attributes.stream().map(XsdAsmAttributes::getAttributeName).distinct().collect(Collectors.toList());
-
-        generateVisitors(interfaceGenerator.getExtraElementsForVisitor(), attributeNames, apiName);
+        generateVisitors(interfaceGenerator.getExtraElementsForVisitor(), attributes, apiName);
     }
 
     private void generateAttributes(List<XsdAttribute> attributeVariations, String apiName) {

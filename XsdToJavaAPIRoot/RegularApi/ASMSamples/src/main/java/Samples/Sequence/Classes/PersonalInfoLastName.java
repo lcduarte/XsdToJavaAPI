@@ -2,13 +2,13 @@ package Samples.Sequence.Classes;
 
 import Samples.HTML.AbstractElement;
 import Samples.HTML.Element;
+import Samples.HTML.TextGroup;
 import Samples.HTML.Visitor;
-import Samples.Sequence.Interfaces.PersonalInfoSequence3;
 
-public class PersonalInfoLastName<P extends Element> extends AbstractElement<PersonalInfoLastName<P>, P> implements PersonalInfoSequence3<PersonalInfoLastName<P>, P> {
+public class PersonalInfoLastName<P extends Element> extends AbstractElement<PersonalInfoLastName<P>, P> implements TextGroup<PersonalInfoLastName<P>, P> {
 
-    public PersonalInfoLastName(P parent, String personalInfo) {
-        super(parent, personalInfo);
+    public PersonalInfoLastName(P parent) {
+        super(parent, "personalInfo");
     }
 
     @Override
@@ -24,6 +24,13 @@ public class PersonalInfoLastName<P extends Element> extends AbstractElement<Per
     @Override
     public PersonalInfoLastName<P> cloneElem() {
         return null;
+    }
+
+    public PersonalInfoAddress<P> address(String value){
+        parent.addChild(new Address<>(parent).text(value));
+        PersonalInfoAddress<P> var = new PersonalInfoAddress<>(parent);
+        this.getChildren().forEach(var::addChild);
+        return var;
     }
 }
 

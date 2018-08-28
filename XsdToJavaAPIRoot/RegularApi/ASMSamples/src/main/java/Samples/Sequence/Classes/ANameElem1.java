@@ -2,17 +2,17 @@ package Samples.Sequence.Classes;
 
 import Samples.HTML.AbstractElement;
 import Samples.HTML.Element;
+import Samples.HTML.TextGroup;
 import Samples.HTML.Visitor;
-import Samples.Sequence.Interfaces.ANameSequence2;
 
-public class ANameElem1<P extends Element> extends AbstractElement<ANameElem1<P>, P> implements ANameSequence2<ANameElem1<P>, P> {
+public class ANameElem1<P extends AName<GP>, GP extends Element> extends AbstractElement<ANameElem1<P, GP>, P> implements TextGroup<ANameElem1<P, GP>, P> {
 
-    public ANameElem1(P parent, String aName){
-        super(parent, aName);
+    public ANameElem1(P parent){
+        super(parent, "aName");
     }
 
     @Override
-    public ANameElem1<P> self() {
+    public ANameElem1<P, GP> self() {
         return this;
     }
 
@@ -22,7 +22,12 @@ public class ANameElem1<P extends Element> extends AbstractElement<ANameElem1<P>
     }
 
     @Override
-    public ANameElem1<P> cloneElem() {
+    public ANameElem1<P, GP> cloneElem() {
         return null;
+    }
+
+    public P elem2(String value){
+        parent.addChild(new Elem2<>(parent).text(value));
+        return parent;
     }
 }

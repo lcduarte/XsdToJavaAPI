@@ -9,9 +9,21 @@ public abstract class Visitor {
 
     public abstract void visitParent(String elementName);
 
-    public abstract void visitText(String text);
+    public abstract <R> void visitText(R text);
 
-    public abstract void visitComment(String comment);
+    public abstract <R> void visitComment(R comment);
+
+    public void visitElementDiv(){
+        visitElement("div");
+    }
+
+    public void visitParentDiv(){
+        visitParent("div");
+    }
+
+    public void visitAttributeSomeAttribute(String attributeValue){
+        visitAttribute("someAttribute", attributeValue);
+    }
 
 }
 

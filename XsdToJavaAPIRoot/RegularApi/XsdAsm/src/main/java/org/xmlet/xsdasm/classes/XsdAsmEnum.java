@@ -27,7 +27,7 @@ class XsdAsmEnum {
         String enumType = getFullClassTypeName(enumName, apiName);
         String enumTypeDesc = getFullClassTypeNameDesc(enumName, apiName);
 
-        String fullJavaTypeDesc = getFullJavaType(attribute);
+        String fullJavaTypeDesc = getFullJavaTypeDesc(attribute);
         String fullJavaType = fullJavaTypeDesc.substring(1, fullJavaTypeDesc.length() - 1);
 
         ClassWriter cw = generateClass(enumName, "java/lang/Enum", new String[]{ENUM_INTERFACE}, "Ljava/lang/Enum<" + enumTypeDesc + ">;L" + enumInterfaceType + "<" + fullJavaTypeDesc +">;", ACC_PUBLIC + ACC_FINAL + ACC_SUPER + ACC_ENUM, apiName);

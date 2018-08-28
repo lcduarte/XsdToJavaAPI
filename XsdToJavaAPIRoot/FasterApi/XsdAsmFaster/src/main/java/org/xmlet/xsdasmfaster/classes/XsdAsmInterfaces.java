@@ -1,28 +1,27 @@
 package org.xmlet.xsdasmfaster.classes;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.objectweb.asm.*;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Label;
+import org.objectweb.asm.MethodVisitor;
 import org.xmlet.xsdasmfaster.classes.Utils.*;
 import org.xmlet.xsdparser.xsdelements.*;
 
-import java.security.InvalidParameterException;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.objectweb.asm.Opcodes.*;
+import static org.xmlet.xsdasmfaster.classes.XsdAsmElements.generateClassMethods;
 import static org.xmlet.xsdasmfaster.classes.XsdAsmElements.generateMethodsForElement;
-import static org.xmlet.xsdasmfaster.classes.XsdAsmElements.generateMethodsForSequenceClass;
 import static org.xmlet.xsdasmfaster.classes.XsdAsmUtils.*;
-import static org.xmlet.xsdasmfaster.classes.XsdAsmUtils.getFullClassTypeName;
 import static org.xmlet.xsdasmfaster.classes.XsdSupportingStructure.*;
 
 class XsdAsmInterfaces {
 
     private static final String ATTRIBUTE_CASE_SENSITIVE_DIFERENCE = "Alt";
     private static final String HIERARCHY_INTERFACES_SUFFIX = "HierarchyInterface";
-    private static final String SEQUENCE_SUFFIX = "Sequence";
     private static final String ALL_SUFFIX = "All";
     private static final String CHOICE_SUFFIX = "Choice";
 
@@ -129,7 +128,7 @@ class XsdAsmInterfaces {
             attributeGroups.addAll(getTypeAttributeGroups(complexType, extensionAttributeGroups));
         }
 
-        return listToArray(attributeGroups);
+        return listToArray(attributeGroups, CUSTOM_ATTRIBUTE_GROUP);
     }
 
     private String[] getHierarchyInterfaces(XsdElement element, String apiName) {
@@ -251,7 +250,7 @@ class XsdAsmInterfaces {
      * @return A string array containing the names of the interfaces that this interface will extend.
      */
     private String[] getAttributeGroupObjectInterfaces(List<String> parentsName) {
-        return listToArray(parentsName.stream().map(XsdAsmUtils::toCamelCase).collect(Collectors.toList()), ELEMENT);
+        return listToArray(parentsName.stream().map(XsdAsmUtils::toCamelCase).collect(Collectors.toList()), CUSTOM_ATTRIBUTE_GROUP);
     }
 
     /**
@@ -301,24 +300,12 @@ class XsdAsmInterfaces {
      * @param interfaceIndex The current interfaceIndex that serves as a base to distinguish interface names.
      * @param apiName The name of the API to be generated.
      * @param groupName The groupName, that indicates if this sequence belongs to a group.
-     * @return A pair with the key being the name of the created sequence interface and the current interface index after the creation of the interface and its dependant interfaces.
      */
-    private InterfaceInfo sequenceMethod(Stream<XsdAbstractElement> xsdElements, String className, int interfaceIndex, String apiName, String groupName) {
-        String interfaceNameBase = groupName != null ? toCamelCase(groupName + SEQUENCE_SUFFIX) : className + SEQUENCE_SUFFIX;
-        String interfaceName = interfaceNameBase + interfaceIndex;
-
-        if (createdInterfaces.containsKey(interfaceName)){
-            return null;//createdInterfaces.get(interfaceName);
-        }
-
-        pendingSequenceMethods.put(className, classWriter ->
-            createSequenceInterface(classWriter, xsdElements, interfaceName, className, interfaceIndex, apiName, groupName)
-        );
-
-        return null;
+    private void sequenceMethod(Stream<XsdAbstractElement> xsdElements, String className, int interfaceIndex, String apiName, String groupName) {
+        pendingSequenceMethods.put(className, classWriter -> createSequenceInterface(classWriter, xsdElements, className, interfaceIndex, apiName, groupName));
     }
 
-    private void createSequenceInterface(ClassWriter classWriter, Stream<XsdAbstractElement> xsdElements, String interfaceName, String className, int interfaceIndex, String apiName, String groupName) {
+    private void createSequenceInterface(ClassWriter classWriter, Stream<XsdAbstractElement> xsdElements, String className, int interfaceIndex, String apiName, String groupName) {
         SequenceMethodInfo sequenceInfo = getSequenceInfo(xsdElements, className, interfaceIndex, 0, apiName, groupName);
         List<XsdAbstractElement> sequenceList = new ArrayList<>();
         List<String> sequenceNames = new ArrayList<>();
@@ -336,11 +323,10 @@ class XsdAsmInterfaces {
             boolean isFirst = i == 0;
             String sequenceName = firstToLower(getCleanName(sequenceNames.get(i)));
             String typeName = getNextTypeName(className, groupName, sequenceName, isLast);
-            boolean isRepeatable = typeName.equals(className);
 
             if (isLast){
-                if (!isRepeatable){
-                    writeClassToFile(typeName, generateInnerSequenceClass(typeName, className, true, apiName), apiName);
+                if (!typeName.equals(className)){
+                    writeClassToFile(typeName, generateInnerSequenceClass(typeName, className, apiName), apiName);
                 }
 
                 break;
@@ -348,15 +334,13 @@ class XsdAsmInterfaces {
 
             String nextTypeName = getNextTypeName(className, groupName, firstToLower(getCleanName(sequenceNames.get(i + 1))), willPointToLast);
 
-            isRepeatable = nextTypeName.equals(className);
-
             if (sequenceElement instanceof XsdElement){
                 List<XsdElement> elements = Collections.singletonList((XsdElement) sequenceElement);
 
                 if (isFirst){
-                    createFirstSequenceInterface(classWriter, interfaceName, className, nextTypeName, apiName, isRepeatable, elements);
+                    createFirstSequenceInterface(classWriter, className, nextTypeName, apiName, elements);
                 } else {
-                    createElementsForSequence(className, typeName, apiName, nextTypeName, isRepeatable, elements);
+                    createElementsForSequence(className, typeName, apiName, nextTypeName, elements);
                 }
             }
 
@@ -364,9 +348,9 @@ class XsdAsmInterfaces {
                 List<XsdElement> elements = getAllElementsRecursively(sequenceElement);
 
                 if (isFirst){
-                    createFirstSequenceInterface(classWriter, interfaceName, className, nextTypeName, apiName, isRepeatable, elements);
+                    createFirstSequenceInterface(classWriter, className, nextTypeName, apiName, elements);
                 } else {
-                    createElementsForSequence(className, typeName, apiName, nextTypeName, isRepeatable, elements);
+                    createElementsForSequence(className, typeName, apiName, nextTypeName, elements);
                 }
             }
 
@@ -374,8 +358,8 @@ class XsdAsmInterfaces {
         }
     }
 
-    private void createFirstSequenceInterface(ClassWriter classWriter, String interfaceName, String className, String nextTypeName, String apiName, boolean isRepeatable, List<XsdElement> elements){
-        elements.stream().map(XsdNamedElements::getName).forEach(sequenceName -> generateSequenceMethod(classWriter, getCleanName(sequenceName), className, nextTypeName, apiName, true, isRepeatable));
+    private void createFirstSequenceInterface(ClassWriter classWriter, String className, String nextTypeName, String apiName, List<XsdElement> elements){
+        elements.forEach(element -> generateSequenceMethod(classWriter, getJavaType(element.getType()), getCleanName(element.getName()), className, nextTypeName, apiName));
     }
 
     private String getNextTypeName(String className, String groupName, String sequenceName, boolean isLast){
@@ -391,20 +375,19 @@ class XsdAsmInterfaces {
      * @param nextTypeName The nextTypeName of the element that will implement the sequence.
      * @param sequenceElements The elements that serves as base to create this interface.
      */
-    private void createElementsForSequence(String className, String typeName, String apiName, String nextTypeName, boolean isRepeatable, List<XsdElement> sequenceElements) {
-        ClassWriter classWriter = generateInnerSequenceClass(typeName, className, false, apiName);
+    private void createElementsForSequence(String className, String typeName, String apiName, String nextTypeName, List<XsdElement> sequenceElements) {
+        ClassWriter classWriter = generateInnerSequenceClass(typeName, className, apiName);
 
-        sequenceElements.stream().map(XsdNamedElements::getName).forEach(sequenceName -> generateSequenceMethod(classWriter, getCleanName(sequenceName), typeName, nextTypeName, apiName, false, isRepeatable));
-
-        //sequenceElements.forEach(element -> createElement(element, apiName));
+        sequenceElements.forEach(sequenceElement ->
+                            generateSequenceMethod(classWriter, getJavaType(sequenceElement.getType()), getCleanName(sequenceElement.getName()), typeName, nextTypeName, apiName));
 
         writeClassToFile(typeName, classWriter, apiName);
     }
 
-    private ClassWriter generateInnerSequenceClass(String typeName, String className, boolean isLast, String apiName) {
-        ClassWriter classWriter = generateClass(typeName, JAVA_OBJECT, new String[] {ELEMENT}, getClassSignature(new String[]{ELEMENT}, typeName, apiName), ACC_PUBLIC + ACC_SUPER, apiName);
+    private ClassWriter generateInnerSequenceClass(String typeName, String className, String apiName) {
+        ClassWriter classWriter = generateClass(typeName, JAVA_OBJECT, new String[] {CUSTOM_ATTRIBUTE_GROUP}, getClassSignature(new String[]{CUSTOM_ATTRIBUTE_GROUP}, typeName, apiName), ACC_PUBLIC + ACC_SUPER, apiName);
 
-        generateMethodsForSequenceClass(classWriter, typeName, className, apiName);
+        generateClassMethods(classWriter, typeName, className, apiName, false);
 
         return classWriter;
     }
@@ -422,13 +405,14 @@ class XsdAsmInterfaces {
      * @param nextTypeName The name of the class that contains the sequence.
      * @param apiName The name of the API to be generated.
      */
-    private void generateSequenceMethod(ClassWriter classWriter, String addingChildName, String typeName, String nextTypeName, String apiName, boolean isFirst, boolean isRepeatable) {
+    private void generateSequenceMethod(ClassWriter classWriter, String javaType, String addingChildName, String typeName, String nextTypeName, String apiName) {
         String type = getFullClassTypeName(typeName, apiName);
         String nextType = getFullClassTypeName(nextTypeName, apiName);
         String nextTypeDesc = getFullClassTypeNameDesc(nextTypeName, apiName);
 
-        //TODO Receber o tipo do elemento, se o tiver. Isto implica ter de mudar Text possivelmente.
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, firstToLower(addingChildName), "(" + JAVA_STRING_DESC + ")" + nextTypeDesc, "(" + JAVA_STRING_DESC + ")L" + nextType + "<TZ;>;", null);
+        javaType = javaType == null ? JAVA_STRING_DESC : javaType;
+
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, firstToLower(addingChildName), "(" + javaType + ")" + nextTypeDesc, "(" + javaType + ")L" + nextType + "<TZ;>;", null);
         mVisitor.visitLocalVariable(firstToLower(addingChildName), JAVA_STRING_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
@@ -438,7 +422,7 @@ class XsdAsmInterfaces {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, type, "visitor", elementVisitorTypeDesc);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitText", "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitText", "(" + JAVA_OBJECT_DESC + ")V", false);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, type, "visitor", elementVisitorTypeDesc);
         mVisitor.visitLdcInsn(firstToLower(addingChildName));
@@ -447,12 +431,9 @@ class XsdAsmInterfaces {
         mVisitor.visitInsn(DUP);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, type, "parent", elementTypeDesc);
-
-            mVisitor.visitVarInsn(ALOAD, 0);
-            mVisitor.visitFieldInsn(GETFIELD, type, "visitor", elementVisitorTypeDesc);
-            mVisitor.visitMethodInsn(INVOKESPECIAL, nextType, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + ")V", false);
-            //mVisitor.visitMethodInsn(INVOKESPECIAL, nextType, CONSTRUCTOR, "(" + elementTypeDesc + ")V", false);
-
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, type, "visitor", elementVisitorTypeDesc);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, nextType, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + ")V", false);
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(4, 2);
         mVisitor.visitEnd();
@@ -691,10 +672,6 @@ class XsdAsmInterfaces {
         return allGroupElements;
     }
 
-    Set<String> getExtraElementsForVisitor() {
-        return createdElements.keySet();
-    }
-
     private void addCreatedElement(XsdElement element){
         createdElements.put(element.getName(), element);
     }
@@ -703,11 +680,16 @@ class XsdAsmInterfaces {
         elementList.forEach(this::addCreatedElement);
     }
 
-    public void checkForSequenceMethod(ClassWriter classWriter, String className) {
+    void checkForSequenceMethod(ClassWriter classWriter, String className) {
         Consumer<ClassWriter> sequenceMethodCreator = pendingSequenceMethods.get(className);
 
         if (sequenceMethodCreator != null){
             sequenceMethodCreator.accept(classWriter);
         }
     }
+
+    Set<String> getExtraElementsForVisitor() {
+        return createdElements.keySet();
+    }
+
 }

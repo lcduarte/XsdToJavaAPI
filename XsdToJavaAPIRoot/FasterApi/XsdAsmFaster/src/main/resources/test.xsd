@@ -2,8 +2,7 @@
 <xs:schema targetNamespace="http://schemas.microsoft.com/client/2007"
            elementFormDefault="qualified"
            xmlns="http://schemas.microsoft.com/client/2007"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <xsd:element name="personInfoElementContainer">
         <xsd:complexType>

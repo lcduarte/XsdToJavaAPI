@@ -3,6 +3,7 @@ package Samples.HTML;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -45,7 +46,7 @@ public abstract class AbstractElement<T extends Element<T, P>, P extends Element
         return parent;
     }
 
-    public <R extends Element> Stream<R> find(Predicate<Element> predicate){
+    public final <R extends Element> Stream<R> find(Predicate<Element> predicate){
         Supplier<Stream<R>> resultSupplier = () -> children.stream().filter(predicate).map(child -> (R) child);
 
         if (resultSupplier.get().count() != 0){
@@ -62,31 +63,31 @@ public abstract class AbstractElement<T extends Element<T, P>, P extends Element
         return (Stream<R>) childResult[0];
     }
 
-    public List<Element> getChildren() {
+    public final List<Element> getChildren() {
         return children;
     }
 
-    public List<IAttribute> getAttributes() {
+    public final List<IAttribute> getAttributes() {
         return attrs;
     }
 
-    public String getName(){
+    public final String getName(){
         return name;
     }
 
     @Override
-    public <M> T binder(BiConsumer<T, M> consumer) {
+    public final <M> T binder(BiConsumer<T, M> consumer) {
         this.binderMethod = consumer;
         return this.self();
     }
 
     @Override
-    public boolean isBound() {
+    public final boolean isBound() {
         return binderMethod != null;
     }
 
     @Override
-    public Element<T, P> bindTo(Object model) {
+    public final Element<T, P> bindTo(Object model) {
         if (isBound()){
             binderMethod.accept(this.self(), model);
         }
@@ -94,7 +95,12 @@ public abstract class AbstractElement<T extends Element<T, P>, P extends Element
         return this.self();
     }
 
-    <X extends AbstractElement<T, P>> X clone(X clone) {
+    public final T of(Consumer<T> consumer){
+        consumer.accept(self());
+        return self();
+    }
+
+    final <X extends AbstractElement<T, P>> X clone(X clone) {
         clone.children = new ArrayList<>(this.children);
         clone.attrs = new ArrayList<>(this.attrs);
 

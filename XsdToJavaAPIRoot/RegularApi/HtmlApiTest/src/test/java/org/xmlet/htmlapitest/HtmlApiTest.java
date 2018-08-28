@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -193,30 +194,25 @@ public class HtmlApiTest {
 
     @Test
     public void testBinderUsage(){
-        List<String> tdValues1 = new ArrayList<>();
-        List<String> tdValues2 = new ArrayList<>();
+        CustomVisitor<List<String>> customVisitor1 = new CustomVisitor<>(Arrays.asList("val1", "val2", "val3"));
+        CustomVisitor<List<String>> customVisitor2 = new CustomVisitor<>(Arrays.asList("val4", "val5", "val6"));
 
-        tdValues1.add("val1");
-        tdValues1.add("val2");
-        tdValues1.add("val3");
-
-        tdValues2.add("val4");
-        tdValues2.add("val5");
-        tdValues2.add("val6");
-
-        Html<Html> root = new Html<>();
-
-        Table<Body<Html<Html>>> table = root.body().table();
-        table.tr().th().text("Title");
-        table.<List<String>>binder((elem, list) ->
+        Html<Element> root = new Html<>()
+            .body()
+                .table()
+                    .tr()
+                        .th()
+                            .text("Title")
+                        .º()
+                    .º()
+                    .<List<String>>binder((elem, list) ->
                          list.forEach(tdValue ->
                                  elem.tr().td().text(tdValue)
                          )
-                 ).º()
-             .div();
-
-        CustomVisitor<List<String>> customVisitor1 = new CustomVisitor<>(tdValues1);
-        CustomVisitor<List<String>> customVisitor2 = new CustomVisitor<>(tdValues2);
+                    )
+                .º()
+                .of(FlowContentChoice::div)
+            .º();
 
         root.accept(customVisitor1);
         String result1 = customVisitor1.getResult();

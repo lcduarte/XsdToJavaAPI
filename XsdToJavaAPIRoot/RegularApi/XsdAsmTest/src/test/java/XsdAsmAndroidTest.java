@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.xmlet.android.*;
 
+@SuppressWarnings("Duplicates")
 public class XsdAsmAndroidTest {
 
     @Test
@@ -31,7 +32,7 @@ public class XsdAsmAndroidTest {
         relativeLayout.accept(visitor);
         String result = visitor.getResult();
 
-        String expected =   "<relativeLayout androidgravity=\"center\" androidaddStatesFromChildren=\"true\" androidlayoutx=\"null\">\n" +
+        String expected =   "<relativeLayout android:gravity=\"center\" android:addStatesFromChildren=\"true\" android:layout_x=\"null\">\n" +
                             "</relativeLayout>\n";
 
         Assert.assertEquals(expected, result);
@@ -88,11 +89,11 @@ public class XsdAsmAndroidTest {
         linearLayout.accept(visitor);
         String result = visitor.getResult();
 
-        String expected =   "<linearLayout androidorientation=\"vertical\" androidlayoutwidth=\"match_parent\" androidlayoutheight=\"wrap_content\">\n" +
-                                "\t<linearLayout androidorientation=\"horizontal\" androidlayoutwidth=\"match_parent\" androidlayoutheight=\"wrap_content\">\n" +
-                                    "\t\t<imageView androidlayoutwidth=\"wrap_content\" androidlayoutheight=\"wrap_content\">\n" +
+        String expected =   "<linearLayout android:orientation=\"vertical\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\">\n" +
+                                "\t<linearLayout android:orientation=\"horizontal\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\">\n" +
+                                    "\t\t<imageView android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\">\n" +
                                     "\t\t</imageView>\n" +
-                                    "\t\t<textView androidwidth=\"match_parent\" androidheight=\"weight_content\" androidlines=\"2\">\n" +
+                                    "\t\t<textView android:width=\"match_parent\" android:height=\"weight_content\" android:lines=\"2\">\n" +
                                     "\t\t</textView>\n" +
                                 "\t</linearLayout>\n" +
                             "</linearLayout>\n";

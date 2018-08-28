@@ -1,5 +1,4 @@
-import org.xmlet.androidFaster.*;
-import org.xmlet.xsdasmfaster.classes.infrastructure.ElementVisitor;
+import org.xmlet.androidFaster.ElementVisitor;
 
 @SuppressWarnings("Duplicates")
 public class CustomVisitorAndroid extends ElementVisitor {
@@ -63,7 +62,7 @@ public class CustomVisitorAndroid extends ElementVisitor {
     }
 
     @Override
-    public void visitText(String text){
+    public <R> void visitText(R text){
         if (text != null){
             stringBuilder.append(">\n");
             doTabs();
@@ -72,7 +71,7 @@ public class CustomVisitorAndroid extends ElementVisitor {
     }
 
     @Override
-    public void visitComment(String comment){
+    public <R> void visitComment(R comment){
         if (comment != null){
             stringBuilder.append(">\n");
             doTabs();

@@ -8,12 +8,27 @@ import org.xmlet.xsdparser.xsdelements.XsdList;
 import org.xmlet.xsdparser.xsdelements.XsdRestriction;
 import org.xmlet.xsdparser.xsdelements.xsdrestrictions.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+
 import static org.objectweb.asm.Opcodes.*;
 import static org.xmlet.xsdasm.classes.XsdAsmEnum.*;
 import static org.xmlet.xsdasm.classes.XsdAsmUtils.*;
 import static org.xmlet.xsdasm.classes.XsdSupportingStructure.*;
 
 class XsdAsmAttributes {
+
+    private static Map<String, Consumer<MethodVisitor>> adjustmentsMapper;
+
+    static{
+        adjustmentsMapper = new HashMap<>();
+
+        adjustmentsMapper.put("java/lang/Integer", XsdAsmAttributes::intAdjustment);
+        adjustmentsMapper.put("java/lang/Float", XsdAsmAttributes::floatAdjustment);
+        adjustmentsMapper.put("java/lang/Short", XsdAsmAttributes::shortAdjustment);
+    }
 
     private XsdAsmAttributes(){}
 
@@ -29,7 +44,7 @@ class XsdAsmAttributes {
         String attributeGroupInterfaceType = getFullClassTypeName(className, apiName);
         boolean isInterfaceMethod = isInterfaceMethod(returnType);
         String attrName = firstToLower(ATTRIBUTE_PREFIX + getCleanName(elementAttribute));
-        String javaType = getFullJavaType(elementAttribute);
+        String javaType = getFullJavaTypeDesc(elementAttribute);
         String signature;
 
         if (attributeHasEnum(elementAttribute)){
@@ -71,88 +86,60 @@ class XsdAsmAttributes {
     static void generateAttribute(XsdAttribute attribute, String apiName){
         String camelAttributeName = getAttributeName(attribute);
         XsdList list = getAttributeList(attribute);
-        String javaType = getFullJavaType(attribute);
-        MethodVisitor mVisitor;
+        String javaTypeDesc = list != null ? "L" + JAVA_LIST + "<" + getFullJavaTypeDesc(list.getItemType()) + ">;" : getFullJavaTypeDesc(attribute);
+        boolean hasEnum = attributeHasEnum(attribute);
 
-        if (list != null){
-            javaType = "L" + JAVA_LIST + "<" + getFullJavaType(list.getItemType()) + ">;";
+        if (hasEnum){
+            getAttributeRestrictions(attribute)
+                    .stream()
+                    .filter(restriction -> restriction.getEnumeration() != null)
+                    .forEach(restriction -> createEnum(attribute, restriction.getEnumeration(), apiName));
         }
 
-        ClassWriter attributeWriter = generateClass(camelAttributeName, baseAttributeType, null, "L" + baseAttributeType + "<" + javaType + ">;", ACC_PUBLIC + ACC_SUPER, apiName);
+        ClassWriter attributeWriter = generateClass(camelAttributeName, baseAttributeType, null, "L" + baseAttributeType + "<" + javaTypeDesc + ">;", ACC_PUBLIC + ACC_SUPER, apiName);
 
-        if (attributeHasEnum(attribute)) {
-            String enumTypeDesc = getFullClassTypeNameDesc(getEnumName(attribute), apiName);
+        String constructorArgDesc = hasEnum ? getFullClassTypeNameDesc(getEnumName(attribute), apiName) : (list != null ? JAVA_LIST_DESC : javaTypeDesc);
 
-            mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + enumTypeDesc + ")V",  null, null);
-            mVisitor.visitLocalVariable("attrValue", enumTypeDesc, null, new Label(), new Label(),1);
-            mVisitor.visitCode();
-            mVisitor.visitVarInsn(ALOAD, 0);
-            mVisitor.visitVarInsn(ALOAD, 1);
+        MethodVisitor mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + constructorArgDesc + ")V",  null, null);
+        mVisitor.visitLocalVariable("attrValue", constructorArgDesc, null, new Label(), new Label(),1);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+
+        if (hasEnum){
             mVisitor.visitMethodInsn(INVOKEINTERFACE, enumInterfaceType, "getValue", "()" + JAVA_OBJECT_DESC, true);
-        } else {
-            if (list != null){
-                mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + JAVA_LIST_DESC + ")V", null, null);
-                mVisitor.visitLocalVariable("attrValue", JAVA_LIST_DESC, null, new Label(), new Label(),1);
-                mVisitor.visitCode();
-                mVisitor.visitVarInsn(ALOAD, 0);
-                mVisitor.visitVarInsn(ALOAD, 1);
-            } else {
-                mVisitor = attributeWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + javaType + ")V", null, null);
-                mVisitor.visitLocalVariable("attrValue", javaType, null, new Label(), new Label(),1);
-                mVisitor.visitCode();
-                mVisitor.visitVarInsn(ALOAD, 0);
-                mVisitor.visitVarInsn(ALOAD, 1);
-                mVisitor.visitTypeInsn(CHECKCAST, javaType.substring(1, javaType.length() - 1));
-            }
         }
 
-        mVisitor.visitLdcInsn(attribute.getName().replaceAll("[^a-zA-Z0-9]", ""));
+        mVisitor.visitLdcInsn(attribute.getRawName());
         mVisitor.visitMethodInsn(INVOKESPECIAL, baseAttributeType, CONSTRUCTOR, "(" + JAVA_OBJECT_DESC + JAVA_STRING_DESC + ")V", false);
-        mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(3, 2);
-        mVisitor.visitEnd();
 
-        loadRestrictionsToAttribute(attribute, attributeWriter, camelAttributeName, apiName);
+        if (attributeHasRestrictions(attribute)){
+            if (hasEnum){
+                String enumName = getEnumName(attribute);
+                String enumType = getFullClassTypeName(enumName, apiName);
+
+                mVisitor.visitVarInsn(ALOAD, 1);
+                mVisitor.visitMethodInsn(INVOKEVIRTUAL, enumType, "getValue", "()" + getEnumContainingType(attribute), false);
+                mVisitor.visitVarInsn(ASTORE, 2);
+            }
+
+            getAttributeRestrictions(attribute).forEach(restriction -> loadRestrictionToAttribute(mVisitor, restriction, list != null ? JAVA_LIST_DESC : javaTypeDesc.substring(1, javaTypeDesc.length() - 1), hasEnum ? 2 : 1));
+        }
+
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(hasEnum ? 3 : 4, hasEnum ? 3 : 2);
+        mVisitor.visitEnd();
 
         writeClassToFile(camelAttributeName, attributeWriter, apiName);
-    }
-
-    /**
-     * Loads all the existing restrictions to the attribute class. It inserts entries in a list on the static
-     * constructor of the class. The maxStack value is three due to the way maps work, the put action always
-     * require three values, the map object, the key and the value.
-     * @param attributeWriter The class writer of the attribute class.
-     * @param camelAttributeName The attribute class name.
-     * @param apiName The api this attribute will belong.
-     */
-    private static void loadRestrictionsToAttribute(XsdAttribute attribute, ClassWriter attributeWriter, String camelAttributeName, String apiName) {
-        String attributeType = getFullClassTypeName(camelAttributeName, apiName);
-        int maxStack = 3;
-
-        MethodVisitor mVisitor = attributeWriter.visitMethod(ACC_STATIC, STATIC_CONSTRUCTOR, "()V", null, null);
-        mVisitor.visitCode();
-
-        int currIndex = 0;
-
-        for (XsdRestriction restriction : getAttributeRestrictions(attribute)) {
-            currIndex = loadRestrictionToAttribute(attribute, mVisitor, restriction, attributeType, currIndex, apiName);
-            currIndex = currIndex + 1;
-        }
-
-        mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(maxStack, currIndex);
-        mVisitor.visitEnd();
     }
 
     /**
      * Loads the XsdRestriction object information to the static constructor.
      * @param mVisitor The static constructor method visitor.
      * @param restriction The current restriction to add.
-     * @param attributeType The attribute type.
      * @param index The current index of the stack.
-     * @return The value of the last stack index used.
      */
-    private static int loadRestrictionToAttribute(XsdAttribute attribute, MethodVisitor mVisitor, XsdRestriction restriction, String attributeType, int index, String apiName) {
+    private static void loadRestrictionToAttribute(MethodVisitor mVisitor, XsdRestriction restriction, String javaType, int index) {
         XsdLength length = restriction.getLength();
         XsdMaxLength maxLength = restriction.getMaxLength();
         XsdMinLength minLength = restriction.getMinLength();
@@ -163,122 +150,111 @@ class XsdAsmAttributes {
         XsdMinInclusive minInclusive = restriction.getMinInclusive();
         XsdPattern pattern = restriction.getPattern();
         XsdTotalDigits totalDigits = restriction.getTotalDigits();
-        XsdWhiteSpace whiteSpace = restriction.getWhiteSpace();
-
-        if (attributeHasEnum(attribute)){
-            createEnum(attribute, restriction.getEnumeration(), apiName);
-        }
-
-        boolean hasRestriction = length != null || maxLength != null || minLength != null || fractionDigits != null || maxExclusive != null ||
-                maxInclusive != null || minExclusive != null || minInclusive != null || pattern != null || totalDigits != null || whiteSpace != null;
-
-        if (hasRestriction){
-            createHashMap(mVisitor, index);
-        }
 
         if (length != null){
+            mVisitor.visitIntInsn(BIPUSH, (int) length.getValue());
             mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("Length");
-            mVisitor.visitIntInsn(BIPUSH, length.getValue());
-            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
-            mVisitor.visitInsn(POP);
+            mVisitor.visitMethodInsn(INVOKESTATIC, restrictionValidatorType, "validateLength", "(I" + javaType + ")V", false);
         }
 
         if (maxLength != null){
+            mVisitor.visitLdcInsn((int) maxLength.getValue());
             mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("MaxLength");
-            mVisitor.visitIntInsn(BIPUSH, maxLength.getValue());
-            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
-            mVisitor.visitInsn(POP);
+            mVisitor.visitMethodInsn(INVOKESTATIC, restrictionValidatorType, "validateMaxLength", "(I" + javaType + ")V", false);
         }
 
         if (minLength != null){
+            mVisitor.visitLdcInsn((int) minLength.getValue());
             mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("MinLength");
-            mVisitor.visitIntInsn(BIPUSH, minLength.getValue());
-            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
-            mVisitor.visitInsn(POP);
+            mVisitor.visitMethodInsn(INVOKESTATIC, restrictionValidatorType, "validateMinLength", "(I" + javaType + ")V", false);
         }
 
         if (maxExclusive != null){
+            mVisitor.visitLdcInsn(maxExclusive.getValue());
             mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("MaxExclusive");
-            mVisitor.visitIntInsn(BIPUSH, maxExclusive.getValue());
-            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
-            mVisitor.visitInsn(POP);
+            numericAdjustment(mVisitor, javaType);
+            mVisitor.visitMethodInsn(INVOKESTATIC, restrictionValidatorType, "validateMaxExclusive", "(DD)V", false);
         }
 
         if (maxInclusive != null){
+            mVisitor.visitLdcInsn(maxInclusive.getValue());
             mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("MaxInclusive");
-            mVisitor.visitIntInsn(BIPUSH, maxInclusive.getValue());
-            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
-            mVisitor.visitInsn(POP);
+            numericAdjustment(mVisitor, javaType);
+            mVisitor.visitMethodInsn(INVOKESTATIC, restrictionValidatorType, "validateMaxInclusive", "(DD)V", false);
         }
 
         if (minExclusive != null){
+            mVisitor.visitLdcInsn(minExclusive.getValue());
             mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("MinExclusive");
-            mVisitor.visitIntInsn(BIPUSH, minExclusive.getValue());
-            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
-            mVisitor.visitInsn(POP);
+            numericAdjustment(mVisitor, javaType);
+            mVisitor.visitMethodInsn(INVOKESTATIC, restrictionValidatorType, "validateMinExclusive", "(DD)V", false);
         }
 
         if (minInclusive != null){
+            mVisitor.visitLdcInsn(minInclusive.getValue());
             mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("MinInclusive");
-            mVisitor.visitIntInsn(BIPUSH, minInclusive.getValue());
-            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
-            mVisitor.visitInsn(POP);
+            numericAdjustment(mVisitor, javaType);
+            mVisitor.visitMethodInsn(INVOKESTATIC, restrictionValidatorType, "validateMinInclusive", "(DD)V", false);
         }
 
         if (fractionDigits != null){
+            mVisitor.visitIntInsn(BIPUSH, (int) fractionDigits.getValue());
             mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("FractionDigits");
-            mVisitor.visitIntInsn(BIPUSH, fractionDigits.getValue());
-            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
-            mVisitor.visitInsn(POP);
+            numericAdjustment(mVisitor, javaType);
+            mVisitor.visitMethodInsn(INVOKESTATIC, restrictionValidatorType, "validateFractionDigits", "(ID)V", false);
         }
 
         if (totalDigits != null){
+            mVisitor.visitIntInsn(BIPUSH, (int) totalDigits.getValue());
             mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("TotalDigits");
-            mVisitor.visitIntInsn(BIPUSH, totalDigits.getValue());
-            mVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
-            mVisitor.visitInsn(POP);
+            numericAdjustment(mVisitor, javaType);
+            mVisitor.visitMethodInsn(INVOKESTATIC, restrictionValidatorType, "validateTotalDigits", "(ID)V", false);
         }
 
         if (pattern != null){
-            mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("Pattern");
             mVisitor.visitLdcInsn(pattern.getValue());
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
-        }
-
-        if (whiteSpace != null){
             mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitLdcInsn("WhiteSpace");
-            mVisitor.visitLdcInsn(whiteSpace.getValue());
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/HashMap", "put", "(" + JAVA_OBJECT_DESC + JAVA_OBJECT_DESC + ")" + JAVA_OBJECT_DESC, false);
+            mVisitor.visitMethodInsn(INVOKESTATIC, restrictionValidatorType, "validatePattern", "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")V", false);
+        }
+    }
+
+    private static void numericAdjustment(MethodVisitor mVisitor, String javaType) {
+        adjustmentsMapper.getOrDefault(javaType, XsdAsmAttributes::doubleAdjustment).accept(mVisitor);
+    }
+
+    private static void intAdjustment(MethodVisitor mVisitor) {
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "doubleValue", "()D", false);
+    }
+
+    private static void floatAdjustment(MethodVisitor mVisitor) {
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Float", "doubleValue", "()D", false);
+    }
+
+    private static void shortAdjustment(MethodVisitor mVisitor) {
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Short", "doubleValue", "()D", false);
+    }
+
+    private static void doubleAdjustment(MethodVisitor mVisitor) {
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D", false);
+    }
+
+    private static boolean attributeHasRestrictions(XsdAttribute attribute){
+        List<XsdRestriction> restrictions = getAttributeRestrictions(attribute);
+
+        //noinspection SimplifiableIfStatement
+        if (restrictions.isEmpty()){
+            return false;
         }
 
-        if (hasRestriction){
-            mVisitor.visitFieldInsn(GETSTATIC, attributeType, "restrictions", JAVA_LIST_DESC);
-            mVisitor.visitVarInsn(ALOAD, index);
-            mVisitor.visitMethodInsn(INVOKEINTERFACE, JAVA_LIST, "add", "(" + JAVA_OBJECT_DESC + ")Z", true);
-            mVisitor.visitInsn(POP);
-        }
+        return restrictions.stream().anyMatch(XsdAsmAttributes::hasRestrictionsOtherThanEnumeration);
+    }
 
-        return index;
+    private static boolean hasRestrictionsOtherThanEnumeration(XsdRestriction restriction){
+        return restriction.getMinExclusive() != null || restriction.getMinInclusive() != null ||
+                restriction.getMaxExclusive() != null || restriction.getMaxInclusive() != null ||
+                restriction.getMaxLength() != null || restriction.getMinLength() != null ||
+                restriction.getLength() != null || restriction.getPattern() != null ||
+                restriction.getTotalDigits() != null || restriction.getFractionDigits() != null;
     }
 
     /**
@@ -293,19 +269,22 @@ class XsdAsmAttributes {
             return name + getEnumName(attribute).replaceAll(name, "");
         }
 
-        String javaType = getFullJavaType(attribute);
+        String javaType = getFullJavaTypeDesc(attribute);
 
         return name + javaType.substring(javaType.lastIndexOf('/') + 1, javaType.length() - 1);
     }
 
-    private static void createHashMap(MethodVisitor mVisitor, int hashMapStackIndex){
-        mVisitor.visitTypeInsn(NEW, "java/util/HashMap");
-        mVisitor.visitInsn(DUP);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/HashMap", CONSTRUCTOR, "()V", false);
-        mVisitor.visitVarInsn(ASTORE, hashMapStackIndex);
-    }
-
     private static XsdList getAttributeList(XsdAttribute attribute) {
         return attribute.getXsdSimpleType() != null ? attribute.getXsdSimpleType().getList() : null;
+    }
+
+    private static String getEnumContainingType(XsdAttribute attribute){
+        if (attributeHasEnum(attribute)){
+            List<XsdRestriction> restrictions = getAttributeRestrictions(attribute);
+
+            return getJavaType(restrictions.get(0).getBase());
+        }
+
+        return null;
     }
 }

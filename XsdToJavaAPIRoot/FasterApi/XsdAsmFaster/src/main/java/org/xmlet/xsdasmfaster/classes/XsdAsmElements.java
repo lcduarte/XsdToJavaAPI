@@ -33,7 +33,7 @@ class XsdAsmElements {
 
         ClassWriter classWriter = generateClass(className, JAVA_OBJECT, interfaces, signature,ACC_PUBLIC + ACC_SUPER + ACC_FINAL, apiName);
 
-        generateClassMethods(classWriter, className, apiName, true);
+        generateClassMethods(classWriter, className, apiName);
 
         interfaceGenerator.checkForSequenceMethod(classWriter, className);
 
@@ -50,8 +50,8 @@ class XsdAsmElements {
      * @param classWriter The class writer on which should be written the methods.
      * @param className The class name.
      */
-    static void generateClassMethods(ClassWriter classWriter, String className, String apiName, boolean performVisits) {
-        generateClassMethods(classWriter, className, className, apiName, performVisits);
+    private static void generateClassMethods(ClassWriter classWriter, String className, String apiName) {
+        generateClassMethods(classWriter, className, className, apiName, true);
     }
 
     /**
@@ -87,8 +87,7 @@ class XsdAsmElements {
 
         if (performVisits){
             mVisitor.visitVarInsn(ALOAD, 1);
-            mVisitor.visitLdcInsn(name);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitElement", "(" + JAVA_STRING_DESC + ")V", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitElement" + getCleanName(className), "()V", false);
         }
 
         mVisitor.visitInsn(RETURN);
@@ -111,8 +110,7 @@ class XsdAsmElements {
         if (performVisits) {
             mVisitor.visitVarInsn(ALOAD, 0);
             mVisitor.visitFieldInsn(GETFIELD, classType, "visitor", elementVisitorTypeDesc);
-            mVisitor.visitLdcInsn(name);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitElement", "(" + JAVA_STRING_DESC + ")V", false);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitElement" + getCleanName(className), "()V", false);
         }
 
         mVisitor.visitInsn(RETURN);
@@ -120,6 +118,8 @@ class XsdAsmElements {
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + ")V", "(TZ;" + elementVisitorTypeDesc + ")V", null);
+        mVisitor.visitLocalVariable("parent", elementTypeDesc, null, new Label(), new Label(),1);
+        mVisitor.visitLocalVariable("visitor", elementVisitorTypeDesc, null, new Label(), new Label(),2);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKESPECIAL, JAVA_OBJECT, CONSTRUCTOR, "()V", false);
@@ -137,12 +137,22 @@ class XsdAsmElements {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, classType, "visitor", elementVisitorTypeDesc);
-        mVisitor.visitLdcInsn(name);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitParent", "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitParent" + getCleanName(className), "()V", false);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, classType, "parent", elementTypeDesc);
         mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(2, 1);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, "of", "(Ljava/util/function/Consumer;)" + classTypeDesc, "(Ljava/util/function/Consumer<L" + classType + "<TZ;>;>;)L" + classType + "<TZ;>;", null);
+        mVisitor.visitLocalVariable("consumer", "Ljava/util/function/Consumer;", null, new Label(), new Label(),1);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/function/Consumer", "accept", "(" + JAVA_OBJECT_DESC + ")V", true);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getParent", "()" + elementTypeDesc, "()TZ;", null);
@@ -182,126 +192,6 @@ class XsdAsmElements {
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
-    }
-
-    static void generateMethodsForSequenceClass(ClassWriter classWriter, String className, String parentClassName, String apiName){
-        generateClassMethods(classWriter, className, parentClassName, apiName, false);
-
-        /*
-        String type = getFullClassTypeName(className, apiName);
-        String typeDesc = getFullClassTypeNameDesc(className, apiName);
-
-        FieldVisitor fVisitor = classWriter.visitField(ACC_PROTECTED + ACC_FINAL, "parent", elementTypeDesc,  "TZ;", null);
-        fVisitor.visitEnd();
-
-        fVisitor = classWriter.visitField(ACC_PROTECTED + ACC_FINAL, "visitor", elementVisitorTypeDesc, null, null);
-        fVisitor.visitEnd();
-
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + elementVisitorTypeDesc + ")V", null, null);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, JAVA_OBJECT, CONSTRUCTOR, "()V", false);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitFieldInsn(PUTFIELD, type, "visitor", elementVisitorTypeDesc);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitInsn(ACONST_NULL);
-        mVisitor.visitFieldInsn(PUTFIELD, type, "parent", elementTypeDesc);
-        mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 2);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + elementTypeDesc + ")V", "(TZ;)V", null);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, JAVA_OBJECT, CONSTRUCTOR, "()V", false);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitFieldInsn(PUTFIELD, type, "parent", elementTypeDesc);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "getVisitor", "()" + elementVisitorTypeDesc, true);
-        mVisitor.visitFieldInsn(PUTFIELD, type, "visitor", elementVisitorTypeDesc);
-        mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 2);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + ")V", "(TZ;" + elementVisitorTypeDesc + ")V", null);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, JAVA_OBJECT, CONSTRUCTOR, "()V", false);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitFieldInsn(PUTFIELD, type, "parent", elementTypeDesc);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitFieldInsn(PUTFIELD, type, "visitor", elementVisitorTypeDesc);
-        mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 3);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "self", "()" + typeDesc, "()L" + type + "<TZ;>;", null);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(1, 1);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "º", "()" + elementTypeDesc, "()TZ;", null);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitFieldInsn(GETFIELD, type, "parent", elementTypeDesc);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(1, 1);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getParent", "()" + elementTypeDesc, "()TZ;", null);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitFieldInsn(GETFIELD, type, "parent", elementTypeDesc);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(1, 1);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, "getVisitor", "()" + elementVisitorTypeDesc, null, null);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitFieldInsn(GETFIELD, type, "visitor", elementVisitorTypeDesc);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(1, 1);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getName", "()" + JAVA_STRING_DESC, null, null);
-        mVisitor.visitCode();
-        mVisitor.visitLdcInsn(firstToLower(parentClassName));
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(1, 1);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, "getParent", "()" + elementTypeDesc, null, null);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, type, "getParent", "()" + elementTypeDesc, false);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(1, 1);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, "º", "()" + elementTypeDesc, null, null);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, type, "º", "()" + elementTypeDesc, false);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(1, 1);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, "self", "()" + elementTypeDesc, null, null);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, type, "self", "()" + elementTypeDesc, false);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(1, 1);
-        mVisitor.visitEnd();
-        */
     }
 
     /**

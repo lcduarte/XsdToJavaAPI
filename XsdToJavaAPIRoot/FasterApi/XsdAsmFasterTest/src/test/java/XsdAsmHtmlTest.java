@@ -75,4 +75,21 @@ public class XsdAsmHtmlTest {
 
         Assert.assertEquals(expected, result);
     }
+
+    @Test
+    public void customAttribute(){
+        CustomVisitorHtml visitor = new CustomVisitorHtml();
+
+        Html<Element> html = new Html<>(visitor);
+
+        html.addAttr("attr1", "value1").º();
+
+        String result = visitor.getResult();
+
+        String expected =
+                "<html attr1=\"value1\">\n" +
+                "</html>";
+
+        Assert.assertEquals(expected, result);
+    }
 }

@@ -4,7 +4,7 @@ import Samples.HTML.*;
 
 import java.util.List;
 
-public class CustomVisitor<R> implements Visitor<R> {
+public class CustomVisitor<R> extends Visitor<R> {
 
     private R model;
     private StringBuilder stringBuilder = new StringBuilder();

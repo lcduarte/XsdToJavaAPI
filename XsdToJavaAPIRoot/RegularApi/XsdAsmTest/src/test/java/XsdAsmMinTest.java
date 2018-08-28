@@ -3,6 +3,7 @@ import org.junit.Test;
 import org.xmlet.testMin.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("ALL")
@@ -15,11 +16,7 @@ public class XsdAsmMinTest {
      */
     @Test
     public void testListSuccess(){
-        List<Integer> intList = new ArrayList<>();
-
-        intList.add(1);
-
-        new AttrIntlistObject(intList);
+        new AttrIntlistObject(Arrays.asList(1));
     }
 
     /**
@@ -28,23 +25,9 @@ public class XsdAsmMinTest {
      * The expectation is that the constructor of AttrIntlist throws an exception, resulting in the sucess of the test,
      * since the list passed to the constructor exceeds the maximum allowed length.
      */
-    @Test
+    @Test(expected = RestrictionViolationException.class)
     public void testListFailed(){
-        List<Integer> intList = new ArrayList<>();
-
-        intList.add(1);
-        intList.add(2);
-        intList.add(3);
-        intList.add(4);
-        intList.add(5);
-        intList.add(6);
-
-        try {
-            new AttrIntlistObject(intList);
-            Assert.fail();
-        } catch (RestrictionViolationException ignored){
-
-        }
+        new AttrIntlistObject(Arrays.asList(1, 2, 3, 4, 5, 6));
     }
 
     /**
@@ -140,7 +123,7 @@ public class XsdAsmMinTest {
         studentGradesCompleteNumeric
                 .firstName("Luis")
                 .lastName("Duarte")
-                .gradeNumeric(String.valueOf(20));
+                .gradeNumeric(20);
 
         studentGradesCompleteNumeric.accept(visitor);
         String result = visitor.getResult();
@@ -299,5 +282,53 @@ public class XsdAsmMinTest {
 
         Assert.assertEquals(expected, result);
         Assert.assertEquals(2, innerSequences.getChildren().size());
+    }
+
+    @Test
+    public void testDoubleRestrictionsPass(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new DoubleRestricted<>().attrContactDouble(999999999999d);
+        new DoubleRestricted<>().attrContactDouble(999999999999.45d);
+        new DoubleRestricted<>().attrContactDouble(999999999999.9d);
+    }
+
+    @Test(expected = RestrictionViolationException.class)
+    public void testDoubleRestrictionsFail(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new DoubleRestricted<>().attrContactDouble(999999999999.91d);
+    }
+
+    @Test
+    public void testFloatRestrictionsPass(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new FloatRestricted<>().attrContactFloat(99999f);
+        new FloatRestricted<>().attrContactFloat(99999.45f);
+        new FloatRestricted<>().attrContactFloat(99999.9f);
+    }
+
+    @Test(expected = RestrictionViolationException.class)
+    public void testFloatRestrictionsFail(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new FloatRestricted<>().attrContactFloat(99999.91f);
+    }
+
+    @Test
+    public void testShortRestrictionsPass(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new ShortRestricted<>().attrContactShort((short) 9998);
+        new ShortRestricted<>().attrContactShort((short) 9999);
+        new ShortRestricted<>().attrContactShort((short) 10000);
+    }
+
+    @Test(expected = RestrictionViolationException.class)
+    public void testShortRestrictionsFail(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new ShortRestricted<>().attrContactShort((short) 10001);
     }
 }

@@ -1,5 +1,7 @@
 package Samples.HTML;
 
+import java.util.function.Consumer;
+
 public final class Div<P extends Element> implements CommonAttributeGroup<Div<P>, P>, MiniFlowContent<Div<P>, P> {
 
     protected final P parent;
@@ -23,12 +25,17 @@ public final class Div<P extends Element> implements CommonAttributeGroup<Div<P>
         return this;
     }
 
+    public final Div<P> of(Consumer<Div<P>> consumer){
+        consumer.accept(this);
+        return this;
+    }
+
     @Override
     public final Div<P> self() { return this; }
 
     @Override
     public P º() {
-        visitor.visitParent("div");
+        visitor.visitParentDiv();
         return parent;
     }
 

@@ -1,35 +1,14 @@
 package Samples.HTML;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+public class SomeAttributeEnum extends BaseAttribute<String> {
 
-public class SomeAttributeEnum extends BaseAttribute<EnumUsage> {
+    SomeAttributeEnum(EnumExample val) {
+        super(val.getValue(), "SomeAttributeEnum");
 
-    private static List<Map<String, Object>> restrictions = new ArrayList<>();
+        String value = val.getValue();
 
-    static {
-        Map<java.lang.String, Object> restriction1 = new HashMap<>();
+        RestrictionValidator.validateMaxLength(10, value);
+        RestrictionValidator.validateMinLength(1, value);
     }
 
-    SomeAttributeEnum(EnumUsage value) {
-        super(value, "SomeAttributeEnum");
-
-        restrictions.forEach(restriction -> {
-            Object toRestrictValue = SomeAttributeEnum.this.getValue();
-
-            if (toRestrictValue instanceof String) {
-                RestrictionValidator.validate(restriction, (String) toRestrictValue);
-            }
-
-            if (toRestrictValue instanceof Integer || toRestrictValue instanceof Short || toRestrictValue instanceof Float || toRestrictValue instanceof Double) {
-                RestrictionValidator.validate(restriction, (Double) toRestrictValue);
-            }
-
-            if (toRestrictValue instanceof List) {
-                RestrictionValidator.validate(restriction, (List) toRestrictValue);
-            }
-        });
-    }
 }

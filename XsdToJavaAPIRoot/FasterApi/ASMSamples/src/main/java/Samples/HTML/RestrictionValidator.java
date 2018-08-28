@@ -1,7 +1,6 @@
 package Samples.HTML;
 
 import java.util.List;
-import java.util.Map;
 
 public final class RestrictionValidator {
 
@@ -31,13 +30,13 @@ public final class RestrictionValidator {
         }
     }
 
-    public static void validateMaxExclusive(int maxExclusive, double value){
+    public static void validateMaxExclusive(double maxExclusive, double value){
         if (value >= maxExclusive){
             throw new RestrictionViolationException("Violation of maxExclusive restriction, value should be lesser than " + maxExclusive);
         }
     }
 
-    public static void validateMaxInclusive(int maxInclusive, double value){
+    public static void validateMaxInclusive(double maxInclusive, double value){
         if (value > maxInclusive){
             throw new RestrictionViolationException("Violation of maxInclusive restriction, value should be lesser or equal to " + maxInclusive);
         }
@@ -55,13 +54,13 @@ public final class RestrictionValidator {
         }
     }
 
-    public static void validateMinExclusive(int minExclusive, double value){
+    public static void validateMinExclusive(double minExclusive, double value){
         if (value <= minExclusive){
             throw new RestrictionViolationException("Violation of minExclusive restriction, value should be greater than " + minExclusive);
         }
     }
 
-    public static void validateMinInclusive(int minInclusive, double value){
+    public static void validateMinInclusive(double minInclusive, double value){
         if (value < minInclusive){
             throw new RestrictionViolationException("Violation of minInclusive restriction, value should be greater or equal to " + minInclusive);
         }

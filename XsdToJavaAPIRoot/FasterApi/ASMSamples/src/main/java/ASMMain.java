@@ -25,12 +25,12 @@ public class ASMMain {
                 }
 
                 @Override
-                public void visitText(String text) {
+                public <R> void visitText(R text) {
 
                 }
 
                 @Override
-                public void visitComment(String comment) {
+                public <R> void visitComment(R comment) {
 
                 }
             };
@@ -38,7 +38,7 @@ public class ASMMain {
 
             PersonalInfo<Div<Element>> p = new PersonalInfo<>(element);
 
-            PersonalInfoFirstName<Div<Element>> f = p.firstName("");
+            PersonalInfoFirstName<Div<Element>> f = p.firstName(1);
             PersonalInfoLastName<Div<Element>> l = f.lastName("");
             PersonalInfoAddress<Div<Element>> a = l.address("");
             PersonalInfoCity<Div<Element>> c = a.city("");
@@ -51,8 +51,10 @@ public class ASMMain {
             ANameElem1<Div<Element>> a1 = aName.elem1("elem1");
             AName<Div<Element>> a2 = a1.elem2("elem2");
 
-            //ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\FasterApi\\ASMSamples\\target\\classes\\Samples\\HTML\\CommonAttributeGroup.class"});
-            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\FasterApi\\ASMSamples\\target\\classes\\Samples\\Sequence\\Classes\\ANameElem1.class"});
+            Div<Div<Element>> m = z.addCustomElem(new Div<>(z));
+
+            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\FasterApi\\ASMSamples\\target\\classes\\Samples\\HTML\\RestrictionValidator.class"});
+            //ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\FasterApi\\ASMSamples\\target\\classes\\Samples\\Sequence\\Classes\\PersonalInfo.class"});
             //ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\FasterApi\\ASMSamples\\target\\classes\\Samples\\Sequence\\Interfaces\\PersonalInfoSequence1.class"});
         } catch (Exception e) {
             e.printStackTrace();

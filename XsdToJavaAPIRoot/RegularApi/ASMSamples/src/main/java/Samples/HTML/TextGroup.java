@@ -4,13 +4,13 @@ import java.util.function.Function;
 
 public interface TextGroup<T extends Element, P extends Element> extends Element<T, P> {
 
-    default T text(String text){
-        this.addChild(new Text<>(this, text));
+    default <R> T text(R text){
+        this.addChild(new Text<>(this, String.valueOf(text)));
         return this.self();
     }
 
-    default T comment(String text){
-        this.addChild(new Comment<>(this, text));
+    default <R> T comment(R text){
+        this.addChild(new Comment<>(this, String.valueOf(text)));
         return this.self();
     }
 

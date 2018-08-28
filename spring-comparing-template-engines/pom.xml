@@ -16,24 +16,24 @@
         <bootstrap.version>3.3.7-1</bootstrap.version>
 
         <!-- Template engine versions -->
-        <freemarker.version>2.3.25-incubating</freemarker.version>
-        <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
-        <thymeleaf-spring4.version>3.0.2.RELEASE</thymeleaf-spring4.version>
-        <thymeleaf-extras-conditionalcomments.version>3.0.2.RELEASE</thymeleaf-extras-conditionalcomments.version>
-        <thymeleaf-extras-springsecurity3.version>3.0.2.RELEASE</thymeleaf-extras-springsecurity3.version>
+        <freemarker.version>2.3.28</freemarker.version>
+        <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
+        <thymeleaf-spring4.version>3.0.9.RELEASE</thymeleaf-spring4.version>
+        <thymeleaf-extras-conditionalcomments.version>3.0.9.RELEASE</thymeleaf-extras-conditionalcomments.version>
+        <thymeleaf-extras-springsecurity3.version>3.0.9.RELEASE</thymeleaf-extras-springsecurity3.version>
         <velocity.version>1.7</velocity.version>
-        <mustache-java.version>0.9.4</mustache-java.version>
+        <mustache-java.version>0.9.5</mustache-java.version>
         <scalate-core_2.11.version>1.7.1</scalate-core_2.11.version>
         <httl-springmvc.version>1.0.11</httl-springmvc.version>
-        <spring-rythm.version>1.1.1-SNAPSHOT</spring-rythm.version>
-        <pebble-spring4.version>2.2.3</pebble-spring4.version>
-        <mustache-spring-view.version>1.3</mustache-spring-view.version>
-        <jmustache.version>1.13</jmustache.version>
-        <handlebars.version>4.0.6</handlebars.version>
-        <jtwig-spring.version>5.80</jtwig-spring.version>
-        <jtwig-translate.version>1.2</jtwig-translate.version>
-        <spring-jade4j.version>1.2.5</spring-jade4j.version>
-        <chunk.version>3.2.4</chunk.version>
+        <spring-rythm.version>1.2.2</spring-rythm.version>
+        <pebble-spring4.version>2.4.0</pebble-spring4.version>
+        <mustache-spring-view.version>1.4</mustache-spring-view.version>
+        <jmustache.version>1.14</jmustache.version>
+        <handlebars.version>4.1.0</handlebars.version>
+        <jtwig-spring.version>5.87.0.RELEASE</jtwig-spring.version>
+        <jtwig-translate.version>5.86.1.RELEASE</jtwig-translate.version>
+        <spring-jade4j.version>1.2.7</spring-jade4j.version>
+        <chunk.version>3.3.1</chunk.version>
         <chunk-springmvc.version>0.1.0</chunk-springmvc.version>
     </properties>
 
@@ -243,8 +243,8 @@
 
         <dependency>
             <groupId>com.github.xmlet</groupId>
-            <artifactId>htmlApiFaster</artifactId>
-            <version>1.0.9-snapshot</version>
+            <artifactId>htmlflow</artifactId>
+            <version>3.0-snapshot</version>
         </dependency>
 
         <!-- Test -->

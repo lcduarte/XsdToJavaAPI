@@ -8,4 +8,9 @@ public interface CommonAttributeGroup<T extends Element<T, P>, P extends Element
         return this.self();
     }
 
+    default T addCustomAttr(String name, String value) {
+        getVisitor().visitAttribute(name, value);
+        return this.self();
+    }
+
 }

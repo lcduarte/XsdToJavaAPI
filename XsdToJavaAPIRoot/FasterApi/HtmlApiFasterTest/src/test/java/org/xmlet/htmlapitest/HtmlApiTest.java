@@ -14,7 +14,6 @@ import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +21,7 @@ public class HtmlApiTest {
 
     private static final String PACKAGE = "org.xmlet.htmlapi";
 
+    @SuppressWarnings("unused")
     public void dummy(){
         CustomVisitor customVisitor = new CustomVisitor();
 
@@ -39,26 +39,36 @@ public class HtmlApiTest {
     public void testGeneratedClassesIntegrity() throws Exception {
         CustomVisitor customVisitor = new CustomVisitor();
 
-        String result = customVisitor.getResult(
-                new Html<Html>(customVisitor)
-                    .head()
-                        .comment("This is a comment.")
-                        .meta().attrCharset("UTF-8").º()
-                        .title()
-                            .text("Title").º()
-                        .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
-                        .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
-                    .body().attrClass("clear")
-                        .div()
-                            .header()
-                                .section()
-                                    .div()
-                                        .img().attrId("brand").attrSrc("./assets/images/logo.png").º()
-                                        .aside()
-                                        .em()
-                                            .text("Advertisement")
+        new Html<Html>(customVisitor)
+            .head()
+                .comment("This is a comment.")
+                .meta().attrCharset("UTF-8").º()
+                .title()
+                    .text("Title").º()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
+            .body().attrClass("clear")
+                .div()
+                    .header()
+                        .section()
+                            .div()
+                                .img().attrId("brand").attrSrc("./assets/images/logo.png").º()
+                                .aside()
+                                    .em()
+                                        .text("Advertisement")
                                         .span()
-                                            .text("HtmlApi is great!"));
+                                            .text("HtmlApi is great!")
+                                        .º()
+                                    .º()
+                                .º()
+                            .º()
+                        .º()
+                    .º()
+                .º()
+            .º()
+        .º();
+
+        String result = customVisitor.getResult();
 
         String expected =   "<html>\n" +
                                 "\t<head>\n" +
@@ -105,11 +115,15 @@ public class HtmlApiTest {
     public void testVisitsWithoutModel(){
         CustomVisitor visitor = new CustomVisitor();
 
-        String result = visitor.getResult(
-                new Html<>(visitor)
-                    .body()
-                        .div()
-                            .text("This is a regular String."));
+        new Html<>(visitor)
+                .body()
+                    .div()
+                        .text("This is a regular String.")
+                    .º()
+                .º()
+            .º();
+
+        String result = visitor.getResult();
 
         String expected =   "<html>\n" +
                                 "\t<body>\n" +
@@ -125,33 +139,31 @@ public class HtmlApiTest {
     @Test
     public void testBinderUsage(){
         CustomVisitor visitor = new CustomVisitor();
-        List<String> tdValues = new ArrayList<>();
+        List<String> tdValues = Arrays.asList("val1", "val2", "val3");
 
-        tdValues.add("val1");
-        tdValues.add("val2");
-        tdValues.add("val3");
-
-        Html<Html> root = new Html<>(visitor);
-        Table<Body<Html<Html>>> table = root.body().table();
-        table
-            .tr()
-                .th()
-                    .text("Title")
-                .º()
-            .º();
-
-        tdValues.forEach(value ->
-            table
-                .tr()
-                    .td()
-                        .text(value)
+        new Html<>(visitor)
+            .body()
+                .table()
+                    .tr()
+                        .th()
+                            .text("Title")
+                        .º()
                     .º()
+                    .of(table ->
+                        tdValues.forEach(value ->
+                            table
+                                .tr()
+                                    .td()
+                                        .text(value)
+                                    .º()
+                                .º()
+                        )
+                    )
                 .º()
-        );
+            .º()
+        .º();
 
-        table.º().º();
-
-        String result = visitor.getResult(root);
+        String result = visitor.getResult();
 
         String expected =   "<html>\n" +
                                 "\t<body>\n" +
@@ -185,8 +197,7 @@ public class HtmlApiTest {
 
     @Test
     public void testElementName(){
-        CustomVisitor visitor = new CustomVisitor();
-        Assert.assertEquals("html", new Html<>(visitor).getName());
+        Assert.assertEquals("html", new Html<>(new CustomVisitor()).getName());
     }
 
     @Test
@@ -219,17 +230,12 @@ public class HtmlApiTest {
                     continue;
                 }
 
-                boolean isXmletElement = Arrays.asList(klass.getInterfaces()).contains(Element.class);
-
-                if (isXmletElement){
+                if (implementsElement(klass)){
                     Constructor ctor1 = klass.getConstructor(ElementVisitor.class);
                     Constructor ctor2 = klass.getConstructor(Element.class);
-                    Constructor ctor3 = klass.getConstructor(Element.class, String.class);
-
 
                     Object elementInstance = ctor1.newInstance(visitor);
                     ctor2.newInstance(dummy);
-                    ctor3.newInstance(dummy, "name");
 
                     Method[] methods = klass.getMethods();
 
@@ -242,7 +248,7 @@ public class HtmlApiTest {
                             Class<?> paramType = method.getParameterTypes()[0];
                             if (!paramType.isEnum()){
                                 if (paramType.equals(String.class) || paramType.equals(Object.class)){
-                                    method.invoke(elementInstance, new Object[]{null});
+                                    method.invoke(elementInstance, new Object[]{""});
                                 }
 
                                 if (paramType.equals(Short.class)){
@@ -272,77 +278,19 @@ public class HtmlApiTest {
         }
     }
 
-    @Test
-    public void testEnums(){
-        /*
-        AttrRelEnumRelLinkType.validateRestrictions(EnumRelLinkType.HELP);
-        AttrTargetEnumTargetBrowsingContext.validateRestrictions(EnumTargetBrowsingContext._BLANK);
-        AttrFormtargetEnumFormtargetBrowsingContext.validateRestrictions(EnumFormtargetBrowsingContext._BLANK);
-        AttrMediaEnumMediaMediaType.validateRestrictions(EnumMediaMediaType.ALL);
-        AttrAsyncEnumAsyncScript.validateRestrictions(EnumAsyncScript.ASYNC);
-        AttrCheckedEnumCheckedCommand.validateRestrictions(EnumCheckedCommand.CHECKED);
-        AttrControlsEnumControlsAudio.validateRestrictions(EnumControlsAudio.CONTROLS);
-        AttrControlsEnumControlsVideo.validateRestrictions(EnumControlsVideo.CONTROLS);
-        AttrAutofocusEnumAutofocusButton.validateRestrictions(EnumAutofocusButton.AUTOFOCUS);
-        AttrAutofocusEnumAutofocusKeygen.validateRestrictions(EnumAutofocusKeygen.AUTOFOCUS);
-        AttrAutofocusEnumAutofocusSelect.validateRestrictions(EnumAutofocusSelect.AUTOFOCUS);
-        AttrAutofocusEnumAutofocusTextarea.validateRestrictions(EnumAutofocusTextarea.AUTOFOCUS);
-        AttrAutobufferEnumAutobufferAudio.validateRestrictions(EnumAutobufferAudio.AUTOBUFFER);
-        AttrAutobufferEnumAutobufferVideo.validateRestrictions(EnumAutobufferVideo.AUTOBUFFER);
-        AttrAutocompleteEnumAutocompleteForm.validateRestrictions(EnumAutocompleteForm.ON);
-        AttrAutoplayEnumAutoplayAudio.validateRestrictions(EnumAutoplayAudio.AUTOPLAY);
-        AttrCheckedEnumCheckedInput.validateRestrictions(EnumCheckedInput.CHECKED);
-        AttrDisabledEnumDisabledCommand.validateRestrictions(EnumDisabledCommand.DISABLED);
-        AttrContenteditableEnumContenteditable.validateRestrictions(EnumContenteditable.FALSE);
-        AttrDeferEnumDeferScript.validateRestrictions(EnumDeferScript.DEFER);
-        AttrDirEnumDir.validateRestrictions(EnumDir.RTL);
-        AttrDisabledEnumDisabledButton.validateRestrictions(EnumDisabledButton.AUTOFOCUS);
-        AttrDisabledEnumDisabledCommand.validateRestrictions(EnumDisabledCommand.DISABLED);
-        AttrDisabledEnumDisabledInput.validateRestrictions(EnumDisabledInput.DISABLED);
-        AttrDisabledEnumDisabledKeygen.validateRestrictions(EnumDisabledKeygen.DISABLED);
-        AttrDisabledEnumDisabledOptgroup.validateRestrictions(EnumDisabledOptgroup.DISABLED);
-        AttrDisabledEnumDisabledOption.validateRestrictions(EnumDisabledOption.DISABLED);
-        AttrDisabledEnumDisabledSelect.validateRestrictions(EnumDisabledSelect.AUTOFOCUS);
-        AttrDisabledEnumDisabledTextarea.validateRestrictions(EnumDisabledTextarea.DISABLED);
-        AttrDraggableEnumDraggable.validateRestrictions(EnumDraggable.AUTO);
-        AttrEnctypeEnumEnctypeForm.validateRestrictions(EnumEnctypeForm.MULTIPART_FORM_DATA);
-        AttrAutoplayEnumAutoplayVideo.validateRestrictions(EnumAutoplayVideo.AUTOPLAY);
-        AttrFormenctypeEnumFormenctypeButton.validateRestrictions(EnumFormenctypeButton.APPLICATION_X_WWW_FORM_URLENCODED);
-        AttrFormenctypeEnumFormenctypeInput.validateRestrictions(EnumFormenctypeInput.APPLICATION_X_WWW_FORM_URLENCODED);
-        AttrFormmethodEnumFormmethodButton.validateRestrictions(EnumFormmethodButton.DELETE);
-        AttrFormmethodEnumFormmethodInput.validateRestrictions(EnumFormmethodInput.DELETE);
-        AttrFormnovalidateEnumFormnovalidateButton.validateRestrictions(EnumFormnovalidateButton.FORMNOVALIDATE);
-        AttrFormnovalidateEnumFormnovalidateInput.validateRestrictions(EnumFormnovalidateInput.FORMNOVALIDATE);
-        AttrHiddenEnumHidden.validateRestrictions(EnumHidden.HIDDEN);
-        AttrHttpEquivEnumHttpEquivMeta.validateRestrictions(EnumHttpEquivMeta.REFRESH);
-        AttrIsmapEnumIsmapImg.validateRestrictions(EnumIsmapImg.ISMAP);
-        AttrKeytypeEnumKeytypeKeygen.validateRestrictions(EnumKeytypeKeygen.RSA);
-        AttrLoopEnumLoopAudio.validateRestrictions(EnumLoopAudio.LOOP);
-        AttrLoopEnumLoopVideo.validateRestrictions(EnumLoopVideo.LOOP);
-        AttrMethodEnumMethodForm.validateRestrictions(EnumMethodForm.DELETE);
-        AttrMultipleEnumMultipleSelect.validateRestrictions(EnumMultipleSelect.MULTIPLE);
-        AttrNameEnumNameBrowsingContext.validateRestrictions(EnumNameBrowsingContext._BLANK);
-        AttrNovalidateEnumNovalidateForm.validateRestrictions(EnumNovalidateForm.NOVALIDATE);
-        AttrOpenEnumOpenDetails.validateRestrictions(EnumOpenDetails.OPEN);
-        AttrReadonlyEnumReadonlyTextarea.validateRestrictions(EnumReadonlyTextarea.READONLY);
-        AttrRequiredEnumRequiredTextarea.validateRestrictions(EnumRequiredTextarea.REQUIRED);
-        AttrReversedEnumReversedOl.validateRestrictions(EnumReversedOl.REVERSED);
-        AttrRunatEnumRunat.validateRestrictions(EnumRunat.SERVER);
-        AttrSandboxEnumSandboxIframe.validateRestrictions(EnumSandboxIframe.ALLOW_FORMS);
-        AttrScopedEnumScopedStyle.validateRestrictions(EnumScopedStyle.SCOPED);
-        AttrScopeEnumScopeTh.validateRestrictions(EnumScopeTh.COL);
-        AttrSeamlessEnumSeamlessIframe.validateRestrictions(EnumSeamlessIframe.SEAMLESS);
-        AttrSelectedEnumSelectedOption.validateRestrictions(EnumSelectedOption.SELECTED);
-        AttrShapeEnumShapeArea.validateRestrictions(EnumShapeArea.CIRCLE);
-        AttrSpellcheckEnumSpellcheck.validateRestrictions(EnumSpellcheck.FALSE);
-        AttrTypeEnumTypeButton.validateRestrictions(EnumTypeButton.BUTTON);
-        AttrTypeEnumTypeCommand.validateRestrictions(EnumTypeCommand.CHECKBOX);
-        AttrTypeEnumTypeInput.validateRestrictions(EnumTypeInput.BUTTON);
-        AttrTypeEnumTypeMenu.validateRestrictions(EnumTypeMenu.CONTEXT);
-        AttrTypeEnumTypeScript.validateRestrictions(EnumTypeScript.TEXT_ECMASCRIPT);
-        AttrTypeEnumTypeSimpleContentType.validateRestrictions(EnumTypeSimpleContentType.TEXT_ASA);
-        AttrTypeEnumTypeStyle.validateRestrictions(EnumTypeStyle.TEXT_CSS);
-        AttrWrapEnumWrapTextarea.validateRestrictions(EnumWrapTextarea.HARD);
-        */
+    private boolean implementsElement(Class<?> klass) {
+        List<Class<?>> interfaces = Arrays.asList(klass.getInterfaces());
+
+        if (interfaces.contains(Element.class)){
+            return true;
+        } else {
+            for (int i = 0; i < interfaces.size(); i++) {
+                if (implementsElement(interfaces.get(i))){
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

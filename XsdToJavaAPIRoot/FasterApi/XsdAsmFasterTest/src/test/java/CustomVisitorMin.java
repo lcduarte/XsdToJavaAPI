@@ -1,5 +1,4 @@
-import org.xmlet.testMinFaster.*;
-import org.xmlet.xsdasmfaster.classes.infrastructure.ElementVisitor;
+import org.xmlet.testMinFaster.ElementVisitor;
 
 @SuppressWarnings("Duplicates")
 public class CustomVisitorMin extends ElementVisitor {
@@ -63,7 +62,7 @@ public class CustomVisitorMin extends ElementVisitor {
     }
 
     @Override
-    public void visitText(String text){
+    public <R> void visitText(R text){
         if (text != null){
             stringBuilder.append(">\n");
             doTabs();
@@ -72,7 +71,7 @@ public class CustomVisitorMin extends ElementVisitor {
     }
 
     @Override
-    public void visitComment(String comment){
+    public <R> void visitComment(R comment){
         if (comment != null){
             stringBuilder.append(">\n");
             doTabs();

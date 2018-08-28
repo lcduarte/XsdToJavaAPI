@@ -47,7 +47,7 @@ public class PersonalInfo<P extends Element> implements TextGroup<PersonalInfo<P
         return "personInfo";
     }
 
-    public PersonalInfoFirstName<P> firstName(String value){
+    public PersonalInfoFirstName<P> firstName(Integer value){
         visitor.visitElement("firstName");
         visitor.visitText(value);
         visitor.visitParent("firstName");

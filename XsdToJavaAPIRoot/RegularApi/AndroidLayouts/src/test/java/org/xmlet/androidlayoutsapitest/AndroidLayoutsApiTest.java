@@ -34,8 +34,8 @@ public class AndroidLayoutsApiTest {
         relativeLayout.accept(visitor);
         String result = visitor.getResult();
 
-        String expected =   "<relativeLayout androidgravity=\"center\" androidaddStatesFromChildren=\"true\" androidlayoutx=\"null\">\n" +
-                            "</relativeLayout>\n";
+        String expected =   "<relativeLayout android:gravity=\"center\" android:addStatesFromChildren=\"true\" android:layout_x=\"null\">\n" +
+                "</relativeLayout>\n";
 
         Assert.assertEquals(expected, result);
         Assert.assertTrue(implementsView);
@@ -74,62 +74,32 @@ public class AndroidLayoutsApiTest {
                         .attrAndroidLayoutWidth("match_parent")
                         .attrAndroidLayoutHeight("wrap_content")
                         .linearLayout()
-                            .attrAndroidOrientation(EnumAndroidOrientation.HORIZONTAL)
-                            .attrAndroidLayoutWidth("match_parent")
-                            .attrAndroidLayoutHeight("wrap_content")
-                            .imageView()
-                                .attrAndroidLayoutWidth("wrap_content")
-                                .attrAndroidLayoutHeight("wrap_content")
-                            .º()
-                            .textView()
-                                .attrAndroidWidth("match_parent")
-                                .attrAndroidHeight("weight_content")
-                                .attrAndroidLines("2")
-                            .º()
+                        .attrAndroidOrientation(EnumAndroidOrientation.HORIZONTAL)
+                        .attrAndroidLayoutWidth("match_parent")
+                        .attrAndroidLayoutHeight("wrap_content")
+                        .imageView()
+                        .attrAndroidLayoutWidth("wrap_content")
+                        .attrAndroidLayoutHeight("wrap_content")
+                        .º()
+                        .textView()
+                        .attrAndroidWidth("match_parent")
+                        .attrAndroidHeight("weight_content")
+                        .attrAndroidLines("2")
+                        .º()
                         .º();
 
         linearLayout.accept(visitor);
         String result = visitor.getResult();
 
-        String expected =   "<linearLayout androidorientation=\"vertical\" androidlayoutwidth=\"match_parent\" androidlayoutheight=\"wrap_content\">\n" +
-                                "\t<linearLayout androidorientation=\"horizontal\" androidlayoutwidth=\"match_parent\" androidlayoutheight=\"wrap_content\">\n" +
-                                    "\t\t<imageView androidlayoutwidth=\"wrap_content\" androidlayoutheight=\"wrap_content\">\n" +
-                                    "\t\t</imageView>\n" +
-                                    "\t\t<textView androidwidth=\"match_parent\" androidheight=\"weight_content\" androidlines=\"2\">\n" +
-                                    "\t\t</textView>\n" +
-                                "\t</linearLayout>\n" +
-                            "</linearLayout>\n";
+        String expected =   "<linearLayout android:orientation=\"vertical\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\">\n" +
+                "\t<linearLayout android:orientation=\"horizontal\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\">\n" +
+                "\t\t<imageView android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\">\n" +
+                "\t\t</imageView>\n" +
+                "\t\t<textView android:width=\"match_parent\" android:height=\"weight_content\" android:lines=\"2\">\n" +
+                "\t\t</textView>\n" +
+                "\t</linearLayout>\n" +
+                "</linearLayout>\n";
 
         Assert.assertEquals(expected, result);
-
-new LinearLayout<>()
-  .attrAndroidLayoutWidth("wrap_content")
-  .attrAndroidLayoutHeight("wrap_content")
-  .attrAndroidGravity(EnumAndroidGravity.CENTER)
-  .textView()
-    .attrAndroidText("Hi there!")
-    .attrAndroidLayoutWidth("wrap_content")
-    .attrAndroidLayoutHeight("wrap_content")
-    .attrAndroidTextSize("36sp")
-    .attrAndroidTextColor("@android:color/black")
-    .attrAndroidBackground("#ccddff")
-    .attrAndroidPadding("20dp");
     }
-
-    /*
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
-
-    <TextView
-        android:text="Hi there!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="36sp"
-        android:textColor="@android:color/black"
-        android:background="#ccddff"
-        android:padding="20dp"/>
-</LinearLayout>
-     */
 }

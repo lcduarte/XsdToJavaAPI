@@ -15,7 +15,8 @@ import java.util.logging.Level;
 import java.util.stream.Stream;
 
 import static org.objectweb.asm.Opcodes.V1_8;
-import static org.xmlet.xsdasmfaster.classes.XsdSupportingStructure.*;
+import static org.xmlet.xsdasmfaster.classes.XsdSupportingStructure.JAVA_OBJECT_DESC;
+import static org.xmlet.xsdasmfaster.classes.XsdSupportingStructure.infrastructureVars;
 
 public class XsdAsmUtils {
 
@@ -127,15 +128,6 @@ public class XsdAsmUtils {
         }
 
         String firstLetter = name.substring(0, 1).toLowerCase();
-        return firstLetter + name.substring(1);
-    }
-
-    static String firstToUpper(String name){
-        if (name.length() == 1){
-            return name.toUpperCase();
-        }
-
-        String firstLetter = name.substring(0, 1).toUpperCase();
         return firstLetter + name.substring(1);
     }
 
@@ -273,7 +265,7 @@ public class XsdAsmUtils {
         createAttribute(createdAttributes, elementAttribute);
     }
 
-    static void createAttribute(Map<String, List<XsdAttribute>> createdAttributes, XsdAttribute elementAttribute) {
+    private static void createAttribute(Map<String, List<XsdAttribute>> createdAttributes, XsdAttribute elementAttribute) {
         if (!createdAttributes.containsKey(elementAttribute.getName())){
             List<XsdAttribute> attributes = new ArrayList<>();
 
@@ -415,13 +407,6 @@ public class XsdAsmUtils {
         return signature.toString();
     }
 
-    static String getSequenceClassSignature(String typeName, String parentName, boolean isLast, String apiName){
-        String type = getFullClassTypeName(typeName, apiName);
-        String parentType = getFullClassTypeName(parentName, apiName);
-
-        return "<Z:L" + parentType + "<TGZ;>;GZ::" + elementTypeDesc + ">" + JAVA_OBJECT_DESC + "L" + elementType + "<L" + type + "<TZ;TGZ;>;" + (isLast ? "TGZ" : "TZ") + ";>;";
-    }
-
     /**
      * Obtains the interface signature for a interface.
      * @param interfaces The extended interfaces.
@@ -469,15 +454,7 @@ public class XsdAsmUtils {
     }
 
     static String getCleanName(String name){
-        String[] parts = name.split("_");
-
-        StringBuilder result = new StringBuilder();
-
-        for (String part : parts) {
-            result.append(toCamelCase(part));
-        }
-
-        return result.toString();
+        return getCleanName(name, true);
     }
 
     static String getCleanName(String name, boolean camelCase){
@@ -533,9 +510,7 @@ public class XsdAsmUtils {
     }
 
     static String getJavaType(String xsdType){
-        return xsdFullTypesToJava.get(xsdType);
+        return xsdFullTypesToJava.getOrDefault(xsdType, null);
     }
 }
-
-//Falta Interfaces e das Utils pra baixo.
 

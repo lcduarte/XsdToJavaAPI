@@ -211,7 +211,7 @@ public class XsdAsmUtils {
         return returnType.equals(elementTypeDesc);
     }
 
-    static String getFullJavaType(String itemType) {
+    static String getFullJavaTypeDesc(String itemType) {
         return xsdFullTypesToJava.getOrDefault(itemType, JAVA_OBJECT_DESC);
     }
 
@@ -220,7 +220,7 @@ public class XsdAsmUtils {
      * @param attribute The attribute from which the type will be obtained.
      * @return The java descriptor of the attribute type.
      */
-    static String getFullJavaType(XsdAttribute attribute){
+    static String getFullJavaTypeDesc(XsdAttribute attribute){
         List<XsdRestriction> restrictions = getAttributeRestrictions(attribute);
         String javaType = xsdFullTypesToJava.getOrDefault(attribute.getType(), null);
 
@@ -493,6 +493,10 @@ public class XsdAsmUtils {
         });
 
         return names;
+    }
+
+    static String getJavaType(String xsdType){
+        return xsdFullTypesToJava.getOrDefault(xsdType, null);
     }
 }
 

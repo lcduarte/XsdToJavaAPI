@@ -1,36 +1,12 @@
 import org.junit.Assert;
 import org.junit.Test;
-import org.xmlet.htmlFaster.Div;
 import org.xmlet.testMinFaster.*;
-import org.xmlet.xsdasmfaster.classes.infrastructure.Element;
 import org.xmlet.xsdasmfaster.classes.infrastructure.RestrictionViolationException;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 public class XsdAsmMinTest {
-
-    void dummy(){
-        Div<Element> element = null;
-
-        PersonInfo<Div<Element>> p = new PersonInfo<>(element);
-
-
-        new PersonInfoFirstName<>(p);
-
-        PersonInfoFirstName<Div<Element>> f = p.firstName("");
-        PersonInfoLastName<Div<Element>> l = f.lastName("");
-        PersonInfoPersonAddress<Div<Element>> a = l.personAddress("");
-        PersonInfoCity<Div<Element>> c = a.city("");
-        PersonInfoComplete<Div<Element>> c1 = c.country("");
-
-        Div<Element> div = c1.º();
-
-        AName<Div<Element>> aName = new AName<>(element);
-
-        ANameElem1<Div<Element>> a1 = aName.elem1("elem1");
-        AName<Div<Element>> a2 = a1.elem2("elem2");
-    }
 
     /**
      * Tests if the restrictions in the attribute IntList are functioning. The attribute has
@@ -83,6 +59,7 @@ public class XsdAsmMinTest {
                 .personAddress("AnAddress")
                 .city("Lisbon")
                 .country("Portugal")
+                .phoneNumber(123456789)
                 .º()
                 .º();
 
@@ -105,6 +82,9 @@ public class XsdAsmMinTest {
                 "\t\t<country>\n" +
                 "\t\t\tPortugal\n" +
                 "\t\t</country>\n" +
+                "\t\t<phoneNumber>\n" +
+                "\t\t\t123456789\n" +
+                "\t\t</phoneNumber>\n" +
                 "\t</personInfo>\n" +
                 "</personInfoElementContainer>";
 
@@ -137,7 +117,7 @@ public class XsdAsmMinTest {
         new StudentGrades<>(visitor)
                 .firstName("Luis")
                 .lastName("Duarte")
-                .gradeNumeric(String.valueOf(20))
+                .gradeNumeric(20)
                 .º();
 
         String result = visitor.getResult();
@@ -289,5 +269,53 @@ public class XsdAsmMinTest {
                         "</innerSequences>";
 
         Assert.assertEquals(expected, result);
+    }
+
+    @Test
+    public void testDoubleRestrictionsPass(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new DoubleRestricted<>(visitor).attrContactDouble(999999999999d);
+        new DoubleRestricted<>(visitor).attrContactDouble(999999999999.45d);
+        new DoubleRestricted<>(visitor).attrContactDouble(999999999999.9d);
+    }
+
+    @Test(expected = RestrictionViolationException.class)
+    public void testDoubleRestrictionsFail(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new DoubleRestricted<>(visitor).attrContactDouble(999999999999.91d);
+    }
+
+    @Test
+    public void testFloatRestrictionsPass(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new FloatRestricted<>(visitor).attrContactFloat(99999f);
+        new FloatRestricted<>(visitor).attrContactFloat(99999.45f);
+        new FloatRestricted<>(visitor).attrContactFloat(99999.9f);
+    }
+
+    @Test(expected = RestrictionViolationException.class)
+    public void testFloatRestrictionsFail(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new FloatRestricted<>(visitor).attrContactFloat(99999.91f);
+    }
+
+    @Test
+    public void testShortRestrictionsPass(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new ShortRestricted<>(visitor).attrContactShort((short) 9998);
+        new ShortRestricted<>(visitor).attrContactShort((short) 9999);
+        new ShortRestricted<>(visitor).attrContactShort((short) 10000);
+    }
+
+    @Test(expected = RestrictionViolationException.class)
+    public void testShortRestrictionsFail(){
+        CustomVisitorMin visitor = new CustomVisitorMin();
+
+        new ShortRestricted<>(visitor).attrContactShort((short) 10001);
     }
 }

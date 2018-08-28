@@ -54,7 +54,7 @@ class XsdAsmInterfaces {
         ClassWriter classWriter = generateClass(interfaceName, JAVA_OBJECT, extendedInterfaces, getInterfaceSignature(extendedInterfaces, apiName), ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
         hierarchyInterface.getAttributes().forEach(attribute ->
-            generateMethodsAndCreateAttribute(createdAttributes, classWriter, attribute, elementTypeDesc, interfaceName, apiName)
+                generateMethodsAndCreateAttribute(createdAttributes, classWriter, attribute, elementTypeDesc, interfaceName, apiName)
         );
 
         writeClassToFile(interfaceName, classWriter, apiName);
@@ -160,9 +160,9 @@ class XsdAsmInterfaces {
      */
     private Collection<String> getTypeAttributeGroups(XsdComplexType complexType, Stream<XsdAttributeGroup> extensionAttributeGroups) {
         Stream<XsdAttributeGroup> attributeGroups = complexType.getXsdAttributes()
-                                                               .filter(attribute -> attribute.getParent() instanceof XsdAttributeGroup)
-                                                               .map(attribute -> (XsdAttributeGroup) attribute.getParent())
-                                                               .distinct();
+                .filter(attribute -> attribute.getParent() instanceof XsdAttributeGroup)
+                .map(attribute -> (XsdAttributeGroup) attribute.getParent())
+                .distinct();
 
         attributeGroups = Stream.concat(attributeGroups, extensionAttributeGroups);
 
@@ -364,15 +364,15 @@ class XsdAsmInterfaces {
     /**
      * This method adds a method to a previously created Sequence interface and creates the subsequent types.
      * <xs:element name="personInfo">
-         <xs:complexType>
-             <xs:sequence>
-                <xs:element name="firstName" type="xs:string"/>
-        (...)
-        In this case this method will do the following:
-            * Receives the interface PersonInfoSequence0
-            * Adds the method firstName to that interface and writes the interface to disc.
-            * This method will add a FirstName element to the parent, so the FirstName will need to be created.
-            * That method will return PersonInfoFirstName to support the next element in the sequence, so the PersonInfoFirstName will need to be created.
+     <xs:complexType>
+     <xs:sequence>
+     <xs:element name="firstName" type="xs:string"/>
+     (...)
+     In this case this method will do the following:
+     * Receives the interface PersonInfoSequence0
+     * Adds the method firstName to that interface and writes the interface to disc.
+     * This method will add a FirstName element to the parent, so the FirstName will need to be created.
+     * That method will return PersonInfoFirstName to support the next element in the sequence, so the PersonInfoFirstName will need to be created.
      * @param classWriter The classWriter of the current sequence interface.
      * @param sequenceName The name of the sequence element. Following the above example that should be firstName.
      * @param apiName The name of the API to be generated.
@@ -385,7 +385,7 @@ class XsdAsmInterfaces {
         String currentInterfaceName = interfaceNameBase + interfaceIndex;
         String addingChildName = toCamelCase(sequenceName);
 
-        generateSequenceMethod(classWriter, addingChildName, nextTypeName, className, apiName, sequenceName, currentInterfaceName, isFirst);
+        generateSequenceMethod(classWriter, getJavaType(sequenceElement.getType()), addingChildName, nextTypeName, className, apiName, sequenceName, currentInterfaceName, isFirst);
 
         createElement(sequenceElement, apiName);
     }
@@ -402,7 +402,8 @@ class XsdAsmInterfaces {
     private void createElementsForSequence(ClassWriter classWriter, String nextTypeName, String apiName, String className, boolean isFirst, String interfaceNameBase, int interfaceIndex, List<XsdElement> sequenceElements) {
         String currentInterfaceName = interfaceNameBase + interfaceIndex;
 
-        sequenceElements.stream().map(XsdNamedElements::getName).forEach(sequenceName -> generateSequenceMethod(classWriter, getCleanName(sequenceName), nextTypeName, className, apiName, sequenceName, currentInterfaceName, isFirst));
+        sequenceElements.forEach(sequenceElement ->
+                generateSequenceMethod(classWriter, getJavaType(sequenceElement.getType()), getCleanName(sequenceElement.getName()), nextTypeName, className, apiName, sequenceElement.getName(), currentInterfaceName, isFirst));
 
         sequenceElements.forEach(element -> createElement(element, apiName));
     }
@@ -426,17 +427,17 @@ class XsdAsmInterfaces {
 
         ClassWriter classWriter = generateClass(typeName, abstractElementType, nextTypeInterfaces, getClassSignature(nextTypeInterfaces, typeName, apiName), ACC_PUBLIC + ACC_SUPER, apiName);
 
-        XsdAsmElements.generateClassSpecificMethods(classWriter, typeName, apiName, abstractElementType, firstToLower(className));
+        XsdAsmElements.generateClassSpecificMethods(classWriter, typeName, className, apiName);
 
         writeClassToFile(typeName, classWriter, apiName);
     }
 
     /**
      * <xs:element name="personInfo">
-         <xs:complexType>
-             <xs:sequence>
-                <xs:element name="firstName" type="xs:string"/>
-       (...)
+     <xs:complexType>
+     <xs:sequence>
+     <xs:element name="firstName" type="xs:string"/>
+     (...)
      * Generates the method present in the sequence interface for a sequence element.
      * @param classWriter The classWriter of the sequence interface.
      * @param addingChildName The name of the child to be added. Based in the example above, it would be firstName.
@@ -446,7 +447,7 @@ class XsdAsmInterfaces {
      * @param sequenceName The name of the sequence element. Based on the above example, it would be firstName.
      * @param currentInterfaceName The name of the current interface name.
      */
-    private void generateSequenceMethod(ClassWriter classWriter, String addingChildName, String nextTypeName, String className, String apiName, String sequenceName, String currentInterfaceName, boolean isFirst) {
+    private void generateSequenceMethod(ClassWriter classWriter, String javaType, String addingChildName, String nextTypeName, String className, String apiName, String sequenceName, String currentInterfaceName, boolean isFirst) {
         String addingType = getFullClassTypeName(addingChildName, apiName);
         String interfaceType = getFullClassTypeName(currentInterfaceName, apiName);
         String nextType = getFullClassTypeName(nextTypeName, apiName);
@@ -454,22 +455,24 @@ class XsdAsmInterfaces {
 
         boolean allowsMultipleSequences = className.equals(nextTypeName);
 
+        javaType = javaType == null ? JAVA_STRING_DESC : javaType;
+
         if (allowsMultipleSequences){
-            reusableSequenceMethod(classWriter, sequenceName, interfaceType, addingType);
+            reusableSequenceMethod(classWriter, javaType, sequenceName, interfaceType, addingType);
         } else {
             if (isFirst){
-                firstRegularSequenceMethod(classWriter, className, sequenceName, interfaceType, addingType, nextType, nextTypeDesc);
+                firstRegularSequenceMethod(classWriter, javaType, className, sequenceName, interfaceType, addingType, nextType, nextTypeDesc);
             } else {
-                remainingRegularSequenceMethod(classWriter, className, sequenceName, interfaceType, addingType, nextType, nextTypeDesc);
+                remainingRegularSequenceMethod(classWriter, javaType, className, sequenceName, interfaceType, addingType, nextType, nextTypeDesc);
             }
         }
     }
 
-    private void reusableSequenceMethod(ClassWriter classWriter, String sequenceName, String interfaceType, String addingType) {
+    private void reusableSequenceMethod(ClassWriter classWriter, String javaType, String sequenceName, String interfaceType, String addingType) {
         String methodName = firstToLower(getCleanName(sequenceName));
 
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, methodName, "(" + JAVA_STRING_DESC + ")" + elementTypeDesc, "(" + JAVA_STRING_DESC + ")TZ;", null);
-        mVisitor.visitLocalVariable(methodName, JAVA_STRING_DESC, null, new Label(), new Label(),1);
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, methodName, "(" + javaType + ")" + elementTypeDesc, "(" + javaType + ")TZ;", null);
+        mVisitor.visitLocalVariable(methodName, javaType, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + elementTypeDesc, true);
@@ -479,7 +482,7 @@ class XsdAsmInterfaces {
         mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "self", "()" + elementTypeDesc, true);
         mVisitor.visitMethodInsn(INVOKESPECIAL, addingType, CONSTRUCTOR, "(" + elementTypeDesc + ")V", false);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "text", "(" + JAVA_STRING_DESC + ")" + elementTypeDesc, false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "text", "(" + JAVA_OBJECT_DESC + ")" + elementTypeDesc, false);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, true);
         mVisitor.visitInsn(POP);
         mVisitor.visitVarInsn(ALOAD, 0);
@@ -489,12 +492,11 @@ class XsdAsmInterfaces {
         mVisitor.visitEnd();
     }
 
-    private void firstRegularSequenceMethod(ClassWriter classWriter, String className, String sequenceName, String interfaceType, String addingType, String nextType, String nextTypeDesc) {
+    private void firstRegularSequenceMethod(ClassWriter classWriter, String javaType, String className, String sequenceName, String interfaceType, String addingType, String nextType, String nextTypeDesc) {
         String methodName = firstToLower(getCleanName(sequenceName));
 
-        //TODO Receber o tipo do elemento, se o tiver. Isto implica ter de mudar Text possivelmente.
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, methodName, "(" + JAVA_STRING_DESC + ")" + nextTypeDesc, "(" + JAVA_STRING_DESC + ")L" + nextType + "<TT;>;", null);
-        mVisitor.visitLocalVariable(methodName, JAVA_STRING_DESC, null, new Label(), new Label(),1);
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, methodName, "(" + javaType + ")" + nextTypeDesc, "(" + javaType + ")L" + nextType + "<TT;>;", null);
+        mVisitor.visitLocalVariable(methodName, javaType, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitTypeInsn(NEW, addingType);
@@ -503,7 +505,7 @@ class XsdAsmInterfaces {
         mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "self", "()" + elementTypeDesc, true);
         mVisitor.visitMethodInsn(INVOKESPECIAL, addingType, CONSTRUCTOR, "(" + elementTypeDesc + ")V", false);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "text", "(" + JAVA_STRING_DESC + ")" + elementTypeDesc, false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "text", "(" + JAVA_OBJECT_DESC + ")" + elementTypeDesc, false);
         mVisitor.visitTypeInsn(CHECKCAST, addingType);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, true);
         mVisitor.visitInsn(POP);
@@ -528,12 +530,11 @@ class XsdAsmInterfaces {
         mVisitor.visitEnd();
     }
 
-    private void remainingRegularSequenceMethod(ClassWriter classWriter, String className, String sequenceName, String interfaceType, String addingType, String nextType, String nextTypeDesc) {
+    private void remainingRegularSequenceMethod(ClassWriter classWriter, String javaType, String className, String sequenceName, String interfaceType, String addingType, String nextType, String nextTypeDesc) {
         String methodName = firstToLower(getCleanName(sequenceName));
 
-        //TODO Receber o tipo do elemento, se o tiver. Isto implica ter de mudar Text possivelmente.
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, methodName, "(" + JAVA_STRING_DESC + ")" + nextTypeDesc, "(" + JAVA_STRING_DESC + ")L" + nextType + "<TZ;>;", null);
-        mVisitor.visitLocalVariable(methodName, JAVA_STRING_DESC, null, new Label(), new Label(),1);
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, methodName, "(" + javaType + ")" + nextTypeDesc, "(" + javaType + ")L" + nextType + "<TZ;>;", null);
+        mVisitor.visitLocalVariable(methodName, javaType, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + elementTypeDesc, true);
@@ -543,7 +544,7 @@ class XsdAsmInterfaces {
         mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "self", "()" + elementTypeDesc, true);
         mVisitor.visitMethodInsn(INVOKESPECIAL, addingType, CONSTRUCTOR, "(" + elementTypeDesc + ")V", false);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "text", "(" + JAVA_STRING_DESC + ")" + elementTypeDesc, false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "text", "(" + JAVA_OBJECT_DESC + ")" + elementTypeDesc, false);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, true);
         mVisitor.visitInsn(POP);
         mVisitor.visitTypeInsn(NEW, nextType);
@@ -702,7 +703,7 @@ class XsdAsmInterfaces {
         });
 
         ambiguousMethods.forEach(ambiguousMethod ->
-            XsdAsmElements.generateMethodsForElement(classWriter, ambiguousMethod.getMethodName(), interfaceType, elementTypeDesc, apiName, new String[]{"Ljava/lang/Override;"})
+                XsdAsmElements.generateMethodsForElement(classWriter, ambiguousMethod.getMethodName(), interfaceType, elementTypeDesc, apiName, new String[]{"Ljava/lang/Override;"})
         );
 
         writeClassToFile(interfaceName, classWriter, apiName);

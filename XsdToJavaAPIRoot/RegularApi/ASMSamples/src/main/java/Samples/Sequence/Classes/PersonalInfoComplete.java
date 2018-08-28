@@ -2,12 +2,13 @@ package Samples.Sequence.Classes;
 
 import Samples.HTML.AbstractElement;
 import Samples.HTML.Element;
+import Samples.HTML.TextGroup;
 import Samples.HTML.Visitor;
 
-public class PersonalInfoComplete<P extends Element> extends AbstractElement<PersonalInfoComplete<P>, P> {
+public class PersonalInfoComplete<P extends Element> extends AbstractElement<PersonalInfoComplete<P>, P>  implements TextGroup<PersonalInfoComplete<P>, P> {
 
-    public PersonalInfoComplete(P parent, String personalInfo) {
-        super(parent, personalInfo);
+    public PersonalInfoComplete(P parent) {
+        super(parent, "personalInfo");
     }
 
     @Override
@@ -24,4 +25,6 @@ public class PersonalInfoComplete<P extends Element> extends AbstractElement<Per
     public PersonalInfoComplete<P> cloneElem() {
         return null;
     }
+
+
 }

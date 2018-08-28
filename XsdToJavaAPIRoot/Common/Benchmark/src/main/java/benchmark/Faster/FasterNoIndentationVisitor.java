@@ -9,7 +9,7 @@ public class FasterNoIndentationVisitor extends ElementVisitor {
     private StringBuilder stringBuilder = new StringBuilder();
 
     @Override
-    public void visit(Element elem) {
+    public void visitElement(String elementName) {
         int length = stringBuilder.length() - 1;
 
         if (length != -1){
@@ -26,24 +26,24 @@ public class FasterNoIndentationVisitor extends ElementVisitor {
             }
         }
 
-        doTabs();
-        stringBuilder.append('<').append(elem.getName());
+        //doTabs();
+        stringBuilder.append('<').append(elementName);
         ++tabCount;
     }
 
     private void doTabs() {
         for (int i = 0; i < tabCount; i++) {
-            stringBuilder.append('\t');
+            stringBuilder.append("\t");
         }
     }
 
     @Override
-    public void visit(Attribute attribute) {
-        stringBuilder.append(' ').append(attribute.getName()).append("=\"").append(attribute.getValue()).append('\"');
+    public void visitAttribute(String attributeName, String attributeValue) {
+        stringBuilder.append(' ').append(attributeName).append("=\"").append(attributeValue).append('\"');
     }
 
     @Override
-    public void visitParent(Element element) {
+    public void visitParent(String elementName) {
         char lastChar = stringBuilder.charAt(stringBuilder.length() - 1);
 
         if (lastChar != '\n' && lastChar != '>'){
@@ -55,39 +55,29 @@ public class FasterNoIndentationVisitor extends ElementVisitor {
         }
 
         --tabCount;
-        doTabs();
-        stringBuilder.append("</").append(element.getName()).append('>');
+        //doTabs();
+        stringBuilder.append("</").append(elementName).append('>');
     }
 
-    public String getResult(Element x){
-        while (!(x instanceof org.xmlet.html.Html) ){
-            x = x.º();
-        }
-
-        x.º();
-
+    String getResult(){
         return stringBuilder.toString();
     }
 
     @Override
-    public void visit(Text text){
-        String textValue = text.getValue();
-
-        if (textValue != null){
+    public <R> void visitText(R text){
+        if (text != null){
             stringBuilder.append(">\n");
-            doTabs();
-            stringBuilder.append(textValue).append('\n');
+            //doTabs();
+            stringBuilder.append(text).append('\n');
         }
     }
 
     @Override
-    public void visit(Comment comment){
-        String textValue = comment.getValue();
-
-        if (textValue != null){
+    public <R> void visitComment(R comment){
+        if (comment != null){
             stringBuilder.append(">\n");
-            doTabs();
-            stringBuilder.append("<!-- ").append(textValue).append(" -->\n");
+            //doTabs();
+            stringBuilder.append("<!-- ").append(comment).append(" -->\n");
         }
     }
 }

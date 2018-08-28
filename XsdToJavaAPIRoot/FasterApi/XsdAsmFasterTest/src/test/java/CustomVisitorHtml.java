@@ -1,5 +1,4 @@
-import org.xmlet.htmlFaster.*;
-import org.xmlet.xsdasmfaster.classes.infrastructure.ElementVisitor;
+import org.xmlet.htmlFaster.ElementVisitor;
 
 @SuppressWarnings("Duplicates")
 public class CustomVisitorHtml extends ElementVisitor {
@@ -63,7 +62,7 @@ public class CustomVisitorHtml extends ElementVisitor {
     }
 
     @Override
-    public void visitText(String text){
+    public <R> void visitText(R text){
         if (text != null){
             stringBuilder.append(">\n");
             doTabs();
@@ -72,7 +71,7 @@ public class CustomVisitorHtml extends ElementVisitor {
     }
 
     @Override
-    public void visitComment(String comment){
+    public <R> void visitComment(R comment){
         if (comment != null){
             stringBuilder.append(">\n");
             doTabs();

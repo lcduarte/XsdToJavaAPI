@@ -1,6 +1,6 @@
 package org.xmlet.htmlapitest.utils;
 
-import org.xmlet.htmlapifaster.*;
+import org.xmlet.htmlapifaster.ElementVisitor;
 
 public class CustomVisitor extends ElementVisitor {
 
@@ -68,18 +68,12 @@ public class CustomVisitor extends ElementVisitor {
         }
     }
 
-    public String getResult(Element x){
-        while (!(x instanceof Html) ){
-            x = x.º();
-        }
-
-        x.º();
-
+    public String getResult(){
         return stringBuilder.toString();
     }
 
     @Override
-    public void visitText(String text){
+    public <R> void visitText(R text){
         if (text != null){
             stringBuilder.append(">\n");
             doTabs();
@@ -88,7 +82,7 @@ public class CustomVisitor extends ElementVisitor {
     }
 
     @Override
-    public void visitComment(String comment){
+    public <R> void visitComment(R comment){
         if (comment != null){
             stringBuilder.append(">\n");
             doTabs();

@@ -14,10 +14,6 @@
     </properties>
 
     <modules>
-        <module>XsdAsmStatic</module>
-        <module>XsdAsmStaticTest</module>
-        <module>HtmlApiStatic</module>
-        <module>HtmlApiStaticTest</module>
         <module>ASMSamples</module>
     </modules>
 </project>

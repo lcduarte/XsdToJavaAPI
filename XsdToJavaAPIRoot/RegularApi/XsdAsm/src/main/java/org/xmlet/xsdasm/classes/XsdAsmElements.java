@@ -33,7 +33,7 @@ class XsdAsmElements {
 
         ClassWriter classWriter = generateClass(className, superType, interfaces, signature,ACC_PUBLIC + ACC_SUPER, apiName);
 
-        generateClassSpecificMethods(classWriter, className, apiName, superType, null);
+        generateClassSpecificMethods(classWriter, className, apiName);
 
         getOwnAttributes(element).forEach(elementAttribute -> generateMethodsAndCreateAttribute(createdAttributes, classWriter, elementAttribute, getFullClassTypeNameDesc(className, apiName), className, apiName));
 
@@ -47,18 +47,29 @@ class XsdAsmElements {
      * An implementation of the self method, which should return this.
      * @param classWriter The class writer on which should be written the methods.
      * @param className The class name.
-     * @param defaultName The defaultName for this element.
      */
-    static void generateClassSpecificMethods(ClassWriter classWriter, String className, String apiName, String superType, String defaultName) {
-        String classType = getFullClassTypeName(className, apiName);
-        String classTypeDesc = getFullClassTypeNameDesc(className, apiName);
-        String name = defaultName != null ? defaultName : firstToLower(className);
+    private static void generateClassSpecificMethods(ClassWriter classWriter, String className, String apiName) {
+        generateClassSpecificMethods(classWriter, className, className, apiName);
+    }
+
+    /**
+     * Creates some class specific methods that all implementations of AbstractElement should have, which are:
+     * A constructor with a String parameter, which is it will create a Text attribute in the created element.
+     * A constructor with two String parameters, the first being the value of the Text attribute, and the second being a value for its id.
+     * An implementation of the self method, which should return this.
+     * @param classWriter The class writer on which should be written the methods.
+     * @param className The class name.
+     */
+    static void generateClassSpecificMethods(ClassWriter classWriter, String typeName, String className, String apiName) {
+        String classType = getFullClassTypeName(typeName, apiName);
+        String classTypeDesc = getFullClassTypeNameDesc(typeName, apiName);
+        String name = firstToLower(className);
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "()V", null, null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitLdcInsn(name);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, abstractElementType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(2, 1);
         mVisitor.visitEnd();
@@ -68,7 +79,7 @@ class XsdAsmElements {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, abstractElementType, CONSTRUCTOR, "(" + JAVA_STRING_DESC + ")V", false);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
@@ -79,7 +90,7 @@ class XsdAsmElements {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitLdcInsn(name);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(" + elementTypeDesc + "" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, abstractElementType, CONSTRUCTOR, "(" + elementTypeDesc + "" + JAVA_STRING_DESC + ")V", false);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(3, 2);
         mVisitor.visitEnd();
@@ -91,7 +102,7 @@ class XsdAsmElements {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitVarInsn(ALOAD, 2);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, superType, CONSTRUCTOR, "(" + elementTypeDesc + "" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, abstractElementType, CONSTRUCTOR, "(" + elementTypeDesc + "" + JAVA_STRING_DESC + ")V", false);
         mVisitor.visitInsn(RETURN);
         mVisitor.visitMaxs(3, 3);
         mVisitor.visitEnd();

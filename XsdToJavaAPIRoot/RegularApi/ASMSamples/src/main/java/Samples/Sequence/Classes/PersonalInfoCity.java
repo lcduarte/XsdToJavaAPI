@@ -2,13 +2,13 @@ package Samples.Sequence.Classes;
 
 import Samples.HTML.AbstractElement;
 import Samples.HTML.Element;
+import Samples.HTML.TextGroup;
 import Samples.HTML.Visitor;
-import Samples.Sequence.Interfaces.PersonalInfoSequence5;
 
-public class PersonalInfoCity<P extends Element> extends AbstractElement<PersonalInfoCity<P>, P> implements PersonalInfoSequence5<PersonalInfoCity<P>, P> {
+public class PersonalInfoCity<P extends Element> extends AbstractElement<PersonalInfoCity<P>, P> implements TextGroup<PersonalInfoCity<P>, P> {
 
-    public PersonalInfoCity(P parent, String personalInfo) {
-        super(parent, personalInfo);
+    public PersonalInfoCity(P parent) {
+        super(parent, "personalInfo");
     }
 
     @Override
@@ -25,5 +25,13 @@ public class PersonalInfoCity<P extends Element> extends AbstractElement<Persona
     public PersonalInfoCity<P> cloneElem() {
         return null;
     }
+
+    public PersonalInfoComplete<P> country(String value){
+        parent.addChild(new Country<>(parent).text(value));
+        PersonalInfoComplete<P> var = new PersonalInfoComplete<>(parent);
+        this.getChildren().forEach(var::addChild);
+        return var;
+    }
+
 }
 
