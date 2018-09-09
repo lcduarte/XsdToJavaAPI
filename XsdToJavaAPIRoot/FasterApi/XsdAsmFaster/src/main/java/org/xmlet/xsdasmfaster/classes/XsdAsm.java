@@ -2,7 +2,6 @@ package org.xmlet.xsdasmfaster.classes;
 
 import org.xmlet.xsdparser.xsdelements.XsdAttribute;
 import org.xmlet.xsdparser.xsdelements.XsdElement;
-import org.xmlet.xsdparser.xsdelements.XsdNamedElements;
 
 import java.util.ArrayList;
 import java.util.HashMap;

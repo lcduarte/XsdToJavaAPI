@@ -28,25 +28,22 @@ class XsdSupportingStructure {
     static final String ENUM_INTERFACE = "EnumInterface";
     static final String ATTRIBUTE_PREFIX = "Attr";
 
-    static String elementType;// = "org/xmlet/xsdasmfaster/classes/infrastructure/Element";
-    static String elementTypeDesc;// = "Lorg/xmlet/xsdasmfaster/classes/infrastructure/Element;";
+    static String elementType;
+    static String elementTypeDesc;
     static String restrictionValidatorType = "org/xmlet/xsdasmfaster/classes/infrastructure/RestrictionValidator";
-    static String elementVisitorType;// = "org/xmlet/xsdasmfaster/classes/infrastructure/ElementVisitor";
-    static String elementVisitorTypeDesc;// = "Lorg/xmlet/xsdasmfaster/classes/infrastructure/ElementVisitor;";
+    static String elementVisitorType;
+    static String elementVisitorTypeDesc;
     static String enumInterfaceType = "org/xmlet/xsdasmfaster/classes/infrastructure/EnumInterface";
-    private static String customAttributeGroupType;// = "org/xmlet/xsdasmfaster/classes/infrastructure/EnumInterface";
-    private static String textGroupType;// = "org/xmlet/xsdasmfaster/classes/infrastructure/TextGroup";
+    private static String customAttributeGroupType;
+    private static String textGroupType;
 
     static Map<String, String> infrastructureVars;
 
     static {
         infrastructureVars = new HashMap<>();
 
-        //infrastructureVars.put(ELEMENT, elementType);
-        //infrastructureVars.put(TEXT_GROUP, "org/xmlet/xsdasmfaster/classes/infrastructure/TextGroup");
         infrastructureVars.put(RESTRICTION_VALIDATOR, restrictionValidatorType);
         infrastructureVars.put(RESTRICTION_VIOLATION_EXCEPTION, "org/xmlet/xsdasmfaster/classes/infrastructure/RestrictionViolationException");
-        //infrastructureVars.put(ELEMENT_VISITOR, elementVisitorType);
         infrastructureVars.put(ENUM_INTERFACE, enumInterfaceType);
     }
 

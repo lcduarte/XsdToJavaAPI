@@ -1,38 +1,40 @@
 \chapter{State of Art}
 \label{cha:stateofart}
 
-This chapter is obsolete. Needs to be rewritten.
-
-In this chapter we are going to introduce the \ac{XSD} language in order to provide a better understanding of the next chapters and also introduce some tools that were discovered during the development of this dissertation. 
+In this chapter we are going to introduce the the technologies used in the development of this work, such as the \ac{XSD} language in order to provide a better understanding of the next chapters, and also introduce the latest solutions that try to achieve objectives similar to this work. 
 
 \section{XSD Language} % (fold)
 \label{sec:xsd}
 
-The \ac{XSD} language is a description of a type of \ac{XML} document. Its purpose is to create a set of rules and constraints that a given type of \ac{XML} document must follow in order to be considered valid. These rules are meant to create a contract on the type of information contained in the \ac{XML} documents, apart from having well formed \ac{XML}. To describe the rules and restrictions for a given \ac{XML} document the \ac{XSD} language relies on two types of data, elements and attributes. Elements are the most complex data type, they can contain other elements as children and can also have attributes. Attributes on the other hand are just pairs of information, defined by their name and their value. The value of a given attribute can be then restricted by multiple constraints existing on the language. There are multiple elements and attributes present in the \ac{XSD} language, which are specified at \href{http://www.datypic.com/sc/xsd/s-xmlschema.xsd.html}{XSD Schema}. In this dissertation we will use the set of rules and restrictions of the \ac{XSD} files provided to build a fluent \ac{API} that will enforce the rules and restrictions specified by the given file.
+The \ac{XSD} language is a description of a type of \ac{XML} document. The \ac{XSD} syntax allows for the definition of a set of rules, elements and attributes that together define an external \ac{DSL}. This specific language defined in a \ac{XSD} document aims to solve a specific issue, with its rules serving as a contract between application regarding the information contained in the \ac{XML} files that represent information of that specific language. The \ac{XSD} main usage is to validate \ac{XML} documents, if the \ac{XML} document follows the rules specified in the \ac{XSD} document then the \ac{XML} file is considered valid otherwise it's not. To describe the rules and restrictions for a given \ac{XML} document the \ac{XSD} language relies on two main types of data, elements and attributes. Elements are the most complex data type, they can contain other elements as children and can also have attributes. Attributes on the other hand are just pairs of information, defined by their name and their value. The value of a given attribute can be then restricted by multiple constraints existing on the \ac{XSD} syntax. There are multiple elements and attributes present in the \ac{XSD} language, which are specified in the \ac{XSD} Schema rules\cite{xsdrules}. In this dissertation we will use the set of rules and restrictions of the provided \ac{XSD} documents to build a fluent interface that will enforce the rules and restrictions specified by the given file.
 
-\section{Template Engines}
-\label{sec:templateengines}
+\section{Type Safe Template Engines}
+\label{sec:typesafetemplateengines}
 
-Templates engines are systems based on template files. A template file contains two types of information:
+We have already presented the idea behind template engines in the Section \ref{sec:templateengines} and their handicaps in Section  \ref{subsec:templateenginehandicaps}, but here we are going to present some recent innovations that some template engines introduced in order to remove or minimize some of the problems listed previously.
 
-\begin{enumerate}
-\item Static - This information doesn't change and should always be present.
-\item Dynamic - This information depends on external input.
-\end{enumerate}
+\subsection{KotlinX}
+\label{sec:kotlinx}
 
-\noindent
-By using template files, the template engines are able to separate the presentation aspect of a given project from its business logic. This is usually important since by having these aspects separated posterior changes to the visual presentation will be implemented faster since there are very few dependencies between the project different layers. By using this approach template engines benefit on the following points:
-
-\begin{enumerate}
-\item Performance - By reusing the template files the engine avoids repetitive tasks.
-\item Deployment Speed - It becomes easier to create new outputs, such as new web pages, fill a document, etc.
-\end{enumerate}
+Kotlin\footnote{\href{https://kotlinlang.org/}{Kotlin}} is a programming language that runs on the \ac{JVM}. The language main objective is to create an inter-operative language between Java, Android and browser applications. Its syntax is not compatible to the standard Java syntax the \ac{JVM} implementation of the Kotlin library allows interoperability between both languages. The main reasons to use this language is that it heavily reduces the verbose needed to create code by using type inference and other techniques. 
 
 \noindent
-Template engines have been around for a long time, such as \ac{JSP}\footnote{\href{http://www.oracle.com/technetwork/java/javaee/jsp/index.html} {JavaServer Pages}} used with the Java language back in 1999, but gained a new significance with its application on the world of Web technologies. Multiple solutions have appeared that run the substitution process either on the client side of the web sites or all the way on the server side. 
+Kotlin is relevant to this project since one of his children projects, KotlinX, defines a \ac{DSL} for the \ac{HTML} language. The solution KotlinX provides is quite similar to what the \texttt{xmlet} will provide in its use case. 
+
+\begin{itemize}
+	\item Elements - The generated Kotlin \ac{DSL} will guarantee that each element only contains the elements and attributes allowed as stated in the \ac{HTML}5 \ac{XSD} document. This is achieved by using type inference and the language compiler.
+	\item Attributes - The possible values for restricted attributes values aren't verified.
+	\item Template - The template is embedded within the Kotlin language, removing the textual template files.
+	\item Flexibility - Allows the usage of the Kotlin syntax to define templates, which is richer than the regular template engine syntax.
+	\item Complexity - Removes the three languages used in the process, the programmer only programs in Kotlin.
+\end{itemize}
 
 \noindent
-In the Sections \ref{sec:j2html} and \ref{sec:apachevelocity} we introduce two solutions, J2html and Apache Velocity, which may be used in a similar way to \texttt{xmlet}.
+KotlinX\footnote{\href{https://github.com/Kotlin/kotlinx.coroutines}{KotlinX}} is probably the solution which resembles the \texttt{xmlet} solution the most. The only difference is that the \texttt{xmlet} solution takes advantage of the attributes restrictions present in the \ac{XSD} document in order to increase the verifications that are performed on the \ac{HTML} documents that are generated by the generated fluent interfaces. Both solutions also use the Visitor pattern in order to abstract themselves from the concrete usage of the \ac{DSL}.
+
+\subsection{Handlebars}
+\label{sec:handlebars}
+
 
 \subsection{Xmlet Similarities}
 \label{sec:similarities}
@@ -49,7 +51,50 @@ Even though \texttt{xmlet} doesn't aim to be a template engine, both technologie
 
 J2html\footnote{\href{https://j2html.com/}{J2html}} is a Java library used to write \ac{HTML}, a very similar solution to the used case presented in Section \ref{sec:usecase}. The main difference between the two solutions are that the J2html does not verify the specification rules of the \ac{HTML} language either at compile time or at runtime. This library also shows that the issue we are trying to solve with this dissertation is relevant since this library has quite a few forks and watchers on their github page\footnote{\href{https://github.com/tipsy/j2html}{J2html Github Page}}. In Chapter \ref{cha:deployment} we will present some performance tests to verify if our solution is more efficient at writing \ac{HTML}. 
 
+\iffalse
+\noindent
+The solutions that existed prior to this dissertation were already aiming to solve some of those handicaps. We had two different solutions, J2html\footnote{\href{https://j2html.com/}{J2html}}, which is a solution that removes the necessity of text files to define the templates and using some Java instructions to replace the syntax provided by template engines. J2html however did not guaranteed that the language rules were being followed while creating the documents and is only designed to work for \ac{HTML}. The second solution, HtmlFlow\footnote{\href{https://github.com/xmlet/HtmlFlow}{HtmlFlow}} removed the necessity of text files to define the templates and also used the Java syntax to manipulate the templates. HtmlFlow had already implemented some restrictions of the \ac{HTML} language manually but only supported a few core \ac{HTML} elements, since recreating all the \ac{HTML} elements and their restrictions manually is very time consuming. Both of theses solutions had also problems regarding maintainability, if any change was needed it had to be performed manually. 
+
+\noindent
+While both these solutions were a step in the right direction some aspects became clear, we needed to create a process that could automatically create a fluent \ac{API} based on the set of rules of a given language. The generated \ac{API}s should take advantage of the Java language compiler to enforce the language restrictions and use its syntax to generate templates without having the need to create templates in text files.
+\fi
+
 \subsection{Apache Velocity} % (fold)
 \label{sec:apachevelocity}
 
 Apache Velocity\footnote{\href{http://velocity.apache.org/}{Apache Velocity}} is a template engine that we discovered through J2html. Even though the  \texttt{xmlet} solution doesn't define itself as a template engine it can also be used to such extent. Since the template engines are based on a template file, with some sort of code embedded in the language (\ac{HTML} for example) the same result can be obtained by using the solution presented in this project. This solution improves the template engine solutions by allowing the users to define the exact same aspects defined in the template files directly into code, allowing the verification of the "template" at compile time by the language compiler. This reduces the overall complexity by removing possible errors in the template files and removing the necessity to separate template files and actual application code, while enforcing the language specification. In Chapter \ref{cha:deployment} we will also compare this solution with the J2html and the \texttt{xmlet} solution.
+
+
+
+
+
+
+\iffalse
+Divisão:
+	Código Estático - Classes, interfaces geradas.
+	Código Variável - Como é que se vai manipular a linguagem gerada (Exemplo, o HTML que se escreve).
+Como é que isto tudo acaba por ser um type safe template engine
+	
+* Caracterizar uma DSL para HTML nas propriedades descritas.
+* Conduzir o texto até concluir que uma DSL para HTML pode funcionar como um Type Safe Template Engine.
+Outras linguagens strongly-typed que oferecem DSL para HTML
+* KotlinX - Kotlin DSL for HTML 
+		--------------------------> Ler sobre KotlinX
+
+(Ver onde/se encaixa aqui a section scope.)
+
+############## 1.3. Secção Type Safe Template Engines
+
+* Resolver parte de um dos problemas: Verificação em Tempo de compilação.
+* Listar em bullets algumas das verificações que podem ser feitas: 1. objecto de contexto, 2. documento bem
+formado, 3. que os elementos html são válidos, etc.
+
+* Detalhar o que acontece quando é passado à view um objecto de contexto que não tem todas as propriedades requeridas.
+* Exemplo do Handlebars Type Safe garante que o objecto de contexto passado ao template tem todas as
+propriedades necessárias, garantindo assim a existência de uma verificação em Compile Time.         
+		-------------------------> Ler sobre Handlebars Type Safe.           
+* Depois introduzir o j2Html e o htmlFlow como indo mais longe garantindo “safety” em mais aspectos.
+* No final da secção uma tabela relacionando os 3 templates (handlebars type safe, j2html e htmlFlow) com as
+verificações e colcoar X ou V nos sítios que cada um garante ou não.
+* Terminar com o HtmlFlow é só o mais rápido.
+\fi

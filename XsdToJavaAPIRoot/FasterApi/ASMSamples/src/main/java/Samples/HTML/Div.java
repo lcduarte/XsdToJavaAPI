@@ -26,7 +26,9 @@ public final class Div<P extends Element> implements CommonAttributeGroup<Div<P>
     }
 
     public final Div<P> of(Consumer<Div<P>> consumer){
+        visitor.visitOpenDynamic();
         consumer.accept(this);
+        visitor.visitCloseDynamic();
         return this;
     }
 

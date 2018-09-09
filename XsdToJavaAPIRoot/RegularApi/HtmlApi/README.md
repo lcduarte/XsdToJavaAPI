@@ -135,7 +135,7 @@ public class ConsoleVisitor<R> extends AbstractElementVisitor<R> {
     A more complete example of a Visitor can be checked at:
     <br />
     <br />
-    <a href="https://github.com/xmlet/HtmlApiTest/blob/master/src/test/java/org/xmlet/htmlapitest/Utils/CustomVisitorHtml.java">Visitor full example</a>
+    <a href="https://github.com/xmlet/HtmlApiTest/blob/master/src/test/java/org/xmlet/htmlapitest/Utils/CustomVisitor.java">Visitor full example</a>
 </div>
 
 ### Element binding

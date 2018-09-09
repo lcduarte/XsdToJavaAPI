@@ -3,7 +3,7 @@ import org.xmlet.html.*;
 import java.util.List;
 
 @SuppressWarnings("Duplicates")
-public class CustomVisitorHtml<R> implements ElementVisitor<R> {
+public class CustomVisitorHtml<R> extends ElementVisitor<R> {
 
     private R model;
     private StringBuilder stringBuilder = new StringBuilder();

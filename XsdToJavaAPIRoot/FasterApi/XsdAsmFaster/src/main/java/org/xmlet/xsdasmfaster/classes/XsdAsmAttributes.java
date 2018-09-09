@@ -27,6 +27,7 @@ class XsdAsmAttributes {
 
         adjustmentsMapper.put("Ljava/lang/Integer;", XsdAsmAttributes::intAdjustment);
         adjustmentsMapper.put("Ljava/lang/Float;", XsdAsmAttributes::floatAdjustment);
+        adjustmentsMapper.put("Ljava/lang/Long;", XsdAsmAttributes::longAdjustment);
         adjustmentsMapper.put("Ljava/lang/Short;", XsdAsmAttributes::shortAdjustment);
     }
 
@@ -273,6 +274,10 @@ class XsdAsmAttributes {
 
     private static void shortAdjustment(MethodVisitor mVisitor) {
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Short", "doubleValue", "()D", false);
+    }
+
+    private static void longAdjustment(MethodVisitor mVisitor) {
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Long", "doubleValue", "()D", false);
     }
 
     private static void doubleAdjustment(MethodVisitor mVisitor) {

@@ -3,11 +3,11 @@
 
 \sloppy
 
-This chapter will present the \texttt{xmlet} solution, its different components and how they interact between them. Generating a Java \ac{API} based on a \ac{XSD} file includes two distinct tasks:
+This chapter will present the \texttt{xmlet} solution, its different components and how they interact between them. Generating a Java fluent interface based on a \ac{XSD} file includes two distinct tasks:
 
 \begin{enumerate}
 \item Parsing the information from the \ac{XSD} file;
-\item Generating the \ac{API} based on the resulting information of the previous task.
+\item Generating the fluent interface classes based on the resulting information of the previous task.
 \end{enumerate}
 
 \noindent
@@ -20,12 +20,13 @@ XsdParser is a library that parses a \ac{XSD} file into a list of Java objects. 
 
 \bigskip
 
-\lstset{language=java, morekeywords={XsdAppInfo, XsdDocumentation, ArrayList, List, XsdIdentifierElements, Document, parse, getFirstChild, getChildNodes, NodeList, DocumentBuilderFactory, DocumentBuilder, newInstance, newDocumentBuilder}}
+\lstset{language=java, morekeywords={XsdAppInfo, XsdDocumentation, ArrayList, List, XsdIdentifierElements, Document, parse, getFirstChild, getChildNodes, NodeList, DocumentBuilderFactory, DocumentBuilder, newInstance, newDocumentBuilder, String}}
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={XsdAnnotation class (Simplified)}, label={lst:xsdannotationexample}]
-public class XsdAnnotation extends XsdIdentifierElements {
-    //The id field is inherited from XsdIdentifierElements.
+public class XsdAnnotation extends XsdAbstractElement {
+
+    private String id;
     private List<XsdAppInfo> appInfoList = new ArrayList<>();
     private List<XsdDocumentation> documentations = new ArrayList<>();
     
@@ -66,7 +67,7 @@ private Node getSchemaNode(String filePath)
 \noindent
 After obtaining the root node of the \ac{XSD} file the XsdParser verifies if that node is a \texttt{XsdSchema} node as shown in Listing \ref{lst:nodeparsingprocess}. If that is the case it proceeds by performing the \texttt{parse} function of the \texttt{XsdSchema} class.  
 
-\medskip
+\bigskip
 
 \lstset{language=Java, morekeywords={stream, filter, map, forEach, apply, add, getNodeType, getNodeName, get, Node, getSchemaNode, isXsdSchema, XsdSchema, parse}}
 
@@ -81,42 +82,63 @@ if (isXsdSchema(schemaNode)){
 \end{minipage}
 
 \noindent
-The \texttt{XsdSchema} element \texttt{parse} function converts the \texttt{Node} attributes into a \texttt{Map} object, which \texttt{XsdSchema} receives in the constructor. Each class extracts their field information from that \texttt{Map} object in their \texttt{setFields} method (Listing \ref{lst:xsdschemaparsing}). 
+The \texttt{XsdSchema} element \texttt{parse} function converts the \texttt{Node} attributes into a \texttt{Map} object, which \texttt{XsdSchema} receives in the constructor. Each class extracts their field information from that \texttt{Map} object in their \texttt{setFields} method (Listing \ref{lst:xsdschemaparsing}). To guarantee that the information parsed by the classes is valid according to the rules in the \ac{XSD} language standard there are multiple validations. To validate the possible values for any given attribute, e.g. the \texttt{formDefault} attribute from the \texttt{xsd:schema} element, we use \texttt{Enum} classes. Any parsed value that is meant to be assigned to one of this \texttt{Enum} variables has its content verified to assert if the received value belongs to the possible values for that attribute. 
 
-\lstset{language=Java, morekeywords={getOrDefault, NamedNodeMap, Map, String, getAttributes, convertNodeMap, XsdSchema, XsdParser, ELEMENT_FORM_DEFAULT, ATTRIBUTE_FORM_DEFAULT, BLOCK_DEFAULT, FINAL_DEFAULT, TARGET_NAMESPACE, VERSION, XMLNS, @Override, XsdAnnotatedElements}}
+\bigskip
 
-\begin{minipage}{\linewidth}
+\lstset{language=Java, morekeywords={getOrDefault, NamedNodeMap, Map, String, getAttributes, convertNodeMap, XsdSchema, XsdParser, ELEMENT_FORM_DEFAULT, ATTRIBUTE_FORM_DEFAULT, BLOCK_DEFAULT, FINAL_DEFAULT, TARGET_NAMESPACE, VERSION, XMLNS, @Override, XsdAnnotatedElements, EnumUtils, belongsToEnum, FormEnum, UNQUALIFIED, getValue, DEFAULT, BlockFinalEnum, FinalDefaultEnum, Node}}
+
 \begin{lstlisting}[caption={XsdSchema Information Extraction (Simplified)},captionpos=b,label={lst:xsdschemaparsing}]
 public class XsdSchema extends XsdAnnotatedElements {
     private XsdSchema(XsdParser parser, Map<String, String> fieldsMap){
         super(parser, fieldsMap);
     }
+    
     @Override
     public void setFields(Map<String, String> fieldsMap) {
         super.setFields(fieldsMap);
 
-        this.attributeFormDefault = fieldsMap.getOrDefault(ATTRIBUTE_FORM_DEFAULT, "unqualified");
-        this.elementFormDefault = fieldsMap.getOrDefault(ELEMENT_FORM_DEFAULT, "unqualified");
-        this.blockDefault = fieldsMap.getOrDefault(BLOCK_DEFAULT, "");
-        this.finalDefault = fieldsMap.getOrDefault(FINAL_DEFAULT, "");
-        this.targetNamespace = fieldsMap.getOrDefault(TARGET_NAMESPACE, targetNamespace);
-        this.version = fieldsMap.getOrDefault(VERSION, version);
-        this.xmlns = fieldsMap.getOrDefault(XMLNS, xmlns);
+        this.attributeFormDefault = 
+        	EnumUtils.belongsToEnum(FormEnum.UNQUALIFIED, 				
+        		elementFieldsMap.getOrDefault(ATTRIBUTE_FORM_DEFAULT, 
+        			FormEnum.UNQUALIFIED.getValue()));
+        this.elementFormDefault = 			 
+        	EnumUtils.belongsToEnum(FormEnum.UNQUALIFIED, 		
+        		elementFieldsMap.getOrDefault(ELEMENT_FORM_DEFAULT, 	
+        			FormEnum.UNQUALIFIED.getValue()));
+        this.blockDefault = 		
+        	EnumUtils.belongsToEnum(BlockFinalEnum.DEFAULT, 		
+        		elementFieldsMap.getOrDefault(BLOCK_DEFAULT, 	
+        			BlockFinalEnum.DEFAULT.getValue()));
+        this.finalDefault = 
+        	EnumUtils.belongsToEnum(FinalDefaultEnum.DEFAULT, 
+        		elementFieldsMap.getOrDefault(FINAL_DEFAULT, 
+        			FinalDefaultEnum.DEFAULT.getValue()));
+        this.targetNamespace = 
+        	elementFieldsMap.getOrDefault(TARGET_NAMESPACE, targetNamespace);
+        this.version = elementFieldsMap.getOrDefault(VERSION, version);
+        this.xmlns = elementFieldsMap.getOrDefault(XMLNS, xmlns);
     }
     
     public static ReferenceBase parse(XsdParser parser, Node node) {
         NamedNodeMap nodeAttributes = node.getAttributes();
         Map<String, String> attrMap = convertNodeMap(nodeAttributes);        
-        XsdSchema schema = new XsdSchema(parser, attrMap);    
     
-        return xsdParseSkeleton(node, schema);
+        return xsdParseSkeleton(node, new XsdSchema(parser, attrMap));
     }
 }
 \end{lstlisting}
-\end{minipage}
 
 \noindent
-The parsing of the \texttt{XsdSchema} continues by parsing its children nodes. To parse children elements of any given \texttt{XsdAbstractElement} type we have the \texttt{xsdParseSkeleton} function present in the \texttt{XsdAbstractElement} class (Listing \ref{lst:skeletonfunction}). This function will iterate in all the children of a given node, invoke the respective \texttt{parse} function of each children and then notify the parent element, using the Visitor pattern, so that the parent can perform the changes needed based on the type of element received. By using this strategy just by invoking the \texttt{parse} function of \texttt{XsdSchema}, which is the top element of all the \ac{XSD} files, we effectively parse the whole document since each \texttt{parse} function of any \texttt{XsdAsbtractElement} concrete type also invokes the \texttt{xsdParseSkeleton} function, which parses all the children.
+The parsing of the \texttt{XsdSchema} continues by parsing its children nodes. To parse children elements of any given \texttt{XsdAbstractElement} type we have the \texttt{xsdParseSkeleton} function present in the \texttt{XsdAbstractElement} class (Listing \ref{lst:skeletonfunction}). This function will iterate in all the children of a given node, invoke the respective \texttt{parse} function of each children and then notify the parent element, using the Visitor pattern\cite{gamma1994design}. 
+
+\noindent
+In the XsdParser the Visitor pattern is used to ensure that each concrete element defines different behaviours for different types of children. This provides good flexibility for implementing certain \ac{XSD} syntax restrictions, e.g. the element A can reject the element B as his children if the element A doesn't support children of type B.
+
+\noindent
+By using this strategy we ensure that the whole \ac{XSD} file is parsed just by invoking the \texttt{parse} function of \texttt{XsdSchema}. This happens because the \texttt{XsdSchema} element is the top level element of all the \ac{XSD} files and having all the concrete element types parsing their children results in the parsing of the whole \ac{XSD} file.
+
+\bigskip
 
 \lstset{language=Java, morekeywords={Node, XsdAbstractElement, getFirstChild, getNodeType, getNodeName, String, Function, getParseMappers, get, apply, getElement, accept, getVisitor, getNextSibling, createFromXsd, ReferenceBase, XsdParser, getParser, ELEMENT_NODE, BiFunction, XsdParser, addParsedElement}}
 
@@ -138,8 +160,11 @@ ReferenceBase xsdParseSkeleton(Node node, XsdAbstractElement element){
             //Applies the parsing functions, if any, and notifies 
             //the parent objects Visitor to the newly created object.
             if (parserFunction != null){
-                parserFunction.apply(parser, child).getElement()
-                              .accept(element.getVisitor());
+                XsdAbstractElement childElement =
+                	parserFunction.apply(parser, child).getElement();
+                
+                childElement.accept(element.getVisitor());
+                childElement.validateSchemaRules();
             }
         }
 
@@ -165,11 +190,7 @@ Based on the explanation provided above, we will give a more detailed descriptio
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Parsing Concrete Example},captionpos=b,label={lst:parsingexample}]
-<xs:schema xmlns='http://schemas.microsoft.com/intellisense/html-5'
-           version="1.0"
-           targetNamespace='http://schemas.microsoft.com/intellisense/html-5'
-           xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
+<xs:schema>
     <xs:element name="html">
         <xs:complexType>
             <!-- -->
@@ -203,10 +224,7 @@ The parsing of the \texttt{xs:element} node is similar to \texttt{xs:schema}, it
 Step 5 - XsdSchema Visitor Notification:
 
 \noindent
-After parsing the \texttt{xs:element} node the previously created \texttt{XsdSchema} object is notified. This notification informs the \texttt{XsdSchema} object that it contains the newly created \texttt{XsdElement} object using the Visitor pattern. The \texttt{XsdSchema} should then act accordingly based on the type of the object received as his children, since different types of objects should be treated differently. 
-
-\noindent
-This whole behaviour is shared by all the classes that represent a \ac{XSD} element. The Visitor pattern is a very important tool in the parsing process since it allows each element to define a different behavior for each element received as children. This is also useful to implement the schema rules, since it can be used to define empty methods to reject any children that a given element type shouldn't contain as per definition on the schema specification. The same happens to the attributes present in the parsed \ac{DOM} nodes, each \texttt{XsdAbstractElement} concrete type only extracts the attributes defined in the \ac{XSD} schema specification, ignoring other attributes present.
+After parsing the \texttt{xs:element} node the previously created \texttt{XsdSchema} object is notified. This notification informs the \texttt{XsdSchema} object that it contains the newly created \texttt{XsdElement} object using the Visitor pattern. The \texttt{XsdSchema} should then act accordingly based on the type of the object received as his children, since different types of objects should be treated differently.
 
 \subsection{Reference solving}
 \label{sec:refsolving}
@@ -225,10 +243,7 @@ Having these wrappers on the elements allow for a detailed filtering, which is h
 
 \bigskip
 
-\lstset{
-	language=XML,
-	morekeywords={encoding, xsd:schema, xmlns, xmlns:xsd, xsd:group, xsd:choice, id, name,  ref}
-}
+\lstset{language=XML, morekeywords={encoding, xsd:schema, xmlns, xmlns:xsd, xsd:group, xsd:choice, id, name,  ref}}
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Reference Solving Example},captionpos=b,label={lst:refsolvingexample}]
@@ -254,17 +269,79 @@ In this short example we have a \texttt{XsdChoice} element that contains a \text
 \noindent
 Having created these classes it is expected that at the end of a successful file parsing only \texttt{ConcreteElement} and/or \texttt{NamedConcreteElement} objects remain. In case there are any remainder \texttt{UnsolvedReference} objects the programmer can query the parser, using the function \texttt{getUnsolvedReferences} of the \texttt{XsdParser} class, to discover which elements are missing and where were they used. The programmer can then correct the missing elements by adding them to the \ac{XSD} file and repeat the parsing process or just acknowledge that those elements are missing. 
 
+\subsection{Validations}
+
+As it was already referred in Section \ref{sec:parsingstrategy} the parser uses some strategies to validate the rules of the \ac{XSD} language. We already referred the usage of \texttt{Enum} classes for attribute values that have a set of possible values but there are more validations. This solution also validates the types of data received, e.g. validating if a given attribute is a positive \texttt{Integer} value. There are other more intricate restrictions relating to the organization between elements, for example the \texttt{xsd:element} element is not allowed to have a \texttt{ref} attribute value if the \texttt{xsd:element} is a direct child of the top-level \texttt{xsd:schema} element. All those rules were extracted from the \ac{XSD} language standard and each time a concrete element is create the respective rules are verified as seen with the \texttt{validateSchemaRules} method call in line 21 of Listing \ref{lst:skeletonfunction}. 
+
+\noindent
+Each time any of these rules are violated a \texttt{ParsingException} is thrown containing a message detailing the rule that was violated, either being an attribute that doesn't match its type, an attribute that has a value that is not within the possible values for that attribute or the other more complex rules of the \ac{XSD} language.
+
 \section{XsdAsm} % (fold)
 \label{sec:xsdasm}
 
-XsdAsm is a library dedicated to generate a fluent Java \ac{API} based on a \ac{XSD} file. It uses the previously introduced XsdParser library to parse the \ac{XSD} file contents into a list of Java elements that XsdAsm will use to obtain the information needed to generate the correspondent classes. To generate classes this library also uses the ASM\footnote{\href{http://asm.ow2.org/}{ASM Website}} library, which is a library that provides a Java interface to bytecode manipulation, which provide method for creating classes, methods, etc. There were other alternatives to the ASM library but most of them are simply libraries that were built on top of ASM to simplify its usage. It supports the creation of Java classes up until Java 9 and is still maintained, the most recent version, 6.1, was release in 11 march of 2018. ASM also has some tools to help the new programmers understand how the library works. These tools help the programmers to learn faster how the code generation works and allow to increase the complexity of the generated code.
+XsdAsm is a library dedicated to generate a fluent Java interface based on a \ac{XSD} file. It uses the previously introduced XsdParser library to parse the \ac{XSD} file contents into a list of Java elements that XsdAsm will use to obtain the information needed to generate the correspondent classes. 
+
+\noindent
+To generate classes this library also uses the ASM\footnote{\href{http://asm.ow2.org/}{ASM Website}} library, which is a library that provides a Java interface that allows bytecode manipulation providing methods for creating classes, methods, etc. There were other alternatives to the ASM library but most of them are simply libraries that were built on top of ASM to simplify its usage. It supports the creation of Java classes up until Java 9 and is still maintained, the most recent version, 6.2.1, was release in 5 august of 2018. ASM also has some tools to help the new programmers understand how the library works. These tools help the programmers to learn faster how the code generation works and allow to increase the complexity of the generated code. In Listing \ref{lst:asmexampleobjective} we present a class that is the objective of our code generation, it's a simple class, with a field and a method. The ASM library provides a tool, \texttt{ASMifier}, that receives a \texttt{.class} file and returns the ASM code needed to generate it, as shown in Listing \ref{lst:asmexamplecode}.
+
+\bigskip
+
+\lstset{language=Java, morekeywords={encoding, xsd:schema, xmlns, xmlns:xsd, xsd:group, xsd:choice, id, name,  ref}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={ASM Example - Objective},captionpos=b,label={lst:asmexampleobjective}]
+public class SumExample {
+
+    private int sum;
+
+    void setSum(int a, int b){
+        sum = a + b;
+    }
+}
+\end{lstlisting}
+\end{minipage}
+
+\bigskip
+
+\lstset{language=Java, morekeywords={ClassWriter, visit, V9, ACC_PUBLIC, ACC_FINAL, ACC_SUPER, visitField, ACC_PRIVATE, FieldVisitor, visitEnd, visitMethod, visitCode, visitVarInsn, visitInsn, visitFieldInsn, PUTFIELD, ILOAD, ALOAD, IADD, RETURN, visitMaxs, writeByteArrayToFile, toByteArray}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={ASM Example - Required Code},captionpos=b,label={lst:asmexamplecode}]
+ClassWriter classWriter = new ClassWriter(0);
+
+classWriter.visit(V9, ACC_PUBLIC + ACC_FINAL + ACC_SUPER, 
+	"Samples/HTML/SumExample", null, "java/lang/Object", null);
+
+FieldVisitor fieldVisitor = 
+	classWriter.visitField(ACC_PRIVATE, "sum", "I", null, null);
+fieldVisitor.visitEnd();
+
+MethodVisitor methodVisitor = 
+	classWriter.visitMethod(0, "setSum", "(II)V", null, null);
+methodVisitor.visitCode();
+methodVisitor.visitVarInsn(ALOAD, 0);
+methodVisitor.visitVarInsn(ILOAD, 1);
+methodVisitor.visitVarInsn(ILOAD, 2);
+methodVisitor.visitInsn(IADD);
+methodVisitor.visitFieldInsn(PUTFIELD, "Samples/HTML/SumExample",
+	"sum", "I");
+methodVisitor.visitInsn(RETURN);
+methodVisitor.visitMaxs(3, 3);
+methodVisitor.visitEnd();
+
+classWriter.visitEnd();
+
+writeByteArrayToFile(classWriter.toByteArray());
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+The strategy while creating the \texttt{xmlet} solution was to have manually created classes that represent a certain type of class that XsdASm will need to generate, i.e. the concrete element, attribute classes. By using the \texttt{ASMifier} tool with those template-like classes the programming process was expedited.
 
 \subsection{Supporting Infrastructure}
 \label{sec:supportinginfrastructure}
 
 To support the foundations of the \ac{XSD} language an infrastructure is created in every \ac{API} generated by this project. This infrastructure is composed by a common set of classes. This supporting infrastructure is divided into three different groups of classes:
-
-\newpage
 
 Element classes:
 
@@ -280,11 +357,10 @@ Attribute classes:
 	\item BaseAttribute - A class that implements the Attribute interface and adds restriction verification to all the deriving classes. All the attributes that have restrictions should derive from this class.
 \end{itemize}
 
-Visitor classes:
+Visitor class:
 
 \begin{itemize}
-	\item ElementVisitor - An interface that defines methods for all the generated elements that can be visited with the Visitor pattern. 
-	\item AbstractElementVisitor - An abstract class that implements ElementVisitor. All the implemented methods point to a single method. This behaviour aims to reduce the amount of code needed to create concrete implementations of  Visitors.
+	\item ElementVisitor - An abstract class that defines methods for all the generated elements that can be visited with the Visitor pattern. All the implemented methods point to a single method. This behaviour aims to reduce the amount of code needed to create concrete implementations of  Visitors.
 \end{itemize}
 
 \noindent
@@ -300,12 +376,14 @@ Taking in consideration those classes, a very simplistic \ac{API} could be repre
 \subsection{Code Generation Strategy}
 \label{sec:codegenerationstrategy}
 
-As we already presented before in the Problem Statement section, Section \ref{sec:problemstatement}, this solution focus on how the code is organized instead of making complex code. All the methods present in the generated classes have very low complexity, mainly adding information to the element children and attribute list. To reduce repeated code many interfaces with default methods are created so different classes can implement them and reuse the code. The complexity of the generated code is mostly present in the \texttt{AbstractElement} class, which implements most of the \texttt{Element} interface methods. Another very important aspect of the generated classes is the extensive use of type arguments which allows the \ac{API} to navigate in the element tree while maintaining type information which is essential to guarantee the specific language restrictions.
+As we already presented before in the Problem Statement section, Section \ref{sec:problemstatement}, this solution focus on how the code is organized instead of making complex code. All the methods present in the generated classes have very low complexity, mainly adding information to the element children and attribute list. To reduce repeated code many interfaces with default methods are created so different classes can implement them and reuse the code. The complexity of the generated code is mostly present in the \texttt{AbstractElement} class, which implements most of the \texttt{Element} interface methods. Another very important aspect of the generated classes is the extensive use of type arguments which allows the navigation in the element tree while maintaining type information which is essential to guarantee the specific language restrictions.
 
 \subsection{Type Arguments}
 \label{sec:typearguments}
 
-As this solution was designed an objective became clear, the generated \ac{API} should be easily navigable. This is crucial to provide a good user experience while creating templates through the \texttt{xmlet} \ac{API}s. There are two main aspects, the \ac{API} should be easily navigable and always implement the concrete language restrictions. To tackle this issue we rely on type arguments. Through type arguments we can always keep track of the tree structure of the elements that are being created and keep adding elements or moving up in the tree structure. In Listing \ref{lst:typeargumentsexplicit} we can observe how the type arguments work. 
+As this solution was designed an objective became clear, the generated \ac{API} should be easily navigable. This is crucial to provide a good user experience while creating templates through the \texttt{xmlet} fluent interfaces. There are two main aspects, the fluent interface should be easily navigable and always implement the concrete language restrictions. To tackle this issue we rely on type arguments. Through type arguments we can always keep track of the tree structure of the elements that are being created and keep adding elements or moving up in the tree structure. In Listing \ref{lst:typeargumentsexplicit} we can observe how the type arguments work. 
+
+\bigskip
 
 \lstset{language=Java, morekeywords={Html, Body, Div, body, div, attrClass, Element}}
 
@@ -325,7 +403,7 @@ Html<Element> htmlAgain = bodyAgain.º();
 When we create the \texttt{Html} element we should indicate that he has a parent, for consistency. Then, as we add elements such as \texttt{Body} we automatically return the recently created \texttt{Body} element, but with parent information that indicates that this \texttt{Body} instance is descendant of an \texttt{Html} element. The same happens with the \texttt{Div} element. This behavior changes when adding attributes, in which case we return the object which had the attribute added to them, while maintaining all the parent information. The last two lines show how to move up in the element tree by using the method \texttt{º}. The method name is meant to be as short as possible and to avoid distractions while reading the template. 
 
 \noindent
-While in the example presented in Listing \ref{lst:typeargumentsexplicit} the usage of the \ac{API} might seem to have excessive verbose to define a simple \ac{HTML} document that verbose isn't exactly needed. For specific purposes it might be needed to extract variables, e.g. to perform a loop and add some repeated table rows to a table, resulting in a code similar to the Listing \ref{lst:typeargumentsexplicit} but the most common usage of the \ac{API} should be more similar to Listing \ref{lst:typeargumentshidden}.  
+While in the example presented in Listing \ref{lst:typeargumentsexplicit} the usage of the \ac{API} might seem to have excessive verbose to define a simple \ac{HTML} document that verbose isn't exactly needed. For specific purposes it might be needed to extract variables but the most common usage of the fluent interface should be more similar to Listing \ref{lst:typeargumentshidden}.  
 
 \bigskip
 
@@ -359,6 +437,10 @@ In the \texttt{º} method, which returns the parent of any concrete element, the
 \begin{lstlisting}[caption={Type Arguments - AbstractElement class},captionpos=b,label={lst:abstractelement}, literate={º}{\textdegree}1]
 class AbstractElement<T extends Element, Z extends Element>
 	protected Z parent;
+	
+    protected AbstractElement(Z parent) {
+        this.parent = parent;
+    }	
 	
 	public Z º() {
 		return this.parent;
@@ -402,7 +484,7 @@ Since the \texttt{Html} is the only class implementing this interface its \textt
 
 \bigskip
 
-\lstset{language=Java, morekeywords={Html, Element, Z, Body, T, addChild, AbstractElement, HtmlChoice0, addAttr, AttrManifestString}}
+\lstset{language=Java, morekeywords={Html, Element, Z, Body, T, addChild, AbstractElement, HtmlChoice0, addAttr, AttrManifestString, self}}
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Type Arguments - AbstractElement class},captionpos=b,label={lst:abstractelement}, literate={º}{\textdegree}1]
@@ -453,8 +535,8 @@ In this example (Listing \ref{lst:restrictionexample}) we have an element (i.e. 
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Attribute Class Example},captionpos=b,label={lst:attributeclassexample}]
-public class AttrIntList extends BaseAttribute<List> {
-    public AttrIntList(List<Integer> list) {
+public class AttrIntListObject extends BaseAttribute<List<Integer>> {
+    public AttrIntListObject(List<Integer> list) {
         super(list);
     }
 }
@@ -462,80 +544,44 @@ public class AttrIntList extends BaseAttribute<List> {
 \end{minipage}
 
 \noindent
-But with this solution the \texttt{xs:maxLength} and \texttt{xs:minLength} values are ignored. To solve this problem the existing restrictions in any given attribute are hardcoded in the class static constructor, which stores the restrictions in a static \texttt{Map} object as showed in Listing \ref{lst:attrhardcodedrestrictions}.
+But with this solution the \texttt{xs:maxLength} and \texttt{xs:minLength} values are ignored. To solve this problem the existing restrictions in any given attribute are hardcoded in the class constructor, which invokes methods present in \texttt{RestrictionValidator} that validate each type of restriction, e.g. \texttt{xs:maxLength} and \texttt{xs:minLength}. The values present in the restrictions on the \ac{XSD} document are hardcoded in the bytecodes and help validate each attribute object that is created. This results in the generation of a constructor as shown in Listing \ref{lst:attrhardcodedrestrictions}.
 
 \bigskip
 
-\lstset{language=Java, morekeywords={ArrayList, HashMap, String, Object, valueOf, add, put}}
+\lstset{language=Java, morekeywords={BaseAttribute, List, Integer, RestrictionValidator, validateMaxLength, validateMinLength}}
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Attribute Static Constructor Restrictions},captionpos=b,label={lst:attrhardcodedrestrictions}]
-static {
-    restrictions = new ArrayList<Map<String, Object>();
-    HashMap<String, Object> restriction = new HashMap<>();
-    restriction.put("MaxLength", Integer.valueOf(5));
-    restriction.put("MinLength", Integer.valueOf(1));
-    restrictions.add(restriction);
+public class AttrIntlistObject extends BaseAttribute<List<Integer>> {
+    public AttrIntlistObject(List attrValue) {
+        super(attrValue, "intlist");
+        RestrictionValidator.validateMaxLength(5, attrValue);
+        RestrictionValidator.validateMinLength(1, attrValue);
+    }
 }
+
 \end{lstlisting}
 \end{minipage}
 
 \noindent
-By using this strategy the restrictions can be validated whenever an instance of a concrete attribute is created. To enforce the restrictions present in the \texttt{Map} object the \texttt{BaseAttribute} constructor (Listing \ref{lst:baseattributeconstructor}) will pass those values to a class, \texttt{RestrictionValidator}, which validates all the different types of restrictions, in this case \texttt{xs:maxlength} and \texttt{xs:minlength}. Each different restriction has its validation method (i.e. \texttt{validateMaxLength} and \texttt{validateMinLength} at Listing \ref{lst:restrictionvalidator} lines 6 and 11, respectively) which will throw an exception if the value (i.e. val) to validate does not match the restriction. By using this strategy the \ac{API} ensures that any successful usage follows the rules previously defined by the schema.
+In total there are thirteen different restrictions on the \ac{XSD} language. The \texttt{RestrictionValidator} class is a class with static methods that allow to validate most of those restrictions, the only restrictions that aren't validated by this class are \texttt{xsd:enumeration} which is already validated by the usage of \texttt{Enum} classes and \texttt{xsd:whitespace} since it represents an indication instead of an actual restriction on the language. In Listing \ref{lst:restrictionvalidator} we can observe how simple is to validate the \texttt{xs:maxLength} and \texttt{xs:minLength} restrictions that were used in the previous example. All the methods work in the exact same way, a condition is verified and if the verification fails it will throw a \texttt{RestrictionViolationException} with a message indicating which restriction was violated.
 
 \bigskip
 
-\lstset{language=Java, morekeywords={BaseAttribute, List, Integer, Map, String, Object, ArrayList, forEach, RestrictionsValidator, validate, Float, Double, Short, RestrictionValidator}}
+\lstset{language=Java, morekeywords={size, RestrictionViolationException, List}}
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[caption={BaseAttribute Rule Validation Restrictions},label={lst:baseattributeconstructor}]
-public class BaseAttribute<T> implements Attribute<T> {
-    static List<Map<String, Object>> restrictions = new ArrayList();
-
-    public BaseAttribute(T var1, String var2) {
-        // ...
-        restrictions.forEach(this::validateRestrictions);
+\begin{lstlisting}[caption={RestrictionValidator Class (Simplified)},label={lst:restrictionvalidator}]
+public class RestrictionValidator {
+    public static void validateMaxLength(int maxLength, List list){
+        if (list.size() > maxLength){
+            throw new RestrictionViolationException("Violation of maxLength restriction");
+        }
     }
     
-    private void validateRestrictions(Map<String, Object> restriction){
-        Object value = this.getValue();
-        
-        if (value instanceof String) {
-            RestrictionValidator.validate(restriction, (String)value);
-        }
-
-        if (value instanceof Integer || value instanceof Short || 
-             value instanceof Float || value instanceof Double) {
-            RestrictionValidator.validate(restriction, (Double)value);
-        }
-
-        if (value instanceof List) {
-            RestrictionValidator.validate(restriction, (List)value);
-        }
-    }
-}
-\end{lstlisting}
-\end{minipage}
-
-\bigskip
-
-\lstset{language=Java, morekeywords={Map, String, Object, Double, getOrDefault, RestrictionViolationException, size, List}}
-
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[caption={Restriction Validator Class (Simplified)},label={lst:restrictionvalidator}]
-public class RestrictionValidator {
-    static void validate(Map<String, Object> restMap, List val) {
-        validateMinLength(restMap.getOrDefault("MinLength", -1), val);
-        validateMaxLength(restMap.getOrDefault("MaxLength", -1), val);
-    }
-    private static void validateMaxLength(int maxLength, List list) {
-        if (maxLength != -1 && list.size() > maxLength) {
-            throw new RestrictionViolationException("Violation of maxLength restriction.");
-        }
-    }
-    private static void validateMinLength(int minLength, List list) {
-        if (minLength != -1 && list.size() < minLength) {
-            throw new RestrictionViolationException("Violation of minLength restriction.");
+    public static void validateMinLength(int minLength, List list){
+        if (list.size() < minLength){
+            throw new RestrictionViolationException("Violation of minLength restriction");
         }
     }
 }
@@ -545,14 +591,11 @@ public class RestrictionValidator {
 \subsubsection{Enumerations}
 \label{sec:enumarations}
 
-Regarding restrictions there is one that can be enforced at compile time, the \texttt{xs:enumeration}. To obtain that validation at compile time the XsdAsm library generates \texttt{Enum} classes that contain all the values indicated in the \texttt{xs:enumeration} tags. In the following example (Listing \ref{lst:enumxsddefinition}) we have an attribute with three possible values, command, checkbox and radio.
+Regarding restrictions there is one that can be enforced at compile time, the \texttt{xs:enumeration}. To obtain that validation at compile time the XsdAsm library generates \texttt{Enum} classes that contain all the values indicated in the \texttt{xs:enumeration} elements. In the following example (Listing \ref{lst:enumxsddefinition}) we have an attribute with three possible values, command, checkbox and radio.
 
 \bigskip
 
-\lstset{
-	language=XML,
-	morekeywords={xs:attribute, xs:simpleType, xs:restriction, base, xs:enumeration, value, name}
-}
+\lstset{language=XML, morekeywords={xs:attribute, xs:simpleType, xs:restriction, base, xs:enumeration, value, name}}
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Enumeration XSD Definition},label={lst:enumxsddefinition}]
@@ -568,14 +611,12 @@ Regarding restrictions there is one that can be enforced at compile time, the \t
 \end{lstlisting}
 \end{minipage}
 
-\newpage
-
 \noindent
-This results in the creation of an \texttt{Enum}, \texttt{EnumTypeCommand} (Listing \ref{lst:enumclass}). The attribute class will then receive an instance of \texttt{EnumTypeCommand}, ensuring that only allowed values are used (Listing \ref{lst:enumusage}).
+This results in the creation of an \texttt{Enum}, \texttt{EnumTypeCommand} presented in Listing \ref{lst:enumclass}. The attribute class will then receive an instance of \texttt{EnumTypeCommand}, ensuring that only allowed values are used (Listing \ref{lst:enumusage}).
 
 \bigskip
 
-\lstset{language=Java, morekeywords={enum, String, valueOf}}
+\lstset{language=Java, morekeywords={enum, String, valueOf, COMMAND; CHECKBOX, RADIO}}
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Enumeration Class},label={lst:enumclass}]
@@ -607,67 +648,305 @@ To support repetitive tasks over an element the \texttt{Element} and \texttt{Abs
 
 \bigskip
 
-\lstset{language=Java, morekeywords={Html, Body, body, Table, .table, tr, th, text, binder, forEach, td, table, List, String}}
+\lstset{language=Java, morekeywords={Element, Html, Body, body, Table, .table, tr, th, text, binder, forEach, td, table, List, String}}
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[caption={Binder Usage Example},label={lst:binderusage}]
+\begin{lstlisting}[caption={Binder Usage Example},label={lst:binderusage}, literate={º}{\textdegree}1]
 public class BinderExample{
     public void bindExample(){
-        Html<Html> root = new Html<>();
-        Body<Html<Html>> body = root.body();
-        
-        Table<Body<Html<Html>>> table = body.table();
-        table.tr().th().text("Title");
-        table.<List<String>>binder((elem, list) ->
-                        list.forEach(tdValue ->
-                            elem.tr().td().text(tdValue)
-                        )
-                    );
-        //Keep adding elements to the body of the document.
+		Html<Element> root = new Html<>()
+            .body()
+                .table()
+                    .tr()
+                        .th()
+                            .text("Title")
+                        .º()
+                    .º()
+                    .<List<String>>binder((elem, list) ->
+                         list.forEach(tdValue ->
+                                 elem.tr().td().text(tdValue)
+                         )
+                    )
+                .º()
+            .º();
     }
 }
 \end{lstlisting}
 \end{minipage}
 
 \noindent
-In this example we create a table and add a title in the first row as a title header (i.e. \texttt{th()}). In regard to the values present in the table instead of having them inserted right away it is possible delay that insertion by indicating what will the element do when the information is received. This is achieved by implementing a Visitor that supports binding. 
+In this example we use the \ac{HTML} language to create a document that contains a table with a title in the first row as a title header (i.e. \texttt{th()}). In regard to the values present in the table instead of having them inserted right away it is possible delay that insertion by indicating behaviour to execute when the information is received. This is achieved by implementing an \texttt{ElementVisitor} that supports binding. 
 
 \noindent
-In Listing \ref{lst:visitorbinding} we can observe how the Visitor would work. It maintains the default behaviour on the elements that aren't bound (i.e. else clause). In the case that the element is bound to a function this implementation will clone the element and apply a model (i.e. a List<String> object following the example of Listing \ref{lst:binderusage}) to the clone, effectively executing the function supplied in the previously called binder method (i.e. Listing \ref{lst:binderusage} line 8). This function call will generate new children on the cloned table element which will be iterated as if they belonged to the original element tree. This behaviour ensures that the original element tree isn't affected since all these changes are performed in a clone of the bound element, meaning that the template can be reused.
+In Listing \ref{lst:visitorbinding} we can observe how the \texttt{ElementVisitor} would work. It maintains the default behaviour on the elements that aren't bound (i.e. else clause). In the case that the element is bound to a function this implementation will clone the element and apply a model (i.e. a \texttt{List<String>} object following the example of Listing \ref{lst:binderusage}) to the clone, effectively executing the function supplied in the previously called binder method (i.e. Listing \ref{lst:binderusage} line 8). This function call will generate new children on the cloned table element which will be iterated as if they belonged to the original element tree. This behaviour ensures that the original element tree isn't affected since all these changes are performed in a clone of the bound element, meaning that the template can be reused.
 
 \bigskip
 
-\lstset{language=Java, morekeywords={isBound, List, Element, cloneElem, bindTo, getChildren, forEach, accept}}
+\lstset{language=Java, morekeywords={T, isBound, List, Element, cloneElem, bindTo, getChildren, forEach, accept, R}}
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Visitor with binding support},label={lst:visitorbinding}]
-public <T extends Element> void sharedVisit(Element<T, ?> element) {
-    // ...
+public class CustomVisitor<R> implements ElementVisitor<R> {
+
+   private R model;
+
+   public CustomVisitor(R model){
+       this.model = model;
+   }
     
-    if(element.isBound()) {
-        List<Element> children = element.cloneElem()
-                                        .bindTo(model)
-                                        .getChildren();
-        children.forEach( child -> child.accept(this));
-    } else {
-        element.getChildren().forEach(item -> item.accept(this));
-    }
-    
-    // ...
+   public <T extends Element> void sharedVisit(Element<T,?> element) {
+       // ...
+       if(element.isBound()) {
+           List<Element> children = element.cloneElem()
+                                           .bindTo(model)
+                                           .getChildren();
+           children.forEach( child -> child.accept(this));
+       } else {
+           element.getChildren().forEach(item -> item.accept(this));
+       }
+       // ...
+   }
 }
 \end{lstlisting}
 \end{minipage}
         
+\subsection{Using the Visitor Pattern}
+\label{sec:xsdasmvisitor}
+
+In the previous sections we presented how the fluent interface is generated and how it implements the language restrictions, but what can the fluent interface actually be user for? That's strictly up to the user of the generated fluent interface. To achieve this we use the \texttt{Visitor} pattern\citep{gamma1994design}. There are multiple \texttt{visit} methods that are invoked by the generated classes and the user can define the behaviour that the \texttt{ElementVisitor} has when those methods are called. This way the generated code delegates the responsibility to define how the user wants to interact with the generated \ac{DSL}. The generated \texttt{ElementVisitor} class defines four main \texttt{visit} methods, Listing \ref{lst:elementvisitorasm}:
+
+\begin{itemize}
+	\item \texttt{sharedVisit(Element<T, ?> element)} - This method is called whenever a concrete element has its \texttt{accept} method called. By receiving the \texttt{Element} we have access to the element children and attributes.
+	\item \texttt{visit(Text text)} - This method is called when the \texttt{accept} method of the special \texttt{Text} element is invoked.
+	\item \texttt{visit(Comment comment)} - This method is called when the \texttt{accept} method of the special \texttt{Comment} element is invoked.
+	\item \texttt{visit(TextFuction<R, U, ?> textFunction)} - This method is called when the \texttt{accept} method of the special \texttt{TextFunction} element is invoked.
+\end{itemize}	
+
+\bigskip
+
+\lstset{language=Java, morekeywords={T, Element, Text, Comment, TextFunction, U, R, ?}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={ElementVisitor generated by XsdAsm - 1},label={lst:elementvisitorasm}]
+public abstract class ElementVisitor<R> {
+   <T extends Element> void sharedVisit(Element<T, ?> element);
+
+   void visit(Text text);
+
+   void visit(Comment comment);
+
+   <U> void visit(TextFunction<R, U, ?> textFunction);
+}
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+Apart from these four main method we also create specific methods, as shown in Listing \ref{lst:elementvisitorasmspecific}. These methods default behaviour is to invoke the main \texttt{sharedVisit(Element<T, ?> element)} method, but they can be redefined to perform a different action, providing the concrete \texttt{ElementVisitor} to have a very simple implementation of only four methods or redefine all the methods for a concrete purpose for the respective \ac{DSL}.
+
+\bigskip
+
+\lstset{language=Java, morekeywords={Html, sharedVisit}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={ElementVisitor generated by XsdAsm - 2},label={lst:elementvisitorasmspecific}]
+public abstract class ElementVisitor {
+   // (...)
+
+   default void visit(Html html) {
+      this.sharedVisit(html);
+   }
+}
+\end{lstlisting}
+\end{minipage}
+
+\subsection{Performance - XsdAsmFaster}
+\label{sec:xsdasmfaster}
+
+The \texttt{xmlet} developed two alternative solutions to generate fluent interfaces. The first solution that was implemented was XsdAsm, which generated a fluent interface that defined element and attribute classes. When interacting with those elements it was possible to add children or attributes that were stored in a data structure as seen by the implementation of \texttt{AbstractElement} and the snippet of the \texttt{Html} code present in Listing \ref{lst:abstractelementasm} and \ref{lst:htmlasm}, respectively.
+
+\bigskip
+
+\lstset{language=Java, morekeywords={Element, T, Z, List, Attribute, ArrayList, R, add, self}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={AbstractElement generated by XsdAsm},label={lst:abstractelementasm}]
+abstract class AbstractElement<T extends Element, Z extends Element> implements Element<T, Z> {
+   protected List<Element> children = new ArrayList();
+   protected List<Attribute> attrs = new ArrayList();
+
+   // (...)
+
+   public <R extends Element> R addChild(R child) {
+      this.children.add(child);
+      return child;
+   }
+
+   public T addAttr(Attribute attribute) {
+      this.attrs.add(attribute);
+      return this.self();
+   }
+}
+\end{lstlisting}
+\end{minipage}
+
+\bigskip
+
+\lstset{language=Java, morekeywords={Z, Element, AbstractElment, ElementVisitor, visit, addAttr, String, AttrManifestString, addChild, Body, Head, Html}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Html class generated by XsdAsm},label={lst:htmlasm}]
+class Html<Z extends Element> extends AbstractElement<Html<Z>, Z> {
+   public void accept(ElementVisitor visitor) {
+      visitor.visit(this);
+   }
+
+   public Html<Z> attrManifest(String attrManifest) {
+      return (Html)this.addAttr(new AttrManifestString(attrManifest));
+   }
+   
+   public Body<T> body() {
+      return this.addChild(new Body(this));
+   }
+   
+   public Head<T> head() {
+      return this.addChild(new Head(this));
+   }
+}
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+By using the XsdAsm generated solution we end up with a fluent interface that works in two steps basis:
+
+\begin{itemize}  
+	\item Creating the Element tree - We need to create the element tree by adding all elements and attributes (Listing \ref{lst:treebuilding});
+	\item Visiting the Element tree - We need to invoke the \texttt{accept} method of the root of the tree in order for the whole tree to be visited (Listing \ref{lst:treevisit}).
+\end{itemize}
+
+\bigskip
+
+\lstset{language=Java, morekeywords={Html, head, title, text, body, attrClass, div, h1}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={HTML5 tree creation - XsdAsm usage},label={lst:treebuilding}, literate={º}{\textdegree}1]
+Html<Html> root = new Html<>();
+
+root.head()
+        .title()
+            .text("Title")
+        .º()
+    .º()
+    .body().attrClass("clear")
+        .div()
+        	.h1()
+        		.text("H1 text")
+        	.º()
+        .º()
+    .º()
+.º();
+\end{lstlisting}
+\end{minipage}
+
+\bigskip
+
+\lstset{language=Java, morekeywords={CustomVisitor, accept}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={HTML5 tree visit - XsdAsm usage},label={lst:treevisit}]
+CustomVisitor customVisitor = new CustomVisitor();
+
+// root variable created in the previous Listing.
+root.accept(customVisitor);
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+Even though that this solution worked fine it had a performance issue. Why were we adding elements to a data structure just for it to be iterated at a later time? From this idea a new solution was born, XsdAsmFaster. This new solution aims to perform the same operations faster while providing a very similar user experience to the fluent interface generated by XsdAsm. To achieve that instead of storing information on a data structure we directly invoke the \texttt{ElementVisitor visit} method, this removes the need of storing and iterating information while maintaining all the expected behaviour. The two main moments that are affected by this change are the moments when an element is added to the tree and when an attribute is added to a previously created element. The code generated by XsdAsmFaster to add elements is as shown in Listing \ref{lst:htmlxsdasmfaster}.
+
+\bigskip
+
+\lstset{language=Java, morekeywords={Z, Element, ElementVisitor, visitElementHtml, visitAttributeManifest, String, Body, T, Head}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Html class generated by XsdAsmFaster},label={lst:htmlxsdasmfaster}]
+public final class Html<Z extends Element> {
+   protected final Z parent;
+   protected final ElementVisitor visitor;
+
+   public Html(ElementVisitor visitor) {
+      this.visitor = visitor;
+      this.parent = null;
+      visitor.visitElementHtml();
+   }
+
+   public Html(Z parent) {
+      this.parent = parent;
+      this.visitor = parent.getVisitor();
+      this.visitor.visitElementHtml();
+   }
+   
+   public final Html<Z> attrManifest(String attrManifest) {
+      this.visitor.visitAttributeManifest(attrManifest);
+      return this;
+   }
+   
+   public Body<T> body() {
+      return new Body(this);
+   }
+   
+   public Head<T> head() {
+      return new Head(this);
+   }
+}
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+As we can see in the previously Listing we can invoke the \texttt{visit} method in the constructor of the concrete element classes, in this case the \texttt{Html} class, since the \texttt{ElementVisitor} object is passed to all the elements on the tree. Since adding elements results in the creation of new objects, such as \texttt{Body} and \texttt{Head} in the previous example, it results in the invocation of their respective \texttt{visit} method due to the \texttt{visit} method being called in each concrete element constructor. The attributes have a very similar behaviour, although they don't have instances created their restrictions are validated, if present, and if all restrictions are validated the respective \texttt{visit} method is called and the method ends returning the object \texttt{this} to continue with the fluent tree creation.
+
+\noindent
+The XsdAsmFaster solution also adds many other performance improvements. The \texttt{ElementVisitor} methods were changed to receive \texttt{String} objects instead of \texttt{Element}, \texttt{Attribute} or \texttt{Text} types. Changing this removes the requirement to instantiate attribute concrete classes since we can directly pass the \texttt{name} of the attribute and its \texttt{value} as shown in \texttt{attrManifest} method in Listing \ref{lst:htmlxsdasmfaster}. The \texttt{ElementVisitor} class of XsdAsmFaster is as present in Listing \ref{lst:elementvisitorxsdasmfaster}.
+
+\bigskip
+
+\lstset{language=Java, morekeywords={String, R}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={ElementVisitor generated by XsdAsmFaster},label={lst:elementvisitorxsdasmfaster}]
+public abstract class ElementVisitor {
+   public abstract void visitElement(String elementName);
+
+   public abstract void visitAttribute(String attributeName, String attributeValue);
+
+   public abstract void visitParent(String elementName);
+
+   public abstract <R> void visitText(R text);
+
+   public abstract <R> void visitComment(R comment);
+
+   public void visitParentHtml() {
+      this.visitParent("html");
+   }
+   
+   public void visitElementHtml() {
+      this.visitElement("html");
+   }
+   
+   // (...)
+}
+\end{lstlisting}
+\end{minipage}
+
 \newpage
 
 \section{Client} % (fold)
 \label{sec:client}
 
-To use and test both \hyperref[sec:xsdasm]{XsdAsm} and \hyperref[sec:xsdparser]{XsdParser} we need to implement a client for XsdAsm. Two different clients were implemented, one using the \ac{HTML}5 specification and another using the specification for Android visual layouts. In this section we are going to explore how the \ac{HTML}5 \ac{API} is generated using the XsdAsm library and how to use the resulting \ac{API}.
+To use and test both \hyperref[sec:xsdasm]{XsdAsm} and \hyperref[sec:xsdparser]{XsdParser} we need to implement a client for XsdAsm. Two different clients were implemented, one using the \ac{HTML}5 specification and another using the specification for Android visual layouts. In this section we are going to explore how the \ac{HTML}5 fluent interface is generated using the XsdAsm library and how to use it.
 
 \subsection{HtmlApi}
 
-To generate the \ac{HTML}5 \ac{API} we need to obtain its \ac{XSD} file. After that there are two options, the first one is to create a Java project that invokes the XsdAsm main method directly by passing the path of the specification file and the desired \ac{API} name (Listing \ref{lst:directapicreation}).
+To generate the \ac{HTML}5 fluent interface we need to obtain its \ac{XSD} file. After that there are two options, the first one is to create a Java project that invokes the XsdAsm \texttt{main'} method directly by passing the path of the specification file and the desired fluent interface name that will be used to create a custom package name (Listing \ref{lst:directapicreation}).
 
 \bigskip
 
@@ -728,7 +1007,7 @@ call
 \end{minipage}
 
 \noindent
-This client uses the Maven lifecycle option by adding an execution at the validate phase (Listing \ref{lst:mavencreation}, line 8) which invokes XsdAsm main method to create the \ac{API}. This invocation of XsdAsm creates all the classes in the target folder of the HtmlApi project. Following these steps would be enough to allow any other Maven project to add a dependency to the HtmlApi project and use its generated classes as if they were manually created. But this way the source files and Java documentation files are not created since XsdAsm only generates the class binaries. To tackle this issue we added another execution to the \ac{POM}. This execution uses the Fernflower\footnote{\href{https://mvnrepository.com/artifact/org.jboss.windup.decompiler/decompiler-fernflower/4.0.0.Final}{Fernflower Decompiler}} decompiler, the Java decompiler used by Intellij\footnote{\href{https://www.jetbrains.com/idea/}{Intellij IDE}} \ac{IDE}, to decompile the classes that were automatically generated (Listing \ref{lst:mavendecompilation}, \ref{lst:decompilationbat}). 
+This client uses the Maven lifecycle option by adding an execution at the \texttt{validate} phase (Listing \ref{lst:mavencreation}, line 8) which invokes XsdAsm main method to create the \ac{API}. This invocation of XsdAsm creates all the classes in the target folder of the HtmlApi project. Following these steps would be enough to allow any other Maven project to add a dependency to the HtmlApi project and use its generated classes as if they were manually created. But this way the source files and Java documentation files are not created since XsdAsm only generates the class binaries. To tackle this issue we added another execution to the \ac{POM}. This execution uses the Fernflower\footnote{\href{https://mvnrepository.com/artifact/org.jboss.windup.decompiler/decompiler-fernflower/4.0.0.Final}{Fernflower Decompiler}} decompiler, the Java decompiler used by Intellij\footnote{\href{https://www.jetbrains.com/idea/}{Intellij IDE}} \ac{IDE}, to decompile the classes that were automatically generated (Listing \ref{lst:mavendecompilation}, \ref{lst:decompilationbat}). 
 
 \bigskip
 
@@ -770,11 +1049,11 @@ if exist "./target/classes/org" rmdir "./target/classes/org" /s /q
 \end{minipage}
 
 \noindent
-By decompiling those classes we obtain the source code which allows us to delete the automatic generated classes and allow the Maven build process to perform the normal compiling process, which generates the Java documentation files and the class binaries, along with the source files obtained from the decompilation process. This process, apart from generating more information to the programmer that will use the \ac{API} in the future, also allows to find any problem with the generated code since it forces the compilation of all the classes previously generated.
+By decompiling those classes we obtain the source code which allows us to delete the automatic generated classes and allow the Maven build process to perform the normal compiling process, which generates the Java documentation files and the class binaries, along with the source files obtained from the decompilation process. This process, apart from generating more information to the programmer that will use the fluent interface in the future, also allows to find any problem with the generated code since it forces the compilation of all the classes previously generated.
 
 \subsubsection{Using the HtmlApi}
 
-After the previously described compilation process of the HtmlApi project we are ready to use the generated \ac{API}. To start using it the first step is to implement a custom Visitor class, which defines what to do when the created element tree is visited. A very simple example is presented in Listing \ref{lst:customvisitorexample} which writes the \ac{HTML} tags based on the name of the element visited and navigates in the element tree by accessing the children of the current element.
+After the previously described compilation process of the HtmlApi project we are ready to use the generated fluent interface. To start using it the first step is to implement the \texttt{ElementVisitor} class, which defines what to do when the created element tree is visited. A very simple example is presented in Listing \ref{lst:customvisitorexample} which writes the \ac{HTML} tags based on the name of the element visited and navigates in the element tree by accessing the children of the current element.
 
 \bigskip
 
@@ -784,30 +1063,30 @@ After the previously described compilation process of the HtmlApi project we are
 \begin{lstlisting}[caption={Custom Visitor},label={lst:customvisitorexample}]
 public class CustomVisitor<R> implements ElementVisitor<R> {
 
-    private PrintStream printStream = System.out;
+   private PrintStream printStream = System.out;
 
-    public CustomVisitor(){ }
+   public CustomVisitor(){ }
 
-    public <T extends Element> void sharedVisit(Element<T, ?> element) {
-        printStream.printf("<%s", element.getName());
+   public <T extends Element> void sharedVisit(Element<T,?> element) {
+       printStream.printf("<%s", element.getName());
 
-        element.getAttributes()
-               .forEach(attribute -> 
-                   printStream.printf(" %s=\"%s\"", 
-                       attribute.getName(), attribute.getValue()));
+       element.getAttributes()
+              .forEach(attribute -> 
+                  printStream.printf(" %s=\"%s\"", 
+                      attribute.getName(), attribute.getValue()));
 
-        printStream.print(">\n");
+       printStream.print(">\n");
 
-        element.getChildren().forEach(item -> item.accept(this));
+       element.getChildren().forEach(item -> item.accept(this));
 
-        printStream.printf("</%s>\n", element.getName());
-    }
+       printStream.printf("</%s>\n", element.getName());
+   }
 }
 \end{lstlisting}
 \end{minipage}
 
 \noindent
-After creating the Visitor presented in Listing \ref{lst:customvisitorexample} we can start to create the element tree that we want convert to text using the \texttt{CustomVisitor}. To start we should create a \texttt{Html} object, since all the \ac{HTML} documents have it as a base element. Upon creating that root element we can start to add other elements or attributes that will appear as options based on the specification rules. To help with the navigation on the element tree a method was created to allow the navigation to the parent of any given element. This method is named \texttt{\textdegree}, a short method name to keep the code as clean as possible. In Listing \ref{lst:htmlapicodeexample} we can see a code example that uses a good amount of the \ac{API} features, including element creation and how they are added to the element tree, how to add attributes, attributes that receive enumerations as parameters and how to navigate in the element tree using the method \texttt{\textdegree}.
+After creating the \texttt{CustomVisitor} presented in Listing \ref{lst:customvisitorexample} we can start to create the element tree that we want convert to text using the \texttt{CustomVisitor}. To start we should create a \texttt{Html} object, since all the \ac{HTML} documents have it as a base element. Upon creating that root element we can start to add other elements or attributes that will appear as options based on the specification rules. To help with the navigation on the element tree a method was created to allow the navigation to the parent of any given element. This method is named \texttt{\textdegree}, a short method name to keep the code as clean as possible. In Listing \ref{lst:htmlapicodeexample} we can see a code example that uses a good amount of the fluent interface features, including element creation and how they are added to the element tree, how to add attributes, attributes that receive enumerations as parameters and how to navigate in the element tree using the method \texttt{\textdegree}.
 
 \bigskip
 
@@ -822,16 +1101,16 @@ root.head()
         .title()
             .text("Title").º()
         .link().attrType(EnumTypeContentType.TEXT_CSS)
-                 .attrHref("/assets/images/favicon.png").º()
+               .attrHref("/assets/images/favicon.png").º()
         .link().attrType(EnumTypeContentType.TEXT_CSS)
-                 .attrHref("/assets/styles/main.css").º().º()
+               .attrHref("/assets/styles/main.css").º().º()
      .body().attrClass("clear")
         .div()
             .header()
                 .section()
                     .div()
                         .img().attrId("brand")
-                                .attrSrc("./assets/images/logo.png").º()
+                              .attrSrc("./assets/images/logo.png").º()
                         .aside()
                             .em()
                                 .text("Advertisement")
@@ -890,4 +1169,4 @@ With this element tree presented (Listing \ref{lst:htmlapicodeexample}) and the 
 \end{minipage}
 
 \noindent
-The \texttt{CustomVisitor} of Listing \ref{lst:htmlapiresult} is a very minimalist implementation since it does not indent the resulting \ac{HTML}, does not simplify elements with no children (i.e. the link/img elements) and other aspects that are particular to \ac{HTML} syntax. That is where the HtmlFlow library come in, it implements the particular aspects of the \ac{HTML} syntax in its Visitor implementation which deals with how and where the output is written. 
+The \texttt{CustomVisitor} of Listing \ref{lst:htmlapiresult} is a very minimalist implementation since it does not indent the resulting \ac{HTML}, does not simplify elements with no children (i.e. the link/img elements) and other aspects that are particular to \ac{HTML} syntax. That is where the HtmlFlow library comes in, it implements the particular aspects of the \ac{HTML} syntax in its \texttt{ElementVisitor} implementation which deals with how and where the output is written.

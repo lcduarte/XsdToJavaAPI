@@ -245,7 +245,7 @@ With this comparison we observe that for simple problems both the template engin
 \section{Problem Statement}
 \label{sec:problemstatement}
 
-The problem that's being presented revolves around the handicaps of template engines, the lack of compilation of the language used within the template, the performance overhead that it introduces and the issues that it was when the complexity increases, as it was presented in the previous Section \ref{sec:motivation}. To tackle those handicaps we suggested the automated generation of a strongly typed fluent \ac{API}. In order to show how that \ac{API} will effectively work we will now present a small example which consists on the \texttt{html} element, Listing \ref{lst:codegenerationexample}, described in \ac{XSD} of the \ac{HTML}5 language definition. The presented example is simplified for explanation purposes.
+The problem that's being presented revolves around the handicaps of template engines, the lack of compilation of the language used within the template, the performance overhead that it introduces and the issues that it was when the complexity increases, as it was presented in the previous Section \ref{subsec:templateengineshandicaps}. To tackle those handicaps we suggested the automated generation of a strongly typed fluent interface. In order to show how that \ac{API} will effectively work we will now present a small example which consists on the \texttt{html} element, Listing \ref{lst:codegenerationexample}, described in \ac{XSD} of the \ac{HTML}5 language definition. The presented example is simplified for explanation purposes.
 
 \bigskip
 
@@ -293,12 +293,12 @@ class Html extends AbstractElement implements CommonAttributeGroup {
     }
     
     public Html attrManifest(String attrManifest) {
-        this.addAttr(new AttrManifest(attrManifest));
+        return this.addAttr(new AttrManifest(attrManifest));
     }
     
-    public Body body() { this.addChild(new Body()); }
+    public Body body() { return this.addChild(new Body()); }
         
-    public Head head() { this.addChild(new Head()); }
+    public Head head() { return this.addChild(new Head()); }
 }
 \end{lstlisting}
 
@@ -374,10 +374,10 @@ By analyzing this little example we can observe how the \texttt{xmlet} solution 
 The approach to achieve a solution was to divide the problem into three distinct aspects, as previously stated in the \ref{sec:thesisstatement}. 
 
 \noindent
-The XsdParser project will be an utility project which is needed in order to parse all the information present in the \ac{XSD} file into structured Java classes. 
+The XsdParser project will be an utility project which is needed in order to parse all the external \ac{DSL} rules present in the \ac{XSD} document into structured Java classes. 
 
 \noindent
-The XsdAsm is the most important aspect of the \texttt{xmlet} solution, since it is the aspect which will deal with the generation of all the bytecodes that make up the classes of the fluent \ac{API}. This project should translate as many rules of the parsed language definition, its \ac{XSD} file, into the Java language in order to make the resulting \ac{API} as much similar as possible to the language definition.
+The XsdAsm is the most important aspect of the \texttt{xmlet} solution, since it is the aspect which will deal with the generation of all the bytecodes that make up the classes of the Java fluent interface. This project should translate as many rules of the parsed language definition, its \ac{XSD} file, into the Java language in order to make the resulting \ac{API} as much similar as possible to the language definition.
 
 \noindent
-The HtmlApi will be a representation of client aspect of \texttt{xmlet} solution. It's a concrete client of the XsdAsm project, it will use the \ac{HTML}5 language definition file in order to request of XsdAsm a strongly typed fluent \ac{API}, named HtmlApi. This use case is meant to be used by the HtmlFlow \ac{API}, which will implement its own Visitor in order to use the HtmlApi to write well formed \ac{HTML} documents. At the moment HtmlFlow already supports a set of the \ac{HTML} elements which were created manually and the rest of the library interacts with those elements in order to write the \ac{HTML} files. By using the HtmlApi the HtmlFlow will support the whole \ac{HTML} syntax. 
+The HtmlApi will be a representation of client aspect of \texttt{xmlet} solution. It's a concrete client of the XsdAsm project, it will use the \ac{HTML}5 language definition file in order to request of XsdAsm a strongly typed fluent interface, named HtmlApi. This use case is meant to be used by the HtmlFlow \ac{API}, which will implement its own Visitor in order to use the HtmlApi to write well formed \ac{HTML} documents. At the moment HtmlFlow already supports a set of the \ac{HTML} elements which were created manually and the rest of the library interacts with those elements in order to write the \ac{HTML} files. By using the HtmlApi the HtmlFlow will support the whole \ac{HTML} syntax. 

@@ -248,7 +248,7 @@ public class HtmlApiTest {
                             Class<?> paramType = method.getParameterTypes()[0];
                             if (!paramType.isEnum()){
                                 if (paramType.equals(String.class) || paramType.equals(Object.class)){
-                                    method.invoke(elementInstance, new Object[]{""});
+                                    method.invoke(elementInstance, "");
                                 }
 
                                 if (paramType.equals(Short.class)){
@@ -284,8 +284,8 @@ public class HtmlApiTest {
         if (interfaces.contains(Element.class)){
             return true;
         } else {
-            for (int i = 0; i < interfaces.size(); i++) {
-                if (implementsElement(interfaces.get(i))){
+            for (Class<?> anInterface : interfaces) {
+                if (implementsElement(anInterface)) {
                     return true;
                 }
             }

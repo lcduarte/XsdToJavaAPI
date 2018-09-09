@@ -3,7 +3,7 @@ import org.xmlet.wpfe.*;
 import java.util.List;
 
 @SuppressWarnings("Duplicates")
-public class CustomVisitorWpfe<R> implements ElementVisitor<R> {
+public class CustomVisitorWpfe<R> extends ElementVisitor<R> {
 
     private R model;
     private StringBuilder stringBuilder = new StringBuilder();

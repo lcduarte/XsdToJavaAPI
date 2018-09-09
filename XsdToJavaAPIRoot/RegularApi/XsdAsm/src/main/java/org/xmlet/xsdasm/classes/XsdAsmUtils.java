@@ -162,6 +162,12 @@ public class XsdAsmUtils {
      * @return The full type of the class, e.g. Html -> XsdAsm/ParsedObjects/Html
      */
     static String getFullClassTypeName(String className, String apiName){
+        String infrastructureClass = infrastructureVars.get(className);
+
+        if (infrastructureClass != null){
+            return infrastructureClass;
+        }
+
         return getPackage(apiName) + className;
     }
 
@@ -170,7 +176,7 @@ public class XsdAsmUtils {
      * @return The full type descriptor of the class, e.g. Html -> LXsdClassGenerator/ParsedObjects/Html;
      */
     static String getFullClassTypeNameDesc(String className, String apiName){
-        return "L" + getPackage(apiName) + className + ";";
+        return "L" + getFullClassTypeName(className, apiName) + ";";
     }
 
     /**

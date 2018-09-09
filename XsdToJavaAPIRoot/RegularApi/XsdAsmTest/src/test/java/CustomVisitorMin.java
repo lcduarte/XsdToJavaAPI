@@ -3,7 +3,7 @@ import org.xmlet.testMin.*;
 import java.util.List;
 
 @SuppressWarnings("Duplicates")
-public class CustomVisitorMin<R> implements ElementVisitor<R> {
+public class CustomVisitorMin<R> extends ElementVisitor<R> {
 
     private R model;
     private StringBuilder stringBuilder = new StringBuilder();

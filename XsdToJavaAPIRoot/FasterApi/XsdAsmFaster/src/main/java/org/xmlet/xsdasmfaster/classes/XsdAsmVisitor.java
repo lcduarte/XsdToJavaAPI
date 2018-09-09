@@ -64,6 +64,18 @@ class XsdAsmVisitor {
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "visitComment", "(" + JAVA_OBJECT_DESC + ")V", "<R:" + JAVA_OBJECT_DESC + ">(TR;)V", null);
         mVisitor.visitEnd();
 
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "visitOpenDynamic", "()V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(0, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "visitCloseDynamic", "()V", null, null);
+        mVisitor.visitCode();
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(0, 1);
+        mVisitor.visitEnd();
+
         elementNames.forEach(elementName -> addVisitorParentMethod(classWriter, elementName));
 
         elementNames.forEach(elementName -> addVisitorElementMethod(classWriter, elementName));

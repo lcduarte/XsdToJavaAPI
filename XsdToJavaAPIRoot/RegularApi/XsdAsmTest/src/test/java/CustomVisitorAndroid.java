@@ -3,7 +3,7 @@ import org.xmlet.android.*;
 import java.util.List;
 
 @SuppressWarnings("Duplicates")
-public class CustomVisitorAndroid<R> implements ElementVisitor<R> {
+public class CustomVisitorAndroid<R> extends ElementVisitor<R> {
 
     private R model;
     private StringBuilder stringBuilder = new StringBuilder();

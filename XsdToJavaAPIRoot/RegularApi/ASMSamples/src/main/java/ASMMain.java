@@ -1,4 +1,5 @@
-import Samples.HTML.*;
+import Samples.HTML.Div;
+import Samples.HTML.Element;
 import Samples.Sequence.Classes.*;
 import org.objectweb.asm.util.ASMifier;
 
@@ -31,7 +32,7 @@ public class ASMMain {
             assert pSize == 5;
             assert aSize == 2;
 
-            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\RegularApi\\ASMSamples\\target\\classes\\Samples\\HTML\\TextGroup.class"});
+            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\RegularApi\\ASMSamples\\target\\classes\\Samples\\HTML\\Visitor.class"});
             //ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\RegularApi\\ASMSamples\\target\\classes\\Samples\\Sequence\\Classes\\PersonalInfoFirstName.class"});
         } catch (Exception e) {
             e.printStackTrace();

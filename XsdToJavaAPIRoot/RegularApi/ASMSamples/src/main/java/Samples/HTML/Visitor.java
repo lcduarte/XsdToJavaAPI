@@ -17,5 +17,6 @@ public abstract class Visitor<R> {
     public abstract void visit(Comment elem);
 
     public abstract <U> void visit(TextFunction<R, U, ?> elem);
+
 }
 

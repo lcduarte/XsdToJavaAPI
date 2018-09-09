@@ -13,6 +13,10 @@ public abstract class Visitor {
 
     public abstract <R> void visitComment(R comment);
 
+    public void visitOpenDynamic() {}
+
+    public void visitCloseDynamic() {}
+
     public void visitElementDiv(){
         visitElement("div");
     }

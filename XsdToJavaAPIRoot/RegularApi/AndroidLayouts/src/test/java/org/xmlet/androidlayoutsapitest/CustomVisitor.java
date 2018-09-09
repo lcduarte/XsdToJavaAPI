@@ -5,7 +5,7 @@ import org.xmlet.androidlayoutsapi.*;
 import java.util.List;
 
 @SuppressWarnings("Duplicates")
-public class CustomVisitor<R> implements ElementVisitor<R> {
+public class CustomVisitor<R> extends ElementVisitor<R> {
 
     private R model;
     private StringBuilder stringBuilder = new StringBuilder();
