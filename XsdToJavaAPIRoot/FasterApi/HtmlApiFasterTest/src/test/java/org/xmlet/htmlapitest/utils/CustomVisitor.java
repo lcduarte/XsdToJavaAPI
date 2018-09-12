@@ -1,6 +1,8 @@
 package org.xmlet.htmlapitest.utils;
 
+import org.xmlet.htmlapifaster.Element;
 import org.xmlet.htmlapifaster.ElementVisitor;
+import org.xmlet.htmlapifaster.Text;
 
 public class CustomVisitor extends ElementVisitor {
 
@@ -8,7 +10,7 @@ public class CustomVisitor extends ElementVisitor {
     private StringBuilder stringBuilder = new StringBuilder();
 
     @Override
-    public void visitElement(String elementName) {
+    public void visitElement(Element element) {
         int length = stringBuilder.length();
         boolean isClosed = stringBuilder.lastIndexOf(">") == length - 1;
         boolean isNewlined = stringBuilder.lastIndexOf("\n") == length - 1;
@@ -23,7 +25,7 @@ public class CustomVisitor extends ElementVisitor {
         }
 
         doTabs();
-        stringBuilder.append('<').append(elementName);
+        stringBuilder.append('<').append(element.getName());
         ++tabCount;
     }
 
@@ -49,7 +51,7 @@ public class CustomVisitor extends ElementVisitor {
     }
 
     @Override
-    public void visitParent(String elementName) {
+    public void visitParent(Element element) {
         closeIfNeeded();
 
         if (!stringBuilder.toString().endsWith("\n")){
@@ -58,7 +60,7 @@ public class CustomVisitor extends ElementVisitor {
 
         --tabCount;
         doTabs();
-        stringBuilder.append("</").append(elementName).append('>');
+        stringBuilder.append("</").append(element.getName()).append('>');
 
     }
 
@@ -73,20 +75,20 @@ public class CustomVisitor extends ElementVisitor {
     }
 
     @Override
-    public <R> void visitText(R text){
+    public <R> void visitText(Text<? extends Element, R> text){
         if (text != null){
             stringBuilder.append(">\n");
             doTabs();
-            stringBuilder.append(text).append('\n');
+            stringBuilder.append(text.getValue()).append('\n');
         }
     }
 
     @Override
-    public <R> void visitComment(R comment){
+    public <R> void visitComment(Text<? extends Element, R> comment){
         if (comment != null){
             stringBuilder.append(">\n");
             doTabs();
-            stringBuilder.append("<!-- ").append(comment).append(" -->\n");
+            stringBuilder.append("<!-- ").append(comment.getValue()).append(" -->\n");
         }
     }
 }

@@ -19,11 +19,11 @@ import org.xmlet.htmlapi.*;
 import java.io.*;
 import java.lang.Object;
 import java.lang.reflect.Field;
-import java.util.*;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static j2html.TagCreator.*;
 
@@ -216,6 +216,8 @@ public class BenchmarkMain<T> {
 
     @Benchmark
     public String j2html() {
+        return document(html(img().withSrc("")));
+        /*
         return document(
                 html(
                         body(
@@ -232,7 +234,7 @@ public class BenchmarkMain<T> {
                                 div()
                         )
                 )
-        );
+        );*/
     }
 
     private static List<TableElement> getTableElementsEx1(){
@@ -264,8 +266,10 @@ public class BenchmarkMain<T> {
     }
 
     public static void main( String[] args ) throws Exception {
+        System.out.println(new BenchmarkMain<>().j2html());
+
         //ex1();
-        ex2();
+        //ex2();
         //ex1HtmlApi();
         //ex2HtmlApi();
 

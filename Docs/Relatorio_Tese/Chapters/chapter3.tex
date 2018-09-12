@@ -8,10 +8,34 @@ In this chapter we are going to introduce the the technologies used in the devel
 
 The \ac{XSD} language is a description of a type of \ac{XML} document. The \ac{XSD} syntax allows for the definition of a set of rules, elements and attributes that together define an external \ac{DSL}. This specific language defined in a \ac{XSD} document aims to solve a specific issue, with its rules serving as a contract between application regarding the information contained in the \ac{XML} files that represent information of that specific language. The \ac{XSD} main usage is to validate \ac{XML} documents, if the \ac{XML} document follows the rules specified in the \ac{XSD} document then the \ac{XML} file is considered valid otherwise it's not. To describe the rules and restrictions for a given \ac{XML} document the \ac{XSD} language relies on two main types of data, elements and attributes. Elements are the most complex data type, they can contain other elements as children and can also have attributes. Attributes on the other hand are just pairs of information, defined by their name and their value. The value of a given attribute can be then restricted by multiple constraints existing on the \ac{XSD} syntax. There are multiple elements and attributes present in the \ac{XSD} language, which are specified in the \ac{XSD} Schema rules\cite{xsdrules}. In this dissertation we will use the set of rules and restrictions of the provided \ac{XSD} documents to build a fluent interface that will enforce the rules and restrictions specified by the given file.
 
-\section{Type Safe Template Engines}
-\label{sec:typesafetemplateengines}
+\section{Template Engines Evolution}
+\label{sec:templateenginesevolution}
 
-We have already presented the idea behind template engines in the Section \ref{sec:templateengines} and their handicaps in Section  \ref{subsec:templateenginehandicaps}, but here we are going to present some recent innovations that some template engines introduced in order to remove or minimize some of the problems listed previously.
+We have already presented the idea behind template engines in the Section \ref{sec:templateengines} and their handicaps in Section  \ref{subsec:templateenginehandicaps}, but here we are going to present some recent innovations that some template engines introduced in order to remove or minimize some of the problems listed previously. We are going to compare the features that each solution brings to the table and create a general landscape of the preexisting solutions similar to the use case that \texttt{xmlet} will use.
+
+\subsection{HtmlFlow Before Xmlet}
+\label{sec:htmlflowbeforexmlet}
+
+The HtmlFlow\footnote{\href{https://github.com/xmlet/HtmlFlow}{HtmlFlow}} solution was the first to be approached in the developing process of the \texttt{xmlet} solution. The HtmlFlow motivation is to provide a library that allowed its users to write well formed type-safe \ac{HTML} documents. The solution that existed prior to this project only supported a subset of the \ac{HTML} language, whilst implementing some of the rules of the \ac{HTML} language. This solution was a step in the right direction, it removed the requirement to have textual files to define templates by moving the template definition to the Java language. It also provided a very important aspect, it performed language validations at compile time which is great since it grants that those problems will be solved at compile time instead of run-time. The main downside of this solution was that it only supported a subset of the \ac{HTML} language, since recreating all the \ac{HTML} language rules manually would be very time consuming. This problem led to the requirement of creating an automated process to translate the language rules to the Java language.
+
+%Pros - Removed text files, templates defined with language support, templates defined within Java, element and attribute organization validation
+%Cons - Small subset, attribute value validation non existant, maintainability
+
+\subsection{J2html} % (fold)
+\label{sec:j2html}
+
+The J2html\footnote{\href{https://j2html.com/}{J2html}} solution is a Java library used to write \ac{HTML}. This solution does not verify the specification rules of the \ac{HTML} language either at compile time or at runtime, which is a major downside. But on the other hand it removes the requirement of having text files to define templates by defining the templates within the Java language. It also provides support for the usage of the whole \ac{HTML} language, which is probably the reason why it has more garnered more attention than HtmlFlow. This library also shows that the issue we are trying to solve with the \texttt{xmlet} solution is relevant since this library has quite a few forks and watchers on their github page\footnote{\href{https://github.com/tipsy/j2html}{J2html Github Page}}. 
+
+%Pros - Removed text files, templates defined with language support, templates defined within Java, whole Html language.
+%Cons - attribute value validation non existant, element and attribute organization validation, maintainability
+
+\subsection{Rocker}
+\label{sec:rocker}
+
+The Rocker\footnote{\href{https://github.com/fizzed/rocker}{Rocker Github}} solution is very different from the two solutions presented before. Its approach is at is core very similar to the classic template engine solution since it still has a textual file to define the template. But contrary to the classic template engines the template file isn't used at run-time. This solution uses the textual template file to automatically generate a Java class to replicate that specific template in the Java language. This means that instead of resorting to the loading of the template defined in a text file it uses the automatically generated class to generate the final document, by combining the static information present in the class with the received input. This is very important, by two distinct reasons. The first reason is that this solution can validate the type of the context objects used to create the template at compile time. The second reason is that this solution is very good performance wise due to having all the static parts of the template hardcoded into the Java class that defines a specific template. This was by far the best competitor with \ac{xmlet} performance wise. The biggest downside of this solution is that it doesn't verify the \ac{HTML} language rules or even well formed \ac{XML} documents.
+
+%Pros - automatic code generation to reflect the template, whole Html language, performance, maintainability
+%Cons - attribute value validation non existant, element and attribute organization validation, well formed documents
 
 \subsection{KotlinX}
 \label{sec:kotlinx}
@@ -32,41 +56,40 @@ Kotlin is relevant to this project since one of his children projects, KotlinX, 
 \noindent
 KotlinX\footnote{\href{https://github.com/Kotlin/kotlinx.coroutines}{KotlinX}} is probably the solution which resembles the \texttt{xmlet} solution the most. The only difference is that the \texttt{xmlet} solution takes advantage of the attributes restrictions present in the \ac{XSD} document in order to increase the verifications that are performed on the \ac{HTML} documents that are generated by the generated fluent interfaces. Both solutions also use the Visitor pattern in order to abstract themselves from the concrete usage of the \ac{DSL}.
 
-\subsection{Handlebars}
-\label{sec:handlebars}
+%Pros - whole Html language, performance?, maintainability, element and attribute organization validation, well formed documents, 
+%Cons - attribute value validation non existant
 
+\subsection{HtmlFlow With Xmlet}
+\label{sec:htmlflowwithxmlet}
 
-\subsection{Xmlet Similarities}
-\label{sec:similarities}
-
-Even though \texttt{xmlet} doesn't aim to be a template engine, both technologies share a few similarities. What similarities does \texttt{xmlet} share with most template engines?
+After developing the \texttt{xmlet} solution and adapting the HtmlFlow solution to use it the solutions characteristics changed. The positive aspects of the solution are kept since the general idea for the solution is kept with the usage of the \texttt{HtmlApi} generated by the \texttt{xmlet} solution. Regarding the negative aspects there were three main ones:
 
 \begin{itemize}
-	\item Template definition - \texttt{xmlet} can define a template within the Java language, removing the need to use external files which usually implies using an extra "language" or syntax in order to define the template. This template definition has the disadvantage of being tied to a concrete language such as Java, which shouldn't be problematic if a project isn't supposed to change language. 
-	\item Template substitution - \texttt{xmlet} can also define a template to receive a certain type of data in order to fill the dynamic information of the template. This should be faster than the regular behaviour of template engines since \texttt{xmlet} doesn't need to read its template from a file on the file system.
+	\item Small language subset - Solved by using the automatically generated \texttt{HtmlApi} which defines the whole \ac{HTML} language within the Java language.
+	\item Attribute value validation - The \texttt{HtmlApi} validates every attribute value based on the restrictions defined for that respective attribute in the \ac{HTML} \ac{XSD} document.
+	\item Maintainability - Since it uses an automatically generated \ac{DSL} if any change occurs in the \ac{HTML} language specification the only change needed is to generate a new \ac{DSL} based on the new language rules.
 \end{itemize}
 
-\subsection{J2html} % (fold)
-\label{sec:j2html}
-
-J2html\footnote{\href{https://j2html.com/}{J2html}} is a Java library used to write \ac{HTML}, a very similar solution to the used case presented in Section \ref{sec:usecase}. The main difference between the two solutions are that the J2html does not verify the specification rules of the \ac{HTML} language either at compile time or at runtime. This library also shows that the issue we are trying to solve with this dissertation is relevant since this library has quite a few forks and watchers on their github page\footnote{\href{https://github.com/tipsy/j2html}{J2html Github Page}}. In Chapter \ref{cha:deployment} we will present some performance tests to verify if our solution is more efficient at writing \ac{HTML}. 
-
-\iffalse
 \noindent
-The solutions that existed prior to this dissertation were already aiming to solve some of those handicaps. We had two different solutions, J2html\footnote{\href{https://j2html.com/}{J2html}}, which is a solution that removes the necessity of text files to define the templates and using some Java instructions to replace the syntax provided by template engines. J2html however did not guaranteed that the language rules were being followed while creating the documents and is only designed to work for \ac{HTML}. The second solution, HtmlFlow\footnote{\href{https://github.com/xmlet/HtmlFlow}{HtmlFlow}} removed the necessity of text files to define the templates and also used the Java syntax to manipulate the templates. HtmlFlow had already implemented some restrictions of the \ac{HTML} language manually but only supported a few core \ac{HTML} elements, since recreating all the \ac{HTML} elements and their restrictions manually is very time consuming. Both of theses solutions had also problems regarding maintainability, if any change was needed it had to be performed manually. 
+By using the \texttt{xmlet} solution the HtmlFlow solution was able to improve its performance. With the mechanics created by the usage of the \texttt{xmlet} solution it is now possible to replicate the performance improvements of the Rocker solution. Even though the template rendering using the HtmlFlow is made as the template is being defined it is possible to implement a caching strategy that caches the static parts of the template, which result in huge performance boosts when reusing a template.
 
-\noindent
-While both these solutions were a step in the right direction some aspects became clear, we needed to create a process that could automatically create a fluent \ac{API} based on the set of rules of a given language. The generated \ac{API}s should take advantage of the Java language compiler to enforce the language restrictions and use its syntax to generate templates without having the need to create templates in text files.
-\fi
+\subsection{Feature Comparison}
+\label{sec:featurecomparison}
 
-\subsection{Apache Velocity} % (fold)
-\label{sec:apachevelocity}
-
-Apache Velocity\footnote{\href{http://velocity.apache.org/}{Apache Velocity}} is a template engine that we discovered through J2html. Even though the  \texttt{xmlet} solution doesn't define itself as a template engine it can also be used to such extent. Since the template engines are based on a template file, with some sort of code embedded in the language (\ac{HTML} for example) the same result can be obtained by using the solution presented in this project. This solution improves the template engine solutions by allowing the users to define the exact same aspects defined in the template files directly into code, allowing the verification of the "template" at compile time by the language compiler. This reduces the overall complexity by removing possible errors in the template files and removing the necessity to separate template files and actual application code, while enforcing the language specification. In Chapter \ref{cha:deployment} we will also compare this solution with the J2html and the \texttt{xmlet} solution.
-
-
-
-
+\begin{table}[H]
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+                         & HtmlFlow1  &   J2Html   &   Rocker   &   KotlinX  & HtmlFlow2  \\ \hline
+Template Within Language & \Checkmark & \Checkmark & *1         & \Checkmark & \Checkmark \\ \hline
+Elements Validations     & \Checkmark & \XSolid    & \XSolid    & \Checkmark & \Checkmark \\ \hline
+Attribute Validations    & \XSolid    & \XSolid    & \XSolid    & \XSolid    & \Checkmark \\ \hline
+Fully Supports \ac{HTML} & \XSolid    & \XSolid    & \Checkmark & \Checkmark & \Checkmark \\ \hline
+Well-Formed Documents    & \Checkmark & \Checkmark & \XSolid    & \Checkmark & \Checkmark \\ \hline
+Maintainability          & \XSolid    & \XSolid    & \Checkmark & \Checkmark & \Checkmark \\ \hline
+Performance              & \XSolid    & \Checkmark & \Checkmark & ?          & \Checkmark \\ \hline
+\end{tabular}
+\caption{\label{tab:templateengines} Template Engines Feature Comparison}
+\end{table}
 
 
 \iffalse

@@ -49,19 +49,19 @@ class XsdAsmVisitor {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, VISIT_ELEMENT_NAME, "(" + JAVA_STRING_DESC + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, VISIT_ELEMENT_NAME, "(" + elementTypeDesc + ")V", null, null);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, VISIT_ATTRIBUTE_NAME, "(" + JAVA_STRING_DESC + JAVA_STRING_DESC + ")V", null, null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, VISIT_PARENT_NAME, "(" + JAVA_STRING_DESC + ")V", null, null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, VISIT_PARENT_NAME, "(" + elementTypeDesc + ")V", null, null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "visitText", "(" + JAVA_OBJECT_DESC + ")V", "<R:" + JAVA_OBJECT_DESC + ">(TR;)V", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "visitText", "(" + textTypeDesc + ")V", "<R:" + JAVA_OBJECT_DESC + ">(L" + textType + "<+" + elementTypeDesc + "TR;>;)V", null);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "visitComment", "(" + JAVA_OBJECT_DESC + ")V", "<R:" + JAVA_OBJECT_DESC + ">(TR;)V", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "visitComment", "(" + textTypeDesc + ")V", "<R:" + JAVA_OBJECT_DESC + ">(L" + textType + "<+" + elementTypeDesc + "TR;>;)V", null);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "visitOpenDynamic", "()V", null, null);
@@ -76,9 +76,9 @@ class XsdAsmVisitor {
         mVisitor.visitMaxs(0, 1);
         mVisitor.visitEnd();
 
-        elementNames.forEach(elementName -> addVisitorParentMethod(classWriter, elementName));
+        elementNames.forEach(elementName -> addVisitorParentMethod(classWriter, elementName, apiName));
 
-        elementNames.forEach(elementName -> addVisitorElementMethod(classWriter, elementName));
+        elementNames.forEach(elementName -> addVisitorElementMethod(classWriter, elementName, apiName));
 
         attributes.forEach(attribute -> addVisitorAttributeMethod(classWriter, attribute));
 
@@ -99,26 +99,34 @@ class XsdAsmVisitor {
     }
 
     @SuppressWarnings("Duplicates")
-    private static void addVisitorElementMethod(ClassWriter classWriter, String elementName) {
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, VISIT_ELEMENT_NAME + getCleanName(elementName), "()V", null, null);
+    private static void addVisitorElementMethod(ClassWriter classWriter, String elementName, String apiName) {
+        elementName = getCleanName(elementName);
+        String classType = getFullClassTypeName(elementName, apiName);
+        String classTypeDesc = getFullClassTypeNameDesc(elementName, apiName);
+
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, VISIT_ELEMENT_NAME + elementName, "(" + classTypeDesc + ")V", "<Z::" + elementTypeDesc + ">(L" + classType + "<TZ;>;)V", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitLdcInsn(firstToLower(getCleanName(elementName)));
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, VISIT_ELEMENT_NAME, "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, VISIT_ELEMENT_NAME, "(" + elementTypeDesc + ")V", false);
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 1);
+        mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
     }
 
     @SuppressWarnings("Duplicates")
-    private static void addVisitorParentMethod(ClassWriter classWriter, String elementName) {
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, VISIT_PARENT_NAME + getCleanName(elementName), "()V", null, null);
+    private static void addVisitorParentMethod(ClassWriter classWriter, String elementName, String apiName) {
+        elementName = getCleanName(elementName);
+        String classType = getFullClassTypeName(elementName, apiName);
+        String classTypeDesc = getFullClassTypeNameDesc(elementName, apiName);
+
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, VISIT_PARENT_NAME + getCleanName(elementName), "(" + classTypeDesc + ")V", "<Z::" + elementTypeDesc + ">(L" + classType + "<TZ;>;)V", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitLdcInsn(firstToLower(getCleanName(elementName)));
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, VISIT_PARENT_NAME, "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, VISIT_PARENT_NAME, "(" + elementTypeDesc + ")V", false);
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 1);
+        mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
     }
 

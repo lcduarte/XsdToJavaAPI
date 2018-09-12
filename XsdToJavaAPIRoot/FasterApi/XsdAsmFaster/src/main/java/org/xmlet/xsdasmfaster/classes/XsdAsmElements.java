@@ -87,7 +87,8 @@ class XsdAsmElements {
 
         if (performVisits){
             mVisitor.visitVarInsn(ALOAD, 1);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitElement" + getCleanName(className), "()V", false);
+            mVisitor.visitVarInsn(ALOAD, 0);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitElement" + getCleanName(className), "(" + classTypeDesc + ")V", false);
         }
 
         mVisitor.visitInsn(RETURN);
@@ -110,7 +111,8 @@ class XsdAsmElements {
         if (performVisits) {
             mVisitor.visitVarInsn(ALOAD, 0);
             mVisitor.visitFieldInsn(GETFIELD, classType, "visitor", elementVisitorTypeDesc);
-            mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitElement" + getCleanName(className), "()V", false);
+            mVisitor.visitVarInsn(ALOAD, 0);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitElement" + getCleanName(className), "(" + classTypeDesc + ")V", false);
         }
 
         mVisitor.visitInsn(RETURN);
@@ -137,14 +139,15 @@ class XsdAsmElements {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, classType, "visitor", elementVisitorTypeDesc);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitParent" + getCleanName(className), "()V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitParent" + getCleanName(className), "(" + classTypeDesc + ")V", false);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, classType, "parent", elementTypeDesc);
         mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitMaxs(2, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, "of", "(Ljava/util/function/Consumer;)" + classTypeDesc, "(Ljava/util/function/Consumer<L" + classType + "<TZ;>;>;)L" + classType + "<TZ;>;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, "dynamic", "(Ljava/util/function/Consumer;)" + classTypeDesc, "(Ljava/util/function/Consumer<L" + classType + "<TZ;>;>;)L" + classType + "<TZ;>;", null);
         mVisitor.visitLocalVariable("consumer", "Ljava/util/function/Consumer;", null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
@@ -156,6 +159,17 @@ class XsdAsmElements {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, classType, "visitor", elementVisitorTypeDesc);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitCloseDynamic", "()V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, "of", "(Ljava/util/function/Consumer;)" + classTypeDesc, "(Ljava/util/function/Consumer<L" + classType + "<TZ;>;>;)L" + classType + "<TZ;>;", null);
+        mVisitor.visitLocalVariable("consumer", "Ljava/util/function/Consumer;", null, new Label(), new Label(),1);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, "java/util/function/Consumer", "accept", "(" + JAVA_OBJECT_DESC + ")V", true);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(2, 2);

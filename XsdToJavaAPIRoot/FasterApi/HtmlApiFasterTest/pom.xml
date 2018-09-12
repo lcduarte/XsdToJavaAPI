@@ -87,13 +87,13 @@
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>xsdAsmFaster</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>htmlApiFaster</artifactId>
-            <version>1.0.1-snapshot</version>
+            <version>1.0.3-snapshot</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

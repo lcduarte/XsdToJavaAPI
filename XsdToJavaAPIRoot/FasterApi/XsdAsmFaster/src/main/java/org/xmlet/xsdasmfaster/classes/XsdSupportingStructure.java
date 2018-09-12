@@ -1,6 +1,7 @@
 package org.xmlet.xsdasmfaster.classes;
 
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
@@ -27,6 +28,7 @@ class XsdSupportingStructure {
     static final String ELEMENT_VISITOR = "ElementVisitor";
     static final String ENUM_INTERFACE = "EnumInterface";
     static final String ATTRIBUTE_PREFIX = "Attr";
+    private static final String TEXT = "Text";
 
     static String elementType;
     static String elementTypeDesc;
@@ -36,6 +38,8 @@ class XsdSupportingStructure {
     static String enumInterfaceType = "org/xmlet/xsdasmfaster/classes/infrastructure/EnumInterface";
     private static String customAttributeGroupType;
     private static String textGroupType;
+    static String textType;
+    static String textTypeDesc;
 
     static Map<String, String> infrastructureVars;
 
@@ -56,10 +60,13 @@ class XsdSupportingStructure {
         elementVisitorTypeDesc = getFullClassTypeNameDesc(ELEMENT_VISITOR, apiName);
         textGroupType = getFullClassTypeName(TEXT_GROUP, apiName);
         customAttributeGroupType = getFullClassTypeName(CUSTOM_ATTRIBUTE_GROUP, apiName);
+        textType = getFullClassTypeName(TEXT, apiName);
+        textTypeDesc = getFullClassTypeNameDesc(TEXT, apiName);
 
         createElement(apiName);
         createTextGroup(apiName);
         createCustomAttributeGroup(apiName);
+        createText(apiName);
 
         infrastructureVars.put(ELEMENT, elementType);
         infrastructureVars.put(ELEMENT_VISITOR, elementVisitorType);
@@ -90,12 +97,19 @@ class XsdSupportingStructure {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "getVisitor", "()" + elementVisitorTypeDesc, true);
+        mVisitor.visitTypeInsn(NEW, textType);
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "self", "()" + elementTypeDesc, true);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "getVisitor", "()" + elementVisitorTypeDesc, true);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitText", "(" + JAVA_OBJECT_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, textType, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + JAVA_OBJECT_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitText", "(" + textTypeDesc + ")V", false);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "self", "()" + elementTypeDesc, true);
         mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitMaxs(6, 2);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "comment", "(" + JAVA_OBJECT_DESC + ")" + elementTypeDesc, "<R:" + JAVA_OBJECT_DESC + ">(TR;)TT;", null);
@@ -103,12 +117,19 @@ class XsdSupportingStructure {
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "getVisitor", "()" + elementVisitorTypeDesc, true);
+        mVisitor.visitTypeInsn(NEW, textType);
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "self", "()" + elementTypeDesc, true);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "getVisitor", "()" + elementVisitorTypeDesc, true);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitComment", "(" + JAVA_OBJECT_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, textType, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + JAVA_OBJECT_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitComment", "(" + textTypeDesc + ")V", false);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "self", "()" + elementTypeDesc, true);
         mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(2, 2);
+        mVisitor.visitMaxs(6, 2);
         mVisitor.visitEnd();
 
         writeClassToFile(TEXT_GROUP, classWriter, apiName);
@@ -133,5 +154,96 @@ class XsdSupportingStructure {
         mVisitor.visitEnd();
 
         writeClassToFile(CUSTOM_ATTRIBUTE_GROUP, classWriter, apiName);
+    }
+
+    private static void createText(String apiName){
+        ClassWriter classWriter = generateClass(TEXT, JAVA_OBJECT, new String[] {ELEMENT}, "<Z::" + elementTypeDesc + "R:" + JAVA_OBJECT_DESC + ">" + JAVA_OBJECT_DESC + "L" + elementType + "<L" + textType + "<TZ;TR;>;TZ;>;", ACC_PUBLIC + ACC_SUPER, apiName);
+
+        FieldVisitor fVisitor = classWriter.visitField(ACC_PRIVATE + ACC_FINAL, "text", JAVA_STRING_DESC, null, null);
+        fVisitor.visitEnd();
+
+        fVisitor = classWriter.visitField(ACC_PROTECTED + ACC_FINAL, "parent", elementTypeDesc, "TZ;", null);
+        fVisitor.visitEnd();
+
+        fVisitor = classWriter.visitField(ACC_PROTECTED + ACC_FINAL, "visitor", elementVisitorTypeDesc, null, null);
+        fVisitor.visitEnd();
+
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + JAVA_OBJECT_DESC + ")V", "(TZ;" + elementVisitorTypeDesc + "TR;)V", null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, JAVA_OBJECT, CONSTRUCTOR, "()V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitFieldInsn(PUTFIELD, textType, "parent", elementTypeDesc);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 2);
+        mVisitor.visitFieldInsn(PUTFIELD, textType, "visitor", elementVisitorTypeDesc);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitVarInsn(ALOAD, 3);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, JAVA_OBJECT, "toString", "()" + JAVA_STRING_DESC, false);
+        mVisitor.visitFieldInsn(PUTFIELD, textType, "text", JAVA_STRING_DESC);
+        mVisitor.visitInsn(RETURN);
+        mVisitor.visitMaxs(2, 4);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "self", "()" + textTypeDesc, "()L" + textType + "<TZ;TR;>;", null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "º", "()" + elementTypeDesc, "()TZ;", null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, textType, "visitor", elementVisitorTypeDesc);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitText", "(" + textTypeDesc + ")V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, textType, "parent", elementTypeDesc);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(2, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getParent", "()" + elementTypeDesc, "()TZ;", null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, textType, "parent", elementTypeDesc);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getName", "()" + JAVA_STRING_DESC, null, null);
+        mVisitor.visitCode();
+        mVisitor.visitLdcInsn("");
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getVisitor", "()" + elementVisitorTypeDesc, null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, textType, "visitor", elementVisitorTypeDesc);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "getValue", "()" + JAVA_STRING_DESC, null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitFieldInsn(GETFIELD, textType, "text", JAVA_STRING_DESC);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, "self", "()" + elementTypeDesc, null, null);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, textType, "self", "()" + textTypeDesc, false);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(1, 1);
+        mVisitor.visitEnd();
+
+        writeClassToFile(TEXT, classWriter, apiName);
     }
 }

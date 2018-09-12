@@ -2,19 +2,19 @@ package Samples.HTML;
 
 public final class H1<P extends Element> implements FlowContent<H1<P>, P>, Element<H1<P>, P> {
 
-    protected final P parent;
-    protected final Visitor visitor;
+    private final P parent;
+    private final Visitor visitor;
 
     public H1(Visitor visitor) {
         this.visitor = visitor;
         this.parent = null;
-        visitor.visitElement("h1");
+        visitor.visitElement(this);
     }
 
     public H1(P parent) {
         this.parent = parent;
         this.visitor = parent.getVisitor();
-        visitor.visitElement("h1");
+        visitor.visitElement(this);
     }
 
     @Override
@@ -22,7 +22,7 @@ public final class H1<P extends Element> implements FlowContent<H1<P>, P>, Eleme
 
     @Override
     public P º() {
-        visitor.visitParent("h1");
+        visitor.visitParent(this);
         return parent;
     }
 

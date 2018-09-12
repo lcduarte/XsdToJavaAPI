@@ -1,4 +1,6 @@
+import org.xmlet.androidFaster.Element;
 import org.xmlet.androidFaster.ElementVisitor;
+import org.xmlet.androidFaster.Text;
 
 @SuppressWarnings("Duplicates")
 public class CustomVisitorAndroid extends ElementVisitor {
@@ -7,7 +9,7 @@ public class CustomVisitorAndroid extends ElementVisitor {
     private StringBuilder stringBuilder = new StringBuilder();
 
     @Override
-    public void visitElement(String elementName) {
+    public void visitElement(Element element) {
         int length = stringBuilder.length() - 1;
 
         if (length != -1){
@@ -25,7 +27,7 @@ public class CustomVisitorAndroid extends ElementVisitor {
         }
 
         doTabs();
-        stringBuilder.append('<').append(elementName);
+        stringBuilder.append('<').append(element.getName());
         ++tabCount;
     }
 
@@ -41,7 +43,7 @@ public class CustomVisitorAndroid extends ElementVisitor {
     }
 
     @Override
-    public void visitParent(String elementName) {
+    public void visitParent(Element element) {
         char lastChar = stringBuilder.charAt(stringBuilder.length() - 1);
 
         if (lastChar != '\n' && lastChar != '>'){
@@ -54,7 +56,7 @@ public class CustomVisitorAndroid extends ElementVisitor {
 
         --tabCount;
         doTabs();
-        stringBuilder.append("</").append(elementName).append('>');
+        stringBuilder.append("</").append(element.getName()).append('>');
     }
 
     String getResult(){
@@ -62,20 +64,20 @@ public class CustomVisitorAndroid extends ElementVisitor {
     }
 
     @Override
-    public <R> void visitText(R text){
+    public <R> void visitText(Text<? extends Element, R> text){
         if (text != null){
             stringBuilder.append(">\n");
             doTabs();
-            stringBuilder.append(text).append('\n');
+            stringBuilder.append(text.getValue()).append('\n');
         }
     }
 
     @Override
-    public <R> void visitComment(R comment){
+    public <R> void visitComment(Text<? extends Element, R> comment){
         if (comment != null){
             stringBuilder.append(">\n");
             doTabs();
-            stringBuilder.append("<!-- ").append(comment).append(" -->\n");
+            stringBuilder.append("<!-- ").append(comment.getValue()).append(" -->\n");
         }
     }
 }

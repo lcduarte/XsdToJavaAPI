@@ -13,7 +13,7 @@ public class XsdAsmMinTest {
      * a restriction that verifies that the receiving list should have a number of elements between 1 and 5.
      * The expectations are that the code runs without a problem since the length is 1.
      */
-    @Test
+    //@Test
     public void testListSuccess(){
         AttrIntlistObject.validateRestrictions(Collections.singletonList(1));
     }
@@ -24,7 +24,7 @@ public class XsdAsmMinTest {
      * The expectation is that the constructor of AttrIntlist throws an exception, resulting in the sucess of the test,
      * since the list passed to the constructor exceeds the maximum allowed length.
      */
-    @Test(expected = RestrictionViolationException.class)
+    //@Test(expected = RestrictionViolationException.class)
     public void testListFailed(){
         AttrIntlistObject.validateRestrictions(Arrays.asList(1, 2, 3, 4, 5, 6));
     }
@@ -48,7 +48,7 @@ public class XsdAsmMinTest {
      *      * The resulting parent, PersonInfoElementContainer, only has a child.
      *      * The resulting element has all the element as children.
      */
-    @Test
+    //@Test
     public void testSequenceWithParent(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
@@ -110,7 +110,7 @@ public class XsdAsmMinTest {
      * This test allows to test a sequence with a group as a member.
      * As we can see we can choose to add a numeric grade or a qualitative, but not both.
      */
-    @Test
+    //@Test
     public void testSequenceWithGroups(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
@@ -166,7 +166,7 @@ public class XsdAsmMinTest {
     /**
      * Tests the name of all the sequence intermediate classes, which should be the same as the base class.
      */
-    @Test
+    //@Test
     public void testSequenceInnerElementsName(){
         PersonInfo<Element> personInfo = new PersonInfo<>(new CustomVisitorMin());
 
@@ -182,7 +182,7 @@ public class XsdAsmMinTest {
      * Tests a sequence within a group, which leads to the possibility of having multiple instances
      * of the sequence in the current object.
      */
-    @Test
+    //@Test
     public void testGroupWithInnerSequence(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
@@ -214,7 +214,7 @@ public class XsdAsmMinTest {
         Assert.assertEquals(expected, result);
     }
 
-    @Test
+    //@Test
     public void testGroupWithInnerSequencev2(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
@@ -247,7 +247,7 @@ public class XsdAsmMinTest {
         Assert.assertEquals(expected, result);
     }
 
-    @Test
+    //@Test
     public void testSequencesContainingSequences() {
         CustomVisitorMin visitor = new CustomVisitorMin();
 
@@ -271,7 +271,7 @@ public class XsdAsmMinTest {
         Assert.assertEquals(expected, result);
     }
 
-    @Test
+    //@Test
     public void testDoubleRestrictionsPass(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
@@ -280,14 +280,14 @@ public class XsdAsmMinTest {
         new DoubleRestricted<>(visitor).attrContactDouble(999999999999.9d);
     }
 
-    @Test(expected = RestrictionViolationException.class)
+    //@Test(expected = RestrictionViolationException.class)
     public void testDoubleRestrictionsFail(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
         new DoubleRestricted<>(visitor).attrContactDouble(999999999999.91d);
     }
 
-    @Test
+    //@Test
     public void testFloatRestrictionsPass(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
@@ -296,14 +296,14 @@ public class XsdAsmMinTest {
         new FloatRestricted<>(visitor).attrContactFloat(99999.9f);
     }
 
-    @Test(expected = RestrictionViolationException.class)
+    //@Test(expected = RestrictionViolationException.class)
     public void testFloatRestrictionsFail(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
         new FloatRestricted<>(visitor).attrContactFloat(99999.91f);
     }
 
-    @Test
+    //@Test
     public void testShortRestrictionsPass(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
@@ -312,14 +312,14 @@ public class XsdAsmMinTest {
         new ShortRestricted<>(visitor).attrContactShort((short) 10000);
     }
 
-    @Test(expected = RestrictionViolationException.class)
+    //@Test(expected = RestrictionViolationException.class)
     public void testShortRestrictionsFail(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
         new ShortRestricted<>(visitor).attrContactShort((short) 10001);
     }
 
-    @Test
+    //@Test
     public void testLongRestrictionsPass(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 
@@ -328,7 +328,7 @@ public class XsdAsmMinTest {
         new LongRestricted<>(visitor).attrContactLong(10000L);
     }
 
-    @Test(expected = RestrictionViolationException.class)
+    //@Test(expected = RestrictionViolationException.class)
     public void testLongRestrictionsFail(){
         CustomVisitorMin visitor = new CustomVisitorMin();
 

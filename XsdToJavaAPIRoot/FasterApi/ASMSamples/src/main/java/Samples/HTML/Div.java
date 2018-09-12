@@ -10,13 +10,13 @@ public final class Div<P extends Element> implements CommonAttributeGroup<Div<P>
     public Div(Visitor visitor) {
         this.visitor = visitor;
         this.parent = null;
-        visitor.visitElement("div");
+        visitor.visitElementDiv(this);
     }
 
     public Div(P parent) {
         this.parent = parent;
         this.visitor = parent.getVisitor();
-        visitor.visitElement("div");
+        visitor.visitElementDiv(this);
     }
 
     public final Div<P> addSomeAttribute(String val){
@@ -26,6 +26,11 @@ public final class Div<P extends Element> implements CommonAttributeGroup<Div<P>
     }
 
     public final Div<P> of(Consumer<Div<P>> consumer){
+        consumer.accept(this);
+        return this;
+    }
+
+    public final Div<P> dynamic(Consumer<Div<P>> consumer){
         visitor.visitOpenDynamic();
         consumer.accept(this);
         visitor.visitCloseDynamic();
@@ -37,7 +42,7 @@ public final class Div<P extends Element> implements CommonAttributeGroup<Div<P>
 
     @Override
     public P º() {
-        visitor.visitParentDiv();
+        visitor.visitParentDiv(this);
         return parent;
     }
 
