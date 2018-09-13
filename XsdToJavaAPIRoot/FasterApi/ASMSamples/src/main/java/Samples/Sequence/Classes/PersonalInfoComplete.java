@@ -18,6 +18,11 @@ public class PersonalInfoComplete<P extends Element> implements Element<Personal
         this.visitor = parent.getVisitor();
     }
 
+    public PersonalInfoComplete(P parent, Visitor visitor) {
+        this.parent = parent;
+        this.visitor = visitor;
+    }
+
     @Override
     public PersonalInfoComplete<P> self() {
         return this;

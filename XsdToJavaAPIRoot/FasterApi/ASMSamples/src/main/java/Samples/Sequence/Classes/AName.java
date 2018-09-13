@@ -12,18 +12,22 @@ public class AName<P extends Element> implements TextGroup<AName<P>, P> {
     public AName(Visitor visitor) {
         this.visitor = visitor;
         this.parent = null;
-        visitor.visitElement("personInfo");
+        //visitor.visitElement("personInfo");
     }
 
     public AName(P parent) {
         this.parent = parent;
         this.visitor = parent.getVisitor();
-        visitor.visitElement("personInfo");
+        //visitor.visitElement("personInfo");
     }
 
-    protected AName(P parent, Visitor visitor) {
+    protected AName(P parent, Visitor visitor, boolean visits) {
         this.parent = parent;
         this.visitor = visitor;
+
+        if(visits){
+            visitor.visitElement(this);
+        }
     }
 
     @Override
@@ -33,7 +37,7 @@ public class AName<P extends Element> implements TextGroup<AName<P>, P> {
 
     @Override
     public P º() {
-        visitor.visitParent("personInfo");
+        //visitor.visitParent("personInfo");
         return parent;
     }
 
@@ -53,9 +57,7 @@ public class AName<P extends Element> implements TextGroup<AName<P>, P> {
     }
 
     public ANameElem1<P> elem1(String value){
-        visitor.visitElement("elem1");
-        visitor.visitText(value);
-        visitor.visitParent("elem1");
+        new Elem1<>(visitor, this).text(value).º();
         return new ANameElem1<>(parent);
     }
 }

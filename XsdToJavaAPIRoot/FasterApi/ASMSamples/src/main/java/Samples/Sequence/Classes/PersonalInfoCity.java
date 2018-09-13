@@ -11,13 +11,18 @@ public class PersonalInfoCity<P extends Element> implements Element<PersonalInfo
     public PersonalInfoCity(Visitor visitor) {
         this.visitor = visitor;
         this.parent = null;
-        visitor.visitElement("personInfo");
+        //visitor.visitElement("personInfo");
     }
 
     public PersonalInfoCity(P parent) {
         this.parent = parent;
         this.visitor = parent.getVisitor();
-        visitor.visitElement("personInfo");
+        //visitor.visitElement("personInfo");
+    }
+
+    public PersonalInfoCity(P parent, Visitor visitor) {
+        this.parent = parent;
+        this.visitor = visitor;
     }
 
     @Override
@@ -27,7 +32,7 @@ public class PersonalInfoCity<P extends Element> implements Element<PersonalInfo
 
     @Override
     public P º() {
-        visitor.visitParent("personInfo");
+        //visitor.visitParent("personInfo");
         return parent;
     }
 
@@ -47,10 +52,8 @@ public class PersonalInfoCity<P extends Element> implements Element<PersonalInfo
     }
 
     public PersonalInfoComplete<P> country(String value){
-        visitor.visitElement("country");
-        visitor.visitText(value);
-        visitor.visitParent("country");
-        return new PersonalInfoComplete<>(parent);
+        new Country<>(visitor, this).text(value).º();
+        return new PersonalInfoComplete<>(parent, visitor);
     }
 }
 

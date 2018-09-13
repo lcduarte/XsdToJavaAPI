@@ -17,6 +17,11 @@ public class PersonalInfoFirstName<P extends Element> implements Element<Persona
         this.visitor = parent.getVisitor();
     }
 
+    public PersonalInfoFirstName(P parent, Visitor visitor) {
+        this.parent = parent;
+        this.visitor = visitor;
+    }
+
     @Override
     public PersonalInfoFirstName<P> self() {
         return this;
@@ -43,10 +48,8 @@ public class PersonalInfoFirstName<P extends Element> implements Element<Persona
     }
 
     public PersonalInfoLastName<P> lastName(String value){
-        visitor.visitElement("lastName");
-        visitor.visitText(value);
-        visitor.visitParent("lastName");
-        return new PersonalInfoLastName<>(parent);
+        new LastName<>(visitor, this).text(value).º();
+        return new PersonalInfoLastName<>(parent, visitor);
     }
 
 }

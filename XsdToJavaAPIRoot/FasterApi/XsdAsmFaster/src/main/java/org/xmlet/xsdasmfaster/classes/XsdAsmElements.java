@@ -1,9 +1,6 @@
 package org.xmlet.xsdasmfaster.classes;
 
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.FieldVisitor;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.*;
 import org.xmlet.xsdparser.xsdelements.XsdAttribute;
 import org.xmlet.xsdparser.xsdelements.XsdElement;
 
@@ -119,9 +116,10 @@ class XsdAsmElements {
         mVisitor.visitMaxs(2, 2);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + ")V", "(TZ;" + elementVisitorTypeDesc + ")V", null);
+        mVisitor = classWriter.visitMethod(ACC_PROTECTED, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + "Z)V", "(TZ;" + elementVisitorTypeDesc + "Z)V", null);
         mVisitor.visitLocalVariable("parent", elementTypeDesc, null, new Label(), new Label(),1);
         mVisitor.visitLocalVariable("visitor", elementVisitorTypeDesc, null, new Label(), new Label(),2);
+        mVisitor.visitLocalVariable("shouldVisit", "Z", null, new Label(), new Label(),3);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitMethodInsn(INVOKESPECIAL, JAVA_OBJECT, CONSTRUCTOR, "()V", false);
@@ -131,8 +129,20 @@ class XsdAsmElements {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitFieldInsn(PUTFIELD, classType, "visitor", elementVisitorTypeDesc);
+
+        if (performVisits) {
+            mVisitor.visitVarInsn(ILOAD, 3);
+            Label l0 = new Label();
+            mVisitor.visitJumpInsn(IFEQ, l0);
+            mVisitor.visitVarInsn(ALOAD, 2);
+            mVisitor.visitVarInsn(ALOAD, 0);
+            mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitElement" + getCleanName(className), "(" + classTypeDesc + ")V", false);
+            mVisitor.visitLabel(l0);
+            mVisitor.visitFrame(Opcodes.F_FULL, 4, new Object[]{classType, elementType, elementVisitorType, Opcodes.INTEGER}, 0, new Object[]{});
+        }
+
         mVisitor.visitInsn(RETURN);
-        mVisitor.visitMaxs(2, 3);
+        mVisitor.visitMaxs(2, 4);
         mVisitor.visitEnd();
 
         mVisitor = classWriter.visitMethod(ACC_PUBLIC, "º", "()" + elementTypeDesc, "()TZ;", null);
@@ -140,7 +150,7 @@ class XsdAsmElements {
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, classType, "visitor", elementVisitorTypeDesc);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitParent" + getCleanName(className), "(" + classTypeDesc + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitParent" + getCleanName(typeName), "(" + classTypeDesc + ")V", false);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, classType, "parent", elementTypeDesc);
         mVisitor.visitInsn(ARETURN);

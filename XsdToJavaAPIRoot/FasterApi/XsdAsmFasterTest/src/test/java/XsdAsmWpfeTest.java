@@ -7,7 +7,7 @@ public class XsdAsmWpfeTest {
     /**
      * A simple test to test the interface depth in action.
      */
-    //@Test
+    @Test
     public void testWpfe(){
         CustomVisitorWpfe visitor = new CustomVisitorWpfe();
 

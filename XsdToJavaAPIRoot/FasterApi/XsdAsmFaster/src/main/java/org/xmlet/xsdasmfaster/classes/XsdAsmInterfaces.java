@@ -326,6 +326,7 @@ class XsdAsmInterfaces {
 
             if (isLast){
                 if (!typeName.equals(className)){
+                    createdElements.put(typeName, null);
                     writeClassToFile(typeName, generateInnerSequenceClass(typeName, className, apiName), apiName);
                 }
 
@@ -359,7 +360,9 @@ class XsdAsmInterfaces {
     }
 
     private void createFirstSequenceInterface(ClassWriter classWriter, String className, String nextTypeName, String apiName, List<XsdElement> elements){
-        elements.forEach(element -> generateSequenceMethod(classWriter, getJavaType(element.getType()), getCleanName(element.getName()), className, nextTypeName, apiName));
+        elements.forEach(element -> generateSequenceMethod(classWriter, className, getJavaType(element.getType()), getCleanName(element.getName()), className, nextTypeName, apiName));
+
+        elements.forEach(element -> createElement(element, apiName));
     }
 
     private String getNextTypeName(String className, String groupName, String sequenceName, boolean isLast){
@@ -379,7 +382,9 @@ class XsdAsmInterfaces {
         ClassWriter classWriter = generateInnerSequenceClass(typeName, className, apiName);
 
         sequenceElements.forEach(sequenceElement ->
-                            generateSequenceMethod(classWriter, getJavaType(sequenceElement.getType()), getCleanName(sequenceElement.getName()), typeName, nextTypeName, apiName));
+                            generateSequenceMethod(classWriter, className, getJavaType(sequenceElement.getType()), getCleanName(sequenceElement.getName()), typeName, nextTypeName, apiName));
+
+        sequenceElements.forEach(element -> createElement(element, apiName));
 
         writeClassToFile(typeName, classWriter, apiName);
     }
@@ -405,37 +410,45 @@ class XsdAsmInterfaces {
      * @param nextTypeName The name of the class that contains the sequence.
      * @param apiName The name of the API to be generated.
      */
-    private void generateSequenceMethod(ClassWriter classWriter, String javaType, String addingChildName, String typeName, String nextTypeName, String apiName) {
+    private void generateSequenceMethod(ClassWriter classWriter, String className, String javaType, String addingChildName, String typeName, String nextTypeName, String apiName) {
         String type = getFullClassTypeName(typeName, apiName);
         String nextType = getFullClassTypeName(nextTypeName, apiName);
         String nextTypeDesc = getFullClassTypeNameDesc(nextTypeName, apiName);
+        String addingType = getFullClassTypeName(addingChildName, apiName);
 
         javaType = javaType == null ? JAVA_STRING_DESC : javaType;
 
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, firstToLower(addingChildName), "(" + javaType + ")" + nextTypeDesc, "(" + javaType + ")L" + nextType + "<TZ;>;", null);
         mVisitor.visitLocalVariable(firstToLower(addingChildName), JAVA_STRING_DESC, null, new Label(), new Label(),1);
         mVisitor.visitCode();
+        mVisitor.visitTypeInsn(NEW, addingType);
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, type, "visitor", elementVisitorTypeDesc);
-        mVisitor.visitLdcInsn(firstToLower(addingChildName));
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitElement", "(" + JAVA_STRING_DESC + ")V", false);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitFieldInsn(GETFIELD, type, "visitor", elementVisitorTypeDesc);
+        mVisitor.visitInsn(ICONST_1);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, addingType, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + "Z)V", false);
         mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitText", "(" + JAVA_OBJECT_DESC + ")V", false);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitFieldInsn(GETFIELD, type, "visitor", elementVisitorTypeDesc);
-        mVisitor.visitLdcInsn(firstToLower(addingChildName));
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitParent", "(" + JAVA_STRING_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "text", "(" + JAVA_OBJECT_DESC + ")" + elementTypeDesc, false);
+        mVisitor.visitTypeInsn(CHECKCAST, addingType);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "º", "()" + elementTypeDesc, false);
+        mVisitor.visitInsn(POP);
         mVisitor.visitTypeInsn(NEW, nextType);
         mVisitor.visitInsn(DUP);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, type, "parent", elementTypeDesc);
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, type, "visitor", elementVisitorTypeDesc);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, nextType, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + ")V", false);
+
+        if (className.equals(nextTypeName)){
+            mVisitor.visitInsn(ICONST_0);
+        } else {
+            mVisitor.visitInsn(ICONST_1);
+        }
+
+        mVisitor.visitMethodInsn(INVOKESPECIAL, nextType, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + "Z)V", false);
         mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(4, 2);
+        mVisitor.visitMaxs(5, 2);
         mVisitor.visitEnd();
     }
 
