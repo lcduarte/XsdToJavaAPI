@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="spring-comparing-template-engines:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="template-engines.war">
-      <element id="artifact" artifact-name="spring-comparing-template-engines:war exploded" />
-    </root>
-  </artifact>
-</component>

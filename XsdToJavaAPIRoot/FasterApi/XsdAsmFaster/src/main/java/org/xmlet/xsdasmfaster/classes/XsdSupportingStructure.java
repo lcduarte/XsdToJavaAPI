@@ -86,6 +86,7 @@ class XsdSupportingStructure {
         mVisitor.visitEnd();
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "getParent", "()" + elementTypeDesc, "()TZ;", null);
         mVisitor.visitEnd();
+
         writeClassToFile(ELEMENT, classWriter, apiName);
     }
 

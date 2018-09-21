@@ -1,22 +1,21 @@
 \abstractPT  % Do NOT modify this line
 
 %Introdução - Informar, em poucas palavras, o contexto em que o trabalho se insere, sintetizando a problemática estudada. 
-Actualmente a utilização de linguagens de markup é recorrente no mundo da tecnologia, sendo o \ac{HTML} a linguagem mais utilizada graças à sua utilização no mundo da Web. Tendo isso em conta é necessário que existam ferramentas capazes de escrever documentos bem formados de forma eficaz. Actualmente essa tarefa é realizada por template engines, tendo como base ficheiros externos com templates de resposta, o que não garante que estes sejam bem formados e acrescenta o overhead do carregamento do ficheiro para memória.
+Actualmente a utilização de linguagens de markup é recorrente no mundo da tecnologia, sendo o \ac{HTML} a linguagem mais utilizada graças à sua utilização no mundo da Web. Tendo isso em conta é necessário que existam ferramentas capazes de escrever documentos bem formados de forma eficaz. Actualmente essa tarefa é realizada por \textit{template engines}, tendo como base ficheiros externos com \textit{templates} de resposta, o que não garante que estes sejam bem formados e acrescenta o \textit{overhead} do carregamento do ficheiro para memória.
 
 % Objectivo - Deve ser explicitado claramente. 
 \noindent
-O nosso objectivo é criar as ferramentas necessárias para gerar \ac{API}s fluentes tendo em conta a sua definição sintática, expressa em \ac{XSD}, garantindo que as restrições dessa mesma linguagem são verificadas. A geração de \ac{API}s deve ser automatizada de modo a evitar erro humano e tornar a geração de código mais rápida. Automatizando a geração de \ac{API}s cria-se também uma abordagem uniforme às diferentes linguagens utilizadas.
+O nosso objectivo é criar as ferramentas necessárias para gerar \textit{interfaces fluentes} tendo em conta a sua definição sintática, expressa em \ac{XSD}, garantindo que as restrições dessa mesma linguagem são verificadas. A geração de \textit{interfaces fluentes} deve ser automatizada de modo a evitar erro humano e tornar a geração de código mais rápida. Automatizando a geração das \textit{interfaces fluentes} cria-se também uma abordagem uniforme às diferentes linguagens de domínio utilizadas.
 
 %Métodos - Destacar os procedimentos metodológicos adoptados. 
 \noindent
-Para alcançar os nossos objectivos vai ser utilizada a linguagem Java para extrair informação sintática da linguagem do seu ficheiro de definição. Tendo essa informação em conta vão ser gerados bytecodes para refletir a definição da linguagem para a linguagem Java. Para implementar as restrições em Java é sempre prioritizada a validação de restrições em tempo de compilação, apenas validando em tempo de execução informação que não existe aquando da geração da \ac{API}.
-
+Para alcançar os nossos objectivos vamos utilizar a linguagem Java para extrair informação sintática da linguagem do seu ficheiro de definição. Tendo essa informação em conta vão ser gerados \texttt{bytecodes} para refletir a definição da linguagem para a linguagem Java. Para implementar as restrições em Java é sempre prioritizada a validação de restrições em tempo de compilação, apenas validando em tempo de execução informação que não existe aquando da geração da \textit{interface fluente}.
 %Resultados - Destacar os mais relevantes para os objectivos pretendidos. 
 \noindent
-Comparando a solução desenvolvida com soluções semelhantes, incluindo dez template engines e outra solução semelhante à que é apresentada, obtemos resultados favoráveis, verificando que a solução sugerida é a mais eficiente em todos os testes feitos. Estes resultados são importantes, especialmente considerando que apesar de ser a solução mais eficiente introduz também a verificação das restrições da linguagem utilizada tendo em conta a sua definição sintática.
+Comparando a solução desenvolvida com soluções semelhantes, incluindo sete \textit{template engines} clássicos e algumas soluções semelhantes à que é apresentada, obtemos resultados favoráveis, verificando que a solução sugerida é a mais eficiente em todos os testes feitos. Estes resultados são importantes, especialmente considerando que apesar de ser a solução mais eficiente introduz também a verificação das restrições da linguagem utilizada tendo em conta a sua definição sintática.
 
 % Keywords of abstract in Portuguese
 \begin{keywords}
-XML, XSD, Geração Automática de Código, API fluente.
+XML, XSD, Geração Automática de Código, \texttt{interface} fluente.
 \end{keywords}
 % to add an extra black line
