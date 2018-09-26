@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 public interface FlowContent<T extends Element<T, P>, P extends Element> extends Element<T, P> {
     default public H1<T> h1() {

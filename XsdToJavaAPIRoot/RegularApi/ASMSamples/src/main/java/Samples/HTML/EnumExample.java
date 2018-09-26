@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 public enum EnumExample implements EnumInterface<String>{
 

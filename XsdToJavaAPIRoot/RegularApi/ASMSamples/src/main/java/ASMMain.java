@@ -1,6 +1,6 @@
-import Samples.HTML.Div;
-import Samples.HTML.Element;
-import Samples.Sequence.Classes.*;
+import samples.html.Div;
+import samples.html.Element;
+import samples.sequence.*;
 import org.objectweb.asm.util.ASMifier;
 
 public class ASMMain {
@@ -32,8 +32,8 @@ public class ASMMain {
             assert pSize == 5;
             assert aSize == 2;
 
-            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\RegularApi\\ASMSamples\\target\\classes\\Samples\\HTML\\Visitor.class"});
-            //ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\RegularApi\\ASMSamples\\target\\classes\\Samples\\Sequence\\Classes\\PersonalInfoFirstName.class"});
+            ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\RegularApi\\ASMSamples\\target\\classes\\samples\\html\\Div.class"});
+            //ASMifier.main(new String[]{"D:\\ISEL\\Tese\\Desenvolvimento\\Repositorio\\XsdToJavaAPI\\XsdToJavaAPIRoot\\RegularApi\\ASMSamples\\target\\classes\\samples\\sequence\\PersonalInfoFirstName.class"});
         } catch (Exception e) {
             e.printStackTrace();
         }

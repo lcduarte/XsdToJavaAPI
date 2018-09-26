@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 import java.util.function.Function;
 
@@ -9,8 +9,8 @@ public interface TextGroup<T extends Element, P extends Element> extends Element
         return this.self();
     }
 
-    default <R> T comment(R text){
-        this.addChild(new Comment<>(this, String.valueOf(text)));
+    default <R> T comment(R comment){
+        this.addChild(new Text<>(this, String.valueOf(comment)));
         return this.self();
     }
 

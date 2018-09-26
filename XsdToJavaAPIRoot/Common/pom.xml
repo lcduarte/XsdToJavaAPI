@@ -15,6 +15,5 @@
 
     <modules>
         <module>XsdParser</module>
-        <module>Benchmark</module>
     </modules>
 </project>

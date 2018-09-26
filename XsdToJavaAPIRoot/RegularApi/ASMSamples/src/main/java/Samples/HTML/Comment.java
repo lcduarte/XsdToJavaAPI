@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 public class Comment<P extends Element> extends AbstractElement<Comment<P>, P> {
 

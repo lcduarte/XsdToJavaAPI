@@ -1,0 +1,93 @@
+\chapter{State of Art}
+\label{cha:stateofart}
+
+In this chapter we are going to introduce the the technologies used in the development of this work, such as the \ac{XSD} language in order to provide a better understanding of the next chapters, and also introduce the latest solutions that moved on from the more classical template engine solutions and in different ways tried to innovate in order to introduce more safety and reliability to the process of generating \ac{HTML} documents. 
+
+\section{XSD Language} % (fold)
+\label{sec:xsd}
+
+The \ac{XSD} language is a description of a type of \ac{XML} document. The \ac{XSD} syntax allows for the definition of a set of rules, elements and attributes that together define an external \ac{DSL}. This specific language defined in a \ac{XSD} document aims to solve a specific issue, with its rules serving as a contract between applications regarding the information contained in the \ac{XML} files that represent information of that specific language. The \ac{XSD} main purpose is to validate \ac{XML} documents, if the \ac{XML} document follows the rules specified in the \ac{XSD} document then the \ac{XML} file is considered valid otherwise it's not. To describe the rules and restrictions for a given \ac{XML} document the \ac{XSD} language relies on two main types of data, elements and attributes. Elements are the most complex data type, they can contain other elements as children and can also have attributes. Attributes on the other hand are just pairs of information, defined by their name and their value. The value of a given attribute can be then restricted by multiple constraints existing on the \ac{XSD} syntax. There are multiple elements and attributes present in the \ac{XSD} language, which are specified in the \ac{XSD} Schema rules\cite{xsdrules}. In this dissertation we will use the set of rules and restrictions of the provided \ac{XSD} documents to build a \textit{fluent interface} that will enforce the rules and restrictions specified by the given file.
+
+\section{Template Engines Evolution}
+\label{sec:templateenginesevolution}
+
+We have already presented the idea behind template engines in the Section \ref{sec:templateengines} and their handicaps in Section  \ref{sec:templateengineshandicaps}, but here we are going to present some recent innovations that some template engines introduced in order to remove or minimize some of the problems listed previously. We are going to compare the features that each solution brings to the table and create a general landscape of the preexisting solutions similar to the use case that \texttt{xmlet} will use.
+
+\subsection{HtmlFlow Before Xmlet}
+\label{sec:htmlflowbeforexmlet}
+
+The HtmlFlow\footnote{\href{https://github.com/xmlet/HtmlFlow}{HtmlFlow}} solution was the first to be approached in the developing process of the \texttt{xmlet} solution. The HtmlFlow motivation is to provide a library that allowed its users to write well formed type-safe \ac{HTML} documents. The solution that existed prior to this project only supported a subset of the \ac{HTML} language, whilst implementing some of the rules of the \ac{HTML} language. This solution was a step in the right direction, it removed the requirement to have textual files to define templates by moving the template definition to the Java language. It also provided a very important aspect, it performed language validations at compile time which is great since it grants that those problems will be solved at compile time instead of run-time. The main downside of this solution was that it only supported a subset of the \ac{HTML} language, since recreating all the \ac{HTML} language rules manually would be very time consuming. This problem led to the requirement of creating an automated process to translate the language rules to the Java language.
+
+\subsection{J2html} % (fold)
+\label{sec:j2html}
+
+The J2html\footnote{\href{https://j2html.com/}{J2html}} solution is a Java library used to write \ac{HTML}. This solution does not verify the specification rules of the \ac{HTML} language either at compile time or at runtime, which is a major downside. But on the other hand it removes the requirement of having text files to define templates by defining the templates within the Java language. It also provides support for the usage of the most of the \ac{HTML} language, which is probably the reason why it has more garnered more attention than HtmlFlow. This library also shows that the issue we are trying to solve with the \texttt{xmlet} solution is relevant since this library has quite a few forks and watchers on their Github page\footnote{\href{https://github.com/tipsy/j2html}{J2html Github Page}}. 
+
+\subsection{Rocker}
+\label{sec:rocker}
+
+The Rocker\footnote{\href{https://github.com/fizzed/rocker}{Rocker Github}} solution is very different from the two solutions presented before. Its approach is at is core very similar to the classic \textit{template engine} solution since it still has a textual file to define the template. But contrary to the classic \textit{template engines} the template file isn't used at run-time. This solution uses the textual template file to automatically generate a Java class to replicate that specific template in the Java language. This means that instead of resorting to the loading of the template defined in a text file it uses the automatically generated class to generate the final document, by combining the static information present in the class with the received input. This is very important, by two distinct reasons. The first reason is that this solution can validate the type of the \textit{context objects} used to create the template at compile time. The second reason is that this solution is very good performance wise due to having all the static parts of the template \texttt{hardcoded} into the Java class that defines a specific template. This was by far the best competitor with \texttt{xmlet} performance wise. The biggest downside of this solution is that it doesn't verify the \ac{HTML} language rules or even well formed \ac{XML} documents.
+
+\subsection{KotlinX}
+\label{sec:kotlinx}
+
+Kotlin\footnote{\href{https://kotlinlang.org/}{Kotlin}} is a programming language that runs on the \ac{JVM}. The language main objective is to create an inter-operative language between Java, Android and browser applications. Its syntax is not compatible to the standard Java syntax the \ac{JVM} implementation of the Kotlin library allows interoperability between both languages. The main reasons to use this language is that it heavily reduces the verbose needed to create code by using type inference and other techniques. 
+
+\noindent
+Kotlin is relevant to this project since one of his children projects, KotlinX, defines a \ac{DSL} for the \ac{HTML} language. The solution KotlinX provides is quite similar to what the \texttt{xmlet} will provide in its use case. 
+
+\begin{itemize}
+	\item Elements - The generated Kotlin \ac{DSL} will guarantee that each element only contains the elements and attributes allowed as stated in the \ac{HTML}5 \ac{XSD} document. This is achieved by using type inference and the language compiler.
+	\item Attributes - The possible values for restricted attributes values aren't verified.
+	\item Template - The template is embedded within the Kotlin language, removing the textual template files.
+	\item Flexibility - Allows the usage of the Kotlin syntax to define templates, which is richer than the regular \textit{template engine} syntax.
+	\item Complexity - Removes the need of using three distinct syntaxes, the programmer only programs in Kotlin.
+\end{itemize}
+
+\noindent
+KotlinX\footnote{\href{https://github.com/Kotlin/kotlinx.coroutines}{KotlinX}} is probably the solution which resembles the \texttt{xmlet} solution the most. The only difference is that the \texttt{xmlet} solution takes advantage of the attributes restrictions present in the \ac{XSD} document in order to increase the verifications that are performed on the \ac{HTML} documents that are generated by the generated \textit{fluent interfaces}. Both solutions also use the Visitor pattern in order to abstract themselves from the concrete usage of the \ac{DSL}. The only difference between KotlinX and the \texttt{xmlet} solution is performance. The major downside of KotlinX is its performance, in the benchmarks performed KotlinX ranks among the worse \textit{template engines} that were used as comparison.
+
+\subsection{HtmlFlow With Xmlet}
+\label{sec:htmlflowwithxmlet}
+
+After developing the \texttt{xmlet} solution and adapting the HtmlFlow solution to use it the solutions characteristics changed. The positive aspects of the solution are kept since the general idea for the solution is kept with the usage of the \texttt{HtmlApi} generated by the \texttt{xmlet} solution. Regarding the negative aspects there were three main ones:
+
+\begin{itemize}
+	\item Small language subset - Solved by using the automatically generated \texttt{HtmlApi} which defines the whole \ac{HTML} language within the Java language.
+	\item Attribute value validation - The \texttt{HtmlApi} validates every attribute value based on the restrictions defined for that respective attribute in the \ac{HTML} \ac{XSD} document.
+	\item Maintainability - Since it uses an automatically generated \ac{DSL} if any change occurs in the \ac{HTML} language specification the only change needed is to generate a new \ac{DSL} based on the new language rules.
+\end{itemize}
+
+\noindent
+By using the \texttt{xmlet} solution the HtmlFlow solution was able to improve its performance. With the mechanics created by the usage of the \texttt{xmlet} solution it is now possible to replicate the performance improvements of the Rocker solution. Even though the template rendering using the HtmlFlow is made as the template is being defined it is possible to implement a caching strategy that caches the static parts of the template, which result in huge performance boosts when the template is reused.
+
+\newpage
+
+\subsection{Feature Comparison}
+\label{sec:featurecomparison}
+
+To have a better overview on all the previously presented solutions we will now present a table that has a list of important features and which solution implements it or not.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+                         &   J2Html   &   Rocker   &   KotlinX  &        HtmlFlow*        \\ \hline
+Template Within Language & \Checkmark & *1         & \Checkmark & \Checkmark / \Checkmark \\ \hline
+Elements Validations     & \XSolid    & \XSolid    & \Checkmark & \Checkmark / \Checkmark \\ \hline
+Attribute Validations    & \XSolid    & \XSolid    & \XSolid    & \XSolid    / \Checkmark \\ \hline
+Fully Supports \ac{HTML} & \XSolid    & \Checkmark & \Checkmark & \XSolid    / \Checkmark \\ \hline
+Well-Formed Documents    & \Checkmark & \XSolid    & \Checkmark & \Checkmark / \Checkmark \\ \hline
+Maintainability          & \XSolid    & \Checkmark & \Checkmark & \XSolid    / \Checkmark \\ \hline
+Performance              & \Checkmark & \Checkmark & \XSolid    & \XSolid    / \Checkmark \\ \hline
+\end{tabular}
+\caption{Template Engines Feature Comparison}
+\label{tab:featurecomparison}
+\XSolid - Feature not present \\
+\Checkmark - Feature present \\
+HtmlFlow* - Before \texttt{xmlet} / Using \texttt{xmlet} \\
+*1 - Template generated inside the language at compile time \\
+\end{table}
+
+\noindent
+As we can see in the Table \ref{tab:featurecomparison}, most these solutions tend to move the template definition to the language in which they are used, removing the overhead of loading the textual files and parsing them at run-time. Another feature that the different solutions share is that they all create well formed documents, apart from Rocker. The general problem that extends to all the solutions that previously existed is the lack of validations that enforce the \ac{HTML} language rules. KotlinX is the solution that mostly resembles what \texttt{xmlet} pretends to implement but is heavily handicapped when it comes to performance ranking among the worse \textit{template engines} in the benchmarks performed in Chapter \ref{cha:deployment}.

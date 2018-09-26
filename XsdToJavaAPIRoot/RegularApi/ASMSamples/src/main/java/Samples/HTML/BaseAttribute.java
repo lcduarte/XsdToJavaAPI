@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 public class BaseAttribute<T> implements IAttribute<T> {
 

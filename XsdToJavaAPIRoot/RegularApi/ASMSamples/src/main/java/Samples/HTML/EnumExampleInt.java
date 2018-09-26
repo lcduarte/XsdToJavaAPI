@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 public enum EnumExampleInt implements EnumInterface<Double>{
 

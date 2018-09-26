@@ -15,6 +15,9 @@ import static org.objectweb.asm.Opcodes.*;
 import static org.xmlet.xsdasmfaster.classes.XsdAsmUtils.*;
 import static org.xmlet.xsdasmfaster.classes.XsdSupportingStructure.*;
 
+/**
+ * This class has the responsibility of creating the ElementVisitor class.
+ */
 class XsdAsmVisitor {
 
     private static final String VISIT_ELEMENT_NAME = "visitElement";
@@ -24,19 +27,26 @@ class XsdAsmVisitor {
     private XsdAsmVisitor(){}
 
     /**
-     * Generates both the visitor interface and abstract visitor with method for each element from the list.
+     * Generates both the abstract visitor class with methods for each element from the list.
      * @param elementNames The elements names list.
-     * @param apiName The api this classes will belong to.
+     * @param apiName The name of the generated fluent interface.
      */
     static void generateVisitors(Set<String> elementNames, List<XsdAttribute> attributes, String apiName){
         generateVisitorInterface(elementNames, filterAttributes(attributes), apiName);
     }
 
     /**
-     * Generates the visitor class for this api with methods for all elements in the element list.
+     * Generates the visitor class for this fluent interface with methods for all elements in the element list.
+     *
+     * Main methods:
+     *  void visitElement(Element element);
+     *  void visitAttribute(String attributeName, String attributeValue);
+     *  void visitParent(Element elementName);
+     *  <R> void visitText(Text<? extends Element, R> text);
+     *  <R> void visitComment(Text<? extends Element, R> comment);
      * @param elementNames The elements names list.
      * @param attributes The list of attributes to be generated.
-     * @param apiName The api this class will belong to.
+     * @param apiName The name of the generated fluent interface.
      */
     private static void generateVisitorInterface(Set<String> elementNames, List<XsdAttribute> attributes, String apiName) {
         ClassWriter classWriter = generateClass(ELEMENT_VISITOR, JAVA_OBJECT, null, null, ACC_PUBLIC + ACC_ABSTRACT + ACC_SUPER, apiName);
@@ -85,6 +95,15 @@ class XsdAsmVisitor {
         writeClassToFile(ELEMENT_VISITOR, classWriter, apiName);
     }
 
+    /**
+     * Adds a specific method for a visitAttribute call.
+     * Example:
+     *  void visitAttributeManifest(String manifestValue){
+     *      visitAttribute("manifest", manifestValue);
+     *  }
+     * @param classWriter The ElementVisitor class {@link ClassWriter}.
+     * @param attribute The specific attribute.
+     */
     private static void addVisitorAttributeMethod(ClassWriter classWriter, XsdAttribute attribute) {
         MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, VISIT_ATTRIBUTE_NAME + getCleanName(attribute.getName()), "(" + JAVA_STRING_DESC + ")V", null, null);
         mVisitor.visitLocalVariable(firstToLower(getCleanName(attribute.getName())), JAVA_STRING_DESC, null, new Label(), new Label(),1);
@@ -98,6 +117,16 @@ class XsdAsmVisitor {
         mVisitor.visitEnd();
     }
 
+    /**
+     * Adds a specific method for a visitElement call.
+     * Example:
+     *  void visitElementHtml(Html<Z> html){
+     *      visitElement(html);
+     *  }
+     * @param classWriter The ElementVisitor class {@link ClassWriter}.
+     * @param elementName The specific element.
+     * @param apiName The name of the generated fluent interface.
+     */
     @SuppressWarnings("Duplicates")
     private static void addVisitorElementMethod(ClassWriter classWriter, String elementName, String apiName) {
         elementName = getCleanName(elementName);
@@ -114,6 +143,16 @@ class XsdAsmVisitor {
         mVisitor.visitEnd();
     }
 
+    /**
+     * Adds a specific method for a visitParent call.
+     * Example:
+     *  void visitParentHtml(Html<Z> html){
+     *      visitParent(html);
+     *  }
+     * @param classWriter The ElementVisitor class {@link ClassWriter}.
+     * @param elementName The specific element.
+     * @param apiName The name of the generated fluent interface.
+     */
     @SuppressWarnings("Duplicates")
     private static void addVisitorParentMethod(ClassWriter classWriter, String elementName, String apiName) {
         elementName = getCleanName(elementName);
@@ -130,6 +169,11 @@ class XsdAsmVisitor {
         mVisitor.visitEnd();
     }
 
+    /**
+     * Removes duplicate attribute names.
+     * @param attributes The {@link List} of {@link XsdAttribute} objects.
+     * @return The distinct {@link List} of {@link XsdAttribute}.
+     */
     private static List<XsdAttribute> filterAttributes(List<XsdAttribute> attributes) {
         List<String> attributeNames = attributes.stream()
                 .map(XsdNamedElements::getName)

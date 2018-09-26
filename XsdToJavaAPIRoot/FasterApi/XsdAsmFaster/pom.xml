@@ -166,6 +166,26 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <!-- plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin -->
         </plugins>
     </build>
 
@@ -174,7 +194,7 @@
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>
-        XsdAsmFaster is an alternative to XsdAsm, which skips the usage of a data strucuture to store Element information in order to improve performance. 
+        XsdAsmFaster is an alternative to XsdAsm, which skips the usage of a data structure to store Element information in order to improve performance.
     </description>
     <url>https://github.com/xmlet/XsdAsmFaster</url>
     <licenses>

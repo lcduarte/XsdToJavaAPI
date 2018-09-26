@@ -99,19 +99,19 @@ public class XsdSchema extends XsdAnnotatedElements {
         super.setFields(fieldsMap);
 
         this.attributeFormDefault = 
-        	EnumUtils.belongsToEnum(FormEnum.UNQUALIFIED, 				
+        	AttributeValidations.belongsToEnum(FormEnum.UNQUALIFIED, 				
         		elementFieldsMap.getOrDefault(ATTRIBUTE_FORM_DEFAULT, 
         			FormEnum.UNQUALIFIED.getValue()));
         this.elementFormDefault = 			 
-        	EnumUtils.belongsToEnum(FormEnum.UNQUALIFIED, 		
+        	AttributeValidations.belongsToEnum(FormEnum.UNQUALIFIED, 		
         		elementFieldsMap.getOrDefault(ELEMENT_FORM_DEFAULT, 	
         			FormEnum.UNQUALIFIED.getValue()));
         this.blockDefault = 		
-        	EnumUtils.belongsToEnum(BlockFinalEnum.DEFAULT, 		
+            AttributeValidations.belongsToEnum(BlockFinalEnum.DEFAULT, 		
         		elementFieldsMap.getOrDefault(BLOCK_DEFAULT, 	
         			BlockFinalEnum.DEFAULT.getValue()));
         this.finalDefault = 
-        	EnumUtils.belongsToEnum(FinalDefaultEnum.DEFAULT, 
+            AttributeValidations.belongsToEnum(FinalDefaultEnum.DEFAULT, 
         		elementFieldsMap.getOrDefault(FINAL_DEFAULT, 
         			FinalDefaultEnum.DEFAULT.getValue()));
         this.targetNamespace = 
@@ -459,7 +459,7 @@ The second class is the \texttt{Html} class, which is representative of every co
 \lstset{language=Java, morekeywords={Html, Element, Z, AbstractElement, HtmlChoice0, addAttr, AttrManifestString, String}}
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[caption={Type Arguments - AbstractElement class},captionpos=b,label={lst:abstractelement}, literate={º}{\textdegree}1]
+\begin{lstlisting}[caption={Type Arguments - Html class},captionpos=b,label={lst:abstractelement}, literate={º}{\textdegree}1]
 class Html<Z extends Element> extends AbstractElement<Html<Z>, Z>
                                implements HtmlChoice0<Html<Z>, Z>
     // (...)
@@ -487,7 +487,7 @@ Since the \texttt{Html} is the only class implementing this interface its \textt
 \lstset{language=Java, morekeywords={Html, Element, Z, Body, T, addChild, AbstractElement, HtmlChoice0, addAttr, AttrManifestString, self}}
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[caption={Type Arguments - AbstractElement class},captionpos=b,label={lst:abstractelement}, literate={º}{\textdegree}1]
+\begin{lstlisting}[caption={Type Arguments - HtmlChoice0 interfaces},captionpos=b,label={lst:abstractelement}, literate={º}{\textdegree}1]
 interface HtmlChoice0<T extends Element<T, Z>, Z extends Element> 		                                           extends Element<T, Z> {
     default Body<T> body() {
         return (Body)this.addChild(new Body(this.self()));

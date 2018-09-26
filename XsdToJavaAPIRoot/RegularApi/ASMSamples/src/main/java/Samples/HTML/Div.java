@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 public class Div<P extends Element> extends AbstractElement<Div<P>, P> implements CommonAttributeGroup<Div<P>, P>, MiniFlowContent<Div<P>, P> {
 

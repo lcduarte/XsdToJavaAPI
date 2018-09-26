@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 import java.util.ArrayList;
 import java.util.List;

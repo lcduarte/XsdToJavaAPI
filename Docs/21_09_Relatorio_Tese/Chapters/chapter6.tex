@@ -1,0 +1,12 @@
+\chapter{Conclusion}
+\label{cha:conclusion}
+
+In this dissertation we developed a structure of projects that can interpret a \ac{XSD} document and use its contents to generate a Java \textit{fluent interface} that allows to perform actions over the domain language defined in the \ac{XSD} document while enforcing most of the rules that exist in the \ac{XSD} syntax. The generated \textit{fluent interface} only reflects the structure described in the \ac{XSD} document, providing tools that allow any future usage to be defined according to the needs of the user. Upon testing the resulting solution we obtained better results than similar solutions while proving a solution with a fluent language, which should be intuitive even for people that never programmed in Java before, since the flow of the written code ends up being similar to writing \ac{XML}.
+
+\noindent
+The main language definition used in order to test and develop this solution was the \ac{HTML}5 syntax, which generated the HtmlApi project, containing a set of classes reflecting all the elements and attributes present in the \ac{HTML} language. This HtmlApi project was then used by the HtmlFlow library in order to provide an library that writes well formed \ac{HTML} documents. Other \ac{XSD} files were used to test the solution, such as the Android layouts definition file, which defines the existing \ac{XML} elements used to create visual layouts for the Android operating system and the attributes that each element contains.
+
+\section{Future work}
+\label{cha:futurework}
+
+The \texttt{xmlet} solution in its current state achieved all the objectives that were proposed at the beginning of this dissertation as well as some other improvements that were identified along the development process. The objective from now on should be to find pertaining use cases ranging from markup languages which were the initial objective or any other domain language that can be defined through the \ac{XSD} syntax.

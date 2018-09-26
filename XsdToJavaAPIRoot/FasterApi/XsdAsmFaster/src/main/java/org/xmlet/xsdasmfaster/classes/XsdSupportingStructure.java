@@ -4,6 +4,8 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
+import org.xmlet.xsdasmfaster.classes.infrastructure.EnumInterface;
+import org.xmlet.xsdasmfaster.classes.infrastructure.RestrictionValidator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +13,9 @@ import java.util.Map;
 import static org.objectweb.asm.Opcodes.*;
 import static org.xmlet.xsdasmfaster.classes.XsdAsmUtils.*;
 
+/**
+ * This class is responsible for creating some infrastructure classes that can't be reused.
+ */
 class XsdSupportingStructure {
 
     static final String JAVA_OBJECT = "java/lang/Object";
@@ -30,17 +35,60 @@ class XsdSupportingStructure {
     static final String ATTRIBUTE_PREFIX = "Attr";
     private static final String TEXT = "Text";
 
+    /**
+     * Type name for the Element interface.
+     */
     static String elementType;
+
+    /**
+     * Type descriptor for the Element interface.
+     */
     static String elementTypeDesc;
+
+    /**
+     * Type name for the {@link RestrictionValidator} class present in the infrastructure package of this solution.
+     */
     static String restrictionValidatorType = "org/xmlet/xsdasmfaster/classes/infrastructure/RestrictionValidator";
+
+    /**
+     * Type name for the ElementVisitor abstract class.
+     */
     static String elementVisitorType;
+
+    /**
+     * Type descriptor for the ElementVisitor abstract class.
+     */
     static String elementVisitorTypeDesc;
+
+    /**
+     * Type name for the {@link EnumInterface} interface present in the infrastructure package of this solution.
+     */
     static String enumInterfaceType = "org/xmlet/xsdasmfaster/classes/infrastructure/EnumInterface";
+
+    /**
+     * Type name for the CustomAttributeGroup interface.
+     */
     private static String customAttributeGroupType;
+
+    /**
+     * Type name for the TextGroup interface.
+     */
     private static String textGroupType;
+
+    /**
+     * Type name for the Text class.
+     */
     static String textType;
+
+    /**
+     * Type descriptor for the Text class.
+     */
     static String textTypeDesc;
 
+    /**
+     * A {@link Map} object with information regarding types that are present in the infrastructure package of this
+     * solution. Their name resolution differs from all the remaining classes since their name is already defined.
+     */
     static Map<String, String> infrastructureVars;
 
     static {
@@ -53,6 +101,11 @@ class XsdSupportingStructure {
 
     private XsdSupportingStructure(){}
 
+    /**
+     * Creates all the classes that belong to the fluent interface infrastructure and can't be defined the same way
+     * as the classes present in the infrastructure package of this solution.
+     * @param apiName The name of the generated fluent interface.
+     */
     static void createSupportingInfrastructure(String apiName){
         elementType = getFullClassTypeName(ELEMENT, apiName);
         elementTypeDesc = getFullClassTypeNameDesc(ELEMENT, apiName);
@@ -73,6 +126,16 @@ class XsdSupportingStructure {
         infrastructureVars.put(TEXT_GROUP, textGroupType);
     }
 
+    /**
+     * Creates the Element interface.
+     * Methods:
+     *  T self();
+     *  Z º();
+     *  Z getParent();
+     *  String getName();
+     *  ElementVisitor getVisitor();
+     * @param apiName The name of the generated fluent interface.
+     */
     private static void createElement(String apiName) {
         ClassWriter classWriter = generateClass(ELEMENT, JAVA_OBJECT, null, "<T::" + elementTypeDesc + "Z::" + elementTypeDesc + ">" + JAVA_OBJECT_DESC, ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
@@ -90,52 +153,63 @@ class XsdSupportingStructure {
         writeClassToFile(ELEMENT, classWriter, apiName);
     }
 
+    /**
+     * Creates the TextGroup interface.
+     * Methods:
+     *  <R> T text(R text)
+     *  <R> T comment(R comment)
+     * @param apiName The name of the generated fluent interface.
+     */
     private static void createTextGroup(String apiName){
         ClassWriter classWriter = generateClass(TEXT_GROUP, JAVA_OBJECT, new String[] {ELEMENT}, "<T::" + elementTypeDesc + "Z::" + elementTypeDesc + ">" + JAVA_OBJECT_DESC + "L" + elementType + "<TT;TZ;>;", ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
-        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, "text", "(" + JAVA_OBJECT_DESC + ")" + elementTypeDesc, "<R:" + JAVA_OBJECT_DESC + ">(TR;)TT;", null);
-        mVisitor.visitLocalVariable("text", JAVA_STRING_DESC, null, new Label(), new Label(),1);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "getVisitor", "()" + elementVisitorTypeDesc, true);
-        mVisitor.visitTypeInsn(NEW, textType);
-        mVisitor.visitInsn(DUP);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "self", "()" + elementTypeDesc, true);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "getVisitor", "()" + elementVisitorTypeDesc, true);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, textType, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + JAVA_OBJECT_DESC + ")V", false);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitText", "(" + textTypeDesc + ")V", false);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "self", "()" + elementTypeDesc, true);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(6, 2);
-        mVisitor.visitEnd();
-
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "comment", "(" + JAVA_OBJECT_DESC + ")" + elementTypeDesc, "<R:" + JAVA_OBJECT_DESC + ">(TR;)TT;", null);
-        mVisitor.visitLocalVariable("comment", JAVA_STRING_DESC, null, new Label(), new Label(),1);
-        mVisitor.visitCode();
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "getVisitor", "()" + elementVisitorTypeDesc, true);
-        mVisitor.visitTypeInsn(NEW, textType);
-        mVisitor.visitInsn(DUP);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "self", "()" + elementTypeDesc, true);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "getVisitor", "()" + elementVisitorTypeDesc, true);
-        mVisitor.visitVarInsn(ALOAD, 1);
-        mVisitor.visitMethodInsn(INVOKESPECIAL, textType, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + JAVA_OBJECT_DESC + ")V", false);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, "visitComment", "(" + textTypeDesc + ")V", false);
-        mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "self", "()" + elementTypeDesc, true);
-        mVisitor.visitInsn(ARETURN);
-        mVisitor.visitMaxs(6, 2);
-        mVisitor.visitEnd();
+        textGroupMethod(classWriter, "text", "visitText");
+        textGroupMethod(classWriter, "comment", "visitComment");
 
         writeClassToFile(TEXT_GROUP, classWriter, apiName);
     }
 
+    /**
+     * Creates a method present in the TextGroup interface.
+     * Code:
+     *  getVisitor().visitComment(new Text<>(self(), getVisitor(), text));
+     *  return this.self();
+     * @param classWriter The TextGroup {@link ClassWriter} object.
+     * @param varName The name of the method, i.e. text or comment.
+     * @param visitName The name of the visit method to invoke on the method, i.e. visitText or visitComment.
+     */
+    private static void textGroupMethod(ClassWriter classWriter, String varName, String visitName){
+        MethodVisitor mVisitor = classWriter.visitMethod(ACC_PUBLIC, varName, "(" + JAVA_OBJECT_DESC + ")" + elementTypeDesc, "<R:" + JAVA_OBJECT_DESC + ">(TR;)TT;", null);
+        mVisitor.visitLocalVariable(varName, JAVA_STRING_DESC, null, new Label(), new Label(),1);
+        mVisitor.visitCode();
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "getVisitor", "()" + elementVisitorTypeDesc, true);
+        mVisitor.visitTypeInsn(NEW, textType);
+        mVisitor.visitInsn(DUP);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "self", "()" + elementTypeDesc, true);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "getVisitor", "()" + elementVisitorTypeDesc, true);
+        mVisitor.visitVarInsn(ALOAD, 1);
+        mVisitor.visitMethodInsn(INVOKESPECIAL, textType, CONSTRUCTOR, "(" + elementTypeDesc + elementVisitorTypeDesc + JAVA_OBJECT_DESC + ")V", false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, elementVisitorType, visitName, "(" + textTypeDesc + ")V", false);
+        mVisitor.visitVarInsn(ALOAD, 0);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, textGroupType, "self", "()" + elementTypeDesc, true);
+        mVisitor.visitInsn(ARETURN);
+        mVisitor.visitMaxs(6, 2);
+        mVisitor.visitEnd();
+    }
+
+    /**
+     * Creates the CustomAttributeGroup interface. This interface allows the insertion of attributes that weren't defined
+     * in the XSD file of the language.
+     * Code:
+     *  T addCustomAttr(String name, String value) {
+     *      getVisitor().visitAttribute(name, value);
+     *      return this.self();
+     *  }
+     * @param apiName The name of the generated fluent interface.
+     */
     private static void createCustomAttributeGroup(String apiName){
         ClassWriter classWriter = generateClass(CUSTOM_ATTRIBUTE_GROUP, JAVA_OBJECT, new String[] {ELEMENT}, "<T::" + elementTypeDesc + "Z::" + elementTypeDesc + ">" + JAVA_OBJECT_DESC + "L" + elementType + "<TT;TZ;>;", ACC_PUBLIC + ACC_ABSTRACT + ACC_INTERFACE, apiName);
 
@@ -157,6 +231,41 @@ class XsdSupportingStructure {
         writeClassToFile(CUSTOM_ATTRIBUTE_GROUP, classWriter, apiName);
     }
 
+    /**
+     * Creates the Text class.
+     *
+     * Fields:
+     *  String text;
+     *  Z parent;
+     *  ElementVisitor visitor;
+     *
+     * Methods:
+     *  public Text<P, R> self() {
+     *      return this;
+     *  }
+     *
+     *  public P º() {
+     *      visitor.visitText(this);
+     *      return parent;
+     *  }
+     *
+     *  public P getParent() {
+     *      return parent;
+     *  }
+     *
+     *  public String getName() {
+     *      return "";
+     *  }
+     *
+     *  public Visitor getVisitor() {
+     *      return visitor;
+     *  }
+     *
+     *  public String getValue() {
+     *      return text;
+     *  }
+     * @param apiName The name of the generated fluent interface.
+     */
     private static void createText(String apiName){
         ClassWriter classWriter = generateClass(TEXT, JAVA_OBJECT, new String[] {ELEMENT}, "<Z::" + elementTypeDesc + "R:" + JAVA_OBJECT_DESC + ">" + JAVA_OBJECT_DESC + "L" + elementType + "<L" + textType + "<TZ;TR;>;TZ;>;", ACC_PUBLIC + ACC_SUPER, apiName);
 

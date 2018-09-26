@@ -3,8 +3,8 @@ package org.xmlet.htmlapitest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlet.htmlapi.*;
-import org.xmlet.htmlapitest.Utils.CustomVisitor;
-import org.xmlet.htmlapitest.Utils.Student;
+import org.xmlet.htmlapitest.utils.CustomVisitor;
+import org.xmlet.htmlapitest.utils.Student;
 
 import java.io.File;
 import java.lang.Object;

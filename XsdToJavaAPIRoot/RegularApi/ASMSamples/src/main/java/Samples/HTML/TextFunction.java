@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 import java.util.function.Function;
 

@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 public class H1<P extends Element> extends AbstractElement<H1<P>, P> implements FlowContent<H1<P>, P> {
     public H1() {super("h1");}

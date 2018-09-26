@@ -1,0 +1,21 @@
+\abstractEN % Do NOT modify this line
+
+%Introdução - Informar, em poucas palavras, o contexto em que o trabalho se insere, sintetizando a problemática estudada. 
+The use of markup languages is recurrent in the world of technology today, with \ac{HTML} being the most prominent one due to its use in the Web. The need of tools that can automatically generate well formed documents with good performance is clear. Currently in order to tackle this problem the most used solution are \textit{template engines} which base their solution on the usage of an external files, which doesn't ensure well formed documents and introduces the overhead of loading the \textit{template} files to memory which degrades the overall performance.
+
+% Objectivo - Deve ser explicitado claramente. 
+\noindent
+Our objective is to create the required tools to generate \textit{fluent interfaces} based on a language definition file, \ac{XSD}, while enforcing the restrictions of the given language. The generation of the \textit{fluent interface} should be automated in order to avoid human error and expedite the coding process. By automating the \textit{fluent interface} generation we also create a uniform approach to these domain languages.  
+
+%Métodos - Destacar os procedimentos metodológicos adoptados. 
+\noindent
+To achieve our objectives we will use the Java language to extract the data from the language definition file. Based on the information provided by the language definition file we can then generate the adequate \textit{bytecodes} to reflect the language definition to the Java language. To implement the language restrictions in Java we will always prioritize compile time validations, only performing run time validations of information that isn't available when the \textit{fluent interface} is generated.
+
+%Resultados - Destacar os mais relevantes para os objectivos pretendidos. 
+\noindent
+By comparing the developed solution to some existing solutions, including seven classical \textit{template engines} and some other solutions similar to the one we are proposing, we obtained very favorable results with the suggested solution being the best performance-wise in all the tests we performed. These results are important, specially considering that apart from being a more efficient solution it also introduces validations of the language usage based on its syntax definition.
+
+% Keywords of abstract in English
+\begin{keywords}
+XML, XSD, Automatic Code Generation, \texttt{fluent interface}.
+\end{keywords} 

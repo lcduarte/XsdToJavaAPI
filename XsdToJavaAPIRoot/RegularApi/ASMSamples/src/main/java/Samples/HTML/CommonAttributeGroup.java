@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 public interface CommonAttributeGroup<T extends Element<T, P>, P extends Element> extends Element<T, P>, FlowContent<T, P> {
 

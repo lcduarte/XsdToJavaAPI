@@ -4,7 +4,10 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
-import org.xmlet.xsdasmfaster.classes.Utils.*;
+import org.xmlet.xsdasmfaster.classes.utils.AttributeHierarchyItem;
+import org.xmlet.xsdasmfaster.classes.utils.ElementHierarchyItem;
+import org.xmlet.xsdasmfaster.classes.utils.InterfaceInfo;
+import org.xmlet.xsdasmfaster.classes.utils.SequenceMethodInfo;
 import org.xmlet.xsdparser.xsdelements.*;
 
 import java.util.*;
@@ -18,18 +21,63 @@ import static org.xmlet.xsdasmfaster.classes.XsdAsmElements.generateMethodsForEl
 import static org.xmlet.xsdasmfaster.classes.XsdAsmUtils.*;
 import static org.xmlet.xsdasmfaster.classes.XsdSupportingStructure.*;
 
+/**
+ * This class is responsible to generate all the code that is related to interfaces.
+ */
 class XsdAsmInterfaces {
 
-    private static final String ATTRIBUTE_CASE_SENSITIVE_DIFERENCE = "Alt";
+    /**
+     * The value used to differentiate between two {@link XsdAttribute} object with the same name, only differing in
+     * the case sensitive aspect.
+     */
+    private static final String ATTRIBUTE_CASE_SENSITIVE_DIFFERENCE = "Alt";
+
+    /**
+     * The suffix applied to all the interfaces that are hierarchy interfaces.
+     */
     private static final String HIERARCHY_INTERFACES_SUFFIX = "HierarchyInterface";
+
+    /**
+     * The suffix applied to all the interfaces that are generated based on the {@link XsdAll} object.
+     */
     private static final String ALL_SUFFIX = "All";
+
+    /**
+     * The suffix applied to all the interfaces that are generated based on the {@link XsdChoice} object.
+     */
     private static final String CHOICE_SUFFIX = "Choice";
 
+
+    /**
+     * A {@link Map} with information regarding all the interfaces generated.
+     */
     private Map<String, InterfaceInfo> createdInterfaces = new HashMap<>();
+
+    /**
+     * A {@link Map} with information regarding all the elements generated.
+     */
     private Map<String, XsdAbstractElement> createdElements = new HashMap<>();
+
+    /**
+     * A {@link Map} with information regarding the hierarchy of attributeGroups.
+     */
     private Map<String, AttributeHierarchyItem> attributeGroupInterfaces = new HashMap<>();
+
+    /**
+     * A {@link Map} with information regarding the hierarchy interfaces.
+     */
     private Map<String, ElementHierarchyItem> hierarchyInterfaces = new HashMap<>();
+
+    /**
+     * An {@link XsdAsm} instance. Used to delegate element generation.
+     */
     private XsdAsm xsdAsmInstance;
+
+
+    /**
+     * A {@link Map} containing information regarding sequence methods that need to be generated on a specific class,
+     * identified by the key of the {@link Map} object.
+     */
     private Map<String, Consumer<ClassWriter>> pendingSequenceMethods = new HashMap<>();
 
     XsdAsmInterfaces(XsdAsm instance) {
@@ -37,18 +85,24 @@ class XsdAsmInterfaces {
     }
 
     /**
-     * Generates all the required interfaces, based on the information gathered while
-     * creating the other classes. It creates both types of interfaces:
-     * ElementGroupInterfaces - Interfaces that serve as a base to adding child elements to the current element;
-     * AttributeGroupInterfaces - Interface that serve as a base to adding attributes to the current element;
-     * @param createdAttributes A list with the names of the attribute classes already created.
-     * @param apiName The api this class will belong.
+     * Generates all the required interfaces, based on the information gathered while creating the other classes.
+     * It creates both types of interfaces:
+     *  ElementGroupInterfaces - Interfaces that serve as a base to adding child elements to the current element;
+     *  AttributeGroupInterfaces - Interface that serve as a base to adding attributes to the current element;
+     * @param createdAttributes Information about the attributes that are already created.
+     * @param apiName The name of the generated fluent interface.
      */
     void generateInterfaces(Map<String, List<XsdAttribute>> createdAttributes, String apiName) {
         attributeGroupInterfaces.keySet().forEach(attributeGroupInterface -> generateAttributesGroupInterface(createdAttributes, attributeGroupInterface, attributeGroupInterfaces.get(attributeGroupInterface), apiName));
         hierarchyInterfaces.values().forEach(hierarchyInterface -> generateHierarchyAttributeInterfaces(createdAttributes, hierarchyInterface, apiName));
     }
 
+    /**
+     * Generates all the hierarchy interfaces.
+     * @param createdAttributes Information about the attributes that are already created.
+     * @param hierarchyInterface Information about the hierarchy interface to create.
+     * @param apiName The name of the generated fluent interface.
+     */
     private void generateHierarchyAttributeInterfaces(Map<String, List<XsdAttribute>> createdAttributes, ElementHierarchyItem hierarchyInterface, String apiName) {
         String interfaceName = hierarchyInterface.getInterfaceName();
         List<String> extendedInterfaceList = hierarchyInterface.getInterfaces();
@@ -65,11 +119,12 @@ class XsdAsmInterfaces {
 
     /**
      * This method obtains the element interfaces which his class will be implementing.
-     * The interfaces are represented in XsdAbstractElements as XsdGroups, XsdAll, XsdSequence and XsdChoice.
-     * The respective methods of the interfaces will be the elements from the given XsdGroup, XsdAll, XsdSequence and XsdChoice.
+     * The interfaces are represented in {@link XsdAbstractElement} objects as {@link XsdGroup}, {@link XsdAll},
+     * {@link XsdSequence} and {@link XsdChoice}. The respective methods of the interfaces will be the elements from the
+     * types enumerated previously.
      * @param element The element from which the interfaces will be obtained.
-     * @return A string array containing the names of all the interfaces this method implements in
-     * interface-like names, e.g. flowContent will be IFlowContent.
+     * @param apiName The name of the generated fluent interface.
+     * @return A {@link String} array containing the names of all the interfaces this method implements.
      */
     private String[] getElementInterfaces(XsdElement element, String apiName){
         XsdAbstractElement child = getElementInterfacesElement(element);
@@ -84,15 +139,16 @@ class XsdAsmInterfaces {
     }
 
     /**
-     * Generates a interface with all the required methods. It uses the information gathered about in attributeGroupInterfaces.
+     * Generates an attribute group interface with all the required methods. It uses the information gathered about in
+     * attributeGroupInterfaces.
      * @param createdAttributes A list with the names of the attribute classes already created.
      * @param attributeGroupName The interface name.
      * @param attributeHierarchyItem An object containing information about the methods of this interface and which interface, if any,
      *                               this interface extends.
-     * @param apiName The api this class will belong.
+     * @param apiName The name of the generated fluent interface.
      */
     private void generateAttributesGroupInterface(Map<String, List<XsdAttribute>> createdAttributes, String attributeGroupName, AttributeHierarchyItem attributeHierarchyItem, String apiName){
-        String baseClassNameCamelCase = toCamelCase(attributeGroupName);
+        String baseClassNameCamelCase = firstToUpper(attributeGroupName);
         String[] interfaces = getAttributeGroupObjectInterfaces(attributeHierarchyItem.getParentsName());
         StringBuilder signature = getAttributeGroupSignature(interfaces, apiName);
 
@@ -100,7 +156,7 @@ class XsdAsmInterfaces {
 
         attributeHierarchyItem.getOwnElements().forEach(elementAttribute -> {
             if (createdAttributes.keySet().stream().anyMatch(createdAttributeName -> createdAttributeName.equalsIgnoreCase(elementAttribute.getName()))){
-                elementAttribute.setName(elementAttribute.getName() + ATTRIBUTE_CASE_SENSITIVE_DIFERENCE);
+                elementAttribute.setName(elementAttribute.getName() + ATTRIBUTE_CASE_SENSITIVE_DIFFERENCE);
             }
 
             generateMethodsAndCreateAttribute(createdAttributes, interfaceWriter, elementAttribute, elementTypeDesc, baseClassNameCamelCase, apiName);
@@ -110,7 +166,7 @@ class XsdAsmInterfaces {
     }
 
     /**
-     * Obtains the names of the attribute interfaces that the given element will implement.
+     * Obtains the names of the attribute interfaces that the given {@link XsdElement} will implement.
      * @param element The element that contains the attributes.
      * @return The elements interfaces names.
      */
@@ -131,26 +187,32 @@ class XsdAsmInterfaces {
         return listToArray(attributeGroups, CUSTOM_ATTRIBUTE_GROUP);
     }
 
+    /**
+     * Obtains hierarchy interface information from the received {@link XsdElement}.
+     * @param element The received {@link XsdElement} object.
+     * @param apiName The name of the generated fluent interface.
+     * @return The names of the hierarchy interfaces.
+     */
     private String[] getHierarchyInterfaces(XsdElement element, String apiName) {
         List<String> interfaceNames = new ArrayList<>();
         XsdElement base = getBaseFromElement(element);
         List<XsdAttribute> elementAttributes = getOwnAttributes(element).collect(Collectors.toList());
-        List<ElementHierarchyItem> hierarchyInterfaces = new ArrayList<>();
+        List<ElementHierarchyItem> hierarchyInterfacesList = new ArrayList<>();
 
         while (base != null) {
             List<String> attributeNames = elementAttributes.stream().map(XsdAttribute::getName).collect(Collectors.toList());
             List<XsdAttribute> moreAttributes = getOwnAttributes(base).filter(attribute -> !attributeNames.contains(attribute.getName())).collect(Collectors.toList());
             elementAttributes.addAll(moreAttributes);
 
-            hierarchyInterfaces.add(new ElementHierarchyItem(base.getName() + HIERARCHY_INTERFACES_SUFFIX, moreAttributes, getInterfaces(base, apiName)));
+            hierarchyInterfacesList.add(new ElementHierarchyItem(base.getName() + HIERARCHY_INTERFACES_SUFFIX, moreAttributes, getInterfaces(base, apiName)));
 
             base = getBaseFromElement(base);
         }
 
-        if (!hierarchyInterfaces.isEmpty()){
-            interfaceNames.add(hierarchyInterfaces.get(0).getInterfaceName());
+        if (!hierarchyInterfacesList.isEmpty()){
+            interfaceNames.add(hierarchyInterfacesList.get(0).getInterfaceName());
 
-            hierarchyInterfaces.forEach(item -> this.hierarchyInterfaces.put(item.getInterfaceName(), item));
+            hierarchyInterfacesList.forEach(item -> this.hierarchyInterfaces.put(item.getInterfaceName(), item));
         }
 
         return listToArray(interfaceNames);
@@ -158,8 +220,9 @@ class XsdAsmInterfaces {
 
     /**
      * Obtains the attribute groups of a given element that are present in its type attribute.
-     * @param complexType The XsdComplexType object with the type attribute.
-     * @return The names of the attribute groups.
+     * @param complexType The {@link XsdComplexType} object with the type attribute.
+     * @param extensionAttributeGroups A {@link Stream} of {@link XsdAttributeGroup} obtained from {@link XsdExtension}.
+     * @return The names of the attribute groups present in the type attribute.
      */
     private Collection<String> getTypeAttributeGroups(XsdComplexType complexType, Stream<XsdAttributeGroup> extensionAttributeGroups) {
         Stream<XsdAttributeGroup> attributeGroups = complexType.getXsdAttributes()
@@ -183,9 +246,9 @@ class XsdAsmInterfaces {
     }
 
     /**
-     * Recursively iterates in parents of attributes in order to try finding a common attribute group.
+     * Recursively iterates order to define an hierarchy on the attribute group interfaces.
      * @param attributeGroups The attributeGroups contained in the element.
-     * @return The elements super class name.
+     * @return A {@link List} of attribute group interface names.
      */
     private List<String> getBaseAttributeGroupInterface(List<XsdAttributeGroup> attributeGroups){
         List<XsdAttributeGroup> parents = new ArrayList<>();
@@ -199,7 +262,7 @@ class XsdAsmInterfaces {
         });
 
         if (attributeGroups.size() == 1 || parents.isEmpty()){
-            return attributeGroups.stream().map(attributeGroup -> toCamelCase(attributeGroup.getName())).collect(Collectors.toList());
+            return attributeGroups.stream().map(attributeGroup -> firstToUpper(attributeGroup.getName())).collect(Collectors.toList());
         }
 
         return getBaseAttributeGroupInterface(parents);
@@ -210,7 +273,7 @@ class XsdAsmInterfaces {
      * @param attributeGroup The attributeGroup to add.
      */
     private void addAttributeGroup(XsdAttributeGroup attributeGroup) {
-        String interfaceName = toCamelCase(attributeGroup.getName());
+        String interfaceName = firstToUpper(attributeGroup.getName());
 
         if (!attributeGroupInterfaces.containsKey(interfaceName)){
             List<XsdAttribute> ownElements = attributeGroup.getXsdElements()
@@ -246,17 +309,18 @@ class XsdAsmInterfaces {
     /**
      * Obtains an array with the names of the interfaces implemented by a attribute group interface
      * with the given parents, as in interfaces that will be extended.
-     * @param parentsName The list of interfaces that this interface will extend
-     * @return A string array containing the names of the interfaces that this interface will extend.
+     * @param parentsName The list of interfaces that this interface will extend.
+     * @return A {@link String} array containing the names of the interfaces that this interface will extend.
      */
     private String[] getAttributeGroupObjectInterfaces(List<String> parentsName) {
-        return listToArray(parentsName.stream().map(XsdAsmUtils::toCamelCase).collect(Collectors.toList()), CUSTOM_ATTRIBUTE_GROUP);
+        return listToArray(parentsName.stream().map(XsdAsmUtils::firstToUpper).collect(Collectors.toList()), CUSTOM_ATTRIBUTE_GROUP);
     }
 
     /**
      * Obtains all the interfaces that a given element will implement.
-     * @param element The element in which the class will be based.
-     * @return A string array with all the interface names.
+     * @param element The {@link XsdElement} in which the class will be based.
+     * @param apiName The name of the generated fluent interface.
+     * @return A {@link String} array with all the interface names.
      */
     String[] getInterfaces(XsdElement element, String apiName) {
         String[] attributeGroupInterfacesArr =  getAttributeGroupInterfaces(element);
@@ -267,15 +331,15 @@ class XsdAsmInterfaces {
     }
 
     /**
-     * Generates an interface based on a XsdGroup element.
-     * @param groupName The group name of the XsdGroup element.
-     * @param choiceElement The child XsdChoice.
-     * @param allElement The child XsdAll.
-     * @param sequenceElement The child XsdSequence.
+     * Delegates the interface generation to one of the possible {@link XsdGroup} element children.
+     * @param groupName The group name of the {@link XsdGroup} element.
+     * @param choiceElement The child {@link XsdChoice}.
+     * @param allElement The child {@link XsdAll}.
+     * @param sequenceElement The child {@link XsdSequence}.
      * @param className The className of the element which contains this group.
      * @param interfaceIndex The current interface index that serves as a base to distinguish interface names.
-     * @param apiName The name of the API to be generated.
-     * @return A pair with the key being the name of the created group interface and the current interface index after the creation of the interface.
+     * @param apiName The name of the generated fluent interface.
+     * @return A {@link InterfaceInfo} object containing relevant interface information.
      */
     private InterfaceInfo groupMethod(String groupName, XsdChoice choiceElement, XsdAll allElement, XsdSequence sequenceElement, String className, int interfaceIndex, String apiName){
         if (allElement != null) {
@@ -294,35 +358,40 @@ class XsdAsmInterfaces {
     }
 
     /**
-     * Generates an interface based on a XsdSequence element.
-     * @param xsdElements The elements, ordered, that represent the sequence.
+     * Postpones the sequence method creation due to solution design.
+     * @param xsdElements A {@link Stream} of {@link XsdElement}, ordered, that represent the sequence.
      * @param className The className of the element which contains this sequence.
      * @param interfaceIndex The current interfaceIndex that serves as a base to distinguish interface names.
-     * @param apiName The name of the API to be generated.
+     * @param apiName The name of the generated fluent interface.
      * @param groupName The groupName, that indicates if this sequence belongs to a group.
      */
     private void sequenceMethod(Stream<XsdAbstractElement> xsdElements, String className, int interfaceIndex, String apiName, String groupName) {
-        pendingSequenceMethods.put(className, classWriter -> createSequenceInterface(classWriter, xsdElements, className, interfaceIndex, apiName, groupName));
+        pendingSequenceMethods.put(className, classWriter -> createSequence(classWriter, xsdElements, className, interfaceIndex, apiName, groupName));
     }
 
-    private void createSequenceInterface(ClassWriter classWriter, Stream<XsdAbstractElement> xsdElements, String className, int interfaceIndex, String apiName, String groupName) {
+    /**
+     * Obtains sequence information and creates all the required classes and methods.
+     * @param classWriter The {@link ClassWriter} of the class that contains the sequence.
+     * @param xsdElements A {@link Stream} of {@link XsdElement}, ordered, that represent the sequence.
+     * @param className The className of the element which contains this sequence.
+     * @param interfaceIndex The current interfaceIndex that serves as a base to distinguish interface names.
+     * @param apiName The name of the generated fluent interface.
+     * @param groupName The groupName, that indicates if this sequence belongs to a group.
+     */
+    private void createSequence(ClassWriter classWriter, Stream<XsdAbstractElement> xsdElements, String className, int interfaceIndex, String apiName, String groupName) {
         SequenceMethodInfo sequenceInfo = getSequenceInfo(xsdElements, className, interfaceIndex, 0, apiName, groupName);
         List<XsdAbstractElement> sequenceList = new ArrayList<>();
         List<String> sequenceNames = new ArrayList<>();
 
-        //sequenceList.add(createdElements.get(firstToLower(className)));
         sequenceList.addAll(sequenceInfo.getSequenceElements());
 
         sequenceNames.add(className);
         sequenceNames.addAll(sequenceInfo.getSequenceElementNames());
 
         for (int i = 0; i < sequenceNames.size(); i++) {
-            XsdAbstractElement sequenceElement = i == sequenceList.size() ? null : sequenceList.get(i);
             boolean isLast = i == sequenceNames.size() - 1;
             boolean willPointToLast = i == sequenceNames.size() - 2;
-            boolean isFirst = i == 0;
-            String sequenceName = firstToLower(getCleanName(sequenceNames.get(i)));
-            String typeName = getNextTypeName(className, groupName, sequenceName, isLast);
+            String typeName = getNextTypeName(className, groupName, firstToLower(getCleanName(sequenceNames.get(i))), isLast);
 
             if (isLast){
                 if (!typeName.equals(className)){
@@ -335,50 +404,79 @@ class XsdAsmInterfaces {
 
             String nextTypeName = getNextTypeName(className, groupName, firstToLower(getCleanName(sequenceNames.get(i + 1))), willPointToLast);
 
-            if (sequenceElement instanceof XsdElement){
-                List<XsdElement> elements = Collections.singletonList((XsdElement) sequenceElement);
-
-                if (isFirst){
-                    createFirstSequenceInterface(classWriter, className, nextTypeName, apiName, elements);
-                } else {
-                    createElementsForSequence(className, typeName, apiName, nextTypeName, elements);
-                }
-            }
-
-            if (sequenceElement instanceof XsdGroup || sequenceElement instanceof XsdChoice || sequenceElement instanceof XsdAll){
-                List<XsdElement> elements = getAllElementsRecursively(sequenceElement);
-
-                if (isFirst){
-                    createFirstSequenceInterface(classWriter, className, nextTypeName, apiName, elements);
-                } else {
-                    createElementsForSequence(className, typeName, apiName, nextTypeName, elements);
-                }
-            }
+            createSequenceClasses(sequenceList.get(i), classWriter, className, typeName, nextTypeName, apiName, i == 0);
 
             ++interfaceIndex;
         }
     }
 
+    /**
+     * Creates classes and methods required to implement the sequence.
+     * @param sequenceElement The current sequence element.
+     * @param classWriter The {@link ClassWriter} of the first class, which contains the sequence.
+     * @param className The name of the class which contains the sequence.
+     * @param typeName The current sequence element type name.
+     * @param nextTypeName The next sequence element type name.
+     * @param apiName The name of the generated fluent interface.
+     * @param isFirst Indication if this is the first element of the sequence.
+     */
+    private void createSequenceClasses(XsdAbstractElement sequenceElement, ClassWriter classWriter, String className, String typeName, String nextTypeName, String apiName, boolean isFirst){
+        List<XsdElement> elements = null;
+
+        if (sequenceElement instanceof XsdElement) {
+            elements = Collections.singletonList((XsdElement) sequenceElement);
+        }
+
+        if (sequenceElement instanceof XsdGroup || sequenceElement instanceof XsdChoice || sequenceElement instanceof XsdAll) {
+            elements = getAllElementsRecursively(sequenceElement);
+        }
+
+        if (elements != null){
+            if (isFirst){
+                createFirstSequenceInterface(classWriter, className, nextTypeName, apiName, elements);
+            } else {
+                createElementsForSequence(className, typeName, nextTypeName, apiName, elements);
+            }
+        }
+    }
+
+    /**
+     * Adds a method to the element which contains the sequence.
+     * @param classWriter The {@link ClassWriter} of the class which contains the sequence.
+     * @param className The name of the class which contains the sequence.
+     * @param nextTypeName The next sequence type name.
+     * @param apiName The name of the generated fluent interface.
+     * @param elements A {@link List} of {@link XsdElement} that are the first sequence value.
+     */
     private void createFirstSequenceInterface(ClassWriter classWriter, String className, String nextTypeName, String apiName, List<XsdElement> elements){
         elements.forEach(element -> generateSequenceMethod(classWriter, className, getJavaType(element.getType()), getCleanName(element.getName()), className, nextTypeName, apiName));
 
         elements.forEach(element -> createElement(element, apiName));
     }
 
+    /** Obtains the name of the next type of the sequence.
+     * @param className The name of the class which contains the sequence.
+     * @param groupName The groupName of this sequence, if any.
+     * @param sequenceName The sequence name.
+     * @param isLast Indication if the next type will be the last of the sequence.
+     * @return The next sequence type name.
+     */
     private String getNextTypeName(String className, String groupName, String sequenceName, boolean isLast){
         if (isLast)
             return groupName == null ? className + "Complete" : className;
         else
-            return className + toCamelCase(sequenceName);
+            return className + firstToUpper(sequenceName);
     }
 
     /**
+     * Creates the inner classes that are used to support the sequence behaviour and the respective sequence methods.
+     * @param className The name of the class which contains the sequence.
      * @param typeName The name of the next type to return.
-     * @param apiName The name of the API to be generated.
+     * @param apiName The name of the generated fluent interface.
      * @param nextTypeName The nextTypeName of the element that will implement the sequence.
      * @param sequenceElements The elements that serves as base to create this interface.
      */
-    private void createElementsForSequence(String className, String typeName, String apiName, String nextTypeName, List<XsdElement> sequenceElements) {
+    private void createElementsForSequence(String className, String typeName, String nextTypeName, String apiName, List<XsdElement> sequenceElements) {
         ClassWriter classWriter = generateInnerSequenceClass(typeName, className, apiName);
 
         sequenceElements.forEach(sequenceElement ->
@@ -389,6 +487,13 @@ class XsdAsmInterfaces {
         writeClassToFile(typeName, classWriter, apiName);
     }
 
+    /**
+     * Creates the inner classes that are used to support the sequence behaviour.
+     * @param typeName The name of the next type to return.
+     * @param className The name of the class which contains the sequence.
+     * @param apiName The name of the generated fluent interface.
+     * @return The {@link ClassWriter} object which represents the inner class created to support sequence behaviour.
+     */
     private ClassWriter generateInnerSequenceClass(String typeName, String className, String apiName) {
         ClassWriter classWriter = generateClass(typeName, JAVA_OBJECT, new String[] {CUSTOM_ATTRIBUTE_GROUP}, getClassSignature(new String[]{CUSTOM_ATTRIBUTE_GROUP}, typeName, apiName), ACC_PUBLIC + ACC_SUPER, apiName);
 
@@ -404,11 +509,15 @@ class XsdAsmInterfaces {
                 <xs:element name="firstName" type="xs:string"/>
        (...)
      * Generates the method present in the sequence interface for a sequence element.
-     * @param classWriter The classWriter of the sequence interface.
+     *  Example:
+     *      PersonInfoFirstName firstName(String firstName);
+     * @param classWriter The {@link ClassWriter} of the sequence interface.
+     * @param className The name of the class which contains the sequence.
+     * @param javaType The java type of the current sequence value.
      * @param addingChildName The name of the child to be added. Based in the example above, it would be firstName.
-     * @param typeName The name of the next type, which would be PersonInfoFirstName based on the above example.
-     * @param nextTypeName The name of the class that contains the sequence.
-     * @param apiName The name of the API to be generated.
+     * @param typeName The name of the current type, which would be PersonInfo based on the above example.
+     * @param nextTypeName The name of the next type, which would be PersonInfoFirstName based on the above example.
+     * @param apiName The name of the generated fluent interface.
      */
     private void generateSequenceMethod(ClassWriter classWriter, String className, String javaType, String addingChildName, String typeName, String nextTypeName, String apiName) {
         String type = getFullClassTypeName(typeName, apiName);
@@ -458,9 +567,9 @@ class XsdAsmInterfaces {
      * @param className The name of the element that this sequence belongs to.
      * @param interfaceIndex The current interface index.
      * @param unnamedIndex A special index for elements that have no name, which will help distinguish them.
-     * @param apiName The name of the API to be generated.
+     * @param apiName The name of the generated fluent interface.
      * @param groupName The group name of the group that contains this sequence, if any.
-     * @return A pair, which contains a second pair as key, having the elements as key and the elements name as value, and another pair as value, which contains values for the two indexes.
+     * @return A {@link SequenceMethodInfo} object which contains relevant information regarding sequence methods.
      */
     private SequenceMethodInfo getSequenceInfo(Stream<XsdAbstractElement> xsdElements, String className, int interfaceIndex, int unnamedIndex, String apiName, String groupName){
         List<XsdAbstractElement> xsdElementsList = xsdElements.collect(Collectors.toList());
@@ -492,17 +601,18 @@ class XsdAsmInterfaces {
     }
 
     /**
-     * Generates an interface based on a XsdAll element.
-     * @param directElements The direct elements of the XsdAll element. Each one will be represented as a method in the all interface.
-     * @param className The name of the class that contains the XsdAll.
+     * Generates an interface based on a {@link XsdAll} element.
+     * @param directElements The direct elements of the {@link XsdAll} element. Each one will be represented as a method
+     *                       in the all interface.
+     * @param className The name of the class that contains the {@link XsdAll}.
      * @param interfaceIndex The current interface index.
-     * @param apiName The name of the API to be generated.
-     * @param groupName The name of the group which contains the XsdAll element, if any.
-     * @return A pair with the interface name and the interface index.
+     * @param apiName The name of the generated fluent interface.
+     * @param groupName The name of the group which contains the {@link XsdAll} element, if any.
+     * @return A {@link InterfaceInfo} object containing relevant interface information.
      */
     private InterfaceInfo allMethod(List<XsdElement> directElements, String className, int interfaceIndex, String apiName, String groupName){
         String interfaceName = groupName != null ? groupName : className;
-        String interfaceFullName = toCamelCase(interfaceName + ALL_SUFFIX + interfaceIndex);
+        String interfaceFullName = firstToUpper(interfaceName + ALL_SUFFIX + interfaceIndex);
 
         if (createdInterfaces.containsKey(interfaceName)){
             return createdInterfaces.get(interfaceName);
@@ -511,6 +621,15 @@ class XsdAsmInterfaces {
         return createAllInterface(interfaceFullName, directElements, interfaceIndex, apiName);
     }
 
+    /**
+     * Creates the interface based on the information present in the {@link XsdAll} objects.
+     * @param interfaceName The interface name.
+     * @param directElements The direct elements of the {@link XsdAll} element. Each one will be represented as a method
+     *                       in the all interface.
+     * @param interfaceIndex The current interface index.
+     * @param apiName The name of the generated fluent interface.
+     * @return A {@link InterfaceInfo} object containing relevant interface information.
+     */
     private InterfaceInfo createAllInterface(String interfaceName, List<XsdElement> directElements, int interfaceIndex, String apiName) {
         String[] extendedInterfacesArr = new String[]{TEXT_GROUP};
 
@@ -529,21 +648,21 @@ class XsdAsmInterfaces {
     }
 
     /**
-     * Generates an interface based on a XsdChoice element.
+     * Generates an interface based on a {@link XsdChoice} element.
      * @param groupElements The contained groupElements.
-     * @param directElements The direct elements of the XsdChoice element.
-     * @param className The name of the class that contains the XsdChoice element.
+     * @param directElements The direct elements of the {@link XsdChoice} element.
+     * @param className The name of the class that contains the {@link XsdChoice} element.
      * @param interfaceIndex The current interface index.
-     * @param apiName The name of the API to be generated.
-     * @param groupName The name of the group in which this XsdChoice element is contained, if any.
-     * @return A pair with the interface name and the interface index.
+     * @param apiName The name of the generated fluent interface.
+     * @param groupName The name of the group in which this {@link XsdChoice} element is contained, if any.
+     * @return A {@link List} of {@link InterfaceInfo} objects containing relevant interface information.
      */
     private List<InterfaceInfo> choiceMethod(List<XsdGroup> groupElements, List<XsdElement> directElements, String className, int interfaceIndex, String apiName, String groupName){
         List<InterfaceInfo> interfaceInfoList = new ArrayList<>();
         String interfaceName;
 
         if (groupName != null){
-            interfaceName = toCamelCase(groupName + CHOICE_SUFFIX);
+            interfaceName = firstToUpper(groupName + CHOICE_SUFFIX);
         } else {
             interfaceName = className + CHOICE_SUFFIX + interfaceIndex;
         }
@@ -556,6 +675,17 @@ class XsdAsmInterfaces {
         return createChoiceInterface(groupElements, directElements, interfaceName, className, groupName, interfaceIndex, apiName);
     }
 
+    /**
+     * Generates an interface based on a {@link XsdChoice} element.
+     * @param groupElements The contained groupElements.
+     * @param directElements The direct elements of the {@link XsdChoice} element.
+     * @param interfaceName The choice interface name.
+     * @param className The name of the class that contains the {@link XsdChoice} element.
+     * @param interfaceIndex The current interface index.
+     * @param apiName The name of the generated fluent interface.
+     * @param groupName The name of the group in which this {@link XsdChoice} element is contained, if any.
+     * @return A {@link List} of {@link InterfaceInfo} objects containing relevant interface information.
+     */
     private List<InterfaceInfo> createChoiceInterface(List<XsdGroup> groupElements, List<XsdElement> directElements, String interfaceName, String className, String groupName, int interfaceIndex, String apiName) {
         List<InterfaceInfo> interfaceInfoList = new ArrayList<>();
         List<String> extendedInterfaces = new ArrayList<>();
@@ -568,7 +698,7 @@ class XsdAsmInterfaces {
             interfaceInfoList.add(interfaceInfo);
         }
 
-        Set<InterfaceMethodInfo> ambiguousMethods = getAmbiguousMethods(interfaceInfoList);
+        Set<String> ambiguousMethods = getAmbiguousMethods(interfaceInfoList);
 
         if (ambiguousMethods.isEmpty() && directElements.isEmpty()){
             return interfaceInfoList;
@@ -581,12 +711,12 @@ class XsdAsmInterfaces {
         String interfaceType = getFullClassTypeName(interfaceName, apiName);
 
         directElements.forEach(child -> {
-            XsdAsmElements.generateMethodsForElement(classWriter, child, interfaceType, apiName);
+            generateMethodsForElement(classWriter, child, interfaceType, apiName);
             createElement(child, apiName);
         });
 
-        ambiguousMethods.forEach(ambiguousMethod ->
-            XsdAsmElements.generateMethodsForElement(classWriter, ambiguousMethod.getMethodName(), interfaceType, apiName, new String[]{"Ljava/lang/Override;"})
+        ambiguousMethods.forEach(ambiguousMethodName ->
+            generateMethodsForElement(classWriter, ambiguousMethodName, interfaceType, apiName, new String[]{"Ljava/lang/Override;"})
         );
 
         writeClassToFile(interfaceName, classWriter, apiName);
@@ -598,6 +728,15 @@ class XsdAsmInterfaces {
         return choiceInterface;
     }
 
+    /**
+     * This method functions as an iterative process for interface creation.
+     * @param element The element which could have more interface information.
+     * @param className The name of the class which contains the interfaces.
+     * @param interfaceIndex The current interface index.
+     * @param apiName The name of the generated fluent interface.
+     * @param groupName The name of the group in which this {@link XsdChoice} element is contained, if any.
+     * @return A {@link List} of {@link InterfaceInfo} objects containing relevant interface information.
+     */
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private List<InterfaceInfo> iterativeCreation(XsdAbstractElement element, String className, int interfaceIndex, String apiName, String groupName){
         List<XsdChoice> choiceElements = new ArrayList<>();
@@ -648,9 +787,9 @@ class XsdAsmInterfaces {
     }
 
     /**
-     * Creates a class based on a XsdElement if it wasn't been already.
+     * Creates a class based on a {@link XsdElement} if it wasn't been already.
      * @param element The element that serves as base to creating the class.
-     * @param apiName The name of the API to be generated.
+     * @param apiName The name of the generated fluent interface.
      */
     private void createElement(XsdElement element, String apiName) {
         String elementName = element.getName();
@@ -662,9 +801,9 @@ class XsdAsmInterfaces {
     }
 
     /**
-     * Iterates in a given XsdAbstractElement object in order to obtain all the contained xsdelements.
+     * Iterates in a given {@link XsdAbstractElement} object in order to obtain all the contained {@link XsdElement} objects.
      * @param element The element to iterate on.
-     * @return All the xsdelements contained in the element.
+     * @return All the {@link XsdElement} objects contained in the received element.
      */
     private List<XsdElement> getAllElementsRecursively(XsdAbstractElement element) {
         List<XsdElement> allGroupElements = new ArrayList<>();
@@ -685,14 +824,28 @@ class XsdAsmInterfaces {
         return allGroupElements;
     }
 
+    /**
+     * Adds the received {@link XsdElement} to the list of created elements.
+     * @param element The received {@link XsdElement}.
+     */
     private void addCreatedElement(XsdElement element){
         createdElements.put(element.getName(), element);
     }
 
+    /**
+     * Adds a {@link List} of {@link XsdElement} to the list of created elements.
+     * @param elementList The {@link List} to add.
+     */
     void addCreatedElements(List<XsdElement> elementList) {
         elementList.forEach(this::addCreatedElement);
     }
 
+    /**
+     * Verifies if there is any postponed sequence method creation in pendingSequenceMethods and performs the method if
+     * it exists.
+     * @param classWriter The {@link ClassWriter} object for the class that contains the postponed sequence method creation.
+     * @param className The name of the class that contains the sequence.
+     */
     void checkForSequenceMethod(ClassWriter classWriter, String className) {
         Consumer<ClassWriter> sequenceMethodCreator = pendingSequenceMethods.get(className);
 
@@ -701,6 +854,9 @@ class XsdAsmInterfaces {
         }
     }
 
+    /**
+     * @return Obtains all the names of the elements that were created in the current execution.
+     */
     Set<String> getExtraElementsForVisitor() {
         return createdElements.keySet();
     }

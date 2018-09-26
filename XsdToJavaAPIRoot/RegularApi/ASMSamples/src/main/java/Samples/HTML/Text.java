@@ -1,4 +1,4 @@
-package Samples.HTML;
+package samples.html;
 
 public class Text<P extends Element> extends AbstractElement<Text<P>, P>{
 
