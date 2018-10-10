@@ -6,6 +6,13 @@
     <artifactId>FasterApi</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.xmlet</groupId>
+            <artifactId>xsdAsmFaster</artifactId>
+            <version>1.0.4-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,5 +26,6 @@
         <module>HtmlApiFaster</module>
         <module>HtmlApiFasterTest</module>
         <module>ASMSamples</module>
+        <module>RegexFlow</module>
     </modules>
 </project>

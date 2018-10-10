@@ -3,10 +3,7 @@ package org.xmlet.xsdparser;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlet.xsdparser.core.XsdParser;
-import org.xmlet.xsdparser.xsdelements.XsdComplexContent;
-import org.xmlet.xsdparser.xsdelements.XsdComplexType;
-import org.xmlet.xsdparser.xsdelements.XsdElement;
-import org.xmlet.xsdparser.xsdelements.XsdExtension;
+import org.xmlet.xsdparser.xsdelements.*;
 
 import java.net.URL;
 import java.util.List;

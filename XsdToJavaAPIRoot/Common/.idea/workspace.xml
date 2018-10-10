@@ -2,55 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67e0503a-0a8b-41fd-9197-5e065db30dee" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Benchmark/Benchmark.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Benchmark/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Benchmark/src/main/java/benchmark/BenchmarkMain.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Benchmark/src/main/java/benchmark/Faster/FasterNoIndentationVisitor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Benchmark/src/main/java/benchmark/Faster/FasterWithIndentationVisitor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Benchmark/src/main/java/benchmark/Regular/RegularNoIndentationVisitor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Benchmark/src/main/java/benchmark/Regular/RegularWithIndentationVisitor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Benchmark/src/main/java/benchmark/Student.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Benchmark/src/main/java/benchmark/TableElement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Benchmark/src/main/resources/helloworld.vm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../Docs/21_09_Relatorio_Tese/A39378_XsdToJavaApi_Relatorio_Intercalar.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/A39378_XsdToJavaApi_Relatorio_Intercalar.pdf" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/XsdParserMain.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/enums/BlockFinalEnum.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/enums/EnumUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/VisitorNotFoundException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/OddTest.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/VststParseTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/Country.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/Elem2.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/LastName.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoAddress.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoCity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoLastName.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/Utils/InterfaceMethodInfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdLogger.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/CustomVisitor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/AName.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/ANameElem1.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/Address.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/City.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/Country.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/Elem1.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/Elem2.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/FirstName.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/LastName.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoAddress.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoCity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoComplete.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoFirstName.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoLastName.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceMethodInfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdLogger.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.pdf" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.pdf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter1.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter1.tex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter2.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter2.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter3.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter3.tex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter4.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter4.tex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter5.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/Chapters/chapter5.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/bibliography.bib" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/bibliography.bib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.tex" afterPath="$PROJECT_DIR$/../../Docs/Relatorio_Tese/relatorio_tese.tex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/README.md" afterPath="$PROJECT_DIR$/XsdParser/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/pom.xml" afterPath="$PROJECT_DIR$/XsdParser/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/core/XsdParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/AttributeValidations.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/AttributeValidations.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAbstractElement.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAbstractElement.java" />
@@ -97,112 +64,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/WpfeParseTest.java" afterPath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/WpfeParseTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/resources/html_5_types.xsd" afterPath="$PROJECT_DIR$/XsdParser/src/test/resources/html_5_types.xsd" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XsdParser/src/test/resources/test.xsd" afterPath="$PROJECT_DIR$/XsdParser/src/test/resources/test.xsd" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../FasterApi/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../FasterApi/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/ASMMain.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/ASMMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest/HtmlApiFasterTest.iml" afterPath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest/HtmlApiFasterTest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest/create_class_binaries.bat" afterPath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest/create_class_binaries.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest/decompile_class_binaries.bat" afterPath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest/decompile_class_binaries.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest/pom.xml" afterPath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" afterPath="$PROJECT_DIR$/../FasterApi/HtmlApiFasterTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/pom.xml" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/Utils/AttributeHierarchyItem.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/Utils/AttributeHierarchyItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/Utils/ElementHierarchyItem.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/Utils/ElementHierarchyItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/Utils/InterfaceInfo.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/Utils/InterfaceInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/Utils/SequenceMethodInfo.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/Utils/SequenceMethodInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsm.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmAttributes.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmAttributes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmElements.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmElements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmEnum.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmEnum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmInterfaces.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmInterfaces.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmUtils.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmVisitor.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdAsmVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdSupportingStructure.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/XsdSupportingStructure.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/infrastructure/EnumInterface.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/infrastructure/EnumInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/infrastructure/RestrictionValidator.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/infrastructure/RestrictionValidator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/infrastructure/RestrictionViolationException.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/main/java/org/xmlet/xsdasmfaster/classes/infrastructure/RestrictionViolationException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/test/java/XsdAsmBasicTest.java" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFaster/src/test/java/XsdAsmBasicTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFasterTest/XsdAsmFasterTest.iml" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFasterTest/XsdAsmFasterTest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FasterApi/XsdAsmFasterTest/pom.xml" afterPath="$PROJECT_DIR$/../FasterApi/XsdAsmFasterTest/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/.idea/libraries/Maven__com_github_xmlet_androidLayoutsApi_1_0_0_snapshot.xml" afterPath="$PROJECT_DIR$/../RegularApi/.idea/libraries/Maven__com_github_xmlet_androidLayoutsApi_1_0_0_snapshot.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../RegularApi/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/ASMMain.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/ASMMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/AbstractElement.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/AbstractElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/BaseAttribute.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/BaseAttribute.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/Comment.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/Comment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/CommonAttributeGroup.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/CommonAttributeGroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/Div.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/Div.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/Element.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/Element.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/EnumExample.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/EnumExample.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/EnumExampleInt.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/EnumExampleInt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/EnumInterface.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/EnumInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/FlowContent.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/FlowContent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/H1.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/H1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/IAttribute.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/IAttribute.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/MiniFlowContent.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/MiniFlowContent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/RestrictionValidator.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/RestrictionValidator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/RestrictionViolationException.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/RestrictionViolationException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/SomeAttribute.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/SomeAttribute.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/SomeAttributeEnum.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/SomeAttributeEnum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/Text.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/Text.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/TextFunction.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/TextFunction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/TextGroup.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/TextGroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/Visitor.java" afterPath="$PROJECT_DIR$/../RegularApi/ASMSamples/src/main/java/Samples/HTML/Visitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/HtmlApiTest.iml" afterPath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/HtmlApiTest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/pom.xml" afterPath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" afterPath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/HtmlApiTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java" afterPath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/CustomVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/Student.java" afterPath="$PROJECT_DIR$/../RegularApi/HtmlApiTest/src/test/java/org/xmlet/htmlapitest/utils/Student.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/AttributeHierarchyItem.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/AttributeHierarchyItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/ElementHierarchyItem.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/ElementHierarchyItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceInfo.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/InterfaceInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/SequenceMethodInfo.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/Utils/SequenceMethodInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsm.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmAttributes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmElements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmEnum.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmEnum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmInterfaces.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmVisitors.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdAsmVisitors.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/XsdSupportingStructure.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/infrastructure/EnumInterface.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/infrastructure/EnumInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/infrastructure/RestrictionValidator.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/infrastructure/RestrictionValidator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/infrastructure/RestrictionViolationException.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/main/java/org/xmlet/xsdasm/classes/infrastructure/RestrictionViolationException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/test/java/org/xmlet/xsdasm/XsdAsmBasicTest.java" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsm/src/test/java/org/xmlet/xsdasm/XsdAsmBasicTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsmTest/XsdAsmTest.iml" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsmTest/XsdAsmTest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RegularApi/XsdAsmTest/pom.xml" afterPath="$PROJECT_DIR$/../RegularApi/XsdAsmTest/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../StaticApi/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../StaticApi/.idea/workspace.xml" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/enums/BlockFinalEnum.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/enums/BlockDefaultEnum.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/visitors/VisitorNotFoundException.java" afterPath="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/exceptions/VisitorNotFoundException.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/OddTest.java" afterPath="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/RestrictionsTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/CommonAttributeGroup.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/CommonAttributeGroup.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/CustomAttributeGroup.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/CustomAttributeGroup.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/Div.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/Div.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/Element.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/Element.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/EnumExample.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/EnumExample.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/EnumExampleInt.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/EnumExampleInt.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/EnumInterface.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/EnumInterface.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/FlowContent.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/FlowContent.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/H1.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/H1.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/MiniFlowContent.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/MiniFlowContent.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/RestrictionValidator.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/RestrictionValidator.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/RestrictionViolationException.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/RestrictionViolationException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/SomeAttribute.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/SomeAttribute.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/Text.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/Text.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/TextGroup.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/TextGroup.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/Visitor.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/Visitor.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/infrastructure.png" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/infrastructure.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/HTML/infrastructure.uml" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/html/infrastructure.uml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/AName.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/sequence/AName.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/ANameElem1.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/sequence/ANameElem1.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/Address.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/sequence/Address.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/City.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/sequence/City.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/Elem1.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/sequence/Elem1.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/FirstName.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/sequence/FirstName.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfo.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/sequence/PersonalInfo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoComplete.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/sequence/PersonalInfoComplete.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/Samples/Sequence/Classes/PersonalInfoFirstName.java" afterPath="$PROJECT_DIR$/../FasterApi/ASMSamples/src/main/java/samples/sequence/PersonalInfoFirstName.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/XsdParser/target/" />
@@ -220,7 +85,44 @@
     </SUITE>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/XsdParser/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="17">
+                <caret line="142" column="0" lean-forward="false" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+                <folding>
+                  <marker date="1537978923607" expanded="true" signature="2335:2458" ph="..." />
+                  <marker date="1537978923607" expanded="true" signature="2635:2932" ph="{...}" />
+                  <marker date="1537978923607" expanded="true" signature="3850:4266" ph="..." />
+                  <marker date="1537978923607" expanded="true" signature="3884:3973" ph="..." />
+                  <marker date="1537978923607" expanded="true" signature="3899:3959" ph="..." />
+                  <marker date="1537978923607" expanded="true" signature="4001:4252" ph="..." />
+                  <marker date="1537978923607" expanded="true" signature="4030:4237" ph="..." />
+                  <marker date="1537978923607" expanded="true" signature="4059:4140" ph="..." />
+                  <marker date="1537978923607" expanded="true" signature="4459:5004" ph="{...}" />
+                  <marker date="1537978923607" expanded="true" signature="7398:7785" ph="..." />
+                  <marker date="1537978923607" expanded="true" signature="7452:7538" ph="..." />
+                  <marker date="1537978923607" expanded="true" signature="7557:7771" ph="..." />
+                </folding>
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidParseTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/AndroidParseTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="17" column="100" lean-forward="false" selection-start-line="17" selection-start-column="100" selection-end-line="17" selection-end-column="100" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -265,7 +167,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/enums/BlockEnum.java" />
         <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/enums/BlockFinalEnum.java" />
         <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/enums/ComplexTypeBlockEnum.java" />
         <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/enums/EnumUtils.java" />
@@ -301,7 +202,6 @@
         <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAbstractElement.java" />
         <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdGroup.java" />
         <option value="$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdIdentifierElements.java" />
-        <option value="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/AndroidParseTest.java" />
         <option value="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/HtmlPartedParseTest.java" />
         <option value="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/OddTest.java" />
         <option value="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/WpfeParseTest.java" />
@@ -316,6 +216,8 @@
         <option value="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/RestrictionsTest.java" />
         <option value="$PROJECT_DIR$/XsdParser/src/test/resources/test.xsd" />
         <option value="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/HtmlParseTest.java" />
+        <option value="$PROJECT_DIR$/XsdParser/README.md" />
+        <option value="$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/AndroidParseTest.java" />
       </list>
     </option>
   </component>
@@ -348,7 +250,7 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -361,165 +263,7 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdparser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdparser" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdparser" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdelements" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdparser" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdelements" type="462c0819:PsiDirectoryNode" />
-              <item name="elementswrapper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdparser" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdelements" type="462c0819:PsiDirectoryNode" />
-              <item name="enums" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdparser" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdelements" type="462c0819:PsiDirectoryNode" />
-              <item name="exceptions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdparser" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdelements" type="462c0819:PsiDirectoryNode" />
-              <item name="visitors" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdparser" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdelements" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdrestrictions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="xsdparser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Common" type="462c0819:PsiDirectoryNode" />
-              <item name="XsdParser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -977,6 +721,8 @@
       <workItem from="1537799523446" duration="5920000" />
       <workItem from="1537961457334" duration="219000" />
       <workItem from="1537976879064" duration="32000" />
+      <workItem from="1537978528936" duration="1088000" />
+      <workItem from="1538325449897" duration="1169000" />
     </task>
     <servers />
   </component>
@@ -1013,7 +759,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135903000" />
+    <option name="totallyTimeSpent" value="138160000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -1030,7 +776,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2753404" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27987897" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1100,21 +846,10 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/xsdrestrictions/XsdStringRestrictions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-238">
-          <caret line="20" column="82" lean-forward="false" selection-start-line="20" selection-start-column="82" selection-end-line="20" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/XsdParser/src/main/java/org/xmlet/xsdparser/xsdelements/XsdAbstractElement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="224" column="102" lean-forward="false" selection-start-line="224" selection-start-column="102" selection-end-line="224" selection-end-column="102" />
-          <folding>
-            <element signature="e#4422#4423#0" expanded="false" />
-            <element signature="e#4468#4469#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1122,7 +857,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-626">
           <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1130,7 +864,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="12" column="22" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1138,7 +871,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="61" column="51" lean-forward="false" selection-start-line="61" selection-start-column="25" selection-end-line="61" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1146,7 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1154,7 +885,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
           <caret line="231" column="35" lean-forward="false" selection-start-line="231" selection-start-column="22" selection-end-line="231" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1162,7 +892,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1493">
           <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1170,7 +899,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1178,7 +906,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1186,7 +913,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
           <caret line="166" column="28" lean-forward="true" selection-start-line="166" selection-start-column="28" selection-end-line="166" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1194,7 +920,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="24" column="73" lean-forward="false" selection-start-line="24" selection-start-column="73" selection-end-line="24" selection-end-column="73" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1202,7 +927,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-357">
           <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1210,7 +934,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-255">
           <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1218,7 +941,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-357">
           <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1226,7 +948,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-422">
           <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1234,7 +955,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2414">
           <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1242,7 +962,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-507">
           <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1250,7 +969,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-357">
           <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1258,7 +976,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4298">
           <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1266,7 +983,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-323">
           <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1275,7 +991,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1296,7 +1011,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="14" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1318,16 +1032,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="180" column="58" lean-forward="false" selection-start-line="180" selection-start-column="41" selection-end-line="180" selection-end-column="58" />
-          <folding>
-            <element signature="e#8524#8551#0" expanded="false" />
-            <element signature="e#8731#8758#0" expanded="false" />
-            <element signature="e#8823#8850#0" expanded="false" />
-            <element signature="e#9476#9503#0" expanded="false" />
-            <element signature="e#9715#9742#0" expanded="false" />
-            <element signature="e#10034#10061#0" expanded="false" />
-            <element signature="e#10384#10411#0" expanded="false" />
-            <element signature="e#10746#10773#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1335,7 +1039,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="291">
           <caret line="85" column="54" lean-forward="false" selection-start-line="85" selection-start-column="54" selection-end-line="85" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1343,7 +1046,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="492">
           <caret line="91" column="105" lean-forward="false" selection-start-line="91" selection-start-column="105" selection-end-line="91" selection-end-column="105" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1351,7 +1053,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="91" column="22" lean-forward="false" selection-start-line="91" selection-start-column="15" selection-end-line="91" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1359,7 +1060,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1255">
           <caret line="19" column="47" lean-forward="false" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1367,7 +1067,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="205">
           <caret line="680" column="28" lean-forward="false" selection-start-line="680" selection-start-column="8" selection-end-line="680" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1375,7 +1074,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="359">
           <caret line="435" column="9" lean-forward="false" selection-start-line="435" selection-start-column="9" selection-end-line="435" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1383,7 +1081,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3162">
           <caret line="199" column="46" lean-forward="false" selection-start-line="199" selection-start-column="46" selection-end-line="199" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1391,7 +1088,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="29" column="25" lean-forward="false" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1406,7 +1102,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-35">
           <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1414,7 +1109,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1422,7 +1116,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1430,7 +1123,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-476">
           <caret line="5" column="35" lean-forward="false" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1438,7 +1130,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" column="57" lean-forward="false" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1446,7 +1137,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1454,9 +1144,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="270" column="42" lean-forward="false" selection-start-line="270" selection-start-column="42" selection-end-line="270" selection-end-column="42" />
-          <folding>
-            <element signature="method#testStringRestrictions#0;class#RestrictionsTest#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1464,7 +1151,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="40" lean-forward="false" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1472,7 +1158,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="61" column="31" lean-forward="false" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1480,18 +1165,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2365">
           <caret line="319" column="19" lean-forward="false" selection-start-line="319" selection-start-column="19" selection-end-line="319" selection-end-column="19" />
-          <folding>
-            <element signature="e#13844#13845#0" expanded="true" />
-            <element signature="e#13876#13877#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/AndroidParseTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-219">
-          <caret line="41" column="100" lean-forward="false" selection-start-line="41" selection-start-column="83" selection-end-line="41" selection-end-column="100" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1499,7 +1172,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="119" column="21" lean-forward="false" selection-start-line="101" selection-start-column="12" selection-end-line="119" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdParser/src/test/java/org/xmlet/xsdparser/AndroidParseTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="17" column="100" lean-forward="false" selection-start-line="17" selection-start-column="100" selection-end-line="17" selection-end-column="100" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XsdParser/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="17">
+            <caret line="142" column="0" lean-forward="false" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+            <folding>
+              <marker date="1537978923607" expanded="true" signature="2335:2458" ph="..." />
+              <marker date="1537978923607" expanded="true" signature="2635:2932" ph="{...}" />
+              <marker date="1537978923607" expanded="true" signature="3850:4266" ph="..." />
+              <marker date="1537978923607" expanded="true" signature="3884:3973" ph="..." />
+              <marker date="1537978923607" expanded="true" signature="3899:3959" ph="..." />
+              <marker date="1537978923607" expanded="true" signature="4001:4252" ph="..." />
+              <marker date="1537978923607" expanded="true" signature="4030:4237" ph="..." />
+              <marker date="1537978923607" expanded="true" signature="4059:4140" ph="..." />
+              <marker date="1537978923607" expanded="true" signature="4459:5004" ph="{...}" />
+              <marker date="1537978923607" expanded="true" signature="7398:7785" ph="..." />
+              <marker date="1537978923607" expanded="true" signature="7452:7538" ph="..." />
+              <marker date="1537978923607" expanded="true" signature="7557:7771" ph="..." />
+            </folding>
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

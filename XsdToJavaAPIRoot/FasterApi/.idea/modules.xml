@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/FasterApi.iml" filepath="$PROJECT_DIR$/FasterApi.iml" />
       <module fileurl="file://$PROJECT_DIR$/HtmlApiFaster/HtmlApiFaster.iml" filepath="$PROJECT_DIR$/HtmlApiFaster/HtmlApiFaster.iml" />
       <module fileurl="file://$PROJECT_DIR$/HtmlApiFasterTest/HtmlApiFasterTest.iml" filepath="$PROJECT_DIR$/HtmlApiFasterTest/HtmlApiFasterTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RegexFlow/RegexFlow.iml" filepath="$PROJECT_DIR$/RegexFlow/RegexFlow.iml" />
       <module fileurl="file://$PROJECT_DIR$/XsdAsmFaster/XsdAsmFaster.iml" filepath="$PROJECT_DIR$/XsdAsmFaster/XsdAsmFaster.iml" />
       <module fileurl="file://$PROJECT_DIR$/XsdAsmFasterTest/XsdAsmFasterTest.iml" filepath="$PROJECT_DIR$/XsdAsmFasterTest/XsdAsmFasterTest.iml" />
     </modules>

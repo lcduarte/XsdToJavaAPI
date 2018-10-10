@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="optionType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="i"/>
+            <xs:enumeration value="m"/>
+            <xs:enumeration value="n"/>
+            <xs:enumeration value="s"/>
+            <xs:enumeration value="x"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:attribute name="oneChar">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:length value="1"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <xs:attribute name="twoDigits">
+        <xs:simpleType>
+            <xs:restriction base="xs:int">
+                <xs:minInclusive value="10"/>
+                <xs:maxInclusive value="99"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <xs:attribute name="threeDigits">
+        <xs:simpleType>
+            <xs:restriction base="xs:int">
+                <xs:minInclusive value="100"/>
+                <xs:maxInclusive value="999"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <xs:attribute name="fourDigits">
+        <xs:simpleType>
+            <xs:restriction base="xs:int">
+                <xs:minInclusive value="1000"/>
+                <xs:maxInclusive value="9999"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <!-- ********************************** Character Escapes ********************************** -->
+
+    <!-- \a -->
+    <xs:element name="charBell"/>
+
+    <!-- \b -->
+    <xs:element name="charBackspace"/>
+
+    <!-- \t -->
+    <xs:element name="charTab"/>
+
+    <!-- \r -->
+    <xs:element name="charCarriageReturn"/>
+
+    <!-- \v -->
+    <xs:element name="charVerticalTab"/>
+
+    <!-- \f -->
+    <xs:element name="charFormFeed"/>
+
+    <!-- \n -->
+    <xs:element name="charNewLine"/>
+
+    <!-- \e -->
+    <xs:element name="charEscape"/>
+
+    <!-- \ + 2 or 3 digits -->
+    <xs:element name="charOctal">
+        <xs:complexType>
+            <xs:attribute ref="twoDigits" />
+            <xs:attribute ref="threeDigits" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- \x + Exactly 2 digits -->
+    <xs:element name="charHexadecimal">
+        <xs:complexType>
+            <xs:attribute ref="twoDigits"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- \c + Exactly 1 char -->
+    <xs:element name="charControl">
+        <xs:complexType>
+            <xs:attribute ref="oneChar"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- \u + Exactly 4 digits -->
+    <xs:element name="charUnicode">
+        <xs:complexType>
+            <xs:attribute ref="fourDigits"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- \ + One char? -->
+    <xs:element name="charOther">
+        <xs:complexType>
+            <xs:attribute ref="oneChar"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ********************************** Character Classes ********************************** -->
+
+    <!-- [value] -->
+    <xs:element name="charGroup">
+        <xs:complexType>
+            <xs:attribute name="value" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- [^value] -->
+    <xs:element name="charOutsideOfGroup">
+        <xs:complexType>
+            <xs:attribute name="value" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- [first-last] -->
+    <xs:element name="charFirstUntilLast">
+        <xs:complexType>
+            <xs:attribute name="first" type="xs:string"/>
+            <xs:attribute name="last" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- . -->
+    <xs:element name="anyChar"/>
+
+    <!-- \p{blockName} -->
+    <xs:element name="unicodeBlock">
+        <xs:complexType>
+            <xs:attribute name="blockName" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- \P{blockName} -->
+    <xs:element name="unicodeNegatedBlock">
+        <xs:complexType>
+            <xs:attribute name="blockName" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- \w -->
+    <xs:element name="anyLetter"/>
+
+    <!-- \W -->
+    <xs:element name="anyNonLetter"/>
+
+    <!-- \s -->
+    <xs:element name="anyWhiteSpace"/>
+
+    <!-- \S -->
+    <xs:element name="anyNonWhiteSpace"/>
+
+    <!-- \d -->
+    <xs:element name="anyDigit"/>
+
+    <!-- \D -->
+    <xs:element name="anyNonDigit"/>
+
+    <!-- ********************************** Anchors ********************************** -->
+
+    <!-- ^ -->
+    <xs:element name="onlyAtBeginning"/>
+
+    <!-- $ -->
+    <xs:element name="onlyAtEnd"/>
+
+    <!-- \A -->
+    <xs:element name="onlyAtStringBeginning"/>
+
+    <!-- \Z -->
+    <xs:element name="onlyAtStringEndOrNewline"/>
+
+    <!-- \z -->
+    <xs:element name="onlyAtStringEnd"/>
+
+    <!-- \G -->
+    <xs:element name="onlyConsecutiveMatches"/>
+
+    <!-- \b -->
+    <xs:element name="onlyBetweenBoundaries"/>
+
+    <!-- \B -->
+    <xs:element name="onlyOffBoundaries"/>
+
+    <!-- ********************************** Grouping Constructs ********************************** -->
+
+    <!-- Por fazer -->
+
+    <!-- (subExpression) -->
+
+    <!-- (?<name>subExpression) -->
+
+    <!-- (?<name1-name2>subExpression) -->
+
+    <!-- (?:subExpression)-->
+
+    <!-- (?imnsx-imnsx:subExpression)-->
+
+    <!-- (?=subExpression)-->
+
+    <!-- (?!subExpression)-->
+
+    <!-- (?<=subExpression)-->
+
+    <!-- (?<!subExpression)-->
+
+    <!-- (?>subExpression)-->
+
+    <!-- ********************************** Quantifiers ********************************** -->
+
+    <!-- * -->
+    <xs:element name="matchZeroOrMore"/>
+
+    <!-- + -->
+    <xs:element name="matchOneOrMore"/>
+
+    <!-- {n} -->
+    <xs:element name="matchNTimes">
+        <xs:complexType>
+            <xs:attribute name="n" type="xs:int"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- {n,} -->
+    <xs:element name="matchAtLeastNTimes">
+        <xs:complexType>
+            <xs:attribute name="n" type="xs:int"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- {n,m} -->
+    <xs:element name="matchBetweenNAndMTimes">
+        <xs:complexType>
+            <xs:attribute name="n" type="xs:int"/>
+            <xs:attribute name="m" type="xs:int"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- *? -->
+    <xs:element name="matchZeroOrMoreAsFewAsPossible"/>
+
+    <!-- +? -->
+    <xs:element name="matchOneOrMoreAsFewAsPossible"/>
+
+    <!-- ?? -->
+    <xs:element name="matchZeroOrOneAsFewAsPossible"/>
+
+    <!-- {n}? -->
+    <xs:element name="matchPreviousNTimes">
+        <xs:complexType>
+            <xs:attribute name="n" type="xs:int"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- {n,}? -->
+    <xs:element name="matchAtLeastNTimesButAsFewAsPossible">
+        <xs:complexType>
+            <xs:attribute name="n" type="xs:int"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- {n,m}? -->
+    <xs:element name="matchPreviousBetweenNAndMTimesButAsFewPossible">
+        <xs:complexType>
+            <xs:attribute name="n" type="xs:int"/>
+            <xs:attribute name="m" type="xs:int"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ********************************** BackReference Constructs ********************************** -->
+
+    <!-- \number -->
+    <xs:element name="backReference">
+        <xs:complexType>
+            <xs:attribute name="number" type="xs:int"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- \k<name> -->
+    <xs:element name="namedBackReference">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ********************************** Alternation Constructs ********************************** -->
+
+    <!-- | -->
+    <xs:element name="or"/>
+
+    <!-- (?(expression)yes|no) -->
+    <xs:element name="ifMatch">
+        <xs:complexType>
+            <xs:attribute name="expression" type="xs:string"/>
+            <xs:attribute name="yes" type="xs:string"/>
+            <xs:attribute name="no" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- (?(name)yes|no) -->
+    <xs:element name="ifGroupMatch">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string"/>
+            <xs:attribute name="yes" type="xs:string"/>
+            <xs:attribute name="no" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ********************************** Substitutions ********************************** -->
+
+    <!-- $number -->
+
+    <!-- ${name} -->
+
+    <!-- $$ -->
+
+    <!-- $& -->
+
+    <!-- $` -->
+
+    <!-- $' -->
+
+    <!-- $+ -->
+
+    <!-- $_ -->
+
+    <!-- ********************************** Options ********************************** -->
+
+    <!-- i -->
+    <xs:element name="caseInsensitive"/>
+
+    <!-- m -->
+    <xs:element name="multilineMode"/>
+
+    <!-- n -->
+    <xs:element name="noUnnamedModes"/>
+
+    <!-- s -->
+    <xs:element name="singleLineMode"/>
+
+    <!-- x -->
+    <xs:element name="ignoreUnescapedWhiteSpaces"/>
+
+    <!-- ********************************** Miscellaneous Constructs ********************************** -->
+
+    <!-- (?imnsx-imnsx) -->
+    <xs:element name="activateOption">
+        <xs:complexType>
+            <xs:attribute name="option" type="optionType"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- (?#comment) -->
+    <xs:element name="regexComment">
+        <xs:complexType>
+            <xs:attribute name="comment" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- #comment -->
+    <xs:element name="regexLineComment">
+        <xs:complexType>
+            <xs:attribute name="comment" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+

@@ -11,6 +11,7 @@
         <module name="htmlApiFaster" />
         <module name="HtmlApiFasterTest" />
         <module name="htmlApiFasterTest" />
+        <module name="RegexFlow" />
         <module name="XsdAsmFaster" />
         <module name="xsdAsmFaster" />
         <module name="XsdAsmFasterTest" />
@@ -23,6 +24,7 @@
       <module name="htmlApiFaster" target="1.8" />
       <module name="HtmlApiFasterTest" target="1.8" />
       <module name="htmlApiFasterTest" target="1.8" />
+      <module name="RegexFlow" target="1.8" />
       <module name="XsdAsmFaster" target="1.8" />
       <module name="xsdAsmFaster" target="9" />
       <module name="XsdAsmFasterTest" target="1.8" />
