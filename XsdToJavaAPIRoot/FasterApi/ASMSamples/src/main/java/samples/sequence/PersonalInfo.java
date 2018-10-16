@@ -12,19 +12,19 @@ public class PersonalInfo<P extends Element> implements TextGroup<PersonalInfo<P
     public PersonalInfo(Visitor visitor) {
         this.visitor = visitor;
         this.parent = null;
-        //visitor.visitElement("personInfo");
+        //regex.visitor.visitElement("personInfo");
     }
 
     public PersonalInfo(P parent) {
         this.parent = parent;
         this.visitor = parent.getVisitor();
-        //visitor.visitElement("personInfo");
+        //regex.visitor.visitElement("personInfo");
     }
 
     public PersonalInfo(P parent, Visitor visitor) {
         this.parent = parent;
         this.visitor = visitor;
-        //visitor.visitElement("personInfo");
+        //regex.visitor.visitElement("personInfo");
     }
 
     @Override
@@ -33,8 +33,8 @@ public class PersonalInfo<P extends Element> implements TextGroup<PersonalInfo<P
     }
 
     @Override
-    public P º() {
-        //visitor.visitParent("personInfo");
+    public P __() {
+        //regex.visitor.visitParent("personInfo");
         return parent;
     }
 
@@ -54,7 +54,7 @@ public class PersonalInfo<P extends Element> implements TextGroup<PersonalInfo<P
     }
 
     public PersonalInfoFirstName<P> firstName(Integer value){
-        new FirstName<>( this, visitor).text(value).º();
+        new FirstName<>( this, visitor).text(value).__();
         return new PersonalInfoFirstName<>(parent, visitor);
     }
 }

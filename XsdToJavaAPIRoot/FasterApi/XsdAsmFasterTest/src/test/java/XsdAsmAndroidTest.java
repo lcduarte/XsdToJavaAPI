@@ -9,9 +9,9 @@ public class XsdAsmAndroidTest {
         CustomVisitorAndroid visitor = new CustomVisitorAndroid();
 
         RelativeLayout<Element> relativeLayout = new RelativeLayout<>(visitor)
-                                                .attrAndroidGravity(EnumAndroidGravity.CENTER)                              /* Method from RelativeLayout */
-                                                .attrAndroidAddStatesFromChildren(EnumAndroidAddStatesFromChildren.TRUE)    /* Method from ViewGroup */
-                                                .attrAndroidLayoutX("");                                                    /* Method from View */
+                                                .attrAndroidGravity(EnumAndroidGravityRelativeLayout.CENTER)                        /* Method from RelativeLayout */
+                                                .attrAndroidAddStatesFromChildren(EnumAndroidAddStatesFromChildrenViewGroup.TRUE)   /* Method from ViewGroup */
+                                                .attrAndroidLayoutX("");                                                            /* Method from View */
 
         boolean implementsView = false;
         boolean implementsViewGroup = false;
@@ -28,7 +28,7 @@ public class XsdAsmAndroidTest {
             }
         }
 
-        relativeLayout.º();
+        relativeLayout.__();
 
         String result = visitor.getResult();
 
@@ -67,25 +67,25 @@ public class XsdAsmAndroidTest {
     public void testSimpleAndroidLayout(){
         CustomVisitorAndroid visitor = new CustomVisitorAndroid();
 
-            new LinearLayout<>(visitor)
-                .attrAndroidOrientation(EnumAndroidOrientation.VERTICAL)
+        new LinearLayout<>(visitor)
+            .attrAndroidOrientation(EnumAndroidOrientationLinearLayout.VERTICAL)
+            .attrAndroidLayoutWidth("match_parent")
+            .attrAndroidLayoutHeight("wrap_content")
+            .linearLayout()
+                .attrAndroidOrientation(EnumAndroidOrientationLinearLayout.HORIZONTAL)
                 .attrAndroidLayoutWidth("match_parent")
                 .attrAndroidLayoutHeight("wrap_content")
-                .linearLayout()
-                    .attrAndroidOrientation(EnumAndroidOrientation.HORIZONTAL)
-                    .attrAndroidLayoutWidth("match_parent")
+                .imageView()
+                    .attrAndroidLayoutWidth("wrap_content")
                     .attrAndroidLayoutHeight("wrap_content")
-                    .imageView()
-                        .attrAndroidLayoutWidth("wrap_content")
-                        .attrAndroidLayoutHeight("wrap_content")
-                    .º()
-                    .textView()
-                        .attrAndroidWidth("match_parent")
-                        .attrAndroidHeight("weight_content")
-                        .attrAndroidLines("2")
-                    .º()
-                .º()
-            .º();
+                .__()
+                .textView()
+                    .attrAndroidWidth("match_parent")
+                    .attrAndroidHeight("weight_content")
+                    .attrAndroidLines("2")
+                .__()
+            .__()
+        .__();
 
         String result = visitor.getResult();
 

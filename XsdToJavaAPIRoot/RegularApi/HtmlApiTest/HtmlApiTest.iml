@@ -14,7 +14,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../Html5Xsd2JavaApiTest/target" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="9.0" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: com.github.xmlet:htmlApi:1.0.8-snapshot" level="project" />
     <orderEntry type="library" name="Maven: com.github.xmlet:htmlApi:1.0.9" level="project" />

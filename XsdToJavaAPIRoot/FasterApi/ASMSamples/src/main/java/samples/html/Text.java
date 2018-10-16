@@ -18,7 +18,7 @@ public class Text<P extends Element, R extends Object> implements Element<Text<P
     }
 
     @Override
-    public P º() {
+    public P __() {
         visitor.visitText(this);
         return parent;
     }

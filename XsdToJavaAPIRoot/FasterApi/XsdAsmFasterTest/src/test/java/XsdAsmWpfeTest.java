@@ -14,7 +14,7 @@ public class XsdAsmWpfeTest {
         new Canvas<>(visitor)
                 .canvasClip("clip")
                 .inkPresenter("ink")
-            .º();
+            .__();
 
         String result = visitor.getResult();
 

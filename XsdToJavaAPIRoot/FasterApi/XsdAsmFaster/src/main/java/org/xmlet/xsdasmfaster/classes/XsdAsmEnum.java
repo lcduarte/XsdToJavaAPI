@@ -44,7 +44,7 @@ class XsdAsmEnum {
         FieldVisitor fVisitor;
 
         enumerations.forEach(enumElem -> {
-            FieldVisitor fieldVisitor = cw.visitField(ACC_PUBLIC + ACC_FINAL + ACC_STATIC + ACC_ENUM, getEnumElementName(enumElem), enumTypeDesc, null, null);
+            FieldVisitor fieldVisitor = cw.visitField(ACC_PUBLIC + ACC_FINAL + ACC_STATIC + ACC_ENUM, validateElemName(enumerations, enumElem), enumTypeDesc, null, null);
             fieldVisitor.visitEnd();
         });
 
@@ -108,7 +108,8 @@ class XsdAsmEnum {
         int iConst = 0;
 
         for (XsdEnumeration enumElem : enumerations) {
-            String elemName = getEnumElementName(enumElem);
+            String elemName = validateElemName(enumerations, enumElem);
+
             staticConstructor.visitTypeInsn(NEW, enumType);
             staticConstructor.visitInsn(DUP);
             staticConstructor.visitLdcInsn(elemName);
@@ -120,6 +121,10 @@ class XsdAsmEnum {
                 object = Class.forName(fullJavaType.replaceAll("/", ".")).getConstructor(String.class).newInstance(enumElem.getValue());
             } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
                 throw new AsmException("Exception when creating Enum classes.", e);
+            }
+
+            if (object instanceof Boolean){
+                object = String.valueOf(object);
             }
 
             staticConstructor.visitLdcInsn(object);
@@ -148,6 +153,18 @@ class XsdAsmEnum {
         staticConstructor.visitEnd();
 
         writeClassToFile(enumName, cw, apiName);
+    }
+
+    private static String validateElemName(List<XsdEnumeration> enumerations, XsdEnumeration currentEnumeration) {
+        String elemName = getEnumElementName(currentEnumeration);
+
+        long count = enumerations.stream().filter(enumeration -> getEnumElementName(enumeration).equals(elemName)).count();
+
+        if (count > 1){
+            return currentEnumeration.getValue();
+        }
+
+        return elemName;
     }
 
     /**

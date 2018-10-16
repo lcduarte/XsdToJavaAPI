@@ -544,7 +544,7 @@ class XsdAsmInterfaces {
         mVisitor.visitLocalVariable(methodName, javaType, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + elementTypeDesc, true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "__", "()" + elementTypeDesc, true);
         mVisitor.visitTypeInsn(NEW, addingType);
         mVisitor.visitInsn(DUP);
         mVisitor.visitVarInsn(ALOAD, 0);
@@ -555,7 +555,7 @@ class XsdAsmInterfaces {
         mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "addChild", "(" + elementTypeDesc + ")" + elementTypeDesc, true);
         mVisitor.visitInsn(POP);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + elementTypeDesc, true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "__", "()" + elementTypeDesc, true);
         mVisitor.visitInsn(ARETURN);
         mVisitor.visitMaxs(4, 2);
         mVisitor.visitEnd();
@@ -606,7 +606,7 @@ class XsdAsmInterfaces {
         mVisitor.visitLocalVariable(methodName, javaType, null, new Label(), new Label(),1);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + elementTypeDesc, true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "__", "()" + elementTypeDesc, true);
         mVisitor.visitTypeInsn(NEW, addingType);
         mVisitor.visitInsn(DUP);
         mVisitor.visitVarInsn(ALOAD, 0);
@@ -619,12 +619,12 @@ class XsdAsmInterfaces {
         mVisitor.visitTypeInsn(NEW, nextType);
         mVisitor.visitInsn(DUP);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "º", "()" + elementTypeDesc, true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, interfaceType, "__", "()" + elementTypeDesc, true);
         mVisitor.visitLdcInsn(firstToLower(getCleanName(className)));
         mVisitor.visitMethodInsn(INVOKESPECIAL, nextType, CONSTRUCTOR, "(" + elementTypeDesc + JAVA_STRING_DESC + ")V", false);
         mVisitor.visitVarInsn(ASTORE, 2);
         mVisitor.visitVarInsn(ALOAD, 0);
-        mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "º", "()" + elementTypeDesc, true);
+        mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "__", "()" + elementTypeDesc, true);
         mVisitor.visitMethodInsn(INVOKEINTERFACE, elementType, "getChildren", "()" + JAVA_LIST_DESC, true);
         mVisitor.visitVarInsn(ALOAD, 2);
         mVisitor.visitInsn(DUP);

@@ -3,9 +3,12 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ASMSamples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/AndroidLayouts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/AndroidLayoutsApi" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/HtmlApiFaster" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/HtmlApiFasterTest" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/RegexFlow" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Regex" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/RegexApi" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/XsdAsmFaster" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/XsdAsmFasterTest" charset="UTF-8" />
   </component>

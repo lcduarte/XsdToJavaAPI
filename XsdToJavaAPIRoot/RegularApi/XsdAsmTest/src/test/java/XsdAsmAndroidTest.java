@@ -10,9 +10,9 @@ public class XsdAsmAndroidTest {
         CustomVisitorAndroid visitor = new CustomVisitorAndroid();
 
         RelativeLayout relativeLayout = new RelativeLayout<>()
-                .attrAndroidGravity(EnumAndroidGravity.CENTER)                           /* Method from RelativeLayout */
-                .attrAndroidAddStatesFromChildren(EnumAndroidAddStatesFromChildren.TRUE) /* Method from ViewGroup */
-                .attrAndroidLayoutX(null);                                               /* Method from View */
+                .attrAndroidGravity(EnumAndroidGravityRelativeLayout.CENTER)                            /* Method from RelativeLayout */
+                .attrAndroidAddStatesFromChildren(EnumAndroidAddStatesFromChildrenViewGroup.TRUE)       /* Method from ViewGroup */
+                .attrAndroidLayoutX(null);                                                              /* Method from View */
 
         boolean implementsView = false;
         boolean implementsViewGroup = false;
@@ -68,23 +68,23 @@ public class XsdAsmAndroidTest {
 
         LinearLayout linearLayout =
                 new LinearLayout<>()
-                            .attrAndroidOrientation(EnumAndroidOrientation.VERTICAL)
+                            .attrAndroidOrientation(EnumAndroidOrientationLinearLayout.VERTICAL)
                             .attrAndroidLayoutWidth("match_parent")
                             .attrAndroidLayoutHeight("wrap_content")
                             .linearLayout()
-                                .attrAndroidOrientation(EnumAndroidOrientation.HORIZONTAL)
+                                .attrAndroidOrientation(EnumAndroidOrientationLinearLayout.HORIZONTAL)
                                 .attrAndroidLayoutWidth("match_parent")
                                 .attrAndroidLayoutHeight("wrap_content")
                                 .imageView()
                                     .attrAndroidLayoutWidth("wrap_content")
                                     .attrAndroidLayoutHeight("wrap_content")
-                                .º()
+                                .__()
                                 .textView()
                                 .attrAndroidWidth("match_parent")
                                 .attrAndroidHeight("weight_content")
                                 .attrAndroidLines("2")
-                                .º()
-                            .º();
+                                .__()
+                            .__();
 
         linearLayout.accept(visitor);
         String result = visitor.getResult();

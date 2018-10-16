@@ -3,7 +3,7 @@ package samples.html;
 public interface Element<T extends Element, P extends Element> {
 
     T self();
-    P º();
+    P __();
     P getParent();
 
     String getName();

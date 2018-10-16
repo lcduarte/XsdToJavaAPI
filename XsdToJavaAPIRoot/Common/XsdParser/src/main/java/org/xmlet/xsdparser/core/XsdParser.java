@@ -331,6 +331,10 @@ public class XsdParser {
                                .map(concreteElement -> (NamedConcreteElement) concreteElement)
                                .collect(groupingBy(NamedConcreteElement::getName));
 
+        Map<String, NamedConcreteElement> typeReferredElements = new HashMap<>();
+
+
+
         unsolvedElements.forEach(unsolvedElement -> replaceUnsolvedReference(concreteElementsMap, unsolvedElement));
     }
 
@@ -342,15 +346,31 @@ public class XsdParser {
      * @param unsolvedReference The unsolved reference to solve.
      */
     private void replaceUnsolvedReference(Map<String, List<NamedConcreteElement>> concreteElementsMap, UnsolvedReference unsolvedReference) {
+        if (unsolvedReference.getRef().equals("matchingOperations") && unsolvedReference.getParent() instanceof XsdComplexType &&
+                ((XsdComplexType)unsolvedReference.getParent()).getName() != null &&
+                ((XsdComplexType)unsolvedReference.getParent()).getName().equals("matching")){
+            int a = 5;
+        }
+
+        if (unsolvedReference.getRef().equals("matching") && unsolvedReference.getParent() instanceof XsdElement){
+            int a = 5;
+        }
+
         List<NamedConcreteElement> concreteElements = concreteElementsMap.get(unsolvedReference.getRef());
 
         if (concreteElements != null){
             Map<String, String> oldElementAttributes = unsolvedReference.getElement().getElementFieldsMap();
 
             for (NamedConcreteElement concreteElement : concreteElements) {
-                XsdNamedElements substitutionElement = concreteElement.getElement().clone(oldElementAttributes);
+                NamedConcreteElement substitutionElementWrapper;
 
-                NamedConcreteElement substitutionElementWrapper = (NamedConcreteElement) ReferenceBase.createFromXsd(substitutionElement);
+                if (!unsolvedReference.isTypeRef()){
+                    XsdNamedElements substitutionElement = concreteElement.getElement().clone(oldElementAttributes);
+
+                    substitutionElementWrapper = (NamedConcreteElement) ReferenceBase.createFromXsd(substitutionElement);
+                } else {
+                    substitutionElementWrapper = concreteElement;
+                }
 
                 unsolvedReference.getParent().replaceUnsolvedElements(substitutionElementWrapper);
             }

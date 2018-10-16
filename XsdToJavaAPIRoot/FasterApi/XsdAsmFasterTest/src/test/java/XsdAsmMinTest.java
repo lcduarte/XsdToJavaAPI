@@ -60,8 +60,8 @@ public class XsdAsmMinTest {
                 .city("Lisbon")
                 .country("Portugal")
                 .phoneNumber(123456789)
-                .º()
-                .º();
+                .__()
+                .__();
 
         String result = visitor.getResult();
 
@@ -118,7 +118,7 @@ public class XsdAsmMinTest {
                 .firstName("Luis")
                 .lastName("Duarte")
                 .gradeNumeric(20)
-                .º();
+                .__();
 
         String result = visitor.getResult();
 
@@ -143,7 +143,7 @@ public class XsdAsmMinTest {
                 .firstName("Luis")
                 .lastName("Duarte")
                 .gradeQualitative("Excellent")
-                .º();
+                .__();
 
         result = visitor.getResult();
 
@@ -191,7 +191,7 @@ public class XsdAsmMinTest {
                 .elem2("val2")
                 .elem1("val1")
                 .elem2("val2")
-                .º();
+                .__();
 
         String result = visitor.getResult();
 
@@ -224,7 +224,7 @@ public class XsdAsmMinTest {
                 .elem2("val2")
                 .elem1("val1")
                 .elem2("val2")
-                .º();
+                .__();
 
         String result = visitor.getResult();
 
@@ -254,7 +254,7 @@ public class XsdAsmMinTest {
         new InnerSequences<>(visitor)
                 .v1("v1")
                 .v2("v2")
-                .º();
+                .__();
 
         String result = visitor.getResult();
 

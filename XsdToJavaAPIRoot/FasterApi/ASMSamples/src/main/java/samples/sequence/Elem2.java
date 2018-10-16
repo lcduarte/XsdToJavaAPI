@@ -12,7 +12,7 @@ public class Elem2<P extends Element> implements TextGroup<Elem2<P>, P> {
     public Elem2(Visitor visitor, P parent) {
         this.visitor = visitor;
         this.parent = parent;
-        //visitor.visitElementFirstName(this);
+        //regex.visitor.visitElementFirstName(this);
     }
 
     @Override
@@ -21,8 +21,8 @@ public class Elem2<P extends Element> implements TextGroup<Elem2<P>, P> {
     }
 
     @Override
-    public P º() {
-        //visitor.visitParentFirstName(this);
+    public P __() {
+        //regex.visitor.visitParentFirstName(this);
         return parent;
     }
 

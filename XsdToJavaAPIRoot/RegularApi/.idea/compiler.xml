@@ -6,10 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="AndroidLayouts" />
         <module name="androidLayouts" />
         <module name="androidLayoutsApi" />
-        <module name="AndroidLayoutsApi" />
         <module name="ASMSamples" />
         <module name="HtmlApi" />
         <module name="htmlApi" />

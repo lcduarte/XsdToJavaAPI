@@ -58,7 +58,7 @@ class XsdAsmElements {
      *  getName()                           - Returns the name of the element;
      *  getParent()                         - Returns the parent field;
      *  getVisitor()                        - Returns the visitor field;
-     *  º()                                 - Returns the parent and calls the respective visitParent method.
+     *  __()                                - Returns the parent and calls the respective visitParent method.
      * @param classWriter The {@link ClassWriter} on which the methods should be written.
      * @param className The class name.
      * @param apiName The name of the generated fluent interface.
@@ -80,7 +80,7 @@ class XsdAsmElements {
      *  getName()                           - Returns the name of the element;
      *  getParent()                         - Returns the parent field;
      *  getVisitor()                        - Returns the visitor field;
-     *  º()                                 - Returns the parent and calls the respective visitParent method.
+     *  __()                                - Returns the parent and calls the respective visitParent method.
      * @param classWriter The {@link ClassWriter} on which the methods should be written.
      * @param className The class name.
      * @param apiName The name of the generated fluent interface.
@@ -174,7 +174,7 @@ class XsdAsmElements {
         mVisitor.visitMaxs(2, 4);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "º", "()" + elementTypeDesc, "()TZ;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "__", "()" + elementTypeDesc, "()TZ;", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, classType, "visitor", elementVisitorTypeDesc);

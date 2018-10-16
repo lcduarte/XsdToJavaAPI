@@ -29,31 +29,31 @@ public class HtmlApiTest {
         new Html<Html>(customVisitor)
             .head()
                 .comment("This is a comment.")
-                .meta().attrCharset("UTF-8").º()
+                .meta().attrCharset("UTF-8").__()
                 .title()
-                    .text("Title").º()
-                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
-                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
+                    .text("Title").__()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").__()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").__().__()
             .body().attrClass("clear")
                 .div()
                     .header()
                         .section()
                             .div()
-                                .img().attrId("brand").attrSrc("./assets/images/logo.png").º()
+                                .img().attrId("brand").attrSrc("./assets/images/logo.png").__()
                                 .aside()
                                     .em()
                                         .text("Advertisement")
                                         .span()
                                             .text("HtmlApi is great!")
-                                        .º()
-                                    .º()
-                                .º()
-                            .º()
-                        .º()
-                    .º()
-                .º()
-            .º()
-        .º();
+                                        .__()
+                                    .__()
+                                .__()
+                            .__()
+                        .__()
+                    .__()
+                .__()
+            .__()
+        .__();
 
         String result = customVisitor.getResult();
 
@@ -96,7 +96,7 @@ public class HtmlApiTest {
     }
 
     /**
-     * Tests the custom visitor without applying any model to text<T>
+     * Tests the custom regex.visitor without applying any model to text<T>
      */
     @Test
     public void testVisitsWithoutModel(){
@@ -106,9 +106,9 @@ public class HtmlApiTest {
                 .body()
                     .div()
                         .text("This is a regular String.")
-                    .º()
-                .º()
-            .º();
+                    .__()
+                .__()
+            .__();
 
         String result = visitor.getResult();
 
@@ -134,21 +134,21 @@ public class HtmlApiTest {
                     .tr()
                         .th()
                             .text("Title")
-                        .º()
-                    .º()
+                        .__()
+                    .__()
                     .of(table ->
                         tdValues.forEach(value ->
                             table
                                 .tr()
                                     .td()
                                         .text(value)
-                                    .º()
-                                .º()
+                                    .__()
+                                .__()
                         )
                     )
-                .º()
-            .º()
-        .º();
+                .__()
+            .__()
+        .__();
 
         String result = visitor.getResult();
 

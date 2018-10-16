@@ -11,13 +11,13 @@ public class ANameElem1<P extends Element> implements Element<ANameElem1<P>, P> 
     public ANameElem1(Visitor visitor) {
         this.visitor = visitor;
         this.parent = null;
-        //visitor.visitElement("personInfo");
+        //regex.visitor.visitElement("personInfo");
     }
 
     public ANameElem1(P parent) {
         this.parent = parent;
         this.visitor = parent.getVisitor();
-        //visitor.visitElement("personInfo");
+        //regex.visitor.visitElement("personInfo");
     }
 
     @Override
@@ -26,8 +26,8 @@ public class ANameElem1<P extends Element> implements Element<ANameElem1<P>, P> 
     }
 
     @Override
-    public P º() {
-        //visitor.visitParent("personInfo");
+    public P __() {
+        //regex.visitor.visitParent("personInfo");
         return parent;
     }
 
@@ -47,7 +47,7 @@ public class ANameElem1<P extends Element> implements Element<ANameElem1<P>, P> 
     }
 
     public AName<P> elem2(String value){
-        new Elem2<>(visitor, this).text(value).º();
+        new Elem2<>(visitor, this).text(value).__();
         return new AName<>(parent, visitor, false);
     }
 }

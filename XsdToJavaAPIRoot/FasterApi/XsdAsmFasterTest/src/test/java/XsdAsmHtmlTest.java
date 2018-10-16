@@ -13,30 +13,30 @@ public class XsdAsmHtmlTest {
         new Html<>(customVisitor)
             .head()
                 .comment("This is a comment.")
-                .meta().attrCharset("UTF-8").º()
+                .meta().attrCharset("UTF-8").__()
                 .title()
-                    .text("Title").º()
-                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
-                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
+                    .text("Title").__()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").__()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").__().__()
             .body().attrClass("clear")
                 .div()
                     .header()
                         .section()
                             .div()
-                                .img().attrId("brand").attrSrc("./assets/images/logo.png").º()
+                                .img().attrId("brand").attrSrc("./assets/images/logo.png").__()
                                 .aside()
                                     .em()
                                         .text("Advertisement")
                                     .span()
                                         .text("HtmlApi is great!")
-                                    .º()
-                                .º()
-                            .º()
-                        .º()
-                    .º()
-                .º()
-            .º()
-        .º().º();
+                                    .__()
+                                .__()
+                            .__()
+                        .__()
+                    .__()
+                .__()
+            .__()
+        .__().__();
 
         String result = customVisitor.getResult();
 
@@ -84,7 +84,7 @@ public class XsdAsmHtmlTest {
 
         Html<Element> html = new Html<>(visitor);
 
-        html.addAttr("attr1", "value1").º();
+        html.addAttr("attr1", "value1").__();
 
         String result = visitor.getResult();
 

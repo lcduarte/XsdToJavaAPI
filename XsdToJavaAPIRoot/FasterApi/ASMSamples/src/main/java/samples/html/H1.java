@@ -21,7 +21,7 @@ public final class H1<P extends Element> implements FlowContent<H1<P>, P>, Eleme
     public final H1<P> self() {return this; }
 
     @Override
-    public P º() {
+    public P __() {
         visitor.visitParent(this);
         return parent;
     }

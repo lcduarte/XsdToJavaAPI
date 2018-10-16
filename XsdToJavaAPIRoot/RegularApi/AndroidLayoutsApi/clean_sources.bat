@@ -1,1 +1,0 @@
-if exist "./src/main/java" rmdir "./src/main/java" /s /q

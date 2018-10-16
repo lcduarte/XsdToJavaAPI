@@ -31,7 +31,7 @@ public class XsdAsm {
     /**
      * This method is the entry point for the class creation process.
      * It receives all the {@link XsdAbstractElement} objects and creates the necessary infrastructure for the
-     * generated fluent interface, the required interfaces, visitors and all the classes based on the elements received.
+     * generated fluent interface, the required interfaces, visitor and all the classes based on the elements received.
      * @param elements The elements which will serve as base to the generated classes.
      * @param apiName The resulting fluent interface name.
      */

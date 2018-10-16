@@ -29,7 +29,7 @@ public class PersonalInfoAddress<P extends Element> implements Element<PersonalI
     }
 
     @Override
-    public P º() {
+    public P __() {
         return parent;
     }
 
@@ -49,7 +49,7 @@ public class PersonalInfoAddress<P extends Element> implements Element<PersonalI
     }
 
     public PersonalInfoCity<P> city(String value){
-        new Address<>(visitor, this).text(value).º();
+        new Address<>(visitor, this).text(value).__();
         return new PersonalInfoCity<>(parent, visitor);
     }
 

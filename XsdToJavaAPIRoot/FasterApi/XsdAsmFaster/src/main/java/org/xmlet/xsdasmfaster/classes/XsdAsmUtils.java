@@ -57,14 +57,14 @@ public class XsdAsmUtils {
         xsdFullTypesToJava.put("xs:gYear","Ljavax/xml/datatype/XMLGregorianCalendar;");
         xsdFullTypesToJava.put("xsd:gYearMonth","Ljavax/xml/datatype/XMLGregorianCalendar;");
         xsdFullTypesToJava.put("xs:gYearMonth","Ljavax/xml/datatype/XMLGregorianCalendar;");
-        xsdFullTypesToJava.put("xsd:decimal","Ljava/math/BigDecimal;");
-        xsdFullTypesToJava.put("xs:decimal","Ljava/math/BigDecimal;");
-        xsdFullTypesToJava.put("xsd:integer","Ljava/math/BigInteger;");
-        xsdFullTypesToJava.put("xs:integer","Ljava/math/BigInteger;");
-        xsdFullTypesToJava.put("xsd:nonPositiveInteger","Ljava/math/BigInteger;");
-        xsdFullTypesToJava.put("xs:nonPositiveInteger","Ljava/math/BigInteger;");
-        xsdFullTypesToJava.put("xsd:negativeInteger","Ljava/math/BigInteger;");
-        xsdFullTypesToJava.put("xs:negativeInteger","Ljava/math/BigInteger;");
+        xsdFullTypesToJava.put("xsd:decimal","Ljava/lang/Double;");
+        xsdFullTypesToJava.put("xs:decimal","Ljava/lang/Double;");
+        xsdFullTypesToJava.put("xsd:integer","Ljava/lang/Integer;");
+        xsdFullTypesToJava.put("xs:integer","Ljava/lang/Integer;");
+        xsdFullTypesToJava.put("xsd:nonPositiveInteger","Ljava/lang/Integer;");
+        xsdFullTypesToJava.put("xs:nonPositiveInteger","Ljava/lang/Integer;");
+        xsdFullTypesToJava.put("xsd:negativeInteger","Ljava/lang/Integer;");
+        xsdFullTypesToJava.put("xs:negativeInteger","Ljava/lang/Integer;");
         xsdFullTypesToJava.put("xsd:long","Ljava/lang/Long;");
         xsdFullTypesToJava.put("xs:long","Ljava/lang/Long;");
         xsdFullTypesToJava.put("xsd:int","Ljava/lang/Integer;");
@@ -73,18 +73,18 @@ public class XsdAsmUtils {
         xsdFullTypesToJava.put("xs:short","Ljava/lang/Short;");
         xsdFullTypesToJava.put("xsd:byte","Ljava/lang/Byte;");
         xsdFullTypesToJava.put("xs:byte","Ljava/lang/Byte;");
-        xsdFullTypesToJava.put("xsd:nonNegativeInteger","Ljava/math/BigInteger;");
-        xsdFullTypesToJava.put("xs:nonNegativeInteger","Ljava/math/BigInteger;");
-        xsdFullTypesToJava.put("xsd:unsignedLong","Ljava/math/BigInteger;");
-        xsdFullTypesToJava.put("xs:unsignedLong","Ljava/math/BigInteger;");
+        xsdFullTypesToJava.put("xsd:nonNegativeInteger","Ljava/lang/Integer;");
+        xsdFullTypesToJava.put("xs:nonNegativeInteger","Ljava/lang/Integer;");
+        xsdFullTypesToJava.put("xsd:unsignedLong","Ljava/lang/Integer;");
+        xsdFullTypesToJava.put("xs:unsignedLong","Ljava/lang/Integer;");
         xsdFullTypesToJava.put("xsd:unsignedInt", "java/lang/Long;");
         xsdFullTypesToJava.put("xs:unsignedInt", "java/lang/Long;");
         xsdFullTypesToJava.put("xsd:unsignedShort", "java/lang/Integer;");
         xsdFullTypesToJava.put("xs:unsignedShort", "java/lang/Integer;");
         xsdFullTypesToJava.put("xsd:unsignedByte", "java/lang/Short;");
         xsdFullTypesToJava.put("xs:unsignedByte", "java/lang/Short;");
-        xsdFullTypesToJava.put("xsd:positiveInteger","Ljava/math/BigInteger;");
-        xsdFullTypesToJava.put("xs:positiveInteger","Ljava/math/BigInteger;");
+        xsdFullTypesToJava.put("xsd:positiveInteger","Ljava/lang/Integer;");
+        xsdFullTypesToJava.put("xs:positiveInteger","Ljava/lang/Integer;");
         xsdFullTypesToJava.put("xsd:double","Ljava/lang/Double;");
         xsdFullTypesToJava.put("xs:double","Ljava/lang/Double;");
         xsdFullTypesToJava.put("xsd:float","Ljava/lang/Float;");
@@ -271,6 +271,16 @@ public class XsdAsmUtils {
     }
 
     static String getEnumElementName(XsdEnumeration enumElem) {
+        String value = enumElem.getValue();
+
+        if (value.equals("")){
+            return "EMPTY";
+        }
+
+        if (value.matches("-?\\d*[,|.]?\\d*")){
+            return "_" + value;
+        }
+
         return enumElem.getValue().toUpperCase().replaceAll("[^a-zA-Z0-9]", "_");
     }
 

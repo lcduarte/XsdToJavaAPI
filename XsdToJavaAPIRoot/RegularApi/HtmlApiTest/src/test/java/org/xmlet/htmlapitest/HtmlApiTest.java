@@ -31,17 +31,17 @@ public class HtmlApiTest {
 
         root.head()
                 .comment("This is a comment.")
-                .meta().attrCharset("UTF-8").º()
+                .meta().attrCharset("UTF-8").__()
                 .title()
-                    .text("Title").º()
-                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
-                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
+                    .text("Title").__()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").__()
+                .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").__().__()
             .body().attrClass("clear")
                 .div()
                     .header()
                         .section()
                             .div()
-                                .img().attrId("brand").attrSrc("./assets/images/logo.png").º()
+                                .img().attrId("brand").attrSrc("./assets/images/logo.png").__()
                                 .aside()
                                     .em()
                                         .text("Advertisement")
@@ -94,18 +94,18 @@ public class HtmlApiTest {
         Html<Html> root = new Html<>();
 
         Div<Section<Header<Div<Body<Html<Html>>>>>> div = root.head()
-                                                            .meta().attrCharset("UTF-8").º()
+                                                            .meta().attrCharset("UTF-8").__()
                                                             .title()
-                                                                 .text("Title").º()
-                                                            .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").º()
-                                                            .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").º().º()
+                                                                 .text("Title").__()
+                                                            .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/images/favicon.png").__()
+                                                            .link().attrType(EnumTypeContentType.TEXT_CSS).attrHref("/assets/styles/main.css").__().__()
                                                             .body().attrClass("clear")
                                                                 .div()
                                                                     .header()
                                                                         .section()
                                                                             .div();
 
-        div.img().attrId("brand").attrSrc("./assets/images/logo.png").º()
+        div.img().attrId("brand").attrSrc("./assets/images/logo.png").__()
            .aside()
                 .em()
                     .text("Advertisement")
@@ -113,7 +113,7 @@ public class HtmlApiTest {
                     .text("1-833-2GET-REV");
 
         List<Div> result = root.<Div>find(child ->
-            child instanceof Div && child.º() instanceof Section
+            child instanceof Div && child.__() instanceof Section
         ).collect(Collectors.toList());
 
         Assert.assertEquals(1, result.size());
@@ -202,16 +202,16 @@ public class HtmlApiTest {
                     .tr()
                         .th()
                             .text("Title")
-                        .º()
-                    .º()
+                        .__()
+                    .__()
                     .<List<String>>binder((elem, list) ->
                          list.forEach(tdValue ->
                                  elem.tr().td().text(tdValue)
                          )
                     )
-                .º()
+                .__()
                 .of(FlowContentChoice::div)
-            .º();
+            .__();
 
         root.accept(customVisitor1);
         String result1 = customVisitor1.getResult();

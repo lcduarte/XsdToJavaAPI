@@ -285,6 +285,8 @@ class XsdAsmInterfaces {
             AttributeHierarchyItem attributeHierarchyItemItem = new AttributeHierarchyItem(parentNames, ownElements);
 
             attributeGroupInterfaces.put(interfaceName, attributeHierarchyItemItem);
+
+            attributeGroup.getAttributeGroups().forEach(this::addAttributeGroup);
         }
     }
 
@@ -395,7 +397,7 @@ class XsdAsmInterfaces {
 
             if (isLast){
                 if (!typeName.equals(className)){
-                    createdElements.put(typeName, null);
+                    createdElements.put(getCleanName(typeName), null);
                     writeClassToFile(typeName, generateInnerSequenceClass(typeName, className, apiName), apiName);
                 }
 
@@ -484,6 +486,8 @@ class XsdAsmInterfaces {
 
         sequenceElements.forEach(element -> createElement(element, apiName));
 
+        addToCreateElements(typeName);
+
         writeClassToFile(typeName, classWriter, apiName);
     }
 
@@ -540,7 +544,7 @@ class XsdAsmInterfaces {
         mVisitor.visitVarInsn(ALOAD, 1);
         mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "text", "(" + JAVA_OBJECT_DESC + ")" + elementTypeDesc, false);
         mVisitor.visitTypeInsn(CHECKCAST, addingType);
-        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "º", "()" + elementTypeDesc, false);
+        mVisitor.visitMethodInsn(INVOKEVIRTUAL, addingType, "__", "()" + elementTypeDesc, false);
         mVisitor.visitInsn(POP);
         mVisitor.visitTypeInsn(NEW, nextType);
         mVisitor.visitInsn(DUP);
@@ -794,9 +798,23 @@ class XsdAsmInterfaces {
     private void createElement(XsdElement element, String apiName) {
         String elementName = element.getName();
 
-        if (!createdElements.containsKey(elementName)){
-            createdElements.put(elementName, element);
+        if (!createdElements.containsKey(getCleanName(elementName))){
+            createdElements.put(getCleanName(elementName), element);
             xsdAsmInstance.generateClassFromElement(element, apiName);
+        }
+    }
+
+    /**
+     * Creates a class based on a {@link XsdElement} if it wasn't been already.
+     * @param elementName The name of the element.
+     */
+    private void addToCreateElements(String elementName) {
+        HashMap<String, String> elementAttributes = new HashMap<>();
+
+        elementAttributes.put(XsdAbstractElement.NAME_TAG, elementName);
+
+        if (!createdElements.containsKey(getCleanName(elementName))){
+            createdElements.put(getCleanName(elementName), new XsdElement(null, elementAttributes));
         }
     }
 
@@ -829,7 +847,7 @@ class XsdAsmInterfaces {
      * @param element The received {@link XsdElement}.
      */
     private void addCreatedElement(XsdElement element){
-        createdElements.put(element.getName(), element);
+        createdElements.put(getCleanName(element.getName()), element);
     }
 
     /**

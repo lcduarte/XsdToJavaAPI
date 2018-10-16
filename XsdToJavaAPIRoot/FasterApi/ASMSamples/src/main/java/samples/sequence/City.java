@@ -12,7 +12,7 @@ public class City<P extends Element> implements TextGroup<City<P>, P> {
     public City(Visitor visitor, P parent) {
         this.visitor = visitor;
         this.parent = parent;
-        //visitor.visitElementFirstName(this);
+        //regex.visitor.visitElementFirstName(this);
     }
 
     @Override
@@ -21,8 +21,8 @@ public class City<P extends Element> implements TextGroup<City<P>, P> {
     }
 
     @Override
-    public P º() {
-        //visitor.visitParentFirstName(this);
+    public P __() {
+        //regex.visitor.visitParentFirstName(this);
         return parent;
     }
 

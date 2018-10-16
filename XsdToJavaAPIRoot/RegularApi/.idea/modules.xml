@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ASMSamples/ASMSamples.iml" filepath="$PROJECT_DIR$/ASMSamples/ASMSamples.iml" />
-      <module fileurl="file://$PROJECT_DIR$/AndroidLayouts/AndroidLayouts.iml" filepath="$PROJECT_DIR$/AndroidLayouts/AndroidLayouts.iml" />
-      <module fileurl="file://$PROJECT_DIR$/AndroidLayoutsApi/AndroidLayoutsApi.iml" filepath="$PROJECT_DIR$/AndroidLayoutsApi/AndroidLayoutsApi.iml" />
       <module fileurl="file://$PROJECT_DIR$/HtmlApi/HtmlApi.iml" filepath="$PROJECT_DIR$/HtmlApi/HtmlApi.iml" />
       <module fileurl="file://$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" filepath="$PROJECT_DIR$/HtmlApiTest/HtmlApiTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/RegularApi.iml" filepath="$PROJECT_DIR$/RegularApi.iml" />

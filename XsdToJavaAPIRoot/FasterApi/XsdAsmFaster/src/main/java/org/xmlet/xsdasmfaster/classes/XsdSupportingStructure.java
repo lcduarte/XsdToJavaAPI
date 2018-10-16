@@ -130,7 +130,7 @@ class XsdSupportingStructure {
      * Creates the Element interface.
      * Methods:
      *  T self();
-     *  Z º();
+     *  Z __();
      *  Z getParent();
      *  String getName();
      *  ElementVisitor getVisitor();
@@ -145,7 +145,7 @@ class XsdSupportingStructure {
         mVisitor.visitEnd();
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "getName", "()" + JAVA_STRING_DESC, null, null);
         mVisitor.visitEnd();
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "º", "()" + elementTypeDesc, "()TZ;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "__", "()" + elementTypeDesc, "()TZ;", null);
         mVisitor.visitEnd();
         mVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_ABSTRACT, "getParent", "()" + elementTypeDesc, "()TZ;", null);
         mVisitor.visitEnd();
@@ -244,7 +244,7 @@ class XsdSupportingStructure {
      *      return this;
      *  }
      *
-     *  public P º() {
+     *  public P __() {
      *      visitor.visitText(this);
      *      return parent;
      *  }
@@ -303,7 +303,7 @@ class XsdSupportingStructure {
         mVisitor.visitMaxs(1, 1);
         mVisitor.visitEnd();
 
-        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "º", "()" + elementTypeDesc, "()TZ;", null);
+        mVisitor = classWriter.visitMethod(ACC_PUBLIC, "__", "()" + elementTypeDesc, "()TZ;", null);
         mVisitor.visitCode();
         mVisitor.visitVarInsn(ALOAD, 0);
         mVisitor.visitFieldInsn(GETFIELD, textType, "visitor", elementVisitorTypeDesc);

@@ -28,7 +28,7 @@ public class PersonalInfoFirstName<P extends Element> implements Element<Persona
     }
 
     @Override
-    public P º() {
+    public P __() {
         return parent;
     }
 
@@ -48,7 +48,7 @@ public class PersonalInfoFirstName<P extends Element> implements Element<Persona
     }
 
     public PersonalInfoLastName<P> lastName(String value){
-        new LastName<>(visitor, this).text(value).º();
+        new LastName<>(visitor, this).text(value).__();
         return new PersonalInfoLastName<>(parent, visitor);
     }
 

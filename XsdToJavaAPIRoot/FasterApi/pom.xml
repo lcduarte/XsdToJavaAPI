@@ -25,7 +25,10 @@
         <module>XsdAsmFasterTest</module>
         <module>HtmlApiFaster</module>
         <module>HtmlApiFasterTest</module>
+        <module>RegexApi</module>
+        <module>Regex</module>
+        <module>AndroidLayoutsApi</module>
+        <module>AndroidLayouts</module>
         <module>ASMSamples</module>
-        <module>RegexFlow</module>
     </modules>
 </project>

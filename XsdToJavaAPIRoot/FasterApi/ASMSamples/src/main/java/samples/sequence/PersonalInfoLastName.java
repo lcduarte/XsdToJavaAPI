@@ -31,7 +31,7 @@ public class PersonalInfoLastName<P extends Element> implements Element<Personal
     }
 
     @Override
-    public P º() {
+    public P __() {
         visitor.visitParent(this);
         return parent;
     }
@@ -52,7 +52,7 @@ public class PersonalInfoLastName<P extends Element> implements Element<Personal
     }
 
     public PersonalInfoAddress<P> address(String value){
-        new Address<>(visitor, this).text(value).º();
+        new Address<>(visitor, this).text(value).__();
         return new PersonalInfoAddress<>(parent, visitor);
     }
 }

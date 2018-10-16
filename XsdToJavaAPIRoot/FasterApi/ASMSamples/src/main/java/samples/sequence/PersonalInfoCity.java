@@ -11,13 +11,13 @@ public class PersonalInfoCity<P extends Element> implements Element<PersonalInfo
     public PersonalInfoCity(Visitor visitor) {
         this.visitor = visitor;
         this.parent = null;
-        //visitor.visitElement("personInfo");
+        //regex.visitor.visitElement("personInfo");
     }
 
     public PersonalInfoCity(P parent) {
         this.parent = parent;
         this.visitor = parent.getVisitor();
-        //visitor.visitElement("personInfo");
+        //regex.visitor.visitElement("personInfo");
     }
 
     public PersonalInfoCity(P parent, Visitor visitor) {
@@ -31,8 +31,8 @@ public class PersonalInfoCity<P extends Element> implements Element<PersonalInfo
     }
 
     @Override
-    public P º() {
-        //visitor.visitParent("personInfo");
+    public P __() {
+        //regex.visitor.visitParent("personInfo");
         return parent;
     }
 
@@ -52,7 +52,7 @@ public class PersonalInfoCity<P extends Element> implements Element<PersonalInfo
     }
 
     public PersonalInfoComplete<P> country(String value){
-        new Country<>(visitor, this).text(value).º();
+        new Country<>(visitor, this).text(value).__();
         return new PersonalInfoComplete<>(parent, visitor);
     }
 }
