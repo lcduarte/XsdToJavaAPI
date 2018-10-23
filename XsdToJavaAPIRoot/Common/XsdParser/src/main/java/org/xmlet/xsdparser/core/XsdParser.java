@@ -359,7 +359,7 @@ public class XsdParser {
         List<NamedConcreteElement> concreteElements = concreteElementsMap.get(unsolvedReference.getRef());
 
         if (concreteElements != null){
-            Map<String, String> oldElementAttributes = unsolvedReference.getElement().getElementFieldsMap();
+            Map<String, String> oldElementAttributes = unsolvedReference.getElement().getAttributesMap();
 
             for (NamedConcreteElement concreteElement : concreteElements) {
                 NamedConcreteElement substitutionElementWrapper;

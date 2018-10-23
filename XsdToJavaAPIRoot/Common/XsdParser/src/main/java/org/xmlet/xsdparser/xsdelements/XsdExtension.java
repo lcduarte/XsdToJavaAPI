@@ -49,19 +49,10 @@ public class XsdExtension extends XsdAnnotatedElements {
      */
     private ReferenceBase base;
 
-    private XsdExtension(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
-        super(parser, elementFieldsMapParam);
-    }
+    private XsdExtension(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+        super(parser, attributesMap);
 
-    /**
-     * Uses the base attribute value to add an {@link UnsolvedReference} to resolve further in the parsing process.
-     * @param elementFieldsMapParam The Map object containing the information previously present in the Node object.
-     */
-    @Override
-    public void setFields(@NotNull Map<String, String> elementFieldsMapParam) {
-        super.setFields(elementFieldsMapParam);
-
-        String baseValue = elementFieldsMap.getOrDefault(BASE_TAG, null);
+        String baseValue = attributesMap.getOrDefault(BASE_TAG, null);
 
         if (baseValue != null){
             this.base = new UnsolvedReference(baseValue, new XsdElement(this, this.parser, new HashMap<>()));
@@ -73,7 +64,7 @@ public class XsdExtension extends XsdAnnotatedElements {
      * This method should always receive two elements, one to replace the {@link UnsolvedReference} created due to
      * the value present in the base attribute and another if it has an {@link UnsolvedReference} as a child element.
      * @param element A concrete element with a name that will replace the {@link UnsolvedReference} object created in the
-     *                {@link XsdExtension#setFields(Map)} method. The {@link UnsolvedReference} is only replaced if there
+     *                {@link XsdExtension} constructor. The {@link UnsolvedReference} is only replaced if there
      *                is a match between the {@link UnsolvedReference#ref} and the {@link NamedConcreteElement#name}.
      */
     @Override

@@ -42,20 +42,11 @@ public class XsdAll extends XsdMultipleElements {
      */
     private Integer maxOccurs;
 
-    private XsdAll(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam){
-        super(parser, elementFieldsMapParam);
-    }
+    private XsdAll(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap){
+        super(parser, attributesMap);
 
-    /**
-     * Sets the occurs fields with the information provided in the Map object or with their default values.
-     * @param elementFieldsMapParam The Map object containing the information previously contained in the Node object.
-     */
-    @Override
-    public void setFields(@NotNull Map<String, String> elementFieldsMapParam) {
-        super.setFields(elementFieldsMapParam);
-
-        this.minOccurs = AttributeValidations.validateNonNegativeInteger(XSD_TAG, MIN_OCCURS_TAG, elementFieldsMap.getOrDefault(MIN_OCCURS_TAG, "1"));
-        this.maxOccurs = AttributeValidations.validateNonNegativeInteger(XSD_TAG, MAX_OCCURS_TAG, elementFieldsMap.getOrDefault(MAX_OCCURS_TAG, "1"));
+        this.minOccurs = AttributeValidations.validateNonNegativeInteger(XSD_TAG, MIN_OCCURS_TAG, attributesMap.getOrDefault(MIN_OCCURS_TAG, "1"));
+        this.maxOccurs = AttributeValidations.validateNonNegativeInteger(XSD_TAG, MAX_OCCURS_TAG, attributesMap.getOrDefault(MAX_OCCURS_TAG, "1"));
     }
 
     @Override

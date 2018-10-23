@@ -37,15 +37,10 @@ public class XsdUnion extends XsdAnnotatedElements {
      */
     private String memberTypes;
 
-    private XsdUnion(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
-        super(parser, elementFieldsMapParam);
-    }
+    private XsdUnion(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+        super(parser, attributesMap);
 
-    @Override
-    public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
-        super.setFields(elementFieldsMapParam);
-
-        this.memberTypes = elementFieldsMap.getOrDefault(MEMBER_TYPES_TAG, memberTypes);
+        this.memberTypes = attributesMap.getOrDefault(MEMBER_TYPES_TAG, memberTypes);
     }
 
     @Override

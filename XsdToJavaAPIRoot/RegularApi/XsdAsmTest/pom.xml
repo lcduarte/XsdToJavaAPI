@@ -5,14 +5,14 @@
     
     <groupId>com.github.xmlet</groupId>
     <artifactId>xsdAsmTest</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.14-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
         <dependency>
             <groupId>com.github.xmlet</groupId>
             <artifactId>xsdAsm</artifactId>
-            <version>1.0.14-snapshot</version>
+            <version>1.0.14</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

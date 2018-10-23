@@ -46,12 +46,12 @@ public class XsdAttributeGroup extends XsdNamedElements {
      */
     private List<ReferenceBase> attributes = new ArrayList<>();
 
-    private XsdAttributeGroup(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
-        super(parser, elementFieldsMapParam);
+    private XsdAttributeGroup(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+        super(parser, attributesMap);
     }
 
-    private XsdAttributeGroup(XsdAbstractElement parent, @NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
-        super(parser, elementFieldsMapParam);
+    private XsdAttributeGroup(XsdAbstractElement parent, @NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+        super(parser, attributesMap);
         setParent(parent);
     }
 
@@ -90,7 +90,7 @@ public class XsdAttributeGroup extends XsdNamedElements {
      */
     @Override
     public XsdNamedElements clone(@NotNull Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(elementFieldsMap);
+        placeHolderAttributes.putAll(attributesMap);
         placeHolderAttributes.remove(REF_TAG);
 
         XsdAttributeGroup elementCopy = new XsdAttributeGroup(this.parent, this.parser, placeHolderAttributes);

@@ -37,15 +37,10 @@ public class XsdList extends XsdAnnotatedElements {
      */
     private String itemType;
 
-    private XsdList(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
-        super(parser, elementFieldsMapParam);
-    }
+    private XsdList(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+        super(parser, attributesMap);
 
-    @Override
-    public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
-        super.setFields(elementFieldsMapParam);
-
-        this.itemType = elementFieldsMap.getOrDefault(ITEM_TYPE_TAG, itemType);
+        this.itemType = attributesMap.getOrDefault(ITEM_TYPE_TAG, itemType);
     }
 
     @Override

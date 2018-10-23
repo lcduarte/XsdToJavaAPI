@@ -57,22 +57,17 @@ public class XsdSimpleType extends XsdNamedElements {
      */
     private SimpleTypeFinalEnum finalObj;
 
-    private XsdSimpleType(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
-        super(parser, elementFieldsMapParam);
-    }
-
-    private XsdSimpleType(XsdAbstractElement parent, XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
-        super(parser, elementFieldsMapParam);
-        setParent(parent);
-    }
-
-    @Override
-    public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
-        super.setFields(elementFieldsMapParam);
+    private XsdSimpleType(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+        super(parser, attributesMap);
 
         String finalDefault = AttributeValidations.getFinalDefaultValue(parent);
 
-        this.finalObj = AttributeValidations.belongsToEnum(SimpleTypeFinalEnum.ALL, elementFieldsMap.getOrDefault(FINAL_TAG, finalDefault));
+        this.finalObj = AttributeValidations.belongsToEnum(SimpleTypeFinalEnum.ALL, attributesMap.getOrDefault(FINAL_TAG, finalDefault));
+    }
+
+    private XsdSimpleType(XsdAbstractElement parent, XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+        this(parser, elementFieldsMapParam);
+        setParent(parent);
     }
 
     /**
@@ -125,7 +120,7 @@ public class XsdSimpleType extends XsdNamedElements {
      */
     @Override
     public XsdSimpleType clone(@NotNull Map<String, String> placeHolderAttributes) {
-        placeHolderAttributes.putAll(elementFieldsMap);
+        placeHolderAttributes.putAll(attributesMap);
         placeHolderAttributes.remove(REF_TAG);
 
         XsdSimpleType copy = new XsdSimpleType(this.parent, this.parser, placeHolderAttributes);

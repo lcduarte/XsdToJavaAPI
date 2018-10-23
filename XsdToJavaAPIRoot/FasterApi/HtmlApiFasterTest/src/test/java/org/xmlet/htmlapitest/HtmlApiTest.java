@@ -22,6 +22,25 @@ public class HtmlApiTest {
 
     private static final String PACKAGE = "org.xmlet.htmlapifaster";
 
+    public void dummy(){
+        Html<Element> html = new Html<>(new CustomVisitor());
+        Body<Html<Element>> body = html.body();
+
+        P<Header<Body<Html<Element>>>> p1 = body.header().p();
+        P<Div<Body<Html<Element>>>> p2 = body.div().p();
+
+        Header<Body<Html<Element>>> header = p1.__();
+        Div<Body<Html<Element>>> div = p2.__();
+
+        new Html<>(new CustomVisitor())
+                .body()
+                    .header()
+                        .p().__()
+                    .__()
+                    .div()
+                        .p().__();
+    }
+
     @Test
     public void testGeneratedClassesIntegrity() throws Exception {
         CustomVisitor customVisitor = new CustomVisitor();

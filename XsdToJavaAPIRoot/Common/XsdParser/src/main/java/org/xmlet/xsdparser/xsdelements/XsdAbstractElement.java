@@ -22,7 +22,7 @@ public abstract class XsdAbstractElement {
     /**
      * A {@link Map} object containing the keys/values of the attributes that belong to the concrete element instance.
      */
-    protected Map<String, String> elementFieldsMap = new HashMap<>();
+    protected Map<String, String> attributesMap = new HashMap<>();
 
 
     static final String ATTRIBUTE_FORM_DEFAULT = "attribtueFormDefault";
@@ -69,23 +69,13 @@ public abstract class XsdAbstractElement {
      */
     XsdParser parser;
 
-    protected XsdAbstractElement(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam){
-        setParser(parser);
-        setFields(elementFieldsMapParam);
+    protected XsdAbstractElement(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap){
+        this.parser = parser;
+        this.attributesMap = attributesMap;
     }
 
-    /**
-     * This method serves as a base to all {@link XsdAbstractElement} concrete instances which need to set their class
-     * specific fields.
-     * @param elementFieldsMapParam The Map object containing the information previously contained in the {@link Node}
-     *                              object.
-     */
-    public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
-        this.elementFieldsMap = elementFieldsMapParam;
-    }
-
-    public Map<String, String> getElementFieldsMap() {
-        return elementFieldsMap;
+    public Map<String, String> getAttributesMap() {
+        return attributesMap;
     }
 
     /**
@@ -160,10 +150,6 @@ public abstract class XsdAbstractElement {
         parser.addParsedElement(wrappedElement);
 
         return wrappedElement;
-    }
-
-    private void setParser(XsdParser parser) {
-        this.parser = parser;
     }
 
     public XsdParser getParser() {

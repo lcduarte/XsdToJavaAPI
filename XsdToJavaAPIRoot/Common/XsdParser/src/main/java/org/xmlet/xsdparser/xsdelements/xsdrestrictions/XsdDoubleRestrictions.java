@@ -39,19 +39,13 @@ public abstract class XsdDoubleRestrictions extends XsdAnnotatedElements {
         super(parser, elementFieldsMapParam);
 
         this.restrictionName = restrictionName;
+        fixed = AttributeValidations.validateBoolean(attributesMap.getOrDefault(FIXED_TAG, "false"));
+        value = AttributeValidations.validateRequiredDouble(restrictionName, VALUE_TAG, attributesMap.get(VALUE_TAG));
     }
 
     @Override
     public XsdAnnotatedElementsVisitor getVisitor() {
         return visitor;
-    }
-
-    @Override
-    public void setFields(@NotNull Map<String, String> elementFieldsMapParam) {
-        super.setFields(elementFieldsMapParam);
-
-        fixed = AttributeValidations.validateBoolean(elementFieldsMap.getOrDefault(FIXED_TAG, "false"));
-        value = AttributeValidations.validateRequiredDouble(restrictionName, VALUE_TAG, elementFieldsMap.get(VALUE_TAG));
     }
 
     /**

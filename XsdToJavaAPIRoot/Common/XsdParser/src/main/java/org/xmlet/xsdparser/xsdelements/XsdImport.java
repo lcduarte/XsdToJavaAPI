@@ -36,21 +36,11 @@ public class XsdImport extends XsdAnnotatedElements {
      */
     private String schemaLocation;
 
-    private XsdImport(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
-        super(parser, elementFieldsMapParam);
-    }
+    private XsdImport(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+        super(parser, attributesMap);
 
-    /**
-     * Sets the field with the values present in the Map object and adds the file path present in the
-     * {@link XsdImport#schemaLocation} to the {@link XsdParser} parsing queue.
-     * @param elementFieldsMapParam The Map object containing the information previously contained in the Node object.
-     */
-    @Override
-    public void setFields(@NotNull Map<String, String> elementFieldsMapParam) {
-        super.setFields(elementFieldsMapParam);
-
-        this.namespace = elementFieldsMap.getOrDefault(NAMESPACE, namespace);
-        this.schemaLocation = elementFieldsMap.getOrDefault(SCHEMA_LOCATION, schemaLocation);
+        this.namespace = attributesMap.getOrDefault(NAMESPACE, namespace);
+        this.schemaLocation = attributesMap.getOrDefault(SCHEMA_LOCATION, schemaLocation);
 
         if (this.schemaLocation != null){
             parser.addFileToParse(this.schemaLocation);

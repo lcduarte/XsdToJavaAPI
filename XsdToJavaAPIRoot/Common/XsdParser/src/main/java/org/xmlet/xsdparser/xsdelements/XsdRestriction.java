@@ -100,15 +100,10 @@ public class XsdRestriction extends XsdAnnotatedElements {
      */
     private String base;
 
-    private XsdRestriction(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
-        super(parser, elementFieldsMapParam);
-    }
+    private XsdRestriction(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+        super(parser, attributesMap);
 
-    @Override
-    public void setFields(@NotNull Map<String, String> elementFieldsMapParam){
-        super.setFields(elementFieldsMapParam);
-
-        this.base = elementFieldsMap.getOrDefault(BASE_TAG, base);
+        this.base = attributesMap.getOrDefault(BASE_TAG, base);
     }
 
     @Override

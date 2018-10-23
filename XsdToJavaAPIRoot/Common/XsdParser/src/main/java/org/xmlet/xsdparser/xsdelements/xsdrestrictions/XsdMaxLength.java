@@ -23,13 +23,8 @@ public class XsdMaxLength extends XsdIntegerRestrictions {
 
     private XsdMaxLength(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
         super(parser, elementFieldsMapParam);
-    }
 
-    @Override
-    public void setFields(Map<String, String> elementFieldsMapParam) {
-        super.setFields(elementFieldsMapParam);
-
-        value = AttributeValidations.validateRequiredNonNegativeInteger(XSD_TAG, VALUE_TAG, elementFieldsMap.get(VALUE_TAG));
+        value = AttributeValidations.validateRequiredNonNegativeInteger(XSD_TAG, VALUE_TAG, attributesMap.get(VALUE_TAG));
     }
 
     @Override

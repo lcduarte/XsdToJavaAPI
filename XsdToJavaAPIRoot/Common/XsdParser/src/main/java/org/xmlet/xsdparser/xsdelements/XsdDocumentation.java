@@ -25,15 +25,9 @@ public class XsdDocumentation extends XsdAnnotationChildren {
      */
     private String xmlLang;
 
-    private XsdDocumentation(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
-        super(parser, elementFieldsMapParam);
-    }
-
-    @Override
-    public void setFields(@NotNull Map<String, String> elementFieldsMapParam) {
-        super.setFields(elementFieldsMapParam);
-
-        this.xmlLang = elementFieldsMap.getOrDefault(XML_LANG_TAG, xmlLang);
+    private XsdDocumentation(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+        super(parser, attributesMap);
+        this.xmlLang = attributesMap.getOrDefault(XML_LANG_TAG, xmlLang);
     }
 
     @Override

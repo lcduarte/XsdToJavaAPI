@@ -24,18 +24,13 @@ public class XsdStringRestrictions extends XsdAnnotatedElements{
 
     XsdStringRestrictions(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
         super(parser, elementFieldsMapParam);
+
+        value = attributesMap.getOrDefault(VALUE_TAG, value);
     }
 
     @Override
     public XsdAnnotatedElementsVisitor getVisitor() {
         return visitor;
-    }
-
-    @Override
-    public void setFields(@NotNull Map<String, String> elementFieldsMapParam) {
-        super.setFields(elementFieldsMapParam);
-
-        value = elementFieldsMap.getOrDefault(VALUE_TAG, value);
     }
 
     /**

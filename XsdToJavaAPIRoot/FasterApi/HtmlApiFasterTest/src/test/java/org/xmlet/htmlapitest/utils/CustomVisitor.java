@@ -2,7 +2,6 @@ package org.xmlet.htmlapitest.utils;
 
 import org.xmlet.htmlapifaster.Element;
 import org.xmlet.htmlapifaster.ElementVisitor;
-import org.xmlet.htmlapifaster.Script;
 import org.xmlet.htmlapifaster.Text;
 
 public class CustomVisitor extends ElementVisitor {

@@ -190,7 +190,14 @@ class XsdAsmEnum {
         String enumPrefix = "Enum";
 
         if (attribute.getType() != null){
-            return enumPrefix + getCleanName(attribute) + firstToUpper(attribute.getType().replaceAll("[^a-zA-Z0-9]", ""));
+            String attributeName = getCleanName(attribute);
+            String attributeTypeName = firstToUpper(attribute.getType().replaceAll("[^a-zA-Z0-9]", ""));
+
+            if (attributeTypeName.startsWith(attributeName)){
+                return enumPrefix + attributeTypeName;
+            }
+
+            return enumPrefix + attributeName + attributeTypeName;
         }
 
         XsdAbstractElement elem = attribute;
