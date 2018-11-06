@@ -1,7 +1,7 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
-import org.xmlet.xsdparser.core.XsdParser;
+import org.xmlet.xsdparser.core.XsdParserCore;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.enums.BlockDefaultEnum;
 import org.xmlet.xsdparser.xsdelements.enums.FinalDefaultEnum;
@@ -75,7 +75,7 @@ public class XsdSchema extends XsdAnnotatedElements {
      */
     private List<XsdAbstractElement> elements = new ArrayList<>();
 
-    private XsdSchema(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap){
+    private XsdSchema(@NotNull XsdParserCore parser, @NotNull Map<String, String> attributesMap){
         super(parser, attributesMap);
 
         this.attributeFormDefault = AttributeValidations.belongsToEnum(FormEnum.UNQUALIFIED, attributesMap.getOrDefault(ATTRIBUTE_FORM_DEFAULT, FormEnum.UNQUALIFIED.getValue()));
@@ -102,7 +102,7 @@ public class XsdSchema extends XsdAnnotatedElements {
         return elements.stream().map(ReferenceBase::createFromXsd).collect(Collectors.toList());
     }
 
-    public static ReferenceBase parse(@NotNull XsdParser parser, Node node) {
+    public static ReferenceBase parse(@NotNull XsdParserCore parser, Node node) {
         return xsdParseSkeleton(node, new XsdSchema(parser, convertNodeMap(node.getAttributes())));
     }
 

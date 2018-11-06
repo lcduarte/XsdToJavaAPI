@@ -2,6 +2,7 @@ package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
 import org.xmlet.xsdparser.core.XsdParser;
+import org.xmlet.xsdparser.core.XsdParserCore;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
@@ -73,7 +74,7 @@ public class XsdAttribute extends XsdNamedElements {
      */
     private UsageEnum use;
 
-    private XsdAttribute(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+    private XsdAttribute(@NotNull XsdParserCore parser, @NotNull Map<String, String> attributesMap) {
         super(parser, attributesMap);
 
         String formDefaultValue = getFormDefaultValue(parent);
@@ -90,7 +91,7 @@ public class XsdAttribute extends XsdNamedElements {
         }
     }
 
-    private XsdAttribute(XsdAbstractElement parent, @NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+    private XsdAttribute(XsdAbstractElement parent, @NotNull XsdParserCore parser, @NotNull Map<String, String> attributesMap) {
         this(parser, attributesMap);
         setParent(parent);
     }
@@ -226,7 +227,7 @@ public class XsdAttribute extends XsdNamedElements {
         return Collections.emptyList();
     }
 
-    public static ReferenceBase parse(@NotNull XsdParser parser, Node node) {
+    public static ReferenceBase parse(@NotNull XsdParserCore parser, Node node) {
         return xsdParseSkeleton(node, new XsdAttribute(parser, convertNodeMap(node.getAttributes())));
     }
 

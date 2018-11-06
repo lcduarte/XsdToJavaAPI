@@ -1,7 +1,7 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
-import org.xmlet.xsdparser.core.XsdParser;
+import org.xmlet.xsdparser.core.XsdParserCore;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
@@ -119,13 +119,13 @@ public class XsdElement extends XsdNamedElements {
      */
     private String maxOccurs;
 
-    public XsdElement(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+    public XsdElement(@NotNull XsdParserCore parser, @NotNull Map<String, String> attributesMap) {
         super(parser, attributesMap);
 
         String typeString = attributesMap.get(TYPE_TAG);
 
         if (typeString != null){
-            if (XsdParser.getXsdTypesToJava().containsKey(typeString)){
+            if (XsdParserCore.getXsdTypesToJava().containsKey(typeString)){
                 HashMap<String, String> attributes = new HashMap<>();
                 attributes.put(NAME_TAG, typeString);
                 this.type = ReferenceBase.createFromXsd(new XsdComplexType(this, this.parser, attributes));
@@ -151,7 +151,7 @@ public class XsdElement extends XsdNamedElements {
         this.maxOccurs = AttributeValidations.maxOccursValidation(XSD_TAG, attributesMap.getOrDefault(MAX_OCCURS_TAG, "1"));
     }
 
-    public XsdElement(XsdAbstractElement parent, @NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+    public XsdElement(XsdAbstractElement parent, @NotNull XsdParserCore parser, @NotNull Map<String, String> elementFieldsMapParam) {
         this(parser, elementFieldsMapParam);
         setParent(parent);
     }
@@ -290,7 +290,7 @@ public class XsdElement extends XsdNamedElements {
         return null;
     }
 
-    public static ReferenceBase parse(@NotNull XsdParser parser, Node node){
+    public static ReferenceBase parse(@NotNull XsdParserCore parser, Node node){
         return xsdParseSkeleton(node, new XsdElement(parser, convertNodeMap(node.getAttributes())));
     }
 

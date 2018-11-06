@@ -33,7 +33,7 @@ Despite my preliminary research not containing any proposal of a process to gene
 Performance would not be a major milestone at the beginning of this work. Yet, the J2Html assertion that it can be about a "thousand times faster than Apache Velocity" gave us one more purpose to this dissertation. First, we started to look on how J2Html compares its performance with other template engines and we found that comparison shared several flaws. Its dynamic render test \texttt{FiveHundredEmployees} was not really dynamic, because the context object is known before render time in case of the J2Html template, whereas for Velocity it is just provided at render and thus it favors the J2Html performance. Moreover, these tests use \texttt{junit-benchmarks} from \url{http://labs.carrotsearch.com/}, which is publicly announced as being deprecated in favor of \ac{JMH}.
 
 \noindent
-So, after some research, we start evaluating HtmlFow 3 in some of state of the art benchmarks and observing its good performance we realized that we could achieve a revolutionary landmark with \texttt{xmlet}. Here we found Rocker, which had a very curious approach, using static fields to store the static template components, which proved to perform very well. This, along with some other ideas created along the development of \texttt{xmlet}, led to creation of HtmlApiFaster, a \textit{fluent interface} generated with many optimization techniques and support for the implementation of a caching strategy, in some way similar to the technique use by Rocker. These optimizations would make HtmlFlow 3 the most performant \textit{template engine} in Java up to this date.
+So, after some research, we start evaluating HtmlFow 3 in some of state of the art benchmarks and observing its good performance we realized that we could achieve a revolutionary landmark with \texttt{xmlet}. Here we found Rocker, which had a very curious approach, using static fields to store the static template components, which proved to perform very well. This, along with some other ideas created along the development of \texttt{xmlet}, led to creation of HtmlApiFaster, a \textit{fluent interface} generated with many optimization techniques and support for the implementation of a caching strategy, in some way similar to the technique used by Rocker. These optimizations would make HtmlFlow 3 the most performant \textit{template engine} in Java up to this date.
 
 \noindent
 Finally, the \texttt{xmlet} platform is not only limited to the \ac{HTML} language and we also tested it with other \ac{XSD} files. In this case we successfully used it with the Android layouts definition file, which defines the existing \ac{XML} elements in visual layouts for the Android operating system and the attributes that each element contains. To prove that this solution worked with a \ac{DSL} not related with \ac{XML} we described the operations of the Regular Expressions language in \ac{XSD} and generated a \textit{fluent interface} which supports the whole regular expressions syntax supported by Java. Both these projects were released and are available in the \texttt{xmlet} Github page.
@@ -77,7 +77,7 @@ To finish my dissertation, I would like to reinforce that over past 2 decades, t
 
 \begin{itemize}
 	\item They are slow;
-	\item Most of the are not safe.
+	\item Most of them are not safe.
 \end{itemize}
 
 \noindent

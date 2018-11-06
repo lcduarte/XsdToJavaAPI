@@ -1,2 +1,0 @@
-if not exist "./target/classes/org/xmlet/html" mkdir "./target/classes/org/xmlet/html"
-call mvn exec:java -D"exec.mainClass"="org.xmlet.xsdasmfaster.main.XsdAsmMain" -D"exec.args"="./src/main/resources/html_5.xsd html"

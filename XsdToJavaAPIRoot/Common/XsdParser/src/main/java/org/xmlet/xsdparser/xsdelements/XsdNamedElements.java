@@ -1,6 +1,6 @@
 package org.xmlet.xsdparser.xsdelements;
 
-import org.xmlet.xsdparser.core.XsdParser;
+import org.xmlet.xsdparser.core.XsdParserCore;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
 import org.xmlet.xsdparser.xsdelements.exceptions.ParsingException;
 
@@ -18,7 +18,7 @@ public abstract class XsdNamedElements extends XsdAnnotatedElements {
      */
     String name;
 
-    XsdNamedElements(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+    XsdNamedElements(@NotNull XsdParserCore parser, @NotNull Map<String, String> attributesMap) {
         super(parser, attributesMap);
 
         this.name = attributesMap.getOrDefault(NAME_TAG, name);

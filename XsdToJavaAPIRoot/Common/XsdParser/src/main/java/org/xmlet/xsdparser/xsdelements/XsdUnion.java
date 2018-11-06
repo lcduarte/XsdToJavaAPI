@@ -1,7 +1,7 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
-import org.xmlet.xsdparser.core.XsdParser;
+import org.xmlet.xsdparser.core.XsdParserCore;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAbstractElementVisitor;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdUnionVisitor;
@@ -37,7 +37,7 @@ public class XsdUnion extends XsdAnnotatedElements {
      */
     private String memberTypes;
 
-    private XsdUnion(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+    private XsdUnion(@NotNull XsdParserCore parser, @NotNull Map<String, String> attributesMap) {
         super(parser, attributesMap);
 
         this.memberTypes = attributesMap.getOrDefault(MEMBER_TYPES_TAG, memberTypes);
@@ -63,7 +63,7 @@ public class XsdUnion extends XsdAnnotatedElements {
         return Arrays.asList(memberTypes.split(" "));
     }
 
-    public static ReferenceBase parse(@NotNull XsdParser parser, Node node){
+    public static ReferenceBase parse(@NotNull XsdParserCore parser, Node node){
         return xsdParseSkeleton(node, new XsdUnion(parser, convertNodeMap(node.getAttributes())));
     }
 

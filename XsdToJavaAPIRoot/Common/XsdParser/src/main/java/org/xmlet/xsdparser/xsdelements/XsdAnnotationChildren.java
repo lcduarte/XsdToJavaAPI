@@ -1,7 +1,7 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
-import org.xmlet.xsdparser.core.XsdParser;
+import org.xmlet.xsdparser.core.XsdParserCore;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.exceptions.VisitorNotFoundException;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAbstractElementVisitor;
@@ -24,7 +24,7 @@ public abstract class XsdAnnotationChildren extends XsdAbstractElement {
      */
     private String content;
 
-    XsdAnnotationChildren(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+    XsdAnnotationChildren(@NotNull XsdParserCore parser, @NotNull Map<String, String> attributesMap) {
         super(parser, attributesMap);
         this.source = attributesMap.getOrDefault(SOURCE_TAG, source);
     }

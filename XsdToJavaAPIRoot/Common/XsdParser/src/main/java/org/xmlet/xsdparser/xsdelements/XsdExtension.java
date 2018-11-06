@@ -1,7 +1,7 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
-import org.xmlet.xsdparser.core.XsdParser;
+import org.xmlet.xsdparser.core.XsdParserCore;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
@@ -49,7 +49,7 @@ public class XsdExtension extends XsdAnnotatedElements {
      */
     private ReferenceBase base;
 
-    private XsdExtension(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+    private XsdExtension(@NotNull XsdParserCore parser, @NotNull Map<String, String> attributesMap) {
         super(parser, attributesMap);
 
         String baseValue = attributesMap.getOrDefault(BASE_TAG, null);
@@ -106,14 +106,14 @@ public class XsdExtension extends XsdAnnotatedElements {
     }
 
     /**
-     * @return The {@link XsdElement} from which it extends or null if the {@link XsdParser} wasn't able to replace
+     * @return The {@link XsdElement} from which it extends or null if the {@link XsdParserCore} wasn't able to replace
      * the {@link UnsolvedReference} created by the base attribute value.
      */
     public XsdElement getBase() {
         return base instanceof ConcreteElement ? (XsdElement) base.getElement() : null;
     }
 
-    public static ReferenceBase parse(@NotNull XsdParser parser, Node node){
+    public static ReferenceBase parse(@NotNull XsdParserCore parser, Node node){
         return xsdParseSkeleton(node, new XsdExtension(parser, convertNodeMap(node.getAttributes())));
     }
 

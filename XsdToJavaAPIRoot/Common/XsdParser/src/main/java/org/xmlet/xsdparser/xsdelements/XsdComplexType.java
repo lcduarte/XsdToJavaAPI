@@ -1,7 +1,7 @@
 package org.xmlet.xsdparser.xsdelements;
 
 import org.w3c.dom.Node;
-import org.xmlet.xsdparser.core.XsdParser;
+import org.xmlet.xsdparser.core.XsdParserCore;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.NamedConcreteElement;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.UnsolvedReference;
@@ -83,7 +83,7 @@ public class XsdComplexType extends XsdNamedElements {
      */
     private XsdSimpleContent simpleContent;
 
-    XsdComplexType(@NotNull XsdParser parser, @NotNull Map<String, String> attributesMap) {
+    XsdComplexType(@NotNull XsdParserCore parser, @NotNull Map<String, String> attributesMap) {
         super(parser, attributesMap);
 
         String blockDefault = AttributeValidations.getBlockDefaultValue(parent);
@@ -95,7 +95,7 @@ public class XsdComplexType extends XsdNamedElements {
         this.elementFinal = AttributeValidations.belongsToEnum(FinalEnum.ALL, attributesMap.getOrDefault(FINAL_TAG, finalDefault));
     }
 
-    XsdComplexType(XsdAbstractElement parent, @NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+    XsdComplexType(XsdAbstractElement parent, @NotNull XsdParserCore parser, @NotNull Map<String, String> elementFieldsMapParam) {
         this(parser, elementFieldsMapParam);
         setParent(parent);
     }
@@ -213,7 +213,7 @@ public class XsdComplexType extends XsdNamedElements {
         return elementAbstract;
     }
 
-    public static ReferenceBase parse(@NotNull XsdParser parser, Node node){
+    public static ReferenceBase parse(@NotNull XsdParserCore parser, Node node){
         return xsdParseSkeleton(node, new XsdComplexType(parser, convertNodeMap(node.getAttributes())));
     }
 

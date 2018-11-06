@@ -1,7 +1,7 @@
 package org.xmlet.xsdparser.xsdelements.xsdrestrictions;
 
 import org.w3c.dom.Node;
-import org.xmlet.xsdparser.core.XsdParser;
+import org.xmlet.xsdparser.core.XsdParserCore;
 import org.xmlet.xsdparser.xsdelements.AttributeValidations;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 import org.xmlet.xsdparser.xsdelements.visitors.XsdAbstractElementVisitor;
@@ -17,7 +17,7 @@ public class XsdTotalDigits extends XsdIntegerRestrictions {
     public static final String XSD_TAG = "xsd:totalDigits";
     public static final String XS_TAG = "xs:totalDigits";
 
-    private XsdTotalDigits(@NotNull XsdParser parser, @NotNull Map<String, String> elementFieldsMapParam) {
+    private XsdTotalDigits(@NotNull XsdParserCore parser, @NotNull Map<String, String> elementFieldsMapParam) {
         super(parser, elementFieldsMapParam);
 
         value = AttributeValidations.validateRequiredPositiveInteger(XSD_TAG, VALUE_TAG, attributesMap.get(VALUE_TAG));
@@ -29,7 +29,7 @@ public class XsdTotalDigits extends XsdIntegerRestrictions {
         xsdAbstractElementVisitor.visit(this);
     }
 
-    public static ReferenceBase parse(@NotNull XsdParser parser, Node node){
+    public static ReferenceBase parse(@NotNull XsdParserCore parser, Node node){
         return ReferenceBase.createFromXsd(new XsdTotalDigits(parser, convertNodeMap(node.getAttributes())));
     }
 }
