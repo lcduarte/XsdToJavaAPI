@@ -11,7 +11,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-util:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-tree:6.0" level="project" />
-    <orderEntry type="module" module-name="XsdAsmFaster" />
+    <orderEntry type="library" name="Maven: com.github.fmcarvalho:htmlflow:1.2" level="project" />
+    <orderEntry type="library" name="Maven: com.github.xmlet:xsdAsmFaster:1.0.4-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm:6.0" level="project" />
