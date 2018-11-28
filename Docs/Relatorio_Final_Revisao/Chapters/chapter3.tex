@@ -1,0 +1,255 @@
+\chapter{State of Art}
+\label{cha:stateofart}
+
+In this chapter we are going to introduce the technologies used in the development of this work, such as the \ac{XSD} language in order to provide a better understanding of the next chapters, and also introduce the latest solutions that moved on from the usual \textit{template engine} approach and in different ways tried to innovate in order to introduce safety and reliability to the process of generating \ac{HTML} documents. 
+
+\section{XSD Language} % (fold)
+\label{sec:xsd}
+
+The \ac{XSD} language is a description of a type of \ac{XML} document. The \ac{XSD} syntax allows the definition of a set of rules, elements and attributes that together define an external \ac{DSL}. This specific language defined in a \ac{XSD} document aims to solve a specific issue, with its rules serving as a contract between applications regarding the information contained in the \ac{XML} files that represent information of that specific language. The \ac{XSD} main purpose is to validate \ac{XML} documents, if the \ac{XML} document follows the rules specified in the \ac{XSD} document then the \ac{XML} file is considered valid otherwise it is not. To describe the rules and restrictions for a given \ac{XML} document the \ac{XSD} language relies on two main types of data: elements and attributes. Elements are the most complex data type, they can contain other elements as children and can also have attributes. Attributes on the other hand are just pairs of information, defined by their name and their value. The value of a given attribute can be restricted by multiple constraints existing on the \ac{XSD} syntax. There are multiple elements and attributes present in the \ac{XSD} language, which are specified in the \ac{XSD} Schema rules\cite{xsdrules}. In this dissertation we will use the set of rules and restrictions of the provided \ac{XSD} documents to build a \textit{fluent interface} that will enforce the rules and restrictions specified by the given file.
+
+\section{The Evolution of Template Engines}
+\label{sec:templateenginesevolution}
+
+We have already presented the idea behind \textit{template engines} in Section \ref{sec:templateengines} and their handicaps in Section  \ref{sec:templateengineshandicaps}, but here we are going to present some recent innovations that some \textit{template engines} introduced in order to solve or minimize some of the problems listed previously. We are going to compare the features each solution introduces and create a general landscape of the preexisting solutions similar to the use case that \texttt{xmlet} will use.
+
+\subsection{HtmlFlow 1}
+\label{sec:htmlflowbeforexmlet}
+
+The HtmlFlow\cite{htmlflow} library was the first to be approached in the developing process of \texttt{xmlet}. The HtmlFlow motivation is to provide a library that allowed its users to write well formed type-safe \ac{HTML} documents. The HtmlFlow version that existed prior to this project, which will be named HtmlFlow 1, only supported a subset of the \ac{HTML} language, whilst implementing some of the rules of the \ac{HTML} language. This solution was a step in the right direction, it removed the requirement to have textual files to define templates by moving the template definition to the Java language. It also provided a very important aspect, it performed language validations at compile time, which is great since it guarantees that those problems will be solved at compile time instead of run-time. The main downside of this solution was that it only supported a subset of the \ac{HTML} language, since recreating all the \ac{HTML} language rules manually would be very time consuming and error prone. This problem led to the requirement of creating an automated process to translate the language rules to the Java language. By using this version of HtmlFlow we observe code that is very similar to the current version, HtmlFlow 3, which uses \texttt{xmlet}, as shown in Listing \ref{lst:htmlflow1example}. The most notable issue while using HtmlFlow 1 is the lack of the whole \ac{HTML} syntax and poor navigation on the generated element tree.
+
+\bigskip
+
+\lstset{language=java, morekeywords={HtmlView}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={HtmlFlow Version 1 Code Example}, label={lst:htmlflow1example}]
+HtmlView<?> taskView = new HtmlView<>();
+taskView
+    .head()
+    .title("Task Details")
+    .linkCss("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
+taskView
+    .body().classAttr("container")
+    .heading(1, "Task Details")
+    .hr()
+    .div()
+    .text("Title: ").text("ISEL MPD project")
+    .br()
+    .text("Description: ").text("A Java library for serializing objects in HTML.")
+    .br()
+    .text("Priority: ").text("HIGH");
+\end{lstlisting}
+\end{minipage}
+
+\subsection{J2html} % (fold)
+\label{sec:j2html}
+
+J2html\cite{j2html} is a Java library used to write \ac{HTML}. This solution does not verify the specification rules of the \ac{HTML} language either at compile time or at runtime, which is a major downside. But on the other hand it removes the requirement of having text files to define templates by defining the templates within the Java language. It also provides support for the use of most of the \ac{HTML} language, which is probably the reason why it has more garnered more attention than HtmlFlow 1. This library also shows that the issue we are trying to solve with the HtmlFlow is relevant since this library is quite popular, currently having 442 stars on the project Github page\footnote{\url{https://github.com/tipsy/j2html}}. In Listing \ref{lst:j2htmlexample} we show the required code using J2html to generate the example template defined in Listing \ref{lst:dynamicstudentinfo}. Regarding its use, it is simple to use since it has a similar syntax to \ac{HTML}, which makes it easily understandable. The way it uses parameters to pass children elements also helps keep track of depth in the element tree.
+
+\bigskip
+
+\lstset{language=java, morekeywords={String, Student}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={J2html Code Example}, label={lst:j2htmlexample}]
+Student student = new Student(39378, "Luis Duarte");
+        
+String document =
+    html(
+        body(
+            ul(
+                li(student.getName()),
+                li(student.getNumber())
+            )
+        )
+    ).render();
+\end{lstlisting}
+\end{minipage}
+
+\subsection{Rocker}
+\label{sec:rocker}
+
+The Rocker\cite{rocker} library is very different from the two libraries presented before. Its approach is at is core very similar to the classic \textit{template engine} solution since it still uses a textual file to define the template. But contrary to the classic \textit{template engines} the template file is not used at run-time. This solution uses the textual template file to automatically generate a Java class to replicate that specific template in the Java language. This means that instead of resorting to loading the template defined in a text file at run time it uses the automatically generated class to generate the final document, by combining the static information present in the class with the received input. This is very important, by two distinct reasons. The first reason is that this solution can validate the type of the \textit{context objects} used to create the template at compile time. The second reason is that this solution has very good performance due to all the static parts of the template being \texttt{hardcoded} into the Java class that defines the specific template. This was by far the best competitor with \texttt{xmlet} regarding performance. The biggest downside of this solution is that it does not verify the \ac{HTML} language rules or even well formed \ac{XML} documents. Regarding its use, Rocker is a bit more complex. It has three distinct aspects: the template, the generated Java class and the Java code needed to render it. In Listing \ref{lst:rockertemplateexample} we show the Rocker template which is required to replicate the template of Listing \ref{lst:dynamicstudentinfo}.
+
+\bigskip
+
+\lstset{language=html}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Rocker Template Example}, label={lst:rockertemplateexample}]
+@import com.mitchellbosecke.benchmark.model.Student
+@args (Student student)
+<html>
+    <body>
+        <ul>
+            <li>
+                @student.getName()
+            </li>
+            <li>
+                @student.getNumber()
+            </li>
+        </ul>
+    </body>
+</html>
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+After defining the template and compiling the project, Rocker generates a Java class based on this template, i.e. the template defined in Listing \ref{lst:rockertemplateexample}. The generated class is shown in Listing \ref{lst:rockertemplateclass}. The class presented here is simplified, but it still gives a good overview of what Rocker does. It defines a \textit{context object} of type \texttt{Student}, in line 4 and receives a value for it in line 11 of Listing \ref{lst:rockertemplateclass}. The template itself is separated into \texttt{Strings}, e.g. in the current example we have two placeholders the \texttt{@student.getName()} and \texttt{@student.getNumber()}, so Rocker stores three \texttt{Strings} in static variables: the \texttt{String} before the first placeholder, i.e. field \texttt{PLAIN\_TEXT\_0\_0} in line 34 of Listing \ref{lst:rockertemplateclass}, the \texttt{String} in between placeholders, i.e. field \texttt{PLAIN\_TEXT\_1\_0} in line 36 of Listing \ref{lst:rockertemplateclass}, and lastly the \texttt{String} after the second placeholder, i.e. field \texttt{PLAIN\_TEXT\_2\_0} in line 38 of Listing \ref{lst:rockertemplateclass}. The \texttt{\_\_doRender} method, line 26 of Listing \ref{lst:rockertemplateclass}, joins the different template \texttt{Strings} with the placeholders.
+
+\bigskip
+
+\lstset{language=java, morekeywords={String, Student}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Rocker Java Class Example}, label={lst:rockertemplateclass}]
+public class studentTemplate extends DefaultRockerModel {
+
+  private Student student;
+
+  public studentTemplate student(Student student) {
+    this.student = student;
+    return this;
+  }
+
+  static public studentTemplate template(Student student) {
+    return new studentTemplate().student(student);
+  }
+
+  static public class Template extends DefaultRockerTemplate {
+
+    protected final Student student;
+
+    public Template(studentTemplate model) {
+      super(model);
+      this.student = model.student();
+    }
+
+    @Override
+    protected void __doRender() throws IOException,RenderingException{
+      __internal.writeValue(PLAIN_TEXT_0_0);
+      __internal.renderValue(student.getName(), false);
+      __internal.writeValue(PLAIN_TEXT_1_0);
+      __internal.renderValue(student.getNumber(), false);
+      __internal.writeValue(PLAIN_TEXT_2_0);
+    }
+  }
+
+  private static class PlainText {
+    static private final String PLAIN_TEXT_0_0 = 
+    "\n<html>\n    <body>\n        <ul>\n            <li>\n         ";
+    static private final String PLAIN_TEXT_1_0 = 
+    "\n            </li>\n            <li>\n                ";
+    static private final String PLAIN_TEXT_2_0 = 
+    "\n            </li>\n        </ul>\n    </body>\n</html>";
+  }
+}
+\end{lstlisting}
+\end{minipage}
+
+\newpage
+
+\noindent
+Lastly, the code required to define the \textit{context object} and render the template is the shown in Listing \ref{lst:rockerusage}. Here the code is quite simple, the only requirement is to pass a valid \textit{context object}, which is validated by the Java compiler since the \textit{context object} type is defined in the textual template file, line 1 of Listing \ref{lst:rockertemplateexample}, which Rocker uses to as parameter to the \texttt{template} method in generated the class, shown in Listing \ref{lst:rockertemplateclass}.
+
+\bigskip
+
+\lstset{language=java, morekeywords={String, Student}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Rocker Use Example}, label={lst:rockerusage}]
+String document =
+    templates.studentTemplate
+        .template(new Student(39378, "Luis Duarte"))
+        .render()
+        .toString();
+\end{lstlisting}
+\end{minipage}
+
+\subsection{KotlinX Html}
+\label{sec:kotlinx}
+
+Kotlin\cite{kotlin} is a programming language that runs on the \ac{JVM}. The language main objective is to create an inter-operative language between Java, Android and browser applications. Its syntax is not compatible with the standard Java syntax but both languages are inter-operable. The main reasons to use this language is that it heavily reduces the amount of textual information needed to create code by using type inference and other techniques. 
+
+\noindent
+Kotlin is relevant to this project since one of his children projects, KotlinX Html, defines a \ac{DSL} for the \ac{HTML} language. The solution KotlinX Html provides is quite similar to what the \texttt{xmlet} will provide in its use case. 
+
+\begin{itemize}
+	\item Elements - The generated Kotlin \ac{DSL} will guarantee that each element only contains the elements and attributes allowed as stated in the \ac{HTML}5 \ac{XSD} document. This is achieved by using type inference and the language compiler.
+	\item Attributes - The possible values for restricted attributes values are not verified.
+	\item Template - The template is embedded within the Kotlin language, removing the textual template files.
+	\item Flexibility - Allows the usage of the Kotlin syntax to define templates, which is richer than the regular \textit{template engine} syntax.
+	\item Complexity - Removes language heterogeneity, the programmer only programs in Kotlin.
+\end{itemize}
+
+\noindent
+KotlinX\cite{kotlinx} \ac{HTML} \ac{DSL} is the most similar solution to \texttt{xmlet}. The only difference is that \texttt{xmlet} takes advantage of the attributes restrictions present in the \ac{XSD} document in order to increase the verifications that are performed on the \ac{HTML} documents that are generated by the generated \textit{fluent interfaces}. Both solutions also use the Visitor pattern in order to abstract themselves from the concrete usage of the \ac{DSL}. The main difference between KotlinX Html and \texttt{xmlet} is performance, the Kotlin \ac{DSL} is slow compared to other \textit{template engines} solutions. Having a library as popular as the Kotlin \ac{HTML} \ac{DSL}, currently with 518 stars on its Github page\footnote{\url{https://github.com/Kotlin/kotlinx.html}}, providing a solution so similar to \texttt{xmlet} also shows that the approach makes sense and tackles a real world problem. To use it, we must start by creating an \ac{HTML} document, and then we can start to add elements to it. An example is shown in Listing \ref{lst:kotlintemplate}, defining the same template defined in Listing \ref{lst:dynamicstudentinfo}. Using it feels pretty straightforward, its quite similar to the code we get while using J2html, with the advantage of guaranteeing the implementation of the \ac{HTML} syntax rules. 
+
+\bigskip
+
+\lstset{language=java, morekeywords={Student, val}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Kotlin Template Example}, label={lst:kotlintemplate}]
+val student = Student(39378, "Luis Duarte")
+
+val document = createHTMLDocument()
+    .html {
+        body {
+            ul {
+                li { student.name }
+                li { student.number }
+            }
+        }
+    }.serialize(false)
+\end{lstlisting}
+\end{minipage}
+
+\newpage
+
+\subsection{HtmlFlow 3}
+\label{sec:htmlflowwithxmlet}
+
+After developing \texttt{xmlet} and adapting the HtmlFlow library to use it some characteristics changed. This version of HtmlFlow that uses \texttt{xmlet} will be referred as HtmlFlow 3 from now on. The safety aspects of HtmlFlow 1 are kept since the general idea for the solution is kept with the usage of the HtmlApi generated by \texttt{xmlet}. Regarding the negative aspects of HtmlFlow 1, four of them were solved:
+
+\begin{itemize}
+	\item Small language subset - Solved by using the automatically generated HtmlApi, which defines the whole \ac{HTML} language within the Java language.
+	\item Attribute value validation - The HtmlApi validates every attribute value based on the restrictions defined for that respective attribute in the \ac{HTML} \ac{XSD} document.
+	\item Performance - Improved HtmlFlow performance by using a caching strategy provided by HtmlApi.
+	\item Maintainability - Since it uses an automatically generated \ac{DSL} if any change occurs in the \ac{HTML} language specification the only change needed is to generate a new \ac{DSL} based on the new language rules defined in the \ac{XSD} file.
+\end{itemize}
+
+\noindent
+By using \texttt{xmlet} the HtmlFlow library was also able to improve its performance. With the mechanics created by the usage of \texttt{xmlet} it is now possible to replicate the performance improvements of the Rocker solution. An example of its usage was already shown in Listing \ref{lst:xmletdynamicstudentinfo}. Its syntax ends up being similar to the other solutions presented in this chapter, with the most notable difference being the fact that it allows to use Java functions to create template, as shown on line 4 of Listing \ref{lst:xmletdynamicstudentinfo}.
+
+\newpage
+
+\subsection{Feature Comparison}
+\label{sec:featurecomparison}
+
+To have a better overview on all the previously presented solutions we will now show a table that has a list of most important features and which solutions implements them.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+                         &   J2Html   &   Rocker   &   KotlinX  &        HtmlFlow*        \\ \hline
+Template Within Language & \Checkmark & *1         & \Checkmark & \Checkmark / \Checkmark \\ \hline
+Elements Validations     & \XSolid    & \XSolid    & \Checkmark & \Checkmark / \Checkmark \\ \hline
+Attribute Validations    & \XSolid    & \XSolid    & \XSolid    & \XSolid    / \Checkmark \\ \hline
+Fully Supports \ac{HTML} & \XSolid    & \Checkmark & \Checkmark & \XSolid    / \Checkmark \\ \hline
+Well-Formed Documents    & \Checkmark & \XSolid    & \Checkmark & \Checkmark / \Checkmark \\ \hline
+Maintainability          & \XSolid    & \Checkmark & \Checkmark & \XSolid    / \Checkmark \\ \hline
+Performance              & \XSolid    & \Checkmark & \XSolid    & \XSolid    / \Checkmark \\ \hline
+\end{tabular}
+\caption{Template Engines Feature Comparison}
+\label{tab:featurecomparison}
+\XSolid - Feature not present \\
+\Checkmark - Feature present \\
+HtmlFlow* - HtmlFlow 1 / HtmlFlow 3 \\
+*1 - Template class generated at compile time \\
+\end{table}
+
+\noindent
+As we can see in the Table \ref{tab:featurecomparison}, most of these solutions tend to move the template definition from the textual files to the current language syntax, in this case Java. This removes the \textit{overhead} of loading the textual files and parsing them at run-time. Another feature that the different solutions share is that they all create well formed documents, apart from Rocker. The general problem that extends to all the solutions that previously existed is the lack of validations that enforce the \ac{HTML} language rules. KotlinX Html is the solution that mostly resembles the main goals of \texttt{xmlet}, however it is heavily handicapped when it comes to performance, being one of the worst in the benchmarks performed, which will be presented in Chapter \ref{cha:deployment}.

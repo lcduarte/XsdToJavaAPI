@@ -1,0 +1,21 @@
+\abstractEN % Do NOT modify this line
+
+%Introdução - Informar, em poucas palavras, o contexto em que o trabalho se insere, sintetizando a problemática estudada. 
+The use of \textit{markup languages} is recurrent in the world of technology, with \ac{HTML} being the most prominent one due to its use in the Web. The requirement of tools that can automatically build well formed documents with good performance is clear. Yet, the most used solution is \textit{template engines}, which neither ensures well-formed documents nor presents good performance, due to the use of external text files.
+
+% Objectivo - Deve ser explicitado claramente. 
+\noindent
+To tackle the first issue we propose to define \ac{HTML} templates as first-class functions instead of using text files. To that end, these \ac{HTML} template functions use a Java \ac{DSL} to write \ac{HTML}. Our main goal is to create the required tools that automatically generate that \ac{DSL} based on its language definition from an \ac{XSD} file. The resulting \ac{DSL} should enforce the restrictions of the given language which are specified in the \ac{XSD} file. By removing the use of text files we are also suppressing the file load overhead and reducing \texttt{String} manipulation, which in turn increases the overall performance and solves the second issue.
+
+%Métodos - Destacar os procedimentos metodológicos adoptados. 
+\noindent
+My proposal, named \texttt{xmlet}, includes a set of tools that are able to: 1) parse and extract the rules from a \ac{XSD} file, 2) generate the adequate classes and methods to define the \ac{DSL} that reflects the language rules, 3) handle the use of the resulting \ac{DSL} through the implementation of the Visitor pattern. Finally we validated this solution not only for the \ac{HTML} language, but also with the Android layouts and the regular expressions languages.
+
+%Resultados - Destacar os mais relevantes para os objectivos pretendidos. 
+\noindent
+By comparing the developed solution to some state-of-art solutions, including \textit{template engines} and some other solutions with specific innovations, we obtained very favorable results with the suggested solution being the best performance-wise in all the tests we performed. These results are important, specially considering that apart from being a more efficient solution it also introduces validations of the language usage based on its syntax definition.
+
+% Keywords of abstract in English
+\begin{keywords}
+XML, eXtensive Markup Language, XSD, eXtensive Markup Language Schema Definition, Automatic Code Generation, Fluent Interface, Domain Specific Language.
+\end{keywords} 

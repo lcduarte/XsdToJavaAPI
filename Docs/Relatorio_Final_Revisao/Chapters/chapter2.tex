@@ -1,0 +1,367 @@
+\chapter{Problem Statement}
+\label{cha:problem}
+
+\sloppy
+
+In the first chapter we presented \textit{template engines} and discussed their theoretical handicaps, in this chapter we will further analyze other limitations that are presented while using them in a practical setting. This analysis aims to show how fragile the usage of this type of solution can be and the problems that are inherited by using it.
+
+\section{Motivation}
+\label{sec:motivation}
+
+Text has evolved with the advance of technology resulting in the creation of \textit{markup languages} \cite{ml}. \textit{Markup languages} work by adding annotations to text, the annotations being also known as tags, which allow to add additional information to the text. Each \textit{markup language} has its own tags and each of those tags add a different meaning to the text encapsulated within them. In order to use \textit{markup languages} the users can write the text and add all the tags manually, either by fully writing them or by using some kind of text helpers such as text editors with IntelliSense\footnote{\url{https://www.techopedia.com/definition/24580/intellisense}}, which can help diminish the errors caused by manually writing the tags. But even with text helpers the resulting document can violate the restrictions of the respective \textit{markup language} because the editors do not actually enforce the language rules since there is not a process similar to a compile process that can either pass of fail. The most that a text editor can do is highlight the errors to the user.
+
+\noindent
+The most well-known \textit{markup language} is \ac{HTML}, which is highly used in Web applications. Other uses of the \ac{HTML} language are in emails, writing reports, etc.
+
+\noindent
+Now we will present different issues resulting from the use of \textit{template engines} to build \ac{HTML} views. The examples provided in this section use eight different \textit{template engines}: Freemarker\cite{freemarker}, Handlebars\cite{handlebars}, Mustache\cite{mustache}, Pebble\cite{pebble}, Thymeleaf\cite{thymeleaf}, Trimou\cite{trimou}, Velocity\cite{velocity} and Rocker\cite{rocker}. The templates used in these experimental tests were the same used for different benchmarks presented in Chapter \ref{cha:deployment}. The three issues that will be addressed are:
+
+\begin{itemize}
+	\item Issue 1 - Guarantees of well formed documents;
+	\item Issue 2 - Validation of the \ac{HTML} language rules;
+	\item Issue 3 - Validation of \textit{context objects}.
+\end{itemize}
+
+\noindent
+We will start with the most basic aspect that we expect from a \ac{HTML} document, it should be well formed. Let us start with a very simple example as shown in Listing \ref{lst:wellformedex}.
+
+\lstdefinestyle{problemex}{
+  moredelim=**[is][\color{blue}]{@}{@},
+  moredelim=**[is][\color{red}]{|}{|},
+}
+
+\lstset{language = java}
+
+\bigskip
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Badly Formed HTML Document}, label={lst:wellformedex}, style=problemex]
+@<html@|>|
+	@<!-- -->@
+|</html>|
+\end{lstlisting}
+\end{minipage} 
+
+\noindent
+Let us imagine that for some typing mistake the red characters are missing, which means that the opening \texttt{<html>} tag is not properly written and its closing tag is not present. It would be expected that in the very least the \textit{template engine} would issue an error while reading the file at run time. But all \textit{template engines} used in this experiment have not issued any kind of error. This is problematic, because the error was not caught neither at compile time nor at run time. These kind of errors would only be observable either on a browser or by using any kind of external tool to verify the resulting \ac{HTML} page. This is the case where an internal \ac{DSL} such as the one presented in Listing \ref{lst:staticview} suppresses this problem, since the responsibility of creating tags and properly opening and closing them belongs to the \ac{DSL} library and not to the person who is writing the template.
+
+\noindent
+Addressing the second issue, the rules of the used language should be validated. The \ac{HTML} language specification specifies many restrictions, either on attribute types or regarding the organization of the element tree. For example, let us think about the \texttt{html} element, the specification states that the only elements that can be direct children of the \texttt{html} element are \texttt{head} and \texttt{body} elements. That means that if we try to define a template as shown in Listing \ref{lst:htmlwithdiv} the \textit{template engines} should inform us that we are violating the language rules.
+
+\lstset{language = html}
+
+\bigskip
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Invalid Html Element Containing a Div Element}, label={lst:htmlwithdiv}]
+<html>
+    <div>
+    	<!-- -->
+    </div>
+</html>
+\end{lstlisting}
+\end{minipage} 
+
+\noindent
+After trying to use the template of Listing \ref{lst:htmlwithdiv} with the eight \textit{template engines} that we are using, none of them issued any compile time error, nor any run time error. This means that this error would have to be manually detected by the person who is writing the template, and taking the nature of these rules in consideration it would be hard to verify them manually. By using an approach such as \texttt{xmlet} we would discover this error at compile time, as many other similar errors. The organization of elements can be validated at compile time as well as the primitive attribute types. Some validations, such as types with complex restrictions, have to be validated at run time, but even then the feedback is immediate and the user receives a detailed error message.
+
+\noindent
+The third issue that we are going to pinpoint is the use of \textit{context objects}. Every \textit{template engine} uses them, since it contains the information that the \textit{template engine} will use to fill out the \textit{placeholders} defined in the textual template file. But what problems arise from their usage?
+
+\bigskip
+
+\lstset{language=html, morekeywords={TableElement, String}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={HTML Template with Placeholders}, label={lst:contextobjs}, style=problemex]
+<html>
+    <body>
+        <ul>
+        {{#student}}
+            <li>
+                {{name}}
+            </li>
+            <li>
+                {{number}}
+            </li>
+        {{/student}}
+        </ul>
+    </body>
+</html>
+\end{lstlisting}
+\end{minipage} 
+
+\noindent
+The template of Listing \ref{lst:contextobjs} receives a \texttt{Student} object that contains a \texttt{name} and \texttt{number} fields. Most \textit{template engines} use a \texttt{Map<String, Object>} as the \textit{context object}. In this case, a valid \textit{context object} should look like the \texttt{Map} object created in Listing \ref{lst:contextobj}.
+
+\bigskip
+
+\lstset{language=java, morekeywords={Map, String, Object, HashMap, Student}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Template Engine with a Valid Context Object}, label={lst:contextobj}]
+Map<String, Object> context = new HashMap<>();
+context.put("student", new Student("Luis", 39378));
+\end{lstlisting}
+\end{minipage} 
+
+\noindent
+The \textit{context object} defined in the previous example, Listing \ref{lst:contextobj}, is valid. The \textit{context object} is valid since it defines a pair with the key \texttt{student} associated with a \texttt{Student} object, which contains a \texttt{name} and \texttt{number} fields. This definition corresponds with the usage performed in the template defined in Listing \ref{lst:contextobjs}. Yet, in Listing \ref{lst:contextobj1} and Listing \ref{lst:contextobj2} we show another \textit{context object} definitions which are invalid, since their contents do not match the information expected by the template defined in Listing \ref{lst:contextobjs}.
+
+\bigskip
+
+\lstset{language=java, morekeywords={Map, String, Object, HashMap, Student}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Template Engine with a Context Object with a Wrong Key}, label={lst:contextobj1}]
+Map<String, Object> context = new HashMap<>();
+context.put("teacher", new Student("Luis", 39378));
+\end{lstlisting}
+\end{minipage} 
+
+\bigskip
+
+\lstset{language=java, morekeywords={Map, String, Object, HashMap, Teacher}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Template Engine with a Context Object with a Wrong Type}, label={lst:contextobj2}]
+Map<String, Object> context = new HashMap<>();
+context.put("student", new Teacher("MEIC", "ADDETC"));
+\end{lstlisting}
+\end{minipage} 
+
+\noindent
+The first \textit{context object}, Listing \ref{lst:contextobj1}, has a wrong key, \texttt{teacher}, whereas the template is expecting an object with the \texttt{student} key. The second \textit{context object}, Listing \ref{lst:contextobj2}, has the right key but has a different type, which does not match the fields expected by template of Listing \ref{lst:contextobjs}.
+
+\noindent
+With this information in mind how will the eight \textit{template engines} react when receiving these invalid \textit{context objects}? The Rocker \textit{template engine} is the only one which deals with it in a safe way since its template defines the type that will be received. Moreover its template file is used in the generation of a Java class at compile time, which reflects the template information, and its usages are all safe regarding the \textit{context object}, because the Java compiler validates if the object received as \textit{context object} matches the expected type. The remaining seven \textit{template engines} have no static validations. None of them issue any compile time warning. 
+
+\noindent
+Regarding runtime safety only Freemarker issues an exception with a similar example to Listing \ref{lst:contextobj1} and in the second case, Listing \ref{lst:contextobj2}, only Freemarker and Thymeleaf throw an exception. The remaining solutions ignore the fact that something that is expected is not present and delay the error finding process until the generated file is manually validated. 
+
+\noindent
+In this case the use of an internal \ac{DSL} suppresses this problem, as the template is defined by a Java function where the \textit{context object} is an argument validated at compile time.
+
+\noindent
+Another improvement of using an internal \ac{DSL} over the use of \textit{template engines} is the language homogeneity. For example, even for the simplest templates we have to use at least three distinct syntaxes. In the following example we will use the Pebble \textit{template engine}, one of the less verbose templates. In this example we define a template to write an \ac{HTML} document that presents the \texttt{name} of all the \texttt{Student} objects present in a \texttt{Collection} as shown in Listing \ref{lst:listofnamestemplate}.
+
+\bigskip
+
+\lstset{language=html}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={List of Student Names - Template Definition using Pebble}, label={lst:listofnamestemplate}]
+<html>
+	<body>
+	    <ul>
+			{% for student in students %}
+		  	<li>{{student.name}}</li>
+			{% endfor %}
+		</ul>  
+  	</body>
+</html>
+\end{lstlisting}
+\end{minipage} 
+
+\noindent
+In this template alone we need to use two distinct syntaxes, the \ac{HTML} language and the Pebble syntax to express that the template will receive a \texttt{Collection} that should be iterated  and create \texttt{li} tags containing the \texttt{name} field of the \texttt{Student} type. Apart from the template definition we also need the Java code to generate the complete document, as shown in Listing \ref{lst:listofnamesjava}.
+
+\bigskip
+
+\lstset{language=java, morekeywords={PebbleEngine, Builder, StringWriter, Map, String, Object, HashMap}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={List of Student Names - Template Building in Java using Pebble}, label={lst:listofnamesjava}]
+PebbleEngine engine = new PebbleEngine.Builder().build();
+template = engine.getTemplate("templateName.html");
+StringWriter writer = new StringWriter();
+
+Map<String, Object> context = new HashMap<>();
+context.put("students", getStudentsList());
+
+template.evaluate(writer, context);
+
+String document = writer.toString();
+\end{lstlisting}
+\end{minipage} 
+
+\noindent
+Even though the template in Listing \ref{lst:listofnamestemplate} is simple the usage of multiple syntaxes introduces more complexity to the problem. If we scale the complexity of the template and the number of different types used in the \textit{context object} mistakes are bound to happen, which would be fine if the \textit{template engines} gave any kind of feedback on errors, but we already shown that most errors are not reported. Let us take a peek of how this same template would be presented in the latest HtmlFlow version with the definition of the template in Listing \ref{lst:htmlflowlistofnamestemplate} and the template building in Listing \ref{lst:htmlflowlistofnamestemplatebuilding}.
+
+\bigskip
+
+\lstset{language=java, morekeywords={String, DynamicHtml, CurrentClass, Iterable, Student}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={List of Student Names - Template Definition using HtmlFlow with xmlet}, label={lst:htmlflowlistofnamestemplate}]
+static void studentListTemplate(DynamicHtml<Iterable<Student>> view,                                
+                                Iterable<Student> students){
+    view.html()
+            .body()
+                .ul()
+                    .dynamic(ul -> 
+                      students.forEach(student ->                   
+                        ul.li().text(student.getName()).__()))
+                .__()
+            .__()
+        .__();
+}
+\end{lstlisting}
+\end{minipage} 
+
+\bigskip
+
+\lstset{language=java, morekeywords={String, view, DynamicHtml, CurrentClass, render, getStudentList, Iterable, Student, html, body, ul, dynamic, forEach, text, li, getName}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={List of Student Names - Template Building using HtmlFlow with xmlet}, label={lst:htmlflowlistofnamestemplatebuilding}]
+String document = DynamicHtml.view(CurrentClass::studentListTemplate)
+                             .render(getStudentsList());
+\end{lstlisting}
+\end{minipage} 
+
+\noindent
+With this solution we have a very compact template definition, where the \textit{context object}, i.e. the \texttt{Iterable<Student> students}, shown in line 2 of Listing \ref{lst:htmlflowlistofnamestemplate}, is validated by the Java compiler in compile time, which guarantees that any document generated by this solution will be valid since the program would not compile otherwise. This solution internally guarantees that the \ac{HTML} tags are created properly, having matching opening and ending tags, meaning that every document generated by this solution will be well formed regardless of the defined template.
+
+\section{Problem Statement}
+\label{sec:problemstatement}
+
+The problem that is being presented revolves around the handicaps of \textit{template engines}, the lack of compilation of the language used within the template, the performance \textit{overhead} and the issues resulting from the increase of complexity, as presented in Section \ref{sec:templateengineshandicaps}. To tackle those handicaps we suggested the automated generation of a strongly typed \textit{fluent interface}. To show how that \textit{fluent interface} will effectively work we will now present a small example that consists on the \texttt{html} element, Listing \ref{lst:codegenerationexample}, described in \ac{XSD} of the \ac{HTML}5 language definition. The presented example is simplified for explanation purposes. In the examples that are presented below we will use a common set of types that serve as a basis to every \textit{fluent interface} generated by \texttt{xmlet}, these classes will be presented in Section \ref{sec:supportinginfrastructure}. 
+
+\bigskip
+
+\lstset{language=XML, morekeywords={xsd:element, xsd:complexType, xsd:choice, xsd:attributeGroup, xsd:attribute}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={<hmtl> Element Description in XSD},captionpos=b, ,label={lst:codegenerationexample}]
+<xsd:attributeGroup name="globalAttributes">
+    <xsd:attribute name="accesskey" type="xsd:string" />
+    <!-- Other global attributes -->
+</xsd:attributeGroup>
+
+<xsd:element name="html">
+    <xsd:complexType>
+        <xsd:choice>
+            <xsd:element ref="body"/>
+            <xsd:element ref="head"/>
+        </xsd:choice>
+        <xsd:attributeGroup ref="globalAttributes" />
+        <xsd:attribute name="manifest" type="xsd:anyURI" />
+    </xsd:complexType>
+</xsd:element>
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+With this example there are a multitude of classes and members that need to be created:
+
+\begin{itemize}
+	\item \texttt{Html} Class - A class that represents the \texttt{html} \ac{XSD} element defined in line 6 of Listing \ref{lst:codegenerationexample}. The resulting class is presented in Listing \ref{lst:htmlclass}, deriving from \texttt{AbstractElement}.
+	\item \texttt{body()} and \texttt{head()} Methods - These methods are present in the \texttt{Html} class, lines 12 and 14 of Listing \ref{lst:htmlclass} respectively. These methods use the \texttt{addChild(Element e)} method to add instances of the \texttt{Body} type, shown in Listing \ref{lst:bodyclass}, and \texttt{Head} type, shown in Listing \ref{lst:headclass}, to the \texttt{Html} class children list. These methods belong in the \texttt{Html} class since they are defined as possible children of the \texttt{html} \ac{XSD} element, with the usage of the \texttt{<xsd:choice>} element in line 8 of Listing \ref{lst:codegenerationexample}.
+	\item \texttt{attrManifest(String manifest)} Method - A method present in \texttt{Html} class, line 8 of Listing \ref{lst:htmlclass}, which uses the \texttt{addAttr(Attribute a)} method to add an instance of the \texttt{AttrManifest} type, shown in Listing \ref{lst:manifestattributeclass}, to the \texttt{Html} attribute list. This method is present in the \texttt{Html} class because the \texttt{html} \ac{XSD} element defines an \ac{XSD} attribute named \texttt{manifest} with the type \texttt{xsd:anyURI}, which is mapped to the \texttt{AttrManifest} type, shown in Listing \ref{lst:manifestattributeclass}.
+\end{itemize}
+
+\lstset{language=Java, morekeywords={AbstractElement, GlobalAttributes, Body, Head, String, AttrManifest, Html, Visitor}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Html Class Corresponding to the XSD Element Named html},captionpos=b,label={lst:htmlclass}]
+class Html extends AbstractElement implements GlobalAttributes {
+    public Html() { }
+    
+    public void accept(Visitor visitor){
+         visitor.visit(this);    
+    }
+    
+    public Html attrManifest(String attrManifest) {
+        return this.addAttr(new AttrManifest(attrManifest));
+    }
+    
+    public Body body() { return this.addChild(new Body()); }
+        
+    public Head head() { return this.addChild(new Head()); }
+}
+\end{lstlisting}
+\end{minipage}
+
+\begin{itemize}
+	\item \texttt{Body} and \texttt{Head} Classes - Classes created based on the \texttt{body} and \texttt{head} \ac{XSD} elements. The classes are shown in Listing \ref{lst:bodyclass} and Listing \ref{lst:headclass} respectively. These classes will be generated using the same process used to generate the \texttt{Html} class, with the differences between the classes depending on the contents of their respective \ac{XSD} elements.
+\end{itemize}
+
+\bigskip
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Body Class Corresponding to the XSD Element Named body},captionpos=b,label={lst:bodyclass}]
+public class Body extends AbstractElement {
+    //Similar to Html, based on the contents of 
+    //<xsd:element name="body">
+}
+\end{lstlisting}
+\end{minipage}
+
+\bigskip
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Head Class Corresponding to the XSD Element Named head},captionpos=b,label={lst:headclass}]
+public class Head extends AbstractElement {
+    //Similar to Html, based on the contents of     
+    //<xsd:element name="head">
+}
+\end{lstlisting}
+\end{minipage}
+
+\begin{itemize}
+	\item \texttt{AttrManifest} Class - A class that represents the \texttt{manifest} \ac{XSD} attribute, defined in line 13 of Listing \ref{lst:codegenerationexample}. The \texttt{AttrManifest} class is shown in Listing \ref{lst:manifestattributeclass}, deriving from \texttt{BaseAttribute}.
+\end{itemize}
+
+\bigskip
+
+\lstset{language=Java, morekeywords={String, BaseAttribute, AttrManifest}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={AttrManifest Class Corresponding to the XSD Attribute Named manifest},captionpos=b,label={lst:manifestattributeclass}]
+public class AttrManifest extends BaseAttribute<String> {
+    public AttrManifest(String attrValue) {
+        super(attrValue);
+    }
+}
+\end{lstlisting}
+\end{minipage}
+
+\begin{itemize}
+	\item \texttt{GlobalAttributes} Interface - An interface representing the \texttt{globalAttributes} \ac{XSD} attribute group, defined in line 1 of Listing \ref{lst:codegenerationexample}. This interface has default methods for each attribute it contains, e.g. the \texttt{accesskey} attribute defined in line 2 of Listing \ref{lst:codegenerationexample} is used to generate the \texttt{attrAccesskey} method shown in line 2 of Listing \ref{lst:globalattributes}. The default methods objective is to add a certain attribute to the attributes list of the type that implements the interface. This interface is implemented by all the generated classes that are based on a \ac{XSD} element that contains a reference to the attribute group that this interface represents, e.g. the \texttt{Html} class implements the \texttt{GlobalAttributes} interface because the \texttt{html} \ac{XSD} element contains a reference to the \texttt{globalAttributes} \ac{XSD} attribute group, line 12 of Listing \ref{lst:codegenerationexample}.
+\end{itemize}
+
+\bigskip
+
+\lstset{language=Java, morekeywords={Html, Element, String, GlobalAttributes, AttrAccesskey}}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={GlobalAttributes Interface Corresponding to the XSD Attribute Group Named globalAttributes},captionpos=b,label={lst:globalattributes}]
+public interface GlobalAttributes extends Element {
+    default Html attrAccesskey(String accesskeyValue) {
+        this.addAttr(new AttrAccesskey(accesskeyValue));
+        return this;
+    }
+    
+    // Similar methods for the remaining attributes 
+    // present in the globalAttributes attributeGroup.
+}
+\end{lstlisting}
+\end{minipage}
+
+\noindent
+By analyzing this little example we can observe how \texttt{xmlet} implements one of its most important features that was lacking in the \textit{template engine} solutions, the user is only allowed to generate a tree of elements that follows the rules specified by the \ac{XSD} file of the given language, e.g. the user can only add \texttt{Head} and \texttt{Body} instances as children to the \texttt{Html} class and the same goes for attributes as well, to add attributes to an \texttt{Html} instance the user can only use methods that add an instance of the \texttt{AttrManifest} class or the default methods provided by the \texttt{GlobalAttributes} interface. This solution effectively uses the Java compiler to enforce most of the specific language restrictions. The other handicaps are also solved, since the template can now be defined within the Java language eradicating the requirement of textual files that still need to be loaded into memory and resolved by the \textit{template engine}. The complexity and flexibility issues are also tackled by moving all the parts of the problem to the Java language, removing language heterogeneity and allowing the programmer to use the Java syntax to create the templates.
+
+\section{Approach}
+\label{sec:approach}
+
+The approach to achieve a solution was to divide the problem into three distinct aspects, as previously stated in Section \ref{sec:thesisstatement}. 
+
+\noindent
+The XsdParser project is an utility project that is required in order to parse all the external \ac{DSL} rules present in the \ac{XSD} document into structured Java classes. 
+
+\noindent
+The XsdAsm project is the most important aspect of \texttt{xmlet}, since it is the aspect that will deal with the generation of all the \textit{bytecodes} that make up the classes of the Java \textit{fluent interface}. This project should translate as many rules of the parsed language definition, its \ac{XSD} file, into the Java language in order to make the resulting \textit{fluent interface} as similar as possible to the language definition.
+
+\noindent
+The HtmlApi is the main use case for \texttt{xmlet}. It is a concrete client of the XsdAsm project, it will use the \ac{HTML}5 language definition file in order to request a strongly typed \textit{fluent interface}, named HtmlApi. This use case is meant to be used by the HtmlFlow library, which will use HtmlApi to manipulate the \ac{HTML} language to write well formed documents.

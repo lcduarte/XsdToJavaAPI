@@ -1,0 +1,84 @@
+\chapter{Conclusion}
+\label{cha:conclusion}
+
+In this dissertation we developed a structure of projects that can interpret a \ac{XSD} document and use its contents to generate a Java \textit{fluent interface} that allows to perform actions over the domain language defined in the \ac{XSD} document while enforcing most of the rules that exist in the \ac{XSD} syntax. The generated \textit{fluent interface} only reflects the structure described in the \ac{XSD} document, providing tools that allow any future usage to be defined according to the needs of the user. Upon testing the resulting solution we obtained better results than similar solutions while providing a solution with more safety validations and defined in a fluent language, which should be intuitive for users that have previously used the language.
+
+\noindent
+The main language definition used in order to test and develop this solution was the \ac{HTML}5 syntax, which generated the HtmlApiFaster project, containing a set of classes reflecting all the elements and attributes present in the \ac{HTML} language. This HtmlApiFaster project was then used by the HtmlFlow 3 library in order to provide a library that safely writes well formed \ac{HTML} documents. Other \ac{XSD} files were used to test the solution, such as the Android layouts definition file, which defines the existing \ac{XML} elements used to create visual layouts for the Android operating system and the attributes that each element contains, and a \ac{XSD} file specifying the operations of the regular expressions language.
+
+\section{Main Contributions}
+\label{sec:maincontributions}
+
+Simply put, the work developed in this dissertation achieved the fastest Java \textit{template engine} known to this date – HtmlFlow 3. This library not only shows a better performance than overall state of the art alternatives, but it also provides a full set of safety features not met together in any other library individually, such as: 
+
+\begin{itemize}
+	\item Well-formed documents;
+	\item Fulfillment of all \ac{HTML} rules regarding elements and attributes;
+	\item Fully support of the \ac{HTML}5 specification.
+\end{itemize}
+
+\noindent
+Despite HtmlFlow being developed in 2012 just as an academic use case of a fluent \ac{API} for \ac{HTML}, which was not released nor disseminated, it still attracted the attention of some developers looking for a Java library that helps them to dynamically produce papers, reports, emails and other kind of documents using \ac{HTML}. Up to that date, textual template engines were still the main solution to produce dynamic \ac{HTML} documents. Textual templates are a win-win approach for Web development fitting most \ac{HTML} views requirements based on a strict domain model. Yet, textual templates are inadequate for more complex programming tasks involving the dynamic build of user-interface components, which may depend on run time introspection data.
+
+\noindent
+The increasing attention around HtmlFlow raised the idea of developing a mechanism that automatically generates a \textit{fluent interface} based on the \ac{HTML} language specification, specified in a \ac{XSD} file. The research work around such approach and its implementation was the main goal of this dissertation' thesis, which was successfully accomplished: Domain Specific Language generation based on a XML Schema.
+
+\noindent
+This fulfilled the HtmlFlow needs and turned it into a complete Java \ac{DSL} for \ac{HTML}. Moreover, the usefulness of HtmlFlow was proven by more recent \ac{DSL} libraries with the same purpose, such as J2Html and KotlinX.Html, both created in 2015, but neither provided the same safety guards nor even the performance of HtmlFlow. 
+
+\noindent
+Despite my preliminary research not containing any proposal of a process to generate a \ac{DSL} based on a \ac{XSD} file, the solution evolved in that direction. Curiously I later discovered the KotlinX.Html solution, which follows this same idea. This fact shows the effectiveness of the methodology proposed in this dissertation' thesis, which is already used by other library, i.e. KotlinX.Html, with a wide acceptance in the Kotlin community.
+
+\noindent
+Performance would not be a major milestone at the beginning of this work. Yet, the J2Html assertion that it can be about a "thousand times faster than Apache Velocity" gave us one more purpose to this dissertation. First, we started to look on how J2Html compares its performance with other template engines and we found that comparison shared several flaws. Its dynamic render test \texttt{FiveHundredEmployees} was not really dynamic, because the context object is known before render time in case of the J2Html template, whereas for Velocity it is just provided at render and thus it favors the J2Html performance. Moreover, these tests use \texttt{junit-benchmarks} from \url{http://labs.carrotsearch.com/}, which is publicly announced as being deprecated in favor of \ac{JMH}.
+
+\noindent
+So, after some research, we start evaluating HtmlFlow 3 in some of state of the art benchmarks and observed its good performance, which was caused by the use of \texttt{xmlet}. Here we found Rocker, which had a very curious approach, using static fields to store the static template components, which proved to perform very well. This, along with some other ideas created along the development of \texttt{xmlet}, led to creation of HtmlApiFaster, a \textit{fluent interface} generated with many optimization techniques and support for the implementation of a caching strategy, in some way similar to the technique use by Rocker. These optimizations would make HtmlFlow 3 the most performant \textit{template engine} in Java up to this date, according to the benchmarks performed.
+
+\noindent
+Finally, the \texttt{xmlet} platform is not only limited to the \ac{HTML} language and we also tested it with other \ac{XSD} files. In this case we successfully used it with the Android layouts definition file, which defines the existing \ac{XML} elements in visual layouts for the Android operating system and the attributes that each element contains. To prove that this solution worked with a \ac{DSL} not related with \ac{XML} we described the operations of the Regular Expressions language in \ac{XSD} and generated a \textit{fluent interface} which supports the whole regular expressions syntax supported by Java. Both these projects were released and are available in the \texttt{xmlet} Github page.
+
+\noindent
+Concluding, the main contributions resulting from the research work described in this dissertation are: 
+
+\begin{itemize}
+	\item \texttt{xmlet} - A Java platform for Domain Specific Language generation based on a XML Schema.
+	\item XsdParser - A library that parses a \ac{XML} Definition file, i.e. a \ac{XSD} file, into a list of Java objects. This is the first Java library in this field that has already started attracting the attention of some developers.
+	\item HtmlApi - A Java \ac{DSL} for \ac{HTML} complying with all the \ac{HTML} 5 rules.
+	\item HtmlFlow 3 - The most performant Java template engine.
+\end{itemize}
+
+\section{Concluding Remarks and Future Directions}
+\label{cha:concludingremarks}
+
+The \texttt{xmlet} solution in its current state achieved all the objectives that were proposed at the beginning of this dissertation as well as some other improvements that were identified along the development process. One of objectives from now on should be to find pertaining use cases ranging from markup languages which were the initial objective or any other domain language that can be defined through the \ac{XSD} syntax.
+
+\noindent
+Regarding the HtmlFlow, at the time of this work we are still preparing the release 3.0. A lot of effort has been made to create this release involving many aspects such as: 
+
+\begin{itemize}
+	\item The creation of a consistent \ac{API} that gives an intuitive user experience to the end programmer;
+	\item Ensuring code coverage tests close to 100\%; 
+	\item Detecting and suppressing every bottleneck that could hurt performance;
+	\item Many other time-consuming tasks involving the maintenance of an open-source project.
+\end{itemize}
+
+\noindent
+Once version 3.0 is released we must propose a pull request to the main Github \texttt{template-benchmark} repository including the comparison with HtmlFlow. Although we already have a fork of this repository with HtmlFlow, J2Html, Rocker and KotlinX.html integrated for performance comparison tests, now we must create a clean integration only with HtmlFlow release 3.0 for the pull request. This is the \texttt{template-benchmark} policy for integration of new template engines, i.e. one pull request per template engine.
+
+\noindent
+Still related with HtmlFlow we have a paper in progress analyzing most recent type safe \textit{template engines} and comparing different features provided by these engines. To the best of my knowledge all comparisons around Java \textit{template engines} not only ignore the \ac{HTML} safety aspects, but are also restricted to text template files. 
+
+\noindent
+Finally, to complete the HtmlFlow offer we would like to include a new tool that is able to translate \ac{HTML} documents to an HtmlFlow definition. This tool has a similar role to the \texttt{ASMFier} in ASM translating Java source code to the equivalent definition in ASM. We think that tool will help programmers to migrate existing templates from other technologies to HtmlFlow.
+
+\noindent
+To finish my dissertation, I would like to reinforce that over past 2 decades, text templates are still the de facto standard for dynamic \ac{HTML} documents. This approach is great and fits the main web development requirements. However, we leave here two considerations:
+
+\begin{itemize}
+	\item They are slow;
+	\item Most of the are not safe.
+\end{itemize}
+
+\noindent
+In this context, I think that we should have better tools that suppress these issues and I believe the result of this dissertation' thesis is a significant step towards achieving this goal.
